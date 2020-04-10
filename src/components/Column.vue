@@ -1,8 +1,11 @@
 <template>
   <div class="column">
     <Card
-      v-for="(cards, index) in noOfCards"
-      :key="index" />
+      v-for="(card, index) in cards"
+      :key="index"
+      :value="card.value"
+      :suit="card.suit"
+      :visible="card.visible" />
   </div>
 </template>
 
@@ -15,9 +18,9 @@ export default {
     Card,
   },
   props: {
-    noOfCards: {
-      type: Number,
-      default: 1,
+    cards: {
+      type: Array,
+      default: () => [],
     },
   },
 };

@@ -3,7 +3,7 @@
     <Column
       v-for="(column, index) in columns"
       :key="index"
-      :no-of-cards="column" />
+      :cards="column" />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      columns: this.$store.getters.rules.columns,
+      columns: this.$store.getters.boardCards,
     };
   },
 };
