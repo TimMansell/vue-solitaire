@@ -109,7 +109,7 @@ export default new Vuex.Store({
     checkValidCardMove(state) {
       const { toMove, moveTo } = state.selected;
 
-      // console.log('toMove', toMove.visible);
+      // console.log('toMove', toMove);
       // console.log('moveTo', moveTo);
 
       if (toMove && moveTo) {
@@ -121,9 +121,26 @@ export default new Vuex.Store({
         }
         // console.log('both cards');
 
+        // Make sure different cards have been selected.
         if (`${toMove.order}${toMove.suit}` !== `${moveTo.order}${moveTo.suit}`) {
           // console.log('cards are diff');
           // console.log('board cards', state.board.cards);
+
+          // Check if both suits are the same.
+          if (toMove.suit !== moveTo.suit) {
+            state.selected.toMove = null;
+            state.selected.moveTo = null;
+
+            return;
+          }
+
+          // Check that moving card is one value lower value than card being moved to.
+          if (toMove.order !== moveTo.order - 1) {
+            state.selected.toMove = null;
+            state.selected.moveTo = null;
+
+            return;
+          }
 
           const moveCards = state.board.cards[toMove.position[0]].slice(toMove.position[1]);
           const moveCardsToColumn = [
@@ -141,8 +158,8 @@ export default new Vuex.Store({
           const removeCardsFromColumn = state.board.cards[toMove.position[0]].slice(0, toMove.position[1]);
 
           // console.log('moveCards', moveCards);
-          console.log('moveCardsToColumn', moveCardsToColumn);
-          console.log('removeCardsFromColumn', removeCardsFromColumn);
+          // console.log('moveCardsToColumn', moveCardsToColumn);
+          // console.log('removeCardsFromColumn', removeCardsFromColumn);
 
           // state.board.cards[0] = [];
 
@@ -154,6 +171,32 @@ export default new Vuex.Store({
         }
       }
     },
+    revealExposedHiddenCards(state) {
+      const { cards } = state.board;
+
+      const updatedDeck = cards.map((column) => {
+        // console.log('index', index, deck.length - 1);
+        const updatedCards = column.map((updatedCard, index) => {
+          if (index === column.length - 1) {
+            // console.log('index', index, column.length - 1);
+            return {
+              ...updatedCard,
+              visible: true,
+            };
+          }
+
+          return updatedCard;
+        });
+
+        return updatedCards;
+      });
+
+      // console.log('nd', updatedDeck);
+
+      updatedDeck.forEach((card, index) => {
+        Vue.set(state.board.cards, index, updatedDeck[index]);
+      });
+    },
   },
   actions: {
     initGame({ commit }) {
@@ -163,6 +206,7 @@ export default new Vuex.Store({
     moveCard({ commit }, card) {
       commit('moveCard', card);
       commit('checkValidCardMove');
+      commit('revealExposedHiddenCards');
     },
   },
   getters: {

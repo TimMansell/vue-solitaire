@@ -68,7 +68,7 @@ export default {
   border-radius: 5px;
 
   &:nth-of-type(n+2) {
-    margin-top: -50%;
+    margin-top: -70%;
   }
 
   &--is-visible {
