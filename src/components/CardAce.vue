@@ -58,10 +58,6 @@ export default {
   border-radius: 5px;
   font-weight: 700;
 
-  &:nth-of-type(n+2) {
-    margin-top: -70%;
-  }
-
   &--is-visible {
     background: white;
   }

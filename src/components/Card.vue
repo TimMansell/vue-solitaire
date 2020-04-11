@@ -68,6 +68,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+$height: 6.25rem;
+$font-size: 2rem;
+
 .card {
   display: flex;
   flex: 1;
@@ -75,12 +78,13 @@ export default {
   border: 1px solid black;
   background: grey;
   width: 100%;
-  height: 100px;
+  height: $height;
   border-radius: 5px;
   font-weight: 700;
+  font-size: $font-size;
 
   &:nth-of-type(n+2) {
-    margin-top: -70%;
+    margin-top: calc(-#{$height} + #{$font-size});
   }
 
   &--is-visible {
