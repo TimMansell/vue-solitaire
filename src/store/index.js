@@ -109,10 +109,16 @@ export default new Vuex.Store({
     checkValidCardMove(state) {
       const { toMove, moveTo } = state.selected;
 
-      console.log('toMove', toMove);
-      console.log('moveTo', moveTo);
+      // console.log('toMove', toMove.visible);
+      // console.log('moveTo', moveTo);
 
       if (toMove && moveTo) {
+        if (!toMove.visible || !moveTo.visible) {
+          state.selected.toMove = null;
+          state.selected.moveTo = null;
+
+          return;
+        }
         // console.log('both cards');
 
         if (`${toMove.order}${toMove.suit}` !== `${moveTo.order}${moveTo.suit}`) {

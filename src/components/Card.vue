@@ -34,13 +34,19 @@ export default {
   },
   methods: {
     moveCard() {
-      const { order, suit, position } = this;
+      const {
+        order,
+        suit,
+        position,
+        visible,
+      } = this;
       // console.log('mc', order, suit, position);
 
       const card = {
         order,
         suit,
         position,
+        visible,
       };
 
       this.$store.dispatch('moveCard', card);
