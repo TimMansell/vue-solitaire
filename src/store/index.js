@@ -15,6 +15,12 @@ export default new Vuex.Store({
     shuffledCards: [],
     board: {
       cards: [],
+      aces: {
+        c: [],
+        h: [],
+        d: [],
+        s: [],
+      },
     },
     rules: {
       columns: [7, 7, 7, 7, 6, 6, 6, 6],
