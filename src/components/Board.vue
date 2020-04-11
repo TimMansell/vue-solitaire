@@ -1,24 +1,19 @@
 <template>
   <div class="board">
-    <Column
-      v-for="(column, index) in columns"
-      :key="index"
-      :cards="column" />
+    <Aces />
+    <Columns />
   </div>
 </template>
 
 <script>
-import Column from '@/components/Column.vue';
+import Aces from '@/components/Aces.vue';
+import Columns from '@/components/Columns.vue';
 
 export default {
   name: 'Board',
   components: {
-    Column,
-  },
-  data() {
-    return {
-      columns: this.$store.getters.boardCards,
-    };
+    Aces,
+    Columns,
   },
 };
 </script>
@@ -28,6 +23,7 @@ export default {
 <style scoped lang="scss">
 .board {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
   background: green;
