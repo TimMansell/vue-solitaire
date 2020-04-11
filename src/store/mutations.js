@@ -101,53 +101,58 @@ const mutations = {
       // console.log('both cards');
 
       // Make sure different cards have been selected.
-      if (`${toMove.order}${toMove.suit}` !== `${moveTo.order}${moveTo.suit}`) {
+      if (`${toMove.order}${toMove.suit}` === `${moveTo.order}${moveTo.suit}`) {
         // console.log('cards are diff');
         // console.log('board cards', state.board.cards);
 
-        // Check if both suits are the same.
-        if (toMove.suit !== moveTo.suit) {
-          state.selected.toMove = null;
-          state.selected.moveTo = null;
-
-          return;
-        }
-
-        // Check that moving card is one value lower value than card being moved to.
-        if (toMove.order !== moveTo.order - 1) {
-          state.selected.toMove = null;
-          state.selected.moveTo = null;
-
-          return;
-        }
-
-        const moveCards = state.board.cards[toMove.position[0]].slice(toMove.position[1]);
-        const moveCardsToColumn = [
-          ...state.board.cards[moveTo.position[0]],
-          ...moveCards,
-        ].map((cards, index) => {
-          const newValues = {
-            ...cards,
-            position: [moveTo.position[0], index],
-          };
-
-          return newValues;
-        });
-
-        const removeCardsFromColumn = state.board.cards[toMove.position[0]].slice(0, toMove.position[1]);
-
-        // console.log('moveCards', moveCards);
-        // console.log('moveCardsToColumn', moveCardsToColumn);
-        // console.log('removeCardsFromColumn', removeCardsFromColumn);
-
-        // state.board.cards[0] = [];
-
-        Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
-        Vue.set(state.board.cards, moveTo.position[0], moveCardsToColumn);
-
         state.selected.toMove = null;
         state.selected.moveTo = null;
+
+        return;
       }
+
+      // Check if both suits are the same.
+      if (toMove.suit !== moveTo.suit) {
+        state.selected.toMove = null;
+        state.selected.moveTo = null;
+
+        return;
+      }
+
+      // Check that moving card is one value lower value than card being moved to.
+      if (toMove.order !== moveTo.order - 1) {
+        state.selected.toMove = null;
+        state.selected.moveTo = null;
+
+        return;
+      }
+
+      const moveCards = state.board.cards[toMove.position[0]].slice(toMove.position[1]);
+      const moveCardsToColumn = [
+        ...state.board.cards[moveTo.position[0]],
+        ...moveCards,
+      ].map((cards, index) => {
+        const newValues = {
+          ...cards,
+          position: [moveTo.position[0], index],
+        };
+
+        return newValues;
+      });
+
+      const removeCardsFromColumn = state.board.cards[toMove.position[0]].slice(0, toMove.position[1]);
+
+      // console.log('moveCards', moveCards);
+      // console.log('moveCardsToColumn', moveCardsToColumn);
+      // console.log('removeCardsFromColumn', removeCardsFromColumn);
+
+      // state.board.cards[0] = [];
+
+      Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
+      Vue.set(state.board.cards, moveTo.position[0], moveCardsToColumn);
+
+      state.selected.toMove = null;
+      state.selected.moveTo = null;
     }
   },
   revealExposedHiddenCards(state) {
