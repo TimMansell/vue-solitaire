@@ -3,6 +3,7 @@
     <Column
       v-for="(column, index) in columns"
       :key="index"
+      :column-no="index"
       :cards="column" />
   </div>
 </template>

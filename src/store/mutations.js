@@ -208,6 +208,47 @@ const mutations = {
       }
     }
   },
+  moveKingToColumn(state, column) {
+    const { toMove } = state.selected;
+
+    state.selected.toMove = null;
+    state.selected.moveTo = null;
+
+    if (!size(toMove)) {
+      return;
+    }
+
+    // console.log('to move', toMove);
+    // console.log('current', column);
+
+    if (toMove.order === 13) {
+      const isLastItem = state.board.cards[toMove.position[0]].length - 1 === toMove.position[1];
+
+      // console.log('state.board.cards[column].length', state.board.cards[column].length);
+
+      if (isLastItem) {
+        const [newColumn] = state.board.cards[toMove.position[0]].slice(-1);
+        const removeCardsFromColumn = state.board.cards[toMove.position[0]].slice(0, toMove.position[1]);
+
+        const moveKingToColumn = [
+          newColumn,
+        ].map((cards, index) => {
+          const newValues = {
+            ...cards,
+            position: [column, index],
+          };
+
+          console.log('newValues', newValues);
+          return newValues;
+        });
+
+        // console.log('moveKingToColumn', moveKingToColumn);
+
+        Vue.set(state.board.cards, column, moveKingToColumn);
+        Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
+      }
+    }
+  },
 };
 
 export default mutations;
