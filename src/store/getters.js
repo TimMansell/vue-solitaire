@@ -1,0 +1,8 @@
+const getters = {
+  shuffledCards: (state) => state.shuffledCards,
+  boardCards: (state) => state.board.cards,
+  aces: (state) => state.board.aces,
+  rules: (state) => state.rules,
+};
+
+export default getters;
