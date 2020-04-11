@@ -8,6 +8,10 @@ const actions = {
     commit('checkValidCardMove');
     commit('revealExposedHiddenCards');
   },
+  moveCardToAce({ commit }) {
+    commit('moveCardToAce');
+    commit('revealExposedHiddenCards');
+  },
 };
 
 export default actions;

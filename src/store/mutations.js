@@ -70,8 +70,8 @@ const mutations = {
   moveCard(state, card) {
     const { toMove, moveTo } = state.selected;
 
-    // console.log('toMove.length', toMove.length);
-    // console.log('moveTo.length', moveTo.length);
+    // console.log('toMove', toMove);
+    // console.log('moveTo', moveTo);
 
     if (!size(toMove)) {
       // console.log('no to move');
@@ -180,6 +180,33 @@ const mutations = {
     updatedDeck.forEach((card, index) => {
       Vue.set(state.board.cards, index, updatedDeck[index]);
     });
+  },
+  moveCardToAce(state) {
+    const { toMove } = state.selected;
+
+    state.selected.toMove = null;
+    state.selected.moveTo = null;
+
+    if (!size(toMove)) {
+      return;
+    }
+
+    const currentValue = state.board.aces[toMove.suit] || [];
+
+    // console.log('currentValue', currentValue.length + 1, toMove.order);
+    // console.log('state.board.aces[toMove.suit]', state.board.aces[toMove.suit]);
+
+    if (toMove.order === currentValue.length + 1) {
+      const isLastItem = state.board.cards[toMove.position[0]].length - 1 === toMove.position[1];
+
+      if (isLastItem) {
+        const removeCardsFromColumn = state.board.cards[toMove.position[0]].slice(0, toMove.position[1]);
+
+        Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
+
+        state.board.aces[toMove.suit].push(toMove);
+      }
+    }
   },
 };
 

@@ -1,8 +1,7 @@
 <template>
   <div
     class="card"
-    :class="classes"
-    @click="moveCard">
+    :class="classes">
     <span v-if="visible">{{ value }}{{ suit }}</span>
   </div>
 </template>
@@ -41,26 +40,6 @@ export default {
         'card--is-h': this.suit === 'h',
         'card--is-c': this.suit === 'c',
       };
-    },
-  },
-  methods: {
-    moveCard() {
-      const {
-        order,
-        suit,
-        position,
-        visible,
-      } = this;
-      // console.log('mc', order, suit, position);
-
-      const card = {
-        order,
-        suit,
-        position,
-        visible,
-      };
-
-      this.$store.dispatch('moveCard', card);
     },
   },
 };
