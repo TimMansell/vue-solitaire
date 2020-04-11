@@ -1,7 +1,7 @@
 <template>
   <div
     class="card"
-    :class="{'card--is-visible': visible}"
+    :class="classes"
     @click="moveCard">
     <span v-if="visible">{{ value }}{{ suit }}</span>
   </div>
@@ -30,6 +30,17 @@ export default {
     visible: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    classes() {
+      return {
+        'card--is-visible': this.visible,
+        'card--is-s': this.suit === 's',
+        'card--is-d': this.suit === 'd',
+        'card--is-h': this.suit === 'h',
+        'card--is-c': this.suit === 'c',
+      };
     },
   },
   methods: {
@@ -66,6 +77,7 @@ export default {
   width: 100%;
   height: 100px;
   border-radius: 5px;
+  font-weight: 700;
 
   &:nth-of-type(n+2) {
     margin-top: -70%;
@@ -73,6 +85,22 @@ export default {
 
   &--is-visible {
     background: white;
+  }
+
+  &--is-s {
+    color: black;
+  }
+
+  &--is-d {
+    color: blue;
+  }
+
+  &--is-h {
+    color: red;
+  }
+
+  &--is-c {
+    color: lightgreen;
   }
 }
 </style>
