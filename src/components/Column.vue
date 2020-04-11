@@ -5,6 +5,8 @@
       :key="index"
       :value="card.value"
       :suit="card.suit"
+      :order="card.order"
+      :position="card.position"
       :visible="card.visible" />
   </div>
 </template>
