@@ -129,13 +129,20 @@ export default new Vuex.Store({
           const moveCardsToColumn = [
             ...state.board.cards[moveTo.position[0]],
             ...moveCards,
-          ];
+          ].map((cards, index) => {
+            const newValues = {
+              ...cards,
+              position: [moveTo.position[0], index],
+            };
+
+            return newValues;
+          });
 
           const removeCardsFromColumn = state.board.cards[toMove.position[0]].slice(0, toMove.position[1]);
 
           // console.log('moveCards', moveCards);
-          // console.log('moveCardsToColumn', moveCardsToColumn);
-          // console.log('removeCardsFromColumn', removeCardsFromColumn);
+          console.log('moveCardsToColumn', moveCardsToColumn);
+          console.log('removeCardsFromColumn', removeCardsFromColumn);
 
           // state.board.cards[0] = [];
 
