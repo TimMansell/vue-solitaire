@@ -15,7 +15,7 @@ export default new Vuex.Store({
       cards: [],
     },
     rules: {
-      columns: [1, 2, 3, 4, 5, 6, 7],
+      columns: [7, 7, 7, 7, 6, 6, 6, 6],
     },
   },
   mutations: {
@@ -37,10 +37,10 @@ export default new Vuex.Store({
       state.shuffledCards = shuffledDeck;
     },
     dealCards(state) {
-      const { shuffledCards } = state;
+      const { rules, shuffledCards } = state;
 
-      const isLastItem = (col, index, card) => {
-        if (index === col.length - 1) {
+      const showCards = (cards, offset = 0) => cards.map((card, index) => {
+        if ((index + offset) % 2 === 0) {
           return {
             ...card,
             visible: true,
@@ -48,28 +48,29 @@ export default new Vuex.Store({
         }
 
         return card;
-      };
+      });
 
-      const col1 = shuffledCards.splice(0, 1);
-      const col2 = shuffledCards.splice(1, 2);
-      const col3 = shuffledCards.splice(3, 3);
-      const col4 = shuffledCards.splice(6, 4);
-      const col5 = shuffledCards.splice(10, 5);
-      const col6 = shuffledCards.splice(15, 6);
-      const col7 = shuffledCards.splice(21, 7);
+      const dealtCards = rules.columns.map((column, index, array) => {
+        const startArray = array.slice(0, index);
+        const endArray = array.slice(0, index + 1);
 
-      const allColumns = [
-        col1.map((card, index) => isLastItem(col1, index, card)),
-        col2.map((card, index) => isLastItem(col2, index, card)),
-        col3.map((card, index) => isLastItem(col3, index, card)),
-        col4.map((card, index) => isLastItem(col4, index, card)),
-        col5.map((card, index) => isLastItem(col5, index, card)),
-        col6.map((card, index) => isLastItem(col6, index, card)),
-        col7.map((card, index) => isLastItem(col7, index, card)),
-      ];
+        const calcOffset = (accumulator, currentValue) => accumulator + currentValue;
 
-      allColumns.forEach((a, index) => {
-        Vue.set(state.board.cards, index, allColumns[index]);
+        const startIndex = startArray.reduce(calcOffset, 0);
+        const endIndex = endArray.reduce(calcOffset, 0);
+
+        const cards = shuffledCards.slice(startIndex, endIndex);
+
+        // Offset by one.
+        if (index > 3) {
+          return showCards(cards, 1);
+        }
+
+        return showCards(cards);
+      });
+
+      dealtCards.forEach((cards, index) => {
+        Vue.set(state.board.cards, index, dealtCards[index]);
       });
     },
   },
