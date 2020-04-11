@@ -6,25 +6,26 @@
       :key="index"
       @click="moveCardToAce">
       <span v-if="!ace">A</span>
-      <CardAce
+      <Card
         v-for="(card, index2) in ace"
         :key="index2"
         :value="card.value"
         :suit="card.suit"
         :order="card.order"
         :position="card.position"
-        :visible="card.visible" />
+        :visible="card.visible"
+        :clickable="false" />
     </div>
   </div>
 </template>
 
 <script>
-import CardAce from '@/components/CardAce.vue';
+import Card from '@/components/Card.vue';
 
 export default {
   name: 'Aces',
   components: {
-    CardAce,
+    Card,
   },
   data() {
     return {

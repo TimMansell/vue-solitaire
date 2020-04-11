@@ -31,6 +31,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    clickable: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     classes() {
@@ -60,7 +64,9 @@ export default {
         visible,
       };
 
-      this.$store.dispatch('moveCard', card);
+      if (this.clickable) {
+        this.$store.dispatch('moveCard', card);
+      }
     },
   },
 };
@@ -68,8 +74,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$height: 6.25rem;
-$font-size: 2rem;
+$height: 3rem;
+$font-size: 1rem;
 
 .card {
   display: flex;
@@ -82,6 +88,11 @@ $font-size: 2rem;
   border-radius: 5px;
   font-weight: 700;
   font-size: $font-size;
+
+  @media (min-width: 900px) {
+    font-size: $font-size * 2;
+    height: $height * 2;
+   }
 
   &:nth-of-type(n+2) {
     margin-top: calc(-#{$height} + #{$font-size});
