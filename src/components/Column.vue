@@ -45,7 +45,10 @@ export default {
 <style scoped lang="scss">
 .column {
   flex: 1;
-  border: 1px solid white;
-  padding: .5rem;
+  padding: .1rem;
+
+  @media (min-width: 900px) {
+    padding: .5rem;
+  }
 }
 </style>
