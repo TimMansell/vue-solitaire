@@ -106,7 +106,7 @@ $font-size: 1rem;
    }
 
   &:nth-of-type(n+2) {
-    margin-top: calc(-#{$height} + #{$font-size});
+    margin-top: -60%;
   }
 
   &--is-visible {

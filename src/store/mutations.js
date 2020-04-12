@@ -2,7 +2,7 @@ import Vue from 'vue';
 import shuffle from 'lodash.shuffle';
 import size from 'lodash.size';
 
-// import json from '../../tests/fixtures/move2toA.json';
+// import json from '../../tests/fixtures/kingEmptyColumn.json';
 
 const mutations = {
   shuffleCards(state) {
@@ -240,7 +240,7 @@ const mutations = {
     // console.log('to move', toMove);
     // console.log('current', column);
 
-    if (toMove.order === 13) {
+    if (toMove.order === 13 && !state.board.cards[column].length) {
       const moveCards = state.board.cards[toMove.position[0]].slice(toMove.position[1]);
       const moveCardsToColumn = [
         ...state.board.cards[column],
