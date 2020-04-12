@@ -1,5 +1,5 @@
 version: v1.0
-name: Test MyApp
+name: First pipeline
 agent:
   machine:
     type: e1-standard-2
@@ -7,6 +7,9 @@ agent:
 blocks:
   - name: Install dependencies
     task:
+      prologue:
+        commands:
+          - sem-version node 10.16.2
       jobs:
         - name: 'Job #1'
           commands:
