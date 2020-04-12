@@ -22,7 +22,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .board {
-  padding: 1rem;
+  padding: .5rem;
+  margin: 0 auto;
   max-width: 960px;
+
+  @media (min-width: 900px) {
+    padding: 1rem;
+  }
 }
 </style>

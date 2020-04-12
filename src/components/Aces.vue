@@ -44,13 +44,28 @@ export default {
 <style scoped lang="scss">
 .aces {
   display: flex;
+  height: 52px;
   margin-bottom: 1rem;
+  padding: .5rem;
+
+  @media (min-width: 900px) {
+    height: 100px;
+  }
 }
 
 .ace {
-  border: 1px solid white;
+  position: relative;
+  border: 1px solid black;
   margin-right: 1rem;
   width: 100px;
-  padding: 1rem;
+}
+
+.card {
+  position: absolute;
+
+  &:nth-of-type(n+2) {
+    margin-top: 0;
+    z-index: 1;
+  }
 }
 </style>
