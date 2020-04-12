@@ -127,6 +127,16 @@ const mutations = {
         return;
       }
 
+      // Check card being moved to is at the bottom of the column
+      if (moveTo.position[1] !== state.board.cards[moveTo.position[0]].length - 1) {
+        state.selected.toMove = null;
+        state.selected.moveTo = null;
+
+        return;
+      }
+
+      // TODO: stop card being moved to same column
+
       const moveCards = state.board.cards[toMove.position[0]].slice(toMove.position[1]);
       const moveCardsToColumn = [
         ...state.board.cards[moveTo.position[0]],
