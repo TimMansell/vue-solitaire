@@ -2,6 +2,8 @@ import Vue from 'vue';
 import shuffle from 'lodash.shuffle';
 import size from 'lodash.size';
 
+// import json from '../../tests/fixtures/kingEmptyColumn.json';
+
 const mutations = {
   shuffleCards(state) {
     const { values, suits } = state.cards;
@@ -63,6 +65,7 @@ const mutations = {
 
     console.log('dealt cards', dealtCards);
 
+
     dealtCards.forEach((cards, index) => {
       Vue.set(state.board.cards, index, dealtCards[index]);
     });
@@ -121,6 +124,22 @@ const mutations = {
 
       // Check that moving card is one value lower value than card being moved to.
       if (toMove.order !== moveTo.order - 1) {
+        state.selected.toMove = null;
+        state.selected.moveTo = null;
+
+        return;
+      }
+
+      // Check card being moved to is at the bottom of the column
+      if (moveTo.position[1] !== state.board.cards[moveTo.position[0]].length - 1) {
+        state.selected.toMove = null;
+        state.selected.moveTo = null;
+
+        return;
+      }
+
+      // Check card isn't being moved to same column.
+      if (moveTo.position[0] === toMove.position[0]) {
         state.selected.toMove = null;
         state.selected.moveTo = null;
 
@@ -221,7 +240,7 @@ const mutations = {
     // console.log('to move', toMove);
     // console.log('current', column);
 
-    if (toMove.order === 13) {
+    if (toMove.order === 13 && !state.board.cards[column].length) {
       const moveCards = state.board.cards[toMove.position[0]].slice(toMove.position[1]);
       const moveCardsToColumn = [
         ...state.board.cards[column],
