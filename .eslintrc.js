@@ -7,6 +7,9 @@ module.exports = {
     'plugin:vue/strongly-recommended',
     '@vue/airbnb',
   ],
+  plugins: [
+    'jest',
+  ],
   parserOptions: {
     parser: 'babel-eslint',
   },
