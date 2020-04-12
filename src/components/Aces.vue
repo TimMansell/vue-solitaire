@@ -4,7 +4,8 @@
       class="ace"
       v-for="(ace, index) in aces"
       :key="index"
-      @click="moveCardToAce">
+      @click="moveCardToAce"
+      data-test="ace">
       <span v-if="!ace">A</span>
       <Card
         v-for="(card, index2) in ace"

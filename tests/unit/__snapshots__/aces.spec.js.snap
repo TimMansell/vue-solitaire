@@ -2,17 +2,21 @@
 
 exports[`Aces.vue matches snapshot 1`] = `
 <div class="aces">
-  <div class="ace">
+  <div data-test="ace" class="ace">
     <!---->
+    <card-stub value="A" suit="c" order="0" position=""></card-stub>
   </div>
-  <div class="ace">
+  <div data-test="ace" class="ace">
     <!---->
+    <card-stub value="A" suit="h" order="0" position=""></card-stub>
   </div>
-  <div class="ace">
+  <div data-test="ace" class="ace">
     <!---->
+    <card-stub value="A" suit="d" order="0" position=""></card-stub>
   </div>
-  <div class="ace">
+  <div data-test="ace" class="ace">
     <!---->
+    <card-stub value="A" suit="s" order="0" position=""></card-stub>
   </div>
 </div>
 `;
