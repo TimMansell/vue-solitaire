@@ -63,6 +63,7 @@ const mutations = {
 
     console.log('dealt cards', dealtCards);
 
+
     dealtCards.forEach((cards, index) => {
       Vue.set(state.board.cards, index, dealtCards[index]);
     });
@@ -135,7 +136,13 @@ const mutations = {
         return;
       }
 
-      // TODO: stop card being moved to same column
+      // Check card isn't being moved to same column.
+      if (moveTo.position[0] === toMove.position[0]) {
+        state.selected.toMove = null;
+        state.selected.moveTo = null;
+
+        return;
+      }
 
       const moveCards = state.board.cards[toMove.position[0]].slice(toMove.position[1]);
       const moveCardsToColumn = [
