@@ -2,6 +2,6 @@
 
 exports[`App.vue matches snapshot 1`] = `
 <div id="app">
-  <router-view></router-view>
+  <solitaire-stub></solitaire-stub>
 </div>
 `;
