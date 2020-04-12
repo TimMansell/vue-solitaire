@@ -21,11 +21,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-/*:past.board {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
-  background: green;
-}*/
+.board {
+  padding: 1rem;
+  max-width: 960px;
+}
 </style>

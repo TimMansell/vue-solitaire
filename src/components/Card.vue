@@ -36,20 +36,29 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      selectedCards: this.$store.getters.selectedCards,
+    };
+  },
   computed: {
     classes() {
+      const { selectedCards } = this.$store.getters;
+
       return {
         'card--is-visible': this.visible,
         'card--is-s': this.suit === 's',
         'card--is-d': this.suit === 'd',
         'card--is-h': this.suit === 'h',
         'card--is-c': this.suit === 'c',
+        'card--is-selected': selectedCards.toMove !== null && `${selectedCards.toMove.value}${selectedCards.toMove.suit}` === `${this.value}${this.suit}`,
       };
     },
   },
   methods: {
     moveCard() {
       const {
+        value,
         order,
         suit,
         position,
@@ -58,6 +67,7 @@ export default {
       // console.log('mc', order, suit, position);
 
       const card = {
+        value,
         order,
         suit,
         position,
@@ -116,6 +126,10 @@ $font-size: 1rem;
 
   &--is-c {
     color: lightgreen;
+  }
+
+  &--is-selected {
+    box-shadow: inset 0 0 0 3px black;
   }
 }
 </style>

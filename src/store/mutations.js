@@ -222,31 +222,23 @@ const mutations = {
     // console.log('current', column);
 
     if (toMove.order === 13) {
-      const isLastItem = state.board.cards[toMove.position[0]].length - 1 === toMove.position[1];
+      const moveCards = state.board.cards[toMove.position[0]].slice(toMove.position[1]);
+      const moveCardsToColumn = [
+        ...state.board.cards[column],
+        ...moveCards,
+      ].map((cards, index) => {
+        const newValues = {
+          ...cards,
+          position: [column, index],
+        };
 
-      // console.log('state.board.cards[column].length', state.board.cards[column].length);
+        return newValues;
+      });
 
-      if (isLastItem) {
-        const [newColumn] = state.board.cards[toMove.position[0]].slice(-1);
-        const removeCardsFromColumn = state.board.cards[toMove.position[0]].slice(0, toMove.position[1]);
+      const removeCardsFromColumn = state.board.cards[toMove.position[0]].slice(0, toMove.position[1]);
 
-        const moveKingToColumn = [
-          newColumn,
-        ].map((cards, index) => {
-          const newValues = {
-            ...cards,
-            position: [column, index],
-          };
-
-          console.log('newValues', newValues);
-          return newValues;
-        });
-
-        // console.log('moveKingToColumn', moveKingToColumn);
-
-        Vue.set(state.board.cards, column, moveKingToColumn);
-        Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
-      }
+      Vue.set(state.board.cards, column, moveCardsToColumn);
+      Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
     }
   },
 };
