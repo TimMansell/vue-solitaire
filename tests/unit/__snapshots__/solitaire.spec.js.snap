@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Columns.vue matches snapshot 1`] = `<div class="columns"></div>`;
+
+exports[`Solitaire.vue matches snapshot 1`] = `
+<div class="home">
+  <board-stub></board-stub>
+</div>
+`;
