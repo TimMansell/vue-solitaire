@@ -1,7 +1,8 @@
 <template>
   <div
     class="column"
-    @click="moveKingToColumn">
+    @click="moveKingToColumn"
+    data-test="column">
     <Card
       v-for="(card, index) in cards"
       :key="index"
