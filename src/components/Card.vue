@@ -52,6 +52,7 @@ export default {
         'card--is-h': this.suit === 'h',
         'card--is-c': this.suit === 'c',
         'card--is-selected': selectedCards.toMove !== null && `${selectedCards.toMove.value}${selectedCards.toMove.suit}` === `${this.value}${this.suit}`,
+        'card--is-not-clickable': !this.clickable,
       };
     },
   },
@@ -130,6 +131,10 @@ $font-size: 1rem;
 
   &--is-selected {
     box-shadow: inset 0 0 0 3px black;
+  }
+
+  &--is-not-clickable {
+    pointer-events:none;
   }
 }
 </style>

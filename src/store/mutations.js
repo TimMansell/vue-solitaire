@@ -2,6 +2,8 @@ import Vue from 'vue';
 import shuffle from 'lodash.shuffle';
 import size from 'lodash.size';
 
+// import json from '../../tests/fixtures/move2toA.json';
+
 const mutations = {
   shuffleCards(state) {
     const { values, suits } = state.cards;
