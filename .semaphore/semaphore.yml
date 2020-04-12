@@ -16,4 +16,4 @@ blocks:
             - checkout
             - yarn
             - yarn lint
-            - yarn test
+            - 'yarn test:unit'
