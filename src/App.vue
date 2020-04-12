@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <Solitaire />
     <div class="app-version">
       v{{ version }}
     </div>
@@ -8,10 +8,15 @@
 </template>
 
 <script>
+import Solitaire from '@/views/Solitaire.vue';
 import { version } from '../package.json';
+
 
 export default {
   name: 'App',
+  components: {
+    Solitaire,
+  },
   data() {
     return {
       version,
