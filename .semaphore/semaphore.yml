@@ -4,17 +4,13 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
-
 blocks:
-  - name: Test
+  - name: Install dependencies
     task:
       jobs:
-        - name: Test
+        - name: 'Job #1'
           commands:
             - checkout
-            - sem-version node 12
-            - cache restore
-            - npm install
-            - cache store
-            - npm run build --if-present
-            - npm test
+            - yarn
+            - yarn lint
+            - yarn test
