@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Aces.vue matches snapshot 1`] = `
+<div class="aces">
+  <div class="ace">
+    <!---->
+  </div>
+  <div class="ace">
+    <!---->
+  </div>
+  <div class="ace">
+    <!---->
+  </div>
+  <div class="ace">
+    <!---->
+  </div>
+</div>
+`;
