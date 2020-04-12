@@ -2,7 +2,8 @@
   <div
     class="card"
     :class="classes"
-    @click.stop="moveCard">
+    @click.stop="moveCard"
+    @dblclick.stop="moveCardToAce">
     <span v-if="visible">{{ value }}{{ suit }}</span>
   </div>
 </template>
@@ -77,6 +78,9 @@ export default {
       if (this.clickable) {
         this.$store.dispatch('moveCard', card);
       }
+    },
+    moveCardToAce() {
+      console.log('move card to ace');
     },
   },
 };
