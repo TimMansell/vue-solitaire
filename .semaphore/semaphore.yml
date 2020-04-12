@@ -1,0 +1,19 @@
+version: v1.0
+name: First pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Install dependencies
+    task:
+      prologue:
+        commands:
+          - sem-version node 10.16.2
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - yarn
+            - yarn lint
+            - 'yarn test:unit'
