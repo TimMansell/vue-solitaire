@@ -1,5 +1,7 @@
 <template>
-  <div class="column">
+  <div
+    class="column"
+    @click="moveKingToColumn">
     <Card
       v-for="(card, index) in cards"
       :key="index"
@@ -23,6 +25,17 @@ export default {
     cards: {
       type: Array,
       default: () => [],
+    },
+    columnNo: {
+      type: Number,
+      default: 0,
+    },
+  },
+  methods: {
+    moveKingToColumn() {
+      const { columnNo } = this;
+
+      this.$store.dispatch('moveKingToColumn', columnNo);
     },
   },
 };

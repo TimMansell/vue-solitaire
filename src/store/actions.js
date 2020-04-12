@@ -12,6 +12,10 @@ const actions = {
     commit('moveCardToAce');
     commit('revealExposedHiddenCards');
   },
+  moveKingToColumn({ commit }, column) {
+    commit('moveKingToColumn', column);
+    commit('revealExposedHiddenCards');
+  },
 };
 
 export default actions;

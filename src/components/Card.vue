@@ -2,7 +2,7 @@
   <div
     class="card"
     :class="classes"
-    @click="moveCard">
+    @click.stop="moveCard">
     <span v-if="visible">{{ value }}{{ suit }}</span>
   </div>
 </template>
