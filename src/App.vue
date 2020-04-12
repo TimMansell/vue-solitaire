@@ -1,8 +1,19 @@
 <template>
   <div id="app">
-    <router-view />
+    <Solitaire />
   </div>
 </template>
+
+<script>
+import Solitaire from '@/views/Solitaire.vue';
+
+export default {
+  name: 'App',
+  components: {
+    Solitaire,
+  },
+};
+</script>
 
 <style lang="scss">
 body {
