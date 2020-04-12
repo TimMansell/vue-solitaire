@@ -44,12 +44,11 @@ export default {
 <style scoped lang="scss">
 .aces {
   display: flex;
-  padding: 1rem;
-  // height: 100px;
+  margin-bottom: 1rem;
 }
+
 .ace {
   border: 1px solid white;
-  // height: 100px;
   margin-right: 1rem;
   width: 100px;
   padding: 1rem;
