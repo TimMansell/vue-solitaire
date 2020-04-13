@@ -2,8 +2,6 @@ import Vue from 'vue';
 import shuffle from 'lodash.shuffle';
 import size from 'lodash.size';
 
-// import json from '../../tests/fixtures/kingEmptyColumn.json';
-
 const mutations = {
   shuffleCards(state) {
     const { values, suits } = state.cards;
@@ -68,6 +66,11 @@ const mutations = {
 
     dealtCards.forEach((cards, index) => {
       Vue.set(state.board.cards, index, dealtCards[index]);
+    });
+  },
+  dealTestCards(state, deck) {
+    deck.forEach((cards, index) => {
+      Vue.set(state.board.cards, index, deck[index]);
     });
   },
   moveCard(state, card) {
