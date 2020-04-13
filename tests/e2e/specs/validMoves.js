@@ -1,20 +1,12 @@
 import validMove from '../../fixtures/validMove.json';
 
-const setDeck = (deck) => {
-  const getStore = () => cy.window().its('app.$store');
-
-  getStore().then((store) => {
-    store.dispatch('dealTestCards', deck);
-  });
-};
-
 describe('Valid moves', () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
   it('should move 6d to 7d and 9d to 10d', () => {
-    setDeck(validMove);
+    cy.setDeck(validMove);
 
     // Test card from middle.
     cy.get('[data-test="column-3"]').within(() => {

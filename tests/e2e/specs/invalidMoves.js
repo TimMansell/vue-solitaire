@@ -1,22 +1,13 @@
 import invalidMove from '../../fixtures/invalidMove.json';
 
-const setDeck = (deck) => {
-  const getStore = () => cy.window().its('app.$store');
-
-  getStore().then((store) => {
-    store.dispatch('dealTestCards', deck);
-  });
-};
-
 describe('Invalid moves', () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-
   // invalid value, invalid suit
   it('should not move 6s to 4d and 5s to 10d', () => {
-    setDeck(invalidMove);
+    cy.setDeck(invalidMove);
 
     // Test card from middle.
     cy.get('[data-test="column-4"]').within(() => {
@@ -45,7 +36,7 @@ describe('Invalid moves', () => {
 
   // valid value, wrong suit
   it('should not move 4d to 5s', () => {
-    setDeck(invalidMove);
+    cy.setDeck(invalidMove);
 
     cy.get('[data-test="column-5"]').within(() => {
       cy.get('[data-test="card-4d"]').should('be.visible');
@@ -61,7 +52,7 @@ describe('Invalid moves', () => {
 
   // valid suit, wrong value
   it('should not move 7d to 9d', () => {
-    setDeck(invalidMove);
+    cy.setDeck(invalidMove);
 
     cy.get('[data-test="column-2"]').within(() => {
       cy.get('[data-test="card-7d"]').should('be.visible');
@@ -77,7 +68,7 @@ describe('Invalid moves', () => {
 
   // valid card, same column
   it('should not move Qs to Ks on the same column', () => {
-    setDeck(invalidMove);
+    cy.setDeck(invalidMove);
 
     cy.get('[data-test="column-7"]').within(() => {
       cy.get('[data-test="card-Qs"]').should('be.visible');

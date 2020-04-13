@@ -1,21 +1,13 @@
 import moveAcetoAces from '../../fixtures/moveAcetoAces.json';
 import invalidMove2ToAces from '../../fixtures/invalidMove2ToAces.json';
 
-const setDeck = (deck) => {
-  const getStore = () => cy.window().its('app.$store');
-
-  getStore().then((store) => {
-    store.dispatch('dealTestCards', deck);
-  });
-};
-
 describe('Special Ace moves', () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
   it('should move Ah then 2h to its save box', () => {
-    setDeck(moveAcetoAces);
+    cy.setDeck(moveAcetoAces);
 
     cy.get('[data-test="column-3"]').within(() => {
       cy.get('[data-test="card-Ah"]').should('be.visible');
@@ -40,7 +32,7 @@ describe('Special Ace moves', () => {
   });
 
   it('should move Ah and not 2h to its save box', () => {
-    setDeck(invalidMove2ToAces);
+    cy.setDeck(invalidMove2ToAces);
 
     cy.get('[data-test="column-3"]').within(() => {
       cy.get('[data-test="card-Ah"]').should('be.visible');
@@ -63,7 +55,7 @@ describe('Special Ace moves', () => {
   });
 
   it('should move Ah then not move 2c to its save box', () => {
-    setDeck(invalidMove2ToAces);
+    cy.setDeck(invalidMove2ToAces);
 
     cy.get('[data-test="column-3"]').within(() => {
       cy.get('[data-test="card-Ah"]').should('be.visible');

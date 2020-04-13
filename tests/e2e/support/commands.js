@@ -23,3 +23,11 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('setDeck', (deck) => {
+  const getStore = () => cy.window().its('app.$store');
+
+  getStore().then((store) => {
+    store.dispatch('dealTestCards', deck);
+  });
+});
