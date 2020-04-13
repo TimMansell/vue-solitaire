@@ -54,7 +54,7 @@ describe('Column.vue', () => {
   it('should call store action "moveKingToColumn" when clicked', () => {
     const wrapper = shallowMount(Column, { store, localVue });
 
-    wrapper.find('[data-test="column"]').trigger('click');
+    wrapper.find('[data-test="column-0"]').trigger('click');
 
     expect(actions.moveKingToColumn).toHaveBeenCalled();
   });

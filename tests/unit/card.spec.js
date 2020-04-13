@@ -169,7 +169,7 @@ describe('Card.vue', () => {
       },
     });
 
-    wrapper.find('[data-test="card"]').trigger('click');
+    wrapper.find('[data-test="card-Ac"]').trigger('click');
 
     expect(wrapper.classes()).toContain('card--is-not-clickable');
     expect(actions.moveCard).not.toHaveBeenCalled();
@@ -178,7 +178,7 @@ describe('Card.vue', () => {
   it('should call store action "moveCard" when clicked', () => {
     const wrapper = shallowMount(Card, { store, localVue });
 
-    wrapper.find('[data-test="card"]').trigger('click');
+    wrapper.find('[data-test="card-Ac"]').trigger('click');
 
     expect(actions.moveCard).toHaveBeenCalled();
   });

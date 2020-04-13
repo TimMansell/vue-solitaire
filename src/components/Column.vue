@@ -2,7 +2,7 @@
   <div
     class="column"
     @click="moveKingToColumn"
-    data-test="column">
+    :data-test="`column-${columnNo}`">
     <Card
       v-for="(card, index) in cards"
       :key="index"
