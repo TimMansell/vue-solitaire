@@ -17,7 +17,11 @@ const actions = {
     commit('revealExposedHiddenCards');
   },
   dealTestCards({ commit }, deck) {
-    commit('dealTestCards', deck);
+    commit('setDeck', deck);
+    commit('dealCards');
+  },
+  setTestBoard({ commit }, deck) {
+    commit('setBoard', deck);
   },
 };
 

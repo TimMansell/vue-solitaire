@@ -68,10 +68,13 @@ const mutations = {
       Vue.set(state.board.cards, index, dealtCards[index]);
     });
   },
-  dealTestCards(state, deck) {
+  setBoard(state, deck) {
     deck.forEach((cards, index) => {
       Vue.set(state.board.cards, index, deck[index]);
     });
+  },
+  setDeck(state, deck) {
+    state.shuffledCards = deck;
   },
   moveCard(state, card) {
     const { toMove, moveTo } = state.selected;

@@ -27,7 +27,11 @@
 Cypress.Commands.add('setDeck', (deck) => {
   const getStore = () => cy.window().its('app.$store');
 
-  getStore().then((store) => {
-    store.dispatch('dealTestCards', deck);
-  });
+  return getStore().then((store) => store.dispatch('dealTestCards', deck));
+});
+
+Cypress.Commands.add('setBoard', (board) => {
+  const getStore = () => cy.window().its('app.$store');
+
+  return getStore().then((store) => store.dispatch('setTestBoard', board));
 });
