@@ -10,6 +10,7 @@
       :suit="card.suit"
       :order="card.order"
       :position="card.position"
+      :revealed="card.revealed"
       :visible="card.visible" />
   </div>
 </template>

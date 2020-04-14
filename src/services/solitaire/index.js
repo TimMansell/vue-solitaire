@@ -115,10 +115,11 @@ const revealHiddenCard = ({ board }) => {
 
   const updatedDeck = cards.map((column) => {
     const updatedCards = column.map((updatedCard, index) => {
-      if (index === column.length - 1) {
+      if (index === column.length - 1 && !updatedCard.visible) {
         return {
           ...updatedCard,
           visible: true,
+          revealed: true,
         };
       }
 
