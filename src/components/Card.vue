@@ -32,6 +32,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    revealed: {
+      type: Boolean,
+      default: false,
+    },
     clickable: {
       type: Boolean,
       default: true,
@@ -49,6 +53,7 @@ export default {
         'card--is-c': this.suit === 'c',
         'card--is-selected': toMove && `${toMove.value}${toMove.suit}` === `${this.value}${this.suit}`,
         'card--is-not-clickable': !this.clickable,
+        'card--has-been-revealed': this.revealed,
       };
     },
   },
@@ -83,6 +88,11 @@ export default {
 $height: 3rem;
 $font-size: 1rem;
 
+@keyframes changeBackground {
+  0% { background: grey }
+  35% { background: white }
+}
+
 .card {
   display: flex;
   flex: 1;
@@ -106,6 +116,10 @@ $font-size: 1rem;
 
   &--is-visible {
     background: white;
+  }
+
+  &--has-been-revealed {
+    animation: changeBackground 1.5s;
   }
 
   &--is-s {
