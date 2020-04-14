@@ -16,6 +16,13 @@ const actions = {
     commit('moveKingToColumn', column);
     commit('revealExposedHiddenCards');
   },
+  dealTestCards({ commit }, deck) {
+    commit('setDeck', deck);
+    commit('dealCards');
+  },
+  setTestBoard({ commit }, deck) {
+    commit('setBoard', deck);
+  },
 };
 
 export default actions;
