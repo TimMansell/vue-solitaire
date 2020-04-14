@@ -121,7 +121,7 @@ $font-size: 1rem;
   }
 
   &--is-c {
-    color: lightgreen;
+    color: orange;
   }
 
   &--is-selected {
