@@ -3,8 +3,8 @@
     class="card"
     :class="classes"
     @click.stop="moveCard"
-    data-test="card">
-    <span v-if="visible">{{ value }}{{ suit }}</span>
+    :data-test="`card-${value}${suit}`">
+    <span v-if="visible">{{ value }}{{ visualSuit }}</span>
   </div>
 </template>
 
@@ -32,19 +32,18 @@ export default {
       type: Boolean,
       default: false,
     },
+    revealed: {
+      type: Boolean,
+      default: false,
+    },
     clickable: {
       type: Boolean,
       default: true,
     },
   },
-  data() {
-    return {
-      selectedCards: this.$store.getters.selectedCards,
-    };
-  },
   computed: {
     classes() {
-      const { selectedCards } = this.$store.getters;
+      const { toMove } = this.$store.getters;
 
       return {
         'card--is-visible': this.visible,
@@ -52,9 +51,31 @@ export default {
         'card--is-d': this.suit === 'd',
         'card--is-h': this.suit === 'h',
         'card--is-c': this.suit === 'c',
-        'card--is-selected': selectedCards.toMove !== null && `${selectedCards.toMove.value}${selectedCards.toMove.suit}` === `${this.value}${this.suit}`,
+        'card--is-selected': toMove && `${toMove.value}${toMove.suit}` === `${this.value}${this.suit}`,
         'card--is-not-clickable': !this.clickable,
+        'card--has-been-revealed': this.revealed,
       };
+    },
+    visualSuit() {
+      const { suit } = this;
+
+      if (suit === 'h') {
+        return '♥';
+      }
+
+      if (suit === 'd') {
+        return '♦';
+      }
+
+      if (suit === 'c') {
+        return '♣';
+      }
+
+      if (suit === 's') {
+        return '♠';
+      }
+
+      return '';
     },
   },
   methods: {
@@ -66,7 +87,6 @@ export default {
         position,
         visible,
       } = this;
-      // console.log('mc', order, suit, position);
 
       const card = {
         value,
@@ -88,6 +108,11 @@ export default {
 <style scoped lang="scss">
 $height: 3rem;
 $font-size: 1rem;
+
+@keyframes changeBackground {
+  0% { background: grey }
+  35% { background: white }
+}
 
 .card {
   display: flex;
@@ -114,6 +139,10 @@ $font-size: 1rem;
     background: white;
   }
 
+  &--has-been-revealed {
+    animation: changeBackground 1.5s;
+  }
+
   &--is-s {
     color: black;
   }
@@ -127,7 +156,7 @@ $font-size: 1rem;
   }
 
   &--is-c {
-    color: lightgreen;
+    color: orange;
   }
 
   &--is-selected {

@@ -128,17 +128,15 @@ describe('Card.vue', () => {
 
   it('should render a selected card', () => {
     const newGetters = {
-      selectedCards: () => ({
-        toMove: {
-          value: 'K',
-          order: 13,
-          suit: 'c',
-          visible: true,
-          position: [
-            7,
-            11,
-          ],
-        },
+      toMove: () => ({
+        value: 'K',
+        order: 13,
+        suit: 'c',
+        visible: true,
+        position: [
+          7,
+          11,
+        ],
       }),
     };
 
@@ -169,7 +167,7 @@ describe('Card.vue', () => {
       },
     });
 
-    wrapper.find('[data-test="card"]').trigger('click');
+    wrapper.find('[data-test="card-Ac"]').trigger('click');
 
     expect(wrapper.classes()).toContain('card--is-not-clickable');
     expect(actions.moveCard).not.toHaveBeenCalled();
@@ -178,7 +176,7 @@ describe('Card.vue', () => {
   it('should call store action "moveCard" when clicked', () => {
     const wrapper = shallowMount(Card, { store, localVue });
 
-    wrapper.find('[data-test="card"]').trigger('click');
+    wrapper.find('[data-test="card-Ac"]').trigger('click');
 
     expect(actions.moveCard).toHaveBeenCalled();
   });
