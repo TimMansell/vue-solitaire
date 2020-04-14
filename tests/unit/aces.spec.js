@@ -39,13 +39,13 @@ describe('Aces.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls store action "moveCardToAce" when clicked', () => {
+  it('calls store action "moveCardToFoundation" when clicked', () => {
     const getters = {
       aces: () => state.board.aces,
     };
 
     const actions = {
-      moveCardToAce: jest.fn(),
+      moveCardToFoundation: jest.fn(),
     };
 
     const store = new Vuex.Store({
@@ -57,6 +57,6 @@ describe('Aces.vue', () => {
 
     wrapper.find('[data-test="ace"]').trigger('click');
 
-    expect(actions.moveCardToAce).toHaveBeenCalled();
+    expect(actions.moveCardToFoundation).toHaveBeenCalled();
   });
 });

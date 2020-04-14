@@ -37,14 +37,9 @@ export default {
       default: true,
     },
   },
-  data() {
-    return {
-      selectedCards: this.$store.getters.selectedCards,
-    };
-  },
   computed: {
     classes() {
-      const { selectedCards } = this.$store.getters;
+      const { toMove } = this.$store.getters;
 
       return {
         'card--is-visible': this.visible,
@@ -52,7 +47,7 @@ export default {
         'card--is-d': this.suit === 'd',
         'card--is-h': this.suit === 'h',
         'card--is-c': this.suit === 'c',
-        'card--is-selected': selectedCards.toMove !== null && `${selectedCards.toMove.value}${selectedCards.toMove.suit}` === `${this.value}${this.suit}`,
+        'card--is-selected': toMove && `${toMove.value}${toMove.suit}` === `${this.value}${this.suit}`,
         'card--is-not-clickable': !this.clickable,
       };
     },
@@ -66,7 +61,6 @@ export default {
         position,
         visible,
       } = this;
-      // console.log('mc', order, suit, position);
 
       const card = {
         value,

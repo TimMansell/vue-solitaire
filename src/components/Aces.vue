@@ -1,7 +1,7 @@
 <template>
   <div
     class="aces"
-    @click="moveCardToAce"
+    @click="moveCardToFoundation"
     data-test="ace">
     <div
       class="ace"
@@ -36,8 +36,8 @@ export default {
     };
   },
   methods: {
-    moveCardToAce() {
-      this.$store.dispatch('moveCardToAce');
+    moveCardToFoundation() {
+      this.$store.dispatch('moveCardToFoundation');
     },
   },
 };
