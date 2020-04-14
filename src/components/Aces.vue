@@ -1,11 +1,13 @@
 <template>
-  <div class="aces">
+  <div
+    class="aces"
+    @click="moveCardToFoundation"
+    data-test="ace">
     <div
       class="ace"
       v-for="(ace, index) in aces"
       :key="index"
-      @click="moveCardToAce"
-      data-test="ace">
+      :data-test="`ace-${index}`">
       <span v-if="!ace">A</span>
       <Card
         v-for="(card, index2) in ace"
@@ -34,8 +36,8 @@ export default {
     };
   },
   methods: {
-    moveCardToAce() {
-      this.$store.dispatch('moveCardToAce');
+    moveCardToFoundation() {
+      this.$store.dispatch('moveCardToFoundation');
     },
   },
 };

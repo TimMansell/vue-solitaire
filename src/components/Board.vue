@@ -1,5 +1,7 @@
 <template>
-  <div class="board">
+  <div
+    class="board"
+    data-test="board">
     <Aces />
     <Columns />
   </div>
