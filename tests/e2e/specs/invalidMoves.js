@@ -77,7 +77,7 @@ describe('Invalid moves', () => {
       cy.get('[data-test="card-Ks"]').click();
 
       cy.get('[data-test="column-7"]').within(() => {
-        cy.get('[data-test*="card-"]').eq(1).should('contain', 'Qs');
+        cy.get('[data-test*="card-"]').eq(1).should('have.attr', 'data-test', 'card-Qs');
       });
     });
   });
