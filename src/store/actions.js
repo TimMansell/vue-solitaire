@@ -1,12 +1,12 @@
 import {
   shuffleCards,
-  dealCards,
+  setBoard,
   isBothCardsSelected,
   checkValidCardMove,
-  moveCard,
-  revealExposedHiddenCards,
-  moveCardToAce,
-  checkValidAceMove,
+  moveCards,
+  revealHiddenCard,
+  moveCardToFoundation,
+  checkValidFoundationMove,
   moveKingToColumn,
   checkValidKingMove,
 
@@ -15,11 +15,12 @@ import {
 const actions = {
   initGame({ commit, state }) {
     const { cards } = state;
+
     const shuffledCards = shuffleCards(cards);
     commit('shuffleCards', shuffledCards);
 
-    const board = dealCards(state);
-    commit('dealCards', board);
+    const board = setBoard(state);
+    commit('setBoard', board);
   },
   moveCard({ commit, state }, card) {
     commit('selectCard', card);
@@ -29,25 +30,25 @@ const actions = {
       const isValidMove = checkValidCardMove(state);
 
       if (isValidMove) {
-        const moveCards = moveCard(state);
-        commit('moveCards', moveCards);
+        const cardsToMove = moveCards(state);
+        commit('moveCards', cardsToMove);
 
-        const exposedCards = revealExposedHiddenCards(state);
-        commit('revealExposedHiddenCards', exposedCards);
+        const hiddenCard = revealHiddenCard(state);
+        commit('revealHiddenCard', hiddenCard);
       } else {
         commit('invalidMove');
       }
     }
   },
-  moveCardToAce({ commit, state }) {
-    const isValidMove = checkValidAceMove(state);
+  moveCardToFoundation({ commit, state }) {
+    const isValidMove = checkValidFoundationMove(state);
 
     if (isValidMove) {
-      const moveCards = moveCardToAce(state);
-      commit('moveCardToAce', moveCards);
+      const cardToMove = moveCardToFoundation(state);
+      commit('moveCardToFoundation', cardToMove);
 
-      const exposedCards = revealExposedHiddenCards(state);
-      commit('revealExposedHiddenCards', exposedCards);
+      const hiddenCard = revealHiddenCard(state);
+      commit('revealHiddenCard', hiddenCard);
     } else {
       commit('invalidMove');
     }
@@ -56,11 +57,11 @@ const actions = {
     const isValidMove = checkValidKingMove(state, column);
 
     if (isValidMove) {
-      const moveCards = moveKingToColumn(state, column);
-      commit('moveKingToColumn', moveCards);
+      const cardsToMove = moveKingToColumn(state, column);
+      commit('moveKingToColumn', cardsToMove);
 
-      const exposedCards = revealExposedHiddenCards(state);
-      commit('revealExposedHiddenCards', exposedCards);
+      const hiddenCard = revealHiddenCard(state);
+      commit('revealHiddenCard', hiddenCard);
     } else {
       commit('invalidMove');
     }
@@ -68,8 +69,8 @@ const actions = {
   dealTestCards({ commit, state }, deck) {
     commit('setDeck', deck);
 
-    const board = dealCards(state);
-    commit('dealCards', board);
+    const board = setBoard(state);
+    commit('setBoard', board);
   },
   setTestBoard({ commit }, deck) {
     commit('setBoard', deck);

@@ -18,7 +18,7 @@ const shuffleCards = ({ values, suits }) => {
   return shuffledDeck;
 };
 
-const dealCards = ({ rules, shuffledCards }) => {
+const setBoard = ({ rules, shuffledCards }) => {
   const showCards = (cards, offset = 0) => cards.map((card, index) => {
     if ((index + offset) % 2 === 0) {
       return {
@@ -56,16 +56,11 @@ const dealCards = ({ rules, shuffledCards }) => {
     return showCards(cards);
   });
 
-  //   console.log('dealt cards', dealtCards);
-
   return dealtCards;
 };
 
 const checkValidCardMove = ({ board, selectedCards }) => {
   const [toMove, moveTo] = selectedCards;
-
-  // console.log('toMove', toMove);
-  // console.log('moveTo', moveTo);
 
   if (!toMove.visible || !moveTo.visible) {
     return false;
@@ -107,13 +102,13 @@ const isBothCardsSelected = ({ selectedCards }) => {
   return false;
 };
 
-const moveCard = ({ board, selectedCards }) => {
+const moveCards = ({ board, selectedCards }) => {
   const [toMove, moveTo] = selectedCards;
 
-  const moveCards = board.cards[toMove.position[0]].slice(toMove.position[1]);
+  const cardsToMove = board.cards[toMove.position[0]].slice(toMove.position[1]);
   const moveCardsToColumn = [
     ...board.cards[moveTo.position[0]],
-    ...moveCards,
+    ...cardsToMove,
   ].map((cards, index) => {
     const newValues = {
       ...cards,
@@ -137,14 +132,12 @@ const moveCard = ({ board, selectedCards }) => {
   };
 };
 
-const revealExposedHiddenCards = ({ board }) => {
+const revealHiddenCard = ({ board }) => {
   const { cards } = board;
 
   const updatedDeck = cards.map((column) => {
-    // console.log('index', index, deck.length - 1);
     const updatedCards = column.map((updatedCard, index) => {
       if (index === column.length - 1) {
-        // console.log('index', index, column.length - 1);
         return {
           ...updatedCard,
           visible: true,
@@ -160,7 +153,7 @@ const revealExposedHiddenCards = ({ board }) => {
   return updatedDeck;
 };
 
-const moveCardToAce = ({ board, selectedCards }) => {
+const moveCardToFoundation = ({ board, selectedCards }) => {
   const [toMove] = selectedCards;
 
   const removeCardsFromColumn = board.cards[toMove.position[0]].slice(0, toMove.position[1]);
@@ -171,7 +164,7 @@ const moveCardToAce = ({ board, selectedCards }) => {
   };
 };
 
-const checkValidAceMove = ({ board, selectedCards }) => {
+const checkValidFoundationMove = ({ board, selectedCards }) => {
   const [toMove] = selectedCards;
 
   if (!size(toMove)) {
@@ -192,10 +185,10 @@ const checkValidAceMove = ({ board, selectedCards }) => {
 const moveKingToColumn = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
 
-  const moveCards = board.cards[toMove.position[0]].slice(toMove.position[1]);
+  const cardsToMove = board.cards[toMove.position[0]].slice(toMove.position[1]);
   const moveCardsToColumn = [
     ...board.cards[column],
-    ...moveCards,
+    ...cardsToMove,
   ].map((cards, index) => {
     const newValues = {
       ...cards,
@@ -231,13 +224,13 @@ const checkValidKingMove = ({ board, selectedCards }, column) => {
 
 export {
   shuffleCards,
-  dealCards,
+  setBoard,
   isBothCardsSelected,
   checkValidCardMove,
-  moveCard,
-  revealExposedHiddenCards,
-  moveCardToAce,
-  checkValidAceMove,
+  moveCards,
+  revealHiddenCard,
+  moveCardToFoundation,
+  checkValidFoundationMove,
   moveKingToColumn,
   checkValidKingMove,
 };

@@ -4,11 +4,6 @@ const mutations = {
   shuffleCards(state, cards) {
     state.shuffledCards = cards;
   },
-  dealCards(state, board) {
-    board.forEach((cards, index) => {
-      Vue.set(state.board.cards, index, board[index]);
-    });
-  },
   setBoard(state, deck) {
     deck.forEach((cards, index) => {
       Vue.set(state.board.cards, index, deck[index]);
@@ -29,12 +24,12 @@ const mutations = {
   invalidMove(state) {
     state.selectedCards = [];
   },
-  revealExposedHiddenCards(state, cards) {
+  revealHiddenCard(state, cards) {
     cards.forEach((card, index) => {
       Vue.set(state.board.cards, index, cards[index]);
     });
   },
-  moveCardToAce(state, { toMove, removeCardsFromColumn }) {
+  moveCardToFoundation(state, { toMove, removeCardsFromColumn }) {
     Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
     state.board.aces[toMove.suit].push(toMove);
 
