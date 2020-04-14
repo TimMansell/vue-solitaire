@@ -4,7 +4,7 @@
     :class="classes"
     @click.stop="moveCard"
     :data-test="`card-${value}${suit}`">
-    <span v-if="visible">{{ value }}{{ suit }}</span>
+    <span v-if="visible">{{ value }}{{ visualSuit }}</span>
   </div>
 </template>
 
@@ -50,6 +50,27 @@ export default {
         'card--is-selected': toMove && `${toMove.value}${toMove.suit}` === `${this.value}${this.suit}`,
         'card--is-not-clickable': !this.clickable,
       };
+    },
+    visualSuit() {
+      const { suit } = this;
+
+      if (suit === 'h') {
+        return '♥';
+      }
+
+      if (suit === 'd') {
+        return '♦';
+      }
+
+      if (suit === 'c') {
+        return '♣';
+      }
+
+      if (suit === 's') {
+        return '♠';
+      }
+
+      return '';
     },
   },
   methods: {
