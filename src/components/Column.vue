@@ -2,7 +2,7 @@
   <div
     class="column"
     @click="moveKingToColumn"
-    data-test="column">
+    :data-test="`column-${columnNo}`">
     <Card
       v-for="(card, index) in cards"
       :key="index"
@@ -10,6 +10,7 @@
       :suit="card.suit"
       :order="card.order"
       :position="card.position"
+      :revealed="card.revealed"
       :visible="card.visible" />
   </div>
 </template>
