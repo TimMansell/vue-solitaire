@@ -16,10 +16,7 @@ const state = {
   rules: {
     columns: [7, 7, 7, 7, 6, 6, 6, 6],
   },
-  selected: {
-    toMove: null,
-    moveTo: null,
-  },
+  selectedCards: [],
 };
 
 export default state;

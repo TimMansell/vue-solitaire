@@ -128,17 +128,15 @@ describe('Card.vue', () => {
 
   it('should render a selected card', () => {
     const newGetters = {
-      selectedCards: () => ({
-        toMove: {
-          value: 'K',
-          order: 13,
-          suit: 'c',
-          visible: true,
-          position: [
-            7,
-            11,
-          ],
-        },
+      toMove: () => ({
+        value: 'K',
+        order: 13,
+        suit: 'c',
+        visible: true,
+        position: [
+          7,
+          11,
+        ],
       }),
     };
 
