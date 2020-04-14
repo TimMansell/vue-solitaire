@@ -1,6 +1,58 @@
 import shuffle from 'lodash.shuffle';
 import size from 'lodash.size';
 
+// Private functions
+const isMoveValidVisible = (toMove, moveTo) => {
+  if (!toMove.visible || !moveTo.visible) {
+    return false;
+  }
+
+  return true;
+};
+
+const isMoveValidCard = (toMove, moveTo) => {
+  if (`${toMove.order}${toMove.suit}` === `${moveTo.order}${moveTo.suit}`) {
+    return false;
+  }
+
+  return true;
+};
+
+const isMoveValidSuit = (toMove, moveTo) => {
+  if (toMove.suit !== moveTo.suit) {
+    return false;
+  }
+
+  return true;
+};
+
+const isMoveValidOrder = (toMove, moveTo) => {
+  if (toMove.order !== moveTo.order - 1) {
+    return false;
+  }
+
+  return true;
+};
+
+// Check card being moved to is at the bottom of the column
+const isMoveValidPosition = (moveTo, board) => {
+  if (moveTo.position[1] !== board.cards[moveTo.position[0]].length - 1) {
+    return false;
+  }
+
+  return true;
+};
+
+// Check card isn't being moved to same column.
+const isMoveValidColumn = (toMove, moveTo) => {
+  if (moveTo.position[0] === toMove.position[0]) {
+    return false;
+  }
+
+  return true;
+};
+
+// Public functions
 const shuffleCards = ({ values, suits }) => {
   const deck = values.flatMap((value, index) => suits.map((suit) => {
     const card = {
@@ -62,36 +114,14 @@ const setBoard = ({ rules, shuffledCards }) => {
 const checkValidCardMove = ({ board, selectedCards }) => {
   const [toMove, moveTo] = selectedCards;
 
-  if (!toMove.visible || !moveTo.visible) {
-    return false;
-  }
+  const isValidVisible = isMoveValidVisible(toMove, moveTo);
+  const isValidCard = isMoveValidCard(toMove, moveTo);
+  const isValidSuit = isMoveValidSuit(toMove, moveTo);
+  const isValidOrder = isMoveValidOrder(toMove, moveTo);
+  const isValidPosition = isMoveValidPosition(moveTo, board);
+  const isValidColumn = isMoveValidColumn(toMove, moveTo);
 
-  // Make sure different cards have been selected.
-  if (`${toMove.order}${toMove.suit}` === `${moveTo.order}${moveTo.suit}`) {
-    return false;
-  }
-
-  // Check if both suits are the same.
-  if (toMove.suit !== moveTo.suit) {
-    return false;
-  }
-
-  // Check that moving card is one value lower value than card being moved to.
-  if (toMove.order !== moveTo.order - 1) {
-    return false;
-  }
-
-  // Check card being moved to is at the bottom of the column
-  if (moveTo.position[1] !== board.cards[moveTo.position[0]].length - 1) {
-    return false;
-  }
-
-  // Check card isn't being moved to same column.
-  if (moveTo.position[0] === toMove.position[0]) {
-    return false;
-  }
-
-  return true;
+  return isValidVisible && isValidCard && isValidSuit && isValidOrder && isValidPosition && isValidColumn;
 };
 
 const isBothCardsSelected = ({ selectedCards }) => {
