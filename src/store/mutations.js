@@ -1,6 +1,9 @@
 import Vue from 'vue';
 
 const mutations = {
+  restartGame(state) {
+    console.log('restart', state);
+  },
   shuffleCards(state, cards) {
     state.shuffledCards = cards;
   },

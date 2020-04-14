@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="solitaire">
     <Board />
   </div>
 </template>
@@ -17,3 +17,9 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.solitaire {
+  margin-top: 1.5rem;
+}
+</style>

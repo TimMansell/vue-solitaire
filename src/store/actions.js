@@ -22,6 +22,10 @@ const actions = {
     const board = setBoard(state);
     commit('setBoard', board);
   },
+  restartGame({ commit }) {
+    commit('restartGame');
+    console.log('rsg');
+  },
   moveCard({ commit, state }, card) {
     commit('selectCard', card);
 

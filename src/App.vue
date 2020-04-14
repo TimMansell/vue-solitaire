@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <div class="controls">
+      <button @click="restartGame">
+        Restart Game
+      </button>
+    </div>
     <Solitaire />
     <div class="app-version">
       v{{ version }}
@@ -22,6 +27,11 @@ export default {
       version,
     };
   },
+  methods: {
+    restartGame() {
+      this.$store.dispatch('restartGame');
+    },
+  },
 };
 </script>
 
@@ -29,6 +39,12 @@ export default {
 body {
   margin: 0;
   background: green;
+}
+
+.controls {
+  position: fixed;
+  right: .5rem;
+  top: .5rem;
 }
 
 .app-version {
