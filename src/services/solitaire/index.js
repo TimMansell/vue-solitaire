@@ -1,58 +1,17 @@
 import shuffle from 'lodash.shuffle';
-import size from 'lodash.size';
+import {
+  isMoveValidVisible,
+  isMoveValidCard,
+  isMoveValidSuit,
+  isMoveValidOrder,
+  isMoveValidPosition,
+  isMoveValidColumn,
+  isCardValidSize,
+  isValidKingMove,
+  isValidFoundationMove,
+} from './validation';
+import { moveCardsFrom, removeCardsFrom, moveCardsTo } from './helpers';
 
-// Private functions
-const isMoveValidVisible = (toMove, moveTo) => {
-  if (!toMove.visible || !moveTo.visible) {
-    return false;
-  }
-
-  return true;
-};
-
-const isMoveValidCard = (toMove, moveTo) => {
-  if (`${toMove.order}${toMove.suit}` === `${moveTo.order}${moveTo.suit}`) {
-    return false;
-  }
-
-  return true;
-};
-
-const isMoveValidSuit = (toMove, moveTo) => {
-  if (toMove.suit !== moveTo.suit) {
-    return false;
-  }
-
-  return true;
-};
-
-const isMoveValidOrder = (toMove, moveTo) => {
-  if (toMove.order !== moveTo.order - 1) {
-    return false;
-  }
-
-  return true;
-};
-
-// Check card being moved to is at the bottom of the column
-const isMoveValidPosition = (moveTo, board) => {
-  if (moveTo.position[1] !== board.cards[moveTo.position[0]].length - 1) {
-    return false;
-  }
-
-  return true;
-};
-
-// Check card isn't being moved to same column.
-const isMoveValidColumn = (toMove, moveTo) => {
-  if (moveTo.position[0] === toMove.position[0]) {
-    return false;
-  }
-
-  return true;
-};
-
-// Public functions
 const shuffleCards = ({ values, suits }) => {
   const deck = values.flatMap((value, index) => suits.map((suit) => {
     const card = {
@@ -135,20 +94,9 @@ const isBothCardsSelected = ({ selectedCards }) => {
 const moveCards = ({ board, selectedCards }) => {
   const [toMove, moveTo] = selectedCards;
 
-  const cardsToMove = board.cards[toMove.position[0]].slice(toMove.position[1]);
-  const moveCardsToColumn = [
-    ...board.cards[moveTo.position[0]],
-    ...cardsToMove,
-  ].map((cards, index) => {
-    const newValues = {
-      ...cards,
-      position: [moveTo.position[0], index],
-    };
-
-    return newValues;
-  });
-
-  const removeCardsFromColumn = board.cards[toMove.position[0]].slice(0, toMove.position[1]);
+  const cardsToMove = moveCardsFrom(toMove, board);
+  const moveCardsToColumn = moveCardsTo(board, cardsToMove, moveTo.position[0]);
+  const removeCardsFromColumn = removeCardsFrom(toMove, board);
 
   const colsToMove = {
     from: toMove.position[0],
@@ -197,38 +145,18 @@ const moveCardToFoundation = ({ board, selectedCards }) => {
 const checkValidFoundationMove = ({ board, selectedCards }) => {
   const [toMove] = selectedCards;
 
-  if (!size(toMove)) {
-    return false;
-  }
+  const isValidSize = isCardValidSize(toMove);
+  const isValidFoundation = isValidFoundationMove(toMove, board);
 
-  const currentValue = board.aces[toMove.suit] || [];
-
-  if (toMove.order === currentValue.length + 1) {
-    const isLastItem = board.cards[toMove.position[0]].length - 1 === toMove.position[1];
-
-    return isLastItem;
-  }
-
-  return false;
+  return isValidSize && isValidFoundation;
 };
 
 const moveKingToColumn = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
 
-  const cardsToMove = board.cards[toMove.position[0]].slice(toMove.position[1]);
-  const moveCardsToColumn = [
-    ...board.cards[column],
-    ...cardsToMove,
-  ].map((cards, index) => {
-    const newValues = {
-      ...cards,
-      position: [column, index],
-    };
-
-    return newValues;
-  });
-
-  const removeCardsFromColumn = board.cards[toMove.position[0]].slice(0, toMove.position[1]);
+  const cardsToMove = moveCardsFrom(toMove, board);
+  const moveCardsToColumn = moveCardsTo(board, cardsToMove, column);
+  const removeCardsFromColumn = removeCardsFrom(toMove, board);
 
   return {
     toMove,
@@ -241,15 +169,10 @@ const moveKingToColumn = ({ board, selectedCards }, column) => {
 const checkValidKingMove = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
 
-  if (!size(toMove)) {
-    return false;
-  }
+  const isValidSize = isCardValidSize(toMove);
+  const isValidMove = isValidKingMove(toMove, board, column);
 
-  if (toMove.order === 13 && !board.cards[column].length) {
-    return true;
-  }
-
-  return false;
+  return isValidSize && isValidMove;
 };
 
 export {
