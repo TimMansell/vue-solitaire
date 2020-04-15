@@ -46,9 +46,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .column {
-  flex: 1;
-  padding: .1rem;
-
   @media (min-width: 900px) {
     padding: .5rem;
   }
