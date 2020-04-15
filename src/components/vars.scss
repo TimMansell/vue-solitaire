@@ -1,0 +1,11 @@
+$padding: .2rem;
+$padding-lg: .5rem;
+
+$card-width: 33px;
+$card-height: $card-width * 1.4;
+$card-lg-multiplier: 2.5;
+$card-width-lg: $card-width * $card-lg-multiplier;
+$card-height-lg: $card-height * $card-lg-multiplier;
+
+$bp-tablet: 480px;
+$bp-desktop: 1024px;

@@ -12,7 +12,7 @@ describe('Valid moves', () => {
         cy.get('[data-test="card-6d"]').should('be.visible');
       });
 
-      cy.get('[data-test="card-6d"]').click();
+      cy.get('[data-test="card-6d"]').click({ force: true });
       cy.get('[data-test="card-7d"]').click();
 
       cy.get('[data-test="column-2"]').within(() => {
