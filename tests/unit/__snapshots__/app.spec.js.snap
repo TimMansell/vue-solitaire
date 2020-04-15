@@ -4,7 +4,7 @@ exports[`App.vue matches snapshot 1`] = `
 <div id="app">
   <solitaire-stub></solitaire-stub>
   <div class="app-version">
-    v0.6.0
+    v0.7.0
   </div>
 </div>
 `;
