@@ -80,7 +80,11 @@ export default {
 
 .card {
   &:nth-of-type(n+2) {
-    margin-top: -#{$card-height-lg + 5}; // Todo: fix magic number
+    margin-top: -#{$card-height + 4}; // Todo: fix magic number
+
+    @media (min-width: $bp-desktop) {
+      margin-top: -#{$card-height-lg + 4}; // Todo: fix magic number
+    }
   }
 }
 </style>
