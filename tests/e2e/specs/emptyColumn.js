@@ -6,6 +6,14 @@ describe('Special column moves', () => {
     cy.visit('/');
   });
 
+  it('should show empty column card placeholder', () => {
+    cy.setBoard(emptyColumn).then(() => {
+      cy.get('[data-test="column-0"]').within(() => {
+        cy.get('[data-test="card-placeholder"]').should('be.visible');
+      });
+    });
+  });
+
   it('should move Kc & 9c to an empty column', () => {
     cy.setBoard(emptyColumn).then(() => {
       cy.get('[data-test="column-7"]').within(() => {
@@ -92,7 +100,7 @@ describe('Special column moves', () => {
         cy.get('[data-test="card-Jd"]').should('be.visible');
       });
 
-      cy.get('[data-test="card-Jd"]').click();
+      cy.get('[data-test="card-Jd"]').click({ force: true });
       cy.get('[data-test="column-0"]').click();
 
       cy.get('[data-test="column-0"]').within(() => {

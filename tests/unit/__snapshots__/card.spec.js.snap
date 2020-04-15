@@ -3,5 +3,6 @@
 exports[`Card.vue matches snapshot 1`] = `
 <div data-test="card-Ac" class="card card--is-c">
   <!---->
+  <svgicon-stub name="Card_back_17"></svgicon-stub>
 </div>
 `;
