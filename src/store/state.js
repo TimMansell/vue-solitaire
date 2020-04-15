@@ -4,15 +4,8 @@ const state = {
     suits: ['c', 's', 'h', 'd'],
   },
   shuffledCards: [],
-  board: {
-    cards: [],
-    aces: {
-      c: [],
-      h: [],
-      d: [],
-      s: [],
-    },
-  },
+  boardCards: [],
+  foundationCards: [],
   rules: {
     columns: [7, 7, 7, 7, 6, 6, 6, 6],
   },

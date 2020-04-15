@@ -1,8 +1,8 @@
 const getters = {
   shuffledCards: (state) => state.shuffledCards,
-  boardCards: (state) => state.board.cards,
+  boardCards: (state) => state.boardCards,
   toMove: (state) => state.selectedCards[0],
-  aces: (state) => state.board.aces,
+  aces: (state) => state.foundationCards,
   rules: (state) => state.rules,
 };
 

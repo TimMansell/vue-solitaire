@@ -30,6 +30,7 @@ export default {
   methods: {
     restartGame() {
       this.$store.dispatch('restartGame');
+      this.$store.dispatch('initGame');
     },
   },
 };

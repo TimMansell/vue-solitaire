@@ -18,11 +18,17 @@
         :visible="card.visible"
         :clickable="false" />
 
-      <SvgIcon
+      <!-- <SvgIcon
+        v-for="(card, index2) in placeholders"
+        :key="index2"
         class="ace__placeholder"
-        v-if="!ace.length"
-        name="Card_back_17" />
+        name="Card_back_17" /> -->
     </div>
+    <SvgIcon
+      v-for="(card, index2) in placeholders"
+      :key="index2"
+      class="ace__placeholder"
+      name="Card_back_17" />
   </div>
 </template>
 

@@ -1,15 +1,12 @@
 import Vue from 'vue';
 
 const mutations = {
-  restartGame(state) {
-    console.log('restart', state);
-  },
   shuffleCards(state, cards) {
     state.shuffledCards = cards;
   },
   setBoard(state, deck) {
     deck.forEach((cards, index) => {
-      Vue.set(state.board.cards, index, deck[index]);
+      Vue.set(state.boardCards, index, deck[index]);
     });
   },
   setDeck(state, deck) {
@@ -19,8 +16,8 @@ const mutations = {
     state.selectedCards.push(card);
   },
   moveCards(state, { colsToMove, removeCardsFromColumn, moveCardsToColumn }) {
-    Vue.set(state.board.cards, colsToMove.from, removeCardsFromColumn);
-    Vue.set(state.board.cards, colsToMove.to, moveCardsToColumn);
+    Vue.set(state.boardCards, colsToMove.from, removeCardsFromColumn);
+    Vue.set(state.boardCards, colsToMove.to, moveCardsToColumn);
 
     state.selectedCards = [];
   },
@@ -29,13 +26,13 @@ const mutations = {
   },
   revealHiddenCard(state, cards) {
     cards.forEach((card, index) => {
-      Vue.set(state.board.cards, index, cards[index]);
+      Vue.set(state.boardCards, index, cards[index]);
     });
   },
   moveCardToFoundation(state, { toMove, removeCardsFromColumn }) {
-    Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
-    // Vue.set(state.board.aces, toMove.suit, toMove);
-    state.board.aces[toMove.suit].push(toMove);
+    Vue.set(state.boardCards, toMove.position[0], removeCardsFromColumn);
+    // Vue.set(state.foundationCards, toMove.suit, toMove);
+    state.foundationCards[toMove.suit].push(toMove);
 
     state.selectedCards = [];
   },
@@ -45,8 +42,8 @@ const mutations = {
     moveCardsToColumn,
     removeCardsFromColumn,
   }) {
-    Vue.set(state.board.cards, column, moveCardsToColumn);
-    Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
+    Vue.set(state.boardCards, column, moveCardsToColumn);
+    Vue.set(state.boardCards, toMove.position[0], removeCardsFromColumn);
 
     state.selectedCards = [];
   },

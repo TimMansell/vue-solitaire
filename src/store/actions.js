@@ -24,7 +24,6 @@ const actions = {
   },
   restartGame({ commit }) {
     commit('restartGame');
-    console.log('rsg');
   },
   moveCard({ commit, state }, card) {
     commit('selectCard', card);

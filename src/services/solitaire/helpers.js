@@ -1,20 +1,18 @@
-const moveCardsFrom = (moveCards, board) => {
-  const { cards } = board;
+const moveCardsFrom = (moveCards, boardCards) => {
   const { position } = moveCards;
 
-  return cards[position[0]].slice(position[1]);
+  return boardCards[position[0]].slice(position[1]);
 };
 
-const removeCardsFrom = (removeCards, board) => {
-  const { cards } = board;
+const removeCardsFrom = (removeCards, boardCards) => {
   const { position } = removeCards;
 
-  return cards[position[0]].slice(0, position[1]);
+  return boardCards[position[0]].slice(0, position[1]);
 };
 
-const moveCardsTo = (board, cardsToMove, position) => {
+const moveCardsTo = (boardCards, cardsToMove, position) => {
   const moveCardsToColumn = [
-    ...board.cards[position],
+    ...boardCards[position],
     ...cardsToMove,
   ].map((cards, index) => {
     const newValues = {
