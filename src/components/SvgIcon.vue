@@ -12,19 +12,16 @@
 <script>
 export default {
   name: 'SvgIcon',
-
   props: {
     name: {
       type: String,
       required: true,
     },
-
     title: {
       type: String,
       default: null,
     },
   },
-
   computed: {
     iconPath() {
       // eslint-disable-next-line global-require, import/no-dynamic-require
@@ -35,7 +32,6 @@ export default {
 
       return icon.url;
     },
-
     className() {
       return `svg-icon svg-icon--${this.name}`;
     },
@@ -43,10 +39,15 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
   .svg-icon {
     fill: currentColor;
-    height: 140px;
-    width: 100px;
+    height: $card-height;
+    width: $card-width;
+
+    @media (min-width: $bp-desktop) {
+      height: $card-height-lg;
+      width: $card-width-lg;
+    }
   }
 </style>

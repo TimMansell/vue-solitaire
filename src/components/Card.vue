@@ -57,6 +57,7 @@ export default {
       const { toMove } = this.$store.getters;
 
       return {
+        'card--is-visible': this.visible,
         'card--is-s': this.suit === 's',
         'card--is-d': this.suit === 'd',
         'card--is-h': this.suit === 'h',
@@ -94,15 +95,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$height: 3rem;
-$font-size: 1rem;
-
 .card {
   transition: transform .1s ease-in-out;
   transform-style: preserve-3d;
 
   &:nth-of-type(n+2) {
-    margin-top: -110px;
+    margin-top: -#{$card-height * .75};
+
+    @media (min-width: $bp-desktop) {
+      margin-top: -#{$card-height-lg * .75};
+    }
   }
 
   &--is-s {

@@ -58,19 +58,25 @@ export default {
 <style scoped lang="scss">
 .aces {
   display: flex;
-  margin-bottom: 1rem;
-  margin-left: -.5rem;
-  margin-right: -.5rem;
+
+  @media (min-width: $bp-desktop) {
+    margin-bottom: 1rem;
+  }
+
 }
 
 .ace {
   opacity: .1;
-  padding: .5rem;
+  padding: $padding;
+
+  @media (min-width: $bp-desktop) {
+    padding: $padding-lg;
+  }
 }
 
 .card {
   &:nth-of-type(n+2) {
-    margin-top: -140px;
+    margin-top: -#{$card-height-lg + 5}; // Todo: fix magic number
   }
 }
 </style>

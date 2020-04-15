@@ -28,6 +28,5 @@ export default {
 <style scoped lang="scss">
 .columns {
   display: flex;
-  margin: 0 -.5rem;
 }
 </style>
