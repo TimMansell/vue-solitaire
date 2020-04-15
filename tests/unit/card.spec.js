@@ -173,8 +173,22 @@ describe('Card.vue', () => {
     expect(actions.moveCard).not.toHaveBeenCalled();
   });
 
-  it('should call store action "moveCard" when clicked', () => {
+  it('should not call store action "moveCard" when clicked when not visible', () => {
     const wrapper = shallowMount(Card, { store, localVue });
+
+    wrapper.find('[data-test="card-Ac"]').trigger('click');
+
+    expect(actions.moveCard).not.toHaveBeenCalled();
+  });
+
+  it('should call store action "moveCard" when clicked when visible', () => {
+    const wrapper = shallowMount(Card, {
+      store,
+      localVue,
+      propsData: {
+        visible: true,
+      },
+    });
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 

@@ -31,6 +31,7 @@ const mutations = {
   },
   moveCardToFoundation(state, { toMove, removeCardsFromColumn }) {
     Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
+    // Vue.set(state.board.aces, toMove.suit, toMove);
     state.board.aces[toMove.suit].push(toMove);
 
     state.selectedCards = [];

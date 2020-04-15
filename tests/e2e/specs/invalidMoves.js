@@ -13,7 +13,7 @@ describe('Invalid moves', () => {
         cy.get('[data-test="card-6s"]').should('be.visible');
       });
 
-      cy.get('[data-test="card-6s"]').click();
+      cy.get('[data-test="card-6s"]').click({ force: true });
       cy.get('[data-test="card-4d"]').click();
 
       cy.get('[data-test="column-5"]').within(() => {
