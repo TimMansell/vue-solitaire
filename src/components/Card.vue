@@ -100,10 +100,10 @@ export default {
   transform-style: preserve-3d;
 
   &:nth-of-type(n+2) {
-    margin-top: -#{$card-height * .75};
+    margin-top: -#{$card-height * .8};
 
     @media (min-width: $bp-desktop) {
-      margin-top: -#{$card-height-lg * .75};
+      margin-top: -#{$card-height-lg * .8};
     }
   }
 
