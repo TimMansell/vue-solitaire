@@ -67,9 +67,12 @@ const isValidKingMove = (toMove = [], board, column) => {
 };
 
 const isValidFoundationMove = (toMove = [], board) => {
-  const currentValue = board.aces[toMove.suit] || [];
+  const { aces } = board;
+  const { suit } = toMove;
 
-  if (toMove.order === currentValue.length + 1) {
+  const foundationSuit = aces.filter((ace) => ace.suit === suit);
+
+  if (toMove.order === foundationSuit.length + 1) {
     const isLastItem = board.cards[toMove.position[0]].length - 1 === toMove.position[1];
 
     return isLastItem;

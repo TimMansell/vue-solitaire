@@ -132,13 +132,15 @@ const revealHiddenCard = ({ board }) => {
   return updatedDeck;
 };
 
-const moveCardToFoundation = ({ board, selectedCards }) => {
+const moveCardToFoundation = ({ board, selectedCards }, index) => {
   const [toMove] = selectedCards;
+  const { position } = toMove;
 
-  const removeCardsFromColumn = board.cards[toMove.position[0]].slice(0, toMove.position[1]);
+  const removeCardsFromColumn = board.cards[position[0]].slice(0, position[1]);
 
   return {
     toMove,
+    index,
     removeCardsFromColumn,
   };
 };

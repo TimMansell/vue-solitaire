@@ -5,19 +5,24 @@
     data-test="ace">
     <div
       class="ace"
-      v-for="(ace, index) in aces"
-      :key="index"
-      :data-test="`ace-${index}`">
+      v-for="(ace, foundationIndex) in foundationCards"
+      :key="`f-${foundationIndex}`"
+      :data-test="`ace-${foundationIndex}`">
       <Card
-        v-for="(card, index2) in ace"
-        :key="index2"
+        v-for="(card, aceIndex) in ace"
+        :key="`a-${aceIndex}`"
         :value="card.value"
         :suit="card.suit"
         :order="card.order"
         :position="card.position"
         :visible="card.visible"
         :clickable="false" />
-
+    </div>
+    <div
+      class="ace"
+      v-for="(ace, placeholderIndex) in placeholderCards"
+      :key="`p-${placeholderIndex}`"
+      data-test="ace-placeholder">
       <SvgIcon
         class="ace__placeholder"
         v-if="!ace.length"
@@ -39,13 +44,33 @@ export default {
   data() {
     return {
       aces: this.$store.getters.aces,
-      placeholders: [
-        'h',
-        's',
-        'c',
-        'd',
-      ],
+      placeholderCardsAmount: 4,
     };
+  },
+  computed: {
+    foundationCards() {
+      const { aces } = this;
+
+      const clubs = aces.filter((ace) => ace.suit === 'c');
+      const spades = aces.filter((ace) => ace.suit === 's');
+      const diamonds = aces.filter((ace) => ace.suit === 'd');
+      const hearts = aces.filter((ace) => ace.suit === 'h');
+
+      const foundationCards = [
+        clubs,
+        spades,
+        diamonds,
+        hearts,
+      ];
+
+      return foundationCards.filter((ace) => ace.length);
+    },
+    placeholderCards() {
+      const { foundationCards, placeholderCardsAmount } = this;
+      const usedPlaceholders = foundationCards.filter((cards) => cards.length);
+
+      return placeholderCardsAmount - usedPlaceholders.length;
+    },
   },
   methods: {
     moveCardToFoundation() {
@@ -63,7 +88,6 @@ export default {
   @media (min-width: $bp-desktop) {
     margin-bottom: 1rem;
   }
-
 }
 
 .ace {

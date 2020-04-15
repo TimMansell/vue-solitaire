@@ -6,8 +6,8 @@
     "visible": false
   },
   {
-    "value": "2",
-    "order": 2,
+    "value": "5",
+    "order": 5,
     "suit": "s",
     "visible": false
   },
@@ -36,8 +36,8 @@
     "visible": false
   },
   {
-    "value": "5",
-    "order": 5,
+    "value": "J",
+    "order": 11,
     "suit": "s",
     "visible": false
   },
@@ -168,8 +168,8 @@
     "visible": false
   },
   {
-    "value": "A",
-    "order": 1,
+    "value": "K",
+    "order": 13,
     "suit": "s",
     "visible": false
   },
@@ -300,14 +300,14 @@
     "visible": false
   },
   {
-    "value": "J",
-    "order": 11,
+    "value": "2",
+    "order": 2,
     "suit": "s",
     "visible": false
   },
   {
-    "value": "K",
-    "order": 13,
+    "value": "A",
+    "order": 1,
     "suit": "s",
     "visible": false
   }
