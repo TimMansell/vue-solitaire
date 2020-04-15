@@ -58,15 +58,15 @@ const isCardValidSize = (toMove) => {
   return true;
 };
 
-const isValidKingMove = (toMove, board, column) => {
+const isValidKingMove = (toMove = [], board, column) => {
   if (toMove.order === 13 && !board.cards[column].length) {
     return true;
   }
 
-  return true;
+  return false;
 };
 
-const isValidFoundationMove = (toMove, board) => {
+const isValidFoundationMove = (toMove = [], board) => {
   const currentValue = board.aces[toMove.suit] || [];
 
   if (toMove.order === currentValue.length + 1) {
