@@ -4,13 +4,24 @@
     :class="classes"
     @click.stop="moveCard"
     :data-test="`card-${value}${suit}`">
-    <span v-if="visible">{{ value }}{{ suit }}</span>
+    <SvgIcon
+      v-if="visible"
+      :name="`${this.value}${this.suit.toUpperCase()}`" />
+
+    <SvgIcon
+      v-if="!visible"
+      name="Card_back_17" />
   </div>
 </template>
 
 <script>
+import SvgIcon from '@/components/SvgIcon.vue';
+
 export default {
   name: 'Card',
+  components: {
+    SvgIcon,
+  },
   props: {
     value: {
       type: String,
@@ -29,6 +40,10 @@ export default {
       default: () => [],
     },
     visible: {
+      type: Boolean,
+      default: false,
+    },
+    revealed: {
       type: Boolean,
       default: false,
     },
@@ -70,7 +85,7 @@ export default {
         visible,
       };
 
-      if (this.clickable) {
+      if (this.clickable && this.visible) {
         this.$store.dispatch('moveCard', card);
       }
     },
@@ -80,52 +95,44 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$height: 3rem;
-$font-size: 1rem;
-
 .card {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  border: 1px solid black;
-  background: grey;
-  width: 100%;
-  height: $height;
-  border-radius: 5px;
-  font-weight: 700;
-  font-size: $font-size;
-
-  @media (min-width: 900px) {
-    font-size: $font-size * 2;
-    height: $height * 2;
-   }
+  transition: all .05s ease-in-out;
+  transform-style: preserve-3d;
 
   &:nth-of-type(n+2) {
-    margin-top: -60%;
-  }
+    margin-top: -#{$card-height * .8};
 
-  &--is-visible {
-    background: white;
+    @media (min-width: $bp-desktop) {
+      margin-top: -#{$card-height-lg * .8};
+    }
   }
 
   &--is-s {
-    color: black;
+    &--color-blind {
+      color: black;
+    }
   }
 
   &--is-d {
-    color: blue;
+    &--color-blind {
+      color: blue;
+    }
   }
 
   &--is-h {
-    color: red;
+    &--color-blind {
+      color: red;
+    }
   }
 
   &--is-c {
-    color: orange;
+    &--color-blind {
+      color: orange;
+    }
   }
 
   &--is-selected {
-    box-shadow: inset 0 0 0 3px black;
+    transform: scale(1.1);
   }
 
   &--is-not-clickable {

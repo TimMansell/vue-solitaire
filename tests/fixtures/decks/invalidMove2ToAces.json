@@ -60,16 +60,16 @@
     "visible": false
   },
   {
-    "value": "A",
-    "order": 1,
-    "suit": "d",
-    "visible": false
-  },
-  {
     "value": "K",
     "order": 13,
     "suit": "d",
     "visible": false
+  },
+  {
+    "value": "A",
+    "order": 1,
+    "suit": "d",
+    "visible": true
   },
   {
     "value": "5",

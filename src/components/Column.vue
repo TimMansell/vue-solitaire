@@ -10,17 +10,26 @@
       :suit="card.suit"
       :order="card.order"
       :position="card.position"
+      :revealed="card.revealed"
       :visible="card.visible" />
+
+    <SvgIcon
+      class="card-placeholder"
+      data-test="card-placeholder"
+      v-if="!cards.length"
+      name="Card_back_15" />
   </div>
 </template>
 
 <script>
 import Card from '@/components/Card.vue';
+import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
   name: 'Column',
   components: {
     Card,
+    SvgIcon,
   },
   props: {
     cards: {
@@ -45,11 +54,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .column {
-  flex: 1;
-  padding: .1rem;
+  padding-left: $padding;
+  padding-right: $padding;
 
-  @media (min-width: 900px) {
-    padding: .5rem;
+  @media (min-width: $bp-desktop) {
+    padding-left: $padding-lg;
+    padding-right: $padding-lg;
   }
+}
+
+.card-placeholder {
+  opacity: .1;
 }
 </style>

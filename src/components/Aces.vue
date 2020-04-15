@@ -8,7 +8,6 @@
       v-for="(ace, index) in aces"
       :key="index"
       :data-test="`ace-${index}`">
-      <span v-if="!ace">A</span>
       <Card
         v-for="(card, index2) in ace"
         :key="index2"
@@ -18,21 +17,34 @@
         :position="card.position"
         :visible="card.visible"
         :clickable="false" />
+
+      <SvgIcon
+        class="ace__placeholder"
+        v-if="!ace.length"
+        name="Card_back_17" />
     </div>
   </div>
 </template>
 
 <script>
 import Card from '@/components/Card.vue';
+import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
   name: 'Aces',
   components: {
     Card,
+    SvgIcon,
   },
   data() {
     return {
       aces: this.$store.getters.aces,
+      placeholders: [
+        'h',
+        's',
+        'c',
+        'd',
+      ],
     };
   },
   methods: {
@@ -47,28 +59,28 @@ export default {
 <style scoped lang="scss">
 .aces {
   display: flex;
-  height: 52px;
-  margin-bottom: 1rem;
-  padding: .5rem;
 
-  @media (min-width: 900px) {
-    height: 100px;
+  @media (min-width: $bp-desktop) {
+    margin-bottom: 1rem;
   }
+
 }
 
 .ace {
-  position: relative;
-  border: 1px solid black;
-  margin-right: 1rem;
-  width: 100px;
+  padding: $padding;
+
+  @media (min-width: $bp-desktop) {
+    padding: $padding-lg;
+  }
+
+  &__placeholder {
+    opacity: .1;
+  }
 }
 
 .card {
-  position: absolute;
-
   &:nth-of-type(n+2) {
-    margin-top: 0;
-    z-index: 1;
+    margin-top: -#{$card-height-lg + 5}; // Todo: fix magic number
   }
 }
 </style>
