@@ -19,6 +19,7 @@
         :clickable="false" />
 
       <SvgIcon
+        class="ace__placeholder"
         v-if="!ace.length"
         name="Card_back_17" />
     </div>
@@ -66,11 +67,14 @@ export default {
 }
 
 .ace {
-  opacity: .1;
   padding: $padding;
 
   @media (min-width: $bp-desktop) {
     padding: $padding-lg;
+  }
+
+  &__placeholder {
+    opacity: .1;
   }
 }
 
