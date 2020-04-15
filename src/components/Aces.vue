@@ -55,22 +55,20 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .aces {
   display: flex;
 
-  @media (min-width: $bp-desktop) {
-    margin-bottom: 1rem;
+   @media (min-width: $bp-sm) {
+    margin-bottom: .5rem;
   }
-
 }
 
 .ace {
-  padding: $padding;
+  padding: $col-padding;
 
-  @media (min-width: $bp-desktop) {
-    padding: $padding-lg;
+  @media (min-width: $bp-md) {
+    padding: $col-padding-lg;
   }
 
   &__placeholder {
@@ -82,7 +80,7 @@ export default {
   &:nth-of-type(n+2) {
     margin-top: -#{$card-height + 4}; // Todo: fix magic number
 
-    @media (min-width: $bp-desktop) {
+    @media (min-width: $bp-lg) {
       margin-top: -#{$card-height-lg + 4}; // Todo: fix magic number
     }
   }
