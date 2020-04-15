@@ -76,4 +76,23 @@ describe('Special Ace moves', () => {
       });
     });
   });
+
+  it('should not move Ad to its save box', () => {
+    cy.setDeck(invalidMove2ToAces).then(() => {
+      cy.get('[data-test="column-1"]').within(() => {
+        cy.get('[data-test="card-Ad"]').should('be.visible');
+      });
+
+      cy.get('[data-test="card-Ad"]').click();
+      cy.get('[data-test="ace"]').click();
+
+      cy.get('[data-test="ace-d"]').within(() => {
+        cy.get('[data-test="card-Ad"]').should('not.be.visible');
+      });
+
+      cy.get('[data-test="column-1"]').within(() => {
+        cy.get('[data-test="card-Ad"]').should('be.visible');
+      });
+    });
+  });
 });
