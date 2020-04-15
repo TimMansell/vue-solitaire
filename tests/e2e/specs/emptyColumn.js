@@ -92,7 +92,7 @@ describe('Special column moves', () => {
         cy.get('[data-test="card-Jd"]').should('be.visible');
       });
 
-      cy.get('[data-test="card-Jd"]').click();
+      cy.get('[data-test="card-Jd"]').click({ force: true });
       cy.get('[data-test="column-0"]').click();
 
       cy.get('[data-test="column-0"]').within(() => {

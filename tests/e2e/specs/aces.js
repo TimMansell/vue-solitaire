@@ -83,7 +83,7 @@ describe('Special Ace moves', () => {
         cy.get('[data-test="card-Ad"]').should('be.visible');
       });
 
-      cy.get('[data-test="card-Ad"]').click();
+      cy.get('[data-test="card-Ad"]').click({ force: true });
       cy.get('[data-test="ace"]').click();
 
       cy.get('[data-test="ace-d"]').within(() => {
