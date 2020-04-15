@@ -96,7 +96,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .card {
-  transition: transform .1s ease-in-out;
+  transition: all .05s ease-in-out;
   transform-style: preserve-3d;
 
   &:nth-of-type(n+2) {
@@ -132,8 +132,7 @@ export default {
   }
 
   &--is-selected {
-    transform: translateY(-1rem);
-    animation-duration: 3s;
+    transform: scale(1.1);
   }
 
   &--is-not-clickable {
