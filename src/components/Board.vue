@@ -1,18 +1,18 @@
 <template>
   <div data-test="board">
-    <Aces />
+    <Foundation />
     <Columns />
   </div>
 </template>
 
 <script>
-import Aces from '@/components/Aces.vue';
+import Foundation from '@/components/Foundation.vue';
 import Columns from '@/components/Columns.vue';
 
 export default {
   name: 'Board',
   components: {
-    Aces,
+    Foundation,
     Columns,
   },
 };

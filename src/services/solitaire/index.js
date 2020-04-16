@@ -132,7 +132,7 @@ const revealHiddenCard = ({ board }) => {
   return updatedDeck;
 };
 
-const moveCardToFoundation = ({ board, selectedCards }, index) => {
+const moveCardToFoundation = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
   const { position } = toMove;
 
@@ -140,16 +140,16 @@ const moveCardToFoundation = ({ board, selectedCards }, index) => {
 
   return {
     toMove,
-    index,
+    column,
     removeCardsFromColumn,
   };
 };
 
-const checkValidFoundationMove = ({ board, selectedCards }) => {
+const checkValidFoundationMove = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
 
   const isValidSize = isCardValidSize(toMove);
-  const isValidFoundation = isValidFoundationMove(toMove, board);
+  const isValidFoundation = isValidFoundationMove(toMove, board, column);
 
   return isValidSize && isValidFoundation;
 };

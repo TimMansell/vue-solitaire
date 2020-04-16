@@ -6,10 +6,11 @@ const state = {
   shuffledCards: [],
   board: {
     cards: [],
-    aces: [],
+    foundation: [],
   },
   rules: {
     columns: [7, 7, 7, 7, 6, 6, 6, 6],
+    foundationColumns: [1, 1, 1, 1],
   },
   selectedCards: [],
 };
