@@ -7,7 +7,10 @@
       v-for="(foundation, foundationsIndex) in foundationCards"
       :key="`f-${foundationsIndex}`"
       @click="moveCardToFoundation(foundationsIndex)"
-      :data-test="`foundation-${foundationsIndex}`">
+      :data-test="`foundation-${foundationsIndex}`"
+      @drop="dropCard($event)"
+      @dragover.prevent
+      @dragenter.prevent>
       <Card
         v-for="(card, foundationIndex) in foundation"
         :key="`a-${foundationIndex}`"
@@ -44,6 +47,46 @@ export default {
   methods: {
     moveCardToFoundation(placeholderIndex) {
       this.$store.dispatch('moveCardToFoundation', placeholderIndex);
+    },
+    dropCard(e) {
+      const {
+        value,
+        order,
+        suit,
+        position,
+        visible,
+      } = this;
+
+      const card = {
+        value,
+        order,
+        suit,
+        position,
+        visible,
+      };
+
+      const valueDrag = e.dataTransfer.getData('value');
+      const orderDrag = e.dataTransfer.getData('order');
+      const suitDrag = e.dataTransfer.getData('suit');
+      const positionDrag0 = e.dataTransfer.getData('position0');
+      const positionDrag1 = e.dataTransfer.getData('position1');
+      const visibleDrag = e.dataTransfer.getData('visible');
+
+      const cardDrag = {
+        value: valueDrag,
+        order: parseInt(orderDrag, 10),
+        suit: suitDrag,
+        position: [positionDrag0, positionDrag1],
+        visible: !!visibleDrag,
+      };
+
+      console.log('drag card', cardDrag);
+      console.log('drag to card', card);
+
+      this.$store.dispatch('moveCard', cardDrag);
+      // this.$store.dispatch('moveCard', card);
+
+      this.moveCardToFoundation(0);
     },
   },
 };
