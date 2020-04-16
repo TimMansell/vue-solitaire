@@ -45,9 +45,24 @@ export default {
     height: $card-height;
     width: $card-width;
 
-    @media (min-width: $bp-desktop) {
+    @media (min-width: $bp-sm) {
+      height: $card-height-sm;
+      width: $card-width-sm;
+    }
+
+    @media (min-width: $bp-md) {
+      height: $card-height-md;
+      width: $card-width-md;
+    }
+
+    @media (min-width: $bp-lg) {
       height: $card-height-lg;
       width: $card-width-lg;
+    }
+
+    @media (min-width: $bp-xl) {
+      height: $card-height-xl;
+      width: $card-width-xl;
     }
   }
 </style>

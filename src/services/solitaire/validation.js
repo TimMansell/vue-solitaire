@@ -58,19 +58,22 @@ const isCardValidSize = (toMove) => {
   return true;
 };
 
-const isValidKingMove = (toMove = [], boardCards, column) => {
-  if (toMove.order === 13 && !boardCards[column].length) {
+const isValidKingMove = (toMove = [], board, column) => {
+  if (toMove.order === 13 && !board.cards[column].length) {
     return true;
   }
 
   return false;
 };
 
-const isValidFoundationMove = (toMove = [], boardCards, foundationCards) => {
-  const currentValue = foundationCards[toMove.suit] || [];
+const isValidFoundationMove = (toMove = [], board, column) => {
+  const { foundation } = board;
+  const { suit } = toMove;
 
-  if (toMove.order === currentValue.length + 1) {
-    const isLastItem = boardCards[toMove.position[0]].length - 1 === toMove.position[1];
+  const foundationSuit = foundation[column].filter((ace) => ace.suit === suit);
+
+  if (toMove.order === foundationSuit.length + 1) {
+    const isLastItem = board.cards[toMove.position[0]].length - 1 === toMove.position[1];
 
     return isLastItem;
   }

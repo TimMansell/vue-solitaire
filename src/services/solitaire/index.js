@@ -110,8 +110,10 @@ const moveCards = ({ board, selectedCards }) => {
   };
 };
 
-const revealHiddenCard = ({ boardCards }) => {
-  const updatedDeck = boardCards.map((column) => {
+const revealHiddenCard = ({ board }) => {
+  const { cards } = board;
+
+  const updatedDeck = cards.map((column) => {
     const updatedCards = column.map((updatedCard, index) => {
       if (index === column.length - 1 && !updatedCard.visible) {
         return {
@@ -130,32 +132,34 @@ const revealHiddenCard = ({ boardCards }) => {
   return updatedDeck;
 };
 
-const moveCardToFoundation = ({ boardCards, selectedCards }) => {
+const moveCardToFoundation = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
+  const { position } = toMove;
 
-  const removeCardsFromColumn = boardCards[toMove.position[0]].slice(0, toMove.position[1]);
+  const removeCardsFromColumn = board.cards[position[0]].slice(0, position[1]);
 
   return {
     toMove,
+    column,
     removeCardsFromColumn,
   };
 };
 
-const checkValidFoundationMove = ({ boardCards, selectedCards, foundationCards }) => {
+const checkValidFoundationMove = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
 
   const isValidSize = isCardValidSize(toMove);
-  const isValidFoundation = isValidFoundationMove(toMove, boardCards, foundationCards);
+  const isValidFoundation = isValidFoundationMove(toMove, board, column);
 
   return isValidSize && isValidFoundation;
 };
 
-const moveKingToColumn = ({ boardCards, selectedCards }, column) => {
+const moveKingToColumn = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
 
-  const cardsToMove = moveCardsFrom(toMove, boardCards);
-  const moveCardsToColumn = moveCardsTo(boardCards, cardsToMove, column);
-  const removeCardsFromColumn = removeCardsFrom(toMove, boardCards);
+  const cardsToMove = moveCardsFrom(toMove, board);
+  const moveCardsToColumn = moveCardsTo(board, cardsToMove, column);
+  const removeCardsFromColumn = removeCardsFrom(toMove, board);
 
   return {
     toMove,
@@ -165,11 +169,11 @@ const moveKingToColumn = ({ boardCards, selectedCards }, column) => {
   };
 };
 
-const checkValidKingMove = ({ boardCards, selectedCards }, column) => {
+const checkValidKingMove = ({ board, selectedCards }, column) => {
   const [toMove] = selectedCards;
 
   const isValidSize = isCardValidSize(toMove);
-  const isValidMove = isValidKingMove(toMove, boardCards, column);
+  const isValidMove = isValidKingMove(toMove, board, column);
 
   return isValidSize && isValidMove;
 };

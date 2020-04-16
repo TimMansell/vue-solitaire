@@ -20,6 +20,9 @@ export default {
 
 <style scoped lang="scss">
 .solitaire {
-  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .5rem 0;
 }
 </style>

@@ -4,10 +4,13 @@ const state = {
     suits: ['c', 's', 'h', 'd'],
   },
   shuffledCards: [],
-  boardCards: [],
-  foundationCards: [],
+  board: {
+    cards: [],
+    foundation: [],
+  },
   rules: {
     columns: [7, 7, 7, 7, 6, 6, 6, 6],
+    foundationColumns: [1, 1, 1, 1],
   },
   selectedCards: [],
 };

@@ -43,11 +43,11 @@ const actions = {
       }
     }
   },
-  moveCardToFoundation({ commit, state }) {
-    const isValidMove = checkValidFoundationMove(state);
+  moveCardToFoundation({ commit, state }, column) {
+    const isValidMove = checkValidFoundationMove(state, column);
 
     if (isValidMove) {
-      const cardToMove = moveCardToFoundation(state);
+      const cardToMove = moveCardToFoundation(state, column);
       commit('moveCardToFoundation', cardToMove);
 
       const hiddenCard = revealHiddenCard(state);

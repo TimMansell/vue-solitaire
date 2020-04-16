@@ -1,11 +1,30 @@
-$padding: .2rem;
-$padding-lg: .5rem;
+// Column padding.
+$col-padding: .2rem;
+$col-padding-lg: .5rem;
 
+// Breakpoints
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1366px;
+
+// Cards
 $card-width: 33px;
 $card-height: $card-width * 1.4;
-$card-lg-multiplier: 2.5;
+$card-spacer: .8;
+
+$card-sm-multiplier: 1.5;
+$card-width-sm: $card-width * $card-sm-multiplier;
+$card-height-sm: $card-height * $card-sm-multiplier;
+
+$card-md-multiplier: 2.25;
+$card-width-md: $card-width * $card-md-multiplier;
+$card-height-md: $card-height * $card-md-multiplier;
+
+$card-lg-multiplier: 3.25;
 $card-width-lg: $card-width * $card-lg-multiplier;
 $card-height-lg: $card-height * $card-lg-multiplier;
 
-$bp-tablet: 480px;
-$bp-desktop: 1024px;
+$card-xl-multiplier: 4.25;
+$card-width-xl: $card-width * $card-xl-multiplier;
+$card-height-xl: $card-height * $card-xl-multiplier;
