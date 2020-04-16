@@ -51,15 +51,14 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .column {
-  padding-left: $padding;
-  padding-right: $padding;
+  padding-left: $col-padding;
+  padding-right: $col-padding;
 
-  @media (min-width: $bp-desktop) {
-    padding-left: $padding-lg;
-    padding-right: $padding-lg;
+  @media (min-width: $bp-md) {
+    padding-left: $col-padding-lg;
+    padding-right: $col-padding-lg;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="solitaire">
     <Board />
   </div>
 </template>
@@ -17,3 +17,11 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.solitaire {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>

@@ -93,17 +93,28 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .card {
   transition: all .05s ease-in-out;
   transform-style: preserve-3d;
 
   &:nth-of-type(n+2) {
-    margin-top: -#{$card-height * .8};
+    margin-top: -#{$card-height * $card-spacer};
 
-    @media (min-width: $bp-desktop) {
-      margin-top: -#{$card-height-lg * .8};
+    @media (min-width: $bp-sm) {
+      margin-top: -#{$card-height-sm * $card-spacer};
+    }
+
+    @media (min-width: $bp-md) {
+      margin-top: -#{$card-height-md * $card-spacer};
+    }
+
+    @media (min-width: $bp-lg) {
+      margin-top: -#{$card-height-lg * $card-spacer};
+    }
+
+    @media (min-width: $bp-xl) {
+      margin-top: -#{$card-height-xl * $card-spacer};
     }
   }
 
