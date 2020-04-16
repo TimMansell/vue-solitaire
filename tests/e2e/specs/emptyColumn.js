@@ -75,21 +75,21 @@ describe('Special column moves', () => {
     });
   });
 
-  it('should not move 7s to empty column', () => {
+  it('should not move Qh to empty column', () => {
     cy.setBoard(emptyColumn).then(() => {
-      cy.get('[data-test="column-3"]').within(() => {
-        cy.get('[data-test="card-7s"]').should('be.visible');
+      cy.get('[data-test="column-2"]').within(() => {
+        cy.get('[data-test="card-Qh"]').should('be.visible');
       });
 
-      cy.get('[data-test="card-7s"]').click();
+      cy.get('[data-test="card-Qh"]').click();
       cy.get('[data-test="column-0"]').click();
 
       cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="card-7s"]').should('not.be.visible');
+        cy.get('[data-test="card-Qh"]').should('not.be.visible');
       });
 
-      cy.get('[data-test="column-3"]').within(() => {
-        cy.get('[data-test="card-7s"]').should('be.visible');
+      cy.get('[data-test="column-2"]').within(() => {
+        cy.get('[data-test="card-Qh"]').should('be.visible');
       });
     });
   });
