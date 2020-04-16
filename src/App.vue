@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <div class="controls">
-      <button @click="restartGame">
-        Restart Game
-      </button>
-    </div>
+    <Controls />
     <Solitaire />
     <div class="app-version">
       v{{ version }}
@@ -13,6 +9,7 @@
 </template>
 
 <script>
+import Controls from '@/components/Controls.vue';
 import Solitaire from '@/views/Solitaire.vue';
 import { version } from '../package.json';
 
@@ -20,18 +17,13 @@ import { version } from '../package.json';
 export default {
   name: 'App',
   components: {
+    Controls,
     Solitaire,
   },
   data() {
     return {
       version,
     };
-  },
-  methods: {
-    restartGame() {
-      this.$store.dispatch('restartGame');
-      this.$store.dispatch('initGame');
-    },
   },
 };
 </script>
@@ -40,12 +32,6 @@ export default {
 body {
   margin: 0;
   background: green;
-}
-
-.controls {
-  position: fixed;
-  right: .5rem;
-  top: .5rem;
 }
 
 .app-version {
