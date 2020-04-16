@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Board.vue matches snapshot 1`] = `
-<div data-test="board" class="board">
-  <aces-stub></aces-stub>
+<div data-test="board">
+  <foundation-stub></foundation-stub>
   <columns-stub></columns-stub>
 </div>
 `;

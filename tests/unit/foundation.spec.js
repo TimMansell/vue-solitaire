@@ -1,47 +1,42 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
-import Aces from '@/components/Aces.vue';
-import state from '@/store/state';
+import Foundation from '@/components/Foundation.vue';
+// import state from '@/store/state';
 
 const localVue = createLocalVue();
 
 localVue.use(Vuex);
 
-describe('Aces.vue', () => {
+describe('Foundation.vue', () => {
   it('matches snapshot', () => {
     const getters = {
-      aces: () => ({
-        c: [{
-          suit: 'c',
-          value: 'A',
-        }],
-        h: [{
-          suit: 'h',
-          value: 'A',
-        }],
-        d: [{
-          suit: 'd',
-          value: 'A',
-        }],
-        s: [{
-          suit: 's',
-          value: 'A',
-        }],
-      }),
+      foundationCards: () => ([{
+        value: 'A',
+        order: 1,
+        suit: 's',
+        position: [7, 5],
+        visible: true,
+      }]),
     };
 
     const store = new Vuex.Store({
       getters,
     });
 
-    const wrapper = shallowMount(Aces, { store, localVue });
+    const wrapper = shallowMount(Foundation, { store, localVue });
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('calls store action "moveCardToFoundation" when clicked', () => {
     const getters = {
-      aces: () => state.board.aces,
+      foundationCards: () => ([{
+        value: 'A',
+        order: 1,
+        suit: 's',
+        position: [7, 5],
+        visible: true,
+      }]),
     };
 
     const actions = {
@@ -53,9 +48,9 @@ describe('Aces.vue', () => {
       actions,
     });
 
-    const wrapper = shallowMount(Aces, { store, localVue });
+    const wrapper = shallowMount(Foundation, { store, localVue });
 
-    wrapper.find('[data-test="ace"]').trigger('click');
+    wrapper.find('[data-test="foundation-0"]').trigger('click');
 
     expect(actions.moveCardToFoundation).toHaveBeenCalled();
   });

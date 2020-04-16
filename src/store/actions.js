@@ -22,6 +22,9 @@ const actions = {
     const board = setBoard(state);
     commit('setBoard', board);
   },
+  restartGame({ commit }) {
+    commit('restartGame');
+  },
   moveCard({ commit, state }, card) {
     commit('selectCard', card);
 
@@ -40,11 +43,11 @@ const actions = {
       }
     }
   },
-  moveCardToFoundation({ commit, state }) {
-    const isValidMove = checkValidFoundationMove(state);
+  moveCardToFoundation({ commit, state }, column) {
+    const isValidMove = checkValidFoundationMove(state, column);
 
     if (isValidMove) {
-      const cardToMove = moveCardToFoundation(state);
+      const cardToMove = moveCardToFoundation(state, column);
       commit('moveCardToFoundation', cardToMove);
 
       const hiddenCard = revealHiddenCard(state);
