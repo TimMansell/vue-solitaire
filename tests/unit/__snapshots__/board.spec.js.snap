@@ -2,7 +2,7 @@
 
 exports[`Board.vue matches snapshot 1`] = `
 <div data-test="board">
-  <aces-stub></aces-stub>
+  <foundation-stub></foundation-stub>
   <columns-stub></columns-stub>
 </div>
 `;

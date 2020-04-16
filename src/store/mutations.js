@@ -5,8 +5,14 @@ const mutations = {
     state.shuffledCards = cards;
   },
   setBoard(state, deck) {
+    const { foundationColumns } = state.rules;
+
     deck.forEach((cards, index) => {
       Vue.set(state.board.cards, index, deck[index]);
+    });
+
+    foundationColumns.forEach((foundation, index) => {
+      Vue.set(state.board.foundation, index, []);
     });
   },
   setDeck(state, deck) {
@@ -29,10 +35,9 @@ const mutations = {
       Vue.set(state.board.cards, index, cards[index]);
     });
   },
-  moveCardToFoundation(state, { toMove, removeCardsFromColumn }) {
+  moveCardToFoundation(state, { toMove, column, removeCardsFromColumn }) {
     Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
-    // Vue.set(state.board.aces, toMove.suit, toMove);
-    state.board.aces[toMove.suit].push(toMove);
+    state.board.foundation[column].push(toMove);
 
     state.selectedCards = [];
   },
