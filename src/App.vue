@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Controls />
     <Solitaire />
     <div class="app-version">
       v{{ version }}
@@ -8,6 +9,7 @@
 </template>
 
 <script>
+import Controls from '@/components/Controls.vue';
 import Solitaire from '@/views/Solitaire.vue';
 import { version } from '../package.json';
 
@@ -15,6 +17,7 @@ import { version } from '../package.json';
 export default {
   name: 'App',
   components: {
+    Controls,
     Solitaire,
   },
   data() {
