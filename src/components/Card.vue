@@ -94,60 +94,14 @@ export default {
     dragCard(e) {
       const {
         value,
-        order,
         suit,
-        position,
-        visible,
       } = this;
 
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.dropEffect = 'move';
 
-      e.dataTransfer.setData('value', value);
-      e.dataTransfer.setData('order', order);
-      e.dataTransfer.setData('suit', suit);
-      e.dataTransfer.setData('position0', position[0]);
-      e.dataTransfer.setData('position1', position[1]);
-      e.dataTransfer.setData('visible', visible);
+      e.dataTransfer.setData('id', `${value}${suit}`);
     },
-    // dropCard(e) {
-    //   const {
-    //     value,
-    //     order,
-    //     suit,
-    //     position,
-    //     visible,
-    //   } = this;
-
-    //   const card = {
-    //     value,
-    //     order,
-    //     suit,
-    //     position,
-    //     visible,
-    //   };
-
-    //   const valueDrag = e.dataTransfer.getData('value');
-    //   const orderDrag = e.dataTransfer.getData('order');
-    //   const suitDrag = e.dataTransfer.getData('suit');
-    //   const positionDrag0 = e.dataTransfer.getData('position0');
-    //   const positionDrag1 = e.dataTransfer.getData('position1');
-    //   const visibleDrag = e.dataTransfer.getData('visible');
-
-    //   const cardDrag = {
-    //     value: valueDrag,
-    //     order: parseInt(orderDrag, 10),
-    //     suit: suitDrag,
-    //     position: [positionDrag0, positionDrag1],
-    //     visible: !!visibleDrag,
-    //   };
-
-    //   console.log('drag card', cardDrag);
-    //   console.log('drag to card', card);
-
-    //   this.$store.dispatch('moveCard', cardDrag);
-    //   this.$store.dispatch('moveCard', card);
-    // },
   },
 };
 </script>

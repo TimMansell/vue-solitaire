@@ -4,7 +4,7 @@
     @click="moveKingToColumn"
     :data-test="`column-${columnNo}`">
     <div
-      @drop="dropCard($event)"
+      @drop="dropCard($event, columnNo)"
       @dragover.prevent
       @dragenter.prevent>
       <Card
@@ -18,7 +18,7 @@
         :visible="card.visible" />
     </div>
     <div
-      @drop="dropKing($event)"
+      @drop="dropKing($event, columnNo)"
       @dragover.prevent
       @dragenter.prevent>
       <SvgIcon
@@ -54,87 +54,40 @@ export default {
     moveKingToColumn() {
       const { columnNo } = this;
 
+      console.log('c', columnNo);
+
       this.$store.dispatch('moveKingToColumn', columnNo);
     },
     dropKing(e) {
-      const {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      } = this;
+      const idDrag = e.dataTransfer.getData('id');
+      const { columnNo } = this;
 
-      const card = {
-        value,
-        order,
-        suit,
-        position,
-        visible,
+      console.log('drag king card', idDrag);
+      console.log('drag king to column', columnNo);
+
+      const dispatch = {
+        idDrag,
+        columnNo,
       };
 
-      const valueDrag = e.dataTransfer.getData('value');
-      const orderDrag = e.dataTransfer.getData('order');
-      const suitDrag = e.dataTransfer.getData('suit');
-      const positionDrag0 = e.dataTransfer.getData('position0');
-      const positionDrag1 = e.dataTransfer.getData('position1');
-      const visibleDrag = e.dataTransfer.getData('visible');
+      console.log('d', dispatch);
 
-      const cardDrag = {
-        value: valueDrag,
-        order: parseInt(orderDrag, 10),
-        suit: suitDrag,
-        position: [positionDrag0, positionDrag1],
-        visible: !!visibleDrag,
-      };
-
-      console.log('drag king card', cardDrag);
-      console.log('drag king to card', card);
-
-      this.$store.dispatch('moveCard', cardDrag);
-      // this.$store.dispatch('moveCard', card);
-
-      this.moveKingToColumn();
-    },
-    dropCard(e) {
-      const {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      } = this;
-
-      const card = {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      };
-
-      const valueDrag = e.dataTransfer.getData('value');
-      const orderDrag = e.dataTransfer.getData('order');
-      const suitDrag = e.dataTransfer.getData('suit');
-      const positionDrag0 = e.dataTransfer.getData('position0');
-      const positionDrag1 = e.dataTransfer.getData('position1');
-      const visibleDrag = e.dataTransfer.getData('visible');
-
-      const cardDrag = {
-        value: valueDrag,
-        order: parseInt(orderDrag, 10),
-        suit: suitDrag,
-        position: [positionDrag0, positionDrag1],
-        visible: !!visibleDrag,
-      };
-
-      console.log('drag card', cardDrag);
-      console.log('drag to card', card);
-
-      this.$store.dispatch('moveCard', cardDrag);
-      this.$store.dispatch('moveCard', card);
+      this.$store.dispatch('moveKingById', dispatch);
 
       // this.moveKingToColumn();
+    },
+    dropCard(e, columnNo) {
+      const idDrag = e.dataTransfer.getData('id');
+
+      // console.log('drag card', idDrag);
+      // console.log('drag to column', columnNo);
+
+      const dispatch = {
+        idDrag,
+        columnNo,
+      };
+
+      this.$store.dispatch('moveCardById', dispatch);
     },
   },
 };

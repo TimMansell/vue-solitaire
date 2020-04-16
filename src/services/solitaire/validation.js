@@ -34,6 +34,8 @@ const isMoveValidOrder = (toMove, moveTo) => {
 
 // Check card being moved to is at the bottom of the column
 const isMoveValidPosition = (moveTo, board) => {
+  console.log('m', moveTo.position);
+  // console.log('b', board.cards[moveTo.position[0]]);
   if (moveTo.position[1] !== board.cards[moveTo.position[0]].length - 1) {
     return false;
   }
