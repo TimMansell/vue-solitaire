@@ -1,8 +1,9 @@
 import Vue from 'vue';
+import defaultState from './state';
 
 const mutations = {
   restartGame(state) {
-    console.log('restart', state);
+    Object.assign(state, defaultState);
   },
   shuffleCards(state, cards) {
     state.shuffledCards = cards;
