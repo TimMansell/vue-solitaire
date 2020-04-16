@@ -2,7 +2,8 @@
   <div class="controls">
     <button
       class="controls__btn"
-      @click="restartGame">
+      @click="restartGame"
+      data-test="new-game">
       New Game
     </button>
   </div>

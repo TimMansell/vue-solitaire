@@ -146,9 +146,9 @@
     ],
     [
       {
-        "value": "A",
-        "order": 1,
-        "suit": "h",
+        "value": "7",
+        "order": 7,
+        "suit": "s",
         "visible": true,
         "position": [
           3,
@@ -206,9 +206,9 @@
         ]
       },
       {
-        "value": "7",
-        "order": 7,
-        "suit": "s",
+        "value": "A",
+        "order": 1,
+        "suit": "h",
         "visible": true,
         "position": [
           3,
