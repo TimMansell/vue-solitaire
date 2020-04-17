@@ -15,12 +15,6 @@ const mutations = {
       Vue.set(state.board.foundation, index, []);
     });
   },
-  setDeck(state, deck) {
-    state.shuffledCards = deck;
-  },
-  // selectCard(state, card) {
-  //   state.selectedCards.push(card);
-  // },
   selectCard(state, id) {
     state.selectedCardId = id;
   },
@@ -43,18 +37,11 @@ const mutations = {
     state.selectedCardId = null;
   },
   invalidMove(state) {
-    state.selectedCards = [];
-  },
-  revealHiddenCard(state, cards) {
-    cards.forEach((card, index) => {
-      Vue.set(state.board.cards, index, cards[index]);
-    });
+    state.selectedCardId = null;
   },
   moveCardToFoundation(state, { cardFromColumn, cardsToColumn }) {
     Vue.set(state.board.cards, cardFromColumn.column, cardFromColumn.cards);
-    // state.board.foundation[column].push(toMove);
     Vue.set(state.board.foundation, cardsToColumn.column, cardsToColumn.cards);
-
 
     state.selectedCardId = null;
   },

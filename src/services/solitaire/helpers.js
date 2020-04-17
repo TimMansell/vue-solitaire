@@ -20,24 +20,29 @@ const moveCardsFrom = (selectedCardId, cards) => {
   const selectedCard = getSelectedCard(cards, selectedCardId);
   const cardPosition = selectedCard.position;
 
-  console.log('selectedCard', selectedCard);
+  const columnCards = cards[cardPosition[0]].slice(0, cardPosition[1]);
 
-  const a = {
+  const remainingCards = columnCards.map((card, index) => {
+    if (index === columnCards.length - 1 && !card.visible) {
+      const newValues = {
+        ...card,
+        visible: true,
+      };
+      return newValues;
+    }
+
+    return card;
+  });
+
+  return {
     column: cardPosition[0],
-    cards: cards[cardPosition[0]].slice(0, cardPosition[1]),
+    cards: remainingCards,
   };
-
-  console.log('a', a);
-  return a;
 };
 
 const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
-  console.log('cardsFrom', cardsFrom);
-  console.log('cardsTo', cardsTo);
   const selectedCard = getSelectedCard(cardsFrom, selectedCardId);
   const cardPosition = selectedCard;
-
-  console.log('co', cardPosition);
 
   const columnCards = cardsTo[selectedColumn];
   const moveCards = cardsFrom[cardPosition.position[0]].slice(cardPosition.position[1]);
@@ -54,6 +59,7 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
 };
 
 export {
+  getSelectedCard,
   moveCardsFrom,
   moveCardsTo,
 };
