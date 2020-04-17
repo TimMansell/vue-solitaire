@@ -2,7 +2,7 @@
   <div
     class="card"
     :class="classes"
-    @click.stop="moveCard"
+    @click="selectCard($event, id)"
     :data-test="`card-${value}${suit}`"
     @dragstart="dragCard"
     draggable>
@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     classes() {
-      const { toMove } = this.$store.getters;
+      const { selectedCardId } = this.$store.getters;
 
       return {
         'card--is-visible': this.visible,
@@ -68,31 +68,21 @@ export default {
         'card--is-d': this.suit === 'd',
         'card--is-h': this.suit === 'h',
         'card--is-c': this.suit === 'c',
-        'card--is-selected': toMove && `${toMove.value}${toMove.suit}` === `${this.value}${this.suit}`,
+        'card--is-selected': selectedCardId === this.id,
         'card--is-not-clickable': !this.clickable,
       };
     },
   },
   methods: {
-    moveCard() {
-      const {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      } = this;
+    selectCard(e, id) {
+      const { selectedCardId } = this.$store.getters;
 
-      const card = {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      };
+      if (!selectedCardId) {
+        e.stopPropagation();
 
-      if (this.clickable && this.visible) {
-        this.$store.dispatch('moveCard', card);
+        if (this.clickable && this.visible) {
+          this.$store.dispatch('selectCard', id);
+        }
       }
     },
     dragCard(e) {

@@ -1,7 +1,7 @@
 <template>
   <div
     class="column"
-    @click="moveKingToColumn"
+    @click="moveCardToColumn(columnNo)"
     :data-test="`column-${columnNo}`">
     <div
       @drop="dropCard($event, columnNo)"
@@ -52,12 +52,13 @@ export default {
     },
   },
   methods: {
-    moveKingToColumn() {
-      const { columnNo } = this;
+    moveCardToColumn(columnNo) {
+      const { selectedCardId } = this.$store.getters;
 
-      console.log('c', columnNo);
-
-      this.$store.dispatch('moveKingToColumn', columnNo);
+      if (selectedCardId) {
+        this.$store.dispatch('setColumn', columnNo);
+        this.$store.dispatch('moveCardsToColumn');
+      }
     },
     dropKing(e) {
       const idDrag = parseInt(e.dataTransfer.getData('id'), 10);
