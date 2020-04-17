@@ -1,7 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Foundation from '@/components/Foundation.vue';
-// import state from '@/store/state';
 
 const localVue = createLocalVue();
 
@@ -41,6 +40,7 @@ describe('Foundation.vue', () => {
 
     const actions = {
       moveCardToFoundation: jest.fn(),
+      setFoundationColumn: jest.fn(),
     };
 
     const store = new Vuex.Store({
@@ -53,5 +53,6 @@ describe('Foundation.vue', () => {
     wrapper.find('[data-test="foundation-0"]').trigger('click');
 
     expect(actions.moveCardToFoundation).toHaveBeenCalled();
+    expect(actions.setFoundationColumn).toHaveBeenCalled();
   });
 });
