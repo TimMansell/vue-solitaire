@@ -40,7 +40,7 @@ describe('Foundation.vue', () => {
 
     const actions = {
       moveCardToFoundation: jest.fn(),
-      setFoundationColumn: jest.fn(),
+      setColumn: jest.fn(),
     };
 
     const store = new Vuex.Store({
@@ -53,6 +53,6 @@ describe('Foundation.vue', () => {
     wrapper.find('[data-test="foundation-0"]').trigger('click');
 
     expect(actions.moveCardToFoundation).toHaveBeenCalled();
-    expect(actions.setFoundationColumn).toHaveBeenCalled();
+    expect(actions.setColumn).toHaveBeenCalled();
   });
 });

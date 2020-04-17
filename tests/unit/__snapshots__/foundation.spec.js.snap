@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Foundation.vue matches snapshot 1`] = `
-<div data-test="ace" class="foundation">
+<div class="foundation">
   <div data-test="foundation-0" class="foundation__column">
     <card-stub id="0" value="A" suit="c" order="0" position=""></card-stub>
     <card-stub id="0" value="A" suit="c" order="0" position=""></card-stub>
