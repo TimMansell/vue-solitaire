@@ -43,11 +43,6 @@ export default {
     },
   },
   methods: {
-    // moveKingToColumn() {
-    //   const { columnNo } = this;
-
-    //   this.$store.dispatch('moveKingToColumn', columnNo);
-    // },
     moveCardToColumn(columnNo) {
       const { selectedCardId } = this.$store.getters;
 
