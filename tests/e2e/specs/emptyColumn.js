@@ -34,7 +34,7 @@ describe('Special column moves', () => {
     });
   });
 
-  it('should move Kc to 5s to an empty column', () => {
+  it('should move Kh to 5s to an empty column', () => {
     cy.setBoard(emptyColumn).then(() => {
       cy.get('[data-test="column-1"]').within(() => {
         cy.get('[data-test="card-Kh"]').should('be.visible');

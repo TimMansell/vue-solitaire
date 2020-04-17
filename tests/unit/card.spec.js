@@ -12,7 +12,7 @@ describe('Card.vue', () => {
   let store;
 
   const actions = {
-    moveCard: jest.fn(),
+    selectCard: jest.fn(),
   };
 
   beforeEach(() => {
@@ -128,16 +128,7 @@ describe('Card.vue', () => {
 
   it('should render a selected card', () => {
     const newGetters = {
-      toMove: () => ({
-        value: 'K',
-        order: 13,
-        suit: 'c',
-        visible: true,
-        position: [
-          7,
-          11,
-        ],
-      }),
+      selectedCardId: () => 0,
     };
 
     const storeSelected = new Vuex.Store({
@@ -158,7 +149,7 @@ describe('Card.vue', () => {
     expect(wrapper.classes()).toContain('card--is-selected');
   });
 
-  it('should not call store action "moveCard" when clicked', () => {
+  it('should not call store action "selectCard" when clicked', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
@@ -170,18 +161,18 @@ describe('Card.vue', () => {
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
     expect(wrapper.classes()).toContain('card--is-not-clickable');
-    expect(actions.moveCard).not.toHaveBeenCalled();
+    expect(actions.selectCard).not.toHaveBeenCalled();
   });
 
-  it('should not call store action "moveCard" when clicked when not visible', () => {
+  it('should not call store action "selectCard" when clicked when not visible', () => {
     const wrapper = shallowMount(Card, { store, localVue });
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
-    expect(actions.moveCard).not.toHaveBeenCalled();
+    expect(actions.selectCard).not.toHaveBeenCalled();
   });
 
-  it('should call store action "moveCard" when clicked when visible', () => {
+  it('should call store action "selectCard" when clicked when visible', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
@@ -192,6 +183,6 @@ describe('Card.vue', () => {
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
-    expect(actions.moveCard).toHaveBeenCalled();
+    expect(actions.selectCard).toHaveBeenCalled();
   });
 });
