@@ -25,6 +25,10 @@ export default {
     SvgIcon,
   },
   props: {
+    id: {
+      type: [String, Number],
+      default: 0,
+    },
     value: {
       type: String,
       default: 'A',
@@ -93,14 +97,15 @@ export default {
     },
     dragCard(e) {
       const {
-        value,
-        suit,
+        id,
       } = this;
 
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.dropEffect = 'move';
+      console.log('iiid', id);
 
-      e.dataTransfer.setData('id', `${value}${suit}`);
+      // e.dataTransfer.effectAllowed = 'move';
+      // e.dataTransfer.dropEffect = 'move';
+
+      e.dataTransfer.setData('id', id);
     },
   },
 };

@@ -10,6 +10,7 @@
       <Card
         v-for="(card, index) in cards"
         :key="index"
+        :id="card.id"
         :value="card.value"
         :suit="card.suit"
         :order="card.order"
@@ -59,7 +60,7 @@ export default {
       this.$store.dispatch('moveKingToColumn', columnNo);
     },
     dropKing(e) {
-      const idDrag = e.dataTransfer.getData('id');
+      const idDrag = parseInt(e.dataTransfer.getData('id'), 10);
       const { columnNo } = this;
 
       console.log('drag king card', idDrag);
@@ -77,7 +78,7 @@ export default {
       // this.moveKingToColumn();
     },
     dropCard(e, columnNo) {
-      const idDrag = e.dataTransfer.getData('id');
+      const idDrag = parseInt(e.dataTransfer.getData('id'), 10);
 
       // console.log('drag card', idDrag);
       // console.log('drag to column', columnNo);
@@ -86,6 +87,8 @@ export default {
         idDrag,
         columnNo,
       };
+
+      console.log('d', dispatch);
 
       this.$store.dispatch('moveCardById', dispatch);
     },

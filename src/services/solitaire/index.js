@@ -13,9 +13,9 @@ import {
 import { moveCardsFrom, removeCardsFrom, moveCardsTo } from './helpers';
 
 const shuffleCards = ({ values, suits }) => {
-  const deck = values.flatMap((value, index) => suits.map((suit) => {
+  const deck = values.flatMap((value, index) => suits.map((suit, index2) => {
     const card = {
-      id: `${value}${suit}`,
+      id: index + 1 * index2 + 1,
       value,
       order: index + 1,
       suit,
