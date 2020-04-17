@@ -42,8 +42,9 @@ export default {
     };
   },
   methods: {
-    moveCardToFoundation(placeholderIndex) {
-      this.$store.dispatch('moveCardToFoundation', placeholderIndex);
+    moveCardToFoundation(columnIndex) {
+      this.$store.dispatch('setFoundationColumn', columnIndex);
+      this.$store.dispatch('moveCardToFoundation');
     },
   },
 };

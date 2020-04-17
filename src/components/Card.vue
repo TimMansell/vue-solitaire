@@ -2,7 +2,7 @@
   <div
     class="card"
     :class="classes"
-    @click.stop="moveCard"
+    @click="selectCard($event, id)"
     :data-test="`card-${value}${suit}`">
     <SvgIcon
       v-if="visible"
@@ -23,6 +23,10 @@ export default {
     SvgIcon,
   },
   props: {
+    id: {
+      type: String,
+      default: '',
+    },
     value: {
       type: String,
       default: 'A',
@@ -68,27 +72,38 @@ export default {
     },
   },
   methods: {
-    moveCard() {
-      const {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      } = this;
+    selectCard(e, id) {
+      const { selectedCardId } = this.$store.getters;
 
-      const card = {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      };
+      if (!selectedCardId) {
+        e.stopPropagation();
 
-      if (this.clickable && this.visible) {
-        this.$store.dispatch('moveCard', card);
+        if (this.clickable && this.visible) {
+          this.$store.dispatch('selectCard', id);
+        }
       }
     },
+    // moveCard() {
+    //   const {
+    //     value,
+    //     order,
+    //     suit,
+    //     position,
+    //     visible,
+    //   } = this;
+
+    //   const card = {
+    //     value,
+    //     order,
+    //     suit,
+    //     position,
+    //     visible,
+    //   };
+
+    //   if (this.clickable && this.visible) {
+    //     this.$store.dispatch('moveCard', card);
+    //   }
+    // },
   },
 };
 </script>
