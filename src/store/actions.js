@@ -1,82 +1,75 @@
 import {
   shuffleCards,
+  getFoundations,
   setBoard,
-  isBothCardsSelected,
   checkValidCardMove,
   moveCards,
-  revealHiddenCard,
-  moveCardToFoundation,
   checkValidFoundationMove,
-  moveKingToColumn,
-  checkValidKingMove,
-
 } from '@/services/solitaire';
 
 const actions = {
-  initGame({ commit, state }) {
-    const { cards } = state;
-
-    const shuffledCards = shuffleCards(cards);
-    commit('shuffleCards', shuffledCards);
-
-    const board = setBoard(state);
+  initGame({ commit }) {
+    const shuffledCards = shuffleCards();
+    const board = setBoard(shuffledCards);
     commit('setBoard', board);
+
+    const foundationColumns = getFoundations();
+    commit('setFoundations', foundationColumns);
   },
   restartGame({ commit }) {
     commit('restartGame');
   },
-  moveCard({ commit, state }, card) {
-    commit('selectCard', card);
+  selectCard({ commit, state }, id) {
+    const { selectedCard } = state;
 
-    const areBothCardsSelected = isBothCardsSelected(state);
-    if (areBothCardsSelected) {
-      const isValidMove = checkValidCardMove(state);
-
-      if (isValidMove) {
-        const cardsToMove = moveCards(state);
-        commit('moveCards', cardsToMove);
-
-        const hiddenCard = revealHiddenCard(state);
-        commit('revealHiddenCard', hiddenCard);
-      } else {
-        commit('invalidMove');
-      }
+    if (selectedCard === id) {
+      commit('unSelectCard');
+    } else {
+      commit('selectCard', id);
     }
   },
-  moveCardToFoundation({ commit, state }, column) {
-    const isValidMove = checkValidFoundationMove(state, column);
+  setColumn({ commit }, columnNo) {
+    commit('setColumn', columnNo);
+  },
+  moveCardsToColumn({ commit, state }) {
+    const { selectedCardId, selectedColumn, board } = state;
+    const cardsToMove = moveCards(selectedCardId, selectedColumn, board.cards, board.cards);
+
+    const isValidMove = checkValidCardMove(selectedCardId, selectedColumn, board.cards);
 
     if (isValidMove) {
-      const cardToMove = moveCardToFoundation(state, column);
-      commit('moveCardToFoundation', cardToMove);
-
-      const hiddenCard = revealHiddenCard(state);
-      commit('revealHiddenCard', hiddenCard);
+      commit('moveCardsToColumn', cardsToMove);
     } else {
       commit('invalidMove');
     }
   },
-  moveKingToColumn({ commit, state }, column) {
-    const isValidMove = checkValidKingMove(state, column);
+  setFoundationColumn({ commit }, columnNo) {
+    commit('setColumn', columnNo);
+  },
+  moveCardToFoundation({ commit, state }) {
+    const { selectedCardId, selectedColumn, board } = state;
+    const cardsToMove = moveCards(selectedCardId, selectedColumn, board.cards, board.foundation);
+
+    const isValidMove = checkValidFoundationMove(selectedCardId, selectedColumn, board);
 
     if (isValidMove) {
-      const cardsToMove = moveKingToColumn(state, column);
-      commit('moveKingToColumn', cardsToMove);
-
-      const hiddenCard = revealHiddenCard(state);
-      commit('revealHiddenCard', hiddenCard);
+      commit('moveCardToFoundation', cardsToMove);
     } else {
       commit('invalidMove');
     }
   },
-  dealTestCards({ commit, state }, deck) {
-    commit('setDeck', deck);
-
-    const board = setBoard(state);
+  dealTestCards({ commit }, deck) {
+    const board = setBoard(deck);
     commit('setBoard', board);
+
+    const foundationColumns = getFoundations();
+    commit('setFoundations', foundationColumns);
   },
   setTestBoard({ commit }, deck) {
     commit('setBoard', deck);
+
+    const foundationColumns = getFoundations();
+    commit('setFoundations', foundationColumns);
   },
 };
 

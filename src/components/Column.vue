@@ -1,11 +1,12 @@
 <template>
   <div
     class="column"
-    @click="moveKingToColumn"
+    @click="moveCardToColumn(columnNo)"
     :data-test="`column-${columnNo}`">
     <Card
       v-for="(card, index) in cards"
       :key="index"
+      :id="card.id"
       :value="card.value"
       :suit="card.suit"
       :order="card.order"
@@ -42,10 +43,18 @@ export default {
     },
   },
   methods: {
-    moveKingToColumn() {
-      const { columnNo } = this;
+    // moveKingToColumn() {
+    //   const { columnNo } = this;
 
-      this.$store.dispatch('moveKingToColumn', columnNo);
+    //   this.$store.dispatch('moveKingToColumn', columnNo);
+    // },
+    moveCardToColumn(columnNo) {
+      const { selectedCardId } = this.$store.getters;
+
+      if (selectedCardId) {
+        this.$store.dispatch('setColumn', columnNo);
+        this.$store.dispatch('moveCardsToColumn');
+      }
     },
   },
 };
