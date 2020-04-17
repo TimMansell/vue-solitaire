@@ -86,19 +86,20 @@ const checkValidCardMove = (selectedCardId, selectedColumn, board) => {
   const selectedCard = getSelectedCard(board, selectedCardId);
   const [lastColumnCard] = board[selectedColumn].slice(-1);
 
-  if (selectedCard.order !== 13) {
-    const isValidCard = isMoveValidCard(selectedCard, lastColumnCard);
-    const isValidSuit = isMoveValidSuit(selectedCard, lastColumnCard);
-    const isValidOrder = isMoveValidOrder(selectedCard, lastColumnCard);
-    const isValidColumn = isMoveValidColumn(selectedCard, lastColumnCard);
-    // const isValidKing = isValidKingMove(selectedCard, lastColumnCard);
+  // Relaxed validation for K to empty column
+  if (selectedCard.order === 13) {
+    const isValidKing = isValidKingMove(selectedCard, lastColumnCard);
 
-    return isValidCard && isValidSuit && isValidOrder && isValidColumn;
+    return isValidKing;
   }
 
-  const isValidKing = isValidKingMove(selectedCard, lastColumnCard);
+  // General validation.
+  const isValidCard = isMoveValidCard(selectedCard, lastColumnCard);
+  const isValidSuit = isMoveValidSuit(selectedCard, lastColumnCard);
+  const isValidOrder = isMoveValidOrder(selectedCard, lastColumnCard);
+  const isValidColumn = isMoveValidColumn(selectedCard, lastColumnCard);
 
-  return isValidKing;
+  return isValidCard && isValidSuit && isValidOrder && isValidColumn;
 };
 
 const moveCards = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
@@ -110,7 +111,6 @@ const moveCards = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
     cardsToColumn,
   };
 };
-
 
 const checkValidFoundationMove = (selectedCardId, selectedColumn, board) => {
   const selectedCard = getSelectedCard(board.cards, selectedCardId);

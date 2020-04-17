@@ -2,59 +2,36 @@ import Vue from 'vue';
 import defaultState from './state';
 
 const mutations = {
-  restartGame(state) {
+  RESTART_GAME(state) {
     Object.assign(state, defaultState);
   },
-  setBoard(state, deck) {
+  SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
       Vue.set(state.board.cards, index, deck[index]);
     });
   },
-  setFoundations(state, foundationColumns) {
+  SET_FOUNDATIONS(state, foundationColumns) {
     foundationColumns.forEach((foundation, index) => {
       Vue.set(state.board.foundation, index, []);
     });
   },
-  selectCard(state, id) {
+  SELECT_CARD(state, id) {
     state.selectedCardId = id;
   },
-  unSelectCard(state) {
+  UNSELECT_CARD(state) {
     state.selectedCardId = null;
   },
-  setColumn(state, columnNo) {
+  SET_COLUMN(state, columnNo) {
     state.selectedColumn = columnNo;
   },
-  moveCards(state, { colsToMove, removeCardsFromColumn, moveCardsToColumn }) {
-    Vue.set(state.board.cards, colsToMove.from, removeCardsFromColumn);
-    Vue.set(state.board.cards, colsToMove.to, moveCardsToColumn);
-
-    state.selectedCards = [];
-  },
-  moveCardsToColumn(state, { cardFromColumn, cardsToColumn }) {
-    Vue.set(state.board.cards, cardFromColumn.column, cardFromColumn.cards);
+  MOVE_CARDS_TO_COLUMN(state, { cardsToColumn }) {
     Vue.set(state.board.cards, cardsToColumn.column, cardsToColumn.cards);
-
-    state.selectedCardId = null;
   },
-  invalidMove(state) {
-    state.selectedCardId = null;
-  },
-  moveCardToFoundation(state, { cardFromColumn, cardsToColumn }) {
-    Vue.set(state.board.cards, cardFromColumn.column, cardFromColumn.cards);
+  MOVE_CARD_TO_FOUNDATION(state, { cardsToColumn }) {
     Vue.set(state.board.foundation, cardsToColumn.column, cardsToColumn.cards);
-
-    state.selectedCardId = null;
   },
-  moveKingToColumn(state, {
-    toMove,
-    column,
-    moveCardsToColumn,
-    removeCardsFromColumn,
-  }) {
-    Vue.set(state.board.cards, column, moveCardsToColumn);
-    Vue.set(state.board.cards, toMove.position[0], removeCardsFromColumn);
-
-    state.selectedCards = [];
+  REMOVE_CARDS_FROM_COLUMN(state, { cardFromColumn }) {
+    Vue.set(state.board.cards, cardFromColumn.column, cardFromColumn.cards);
   },
 };
 

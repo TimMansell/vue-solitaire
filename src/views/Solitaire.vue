@@ -6,7 +6,6 @@
 
 <script>
 import Board from '@/components/Board.vue';
-// import emptyColumn from '../../tests/fixtures/boards/emptyColumn.json';
 
 export default {
   name: 'Home',
@@ -15,7 +14,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch('initGame');
-    // this.$store.dispatch('setTestBoard', emptyColumn);
   },
 };
 </script>

@@ -8,28 +8,35 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
-  initGame({ commit }) {
+  initGame({ dispatch }) {
+    dispatch('setBoard');
+    dispatch('setFoundations');
+  },
+  setFoundations({ commit }) {
+    const foundationColumns = getFoundations();
+
+    commit('SET_FOUNDATIONS', foundationColumns);
+  },
+  setBoard({ commit }) {
     const shuffledCards = shuffleCards();
     const board = setBoard(shuffledCards);
-    commit('setBoard', board);
 
-    const foundationColumns = getFoundations();
-    commit('setFoundations', foundationColumns);
+    commit('SET_BOARD', board);
   },
   restartGame({ commit }) {
-    commit('restartGame');
+    commit('RESTART_GAME');
   },
   selectCard({ commit, state }, id) {
     const { selectedCard } = state;
 
     if (selectedCard === id) {
-      commit('unSelectCard');
+      commit('UNSELECT_CARD');
     } else {
-      commit('selectCard', id);
+      commit('SELECT_CARD', id);
     }
   },
   setColumn({ commit }, columnNo) {
-    commit('setColumn', columnNo);
+    commit('SET_COLUMN', columnNo);
   },
   moveCardsToColumn({ commit, state }) {
     const { selectedCardId, selectedColumn, board } = state;
@@ -38,13 +45,11 @@ const actions = {
     const isValidMove = checkValidCardMove(selectedCardId, selectedColumn, board.cards);
 
     if (isValidMove) {
-      commit('moveCardsToColumn', cardsToMove);
-    } else {
-      commit('invalidMove');
+      commit('MOVE_CARDS_TO_COLUMN', cardsToMove);
+      commit('REMOVE_CARDS_FROM_COLUMN', cardsToMove);
     }
-  },
-  setFoundationColumn({ commit }, columnNo) {
-    commit('setColumn', columnNo);
+
+    commit('UNSELECT_CARD');
   },
   moveCardToFoundation({ commit, state }) {
     const { selectedCardId, selectedColumn, board } = state;
@@ -53,23 +58,22 @@ const actions = {
     const isValidMove = checkValidFoundationMove(selectedCardId, selectedColumn, board);
 
     if (isValidMove) {
-      commit('moveCardToFoundation', cardsToMove);
-    } else {
-      commit('invalidMove');
+      commit('MOVE_CARD_TO_FOUNDATION', cardsToMove);
+      commit('REMOVE_CARDS_FROM_COLUMN', cardsToMove);
     }
+
+    commit('UNSELECT_CARD');
   },
-  dealTestCards({ commit }, deck) {
+  dealTestCards({ commit, dispatch }, deck) {
     const board = setBoard(deck);
-    commit('setBoard', board);
+    commit('SET_BOARD', board);
 
-    const foundationColumns = getFoundations();
-    commit('setFoundations', foundationColumns);
+    dispatch('setFoundations');
   },
-  setTestBoard({ commit }, deck) {
-    commit('setBoard', deck);
+  setTestBoard({ commit, dispatch }, deck) {
+    commit('SET_BOARD', deck);
 
-    const foundationColumns = getFoundations();
-    commit('setFoundations', foundationColumns);
+    dispatch('setFoundations');
   },
 };
 
