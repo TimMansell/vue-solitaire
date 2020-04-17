@@ -2,7 +2,6 @@ import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Column from '@/components/Column.vue';
 import state from '@/store/state';
-import getters from '@/store/getters';
 
 const localVue = createLocalVue();
 
@@ -11,8 +10,13 @@ localVue.use(Vuex);
 describe('Column.vue', () => {
   let store;
 
+  const getters = {
+    selectedCardId: () => 1,
+  };
+
   const actions = {
-    moveKingToColumn: jest.fn(),
+    setColumn: jest.fn(),
+    moveCardsToColumn: jest.fn(),
   };
 
   beforeEach(() => {
@@ -51,11 +55,12 @@ describe('Column.vue', () => {
     expect(wrapper.props().columnNo).toBe(1);
   });
 
-  it('should call store action "moveKingToColumn" when clicked', () => {
+  it('should call store action "moveCardsToColumn" when clicked', () => {
     const wrapper = shallowMount(Column, { store, localVue });
 
     wrapper.find('[data-test="column-0"]').trigger('click');
 
-    expect(actions.moveKingToColumn).toHaveBeenCalled();
+    expect(actions.setColumn).toHaveBeenCalled();
+    expect(actions.moveCardsToColumn).toHaveBeenCalled();
   });
 });

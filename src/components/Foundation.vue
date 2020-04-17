@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="foundation"
-    data-test="ace">
+  <div class="foundation">
     <div
       class="foundation__column"
       v-for="(foundation, foundationsIndex) in foundationCards"
@@ -42,8 +40,9 @@ export default {
     };
   },
   methods: {
-    moveCardToFoundation(placeholderIndex) {
-      this.$store.dispatch('moveCardToFoundation', placeholderIndex);
+    moveCardToFoundation(columnIndex) {
+      this.$store.dispatch('setColumn', columnIndex);
+      this.$store.dispatch('moveCardToFoundation');
     },
   },
 };
