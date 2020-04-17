@@ -3,7 +3,9 @@
     class="card"
     :class="classes"
     @click.stop="moveCard"
-    :data-test="`card-${value}${suit}`">
+    :data-test="`card-${value}${suit}`"
+    @dragstart="dragCard"
+    draggable>
     <SvgIcon
       v-if="visible"
       :name="`${this.value}${this.suit.toUpperCase()}`" />
@@ -23,6 +25,10 @@ export default {
     SvgIcon,
   },
   props: {
+    id: {
+      type: [String, Number],
+      default: 0,
+    },
     value: {
       type: String,
       default: 'A',
@@ -88,6 +94,18 @@ export default {
       if (this.clickable && this.visible) {
         this.$store.dispatch('moveCard', card);
       }
+    },
+    dragCard(e) {
+      const {
+        id,
+      } = this;
+
+      console.log('iiid', id);
+
+      // e.dataTransfer.effectAllowed = 'move';
+      // e.dataTransfer.dropEffect = 'move';
+
+      e.dataTransfer.setData('id', id);
     },
   },
 };

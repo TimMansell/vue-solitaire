@@ -13,8 +13,9 @@ import {
 import { moveCardsFrom, removeCardsFrom, moveCardsTo } from './helpers';
 
 const shuffleCards = ({ values, suits }) => {
-  const deck = values.flatMap((value, index) => suits.map((suit) => {
+  const deck = values.flatMap((value, index) => suits.map((suit, index2) => {
     const card = {
+      id: index + 1 * index2 + 1,
       value,
       order: index + 1,
       suit,
@@ -72,6 +73,9 @@ const setBoard = ({ rules, shuffledCards }) => {
 
 const checkValidCardMove = ({ board, selectedCards }) => {
   const [toMove, moveTo] = selectedCards;
+
+  console.log('m2', moveTo);
+  console.log('t2', toMove);
 
   const isValidVisible = isMoveValidVisible(toMove, moveTo);
   const isValidCard = isMoveValidCard(toMove, moveTo);

@@ -25,10 +25,21 @@ const actions = {
   restartGame({ commit }) {
     commit('restartGame');
   },
+  moveCardById({ state, dispatch }, { idDrag, columnNo }) {
+    console.log('id', idDrag);
+    const [chosenCard] = state.board.cards.flat().filter((card) => card.id === idDrag);
+    const [moveToColumn] = state.board.cards[columnNo].slice(-1);
+
+    console.log('chosenCard', chosenCard);
+
+    dispatch('moveCard', chosenCard);
+    dispatch('moveCard', moveToColumn);
+  },
   moveCard({ commit, state }, card) {
     commit('selectCard', card);
 
     const areBothCardsSelected = isBothCardsSelected(state);
+    console.log('abs', areBothCardsSelected);
     if (areBothCardsSelected) {
       const isValidMove = checkValidCardMove(state);
 
@@ -55,6 +66,20 @@ const actions = {
     } else {
       commit('invalidMove');
     }
+  },
+  moveKingById({ state, dispatch }, { idDrag, columnNo }) {
+    console.log('id', idDrag);
+    // eslint-disable-next-line arrow-body-style
+    const [chosenCard] = state.board.cards.flat().filter((card) => {
+      // console.log('ccc', card.id, card.id === idDrag);
+      return card.id === idDrag;
+    });
+    // const [moveToColumn] = state.board.cards[columnNo].slice(-1);
+
+    console.log('chosenCard', chosenCard);
+
+    dispatch('moveCard', chosenCard);
+    dispatch('moveKingToColumn', columnNo);
   },
   moveKingToColumn({ commit, state }, column) {
     const isValidMove = checkValidKingMove(state, column);

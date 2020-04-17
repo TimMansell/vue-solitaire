@@ -3,21 +3,31 @@
     class="column"
     @click="moveKingToColumn"
     :data-test="`column-${columnNo}`">
-    <Card
-      v-for="(card, index) in cards"
-      :key="index"
-      :value="card.value"
-      :suit="card.suit"
-      :order="card.order"
-      :position="card.position"
-      :revealed="card.revealed"
-      :visible="card.visible" />
-
-    <SvgIcon
-      class="card-placeholder"
-      data-test="card-placeholder"
-      v-if="!cards.length"
-      name="Card_back_15" />
+    <div
+      @drop="dropCard($event, columnNo)"
+      @dragover.prevent
+      @dragenter.prevent>
+      <Card
+        v-for="(card, index) in cards"
+        :key="index"
+        :id="card.id"
+        :value="card.value"
+        :suit="card.suit"
+        :order="card.order"
+        :position="card.position"
+        :revealed="card.revealed"
+        :visible="card.visible" />
+    </div>
+    <div
+      @drop="dropKing($event, columnNo)"
+      @dragover.prevent
+      @dragenter.prevent>
+      <SvgIcon
+        class="card-placeholder"
+        data-test="card-placeholder"
+        v-if="!cards.length"
+        name="Card_back_15" />
+    </div>
   </div>
 </template>
 
@@ -45,7 +55,42 @@ export default {
     moveKingToColumn() {
       const { columnNo } = this;
 
+      console.log('c', columnNo);
+
       this.$store.dispatch('moveKingToColumn', columnNo);
+    },
+    dropKing(e) {
+      const idDrag = parseInt(e.dataTransfer.getData('id'), 10);
+      const { columnNo } = this;
+
+      console.log('drag king card', idDrag);
+      console.log('drag king to column', columnNo);
+
+      const dispatch = {
+        idDrag,
+        columnNo,
+      };
+
+      console.log('d', dispatch);
+
+      this.$store.dispatch('moveKingById', dispatch);
+
+      // this.moveKingToColumn();
+    },
+    dropCard(e, columnNo) {
+      const idDrag = parseInt(e.dataTransfer.getData('id'), 10);
+
+      // console.log('drag card', idDrag);
+      // console.log('drag to column', columnNo);
+
+      const dispatch = {
+        idDrag,
+        columnNo,
+      };
+
+      console.log('d', dispatch);
+
+      this.$store.dispatch('moveCardById', dispatch);
     },
   },
 };
