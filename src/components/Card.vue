@@ -10,10 +10,12 @@
     :data-test="`card-${value}${suit}`">
     <SvgIcon
       v-if="visible"
+      data-test="card-visible"
       :name="`${this.value}${this.suit.toUpperCase()}`" />
 
     <SvgIcon
       v-if="!visible"
+      data-test="card-hidden"
       name="Card_back_17" />
   </div>
 </template>
