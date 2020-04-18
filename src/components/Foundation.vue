@@ -6,7 +6,7 @@
       :key="`f-${foundationsIndex}`"
       @click="moveCardToFoundation(foundationsIndex)"
       :data-test="`foundation-${foundationsIndex}`"
-      @drop="dropCard($event)"
+      @drop="dropCard($event, foundationsIndex)"
       @dragover.prevent
       @dragenter.prevent>
       <Card
@@ -47,45 +47,12 @@ export default {
       this.$store.dispatch('setColumn', columnIndex);
       this.$store.dispatch('moveCardToFoundation');
     },
-    dropCard(e) {
-      const {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      } = this;
+    dropCard(e, columnIndex) {
+      const id = parseInt(e.dataTransfer.getData('id'), 10);
 
-      const card = {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      };
-
-      const valueDrag = e.dataTransfer.getData('value');
-      const orderDrag = e.dataTransfer.getData('order');
-      const suitDrag = e.dataTransfer.getData('suit');
-      const positionDrag0 = e.dataTransfer.getData('position0');
-      const positionDrag1 = e.dataTransfer.getData('position1');
-      const visibleDrag = e.dataTransfer.getData('visible');
-
-      const cardDrag = {
-        value: valueDrag,
-        order: parseInt(orderDrag, 10),
-        suit: suitDrag,
-        position: [positionDrag0, positionDrag1],
-        visible: !!visibleDrag,
-      };
-
-      console.log('drag card', cardDrag);
-      console.log('drag to card', card);
-
-      this.$store.dispatch('moveCard', cardDrag);
-      // this.$store.dispatch('moveCard', card);
-
-      this.moveCardToFoundation(0);
+      this.$store.dispatch('selectCard', id);
+      this.$store.dispatch('setColumn', columnIndex);
+      this.$store.dispatch('moveCardToFoundation');
     },
   },
 };

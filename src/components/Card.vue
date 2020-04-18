@@ -4,7 +4,7 @@
     :class="classes"
     @click="selectCard($event, id)"
     :data-test="`card-${value}${suit}`"
-    @dragstart="dragCard"
+    @dragstart="dragCard($event, id)"
     draggable>
     <SvgIcon
       v-if="visible"
@@ -85,16 +85,7 @@ export default {
         }
       }
     },
-    dragCard(e) {
-      const {
-        id,
-      } = this;
-
-      console.log('iiid', id);
-
-      // e.dataTransfer.effectAllowed = 'move';
-      // e.dataTransfer.dropEffect = 'move';
-
+    dragCard(e, id) {
       e.dataTransfer.setData('id', id);
     },
   },
