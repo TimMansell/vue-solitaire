@@ -3,13 +3,19 @@
     class="card"
     :class="classes"
     @click="selectCard($event, id)"
+    @dragstart="dragCard($event, id)"
+    @dragend="clearCard()"
+    :draggable="visible"
+    ref="card"
     :data-test="`card-${value}${suit}`">
     <SvgIcon
       v-if="visible"
+      data-test="card-visible"
       :name="`${this.value}${this.suit.toUpperCase()}`" />
 
     <SvgIcon
       v-if="!visible"
+      data-test="card-hidden"
       name="Card_back_17" />
   </div>
 </template>
@@ -56,18 +62,30 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      isCardDragged: false,
+    };
+  },
   computed: {
     classes() {
       const { selectedCardId } = this.$store.getters;
+      const {
+        id,
+        suit,
+        isCardDragged,
+        clickable,
+        visible,
+      } = this;
 
       return {
-        'card--is-visible': this.visible,
-        'card--is-s': this.suit === 's',
-        'card--is-d': this.suit === 'd',
-        'card--is-h': this.suit === 'h',
-        'card--is-c': this.suit === 'c',
-        'card--is-selected': selectedCardId === this.id,
-        'card--is-not-clickable': !this.clickable,
+        'card--is-s': suit === 's',
+        'card--is-d': suit === 'd',
+        'card--is-h': suit === 'h',
+        'card--is-c': suit === 'c',
+        'card--is-selected': selectedCardId === id && !isCardDragged,
+        'card--is-not-clickable': !clickable,
+        'card--is-draggable': visible,
       };
     },
   },
@@ -82,6 +100,42 @@ export default {
           this.$store.dispatch('selectCard', id);
         }
       }
+    },
+    dragCard(e, id) {
+      const clonedElement = this.cloneCards();
+      const clonedElementOffset = this.$refs.card.clientWidth / 2;
+
+      e.dataTransfer.setDragImage(clonedElement, clonedElementOffset, 20);
+      e.dataTransfer.dropEffect = 'move';
+
+      this.isCardDragged = !this.isCardDragged;
+
+      this.$store.dispatch('selectCard', id);
+    },
+    cloneCards() {
+      const clonedElement = document.createElement('div');
+      clonedElement.classList.add('js-cloned-card');
+      clonedElement.style.marginLeft = '-2000px';
+      clonedElement.style.marginTop = '-2000px';
+
+      // Find cards below selected card.
+      const siblingCards = [...this.$refs.card.parentElement.childNodes];
+      const selectedCard = siblingCards.findIndex((card) => card === this.$refs.card);
+      const clonedCards = siblingCards.slice(selectedCard);
+
+      clonedCards.forEach((card) => {
+        const crt = card.cloneNode(true);
+        clonedElement.appendChild(crt);
+      });
+
+      document.body.appendChild(clonedElement);
+
+      return clonedElement;
+    },
+    clearCard() {
+      document.querySelector('.js-cloned-card').remove();
+
+      this.isCardDragged = !this.isCardDragged;
     },
   },
 };
@@ -142,6 +196,10 @@ export default {
 
   &--is-not-clickable {
     pointer-events:none;
+  }
+
+  &--is-draggable {
+    cursor: grab;
   }
 }
 </style>

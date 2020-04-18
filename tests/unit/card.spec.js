@@ -23,7 +23,19 @@ describe('Card.vue', () => {
     });
   });
 
-  it('matches snapshot', () => {
+  it('matches visible snapshot', () => {
+    const wrapper = shallowMount(Card, {
+      store,
+      localVue,
+      propsData: {
+        visible: true,
+      },
+    });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('matches hidden snapshot', () => {
     const wrapper = shallowMount(Card, { store, localVue });
 
     expect(wrapper).toMatchSnapshot();
@@ -34,18 +46,24 @@ describe('Card.vue', () => {
       store,
       localVue,
       propsData: {
+        id: 2,
         value: 'K',
         suit: 'd',
         order: 1,
+        position: [5, 6],
         visible: true,
+        revealed: true,
         clickable: false,
       },
     });
 
+    expect(wrapper.props().id).toBe(2);
     expect(wrapper.props().value).toBe('K');
     expect(wrapper.props().suit).toBe('d');
     expect(wrapper.props().order).toBe(1);
+    expect(wrapper.props().position).toStrictEqual([5, 6]);
     expect(wrapper.props().visible).toBe(true);
+    expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
   });
 
@@ -101,19 +119,6 @@ describe('Card.vue', () => {
     expect(wrapper.classes()).toContain('card--is-s');
   });
 
-  it('should render a hidden card', () => {
-    const wrapper = shallowMount(Card, {
-      store,
-      localVue,
-      propsData: {
-        value: '6',
-        suit: 's',
-      },
-    });
-
-    expect(wrapper.classes('card--is-visible')).toBe(false);
-  });
-
   it('should render a visible card', () => {
     const wrapper = shallowMount(Card, {
       store,
@@ -123,7 +128,13 @@ describe('Card.vue', () => {
       },
     });
 
-    expect(wrapper.classes()).toContain('card--is-visible');
+    expect(wrapper.find('[data-test="card-visible"]').exists()).toBe(true);
+  });
+
+  it('should render a hidden card', () => {
+    const wrapper = shallowMount(Card, { store, localVue });
+
+    expect(wrapper.find('[data-test="card-hidden"]').exists()).toBe(true);
   });
 
   it('should render a selected card', () => {
