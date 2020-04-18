@@ -6,7 +6,7 @@
       :key="`f-${foundationsIndex}`"
       @click="moveCardToFoundation(foundationsIndex)"
       :data-test="`foundation-${foundationsIndex}`"
-      @drop="dropCard($event, foundationsIndex)"
+      @drop="dropCard(foundationsIndex)"
       @dragover.prevent
       @dragenter.prevent>
       <Card
@@ -47,10 +47,7 @@ export default {
       this.$store.dispatch('setColumn', columnIndex);
       this.$store.dispatch('moveCardToFoundation');
     },
-    dropCard(e, columnIndex) {
-      const id = parseInt(e.dataTransfer.getData('id'), 10);
-
-      this.$store.dispatch('selectCard', id);
+    dropCard(columnIndex) {
       this.$store.dispatch('setColumn', columnIndex);
       this.$store.dispatch('moveCardToFoundation');
     },

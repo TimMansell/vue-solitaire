@@ -2,7 +2,7 @@
   <div
     class="column"
     @click="moveCardToColumn(columnNo)"
-    @drop="dropCard($event, columnNo)"
+    @drop="dropCard(columnNo)"
     @dragover.prevent
     @dragenter.prevent
     :data-test="`column-${columnNo}`">
@@ -54,10 +54,7 @@ export default {
         this.$store.dispatch('moveCardsToColumn');
       }
     },
-    dropCard(e, columnNo) {
-      const id = parseInt(e.dataTransfer.getData('id'), 10);
-
-      this.$store.dispatch('selectCard', id);
+    dropCard(columnNo) {
       this.$store.dispatch('setColumn', columnNo);
       this.$store.dispatch('moveCardsToColumn');
     },
