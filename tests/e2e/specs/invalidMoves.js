@@ -5,79 +5,101 @@ describe('Invalid moves', () => {
     cy.visit('/');
   });
 
-  // invalid value, invalid suit
-  it('should not move 6s to 4d and 5s to 10d', () => {
-    cy.setDeck(invalidMove).then(() => {
-      // Test card from middle.
-      cy.get('[data-test="column-4"]').within(() => {
-        cy.get('[data-test="card-6s"]').should('be.visible');
+  describe('using drag and drop', () => {
+    // invalid value, invalid suit
+    it('should not move 6s to 4d and 5s to 10d', () => {
+      cy.setDeck(invalidMove).then(() => {
+        // Test card from middle.
+        cy.get('[data-test="column-4"]').shouldBeVisible(['6s']);
+
+        cy.get('[data-test="card-6s"]').dragTo('[data-test="card-4d"]');
+
+        cy.get('[data-test="column-5"]').shouldNotBeVisible(['6s']);
+
+        // Test card from bottom.
+        cy.get('[data-test="column-0"]').shouldBeVisible(['5s']);
+
+        cy.get('[data-test="card-5s"]').dragTo('[data-test="card-10d"]');
+
+        cy.get('[data-test="column-6"]').shouldNotBeVisible(['5s']);
       });
+    });
 
-      cy.get('[data-test="card-6s"]').click({ force: true });
-      cy.get('[data-test="card-4d"]').click();
+    // valid value, wrong suit
+    it('should not move 4d to 5s', () => {
+      cy.setDeck(invalidMove).then(() => {
+        cy.get('[data-test="column-5"]').shouldBeVisible(['4d']);
 
-      cy.get('[data-test="column-5"]').within(() => {
-        cy.get('[data-test="card-6s"]').should('not.be.visible');
+        cy.get('[data-test="card-4d"]').dragTo('[data-test="card-5s"]');
+
+        cy.get('[data-test="column-0"]').shouldNotBeVisible(['4d']);
       });
+    });
 
-      // Test card from bottom.
-      cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="card-5s"]').should('be.visible');
-      });
+    // valid suit, wrong value
+    it('should not move 7d to 9d', () => {
+      cy.setDeck(invalidMove).then(() => {
+        cy.get('[data-test="column-2"]').shouldBeVisible(['7d']);
 
-      cy.get('[data-test="card-5s"]').click();
-      cy.get('[data-test="card-10d"]').click();
+        cy.get('[data-test="card-7d"]').dragTo('[data-test="card-9d"]');
 
-      cy.get('[data-test="column-6"]').within(() => {
-        cy.get('[data-test="card-5s"]').should('not.be.visible');
+        cy.get('[data-test="column-1"]').shouldNotBeVisible(['7d']);
       });
     });
   });
 
-  // valid value, wrong suit
-  it('should not move 4d to 5s', () => {
-    cy.setDeck(invalidMove).then(() => {
-      cy.get('[data-test="column-5"]').within(() => {
-        cy.get('[data-test="card-4d"]').should('be.visible');
-      });
+  describe('using clicks', () => {
+    // invalid value, invalid suit
+    it('should not move 6s to 4d and 5s to 10d', () => {
+      cy.setDeck(invalidMove).then(() => {
+        // Test card from middle.
+        cy.get('[data-test="column-4"]').shouldBeVisible(['6s']);
 
-      cy.get('[data-test="card-4d"]').click();
-      cy.get('[data-test="card-5s"]').click();
+        cy.get('[data-test="card-6s"]').clickTo('[data-test="card-4d"]');
 
-      cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="card-4d"]').should('not.be.visible');
-      });
-    });
-  });
+        cy.get('[data-test="column-5"]').shouldNotBeVisible(['6s']);
 
-  // valid suit, wrong value
-  it('should not move 7d to 9d', () => {
-    cy.setDeck(invalidMove).then(() => {
-      cy.get('[data-test="column-2"]').within(() => {
-        cy.get('[data-test="card-7d"]').should('be.visible');
-      });
+        // Test card from bottom.
+        cy.get('[data-test="column-0"]').shouldBeVisible(['5s']);
 
-      cy.get('[data-test="card-7d"]').click();
-      cy.get('[data-test="card-9d"]').click();
+        cy.get('[data-test="card-5s"]').clickTo('[data-test="card-10d"]');
 
-      cy.get('[data-test="column-1"]').within(() => {
-        cy.get('[data-test="card-7d"]').should('not.be.visible');
+        cy.get('[data-test="column-6"]').shouldNotBeVisible(['5s']);
       });
     });
-  });
 
-  // valid card, same column
-  it('should not move Qs to Ks on the same column', () => {
-    cy.setDeck(invalidMove).then(() => {
-      cy.get('[data-test="column-7"]').within(() => {
-        cy.get('[data-test="card-Qs"]').should('be.visible');
+    // valid value, wrong suit
+    it('should not move 4d to 5s', () => {
+      cy.setDeck(invalidMove).then(() => {
+        cy.get('[data-test="column-5"]').shouldBeVisible(['4d']);
+
+        cy.get('[data-test="card-4d"]').clickTo('[data-test="card-5s"]');
+
+        cy.get('[data-test="column-0"]').shouldNotBeVisible(['4d']);
       });
+    });
 
-      cy.get('[data-test="card-Qs"]').click({ force: true });
-      cy.get('[data-test="card-Ks"]').click();
+    // valid suit, wrong value
+    it('should not move 7d to 9d', () => {
+      cy.setDeck(invalidMove).then(() => {
+        cy.get('[data-test="column-2"]').shouldBeVisible(['7d']);
 
-      cy.get('[data-test="column-7"]').within(() => {
-        cy.get('[data-test*="card-"]').eq(1).should('have.attr', 'data-test', 'card-Qs');
+        cy.get('[data-test="card-7d"]').clickTo('[data-test="card-9d"]');
+
+        cy.get('[data-test="column-1"]').shouldNotBeVisible(['7d']);
+      });
+    });
+
+    // valid card, same column
+    it('should not move Qs to Ks on the same column', () => {
+      cy.setDeck(invalidMove).then(() => {
+        cy.get('[data-test="column-7"]').shouldBeVisible(['Qs']);
+
+        cy.get('[data-test="card-Qs"]').clickTo('[data-test="card-Ks"]');
+
+        cy.get('[data-test="column-7"]').within(() => {
+          cy.get('[data-test*="card-"]').eq(2).should('have.attr', 'data-test', 'card-Qs');
+        });
       });
     });
   });
