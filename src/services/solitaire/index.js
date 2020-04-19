@@ -7,7 +7,12 @@ import {
   isValidKingMove,
   isValidFoundationMove,
 } from './validation';
-import { getSelectedCard, moveCardsFrom, moveCardsTo } from './helpers';
+import {
+  getSelectedCard,
+  getLastCard,
+  moveCardsFrom,
+  moveCardsTo,
+} from './helpers';
 
 const cardsArray = {
   values: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
@@ -84,10 +89,10 @@ const setBoard = (shuffledCards) => {
 
 const checkValidCardMove = (selectedCardId, selectedColumn, board) => {
   const selectedCard = getSelectedCard(board, selectedCardId);
-  const [lastColumnCard] = board[selectedColumn].slice(-1);
+  const lastColumnCard = getLastCard(board, selectedColumn);
 
   // Relaxed validation for K to empty column
-  if (selectedCard.order === 13) {
+  if (!lastColumnCard) {
     const isValidKing = isValidKingMove(selectedCard, lastColumnCard);
 
     return isValidKing;

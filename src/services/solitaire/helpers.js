@@ -4,6 +4,12 @@ const getSelectedCard = (cards, selectedCardId) => {
   return selectedCard;
 };
 
+const getLastCard = (board, selectedColumn) => {
+  const [selectedCard] = board[selectedColumn].slice(-1);
+
+  return selectedCard;
+};
+
 const mapPositions = (cards, position) => {
   const updatedCards = cards.map((moveCards, index) => {
     const newValues = {
@@ -60,6 +66,7 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
 
 export {
   getSelectedCard,
+  getLastCard,
   moveCardsFrom,
   moveCardsTo,
 };
