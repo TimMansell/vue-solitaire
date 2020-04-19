@@ -114,7 +114,7 @@ export default {
     },
     cloneCards() {
       const clonedElement = document.createElement('div');
-      clonedElement.classList.add('js-cloned-card');
+      clonedElement.id = 'cloned-card';
       clonedElement.style.marginLeft = '-2000px';
       clonedElement.style.marginTop = '-2000px';
 
@@ -124,8 +124,7 @@ export default {
       const clonedCards = siblingCards.slice(selectedCard);
 
       clonedCards.forEach((card) => {
-        const crt = card.cloneNode(true);
-        clonedElement.appendChild(crt);
+        clonedElement.appendChild(card.cloneNode(true));
       });
 
       document.body.appendChild(clonedElement);
@@ -133,7 +132,7 @@ export default {
       return clonedElement;
     },
     clearCard() {
-      document.querySelector('.js-cloned-card').remove();
+      document.querySelector('#cloned-card').remove();
 
       this.isCardDragged = !this.isCardDragged;
     },
