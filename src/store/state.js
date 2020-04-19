@@ -6,6 +6,9 @@ const state = () => ({
   },
   selectedCardId: null,
   selectedColumn: null,
+  config: {
+    autoRevealCards: false,
+  },
 });
 
 export default state;

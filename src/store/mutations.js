@@ -24,6 +24,9 @@ const mutations = {
   REVEAL_CARDS(state, cardsColumn) {
     Vue.set(state.board.cards, cardsColumn.column, cardsColumn.cards);
   },
+  SET_AUTO_REVEAL_CARDS(state, isToReveal) {
+    state.config.autoRevealCards = isToReveal;
+  },
   SET_COLUMN(state, columnNo) {
     state.selectedColumn = columnNo;
   },

@@ -42,6 +42,9 @@ const actions = {
     const releavedCards = revealCards(board, id);
     commit('REVEAL_CARDS', releavedCards);
   },
+  setAutoRevealCards({ commit }, isToReveal) {
+    commit('SET_AUTO_REVEAL_CARDS', isToReveal);
+  },
   setColumn({ commit }, columnNo) {
     commit('SET_COLUMN', columnNo);
   },
