@@ -1,13 +1,14 @@
 <template>
-  <div
-    class="foundation"
-    data-test="ace">
+  <div class="foundation">
     <div
       class="foundation__column"
       v-for="(foundation, foundationsIndex) in foundationCards"
       :key="`f-${foundationsIndex}`"
       @click="moveCardToFoundation(foundationsIndex)"
-      :data-test="`foundation-${foundationsIndex}`">
+      :data-test="`foundation-${foundationsIndex}`"
+      @drop="dropCard(foundationsIndex)"
+      @dragover.prevent
+      @dragenter.prevent>
       <Card
         v-for="(card, foundationIndex) in foundation"
         :key="`a-${foundationIndex}`"
@@ -42,8 +43,13 @@ export default {
     };
   },
   methods: {
-    moveCardToFoundation(placeholderIndex) {
-      this.$store.dispatch('moveCardToFoundation', placeholderIndex);
+    moveCardToFoundation(columnIndex) {
+      this.$store.dispatch('setColumn', columnIndex);
+      this.$store.dispatch('moveCardToFoundation');
+    },
+    dropCard(columnIndex) {
+      this.$store.dispatch('setColumn', columnIndex);
+      this.$store.dispatch('moveCardToFoundation');
     },
   },
 };

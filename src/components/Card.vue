@@ -2,14 +2,20 @@
   <div
     class="card"
     :class="classes"
-    @click.stop="moveCard"
+    @click="selectCard($event, id)"
+    @dragstart="dragCard($event, id)"
+    @dragend="clearCard()"
+    :draggable="visible"
+    ref="card"
     :data-test="`card-${value}${suit}`">
     <SvgIcon
       v-if="visible"
+      data-test="card-visible"
       :name="`${this.value}${this.suit.toUpperCase()}`" />
 
     <SvgIcon
       v-if="!visible"
+      data-test="card-hidden"
       name="Card_back_17" />
   </div>
 </template>
@@ -23,6 +29,10 @@ export default {
     SvgIcon,
   },
   props: {
+    id: {
+      type: [String, Number],
+      default: 0,
+    },
     value: {
       type: String,
       default: 'A',
@@ -52,42 +62,79 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      isCardDragged: false,
+    };
+  },
   computed: {
     classes() {
-      const { toMove } = this.$store.getters;
+      const { selectedCardId } = this.$store.getters;
+      const {
+        id,
+        suit,
+        isCardDragged,
+        clickable,
+        visible,
+      } = this;
 
       return {
-        'card--is-visible': this.visible,
-        'card--is-s': this.suit === 's',
-        'card--is-d': this.suit === 'd',
-        'card--is-h': this.suit === 'h',
-        'card--is-c': this.suit === 'c',
-        'card--is-selected': toMove && `${toMove.value}${toMove.suit}` === `${this.value}${this.suit}`,
-        'card--is-not-clickable': !this.clickable,
+        'card--is-s': suit === 's',
+        'card--is-d': suit === 'd',
+        'card--is-h': suit === 'h',
+        'card--is-c': suit === 'c',
+        'card--is-selected': selectedCardId === id && !isCardDragged,
+        'card--is-not-clickable': !clickable,
+        'card--is-draggable': visible,
       };
     },
   },
   methods: {
-    moveCard() {
-      const {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      } = this;
+    selectCard(e, id) {
+      const { selectedCardId } = this.$store.getters;
 
-      const card = {
-        value,
-        order,
-        suit,
-        position,
-        visible,
-      };
+      if (!selectedCardId) {
+        e.stopPropagation();
 
-      if (this.clickable && this.visible) {
-        this.$store.dispatch('moveCard', card);
+        if (this.clickable && this.visible) {
+          this.$store.dispatch('selectCard', id);
+        }
       }
+    },
+    dragCard(e, id) {
+      const clonedElement = this.cloneCards();
+      const clonedElementOffset = this.$refs.card.clientWidth / 2;
+
+      e.dataTransfer.setDragImage(clonedElement, clonedElementOffset, 20);
+      e.dataTransfer.dropEffect = 'move';
+
+      this.isCardDragged = !this.isCardDragged;
+
+      this.$store.dispatch('selectCard', id);
+    },
+    cloneCards() {
+      const clonedElement = document.createElement('div');
+      clonedElement.id = 'cloned-card';
+      clonedElement.style.marginLeft = '-2000px';
+      clonedElement.style.marginTop = '-2000px';
+
+      // Find cards below selected card.
+      const siblingCards = [...this.$refs.card.parentElement.childNodes];
+      const selectedCard = siblingCards.findIndex((card) => card === this.$refs.card);
+      const clonedCards = siblingCards.slice(selectedCard);
+
+      clonedCards.forEach((card) => {
+        clonedElement.appendChild(card.cloneNode(true));
+      });
+
+      document.body.appendChild(clonedElement);
+
+      return clonedElement;
+    },
+    clearCard() {
+      document.querySelector('#cloned-card').remove();
+
+      this.isCardDragged = !this.isCardDragged;
     },
   },
 };
@@ -148,6 +195,10 @@ export default {
 
   &--is-not-clickable {
     pointer-events:none;
+  }
+
+  &--is-draggable {
+    cursor: grab;
   }
 }
 </style>

@@ -1,20 +1,38 @@
 import shuffle from 'lodash.shuffle';
 import {
-  isMoveValidVisible,
   isMoveValidCard,
   isMoveValidSuit,
   isMoveValidOrder,
-  isMoveValidPosition,
   isMoveValidColumn,
-  isCardValidSize,
   isValidKingMove,
-  isValidFoundationMove,
+  isMoveValidFoundationSuit,
+  isMoveValidFoundationOrder,
 } from './validation';
-import { moveCardsFrom, removeCardsFrom, moveCardsTo } from './helpers';
+import {
+  getSelectedCard,
+  getLastCard,
+  moveCardsFrom,
+  moveCardsTo,
+} from './helpers';
 
-const shuffleCards = ({ values, suits }) => {
+const cardsArray = {
+  values: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
+  suits: ['c', 's', 'h', 'd'],
+};
+
+const rules = {
+  columns: [7, 7, 7, 7, 6, 6, 6, 6],
+  foundationColumns: [1, 1, 1, 1],
+};
+
+const getFoundations = () => rules.foundationColumns;
+
+const shuffleCards = () => {
+  const { values, suits } = cardsArray;
+
   const deck = values.flatMap((value, index) => suits.map((suit) => {
     const card = {
+      id: `${index}${suit}`,
       value,
       order: index + 1,
       suit,
@@ -29,7 +47,7 @@ const shuffleCards = ({ values, suits }) => {
   return shuffledDeck;
 };
 
-const setBoard = ({ rules, shuffledCards }) => {
+const setBoard = (shuffledCards) => {
   const showCards = (cards, offset = 0) => cards.map((card, index) => {
     if ((index + offset) % 2 === 0) {
       return {
@@ -70,123 +88,49 @@ const setBoard = ({ rules, shuffledCards }) => {
   return dealtCards;
 };
 
-const checkValidCardMove = ({ board, selectedCards }) => {
-  const [toMove, moveTo] = selectedCards;
+const checkValidCardMove = (selectedCardId, selectedColumn, board) => {
+  const selectedCard = getSelectedCard(board, selectedCardId);
+  const lastColumnCard = getLastCard(board, selectedColumn);
 
-  const isValidVisible = isMoveValidVisible(toMove, moveTo);
-  const isValidCard = isMoveValidCard(toMove, moveTo);
-  const isValidSuit = isMoveValidSuit(toMove, moveTo);
-  const isValidOrder = isMoveValidOrder(toMove, moveTo);
-  const isValidPosition = isMoveValidPosition(moveTo, board);
-  const isValidColumn = isMoveValidColumn(toMove, moveTo);
+  // Relaxed validation for K to empty column
+  if (!lastColumnCard) {
+    const isValidKing = isValidKingMove(selectedCard, lastColumnCard);
 
-  return isValidVisible && isValidCard && isValidSuit && isValidOrder && isValidPosition && isValidColumn;
-};
-
-const isBothCardsSelected = ({ selectedCards }) => {
-  if (selectedCards.length === 2) {
-    return true;
+    return isValidKing;
   }
 
-  return false;
+  // General validation.
+  const isValidCard = isMoveValidCard(selectedCard, lastColumnCard);
+  const isValidSuit = isMoveValidSuit(selectedCard, lastColumnCard);
+  const isValidOrder = isMoveValidOrder(selectedCard, lastColumnCard);
+  const isValidColumn = isMoveValidColumn(selectedCard, lastColumnCard);
+
+  return isValidCard && isValidSuit && isValidOrder && isValidColumn;
 };
 
-const moveCards = ({ board, selectedCards }) => {
-  const [toMove, moveTo] = selectedCards;
-
-  const cardsToMove = moveCardsFrom(toMove, board);
-  const moveCardsToColumn = moveCardsTo(board, cardsToMove, moveTo.position[0]);
-  const removeCardsFromColumn = removeCardsFrom(toMove, board);
-
-  const colsToMove = {
-    from: toMove.position[0],
-    to: moveTo.position[0],
-  };
+const moveCards = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
+  const cardFromColumn = moveCardsFrom(selectedCardId, cardsFrom);
+  const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, cardsFrom, cardsTo);
 
   return {
-    colsToMove,
-    moveCardsToColumn,
-    removeCardsFromColumn,
+    cardFromColumn,
+    cardsToColumn,
   };
 };
 
-const revealHiddenCard = ({ board }) => {
-  const { cards } = board;
+const checkValidFoundationMove = (selectedCardId, selectedColumn, board) => {
+  const selectedCard = getSelectedCard(board.cards, selectedCardId);
+  const isValidFoundationSuit = isMoveValidFoundationSuit(selectedCard, selectedColumn, board);
+  const isValidFoundationOrder = isMoveValidFoundationOrder(selectedCard, selectedColumn, board);
 
-  const updatedDeck = cards.map((column) => {
-    const updatedCards = column.map((updatedCard, index) => {
-      if (index === column.length - 1 && !updatedCard.visible) {
-        return {
-          ...updatedCard,
-          visible: true,
-          revealed: true,
-        };
-      }
-
-      return updatedCard;
-    });
-
-    return updatedCards;
-  });
-
-  return updatedDeck;
-};
-
-const moveCardToFoundation = ({ board, selectedCards }, column) => {
-  const [toMove] = selectedCards;
-  const { position } = toMove;
-
-  const removeCardsFromColumn = board.cards[position[0]].slice(0, position[1]);
-
-  return {
-    toMove,
-    column,
-    removeCardsFromColumn,
-  };
-};
-
-const checkValidFoundationMove = ({ board, selectedCards }, column) => {
-  const [toMove] = selectedCards;
-
-  const isValidSize = isCardValidSize(toMove);
-  const isValidFoundation = isValidFoundationMove(toMove, board, column);
-
-  return isValidSize && isValidFoundation;
-};
-
-const moveKingToColumn = ({ board, selectedCards }, column) => {
-  const [toMove] = selectedCards;
-
-  const cardsToMove = moveCardsFrom(toMove, board);
-  const moveCardsToColumn = moveCardsTo(board, cardsToMove, column);
-  const removeCardsFromColumn = removeCardsFrom(toMove, board);
-
-  return {
-    toMove,
-    column,
-    moveCardsToColumn,
-    removeCardsFromColumn,
-  };
-};
-
-const checkValidKingMove = ({ board, selectedCards }, column) => {
-  const [toMove] = selectedCards;
-
-  const isValidSize = isCardValidSize(toMove);
-  const isValidMove = isValidKingMove(toMove, board, column);
-
-  return isValidSize && isValidMove;
+  return isValidFoundationSuit && isValidFoundationOrder;
 };
 
 export {
   shuffleCards,
+  getFoundations,
   setBoard,
-  isBothCardsSelected,
   checkValidCardMove,
   moveCards,
-  revealHiddenCard,
-  moveCardToFoundation,
   checkValidFoundationMove,
-  moveKingToColumn,
-  checkValidKingMove,
 };

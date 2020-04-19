@@ -5,30 +5,42 @@ describe('Valid moves', () => {
     cy.visit('/');
   });
 
-  it('should move 6d to 7d and 9d to 10d', () => {
-    cy.setDeck(validMove).then(() => {
-      // Test card from middle.
-      cy.get('[data-test="column-3"]').within(() => {
-        cy.get('[data-test="card-6d"]').should('be.visible');
+  describe('using drag and drop', () => {
+    it('should move 6d to 7d and 9d to 10d', () => {
+      cy.setDeck(validMove).then(() => {
+        // Test card from middle.
+        cy.get('[data-test="column-3"]').shouldBeVisible(['6d']);
+
+        cy.get('[data-test="card-6d"]').dragTo('[data-test="card-7d"]');
+
+        cy.get('[data-test="column-2"]').shouldBeVisible(['6d']);
+
+        // Test card from bottom.
+        cy.get('[data-test="column-1"]').shouldBeVisible(['9d']);
+
+        cy.get('[data-test="card-9d"]').dragTo('[data-test="card-10d"]');
+
+        cy.get('[data-test="column-6"]').shouldBeVisible(['9d']);
       });
+    });
+  });
 
-      cy.get('[data-test="card-6d"]').click({ force: true });
-      cy.get('[data-test="card-7d"]').click();
+  describe('using clicks', () => {
+    it('should move 6d to 7d and 9d to 10d', () => {
+      cy.setDeck(validMove).then(() => {
+        // Test card from middle.
+        cy.get('[data-test="column-3"]').shouldBeVisible(['6d']);
 
-      cy.get('[data-test="column-2"]').within(() => {
-        cy.get('[data-test="card-6d"]').should('be.visible');
-      });
+        cy.get('[data-test="card-6d"]').clickTo('[data-test="card-7d"]');
 
-      // Test card from bottom.
-      cy.get('[data-test="column-1"]').within(() => {
-        cy.get('[data-test="card-9d"]').should('be.visible');
-      });
+        cy.get('[data-test="column-2"]').shouldBeVisible(['6d']);
 
-      cy.get('[data-test="card-9d"]').click();
-      cy.get('[data-test="card-10d"]').click();
+        // Test card from bottom.
+        cy.get('[data-test="column-1"]').shouldBeVisible(['9d']);
 
-      cy.get('[data-test="column-6"]').within(() => {
-        cy.get('[data-test="card-9d"]').should('be.visible');
+        cy.get('[data-test="card-9d"]').clickTo('[data-test="card-10d"]');
+
+        cy.get('[data-test="column-6"]').shouldBeVisible(['9d']);
       });
     });
   });
