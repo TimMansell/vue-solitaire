@@ -31,7 +31,7 @@ const shuffleCards = () => {
 
   const deck = values.flatMap((value, index) => suits.map((suit) => {
     const card = {
-      id: `${index}${suit}`,
+      id: `${index + 1}${suit}`,
       value,
       order: index + 1,
       suit,
@@ -87,6 +87,32 @@ const setBoard = (shuffledCards) => {
   return dealtCards;
 };
 
+const revealCards = ({ cards }, id) => {
+  const selectedCard = getSelectedCard(cards, id);
+  const columnNo = selectedCard.position[0];
+
+  const columnCards = cards[columnNo].map((card) => {
+    if (card.id === id) {
+      const newValues = {
+        ...card,
+        visible: true,
+      };
+      return newValues;
+    }
+
+    return card;
+  });
+
+  return {
+    column: columnNo,
+    cards: columnCards,
+  };
+};
+
+// const revealCards = ({ cards }, id) => {
+
+// };
+
 const checkValidCardMove = (selectedCardId, selectedColumn, board) => {
   const selectedCard = getSelectedCard(board, selectedCardId);
   const lastColumnCard = getLastCard(board, selectedColumn);
@@ -128,6 +154,7 @@ export {
   shuffleCards,
   getFoundations,
   setBoard,
+  revealCards,
   checkValidCardMove,
   moveCards,
   checkValidFoundationMove,

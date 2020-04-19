@@ -2,6 +2,7 @@ import {
   shuffleCards,
   getFoundations,
   setBoard,
+  revealCards,
   checkValidCardMove,
   moveCards,
   checkValidFoundationMove,
@@ -34,6 +35,12 @@ const actions = {
     } else {
       commit('SELECT_CARD', id);
     }
+  },
+  revealCard({ commit, state }, id) {
+    const { board } = state;
+
+    const releavedCards = revealCards(board, id);
+    commit('REVEAL_CARDS', releavedCards);
   },
   setColumn({ commit }, columnNo) {
     commit('SET_COLUMN', columnNo);

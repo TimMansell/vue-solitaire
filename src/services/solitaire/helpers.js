@@ -28,21 +28,21 @@ const moveCardsFrom = (selectedCardId, cards) => {
 
   const columnCards = cards[cardPosition[0]].slice(0, cardPosition[1]);
 
-  const remainingCards = columnCards.map((card, index) => {
-    if (index === columnCards.length - 1 && !card.visible) {
-      const newValues = {
-        ...card,
-        visible: true,
-      };
-      return newValues;
-    }
+  // const remainingCards = columnCards.map((card, index) => {
+  //   if (index === columnCards.length - 1 && !card.visible) {
+  //     const newValues = {
+  //       ...card,
+  //       visible: true,
+  //     };
+  //     return newValues;
+  //   }
 
-    return card;
-  });
+  //   return card;
+  // });
 
   return {
     column: cardPosition[0],
-    cards: remainingCards,
+    cards: columnCards,
   };
 };
 
