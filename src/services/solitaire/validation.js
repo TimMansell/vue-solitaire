@@ -39,13 +39,24 @@ const isValidKingMove = (selectedCard, lastColumnCard) => {
   return false;
 };
 
-const isValidFoundationMove = (selectedCard, selectedColumn, board) => {
-  const { foundation, cards } = board;
-  const { suit, order, position } = selectedCard;
+const isMoveValidFoundationSuit = (selectedCard, selectedColumn, board) => {
+  const { foundation } = board;
+  const { suit } = selectedCard;
 
   const foundationSuit = foundation[selectedColumn].filter((ace) => ace.suit === suit);
 
-  if (order === foundationSuit.length + 1) {
+  if (!foundationSuit.length && foundation[selectedColumn].length) {
+    return false;
+  }
+
+  return true;
+};
+
+const isMoveValidFoundationOrder = (selectedCard, selectedColumn, board) => {
+  const { foundation, cards } = board;
+  const { order, position } = selectedCard;
+
+  if (order === foundation[selectedColumn].length + 1) {
     const isLastItem = cards[position[0]].length - 1 === position[1];
 
     return isLastItem;
@@ -60,5 +71,6 @@ export {
   isMoveValidOrder,
   isMoveValidColumn,
   isValidKingMove,
-  isValidFoundationMove,
+  isMoveValidFoundationSuit,
+  isMoveValidFoundationOrder,
 };
