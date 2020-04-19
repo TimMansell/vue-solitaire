@@ -2,6 +2,9 @@
   <div
     class="column"
     @click="moveCardToColumn(columnNo)"
+    @drop="dropCard(columnNo)"
+    @dragover.prevent
+    @dragenter.prevent
     :data-test="`column-${columnNo}`">
     <Card
       v-for="(card, index) in cards"
@@ -50,6 +53,10 @@ export default {
         this.$store.dispatch('setColumn', columnNo);
         this.$store.dispatch('moveCardsToColumn');
       }
+    },
+    dropCard(columnNo) {
+      this.$store.dispatch('setColumn', columnNo);
+      this.$store.dispatch('moveCardsToColumn');
     },
   },
 };
