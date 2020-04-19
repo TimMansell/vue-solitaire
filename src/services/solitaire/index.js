@@ -5,7 +5,8 @@ import {
   isMoveValidOrder,
   isMoveValidColumn,
   isValidKingMove,
-  isValidFoundationMove,
+  isMoveValidFoundationSuit,
+  isMoveValidFoundationOrder,
 } from './validation';
 import { getSelectedCard, moveCardsFrom, moveCardsTo } from './helpers';
 
@@ -114,9 +115,10 @@ const moveCards = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
 
 const checkValidFoundationMove = (selectedCardId, selectedColumn, board) => {
   const selectedCard = getSelectedCard(board.cards, selectedCardId);
-  const isValidFoundation = isValidFoundationMove(selectedCard, selectedColumn, board);
+  const isValidFoundationSuit = isMoveValidFoundationSuit(selectedCard, selectedColumn, board);
+  const isValidFoundationOrder = isMoveValidFoundationOrder(selectedCard, selectedColumn, board);
 
-  return isValidFoundation;
+  return isValidFoundationSuit && isValidFoundationOrder;
 };
 
 export {

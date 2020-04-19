@@ -95,6 +95,28 @@ describe('Foundation moves', () => {
       });
     });
 
+    it('should move Ah then 2h to 2nd foundation and not move As & 2s to same foundation', () => {
+      cy.setDeck(moveAcetoAces).then(() => {
+        // Hearts
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Ah', '2h']);
+
+        cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-2h"]').dragTo('[data-test="foundation-1"]');
+
+        cy.get('[data-test="foundation-1"]').shouldBeVisible(['Ah', '2h']);
+
+        cy.get('[data-test="column-3"]').shouldNotBeVisible(['Ah', '2h']);
+
+        // Spades
+        cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-2s"]').dragTo('[data-test="foundation-1"]');
+
+        cy.get('[data-test="foundation-1"]').shouldNotBeVisible(['As', '2s']);
+
+        cy.get('[data-test="column-7"]').shouldBeVisible(['As', '2s']);
+      });
+    });
+
     it('should move Ah to 1st foundation and not 2h', () => {
       cy.setDeck(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
@@ -224,6 +246,28 @@ describe('Foundation moves', () => {
         cy.get('[data-test="foundation-3"]').shouldBeVisible(['As', '2s']);
 
         cy.get('[data-test="column-7"]').shouldNotBeVisible(['As', '2s']);
+      });
+    });
+
+    it('should move Ah then 2h to 2nd foundation and not move As & 2s to same foundation', () => {
+      cy.setDeck(moveAcetoAces).then(() => {
+        // Hearts
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Ah', '2h']);
+
+        cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-2h"]').clickTo('[data-test="foundation-1"]');
+
+        cy.get('[data-test="foundation-1"]').shouldBeVisible(['Ah', '2h']);
+
+        cy.get('[data-test="column-3"]').shouldNotBeVisible(['Ah', '2h']);
+
+        // Spades
+        cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-2s"]').clickTo('[data-test="foundation-1"]');
+
+        cy.get('[data-test="foundation-1"]').shouldNotBeVisible(['As', '2s']);
+
+        cy.get('[data-test="column-7"]').shouldBeVisible(['As', '2s']);
       });
     });
 
