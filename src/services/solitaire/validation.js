@@ -1,40 +1,21 @@
-import size from 'lodash.size';
-
-const isMoveValidVisible = (toMove, moveTo) => {
-  if (!toMove.visible || !moveTo.visible) {
+const isMoveValidCard = (selectedCard, lastColumnCard) => {
+  if (`${selectedCard.order}${selectedCard.suit}` === `${lastColumnCard.order}${lastColumnCard.suit}`) {
     return false;
   }
 
   return true;
 };
 
-const isMoveValidCard = (toMove, moveTo) => {
-  if (`${toMove.order}${toMove.suit}` === `${moveTo.order}${moveTo.suit}`) {
+const isMoveValidSuit = (selectedCard, lastColumnCard) => {
+  if (selectedCard.suit !== lastColumnCard.suit) {
     return false;
   }
 
   return true;
 };
 
-const isMoveValidSuit = (toMove, moveTo) => {
-  if (toMove.suit !== moveTo.suit) {
-    return false;
-  }
-
-  return true;
-};
-
-const isMoveValidOrder = (toMove, moveTo) => {
-  if (toMove.order !== moveTo.order - 1) {
-    return false;
-  }
-
-  return true;
-};
-
-// Check card being moved to is at the bottom of the column
-const isMoveValidPosition = (moveTo, board) => {
-  if (moveTo.position[1] !== board.cards[moveTo.position[0]].length - 1) {
+const isMoveValidOrder = (selectedCard, lastColumnCard) => {
+  if (selectedCard.order !== lastColumnCard.order - 1) {
     return false;
   }
 
@@ -42,38 +23,41 @@ const isMoveValidPosition = (moveTo, board) => {
 };
 
 // Check card isn't being moved to same column.
-const isMoveValidColumn = (toMove, moveTo) => {
-  if (moveTo.position[0] === toMove.position[0]) {
+const isMoveValidColumn = (selectedCard, lastColumnCard) => {
+  if (lastColumnCard.position[0] === selectedCard.position[0]) {
     return false;
   }
 
   return true;
 };
 
-const isCardValidSize = (toMove) => {
-  if (!size(toMove)) {
-    return false;
-  }
-
-  return true;
-};
-
-const isValidKingMove = (toMove = [], board, column) => {
-  if (toMove.order === 13 && !board.cards[column].length) {
+const isValidKingMove = (selectedCard, lastColumnCard) => {
+  if (selectedCard.order === 13 && !lastColumnCard) {
     return true;
   }
 
   return false;
 };
 
-const isValidFoundationMove = (toMove = [], board, column) => {
+const isMoveValidFoundationSuit = (selectedCard, selectedColumn, board) => {
   const { foundation } = board;
-  const { suit } = toMove;
+  const { suit } = selectedCard;
 
-  const foundationSuit = foundation[column].filter((ace) => ace.suit === suit);
+  const foundationSuit = foundation[selectedColumn].filter((ace) => ace.suit === suit);
 
-  if (toMove.order === foundationSuit.length + 1) {
-    const isLastItem = board.cards[toMove.position[0]].length - 1 === toMove.position[1];
+  if (!foundationSuit.length && foundation[selectedColumn].length) {
+    return false;
+  }
+
+  return true;
+};
+
+const isMoveValidFoundationOrder = (selectedCard, selectedColumn, board) => {
+  const { foundation, cards } = board;
+  const { order, position } = selectedCard;
+
+  if (order === foundation[selectedColumn].length + 1) {
+    const isLastItem = cards[position[0]].length - 1 === position[1];
 
     return isLastItem;
   }
@@ -82,13 +66,11 @@ const isValidFoundationMove = (toMove = [], board, column) => {
 };
 
 export {
-  isMoveValidVisible,
   isMoveValidCard,
   isMoveValidSuit,
   isMoveValidOrder,
-  isMoveValidPosition,
   isMoveValidColumn,
-  isCardValidSize,
   isValidKingMove,
-  isValidFoundationMove,
+  isMoveValidFoundationSuit,
+  isMoveValidFoundationOrder,
 };

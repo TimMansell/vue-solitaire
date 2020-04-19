@@ -12,7 +12,7 @@ describe('Card.vue', () => {
   let store;
 
   const actions = {
-    moveCard: jest.fn(),
+    selectCard: jest.fn(),
   };
 
   beforeEach(() => {
@@ -23,7 +23,19 @@ describe('Card.vue', () => {
     });
   });
 
-  it('matches snapshot', () => {
+  it('matches visible snapshot', () => {
+    const wrapper = shallowMount(Card, {
+      store,
+      localVue,
+      propsData: {
+        visible: true,
+      },
+    });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('matches hidden snapshot', () => {
     const wrapper = shallowMount(Card, { store, localVue });
 
     expect(wrapper).toMatchSnapshot();
@@ -34,18 +46,24 @@ describe('Card.vue', () => {
       store,
       localVue,
       propsData: {
+        id: 2,
         value: 'K',
         suit: 'd',
         order: 1,
+        position: [5, 6],
         visible: true,
+        revealed: true,
         clickable: false,
       },
     });
 
+    expect(wrapper.props().id).toBe(2);
     expect(wrapper.props().value).toBe('K');
     expect(wrapper.props().suit).toBe('d');
     expect(wrapper.props().order).toBe(1);
+    expect(wrapper.props().position).toStrictEqual([5, 6]);
     expect(wrapper.props().visible).toBe(true);
+    expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
   });
 
@@ -101,19 +119,6 @@ describe('Card.vue', () => {
     expect(wrapper.classes()).toContain('card--is-s');
   });
 
-  it('should render a hidden card', () => {
-    const wrapper = shallowMount(Card, {
-      store,
-      localVue,
-      propsData: {
-        value: '6',
-        suit: 's',
-      },
-    });
-
-    expect(wrapper.classes('card--is-visible')).toBe(false);
-  });
-
   it('should render a visible card', () => {
     const wrapper = shallowMount(Card, {
       store,
@@ -123,21 +128,18 @@ describe('Card.vue', () => {
       },
     });
 
-    expect(wrapper.classes()).toContain('card--is-visible');
+    expect(wrapper.find('[data-test="card-visible"]').exists()).toBe(true);
+  });
+
+  it('should render a hidden card', () => {
+    const wrapper = shallowMount(Card, { store, localVue });
+
+    expect(wrapper.find('[data-test="card-hidden"]').exists()).toBe(true);
   });
 
   it('should render a selected card', () => {
     const newGetters = {
-      toMove: () => ({
-        value: 'K',
-        order: 13,
-        suit: 'c',
-        visible: true,
-        position: [
-          7,
-          11,
-        ],
-      }),
+      selectedCardId: () => 0,
     };
 
     const storeSelected = new Vuex.Store({
@@ -158,7 +160,7 @@ describe('Card.vue', () => {
     expect(wrapper.classes()).toContain('card--is-selected');
   });
 
-  it('should not call store action "moveCard" when clicked', () => {
+  it('should not call store action "selectCard" when clicked', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
@@ -170,18 +172,18 @@ describe('Card.vue', () => {
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
     expect(wrapper.classes()).toContain('card--is-not-clickable');
-    expect(actions.moveCard).not.toHaveBeenCalled();
+    expect(actions.selectCard).not.toHaveBeenCalled();
   });
 
-  it('should not call store action "moveCard" when clicked when not visible', () => {
+  it('should not call store action "selectCard" when clicked when not visible', () => {
     const wrapper = shallowMount(Card, { store, localVue });
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
-    expect(actions.moveCard).not.toHaveBeenCalled();
+    expect(actions.selectCard).not.toHaveBeenCalled();
   });
 
-  it('should call store action "moveCard" when clicked when visible', () => {
+  it('should call store action "selectCard" when clicked when visible', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
@@ -192,6 +194,6 @@ describe('Card.vue', () => {
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
-    expect(actions.moveCard).toHaveBeenCalled();
+    expect(actions.selectCard).toHaveBeenCalled();
   });
 });

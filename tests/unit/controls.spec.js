@@ -1,7 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Controls from '@/components/Controls.vue';
-// import state from '@/store/state';
 
 const localVue = createLocalVue();
 
@@ -17,6 +16,7 @@ describe('Controls.vue', () => {
   it('calls store action "moveCardToControls" when clicked', () => {
     const actions = {
       restartGame: jest.fn(),
+      initGame: jest.fn(),
     };
 
     const store = new Vuex.Store({
@@ -28,5 +28,6 @@ describe('Controls.vue', () => {
     wrapper.find('[data-test="new-game"]').trigger('click');
 
     expect(actions.restartGame).toHaveBeenCalled();
+    expect(actions.initGame).toHaveBeenCalled();
   });
 });
