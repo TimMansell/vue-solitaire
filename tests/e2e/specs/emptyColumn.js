@@ -14,101 +14,128 @@ describe('Special column moves', () => {
     });
   });
 
-  it('should move Kc & 9c to an empty column', () => {
-    cy.setBoard(emptyColumn).then(() => {
-      cy.get('[data-test="column-7"]').within(() => {
-        cy.get('[data-test="card-Kc"]').should('be.visible');
+  describe('using drag and drop', () => {
+    it('should move Kc & 9c to an empty column', () => {
+      cy.setBoard(emptyColumn).then(() => {
+        cy.get('[data-test="column-7"]').shouldBeVisible(['Kc', '9c']);
+
+        cy.get('[data-test="card-Kc"]').dragTo('[data-test="column-0"]');
+
+        cy.get('[data-test="column-0"]').shouldBeVisible(['Kc', '9c']);
+
+        cy.get('[data-test="column-7"]').shouldNotBeVisible(['Kc', '9c']);
       });
+    });
 
-      cy.get('[data-test="card-Kc"]').click({ force: true });
-      cy.get('[data-test="column-0"]').click();
+    it('should move Kh to 5s to an empty column', () => {
+      cy.setBoard(emptyColumn).then(() => {
+        cy.get('[data-test="column-1"]').shouldBeVisible(['Kh']);
 
-      cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="card-Kc"]').should('be.visible');
+        cy.get('[data-test="card-Kh"]').dragTo('[data-test="column-0"]');
+
+        cy.get('[data-test="column-0"]').shouldBeVisible(['Kh', '9d', '5s']);
+
+        cy.get('[data-test="column-1"]').shouldNotBeVisible(['Kh', '9d', '5s']);
+
+        cy.get('[data-test="column-1"]').shouldBeVisible(['As']);
       });
+    });
 
-      cy.get('[data-test="column-7"]').within(() => {
-        cy.get('[data-test="card-Kc"]').should('not.be.visible');
-        cy.get('[data-test="card-9c"]').should('not.be.visible');
+    // K to not empty
+    it('should not move Ks to 9d', () => {
+      cy.setDeck(invalidMove).then(() => {
+        cy.get('[data-test="column-7"]').shouldBeVisible(['Ks']);
+
+        cy.get('[data-test="card-Ks"]').dragTo('[data-test="card-9d"]');
+
+        cy.get('[data-test="column-1"]').shouldNotBeVisible(['Ks']);
+      });
+    });
+
+    it('should not move Qh to empty column', () => {
+      cy.setBoard(emptyColumn).then(() => {
+        cy.get('[data-test="column-2"]').shouldBeVisible(['Qh']);
+
+        cy.get('[data-test="card-Qh"]').dragTo('[data-test="column-0"]');
+
+        cy.get('[data-test="column-0"]').shouldNotBeVisible(['Qh']);
+
+        cy.get('[data-test="column-2"]').shouldBeVisible(['Qh']);
+      });
+    });
+
+    it('should not move Jd to empty column', () => {
+      cy.setBoard(emptyColumn).then(() => {
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Jd']);
+
+        cy.get('[data-test="card-Jd"]').dragTo('[data-test="column-0"]');
+
+        cy.get('[data-test="column-0"]').shouldNotBeVisible(['Jd']);
+
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Jd']);
       });
     });
   });
 
-  it('should move Kh to 5s to an empty column', () => {
-    cy.setBoard(emptyColumn).then(() => {
-      cy.get('[data-test="column-1"]').within(() => {
-        cy.get('[data-test="card-Kh"]').should('be.visible');
-      });
+  describe('using clicks', () => {
+    it('should move Kc & 9c to an empty column', () => {
+      cy.setBoard(emptyColumn).then(() => {
+        cy.get('[data-test="column-7"]').shouldBeVisible(['Kc', '9c']);
 
-      cy.get('[data-test="card-Kh"]').click({ force: true });
-      cy.get('[data-test="column-0"]').click();
+        cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-0"]');
 
-      cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="card-Kh"]').should('be.visible');
-        cy.get('[data-test="card-9d"]').should('be.visible');
-        cy.get('[data-test="card-5s"]').should('be.visible');
-      });
+        cy.get('[data-test="column-0"]').shouldBeVisible(['Kc', '9c']);
 
-      cy.get('[data-test="column-1"]').within(() => {
-        cy.get('[data-test="card-Kh"]').should('not.be.visible');
-        cy.get('[data-test="card-9d"]').should('not.be.visible');
-        cy.get('[data-test="card-5s"]').should('not.be.visible');
-
-        cy.get('[data-test="card-As"]').should('be.visible');
+        cy.get('[data-test="column-7"]').shouldNotBeVisible(['Kc', '9c']);
       });
     });
-  });
 
-  // K to not empty
-  it('should not move Ks to 9d', () => {
-    cy.setDeck(invalidMove).then(() => {
-      cy.get('[data-test="column-7"]').within(() => {
-        cy.get('[data-test="card-Ks"]').should('be.visible');
-      });
+    it('should move Kh to 5s to an empty column', () => {
+      cy.setBoard(emptyColumn).then(() => {
+        cy.get('[data-test="column-1"]').shouldBeVisible(['Kh']);
 
-      cy.get('[data-test="card-Ks"]').click();
-      cy.get('[data-test="card-9d"]').click();
+        cy.get('[data-test="card-Kh"]').clickTo('[data-test="column-0"]');
 
-      cy.get('[data-test="column-1"]').within(() => {
-        cy.get('[data-test="card-Ks"]').should('not.be.visible');
+        cy.get('[data-test="column-0"]').shouldBeVisible(['Kh', '9d', '5s']);
+
+        cy.get('[data-test="column-1"]').shouldNotBeVisible(['Kh', '9d', '5s']);
+
+        cy.get('[data-test="column-1"]').shouldBeVisible(['As']);
       });
     });
-  });
 
-  it('should not move Qh to empty column', () => {
-    cy.setBoard(emptyColumn).then(() => {
-      cy.get('[data-test="column-2"]').within(() => {
-        cy.get('[data-test="card-Qh"]').should('be.visible');
-      });
+    // K to not empty
+    it('should not move Ks to 9d', () => {
+      cy.setDeck(invalidMove).then(() => {
+        cy.get('[data-test="column-7"]').shouldBeVisible(['Ks']);
 
-      cy.get('[data-test="card-Qh"]').click();
-      cy.get('[data-test="column-0"]').click();
+        cy.get('[data-test="card-Ks"]').clickTo('[data-test="card-9d"]');
 
-      cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="card-Qh"]').should('not.be.visible');
-      });
-
-      cy.get('[data-test="column-2"]').within(() => {
-        cy.get('[data-test="card-Qh"]').should('be.visible');
+        cy.get('[data-test="column-1"]').shouldNotBeVisible(['Ks']);
       });
     });
-  });
 
-  it('should not move Jd to empty column', () => {
-    cy.setBoard(emptyColumn).then(() => {
-      cy.get('[data-test="column-3"]').within(() => {
-        cy.get('[data-test="card-Jd"]').should('be.visible');
+    it('should not move Qh to empty column', () => {
+      cy.setBoard(emptyColumn).then(() => {
+        cy.get('[data-test="column-2"]').shouldBeVisible(['Qh']);
+
+        cy.get('[data-test="card-Qh"]').clickTo('[data-test="column-0"]');
+
+        cy.get('[data-test="column-0"]').shouldNotBeVisible(['Qh']);
+
+        cy.get('[data-test="column-2"]').shouldBeVisible(['Qh']);
       });
+    });
 
-      cy.get('[data-test="card-Jd"]').click({ force: true });
-      cy.get('[data-test="column-0"]').click();
+    it('should not move Jd to empty column', () => {
+      cy.setBoard(emptyColumn).then(() => {
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Jd']);
 
-      cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="card-Jd"]').should('not.be.visible');
-      });
+        cy.get('[data-test="card-Jd"]').clickTo('[data-test="column-0"]');
 
-      cy.get('[data-test="column-3"]').within(() => {
-        cy.get('[data-test="card-Jd"]').should('be.visible');
+        cy.get('[data-test="column-0"]').shouldNotBeVisible(['Jd']);
+
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Jd']);
       });
     });
   });
