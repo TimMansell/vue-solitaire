@@ -7,12 +7,12 @@ const mutations = {
   },
   SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
-      Vue.set(state.board.cards, index, deck[index]);
+      Vue.set(state.board.cards, index, cards);
     });
   },
   SET_FOUNDATIONS(state, foundationColumns) {
     foundationColumns.forEach((foundation, index) => {
-      Vue.set(state.board.foundation, index, []);
+      Vue.set(state.board.foundation, index, foundation);
     });
   },
   SELECT_CARD(state, id) {
@@ -20,15 +20,6 @@ const mutations = {
   },
   UNSELECT_CARD(state) {
     state.selectedCardId = null;
-  },
-  MOVE_CARDS_TO_COLUMN(state, { cardsToColumn }) {
-    Vue.set(state.board.cards, cardsToColumn.column, cardsToColumn.cards);
-  },
-  MOVE_CARD_TO_FOUNDATION(state, { cardsToColumn }) {
-    Vue.set(state.board.foundation, cardsToColumn.column, cardsToColumn.cards);
-  },
-  REMOVE_CARDS_FROM_COLUMN(state, { cardFromColumn }) {
-    Vue.set(state.board.cards, cardFromColumn.column, cardFromColumn.cards);
   },
 };
 
