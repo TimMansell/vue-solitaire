@@ -155,6 +155,28 @@ export default class Solitaire {
     return isValidFoundationSuit && isValidFoundationOrder;
   }
 
+  // revealCards({ cards }, id) {
+  //   const selectedCard = getSelectedCard(cards, id);
+  //   const columnNo = selectedCard.position[0];
+
+  //   const columnCards = cards[columnNo].map((card) => {
+  //     if (card.id === id) {
+  //       const newValues = {
+  //         ...card,
+  //         visible: true,
+  //       };
+  //       return newValues;
+  //     }
+
+  //     return card;
+  //   });
+
+  //   return {
+  //     column: columnNo,
+  //     cards: columnCards,
+  //   };
+  // }
+
   getBoardCards() {
     return this.boardCards;
   }

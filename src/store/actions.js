@@ -33,6 +33,15 @@ const actions = {
       commit('SELECT_CARD', id);
     }
   },
+  // revealCard({ commit, state }, id) {
+  //   const { board } = state;
+
+  //   const releavedCards = revealCards(board, id);
+  //   commit('REVEAL_CARDS', releavedCards);
+  // },
+  setAutoRevealCards({ commit }, isToReveal) {
+    commit('SET_AUTO_REVEAL_CARDS', isToReveal);
+  },
   unselectCard({ commit }) {
     SolitaireService.removeSelectedCard();
 
