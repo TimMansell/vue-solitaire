@@ -2,6 +2,6 @@
 
 exports[`Controls.vue matches snapshot 1`] = `
 <div class="controls"><button data-test="new-game" class="controls__btn">
-    New Gamed
+    New Game
   </button></div>
 `;
