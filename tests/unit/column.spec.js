@@ -35,13 +35,15 @@ describe('Column.vue', () => {
 
   it('should have correct props', () => {
     const propsData = {
-      cards: [{
-        value: 'K',
-        suit: 'd',
-        order: 1,
-        visible: true,
-        clickable: false,
-      }],
+      cards: [
+        {
+          value: 'K',
+          suit: 'd',
+          order: 1,
+          visible: true,
+          clickable: false,
+        },
+      ],
       columnNo: 1,
     };
 
