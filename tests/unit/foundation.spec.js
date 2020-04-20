@@ -9,13 +9,15 @@ localVue.use(Vuex);
 describe('Foundation.vue', () => {
   it('matches snapshot', () => {
     const getters = {
-      foundationCards: () => ([{
-        value: 'A',
-        order: 1,
-        suit: 's',
-        position: [7, 5],
-        visible: true,
-      }]),
+      foundationCards: () => [
+        {
+          value: 'A',
+          order: 1,
+          suit: 's',
+          position: [7, 5],
+          visible: true,
+        },
+      ],
     };
 
     const store = new Vuex.Store({
@@ -29,13 +31,15 @@ describe('Foundation.vue', () => {
 
   it('calls store action "moveCardToFoundation" when clicked', () => {
     const getters = {
-      foundationCards: () => ([{
-        value: 'A',
-        order: 1,
-        suit: 's',
-        position: [7, 5],
-        visible: true,
-      }]),
+      foundationCards: () => [
+        {
+          value: 'A',
+          order: 1,
+          suit: 's',
+          position: [7, 5],
+          visible: true,
+        },
+      ],
     };
 
     const actions = {

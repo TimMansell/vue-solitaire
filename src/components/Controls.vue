@@ -1,9 +1,6 @@
 <template>
   <div class="controls">
-    <button
-      class="controls__btn"
-      @click="restartGame"
-      data-test="new-game">
+    <button class="controls__btn" @click="restartGame" data-test="new-game">
       New Game
     </button>
   </div>
@@ -24,8 +21,8 @@ export default {
 <style lang="scss" scoped>
 .controls {
   position: fixed;
-  right: .5rem;
-  top: .5rem;
+  right: 0.5rem;
+  top: 0.5rem;
 
   &__btn {
     font-size: 1rem;

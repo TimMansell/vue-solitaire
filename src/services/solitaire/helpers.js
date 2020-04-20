@@ -53,10 +53,7 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
   const columnCards = cardsTo[selectedColumn];
   const moveCards = cardsFrom[cardPosition.position[0]].slice(cardPosition.position[1]);
 
-  const newColumn = mapPositions([
-    ...columnCards,
-    ...moveCards,
-  ], selectedColumn);
+  const newColumn = mapPositions([...columnCards, ...moveCards], selectedColumn);
 
   return {
     column: selectedColumn,
@@ -64,9 +61,4 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
   };
 };
 
-export {
-  getSelectedCard,
-  getLastCard,
-  moveCardsFrom,
-  moveCardsTo,
-};
+export { getSelectedCard, getLastCard, moveCardsFrom, moveCardsTo };
