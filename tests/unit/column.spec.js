@@ -15,7 +15,6 @@ describe('Column.vue', () => {
   };
 
   const actions = {
-    setColumn: jest.fn(),
     moveCardsToColumn: jest.fn(),
   };
 
@@ -62,7 +61,6 @@ describe('Column.vue', () => {
 
     wrapper.find('[data-test="column-0"]').trigger('click');
 
-    expect(actions.setColumn).toHaveBeenCalled();
     expect(actions.moveCardsToColumn).toHaveBeenCalled();
   });
 });
