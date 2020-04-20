@@ -45,13 +45,17 @@ export default class Solitaire {
     this.shuffledCards = shuffledDeck;
   }
 
-  setBoard(customDeck) {
-    const { columns } = this.rules;
-
-    if (customDeck) {
-      this.shuffledCards = customDeck;
+  setDeck(deck) {
+    if (deck) {
+      this.deck = deck;
+    } else {
+      this.deck = this.shuffledCards;
     }
-    const { shuffledCards } = this;
+  }
+
+  setBoard() {
+    const { columns } = this.rules;
+    const { deck } = this;
 
     const showCards = (cards, offset = 0) =>
       cards.map((card, index) => {
@@ -74,7 +78,7 @@ export default class Solitaire {
       const startIndex = startArray.reduce(calcOffset, 0);
       const endIndex = endArray.reduce(calcOffset, 0);
 
-      const cards = shuffledCards.slice(startIndex, endIndex).map((shuffledCard, index) => {
+      const cards = deck.slice(startIndex, endIndex).map((shuffledCard, index) => {
         const card = {
           ...shuffledCard,
           position: [columnIndex, index],

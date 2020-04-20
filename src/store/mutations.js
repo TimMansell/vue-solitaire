@@ -21,9 +21,6 @@ const mutations = {
   UNSELECT_CARD(state) {
     state.selectedCardId = null;
   },
-  SET_COLUMN(state, columnNo) {
-    state.selectedColumn = columnNo;
-  },
   MOVE_CARDS_TO_COLUMN(state, { cardsToColumn }) {
     Vue.set(state.board.cards, cardsToColumn.column, cardsToColumn.cards);
   },

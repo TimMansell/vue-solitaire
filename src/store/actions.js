@@ -14,6 +14,7 @@ const actions = {
   },
   setBoard({ commit }) {
     SolitaireService.shuffleCards();
+    SolitaireService.setDeck();
     SolitaireService.setBoard();
 
     const board = SolitaireService.getBoard();
@@ -38,11 +39,8 @@ const actions = {
     SolitaireService.removeSelectedCard();
     commit('UNSELECT_CARD');
   },
-  setColumn({ commit }, columnNo) {
-    commit('SET_COLUMN', columnNo);
-  },
-  moveCardsToColumn({ commit, state, dispatch }) {
-    const { selectedColumn, board } = state;
+  moveCardsToColumn({ commit, state, dispatch }, selectedColumn) {
+    const { board } = state;
 
     SolitaireService.setMoveCards(selectedColumn, board.cards, board.cards);
 
@@ -57,8 +55,8 @@ const actions = {
 
     dispatch('unselectCard');
   },
-  moveCardToFoundation({ commit, state, dispatch }) {
-    const { selectedColumn, board } = state;
+  moveCardToFoundation({ commit, state, dispatch }, selectedColumn) {
+    const { board } = state;
 
     SolitaireService.setMoveCards(selectedColumn, board.cards, board.foundation);
 
@@ -74,7 +72,8 @@ const actions = {
     dispatch('unselectCard');
   },
   dealTestCards({ commit, dispatch }, deck) {
-    SolitaireService.setBoard(deck);
+    SolitaireService.setDeck(deck);
+    SolitaireService.setBoard();
 
     const board = SolitaireService.getBoard();
 
@@ -82,8 +81,11 @@ const actions = {
 
     dispatch('setFoundations');
   },
-  setTestBoard({ commit, dispatch }, deck) {
-    commit('SET_BOARD', deck);
+  setTestBoard({ commit, dispatch }, board) {
+    SolitaireService.setDeck(board);
+    SolitaireService.setBoard();
+    // SolitaireService.setBoard(board);
+    commit('SET_BOARD', board);
 
     dispatch('setFoundations');
   },
