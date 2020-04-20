@@ -8,7 +8,8 @@
       :data-test="`foundation-${foundationsIndex}`"
       @drop="dropCard(foundationsIndex)"
       @dragover.prevent
-      @dragenter.prevent>
+      @dragenter.prevent
+    >
       <Card
         v-for="(card, foundationIndex) in foundation"
         :key="`a-${foundationIndex}`"
@@ -17,12 +18,10 @@
         :order="card.order"
         :position="card.position"
         :visible="card.visible"
-        :clickable="false" />
+        :clickable="false"
+      />
 
-      <SvgIcon
-        class="foundation__placeholder"
-        v-if="!foundation.length"
-        name="Card_back_17" />
+      <SvgIcon class="foundation__placeholder" v-if="!foundation.length" name="Card_back_17" />
     </div>
   </div>
 </template>
@@ -44,12 +43,10 @@ export default {
   },
   methods: {
     moveCardToFoundation(columnIndex) {
-      this.$store.dispatch('setColumn', columnIndex);
-      this.$store.dispatch('moveCardToFoundation');
+      this.$store.dispatch('moveCardToFoundation', columnIndex);
     },
     dropCard(columnIndex) {
-      this.$store.dispatch('setColumn', columnIndex);
-      this.$store.dispatch('moveCardToFoundation');
+      this.$store.dispatch('moveCardToFoundation', columnIndex);
     },
   },
 };
@@ -59,8 +56,8 @@ export default {
 .foundation {
   display: flex;
 
-   @media (min-width: $bp-sm) {
-    margin-bottom: .5rem;
+  @media (min-width: $bp-sm) {
+    margin-bottom: 0.5rem;
   }
 
   &__column {
@@ -74,12 +71,12 @@ export default {
   }
 
   &__placeholder {
-    opacity: .1;
+    opacity: 0.1;
   }
 }
 
 .card {
-  &:nth-of-type(n+2) {
+  &:nth-of-type(n + 2) {
     margin-top: -#{$card-height};
 
     @media (min-width: $bp-sm) {

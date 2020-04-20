@@ -38,7 +38,9 @@ Cypress.Commands.add('setBoard', (board) => {
 
 Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
   cy.get(subject).trigger('dragstart', { dataTransfer: new DataTransfer(), force: true });
-  cy.get(dragTo).trigger('drop').trigger('dragend', { force: true });
+  cy.get(dragTo)
+    .trigger('drop')
+    .trigger('dragend', { force: true });
 });
 
 Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {

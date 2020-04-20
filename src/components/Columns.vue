@@ -1,10 +1,6 @@
 <template>
   <div class="columns">
-    <Column
-      v-for="(column, index) in columns"
-      :key="index"
-      :column-no="index"
-      :cards="column" />
+    <Column v-for="(column, index) in columns" :key="index" :column-no="index" :cards="column" />
   </div>
 </template>
 

@@ -8,7 +8,7 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        prependData: '@import \'~@/components/vars.scss\';',
+        prependData: "@import '~@/components/vars.scss';",
       },
     },
   },

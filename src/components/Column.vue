@@ -5,7 +5,8 @@
     @drop="dropCard(columnNo)"
     @dragover.prevent
     @dragenter.prevent
-    :data-test="`column-${columnNo}`">
+    :data-test="`column-${columnNo}`"
+  >
     <Card
       v-for="(card, index) in cards"
       :key="index"
@@ -15,13 +16,15 @@
       :order="card.order"
       :position="card.position"
       :revealed="card.revealed"
-      :visible="card.visible" />
+      :visible="card.visible"
+    />
 
     <SvgIcon
       class="card-placeholder"
       data-test="card-placeholder"
       v-if="!cards.length"
-      name="Card_back_15" />
+      name="Card_back_15"
+    />
   </div>
 </template>
 
@@ -50,13 +53,11 @@ export default {
       const { selectedCardId } = this.$store.getters;
 
       if (selectedCardId) {
-        this.$store.dispatch('setColumn', columnNo);
-        this.$store.dispatch('moveCardsToColumn');
+        this.$store.dispatch('moveCardsToColumn', columnNo);
       }
     },
     dropCard(columnNo) {
-      this.$store.dispatch('setColumn', columnNo);
-      this.$store.dispatch('moveCardsToColumn');
+      this.$store.dispatch('moveCardsToColumn', columnNo);
     },
   },
 };
@@ -74,6 +75,6 @@ export default {
 }
 
 .card-placeholder {
-  opacity: .1;
+  opacity: 0.1;
 }
 </style>

@@ -6,18 +6,17 @@
     @dragend="clearCard()"
     :draggable="visible"
     ref="card"
-    :data-test="`card-${value}${suit}`">
+    :data-test="`card-${value}${suit}`"
+  >
     <div @click="selectCard($event, id)">
       <SvgIcon
         v-if="visible"
         data-test="card-visible"
-        :name="`${this.value}${this.suit.toUpperCase()}`" />
+        :name="`${this.value}${this.suit.toUpperCase()}`"
+      />
     </div>
     <div @click="revealCard(id)">
-      <SvgIcon
-        v-if="!visible"
-        data-test="card-hidden"
-        name="Card_back_17" />
+      <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
     </div>
   </div>
 </template>
@@ -72,13 +71,7 @@ export default {
   computed: {
     classes() {
       const { selectedCardId } = this.$store.getters;
-      const {
-        id,
-        suit,
-        isCardDragged,
-        clickable,
-        visible,
-      } = this;
+      const { id, suit, isCardDragged, clickable, visible } = this;
 
       return {
         'card--is-s': suit === 's',
@@ -147,10 +140,10 @@ export default {
 
 <style scoped lang="scss">
 .card {
-  transition: all .05s ease-in-out;
+  transition: all 0.05s ease-in-out;
   transform-style: preserve-3d;
 
-  &:nth-of-type(n+2) {
+  &:nth-of-type(n + 2) {
     margin-top: -#{$card-height * $card-spacer};
 
     @media (min-width: $bp-sm) {
@@ -199,7 +192,7 @@ export default {
   }
 
   &--is-not-clickable {
-    pointer-events:none;
+    pointer-events: none;
   }
 
   &--is-draggable {

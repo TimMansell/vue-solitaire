@@ -1,3 +1,37 @@
+import shuffle from 'lodash.shuffle';
+
+const shuffleCards = ({ values, suits }) => {
+  const deck = values.flatMap((value, index) =>
+    suits.map((suit) => {
+      const card = {
+        id: `${index}${suit}`,
+        value,
+        order: index + 1,
+        suit,
+        visible: false,
+      };
+
+      return card;
+    })
+  );
+
+  const shuffledDeck = shuffle(deck);
+
+  return shuffledDeck;
+};
+
+const showHideCards = (cards, offset = 0) =>
+  cards.map((card, index) => {
+    if ((index + offset) % 2 === 0) {
+      return {
+        ...card,
+        visible: true,
+      };
+    }
+
+    return card;
+  });
+
 const getSelectedCard = (cards, selectedCardId) => {
   const [selectedCard] = cards.flat().filter((card) => card.id === selectedCardId);
 
@@ -53,10 +87,7 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
   const columnCards = cardsTo[selectedColumn];
   const moveCards = cardsFrom[cardPosition.position[0]].slice(cardPosition.position[1]);
 
-  const newColumn = mapPositions([
-    ...columnCards,
-    ...moveCards,
-  ], selectedColumn);
+  const newColumn = mapPositions([...columnCards, ...moveCards], selectedColumn);
 
   return {
     column: selectedColumn,
@@ -64,9 +95,4 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
   };
 };
 
-export {
-  getSelectedCard,
-  getLastCard,
-  moveCardsFrom,
-  moveCardsTo,
-};
+export { shuffleCards, showHideCards, getSelectedCard, getLastCard, moveCardsFrom, moveCardsTo };

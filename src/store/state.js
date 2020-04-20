@@ -5,7 +5,6 @@ const state = () => ({
     foundation: [],
   },
   selectedCardId: null,
-  selectedColumn: null,
   config: {
     autoRevealCards: false,
   },
