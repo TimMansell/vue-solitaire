@@ -1,5 +1,7 @@
 const isMoveValidCard = (selectedCard, lastColumnCard) => {
-  if (`${selectedCard.order}${selectedCard.suit}` === `${lastColumnCard.order}${lastColumnCard.suit}`) {
+  if (
+    `${selectedCard.order}${selectedCard.suit}` === `${lastColumnCard.order}${lastColumnCard.suit}`
+  ) {
     return false;
   }
 

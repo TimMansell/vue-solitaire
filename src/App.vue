@@ -2,9 +2,7 @@
   <div id="app">
     <Controls />
     <Solitaire />
-    <div class="app-version">
-      v{{ version }}
-    </div>
+    <div class="app-version">v{{ version }}</div>
   </div>
 </template>
 
@@ -12,7 +10,6 @@
 import Controls from '@/components/Controls.vue';
 import Solitaire from '@/views/Solitaire.vue';
 import { version } from '../package.json';
-
 
 export default {
   name: 'App',
