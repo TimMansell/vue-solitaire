@@ -1,4 +1,3 @@
-import shuffle from 'lodash.shuffle';
 import {
   isMoveValidCard,
   isMoveValidSuit,
@@ -8,127 +7,163 @@ import {
   isMoveValidFoundationSuit,
   isMoveValidFoundationOrder,
 } from './validation';
-import { getSelectedCard, getLastCard, moveCardsFrom, moveCardsTo } from './helpers';
+import {
+  shuffleCards,
+  showHideCards,
+  getSelectedCard,
+  getLastCard,
+  moveCardsFrom,
+  moveCardsTo,
+} from './helpers';
 
-const cardsArray = {
-  values: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
-  suits: ['c', 's', 'h', 'd'],
-};
+export default class Solitaire {
+  constructor() {
+    this.cards = {
+      values: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
+      suits: ['c', 's', 'h', 'd'],
+    };
 
-const rules = {
-  columns: [7, 7, 7, 7, 6, 6, 6, 6],
-  foundationColumns: [1, 1, 1, 1],
-};
+    this.rules = {
+      columns: [7, 7, 7, 7, 6, 6, 6, 6],
+      foundationColumns: [1, 1, 1, 1],
+    };
 
-const getFoundations = () => rules.foundationColumns;
+    this.boardCards = [];
+    this.deck = [];
 
-const shuffleCards = () => {
-  const { values, suits } = cardsArray;
-
-  const deck = values.flatMap((value, index) =>
-    suits.map((suit) => {
-      const card = {
-        id: `${index}${suit}`,
-        value,
-        order: index + 1,
-        suit,
-        visible: false,
-      };
-
-      return card;
-    })
-  );
-
-  const shuffledDeck = shuffle(deck);
-
-  return shuffledDeck;
-};
-
-const setBoard = (shuffledCards) => {
-  const showCards = (cards, offset = 0) =>
-    cards.map((card, index) => {
-      if ((index + offset) % 2 === 0) {
-        return {
-          ...card,
-          visible: true,
-        };
-      }
-
-      return card;
-    });
-
-  const dealtCards = rules.columns.map((column, columnIndex, array) => {
-    const startArray = array.slice(0, columnIndex);
-    const endArray = array.slice(0, columnIndex + 1);
-
-    const calcOffset = (accumulator, currentValue) => accumulator + currentValue;
-
-    const startIndex = startArray.reduce(calcOffset, 0);
-    const endIndex = endArray.reduce(calcOffset, 0);
-
-    const cards = shuffledCards.slice(startIndex, endIndex).map((shuffledCard, index) => {
-      const card = {
-        ...shuffledCard,
-        position: [columnIndex, index],
-      };
-
-      return card;
-    });
-
-    // Offset by one.
-    if (columnIndex > 3) {
-      return showCards(cards, 1);
-    }
-
-    return showCards(cards);
-  });
-
-  return dealtCards;
-};
-
-const checkValidCardMove = (selectedCardId, selectedColumn, board) => {
-  const selectedCard = getSelectedCard(board, selectedCardId);
-  const lastColumnCard = getLastCard(board, selectedColumn);
-
-  // Relaxed validation for K to empty column
-  if (!lastColumnCard) {
-    const isValidKing = isValidKingMove(selectedCard, lastColumnCard);
-
-    return isValidKing;
+    this.init();
   }
 
-  // General validation.
-  const isValidCard = isMoveValidCard(selectedCard, lastColumnCard);
-  const isValidSuit = isMoveValidSuit(selectedCard, lastColumnCard);
-  const isValidOrder = isMoveValidOrder(selectedCard, lastColumnCard);
-  const isValidColumn = isMoveValidColumn(selectedCard, lastColumnCard);
+  init() {
+    this.setFoundations();
+    this.setDeck();
+    this.setBoard();
+  }
 
-  return isValidCard && isValidSuit && isValidOrder && isValidColumn;
-};
+  setDeck(deck) {
+    if (deck) {
+      this.deck = deck;
+    } else {
+      this.deck = shuffleCards(this.cards);
+    }
+  }
 
-const moveCards = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
-  const cardFromColumn = moveCardsFrom(selectedCardId, cardsFrom);
-  const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, cardsFrom, cardsTo);
+  setBoard() {
+    const { columns } = this.rules;
+    const { deck } = this;
 
-  return {
-    cardFromColumn,
-    cardsToColumn,
-  };
-};
+    const dealtCards = columns.map((column, columnIndex, array) => {
+      const startArray = array.slice(0, columnIndex);
+      const endArray = array.slice(0, columnIndex + 1);
 
-const checkValidFoundationMove = (selectedCardId, selectedColumn, board) => {
-  const selectedCard = getSelectedCard(board.cards, selectedCardId);
-  const isValidFoundationSuit = isMoveValidFoundationSuit(selectedCard, selectedColumn, board);
-  const isValidFoundationOrder = isMoveValidFoundationOrder(selectedCard, selectedColumn, board);
+      const calcOffset = (accumulator, currentValue) => accumulator + currentValue;
 
-  return isValidFoundationSuit && isValidFoundationOrder;
-};
+      const startIndex = startArray.reduce(calcOffset, 0);
+      const endIndex = endArray.reduce(calcOffset, 0);
 
-export {
-  shuffleCards,
-  getFoundations,
-  setBoard,
-  checkValidCardMove,
-  moveCards,
-  checkValidFoundationMove,
-};
+      const cards = deck.slice(startIndex, endIndex).map((shuffledCard, index) => {
+        const card = {
+          ...shuffledCard,
+          position: [columnIndex, index],
+        };
+
+        return card;
+      });
+
+      // Offset by one.
+      if (columnIndex > 3) {
+        return showHideCards(cards, 1);
+      }
+
+      return showHideCards(cards);
+    });
+
+    this.boardCards = dealtCards;
+  }
+
+  setFoundations() {
+    this.foundationCards = this.rules.foundationColumns.map(() => []);
+  }
+
+  setSelectedCard(id) {
+    this.selectedCardId = id;
+  }
+
+  removeSelectedCard() {
+    this.selectedCardId = null;
+  }
+
+  setMoveCards(selectedColumn) {
+    const { selectedCardId, boardCards } = this;
+
+    const cardFromColumn = moveCardsFrom(selectedCardId, boardCards);
+    const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, boardCards, boardCards);
+
+    this.boardCards[cardFromColumn.column] = cardFromColumn.cards;
+    this.boardCards[cardsToColumn.column] = cardsToColumn.cards;
+  }
+
+  isValidCardMove(selectedColumn) {
+    const { selectedCardId, boardCards } = this;
+
+    const selectedCard = getSelectedCard(boardCards, selectedCardId);
+    const lastColumnCard = getLastCard(boardCards, selectedColumn);
+
+    // Relaxed validation for K to empty column
+    if (!lastColumnCard) {
+      const isValidKing = isValidKingMove(selectedCard, lastColumnCard);
+
+      return isValidKing;
+    }
+
+    // General validation.
+    const isValidCard = isMoveValidCard(selectedCard, lastColumnCard);
+    const isValidSuit = isMoveValidSuit(selectedCard, lastColumnCard);
+    const isValidOrder = isMoveValidOrder(selectedCard, lastColumnCard);
+    const isValidColumn = isMoveValidColumn(selectedCard, lastColumnCard);
+
+    return isValidCard && isValidSuit && isValidOrder && isValidColumn;
+  }
+
+  moveCardsToFoundation(selectedColumn) {
+    const { selectedCardId, boardCards, foundationCards } = this;
+
+    const cardFromColumn = moveCardsFrom(selectedCardId, boardCards);
+    const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, boardCards, foundationCards);
+
+    this.boardCards[cardFromColumn.column] = cardFromColumn.cards;
+    this.foundationCards[cardsToColumn.column] = cardsToColumn.cards;
+  }
+
+  isValidFoundationMove(selectedColumn) {
+    const { selectedCardId, boardCards, foundationCards } = this;
+
+    const selectedCard = getSelectedCard(boardCards, selectedCardId);
+
+    const isValidFoundationSuit = isMoveValidFoundationSuit(
+      selectedCard,
+      selectedColumn,
+      foundationCards
+    );
+    const isValidFoundationOrder = isMoveValidFoundationOrder(
+      selectedCard,
+      selectedColumn,
+      foundationCards,
+      boardCards
+    );
+
+    return isValidFoundationSuit && isValidFoundationOrder;
+  }
+
+  getBoardCards() {
+    return this.boardCards;
+  }
+
+  getFoundationCards() {
+    return this.foundationCards;
+  }
+
+  setTestBoard(boardCards) {
+    this.boardCards = [...boardCards];
+  }
+}

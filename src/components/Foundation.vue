@@ -43,12 +43,10 @@ export default {
   },
   methods: {
     moveCardToFoundation(columnIndex) {
-      this.$store.dispatch('setColumn', columnIndex);
-      this.$store.dispatch('moveCardToFoundation');
+      this.$store.dispatch('moveCardToFoundation', columnIndex);
     },
     dropCard(columnIndex) {
-      this.$store.dispatch('setColumn', columnIndex);
-      this.$store.dispatch('moveCardToFoundation');
+      this.$store.dispatch('moveCardToFoundation', columnIndex);
     },
   },
 };

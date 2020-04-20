@@ -53,13 +53,11 @@ export default {
       const { selectedCardId } = this.$store.getters;
 
       if (selectedCardId) {
-        this.$store.dispatch('setColumn', columnNo);
-        this.$store.dispatch('moveCardsToColumn');
+        this.$store.dispatch('moveCardsToColumn', columnNo);
       }
     },
     dropCard(columnNo) {
-      this.$store.dispatch('setColumn', columnNo);
-      this.$store.dispatch('moveCardsToColumn');
+      this.$store.dispatch('moveCardsToColumn', columnNo);
     },
   },
 };
