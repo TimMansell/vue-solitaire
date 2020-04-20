@@ -8,12 +8,7 @@ import {
   isMoveValidFoundationSuit,
   isMoveValidFoundationOrder,
 } from './validation';
-import {
-  getSelectedCard,
-  getLastCard,
-  moveCardsFrom,
-  moveCardsTo,
-} from './helpers';
+import { getSelectedCard, getLastCard, moveCardsFrom, moveCardsTo } from './helpers';
 
 const cardsArray = {
   values: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
@@ -30,17 +25,19 @@ const getFoundations = () => rules.foundationColumns;
 const shuffleCards = () => {
   const { values, suits } = cardsArray;
 
-  const deck = values.flatMap((value, index) => suits.map((suit) => {
-    const card = {
-      id: `${index}${suit}`,
-      value,
-      order: index + 1,
-      suit,
-      visible: false,
-    };
+  const deck = values.flatMap((value, index) =>
+    suits.map((suit) => {
+      const card = {
+        id: `${index}${suit}`,
+        value,
+        order: index + 1,
+        suit,
+        visible: false,
+      };
 
-    return card;
-  }));
+      return card;
+    })
+  );
 
   const shuffledDeck = shuffle(deck);
 
@@ -48,16 +45,17 @@ const shuffleCards = () => {
 };
 
 const setBoard = (shuffledCards) => {
-  const showCards = (cards, offset = 0) => cards.map((card, index) => {
-    if ((index + offset) % 2 === 0) {
-      return {
-        ...card,
-        visible: true,
-      };
-    }
+  const showCards = (cards, offset = 0) =>
+    cards.map((card, index) => {
+      if ((index + offset) % 2 === 0) {
+        return {
+          ...card,
+          visible: true,
+        };
+      }
 
-    return card;
-  });
+      return card;
+    });
 
   const dealtCards = rules.columns.map((column, columnIndex, array) => {
     const startArray = array.slice(0, columnIndex);
