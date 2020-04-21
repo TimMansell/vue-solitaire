@@ -28,6 +28,11 @@ export default class Solitaire {
       foundationColumns: [1, 1, 1, 1],
     };
 
+    this.settings = {
+      autoRevealCards: false,
+      showHiddenCards: false,
+    };
+
     this.boardCards = [];
     this.deck = [];
 
@@ -95,8 +100,9 @@ export default class Solitaire {
 
   setMoveCards(selectedColumn) {
     const { selectedCardId, boardCards } = this;
+    const { autoRevealCards } = this.settings;
 
-    const cardFromColumn = moveCardsFrom(selectedCardId, boardCards);
+    const cardFromColumn = moveCardsFrom(selectedCardId, boardCards, autoRevealCards);
     const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, boardCards, boardCards);
 
     this.boardCards[cardFromColumn.column] = cardFromColumn.cards;
@@ -127,8 +133,9 @@ export default class Solitaire {
 
   moveCardsToFoundation(selectedColumn) {
     const { selectedCardId, boardCards, foundationCards } = this;
+    const { autoRevealCards } = this.settings;
 
-    const cardFromColumn = moveCardsFrom(selectedCardId, boardCards);
+    const cardFromColumn = moveCardsFrom(selectedCardId, boardCards, autoRevealCards);
     const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, boardCards, foundationCards);
 
     this.boardCards[cardFromColumn.column] = cardFromColumn.cards;
@@ -153,6 +160,46 @@ export default class Solitaire {
     );
 
     return isValidFoundationSuit && isValidFoundationOrder;
+  }
+
+  updateSettings(setting) {
+    const settings = {
+      ...this.settings,
+      ...setting,
+    };
+
+    this.settings = settings;
+
+    localStorage.setItem('settings', JSON.stringify(settings));
+  }
+
+  getSettings() {
+    const settings = JSON.parse(localStorage.getItem('settings')) || this.settings;
+
+    // console.log('getSettings', settings);
+    this.settings = settings;
+
+    return settings;
+  }
+
+  revealCard(selectedCardId) {
+    const { boardCards } = this;
+    const selectedCard = getSelectedCard(boardCards, selectedCardId);
+    const columnNo = selectedCard.position[0];
+
+    const columnCards = boardCards[columnNo].map((card) => {
+      if (card.id === selectedCardId) {
+        const newValues = {
+          ...card,
+          visible: true,
+        };
+        return newValues;
+      }
+
+      return card;
+    });
+
+    this.boardCards[columnNo] = columnCards;
   }
 
   getBoardCards() {

@@ -2,20 +2,22 @@
   <div
     class="card"
     :class="classes"
-    @click="selectCard($event, id)"
     @dragstart="dragCard($event, id)"
     @dragend="clearCard()"
     :draggable="visible"
     ref="card"
     :data-test="`card-${value}${suit}`"
   >
-    <SvgIcon
-      v-if="visible"
-      data-test="card-visible"
-      :name="`${this.value}${this.suit.toUpperCase()}`"
-    />
-
-    <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
+    <div @click="selectCard($event, id)">
+      <SvgIcon
+        v-if="visible"
+        data-test="card-visible"
+        :name="`${this.value}${this.suit.toUpperCase()}`"
+      />
+    </div>
+    <div @click="revealCard(id)">
+      <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
+    </div>
   </div>
 </template>
 
@@ -128,6 +130,9 @@ export default {
       document.querySelector('#cloned-card').remove();
 
       this.isCardDragged = !this.isCardDragged;
+    },
+    revealCard(id) {
+      this.$store.dispatch('revealCard', id);
     },
   },
 };

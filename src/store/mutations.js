@@ -21,6 +21,11 @@ const mutations = {
   UNSELECT_CARD(state) {
     state.selectedCardId = null;
   },
+  UPDATE_SETTINGS(state, settings) {
+    Object.keys(settings).forEach((setting) => {
+      Vue.set(state.settings, setting, settings[setting]);
+    });
+  },
 };
 
 export default mutations;

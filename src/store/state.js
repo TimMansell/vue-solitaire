@@ -5,6 +5,7 @@ const state = () => ({
     foundation: [],
   },
   selectedCardId: null,
+  settings: {},
 });
 
 export default state;

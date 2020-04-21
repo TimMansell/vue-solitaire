@@ -38,6 +38,23 @@ const actions = {
 
     commit('UNSELECT_CARD');
   },
+  revealCard({ dispatch }, id) {
+    SolitaireService.revealCard(id);
+
+    dispatch('setBoard');
+  },
+  getSettings({ commit }) {
+    const settings = SolitaireService.getSettings();
+
+    console.log('getSettingsAction', settings);
+
+    commit('UPDATE_SETTINGS', settings);
+  },
+  updateSettings({ dispatch }, setting) {
+    SolitaireService.updateSettings(setting);
+
+    dispatch('setBoard');
+  },
   moveCardsToColumn({ dispatch }, selectedColumn) {
     const isValidMove = SolitaireService.isValidCardMove(selectedColumn);
 
