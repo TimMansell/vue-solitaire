@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Controls />
+    <Rules />
     <Solitaire />
     <div class="app-version">v{{ version }}</div>
   </div>
@@ -8,6 +9,7 @@
 
 <script>
 import Controls from '@/components/Controls.vue';
+import Rules from '@/components/Rules.vue';
 import Solitaire from '@/views/Solitaire.vue';
 import { version } from '../package.json';
 
@@ -15,6 +17,7 @@ export default {
   name: 'App',
   components: {
     Controls,
+    Rules,
     Solitaire,
   },
   data() {
@@ -26,6 +29,10 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   background: green;
