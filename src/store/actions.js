@@ -33,19 +33,27 @@ const actions = {
       commit('SELECT_CARD', id);
     }
   },
-  // revealCard({ commit, state }, id) {
-  //   const { board } = state;
-
-  //   const releavedCards = revealCards(board, id);
-  //   commit('REVEAL_CARDS', releavedCards);
-  // },
-  setAutoRevealCards({ commit }, isToReveal) {
-    commit('SET_AUTO_REVEAL_CARDS', isToReveal);
-  },
   unselectCard({ commit }) {
     SolitaireService.removeSelectedCard();
 
     commit('UNSELECT_CARD');
+  },
+  revealCard({ dispatch }, id) {
+    SolitaireService.revealCard(id);
+
+    dispatch('setBoard');
+  },
+  getSettings({ commit }) {
+    const settings = SolitaireService.getSettings();
+
+    console.log('getSettingsAction', settings);
+
+    commit('UPDATE_SETTINGS', settings);
+  },
+  updateSettings({ dispatch }, setting) {
+    SolitaireService.updateSettings(setting);
+
+    dispatch('setBoard');
   },
   moveCardsToColumn({ dispatch }, selectedColumn) {
     const isValidMove = SolitaireService.isValidCardMove(selectedColumn);

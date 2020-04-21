@@ -3,14 +3,9 @@
     <button class="controls__btn" @click="restartGame" data-test="new-game">
       New Game
     </button>
-    <div>
-      <input
-        @change="toggleAutoRevealCards"
-        type="checkbox"
-        id="checkbox"
-        v-model="autoRevealCards"
-      />
-      <label for="checkbox">Auto-reveal cards</label>
+    <div v-for="(value, key, index) in settings" :key="index">
+      <input @change="updateSettings" type="checkbox" :id="index" v-model="settings[key]" />
+      <label :for="index">Auto-reveal cards</label>
     </div>
   </div>
 </template>
@@ -20,16 +15,21 @@ export default {
   name: 'Controls',
   data() {
     return {
-      autoRevealCards: true,
+      settings: this.$store.getters.settings,
     };
+  },
+  mounted() {
+    this.$store.dispatch('getSettings');
   },
   methods: {
     restartGame() {
       this.$store.dispatch('restartGame');
       this.$store.dispatch('initGame');
     },
-    toggleAutoRevealCards() {
-      console.log('auto reveal', this.autoRevealCards);
+    updateSettings() {
+      const { settings } = this;
+
+      this.$store.dispatch('updateSettings', settings);
     },
   },
 };

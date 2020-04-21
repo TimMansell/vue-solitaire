@@ -21,11 +21,10 @@ const mutations = {
   UNSELECT_CARD(state) {
     state.selectedCardId = null;
   },
-  REVEAL_CARDS(state, cardsColumn) {
-    Vue.set(state.board.cards, cardsColumn.column, cardsColumn.cards);
-  },
-  SET_AUTO_REVEAL_CARDS(state, isToReveal) {
-    state.config.autoRevealCards = isToReveal;
+  UPDATE_SETTINGS(state, settings) {
+    Object.keys(settings).forEach((setting) => {
+      Vue.set(state.settings, setting, settings[setting]);
+    });
   },
 };
 

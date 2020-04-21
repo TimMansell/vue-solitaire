@@ -56,27 +56,27 @@ const mapPositions = (cards, position) => {
   return updatedCards;
 };
 
-const moveCardsFrom = (selectedCardId, cards) => {
+const moveCardsFrom = (selectedCardId, cards, autoRevealCard) => {
   const selectedCard = getSelectedCard(cards, selectedCardId);
   const cardPosition = selectedCard.position;
 
   const columnCards = cards[cardPosition[0]].slice(0, cardPosition[1]);
 
-  // const remainingCards = columnCards.map((card, index) => {
-  //   if (index === columnCards.length - 1 && !card.visible) {
-  //     const newValues = {
-  //       ...card,
-  //       visible: true,
-  //     };
-  //     return newValues;
-  //   }
+  const remainingCards = columnCards.map((card, index) => {
+    if (index === columnCards.length - 1 && !card.visible && autoRevealCard) {
+      const newValues = {
+        ...card,
+        visible: true,
+      };
+      return newValues;
+    }
 
-  //   return card;
-  // });
+    return card;
+  });
 
   return {
     column: cardPosition[0],
-    cards: columnCards,
+    cards: remainingCards,
   };
 };
 

@@ -5,9 +5,7 @@ const state = () => ({
     foundation: [],
   },
   selectedCardId: null,
-  config: {
-    autoRevealCards: false,
-  },
+  settings: {},
 });
 
 export default state;
