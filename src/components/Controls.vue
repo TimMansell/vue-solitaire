@@ -1,31 +1,35 @@
 <template>
   <div class="controls">
-    <button class="controls__btn" @click="restartGame" data-test="new-game">
-      New Game
-    </button>
+    <NewGame />
+    <Rules />
   </div>
 </template>
 
 <script>
+import NewGame from '@/components/NewGame.vue';
+import Rules from '@/components/Rules.vue';
+
 export default {
   name: 'Controls',
-  methods: {
-    restartGame() {
-      this.$store.dispatch('restartGame');
-      this.$store.dispatch('initGame');
-    },
+  components: {
+    NewGame,
+    Rules,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .controls {
-  position: fixed;
-  right: 0.5rem;
-  top: 0.5rem;
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  display: flex;
 
-  &__btn {
-    font-size: 1rem;
+  @media (min-width: $bp-sm) {
+    display: block;
+    left: auto;
+    right: 0.5rem;
+    top: 0.5rem;
   }
 }
 </style>
