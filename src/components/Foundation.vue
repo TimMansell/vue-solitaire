@@ -4,7 +4,7 @@
       class="foundation__column"
       v-for="(foundation, foundationsIndex) in foundationCards"
       :key="`f-${foundationsIndex}`"
-      @click="moveCardToFoundation(foundationsIndex)"
+      @click="setFoundationColumn(foundationsIndex)"
       :data-test="`foundation-${foundationsIndex}`"
       @drop="dropCard(foundationsIndex)"
       @dragover.prevent
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import Card from '@/components/Card.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 
@@ -36,17 +37,16 @@ export default {
     Card,
     SvgIcon,
   },
-  data() {
-    return {
-      foundationCards: this.$store.getters.foundationCards,
-    };
+  computed: {
+    ...mapGetters(['foundationCards']),
   },
   methods: {
-    moveCardToFoundation(columnIndex) {
-      this.$store.dispatch('moveCardToFoundation', columnIndex);
+    ...mapActions(['moveCardToFoundation']),
+    setFoundationColumn(columnIndex) {
+      this.moveCardToFoundation(columnIndex);
     },
     dropCard(columnIndex) {
-      this.$store.dispatch('moveCardToFoundation', columnIndex);
+      this.moveCardToFoundation(columnIndex);
     },
   },
 };

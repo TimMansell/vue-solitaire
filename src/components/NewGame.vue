@@ -1,16 +1,19 @@
 <template>
-  <button class="new-game__btn" @click="restartGame" data-test="new-game">
+  <button class="new-game__btn" @click="newGame" data-test="new-game">
     New Game
   </button>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'NewGame',
   methods: {
-    restartGame() {
-      this.$store.dispatch('restartGame');
-      this.$store.dispatch('initGame');
+    ...mapActions(['restartGame', 'initGame']),
+    newGame() {
+      this.restartGame();
+      this.initGame();
     },
   },
 };
