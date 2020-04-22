@@ -5,12 +5,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'NewGame',
   methods: {
+    ...mapActions(['restartGame', 'initGame']),
     restartGame() {
-      this.$store.dispatch('restartGame');
-      this.$store.dispatch('initGame');
+      this.restartGame();
+      this.initGame();
     },
   },
 };

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
@@ -85,6 +85,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setCard']),
     selectCard(e, id) {
       const { selectedCardId } = this;
 
@@ -92,7 +93,7 @@ export default {
         e.stopPropagation();
 
         if (this.clickable && this.visible) {
-          this.$store.dispatch('selectCard', id);
+          this.setCard(id);
         }
       }
     },
@@ -105,7 +106,7 @@ export default {
 
       this.isCardDragged = !this.isCardDragged;
 
-      this.$store.dispatch('selectCard', id);
+      this.setCard(id);
     },
     cloneCards() {
       const clonedElement = document.createElement('div');

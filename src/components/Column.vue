@@ -1,7 +1,7 @@
 <template>
   <div
     class="column"
-    @click="moveCardToColumn(columnNo)"
+    @click="setColumn(columnNo)"
     @drop="dropCard(columnNo)"
     @dragover.prevent
     @dragenter.prevent
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Card from '@/components/Card.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 
@@ -53,15 +53,16 @@ export default {
     ...mapGetters(['selectedCardId']),
   },
   methods: {
-    moveCardToColumn(columnNo) {
+    ...mapActions(['moveCardsToColumn']),
+    setColumn(columnNo) {
       const { selectedCardId } = this;
 
       if (selectedCardId) {
-        this.$store.dispatch('moveCardsToColumn', columnNo);
+        this.moveCardsToColumn(columnNo);
       }
     },
     dropCard(columnNo) {
-      this.$store.dispatch('moveCardsToColumn', columnNo);
+      this.moveCardsToColumn(columnNo);
     },
   },
 };
