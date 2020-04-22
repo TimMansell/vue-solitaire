@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 // import emptyColumn from '../../tests/fixtures/boards/emptyColumn.json';
 // import aces from '../../tests/fixtures/decks/moveAcetoAces.json';
@@ -15,9 +16,12 @@ export default {
     Board,
   },
   mounted() {
-    this.$store.dispatch('initGame');
+    this.initGame();
     // this.$store.dispatch('setTestBoard', emptyColumn);
     // this.$store.dispatch('dealTestCards', aces);
+  },
+  methods: {
+    ...mapActions(['initGame']),
   },
 };
 </script>

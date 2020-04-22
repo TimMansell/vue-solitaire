@@ -12,7 +12,7 @@ describe('Card.vue', () => {
   let store;
 
   const actions = {
-    selectCard: jest.fn(),
+    setCard: jest.fn(),
   };
 
   beforeEach(() => {
@@ -160,7 +160,7 @@ describe('Card.vue', () => {
     expect(wrapper.classes()).toContain('card--is-selected');
   });
 
-  it('should not call store action "selectCard" when clicked', () => {
+  it('should not call store action "setCard" when clicked', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
@@ -172,18 +172,18 @@ describe('Card.vue', () => {
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
     expect(wrapper.classes()).toContain('card--is-not-clickable');
-    expect(actions.selectCard).not.toHaveBeenCalled();
+    expect(actions.setCard).not.toHaveBeenCalled();
   });
 
-  it('should not call store action "selectCard" when clicked when not visible', () => {
+  it('should not call store action "setCard" when clicked when not visible', () => {
     const wrapper = shallowMount(Card, { store, localVue });
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
-    expect(actions.selectCard).not.toHaveBeenCalled();
+    expect(actions.setCard).not.toHaveBeenCalled();
   });
 
-  it('should call store action "selectCard" when clicked when visible', () => {
+  it('should call store action "setCard" when clicked when visible', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
@@ -194,6 +194,6 @@ describe('Card.vue', () => {
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
-    expect(actions.selectCard).toHaveBeenCalled();
+    expect(actions.setCard).toHaveBeenCalled();
   });
 });
