@@ -50,6 +50,14 @@ p {
   margin-bottom: 1rem;
 }
 
+ul {
+  padding-left: 1.5rem;
+
+  @media (min-width: $bp-sm) {
+    padding-left: 2rem;
+  }
+}
+
 .app-version {
   position: fixed;
   bottom: 1rem;

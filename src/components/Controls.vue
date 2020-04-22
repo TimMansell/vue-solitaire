@@ -30,6 +30,7 @@ export default {
     left: auto;
     right: 0.5rem;
     top: 0.5rem;
+    text-align: right;
   }
 }
 </style>
