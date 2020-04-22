@@ -1,5 +1,5 @@
 <template>
-  <button class="new-game__btn" @click="restartGame" data-test="new-game">
+  <button class="new-game__btn" @click="newGame" data-test="new-game">
     New Game
   </button>
 </template>
@@ -11,7 +11,7 @@ export default {
   name: 'NewGame',
   methods: {
     ...mapActions(['restartGame', 'initGame']),
-    restartGame() {
+    newGame() {
       this.restartGame();
       this.initGame();
     },
