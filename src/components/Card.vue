@@ -7,20 +7,20 @@
     @dragend="clearCard()"
     :draggable="visible"
     ref="card"
-    :data-test="`card-${value}${suit}`">
+    :data-test="`card-${value}${suit}`"
+  >
     <SvgIcon
       v-if="visible"
       data-test="card-visible"
-      :name="`${this.value}${this.suit.toUpperCase()}`" />
+      :name="`${this.value}${this.suit.toUpperCase()}`"
+    />
 
-    <SvgIcon
-      v-if="!visible"
-      data-test="card-hidden"
-      name="Card_back_17" />
+    <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
@@ -68,15 +68,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['selectedCardId']),
     classes() {
-      const { selectedCardId } = this.$store.getters;
-      const {
-        id,
-        suit,
-        isCardDragged,
-        clickable,
-        visible,
-      } = this;
+      const { selectedCardId } = this;
+      const { id, suit, isCardDragged, clickable, visible } = this;
 
       return {
         'card--is-s': suit === 's',
@@ -90,14 +85,15 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setCard']),
     selectCard(e, id) {
-      const { selectedCardId } = this.$store.getters;
+      const { selectedCardId } = this;
 
       if (!selectedCardId) {
         e.stopPropagation();
 
         if (this.clickable && this.visible) {
-          this.$store.dispatch('selectCard', id);
+          this.setCard(id);
         }
       }
     },
@@ -110,7 +106,7 @@ export default {
 
       this.isCardDragged = !this.isCardDragged;
 
-      this.$store.dispatch('selectCard', id);
+      this.setCard(id);
     },
     cloneCards() {
       const clonedElement = document.createElement('div');
@@ -142,10 +138,10 @@ export default {
 
 <style scoped lang="scss">
 .card {
-  transition: all .05s ease-in-out;
+  transition: all 0.05s ease-in-out;
   transform-style: preserve-3d;
 
-  &:nth-of-type(n+2) {
+  &:nth-of-type(n + 2) {
     margin-top: -#{$card-height * $card-spacer};
 
     @media (min-width: $bp-sm) {
@@ -194,7 +190,7 @@ export default {
   }
 
   &--is-not-clickable {
-    pointer-events:none;
+    pointer-events: none;
   }
 
   &--is-draggable {

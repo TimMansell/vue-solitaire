@@ -1,11 +1,12 @@
 <template>
   <div
     class="column"
-    @click="moveCardToColumn(columnNo)"
+    @click="setColumn(columnNo)"
     @drop="dropCard(columnNo)"
     @dragover.prevent
     @dragenter.prevent
-    :data-test="`column-${columnNo}`">
+    :data-test="`column-${columnNo}`"
+  >
     <Card
       v-for="(card, index) in cards"
       :key="index"
@@ -15,17 +16,20 @@
       :order="card.order"
       :position="card.position"
       :revealed="card.revealed"
-      :visible="card.visible" />
+      :visible="card.visible"
+    />
 
     <SvgIcon
       class="card-placeholder"
       data-test="card-placeholder"
       v-if="!cards.length"
-      name="Card_back_15" />
+      name="Card_back_15"
+    />
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import Card from '@/components/Card.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 
@@ -45,18 +49,20 @@ export default {
       default: 0,
     },
   },
+  computed: {
+    ...mapGetters(['selectedCardId']),
+  },
   methods: {
-    moveCardToColumn(columnNo) {
-      const { selectedCardId } = this.$store.getters;
+    ...mapActions(['moveCardsToColumn']),
+    setColumn(columnNo) {
+      const { selectedCardId } = this;
 
       if (selectedCardId) {
-        this.$store.dispatch('setColumn', columnNo);
-        this.$store.dispatch('moveCardsToColumn');
+        this.moveCardsToColumn(columnNo);
       }
     },
     dropCard(columnNo) {
-      this.$store.dispatch('setColumn', columnNo);
-      this.$store.dispatch('moveCardsToColumn');
+      this.moveCardsToColumn(columnNo);
     },
   },
 };
@@ -74,6 +80,6 @@ export default {
 }
 
 .card-placeholder {
-  opacity: .1;
+  opacity: 0.1;
 }
 </style>

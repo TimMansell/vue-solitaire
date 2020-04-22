@@ -25,4 +25,14 @@ describe('Controls', () => {
       });
     });
   });
+
+  it('it should open and close rules', () => {
+    cy.get('[data-test="game-rules"]').click();
+
+    cy.get('[data-test="modal-content"]').should('be.visible');
+
+    cy.get('[data-test="close-modal"]').click();
+
+    cy.get('[data-test="modal-content"]').should('not.be.visible');
+  });
 });
