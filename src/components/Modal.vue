@@ -10,7 +10,7 @@
     transition="scale"
   >
     <div class="modal__content">
-      <button class="modal__close" @click="$modal.hide('modal')">
+      <button class="modal__close" @click="closeModal" data-test="close-modal">
         Close
       </button>
       <slot />
@@ -25,6 +25,11 @@ export default {
     isVisible: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    closeModal() {
+      this.$modal.hide('modal');
     },
   },
 };
