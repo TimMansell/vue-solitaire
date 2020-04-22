@@ -2,7 +2,7 @@
 
 exports[`Modal.vue matches snapshot 1`] = `
 <modal-stub name="modal" delay="0" adaptive="true" scrollable="true" reset="true" overlaytransition="overlay-fade" transition="scale" clicktoclose="true" classes="modal" minwidth="0" minheight="0" maxwidth="9007199254740991" maxheight="9007199254740991" width="600" height="auto" pivotx="0.5" pivoty="0.5">
-  <div class="modal__content"><button data-test="close-modal" class="modal__close">
+  <div data-test="modal-content" class="modal__content"><button data-test="close-modal" class="modal__close">
       Close
     </button> </div>
 </modal-stub>
