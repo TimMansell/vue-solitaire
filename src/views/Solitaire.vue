@@ -1,12 +1,16 @@
 <template>
   <div class="solitaire">
     <Board />
+    <div v-if="isGameWon">
+      <Winner />
+    </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
+import Winner from '@/components/Winner.vue';
 // import emptyColumn from '../../tests/fixtures/boards/emptyColumn.json';
 // import aces from '../../tests/fixtures/decks/moveAcetoAces.json';
 
@@ -14,6 +18,15 @@ export default {
   name: 'Home',
   components: {
     Board,
+    Winner,
+  },
+  data() {
+    return {
+      gameWon: true,
+    };
+  },
+  computed: {
+    ...mapGetters(['isGameWon']),
   },
   mounted() {
     this.initGame();

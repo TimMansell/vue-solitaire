@@ -12,6 +12,9 @@ const actions = {
 
     commit('RESTART_GAME');
   },
+  setGameWon({ commit }, isGameWon) {
+    commit('SET_GAME_WON', isGameWon);
+  },
   setFoundations({ commit }) {
     const foundationCards = SolitaireService.getFoundationCards();
 
