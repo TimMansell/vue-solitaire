@@ -22,7 +22,7 @@ const actions = {
 
     commit('SET_BOARD', board);
   },
-  selectCard({ commit, state, dispatch }, id) {
+  setCard({ commit, state, dispatch }, id) {
     const { selectedCard } = state;
 
     if (selectedCard === id) {
