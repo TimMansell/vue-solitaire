@@ -12,22 +12,4 @@ describe('Controls.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('calls store action "moveCardToControls" when clicked', () => {
-    const actions = {
-      restartGame: jest.fn(),
-      initGame: jest.fn(),
-    };
-
-    const store = new Vuex.Store({
-      actions,
-    });
-
-    const wrapper = shallowMount(Controls, { store, localVue });
-
-    wrapper.find('[data-test="new-game"]').trigger('click');
-
-    expect(actions.restartGame).toHaveBeenCalled();
-    expect(actions.initGame).toHaveBeenCalled();
-  });
 });
