@@ -9,7 +9,7 @@
     :adaptive="true"
     transition="scale"
   >
-    <div class="modal__content">
+    <div class="modal__content" data-test="modal-content">
       <button class="modal__close" @click="closeModal" data-test="close-modal">
         Close
       </button>
