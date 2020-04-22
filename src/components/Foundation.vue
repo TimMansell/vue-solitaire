@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Card from '@/components/Card.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 
@@ -36,10 +37,8 @@ export default {
     Card,
     SvgIcon,
   },
-  data() {
-    return {
-      foundationCards: this.$store.getters.foundationCards,
-    };
+  computed: {
+    ...mapGetters(['foundationCards']),
   },
   methods: {
     moveCardToFoundation(columnIndex) {

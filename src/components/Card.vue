@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
@@ -67,8 +68,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['selectedCardId']),
     classes() {
-      const { selectedCardId } = this.$store.getters;
+      const { selectedCardId } = this;
       const { id, suit, isCardDragged, clickable, visible } = this;
 
       return {
@@ -84,7 +86,7 @@ export default {
   },
   methods: {
     selectCard(e, id) {
-      const { selectedCardId } = this.$store.getters;
+      const { selectedCardId } = this;
 
       if (!selectedCardId) {
         e.stopPropagation();

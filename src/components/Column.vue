@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Card from '@/components/Card.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 
@@ -48,9 +49,12 @@ export default {
       default: 0,
     },
   },
+  computed: {
+    ...mapGetters(['selectedCardId']),
+  },
   methods: {
     moveCardToColumn(columnNo) {
-      const { selectedCardId } = this.$store.getters;
+      const { selectedCardId } = this;
 
       if (selectedCardId) {
         this.$store.dispatch('moveCardsToColumn', columnNo);
