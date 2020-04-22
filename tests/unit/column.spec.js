@@ -15,7 +15,6 @@ describe('Column.vue', () => {
   };
 
   const actions = {
-    setColumn: jest.fn(),
     moveCardsToColumn: jest.fn(),
   };
 
@@ -35,13 +34,15 @@ describe('Column.vue', () => {
 
   it('should have correct props', () => {
     const propsData = {
-      cards: [{
-        value: 'K',
-        suit: 'd',
-        order: 1,
-        visible: true,
-        clickable: false,
-      }],
+      cards: [
+        {
+          value: 'K',
+          suit: 'd',
+          order: 1,
+          visible: true,
+          clickable: false,
+        },
+      ],
       columnNo: 1,
     };
 
@@ -60,7 +61,6 @@ describe('Column.vue', () => {
 
     wrapper.find('[data-test="column-0"]').trigger('click');
 
-    expect(actions.setColumn).toHaveBeenCalled();
     expect(actions.moveCardsToColumn).toHaveBeenCalled();
   });
 });

@@ -1,78 +1,77 @@
-import {
-  shuffleCards,
-  getFoundations,
-  setBoard,
-  checkValidCardMove,
-  moveCards,
-  checkValidFoundationMove,
-} from '@/services/solitaire';
+import Solitaire from '@/services/solitaire';
+
+const SolitaireService = new Solitaire();
 
 const actions = {
   initGame({ dispatch }) {
     dispatch('setBoard');
     dispatch('setFoundations');
   },
-  setFoundations({ commit }) {
-    const foundationColumns = getFoundations();
+  restartGame({ commit }) {
+    SolitaireService.init();
 
-    commit('SET_FOUNDATIONS', foundationColumns);
+    commit('RESTART_GAME');
+  },
+  setFoundations({ commit }) {
+    const foundationCards = SolitaireService.getFoundationCards();
+
+    commit('SET_FOUNDATIONS', foundationCards);
   },
   setBoard({ commit }) {
-    const shuffledCards = shuffleCards();
-    const board = setBoard(shuffledCards);
+    const board = SolitaireService.getBoardCards();
 
     commit('SET_BOARD', board);
   },
-  restartGame({ commit }) {
-    commit('RESTART_GAME');
-  },
-  selectCard({ commit, state }, id) {
+  setCard({ commit, state, dispatch }, id) {
     const { selectedCard } = state;
 
     if (selectedCard === id) {
-      commit('UNSELECT_CARD');
+      dispatch('unselectCard');
     } else {
+      SolitaireService.setSelectedCard(id);
+
       commit('SELECT_CARD', id);
     }
   },
-  setColumn({ commit }, columnNo) {
-    commit('SET_COLUMN', columnNo);
-  },
-  moveCardsToColumn({ commit, state }) {
-    const { selectedCardId, selectedColumn, board } = state;
-    const cardsToMove = moveCards(selectedCardId, selectedColumn, board.cards, board.cards);
-
-    const isValidMove = checkValidCardMove(selectedCardId, selectedColumn, board.cards);
-
-    if (isValidMove) {
-      commit('MOVE_CARDS_TO_COLUMN', cardsToMove);
-      commit('REMOVE_CARDS_FROM_COLUMN', cardsToMove);
-    }
+  unselectCard({ commit }) {
+    SolitaireService.removeSelectedCard();
 
     commit('UNSELECT_CARD');
   },
-  moveCardToFoundation({ commit, state }) {
-    const { selectedCardId, selectedColumn, board } = state;
-    const cardsToMove = moveCards(selectedCardId, selectedColumn, board.cards, board.foundation);
-
-    const isValidMove = checkValidFoundationMove(selectedCardId, selectedColumn, board);
+  moveCardsToColumn({ dispatch }, selectedColumn) {
+    const isValidMove = SolitaireService.isValidCardMove(selectedColumn);
 
     if (isValidMove) {
-      commit('MOVE_CARD_TO_FOUNDATION', cardsToMove);
-      commit('REMOVE_CARDS_FROM_COLUMN', cardsToMove);
+      SolitaireService.setMoveCards(selectedColumn);
+
+      dispatch('setBoard');
     }
 
-    commit('UNSELECT_CARD');
+    dispatch('unselectCard');
   },
-  dealTestCards({ commit, dispatch }, deck) {
-    const board = setBoard(deck);
-    commit('SET_BOARD', board);
+  moveCardToFoundation({ dispatch }, selectedColumn) {
+    const isValidMove = SolitaireService.isValidFoundationMove(selectedColumn);
 
+    if (isValidMove) {
+      SolitaireService.moveCardsToFoundation(selectedColumn);
+
+      dispatch('setBoard');
+      dispatch('setFoundations');
+    }
+
+    dispatch('unselectCard');
+  },
+  dealTestCards({ dispatch }, deck) {
+    SolitaireService.setDeck(deck);
+    SolitaireService.setBoard();
+
+    dispatch('setBoard');
     dispatch('setFoundations');
   },
-  setTestBoard({ commit, dispatch }, deck) {
-    commit('SET_BOARD', deck);
+  setTestBoard({ dispatch }, board) {
+    SolitaireService.setTestBoard(board);
 
+    dispatch('setBoard');
     dispatch('setFoundations');
   },
 };
