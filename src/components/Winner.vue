@@ -2,7 +2,7 @@
   <div class="winner">
     <div class="winner__content">
       <h1 class="winner__title">Congratulations, you win!</h1>
-      <div class="winner__btn" @click="setGameWon(false)">
+      <div class="winner__btn" @click="setGameWon(false)" data-test="winner-btn">
         <NewGame />
       </div>
     </div>
