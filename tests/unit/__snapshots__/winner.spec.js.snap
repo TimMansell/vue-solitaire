@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Card.vue matches visible snapshot 1`] = `
-<div class="winner">
+<div data-test="winner" class="winner">
   <div class="winner__content">
     <h1 class="winner__title">Congratulations, you win!</h1>
     <div data-test="winner-btn" class="winner__btn">
