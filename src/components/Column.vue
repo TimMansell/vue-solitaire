@@ -1,25 +1,43 @@
 <template>
   <div
     class="column"
-    @click="moveKingToColumn">
+    @click="setColumn(columnNo)"
+    @drop="dropCard(columnNo)"
+    @dragover.prevent
+    @dragenter.prevent
+    :data-test="`column-${columnNo}`"
+  >
     <Card
       v-for="(card, index) in cards"
       :key="index"
+      :id="card.id"
       :value="card.value"
       :suit="card.suit"
       :order="card.order"
       :position="card.position"
-      :visible="card.visible" />
+      :revealed="card.revealed"
+      :visible="card.visible"
+    />
+
+    <SvgIcon
+      class="card-placeholder"
+      data-test="card-placeholder"
+      v-if="!cards.length"
+      name="Card_back_15"
+    />
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import Card from '@/components/Card.vue';
+import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
   name: 'Column',
   components: {
     Card,
+    SvgIcon,
   },
   props: {
     cards: {
@@ -31,24 +49,37 @@ export default {
       default: 0,
     },
   },
+  computed: {
+    ...mapGetters(['selectedCardId']),
+  },
   methods: {
-    moveKingToColumn() {
-      const { columnNo } = this;
+    ...mapActions(['moveCardsToColumn']),
+    setColumn(columnNo) {
+      const { selectedCardId } = this;
 
-      this.$store.dispatch('moveKingToColumn', columnNo);
+      if (selectedCardId) {
+        this.moveCardsToColumn(columnNo);
+      }
+    },
+    dropCard(columnNo) {
+      this.moveCardsToColumn(columnNo);
     },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .column {
-  flex: 1;
-  padding: .1rem;
+  padding-left: $col-padding;
+  padding-right: $col-padding;
 
-  @media (min-width: 900px) {
-    padding: .5rem;
+  @media (min-width: $bp-md) {
+    padding-left: $col-padding-lg;
+    padding-right: $col-padding-lg;
   }
+}
+
+.card-placeholder {
+  opacity: 0.1;
 }
 </style>

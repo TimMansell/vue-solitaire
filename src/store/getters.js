@@ -1,9 +1,8 @@
 const getters = {
-  shuffledCards: (state) => state.shuffledCards,
   boardCards: (state) => state.board.cards,
-  selectedCards: (state) => state.selected,
-  aces: (state) => state.board.aces,
-  rules: (state) => state.rules,
+  foundationCards: (state) => state.board.foundation,
+  selectedCardId: (state) => state.selectedCardId,
+  isGameWon: (state) => state.isGameWon,
 };
 
 export default getters;

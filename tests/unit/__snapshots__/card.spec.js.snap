@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card.vue matches hidden snapshot 1`] = `
+<div draggable="false" data-test="card-Ac" class="card card--is-c">
+  <!---->
+  <svgicon-stub name="Card_back_17" data-test="card-hidden"></svgicon-stub>
+</div>
+`;
+
+exports[`Card.vue matches visible snapshot 1`] = `
+<div draggable="true" data-test="card-Ac" class="card card--is-c card--is-draggable">
+  <svgicon-stub name="AC" data-test="card-visible"></svgicon-stub>
+  <!---->
+</div>
+`;

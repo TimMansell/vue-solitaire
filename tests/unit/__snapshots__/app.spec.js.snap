@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App.vue matches snapshot 1`] = `
+<div id="app">
+  <controls-stub></controls-stub>
+  <solitaire-stub></solitaire-stub>
+  <div class="app-version">v0.10.0</div>
+</div>
+`;
