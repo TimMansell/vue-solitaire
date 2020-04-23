@@ -12,6 +12,11 @@ const actions = {
 
     commit('RESTART_GAME');
   },
+  checkGameWon({ commit }) {
+    const isGameWon = SolitaireService.isEmptyBoard();
+
+    commit('SET_GAME_WON', isGameWon);
+  },
   setGameWon({ commit }, isGameWon) {
     commit('SET_GAME_WON', isGameWon);
   },
@@ -60,6 +65,7 @@ const actions = {
 
       dispatch('setBoard');
       dispatch('setFoundations');
+      dispatch('checkGameWon');
     }
 
     dispatch('unselectCard');
@@ -75,6 +81,11 @@ const actions = {
     SolitaireService.setTestBoard(board);
 
     dispatch('setBoard');
+    dispatch('setFoundations');
+  },
+  setTestFoundation({ dispatch }, board) {
+    SolitaireService.setFoundations(board);
+
     dispatch('setFoundations');
   },
 };
