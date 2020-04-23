@@ -2,6 +2,7 @@
   <div
     class="card"
     :class="classes"
+    @dblclick.stop="moveCardToAce"
     @click="selectCard($event, id)"
     @dragstart="dragCard($event, id)"
     @dragend="clearCard()"
@@ -96,6 +97,9 @@ export default {
           this.setCard(id);
         }
       }
+    },
+    moveCardToAce() {
+      console.log('move card to ace');
     },
     dragCard(e, id) {
       const clonedElement = this.cloneCards();
