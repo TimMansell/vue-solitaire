@@ -70,6 +70,16 @@ const actions = {
 
     dispatch('unselectCard');
   },
+  autoMoveCardToFoundation({ dispatch }, id) {
+    // if (id) {
+    SolitaireService.setSelectedCard(id);
+    SolitaireService.moveCardsToFoundation(0);
+
+    dispatch('setBoard');
+    dispatch('setFoundations');
+    dispatch('checkGameWon');
+    // }
+  },
   dealTestCards({ dispatch }, deck) {
     SolitaireService.setDeck(deck);
     SolitaireService.setBoard();
