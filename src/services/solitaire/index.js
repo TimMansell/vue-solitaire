@@ -170,7 +170,12 @@ export default class Solitaire {
   }
 
   setTestBoard({ board, foundation }) {
-    this.boardCards = [...board];
-    this.foundationCards = [...foundation];
+    if (board) {
+      this.boardCards = [...board];
+    }
+
+    if (foundation) {
+      this.foundationCards = [...foundation];
+    }
   }
 }

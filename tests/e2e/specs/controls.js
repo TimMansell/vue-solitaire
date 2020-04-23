@@ -1,5 +1,5 @@
 import emptyColumn from '../../fixtures/boards/emptyColumn.json';
-import foundations from '../../fixtures/foundations/fullFoundation.json';
+import foundations from '../../fixtures/boards/fullFoundation.json';
 
 describe('Controls', () => {
   beforeEach(() => {
@@ -37,7 +37,7 @@ describe('Controls', () => {
     cy.get('[data-test="modal-content"]').should('not.be.visible');
   });
 
-  it.only('should move last cards foundation and then show win screen', () => {
+  it('should move last cards foundation and then show win screen', () => {
     cy.setBoard(foundations).then(() => {
       cy.get('[data-test="winner"]').should('not.be.visible');
 

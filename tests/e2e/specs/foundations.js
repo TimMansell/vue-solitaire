@@ -1,6 +1,6 @@
 import moveAcetoAces from '../../fixtures/decks/moveAcetoAces.json';
 import invalidMove2ToAces from '../../fixtures/decks/invalidMove2ToAces.json';
-import foundations from '../../fixtures/foundations/fullFoundation.json';
+import foundations from '../../fixtures/boards/fullFoundation.json';
 
 describe('Foundation moves', () => {
   beforeEach(() => {
