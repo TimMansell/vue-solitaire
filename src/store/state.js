@@ -5,6 +5,7 @@ const state = () => ({
     foundation: [],
   },
   selectedCardId: null,
+  isGameWon: false,
 });
 
 export default state;
