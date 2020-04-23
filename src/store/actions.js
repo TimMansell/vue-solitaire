@@ -83,11 +83,6 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
   },
-  setTestFoundation({ dispatch }, board) {
-    SolitaireService.setFoundations(board);
-
-    dispatch('setFoundations');
-  },
 };
 
 export default actions;

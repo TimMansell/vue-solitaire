@@ -81,12 +81,8 @@ export default class Solitaire {
     this.boardCards = dealtCards;
   }
 
-  setFoundations(cards) {
-    if (cards) {
-      this.foundationCards = cards;
-    } else {
-      this.foundationCards = this.rules.foundationColumns.map(() => []);
-    }
+  setFoundations() {
+    this.foundationCards = this.rules.foundationColumns.map(() => []);
   }
 
   setSelectedCard(id) {
@@ -173,7 +169,8 @@ export default class Solitaire {
     return this.foundationCards;
   }
 
-  setTestBoard(boardCards) {
-    this.boardCards = [...boardCards];
+  setTestBoard({ board, foundation }) {
+    this.boardCards = [...board];
+    this.foundationCards = [...foundation];
   }
 }
