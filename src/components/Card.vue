@@ -3,28 +3,27 @@
     class="card"
     :class="classes"
     @click="selectCard($event, id)"
-    @dblclick="autoMoveCard(id)"
     @dragstart="dragCard($event, id)"
     @dragend="clearCard()"
     :draggable="visible"
     ref="card"
     :data-test="`card-${value}${suit}`"
   >
-    <SvgIcon
-      v-if="visible"
-      data-test="card-visible"
-      :name="`${this.value}${this.suit.toUpperCase()}`"
-    />
+    <div @dblclick="autoMoveCard($event, id)">
+      <SvgIcon
+        v-if="visible"
+        data-test="card-visible"
+        :name="`${this.value}${this.suit.toUpperCase()}`"
+      />
+    </div>
 
     <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
   </div>
 </template>
 
 <script>
-import Hammer from 'hammerjs';
 import { mapGetters, mapActions } from 'vuex';
 import SvgIcon from '@/components/SvgIcon.vue';
-import isTouch from '@/helpers/isTouch';
 
 export default {
   name: 'Card',
@@ -87,23 +86,12 @@ export default {
       };
     },
   },
-  mounted() {
-    const { id } = this;
-
-    if (isTouch()) {
-      const hammertime = new Hammer(this.$refs.card);
-      hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
-      hammertime.on('swipe', () => {
-        this.autoMoveCard(id);
-      });
-    }
-  },
   methods: {
     ...mapActions(['setCard', 'autoMoveCardToFoundation']),
     selectCard(e, id) {
       const { selectedCardId } = this;
 
-      if (!selectedCardId && isTouch()) {
+      if (!selectedCardId) {
         e.stopPropagation();
 
         if (this.clickable && this.visible) {
@@ -111,7 +99,9 @@ export default {
         }
       }
     },
-    autoMoveCard(id) {
+    autoMoveCard(e, id) {
+      e.stopPropagation();
+
       if (this.clickable && this.visible) {
         this.autoMoveCardToFoundation(id);
       }
