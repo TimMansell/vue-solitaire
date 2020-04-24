@@ -71,14 +71,15 @@ const actions = {
     dispatch('unselectCard');
   },
   autoMoveCardToFoundation({ dispatch }, id) {
-    // if (id) {
     SolitaireService.setSelectedCard(id);
-    SolitaireService.moveCardsToFoundation(0);
 
-    dispatch('setBoard');
-    dispatch('setFoundations');
-    dispatch('checkGameWon');
-    // }
+    // console.log('------------------------');
+    // Find suit in array to determine column to move to.
+    const foundationColumn = SolitaireService.findEmptyFoundationColumn(id);
+    // console.log('foundationColumn', foundationColumn);
+    // console.log('------------------------');
+
+    dispatch('moveCardToFoundation', foundationColumn);
   },
   dealTestCards({ dispatch }, deck) {
     SolitaireService.setDeck(deck);
