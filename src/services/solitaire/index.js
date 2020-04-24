@@ -142,6 +142,12 @@ export default class Solitaire {
       return foundationSuit.length;
     });
 
+    if (foundationColumnToUse === -1) {
+      return 0;
+    }
+
+    console.log('foundationColumnToUse', foundationColumnToUse);
+
     return foundationColumnToUse;
   }
 
