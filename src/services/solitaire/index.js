@@ -131,8 +131,8 @@ export default class Solitaire {
     const selectedCard = getSelectedCard(boardCards, selectedCardId);
 
     const foundationColumnToUse = foundationCards.findIndex((foundationCard) => {
-      // Column is empty
-      if (!foundationCard.length) {
+      // Column is empty && we're moving an Ace.
+      if (!foundationCard.length && selectedCard.order === 1) {
         return true;
       }
 
