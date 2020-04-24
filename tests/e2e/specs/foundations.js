@@ -394,13 +394,11 @@ describe('Foundation moves', () => {
       });
     });
 
-    it.only('should move 2h to 2nd foundation and 2s to 3rd foundation', () => {
+    it('should move 2h to 2nd foundation and 2s to 3rd foundation', () => {
       cy.setBoard(doubleClickAce2).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['2h']);
         cy.get('[data-test="column-7"]').shouldBeVisible(['2s']);
 
-        // cy.get('[data-test="card-Ah"]').dblclick();
-        // cy.get('[data-test="card-As"]').dblclick();
         cy.get('[data-test="card-2h"]').dblclick();
         cy.get('[data-test="card-2s"]').dblclick();
 
