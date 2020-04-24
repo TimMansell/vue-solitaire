@@ -2,18 +2,19 @@
   <div
     class="card"
     :class="classes"
-    @click="selectCard($event, id)"
     @dragstart="dragCard($event, id)"
     @dragend="clearCard()"
     :draggable="visible"
     ref="card"
     :data-test="`card-${value}${suit}`"
   >
-    <SvgIcon
-      v-if="visible"
-      data-test="card-visible"
-      :name="`${this.value}${this.suit.toUpperCase()}`"
-    />
+    <DoubleClick @single-click="selectCard($event, id)" @double-click="autoMoveCard($event, id)">
+      <SvgIcon
+        v-if="visible"
+        data-test="card-visible"
+        :name="`${this.value}${this.suit.toUpperCase()}`"
+      />
+    </DoubleClick>
 
     <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
   </div>
@@ -22,11 +23,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import SvgIcon from '@/components/SvgIcon.vue';
+import DoubleClick from '@/components/DoubleClick.vue';
 
 export default {
   name: 'Card',
   components: {
     SvgIcon,
+    DoubleClick,
   },
   props: {
     id: {
@@ -85,16 +88,21 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setCard']),
+    ...mapActions(['setCard', 'autoMoveCardToFoundation']),
     selectCard(e, id) {
       const { selectedCardId } = this;
 
       if (!selectedCardId) {
-        e.stopPropagation();
+        // e.stopPropagation();
 
         if (this.clickable && this.visible) {
           this.setCard(id);
         }
+      }
+    },
+    autoMoveCard(e, id) {
+      if (this.clickable && this.visible) {
+        this.autoMoveCardToFoundation(id);
       }
     },
     dragCard(e, id) {
