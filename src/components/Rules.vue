@@ -45,10 +45,16 @@
         You can move cards by:
       </p>
       <ul>
-        <li>clicking and dragging the card(s) to the desired column</li>
+        <li class="display-on--click">clicking and dragging the card(s) to the desired column</li>
         <li>
           clicking on the card you want to move and then clicking on the desired column. All cards
           below the selected card will be moved as well
+        </li>
+        <li>
+          double
+          <span class="display-on--touch">tapping</span>
+          <span class="display-on--click">clicking</span>
+          cards will move them to the foundation columns
         </li>
       </ul>
     </Modal>
@@ -75,3 +81,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.display-on {
+  &--touch {
+    @media (hover: hover) and (pointer: fine) {
+      display: none;
+    }
+  }
+
+  &--click {
+    @media (hover: none) and (pointer: coarse) {
+      display: none;
+    }
+  }
+}
+</style>
