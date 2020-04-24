@@ -32,6 +32,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import Card from '@/components/Card.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
+import isTouch from '@/helpers/isTouch';
 
 export default {
   name: 'Column',
@@ -57,7 +58,7 @@ export default {
     setColumn(columnNo) {
       const { selectedCardId } = this;
 
-      if (selectedCardId) {
+      if (selectedCardId && isTouch()) {
         this.moveCardsToColumn(columnNo);
       }
     },
