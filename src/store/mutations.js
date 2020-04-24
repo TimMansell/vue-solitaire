@@ -5,6 +5,9 @@ const mutations = {
   RESTART_GAME(state) {
     Object.assign(state, defaultState);
   },
+  SET_GAME_WON(state, isGameWon) {
+    state.isGameWon = isGameWon;
+  },
   SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
       Vue.set(state.board.cards, index, cards);

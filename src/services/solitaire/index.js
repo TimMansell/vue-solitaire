@@ -155,6 +155,12 @@ export default class Solitaire {
     return isValidFoundationSuit && isValidFoundationOrder;
   }
 
+  isEmptyBoard() {
+    const { boardCards } = this;
+
+    return !boardCards.flat().length;
+  }
+
   getBoardCards() {
     return this.boardCards;
   }
@@ -163,7 +169,13 @@ export default class Solitaire {
     return this.foundationCards;
   }
 
-  setTestBoard(boardCards) {
-    this.boardCards = [...boardCards];
+  setTestBoard({ board, foundation }) {
+    if (board) {
+      this.boardCards = [...board];
+    }
+
+    if (foundation) {
+      this.foundationCards = [...foundation];
+    }
   }
 }

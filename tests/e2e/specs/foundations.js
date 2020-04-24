@@ -1,5 +1,6 @@
 import moveAcetoAces from '../../fixtures/decks/moveAcetoAces.json';
 import invalidMove2ToAces from '../../fixtures/decks/invalidMove2ToAces.json';
+import foundations from '../../fixtures/boards/fullFoundation.json';
 
 describe('Foundation moves', () => {
   beforeEach(() => {
@@ -158,6 +159,19 @@ describe('Foundation moves', () => {
         cy.get('[data-test="foundation-0"]').shouldNotBeVisible(['Ad']);
       });
     });
+
+    it('should move last cards foundation and then show win screen', () => {
+      cy.setBoard(foundations).then(() => {
+        cy.get('[data-test="winner"]').should('not.be.visible');
+
+        cy.get('[data-test="column-0"]').shouldBeVisible(['Ks', 'Qs']);
+
+        cy.get('[data-test="card-Qs"]').dragTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Ks"]').dragTo('[data-test="foundation-3"]');
+      });
+
+      cy.get('[data-test="winner"]').should('be.visible');
+    });
   });
 
   describe('using clicks', () => {
@@ -311,6 +325,19 @@ describe('Foundation moves', () => {
 
         cy.get('[data-test="foundation-0"]').shouldNotBeVisible(['Ad']);
       });
+    });
+
+    it('should move last cards foundation and then show win screen', () => {
+      cy.setBoard(foundations).then(() => {
+        cy.get('[data-test="winner"]').should('not.be.visible');
+
+        cy.get('[data-test="column-0"]').shouldBeVisible(['Ks', 'Qs']);
+
+        cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+      });
+
+      cy.get('[data-test="winner"]').should('be.visible');
     });
   });
 });
