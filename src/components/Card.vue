@@ -9,13 +9,13 @@
     ref="card"
     :data-test="`card-${value}${suit}`"
   >
-    <div @dblclick="autoMoveCard($event, id)">
+    <TouchEvents @swipe="autoMoveCard($event, id)" @doubletap="autoMoveCard($event, id)">
       <SvgIcon
         v-if="visible"
         data-test="card-visible"
         :name="`${this.value}${this.suit.toUpperCase()}`"
       />
-    </div>
+    </TouchEvents>
 
     <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
   </div>
@@ -24,11 +24,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import SvgIcon from '@/components/SvgIcon.vue';
+import TouchEvents from '@/components/TouchEvents.vue';
 
 export default {
   name: 'Card',
   components: {
     SvgIcon,
+    TouchEvents,
   },
   props: {
     id: {
@@ -100,7 +102,7 @@ export default {
       }
     },
     autoMoveCard(e, id) {
-      e.stopPropagation();
+      // e.stopPropagation();
 
       if (this.clickable && this.visible) {
         this.autoMoveCardToFoundation(id);
