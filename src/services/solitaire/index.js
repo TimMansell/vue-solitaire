@@ -125,6 +125,32 @@ export default class Solitaire {
     return isValidCard && isValidSuit && isValidOrder && isValidColumn;
   }
 
+  findEmptyFoundationColumn() {
+    const { selectedCardId, boardCards, foundationCards } = this;
+
+    const selectedCard = getSelectedCard(boardCards, selectedCardId);
+
+    const foundationColumnToUse = foundationCards.findIndex((foundationCard) => {
+      // Column is empty && we're moving an Ace.
+      if (!foundationCard.length && selectedCard.order === 1) {
+        return true;
+      }
+
+      // Otherwise, check suit is the same as this column
+      const foundationSuit = foundationCard.filter((card) => card.suit === selectedCard.suit);
+
+      return foundationSuit.length;
+    });
+
+    if (foundationColumnToUse === -1) {
+      return 0;
+    }
+
+    console.log('foundationColumnToUse', foundationColumnToUse);
+
+    return foundationColumnToUse;
+  }
+
   moveCardsToFoundation(selectedColumn) {
     const { selectedCardId, boardCards, foundationCards } = this;
 
