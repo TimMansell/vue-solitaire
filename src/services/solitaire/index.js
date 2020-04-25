@@ -142,11 +142,10 @@ export default class Solitaire {
       return foundationSuit.length;
     });
 
+    // No cards at all in foundation, so use 1st column.
     if (foundationColumnToUse === -1) {
       return 0;
     }
-
-    console.log('foundationColumnToUse', foundationColumnToUse);
 
     return foundationColumnToUse;
   }
