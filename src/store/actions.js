@@ -73,11 +73,8 @@ const actions = {
   autoMoveCardToFoundation({ dispatch }, id) {
     SolitaireService.setSelectedCard(id);
 
-    // console.log('------------------------');
     // Find suit in array to determine column to move to.
     const foundationColumn = SolitaireService.findEmptyFoundationColumn(id);
-    // console.log('foundationColumn', foundationColumn);
-    // console.log('------------------------');
 
     dispatch('moveCardToFoundation', foundationColumn);
   },
