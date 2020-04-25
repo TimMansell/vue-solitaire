@@ -9,11 +9,13 @@
     ref="card"
     :data-test="`card-${value}${suit}`"
   >
-    <SvgIcon
-      v-if="visible"
-      data-test="card-visible"
-      :name="`${this.value}${this.suit.toUpperCase()}`"
-    />
+    <div @dblclick="autoMoveCard($event, id)">
+      <SvgIcon
+        v-if="visible"
+        data-test="card-visible"
+        :name="`${this.value}${this.suit.toUpperCase()}`"
+      />
+    </div>
 
     <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
   </div>
@@ -85,7 +87,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setCard']),
+    ...mapActions(['setCard', 'autoMoveCardToFoundation']),
     selectCard(e, id) {
       const { selectedCardId } = this;
 
@@ -95,6 +97,13 @@ export default {
         if (this.clickable && this.visible) {
           this.setCard(id);
         }
+      }
+    },
+    autoMoveCard(e, id) {
+      e.stopPropagation();
+
+      if (this.clickable && this.visible) {
+        this.autoMoveCardToFoundation(id);
       }
     },
     dragCard(e, id) {

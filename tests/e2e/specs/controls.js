@@ -20,10 +20,6 @@ describe('Controls', () => {
       cy.get('[data-test="foundation-0"]').within(() => {
         cy.get('[data-test="card-Ah"]').should('not.be.visible');
       });
-
-      cy.get('[data-test="foundation-0"]').within(() => {
-        cy.get('[data-test="Ah"]').should('not.be.visible');
-      });
     });
   });
 
