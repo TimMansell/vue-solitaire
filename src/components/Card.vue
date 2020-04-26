@@ -102,8 +102,6 @@ export default {
       }
     },
     autoMoveCard(e, id) {
-      // e.stopPropagation();
-
       if (this.clickable && this.visible) {
         this.autoMoveCardToFoundation(id);
       }
