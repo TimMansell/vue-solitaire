@@ -186,6 +186,13 @@ export default class Solitaire {
     return !boardCards.flat().length;
   }
 
+  getRemainingMoves() {
+    const { boardCards } = this;
+    console.log('boardCards', boardCards);
+
+    return false;
+  }
+
   getBoardCards() {
     return this.boardCards;
   }
