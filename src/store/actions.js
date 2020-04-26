@@ -52,7 +52,7 @@ const actions = {
     commit('UNSELECT_CARD');
   },
   checkRemainingMoves({ commit }) {
-    const isGameLost = SolitaireService.hasRemainingMoves();
+    const isGameLost = SolitaireService.hasNoMoves();
 
     commit('SET_GAME_LOST', isGameLost);
   },
@@ -63,10 +63,10 @@ const actions = {
       SolitaireService.setMoveCards(selectedColumn);
 
       dispatch('setBoard');
+      dispatch('checkRemainingMoves');
     }
 
     dispatch('unselectCard');
-    dispatch('anyValidMoves');
   },
   moveCardToFoundation({ dispatch }, selectedColumn) {
     const isValidMove = SolitaireService.isValidFoundationMove(selectedColumn);
@@ -77,10 +77,10 @@ const actions = {
       dispatch('setBoard');
       dispatch('setFoundations');
       dispatch('checkGameWon');
+      dispatch('checkRemainingMoves');
     }
 
     dispatch('unselectCard');
-    dispatch('anyValidMoves');
   },
   autoMoveCardToFoundation({ dispatch }, id) {
     SolitaireService.setSelectedCard(id);

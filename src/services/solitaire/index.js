@@ -12,6 +12,7 @@ import {
   showHideCards,
   getSelectedCard,
   getLastCard,
+  isValidRemainingCard,
   moveCardsFrom,
   moveCardsTo,
 } from './helpers';
@@ -186,11 +187,76 @@ export default class Solitaire {
     return !boardCards.flat().length;
   }
 
-  getRemainingMoves() {
+  hasNoMoves() {
     const { boardCards } = this;
-    console.log('boardCards', boardCards);
+    // console.log('boardCards', boardCards);
 
-    return false;
+    // const bottomCards = boardCards
+    //   .map((cards) => {
+    //     console.log('a');
+    //     return cards.slice(-1);
+    //   })
+    //   .flat();
+
+    // TODO:
+    // - [x] A to foundation
+    // - [x] K to empty column
+    // - [ ] 2,3 etc to foundation
+    // - [ ] K already at top should not be a move.
+
+    const bottomCards = boardCards.map((cards) => cards.slice(-1)).flat();
+
+    // const visibleCards = boardCards.flat().filter((cards) => {
+    //   console.log('a', cards);
+    //   return cards.visible;
+    // });
+
+    console.log('bottom cards length', bottomCards.length);
+
+    const visibleCards = boardCards.flat().filter((cards) => cards.visible);
+
+    // console.log('visibleCards', visibleCards);
+    // console.log('bottomCards', bottomCards);
+    console.log('--------------------');
+
+    const hasMoves = bottomCards.filter((card) => {
+      // console.log('--------------------');
+      // console.log('card', `${card.value}${card.suit}`);
+
+      // If bottom card in an A then there is a possible move.
+      if (card.order === 1) {
+        console.log('has A move', `${card.value}${card.suit}`);
+        return true;
+      }
+
+      // if (card.order === 13 && bottomCards.length < 8) {
+      //   console.log('has K move', `${card.order}${card.suit}`);
+      //   return true;
+      // }
+
+      const hasMove = visibleCards.filter((vcard) => {
+        // console.log('v', `${vcard.value}${vcard.suit}`);
+        if (vcard.order === 13 && bottomCards.length < 8) {
+          // console.log('has K move', `${vcard.order}${vcard.suit}`);
+          return true;
+        }
+
+        return isValidRemainingCard(vcard, card);
+      });
+      // console.log('hasMove', hasMove, `${hasMove.value}${hasMove.order}`);
+
+      hasMove.forEach((move) => {
+        console.log('hasMove', `${move.value}${move.suit}`);
+      });
+
+      return hasMove.length;
+    });
+
+    // hasMoves.forEach((move) => {
+    //   console.log('hasMove', `${move.value}${move.suit}`);
+    // });
+
+    return !hasMoves.length;
   }
 
   getBoardCards() {
