@@ -188,7 +188,7 @@ export default class Solitaire {
   }
 
   hasNoMoves() {
-    const { boardCards } = this;
+    const { boardCards, foundationCards } = this;
     // console.log('boardCards', boardCards);
 
     // const bottomCards = boardCards
@@ -204,7 +204,11 @@ export default class Solitaire {
     // - [ ] 2,3 etc to foundation
     // - [x] K already at top should not be a move.
 
+    const topFoundationCards = foundationCards.map((cards) => cards.slice(-1)).flat();
+
     const bottomCards = boardCards.map((cards) => cards.slice(-1)).flat();
+
+    console.log('topFoundationCards', topFoundationCards);
 
     // const visibleCards = boardCards.flat().filter((cards) => {
     //   console.log('a', cards);
@@ -246,11 +250,25 @@ export default class Solitaire {
       });
       // console.log('hasMove', hasMove, `${hasMove.value}${hasMove.order}`);
 
+      const hasFoundationMove = topFoundationCards.filter((card2) => {
+        // console.log('foundation card', `${card.value}${card.suit}`, `${card2.value}${card2.suit}`);
+        const isValidSuit = isMoveValidSuit(card, card2);
+        const isValidOrder = card.order === card2.order + 1;
+
+        return isValidSuit && isValidOrder;
+      });
+
+      // console.log('hasFoundationMove', hasFoundationMove);
+
       hasMove.forEach((move) => {
         console.log('hasMove', `${move.value}${move.suit}`);
       });
 
-      return hasMove.length;
+      hasFoundationMove.forEach((move) => {
+        console.log('hasFoundationMove', `${move.value}${move.suit}`);
+      });
+
+      return hasMove.length || hasFoundationMove.length;
     });
 
     // hasMoves.forEach((move) => {
