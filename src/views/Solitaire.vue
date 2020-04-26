@@ -4,6 +4,9 @@
     <div v-if="isGameWon">
       <Winner />
     </div>
+    <div v-if="isGameLost">
+      <GameOverlay />
+    </div>
   </div>
 </template>
 
@@ -11,12 +14,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import Winner from '@/components/Winner.vue';
+import GameOverlay from '@/components/GameOverlay.vue';
 
 export default {
   name: 'Home',
   components: {
     Board,
     Winner,
+    GameOverlay,
   },
   data() {
     return {
@@ -24,7 +29,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isGameWon']),
+    ...mapGetters(['isGameWon', 'isGameLost']),
   },
   mounted() {
     this.initGame();
