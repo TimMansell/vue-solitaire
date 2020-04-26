@@ -7,8 +7,10 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
   },
-  restartGame({ commit }) {
+  restartGame({ commit, dispatch }) {
     SolitaireService.init();
+
+    dispatch('unselectCard');
 
     commit('RESTART_GAME');
   },
