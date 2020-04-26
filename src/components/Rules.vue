@@ -50,8 +50,10 @@
           clicking on the card you want to move and then clicking on the desired column. All cards
           below the selected card will be moved as well
         </li>
-        <li class="display-on--click">
-          double clicking cards will move them to the foundation columns
+        <li>
+          double <span class="display-on--click">clicking</span
+          ><span class="display-on--touch">tapping or swiping up</span> on cards will move them to
+          the foundation columns
         </li>
       </ul>
     </Modal>
