@@ -21,6 +21,6 @@ describe('TouchEvents.vue', () => {
 
     wrapper.vm.doubleTap();
 
-    expect(wrapper.emitted().doubleTap).toBeTruthy();
+    expect(wrapper.emitted().doubletap).toBeTruthy();
   });
 });
