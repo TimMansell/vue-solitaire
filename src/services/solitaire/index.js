@@ -202,7 +202,7 @@ export default class Solitaire {
     // - [x] A to foundation
     // - [x] K to empty column
     // - [ ] 2,3 etc to foundation
-    // - [ ] K already at top should not be a move.
+    // - [x] K already at top should not be a move.
 
     const bottomCards = boardCards.map((cards) => cards.slice(-1)).flat();
 
@@ -234,10 +234,11 @@ export default class Solitaire {
       //   return true;
       // }
 
-      const hasMove = visibleCards.filter((vcard) => {
+      const hasMove = visibleCards.filter((vcard, index) => {
         // console.log('v', `${vcard.value}${vcard.suit}`);
-        if (vcard.order === 13 && bottomCards.length < 8) {
-          // console.log('has K move', `${vcard.order}${vcard.suit}`);
+        if (vcard.order === 13 && bottomCards.length < 8 && vcard.position[1] !== 0) {
+          console.log(`has K${vcard.suit} move at index ${index} and ${vcard.position}`);
+
           return true;
         }
 
