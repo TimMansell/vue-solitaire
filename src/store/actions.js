@@ -70,6 +70,14 @@ const actions = {
 
     dispatch('unselectCard');
   },
+  autoMoveCardToFoundation({ dispatch }, id) {
+    SolitaireService.setSelectedCard(id);
+
+    // Find suit in array to determine column to move to.
+    const foundationColumn = SolitaireService.findEmptyFoundationColumn(id);
+
+    dispatch('moveCardToFoundation', foundationColumn);
+  },
   dealTestCards({ dispatch }, deck) {
     SolitaireService.setDeck(deck);
     SolitaireService.setBoard();
