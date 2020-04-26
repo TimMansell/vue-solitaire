@@ -1,6 +1,8 @@
 import moveAcetoAces from '../../fixtures/decks/moveAcetoAces.json';
 import invalidMove2ToAces from '../../fixtures/decks/invalidMove2ToAces.json';
 import foundations from '../../fixtures/boards/fullFoundation.json';
+import doubleClickAce1 from '../../fixtures/boards/doubleClickAce1.json';
+import doubleClickAce2 from '../../fixtures/boards/doubleClickAce2.json';
 
 describe('Foundation moves', () => {
   beforeEach(() => {
@@ -338,6 +340,74 @@ describe('Foundation moves', () => {
       });
 
       cy.get('[data-test="winner"]').should('be.visible');
+    });
+  });
+
+  describe('using double clicks', () => {
+    it('should move Ah - 3h to 1st foundation', () => {
+      cy.setDeck(moveAcetoAces).then(() => {
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Ah', '2h', '3h']);
+
+        cy.get('[data-test="card-Ah"]').dblclick();
+        cy.get('[data-test="card-2h"]').dblclick();
+        cy.get('[data-test="card-3h"]').dblclick();
+
+        cy.get('[data-test="foundation-0"]').shouldBeVisible(['Ah', '2h', '3h']);
+
+        cy.get('[data-test="column-3"]').shouldNotBeVisible(['Ah', '2h', '3h']);
+      });
+    });
+
+    it('should move Ah - 2h to 1st foundation and As - 2s to 2nd foundation', () => {
+      cy.setDeck(moveAcetoAces).then(() => {
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Ah', '2h']);
+        cy.get('[data-test="column-7"]').shouldBeVisible(['As', '2s']);
+
+        cy.get('[data-test="card-Ah"]').dblclick();
+        cy.get('[data-test="card-As"]').dblclick();
+        cy.get('[data-test="card-2h"]').dblclick();
+        cy.get('[data-test="card-2s"]').dblclick();
+
+        cy.get('[data-test="foundation-0"]').shouldBeVisible(['Ah', '2h']);
+        cy.get('[data-test="foundation-1"]').shouldBeVisible(['As', '2s']);
+
+        cy.get('[data-test="column-3"]').shouldNotBeVisible(['Ah', '2h']);
+        cy.get('[data-test="column-7"]').shouldNotBeVisible(['As', '2s']);
+      });
+    });
+
+    it('should move Ah - 2h to 1st foundation and 2s to 3rd foundation', () => {
+      cy.setBoard(doubleClickAce1).then(() => {
+        cy.get('[data-test="column-3"]').shouldBeVisible(['Ah', '2h']);
+        cy.get('[data-test="column-7"]').shouldBeVisible(['2s']);
+
+        cy.get('[data-test="card-Ah"]').dblclick();
+        // cy.get('[data-test="card-As"]').dblclick();
+        cy.get('[data-test="card-2h"]').dblclick();
+        cy.get('[data-test="card-2s"]').dblclick();
+
+        cy.get('[data-test="foundation-0"]').shouldBeVisible(['Ah', '2h']);
+        cy.get('[data-test="foundation-2"]').shouldBeVisible(['As', '2s']);
+
+        cy.get('[data-test="column-3"]').shouldNotBeVisible(['Ah', '2h']);
+        cy.get('[data-test="column-7"]').shouldNotBeVisible(['2s']);
+      });
+    });
+
+    it('should move 2h to 2nd foundation and 2s to 3rd foundation', () => {
+      cy.setBoard(doubleClickAce2).then(() => {
+        cy.get('[data-test="column-3"]').shouldBeVisible(['2h']);
+        cy.get('[data-test="column-7"]').shouldBeVisible(['2s']);
+
+        cy.get('[data-test="card-2h"]').dblclick();
+        cy.get('[data-test="card-2s"]').dblclick();
+
+        cy.get('[data-test="foundation-1"]').shouldBeVisible(['As', '2s']);
+        cy.get('[data-test="foundation-2"]').shouldBeVisible(['Ah', '2h']);
+
+        cy.get('[data-test="column-3"]').shouldNotBeVisible(['2h']);
+        cy.get('[data-test="column-7"]').shouldNotBeVisible(['2s']);
+      });
     });
   });
 });
