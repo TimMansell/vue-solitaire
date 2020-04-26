@@ -15,12 +15,20 @@ export default {
     hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
 
     hammertime.on('swipe', () => {
-      this.$emit('swipe');
+      this.swipe();
     });
 
     hammertime.on('doubletap', () => {
-      this.$emit('doubletap');
+      this.doubleTap();
     });
+  },
+  methods: {
+    swipe() {
+      this.$emit('swipe');
+    },
+    doubleTap() {
+      this.$emit('doubletap');
+    },
   },
 };
 </script>
