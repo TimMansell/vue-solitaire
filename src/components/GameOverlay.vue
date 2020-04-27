@@ -1,8 +1,8 @@
 <template>
-  <div class="winner" data-test="winner">
+  <div class="winner" data-test="game-overlay">
     <div class="winner__content">
       <h1 class="winner__title">Sorry, no more Moves!</h1>
-      <div class="winner__btn" @click="setGameLost(false)" data-test="winner-btn">
+      <div class="winner__btn" @click="setGameLost(false)" data-test="game-overlay-btn">
         <NewGame />
       </div>
     </div>
