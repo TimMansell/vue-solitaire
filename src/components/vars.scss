@@ -1,6 +1,6 @@
 // Column padding.
-$col-padding: .2rem;
-$col-padding-lg: .5rem;
+$col-padding: 0.2rem;
+$col-padding-lg: 0.5rem;
 
 // Breakpoints
 $bp-sm: 480px;
@@ -11,7 +11,7 @@ $bp-xl: 1366px;
 // Cards
 $card-width: 33px;
 $card-height: $card-width * 1.4;
-$card-spacer: .8;
+$card-spacer: 0.8;
 
 $card-sm-multiplier: 1.5;
 $card-width-sm: $card-width * $card-sm-multiplier;

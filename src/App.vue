@@ -36,7 +36,7 @@ html {
 
 body {
   margin: 0;
-  background: green;
+  background: #008000;
 }
 
 h1,
@@ -62,6 +62,6 @@ ul {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  color: white;
+  color: #fff;
 }
 </style>
