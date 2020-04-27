@@ -215,6 +215,11 @@ export default class Solitaire {
     //   return cards.visible;
     // });
 
+    // No more cards so game is finished.
+    if (!bottomCards.length) {
+      return false;
+    }
+
     console.log('bottom cards length', bottomCards.length);
 
     const visibleCards = boardCards.flat().filter((cards) => cards.visible);
