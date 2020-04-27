@@ -1,9 +1,8 @@
 <template>
   <div class="solitaire">
     <Board />
-    <div v-if="isGameWon">
-      <Winner />
-    </div>
+    <Winner v-if="isGameWon" />
+    <GameOverlay v-if="isGameLost && !isGameWon" />
   </div>
 </template>
 
@@ -11,20 +10,17 @@
 import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import Winner from '@/components/Winner.vue';
+import GameOverlay from '@/components/GameOverlay.vue';
 
 export default {
   name: 'Home',
   components: {
     Board,
     Winner,
-  },
-  data() {
-    return {
-      gameWon: true,
-    };
+    GameOverlay,
   },
   computed: {
-    ...mapGetters(['isGameWon']),
+    ...mapGetters(['isGameWon', 'isGameLost']),
   },
   mounted() {
     this.initGame();
