@@ -164,7 +164,7 @@ describe('Foundation moves', () => {
 
     it('should move last cards foundation and then show win screen', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="winner"]').should('not.be.visible');
+        cy.get('[data-test="game-won"]').should('not.be.visible');
 
         cy.get('[data-test="column-0"]').shouldBeVisible(['Ks', 'Qs']);
 
@@ -172,7 +172,7 @@ describe('Foundation moves', () => {
         cy.get('[data-test="card-Ks"]').dragTo('[data-test="foundation-3"]');
       });
 
-      cy.get('[data-test="winner"]').should('be.visible');
+      cy.get('[data-test="game-won"]').should('be.visible');
     });
   });
 
@@ -331,7 +331,7 @@ describe('Foundation moves', () => {
 
     it('should move last cards foundation and then show win screen', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="winner"]').should('not.be.visible');
+        cy.get('[data-test="game-won"]').should('not.be.visible');
 
         cy.get('[data-test="column-0"]').shouldBeVisible(['Ks', 'Qs']);
 
@@ -339,7 +339,7 @@ describe('Foundation moves', () => {
         cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
       });
 
-      cy.get('[data-test="winner"]').should('be.visible');
+      cy.get('[data-test="game-won"]').should('be.visible');
     });
   });
 
