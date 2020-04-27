@@ -1,5 +1,5 @@
 <template>
-  <button class="new-game__btn" @click="newGame" data-test="new-game">
+  <button class="new-game__btn" @click="newGame" data-test="new-game-btn">
     New Game
   </button>
 </template>

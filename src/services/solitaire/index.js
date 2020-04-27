@@ -12,6 +12,8 @@ import {
   showHideCards,
   getSelectedCard,
   getLastCard,
+  getLastCards,
+  getVisibleCards,
   moveCardsFrom,
   moveCardsTo,
 } from './helpers';
@@ -184,6 +186,60 @@ export default class Solitaire {
     const { boardCards } = this;
 
     return !boardCards.flat().length;
+  }
+
+  hasNoMoves() {
+    const { boardCards, foundationCards } = this;
+
+    const topFoundationCards = getLastCards(foundationCards);
+    const bottomCards = getLastCards(boardCards);
+    const visibleCards = getVisibleCards(boardCards);
+
+    // No more cards so game is finished.
+    if (!bottomCards.length) {
+      return false;
+    }
+
+    const hasMoves = bottomCards.filter((bottomCard) => {
+      // If bottom card in an A then there is a possible move.
+      if (bottomCard.order === 1) {
+        return true;
+      }
+
+      // Can any visible cards be moved?
+      const hasMove = visibleCards.filter((visibleCard) => {
+        if (visibleCard.order === 13 && bottomCards.length < 8 && visibleCard.position[1] !== 0) {
+          return true;
+        }
+
+        // Relaxed validation for K to empty column
+        if (!bottomCard) {
+          const isValidKing = isValidKingMove(visibleCard, bottomCard);
+
+          return isValidKing;
+        }
+
+        // General validation.
+        const isValidCard = isMoveValidCard(visibleCard, bottomCard);
+        const isValidSuit = isMoveValidSuit(visibleCard, bottomCard);
+        const isValidOrder = isMoveValidOrder(visibleCard, bottomCard);
+        const isValidColumn = isMoveValidColumn(visibleCard, bottomCard);
+
+        return isValidCard && isValidSuit && isValidOrder && isValidColumn;
+      });
+
+      // Can any bottom cards be moved to the foundation?
+      const hasFoundationMove = topFoundationCards.filter((topFoundationCard) => {
+        const isValidSuit = isMoveValidSuit(bottomCard, topFoundationCard);
+        const isValidOrder = bottomCard.order === topFoundationCard.order + 1;
+
+        return isValidSuit && isValidOrder;
+      });
+
+      return hasMove.length || hasFoundationMove.length;
+    });
+
+    return !hasMoves.length;
   }
 
   getBoardCards() {
