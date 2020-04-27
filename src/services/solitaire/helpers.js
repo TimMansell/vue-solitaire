@@ -1,13 +1,4 @@
 import shuffle from 'lodash.shuffle';
-import {
-  isMoveValidCard,
-  isMoveValidSuit,
-  isMoveValidOrder,
-  isMoveValidColumn,
-  isValidKingMove,
-  // isMoveValidFoundationSuit,
-  // isMoveValidFoundationOrder,
-} from './validation';
 
 const shuffleCards = ({ values, suits }) => {
   const deck = values.flatMap((value, index) =>
@@ -53,6 +44,18 @@ const getLastCard = (board, selectedColumn) => {
   return selectedCard;
 };
 
+const getLastCards = (cards) => {
+  const lastCards = cards.map((card) => card.slice(-1)).flat();
+
+  return lastCards;
+};
+
+const getVisibleCards = (cards) => {
+  const visibleCards = cards.flat().filter((card) => card.visible);
+
+  return visibleCards;
+};
+
 const mapPositions = (cards, position) => {
   const updatedCards = cards.map((moveCards, index) => {
     const newValues = {
@@ -63,33 +66,6 @@ const mapPositions = (cards, position) => {
   });
 
   return updatedCards;
-};
-
-const isValidRemainingCard = (vcard, card) => {
-  // const { selectedCardId, boardCards } = this;
-
-  // const selectedCard = getSelectedCard(boardCards, selectedCardId);
-  // const lastColumnCard = getLastCard(boardCards, selectedColumn);
-
-  // Relaxed validation for K to empty column
-  if (!card) {
-    const isValidKing = isValidKingMove(vcard, card);
-
-    return isValidKing;
-  }
-
-  // General validation.
-  const isValidCard = isMoveValidCard(vcard, card);
-  const isValidSuit = isMoveValidSuit(vcard, card);
-  const isValidOrder = isMoveValidOrder(vcard, card);
-  const isValidColumn = isMoveValidColumn(vcard, card);
-
-  // console.log('isValidCard', isValidCard);
-  // console.log('isValidSuit', isValidSuit);
-  // console.log('isValidOrder', isValidOrder);
-  // console.log('isValidColumn', isValidColumn);
-
-  return isValidCard && isValidSuit && isValidOrder && isValidColumn;
 };
 
 const moveCardsFrom = (selectedCardId, cards) => {
@@ -136,7 +112,8 @@ export {
   showHideCards,
   getSelectedCard,
   getLastCard,
-  isValidRemainingCard,
+  getLastCards,
+  getVisibleCards,
   moveCardsFrom,
   moveCardsTo,
 };
