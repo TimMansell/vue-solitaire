@@ -59,7 +59,7 @@
       "git add"
     ],
     "*.{scss,vue}": [
-      "lint:css",
+      "stylelint --fix",
       "git add"
     ]
   }
