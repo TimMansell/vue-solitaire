@@ -14,11 +14,11 @@ describe('No moves', () => {
 
       cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
 
-      cy.get('[data-test="game-overlay"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.be.visible');
 
       cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
 
-      cy.get('[data-test="game-overlay"]').should('be.visible');
+      cy.get('[data-test="game-lost"]').should('be.visible');
     });
   });
 
@@ -28,11 +28,11 @@ describe('No moves', () => {
 
       cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
 
-      cy.get('[data-test="game-overlay"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.be.visible');
 
       cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-0"]');
 
-      cy.get('[data-test="game-overlay"]').should('be.visible');
+      cy.get('[data-test="game-lost"]').should('be.visible');
     });
   });
 
@@ -43,11 +43,11 @@ describe('No moves', () => {
       cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
       cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-0"]');
 
-      cy.get('[data-test="game-overlay"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.be.visible');
 
       cy.get('[data-test="card-2s"]').clickTo('[data-test="foundation-0"]');
 
-      cy.get('[data-test="game-overlay"]').should('be.visible');
+      cy.get('[data-test="game-lost"]').should('be.visible');
     });
   });
 
@@ -60,7 +60,7 @@ describe('No moves', () => {
       cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
       cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
 
-      cy.get('[data-test="game-overlay"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.be.visible');
     });
   });
 
@@ -71,11 +71,11 @@ describe('No moves', () => {
       cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
       cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
 
-      cy.get('[data-test="game-overlay"]').should('be.visible');
+      cy.get('[data-test="game-lost"]').should('be.visible');
 
       cy.get('[data-test="game-overlay-btn"]').click();
 
-      cy.get('[data-test="game-overlay"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.be.visible');
     });
   });
 });
