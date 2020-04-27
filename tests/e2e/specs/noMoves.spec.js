@@ -8,8 +8,6 @@ describe('No moves', () => {
     cy.visit('/');
   });
 
-  // - [x] K to empty column + no moves
-  // - [x] K already at top should not be a move. + no moves
   it('should have Kc as an available move then no moves after that', () => {
     cy.setBoard(noMovesKingColumn).then(() => {
       cy.get('[data-test="column-2"]').shouldBeVisible(['Kc']);
@@ -24,7 +22,6 @@ describe('No moves', () => {
     });
   });
 
-  // - [x] A to foundation + no moves
   it('should have As as an available foundation move then no moves after that', () => {
     cy.setBoard(noMovesAceFoundation).then(() => {
       cy.get('[data-test="column-2"]').shouldBeVisible(['As']);
@@ -39,7 +36,6 @@ describe('No moves', () => {
     });
   });
 
-  // - [x] 2,3 etc to foundation + no moves
   it('should have 2s as an available foundation move then no moves after that', () => {
     cy.setBoard(noMovesAceTwoFoundation).then(() => {
       cy.get('[data-test="column-2"]').shouldBeVisible(['As']);
@@ -55,7 +51,6 @@ describe('No moves', () => {
     });
   });
 
-  // - [ ] should not show if game won
   it('should not show lost game if game won', () => {
     cy.setBoard(foundations).then(() => {
       cy.get('[data-test="winner"]').should('not.be.visible');

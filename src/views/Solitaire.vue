@@ -1,12 +1,8 @@
 <template>
   <div class="solitaire">
     <Board />
-    <div v-if="isGameWon">
-      <Winner />
-    </div>
-    <div v-if="isGameLost">
-      <GameOverlay />
-    </div>
+    <Winner v-if="isGameWon" />
+    <GameOverlay v-if="isGameLost && !isGameWon" />
   </div>
 </template>
 
@@ -22,11 +18,6 @@ export default {
     Board,
     Winner,
     GameOverlay,
-  },
-  data() {
-    return {
-      gameWon: true,
-    };
   },
   computed: {
     ...mapGetters(['isGameWon', 'isGameLost']),
