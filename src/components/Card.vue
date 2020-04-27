@@ -172,25 +172,25 @@ export default {
 
   &--is-s {
     &--color-blind {
-      color: black;
+      color: #000;
     }
   }
 
   &--is-d {
     &--color-blind {
-      color: blue;
+      color: #00f;
     }
   }
 
   &--is-h {
     &--color-blind {
-      color: red;
+      color: #f00;
     }
   }
 
   &--is-c {
     &--color-blind {
-      color: orange;
+      color: #ffa500;
     }
   }
 
