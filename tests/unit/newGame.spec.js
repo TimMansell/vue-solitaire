@@ -8,13 +8,13 @@ describe('NewGame.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls restartGame when clicked', () => {
+  it('calls newGame when clicked', () => {
     const wrapper = shallowMount(NewGame);
     const mockFunction = jest.fn();
 
-    wrapper.setMethods({ restartGame: mockFunction });
+    wrapper.setMethods({ newGame: mockFunction });
 
-    wrapper.find('[data-test="new-game"]').trigger('click');
+    wrapper.find('[data-test="new-game-btn"]').trigger('click');
 
     expect(mockFunction).toHaveBeenCalled();
   });

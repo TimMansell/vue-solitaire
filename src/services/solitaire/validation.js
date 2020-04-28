@@ -26,9 +26,7 @@ const isMoveValidOrder = (selectedCard, lastColumnCard) => {
 
 // Check card isn't being moved to same column.
 const isMoveValidColumn = (selectedCard, columnCards) => {
-  const cardExistsInColumn = columnCards.filter(
-    (card) => card.value === selectedCard.value && card.suit === selectedCard.suit
-  );
+  const cardExistsInColumn = columnCards.filter((card) => card.id === selectedCard.id);
 
   if (!cardExistsInColumn.length) {
     return true;
