@@ -98,7 +98,7 @@ describe('Invalid moves', () => {
         cy.get('[data-test="card-Qs"]').clickTo('[data-test="card-Ks"]');
 
         cy.get('[data-test="column-7"]').within(() => {
-          cy.get('[data-test*="card-"]')
+          cy.get('[data-test*="card"]')
             .eq(2)
             .should('have.attr', 'data-test', 'card-Qs');
         });

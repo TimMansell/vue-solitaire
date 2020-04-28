@@ -7,7 +7,8 @@
     @dragend="clearCard()"
     :draggable="visible"
     ref="card"
-    :data-test="`card-${value}${suit}`"
+    :data-card-suit="cardSuit"
+    :data-test="cardTestName"
   >
     <TouchEvents @swipe="autoMoveCard($event, id)" @doubletap="autoMoveCard($event, id)">
       <SvgIcon
@@ -55,7 +56,7 @@ export default {
     },
     visible: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     revealed: {
       type: Boolean,
@@ -75,17 +76,31 @@ export default {
     ...mapGetters(['selectedCardId']),
     classes() {
       const { selectedCardId } = this;
-      const { id, suit, isCardDragged, clickable, visible } = this;
+      const { id, isCardDragged, clickable, visible } = this;
 
       return {
-        'card--is-s': suit === 's',
-        'card--is-d': suit === 'd',
-        'card--is-h': suit === 'h',
-        'card--is-c': suit === 'c',
         'card--is-selected': selectedCardId === id && !isCardDragged,
         'card--is-not-clickable': !clickable,
         'card--is-draggable': visible,
       };
+    },
+    cardTestName() {
+      const { value, suit, visible } = this;
+
+      if (visible) {
+        return `card-${value}${suit}`;
+      }
+
+      return 'card';
+    },
+    cardSuit() {
+      const { suit, visible } = this;
+
+      if (visible) {
+        return suit;
+      }
+
+      return '';
     },
   },
   methods: {
@@ -167,30 +182,6 @@ export default {
 
     @media (min-width: $bp-xl) {
       margin-top: -#{$card-height-xl * $card-spacer};
-    }
-  }
-
-  &--is-s {
-    &--color-blind {
-      color: #000;
-    }
-  }
-
-  &--is-d {
-    &--color-blind {
-      color: #00f;
-    }
-  }
-
-  &--is-h {
-    &--color-blind {
-      color: #f00;
-    }
-  }
-
-  &--is-c {
-    &--color-blind {
-      color: #ffa500;
     }
   }
 
