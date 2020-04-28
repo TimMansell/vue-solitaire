@@ -110,6 +110,7 @@ export {
   shuffleCards,
   showHideCards,
   getSelectedCard,
+  getSelectedCardPosition,
   getLastCard,
   getLastCards,
   getVisibleCards,

@@ -14,7 +14,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import GameOverlay from '@/components/GameOverlay.vue';
-// import aces from '../../tests/fixtures/boards/doubleClickAce1.json';
+// import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',

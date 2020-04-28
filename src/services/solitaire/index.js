@@ -12,6 +12,7 @@ import {
   shuffleCards,
   showHideCards,
   getSelectedCard,
+  getSelectedCardPosition,
   getLastCard,
   getLastCards,
   getVisibleCards,
@@ -191,35 +192,40 @@ export default class Solitaire {
       return false;
     }
 
-    const hasMoves = bottomCards.filter((bottomCard) => {
-      // If bottom card in an A then there is a possible move.
-      if (bottomCard.order === 1) {
-        return true;
-      }
-
-      // Can any visible cards be moved?
-      const hasMove = visibleCards.filter((visibleCard) => {
-        if (visibleCard.order === 13 && bottomCards.length < 8 && visibleCard.position[1] !== 0) {
-          return true;
-        }
-
-        // Relaxed validation for K to empty column
-        if (!bottomCard) {
-          const isValidKing = isValidKingMove(visibleCard, bottomCard);
-
-          return isValidKing;
-        }
+    const hasVisibleMoves = visibleCards.filter((visibleCard) => {
+      const hasMove = bottomCards.filter((bottomCard) => {
+        const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
 
         // General validation.
         const isValidCard = isMoveValidCard(visibleCard, bottomCard);
         const isValidSuit = isMoveValidSuit(visibleCard, bottomCard);
         const isValidOrder = isMoveValidOrder(visibleCard, bottomCard);
-        const isValidColumn = isMoveValidColumn(visibleCard, bottomCard);
+        const isValidColumn = isMoveValidColumn(visibleCard, boardCards[columnNo]);
 
         return isValidCard && isValidSuit && isValidOrder && isValidColumn;
       });
 
-      // Can any bottom cards be moved to the foundation?
+      return hasMove.length;
+    });
+
+    // If card is king and there is an empty column then we have a possible move.
+    const hasKingMoves = visibleCards.filter((visibleCard) => {
+      const { cardPosition } = getSelectedCardPosition(boardCards, visibleCard.id);
+
+      if (visibleCard.order === 13 && bottomCards.length < 8 && cardPosition !== 0) {
+        return true;
+      }
+
+      return false;
+    });
+
+    // Can we move any cards to the foundation?
+    const hasFoundationMoves = bottomCards.filter((bottomCard) => {
+      // If bottom card in an A then there is a possible move.
+      if (bottomCard.order === 1) {
+        return true;
+      }
+
       const hasFoundationMove = topFoundationCards.filter((topFoundationCard) => {
         const isValidSuit = isMoveValidSuit(bottomCard, topFoundationCard);
         const isValidOrder = bottomCard.order === topFoundationCard.order + 1;
@@ -227,10 +233,10 @@ export default class Solitaire {
         return isValidSuit && isValidOrder;
       });
 
-      return hasMove.length || hasFoundationMove.length;
+      return hasFoundationMove.length;
     });
 
-    return !hasMoves.length;
+    return ![...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length;
   }
 
   getBoardCards() {
