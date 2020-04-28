@@ -50,10 +50,6 @@ export default {
       type: Number,
       default: 0,
     },
-    position: {
-      type: Array,
-      default: () => [],
-    },
     visible: {
       type: Boolean,
       default: true,
