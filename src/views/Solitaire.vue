@@ -27,7 +27,10 @@ export default {
   },
   mounted() {
     this.initGame();
-    // this.$store.dispatch('setTestBoard', aces);
+
+    if (process.env.NODE_ENV === 'development') {
+      // this.$store.dispatch('setTestBoard', aces);
+    }
   },
   methods: {
     ...mapActions(['initGame', 'setGameWon', 'setGameLost']),

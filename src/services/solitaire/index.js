@@ -236,6 +236,13 @@ export default class Solitaire {
       return hasFoundationMove.length;
     });
 
+    if (process.env.NODE_ENV === 'development') {
+      console.log('---');
+      [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].forEach((move) => {
+        console.log('hasMove', `${move.value}${move.suit}`);
+      });
+    }
+
     return ![...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length;
   }
 
