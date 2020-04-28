@@ -50,7 +50,6 @@ describe('Card.vue', () => {
         value: 'K',
         suit: 'd',
         order: 1,
-        position: [5, 6],
         visible: true,
         revealed: true,
         clickable: false,
@@ -61,7 +60,6 @@ describe('Card.vue', () => {
     expect(wrapper.props().value).toBe('K');
     expect(wrapper.props().suit).toBe('d');
     expect(wrapper.props().order).toBe(1);
-    expect(wrapper.props().position).toStrictEqual([5, 6]);
     expect(wrapper.props().visible).toBe(true);
     expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);

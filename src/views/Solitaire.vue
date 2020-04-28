@@ -11,6 +11,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import Winner from '@/components/Winner.vue';
+// import aces from '../../tests/fixtures/boards/doubleClickAce1.json';
 
 export default {
   name: 'Home',
@@ -28,6 +29,7 @@ export default {
   },
   mounted() {
     this.initGame();
+    // this.$store.dispatch('setTestBoard', aces);
   },
   methods: {
     ...mapActions(['initGame']),
