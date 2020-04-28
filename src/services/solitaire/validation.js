@@ -25,12 +25,30 @@ const isMoveValidOrder = (selectedCard, lastColumnCard) => {
 };
 
 // Check card isn't being moved to same column.
-const isMoveValidColumn = (selectedCard, lastColumnCard) => {
-  if (lastColumnCard.position[0] === selectedCard.position[0]) {
-    return false;
+const isMoveValidColumn = (selectedCard, columnCards) => {
+  const cardExistsInColumn = columnCards.filter(
+    (card) => card.value === selectedCard.value && card.suit === selectedCard.suit
+  );
+
+  if (!cardExistsInColumn.length) {
+    return true;
   }
 
-  return true;
+  return false;
+};
+
+const isMoveValidPosition = (selectedCard, boardCards) => {
+  const isCardValidPosition = boardCards.some((cards) => {
+    const cardPosition = cards.findIndex((card) => card.id === selectedCard.id);
+
+    if (cardPosition === cards.length - 1) {
+      return true;
+    }
+
+    return false;
+  });
+
+  return isCardValidPosition;
 };
 
 const isValidKingMove = (selectedCard, lastColumnCard) => {
@@ -41,25 +59,23 @@ const isValidKingMove = (selectedCard, lastColumnCard) => {
   return false;
 };
 
-const isMoveValidFoundationSuit = (selectedCard, selectedColumn, foundationCards) => {
+const isMoveValidFoundationSuit = (selectedCard, selectedFoundationCards) => {
   const { suit } = selectedCard;
 
-  const foundationSuit = foundationCards[selectedColumn].filter((ace) => ace.suit === suit);
+  const foundationSuit = selectedFoundationCards.filter((ace) => ace.suit === suit);
 
-  if (!foundationSuit.length && foundationCards[selectedColumn].length) {
+  if (!foundationSuit.length && selectedFoundationCards.length) {
     return false;
   }
 
   return true;
 };
 
-const isMoveValidFoundationOrder = (selectedCard, selectedColumn, foundationCards, boardCards) => {
-  const { order, position } = selectedCard;
+const isMoveValidFoundationOrder = (selectedCard, selectedFoundationCards) => {
+  const { order } = selectedCard;
 
-  if (order === foundationCards[selectedColumn].length + 1) {
-    const isLastItem = boardCards[position[0]].length - 1 === position[1];
-
-    return isLastItem;
+  if (order === selectedFoundationCards.length + 1) {
+    return true;
   }
 
   return false;
@@ -70,6 +86,7 @@ export {
   isMoveValidSuit,
   isMoveValidOrder,
   isMoveValidColumn,
+  isMoveValidPosition,
   isValidKingMove,
   isMoveValidFoundationSuit,
   isMoveValidFoundationOrder,
