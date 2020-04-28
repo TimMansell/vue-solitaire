@@ -8,6 +8,9 @@ const mutations = {
   SET_GAME_WON(state, isGameWon) {
     state.isGameWon = isGameWon;
   },
+  SET_GAME_LOST(state, isGameLost) {
+    state.isGameLost = isGameLost;
+  },
   SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
       Vue.set(state.board.cards, index, cards);

@@ -16,7 +16,6 @@
         :value="card.value"
         :suit="card.suit"
         :order="card.order"
-        :position="card.position"
         :visible="card.visible"
         :clickable="false"
       />

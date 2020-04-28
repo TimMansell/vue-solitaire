@@ -44,7 +44,7 @@ export default {
 
   &__content {
     padding: 1rem;
-    background-color: white;
+    background-color: #fff;
     text-align: left;
     border-radius: 3px;
     box-shadow: 0 0 20px -2px rgba(27, 33, 58, 0.4);
