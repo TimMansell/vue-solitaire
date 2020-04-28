@@ -1,3 +1,5 @@
+const StyleLintPlugin = require('stylelint-webpack-plugin');
+
 module.exports = {
   chainWebpack: (config) => {
     config.module
@@ -11,5 +13,12 @@ module.exports = {
         prependData: "@import '~@/components/vars.scss';",
       },
     },
+  },
+  configureWebpack: {
+    plugins: [
+      new StyleLintPlugin({
+        files: ['**/*.{vue,scss}'],
+      }),
+    ],
   },
 };

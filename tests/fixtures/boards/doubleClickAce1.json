@@ -8,11 +8,7 @@
         "value":"A",
         "order":1,
         "suit":"s",
-        "visible":true,
-        "position":[
-          7,
-          5
-        ]
+        "visible":true
       }
     ],
     []
@@ -24,77 +20,49 @@
           "value":"3",
           "order":3,
           "suit":"c",
-          "visible":true,
-          "position":[
-            0,
-            0
-          ]
+          "visible":true
       },
       {
           "id":3,
           "value":"5",
           "order":5,
           "suit":"s",
-          "visible":false,
-          "position":[
-            0,
-            1
-          ]
+          "visible":false
       },
       {
           "id":4,
           "value":"7",
           "order":7,
           "suit":"c",
-          "visible":true,
-          "position":[
-            0,
-            2
-          ]
+          "visible":true
       },
       {
           "id":5,
           "value":"4",
           "order":4,
           "suit":"h",
-          "visible":false,
-          "position":[
-            0,
-            3
-          ]
+          "visible":false
       },
       {
           "id":6,
           "value":"6",
           "order":6,
           "suit":"h",
-          "visible":true,
-          "position":[
-            0,
-            4
-          ]
+          "visible":true
       },
       {
           "id":7,
           "value":"6",
           "order":6,
           "suit":"d",
-          "visible":false,
-          "position":[
-            0,
-            5
-          ]
+          "visible":false
       },
       {
           "id":8,
           "value":"J",
           "order":11,
           "suit":"s",
-          "visible":true,
-          "position":[
-            0,
-            6
-          ]
+          "visible":true
       }
     ],
     [
@@ -103,77 +71,49 @@
           "value":"10",
           "order":10,
           "suit":"s",
-          "visible":true,
-          "position":[
-            1,
-            0
-          ]
+          "visible":true
       },
       {
           "id":10,
           "value":"K",
           "order":13,
           "suit":"c",
-          "visible":false,
-          "position":[
-            1,
-            1
-          ]
+          "visible":false
       },
       {
           "id":11,
           "value":"9",
           "order":9,
           "suit":"h",
-          "visible":true,
-          "position":[
-            1,
-            2
-          ]
+          "visible":true
       },
       {
           "id":12,
           "value":"K",
           "order":13,
           "suit":"d",
-          "visible":false,
-          "position":[
-            1,
-            3
-          ]
+          "visible":false
       },
       {
           "id":13,
           "value":"5",
           "order":5,
           "suit":"d",
-          "visible":true,
-          "position":[
-            1,
-            4
-          ]
+          "visible":true
       },
       {
           "id":14,
           "value":"9",
           "order":9,
           "suit":"d",
-          "visible":false,
-          "position":[
-            1,
-            5
-          ]
+          "visible":false
       },
         {
           "id":15,
           "value":"A",
           "order":1,
           "suit":"d",
-          "visible":true,
-          "position":[
-            1,
-            6
-          ]
+          "visible":true
       }
     ],
     [
@@ -182,77 +122,49 @@
           "value":"2",
           "order":2,
           "suit":"c",
-          "visible":true,
-          "position":[
-            2,
-            0
-          ]
+          "visible":true
       },
       {
           "id":17,
           "value":"5",
           "order":5,
           "suit":"c",
-          "visible":false,
-          "position":[
-            2,
-            1
-          ]
+          "visible":false
       },
       {
           "id":18,
           "value":"3",
           "order":3,
           "suit":"d",
-          "visible":true,
-          "position":[
-            2,
-            2
-          ]
+          "visible":true
       },
       {
           "id":19,
           "value":"8",
           "order":8,
           "suit":"c",
-          "visible":false,
-          "position":[
-            2,
-            3
-          ]
+          "visible":false
       },
       {
           "id":20,
           "value":"J",
           "order":11,
           "suit":"d",
-          "visible":true,
-          "position":[
-            2,
-            4
-          ]
+          "visible":true
       },
       {
           "id":21,
           "value":"Q",
           "order":12,
           "suit":"c",
-          "visible":false,
-          "position":[
-            2,
-            5
-          ]
+          "visible":false
       },
       {
           "id":22,
           "value":"7",
           "order":7,
           "suit":"d",
-          "visible":true,
-          "position":[
-            2,
-            6
-          ]
+          "visible":true
       }
     ],
     [
@@ -261,77 +173,49 @@
           "value":"9",
           "order":9,
           "suit":"c",
-          "visible":true,
-          "position":[
-            3,
-            0
-          ]
+          "visible":true
       },
       {
           "id":24,
           "value":"3",
           "order":3,
           "suit":"s",
-          "visible":false,
-          "position":[
-            3,
-            1
-          ]
+          "visible":false
       },
       {
           "id":25,
           "value":"J",
           "order":11,
           "suit":"c",
-          "visible":true,
-          "position":[
-            3,
-            2
-          ]
+          "visible":true
       },
       {
           "id":26,
           "value":"5",
           "order":5,
           "suit":"h",
-          "visible":false,
-          "position":[
-            3,
-            3
-          ]
+          "visible":false
       },
       {
           "id":27,
           "value":"3",
           "order":3,
           "suit":"h",
-          "visible":true,
-          "position":[
-            3,
-            4
-          ]
+          "visible":true
       },
       {
           "id":28,
           "value":"2",
           "order":2,
           "suit":"h",
-          "visible":false,
-          "position":[
-            3,
-            5
-          ]
+          "visible":false
       },
       {
           "id":29,
           "value":"A",
           "order":1,
           "suit":"h",
-          "visible":true,
-          "position":[
-            3,
-            6
-          ]
+          "visible":true
       }
     ],
     [
@@ -340,66 +224,42 @@
           "value":"K",
           "order":13,
           "suit":"s",
-          "visible":false,
-          "position":[
-            4,
-            0
-          ]
+          "visible":false
       },
       {
           "id":31,
           "value":"4",
           "order":4,
           "suit":"s",
-          "visible":true,
-          "position":[
-            4,
-            1
-          ]
+          "visible":true
       },
       {
           "id":32,
           "value":"A",
           "order":1,
           "suit":"c",
-          "visible":false,
-          "position":[
-            4,
-            2
-          ]
+          "visible":false
       },
       {
           "id":33,
           "value":"6",
           "order":6,
           "suit":"s",
-          "visible":true,
-          "position":[
-            4,
-            3
-          ]
+          "visible":true
       },
       {
           "id":34,
           "value":"Q",
           "order":12,
           "suit":"d",
-          "visible":false,
-          "position":[
-            4,
-            4
-          ]
+          "visible":false
       },
       {
           "id":35,
           "value":"7",
           "order":7,
           "suit":"h",
-          "visible":true,
-          "position":[
-            4,
-            5
-          ]
+          "visible":true
       }
     ],
     [
@@ -408,66 +268,42 @@
           "value":"7",
           "order":7,
           "suit":"s",
-          "visible":false,
-          "position":[
-            5,
-            0
-          ]
+          "visible":false
       },
       {
           "id":37,
           "value":"8",
           "order":8,
           "suit":"h",
-          "visible":true,
-          "position":[
-            5,
-            1
-          ]
+          "visible":true
       },
       {
           "id":38,
           "value":"9",
           "order":9,
           "suit":"s",
-          "visible":false,
-          "position":[
-            5,
-            2
-          ]
+          "visible":false
       },
       {
           "id":39,
           "value":"J",
           "order":11,
           "suit":"h",
-          "visible":true,
-          "position":[
-            5,
-            3
-          ]
+          "visible":true
       },
       {
           "id":40,
           "value":"6",
           "order":6,
           "suit":"c",
-          "visible":false,
-          "position":[
-            5,
-            4
-          ]
+          "visible":false
       },
       {
           "id":41,
           "value":"4",
           "order":4,
           "suit":"d",
-          "visible":true,
-          "position":[
-            5,
-            5
-          ]
+          "visible":true
       }
     ],
     [
@@ -476,66 +312,42 @@
           "value":"2",
           "order":2,
           "suit":"d",
-          "visible":false,
-          "position":[
-            6,
-            0
-          ]
+          "visible":false
       },
       {
           "id":43,
           "value":"10",
           "order":10,
           "suit":"h",
-          "visible":true,
-          "position":[
-            6,
-            1
-          ]
+          "visible":true
       },
       {
           "id":44,
           "value":"Q",
           "order":12,
           "suit":"h",
-          "visible":false,
-          "position":[
-            6,
-            2
-          ]
+          "visible":false
       },
       {
           "id":45,
           "value":"10",
           "order":10,
           "suit":"c",
-          "visible":true,
-          "position":[
-            6,
-            3
-          ]
+          "visible":true
       },
       {
           "id":46,
           "value":"8",
           "order":8,
           "suit":"d",
-          "visible":false,
-          "position":[
-            6,
-            4
-          ]
+          "visible":false
       },
       {
           "id":47,
           "value":"10",
           "order":10,
           "suit":"d",
-          "visible":true,
-          "position":[
-            6,
-            5
-          ]
+          "visible":true
       }
     ],
     [
@@ -544,55 +356,35 @@
           "value":"4",
           "order":4,
           "suit":"c",
-          "visible":false,
-          "position":[
-            7,
-            0
-          ]
+          "visible":false
       },
       {
           "id":49,
           "value":"Q",
           "order":12,
           "suit":"s",
-          "visible":true,
-          "position":[
-            7,
-            1
-          ]
+          "visible":true
       },
       {
           "id":50,
           "value":"8",
           "order":8,
           "suit":"s",
-          "visible":false,
-          "position":[
-            7,
-            2
-          ]
+          "visible":false
       },
       {
           "id":51,
           "value":"K",
           "order":13,
           "suit":"h",
-          "visible":true,
-          "position":[
-            7,
-            3
-          ]
+          "visible":true
       },
       {
           "id":52,
           "value":"2",
           "order":2,
           "suit":"s",
-          "visible":true,
-          "position":[
-            7,
-            4
-          ]
+          "visible":true
       }
     ]
   ]
