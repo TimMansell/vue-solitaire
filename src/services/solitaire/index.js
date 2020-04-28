@@ -12,7 +12,10 @@ import {
   shuffleCards,
   showHideCards,
   getSelectedCard,
+  getSelectedCardPosition,
   getLastCard,
+  getLastCards,
+  getVisibleCards,
   moveCardsFrom,
   moveCardsTo,
 } from './helpers';
@@ -175,6 +178,72 @@ export default class Solitaire {
     const { boardCards } = this;
 
     return !boardCards.flat().length;
+  }
+
+  hasNoMoves() {
+    const { boardCards, foundationCards } = this;
+
+    const topFoundationCards = getLastCards(foundationCards);
+    const bottomCards = getLastCards(boardCards);
+    const visibleCards = getVisibleCards(boardCards);
+
+    // No more cards so game is finished.
+    if (!bottomCards.length) {
+      return false;
+    }
+
+    const hasVisibleMoves = visibleCards.filter((visibleCard) => {
+      const hasMove = bottomCards.filter((bottomCard) => {
+        const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
+
+        // General validation.
+        const isValidCard = isMoveValidCard(visibleCard, bottomCard);
+        const isValidSuit = isMoveValidSuit(visibleCard, bottomCard);
+        const isValidOrder = isMoveValidOrder(visibleCard, bottomCard);
+        const isValidColumn = isMoveValidColumn(visibleCard, boardCards[columnNo]);
+
+        return isValidCard && isValidSuit && isValidOrder && isValidColumn;
+      });
+
+      return hasMove.length;
+    });
+
+    // If card is king and there is an empty column then we have a possible move.
+    const hasKingMoves = visibleCards.filter((visibleCard) => {
+      const { cardPosition } = getSelectedCardPosition(boardCards, visibleCard.id);
+
+      if (visibleCard.order === 13 && bottomCards.length < 8 && cardPosition !== 0) {
+        return true;
+      }
+
+      return false;
+    });
+
+    // Can we move any cards to the foundation?
+    const hasFoundationMoves = bottomCards.filter((bottomCard) => {
+      // If bottom card in an A then there is a possible move.
+      if (bottomCard.order === 1) {
+        return true;
+      }
+
+      const hasFoundationMove = topFoundationCards.filter((topFoundationCard) => {
+        const isValidSuit = isMoveValidSuit(bottomCard, topFoundationCard);
+        const isValidOrder = bottomCard.order === topFoundationCard.order + 1;
+
+        return isValidSuit && isValidOrder;
+      });
+
+      return hasFoundationMove.length;
+    });
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('---');
+      [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].forEach((move) => {
+        console.log('hasMove', `${move.value}${move.suit}`);
+      });
+    }
+
+    return ![...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length;
   }
 
   getBoardCards() {

@@ -1,38 +1,39 @@
 <template>
   <div class="solitaire">
     <Board />
-    <div v-if="isGameWon">
-      <Winner />
-    </div>
+    <GameOverlay v-if="isGameWon" @buttonClick="setGameWon(false)" data-test="game-won">
+      Congratulations, you win!
+    </GameOverlay>
+    <GameOverlay v-if="isGameLost" @buttonClick="setGameLost(false)" data-test="game-lost">
+      Sorry, no more Moves!
+    </GameOverlay>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
-import Winner from '@/components/Winner.vue';
-// import aces from '../../tests/fixtures/boards/doubleClickAce1.json';
+import GameOverlay from '@/components/GameOverlay.vue';
+// import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
   components: {
     Board,
-    Winner,
-  },
-  data() {
-    return {
-      gameWon: true,
-    };
+    GameOverlay,
   },
   computed: {
-    ...mapGetters(['isGameWon']),
+    ...mapGetters(['isGameWon', 'isGameLost']),
   },
   mounted() {
     this.initGame();
-    // this.$store.dispatch('setTestBoard', aces);
+
+    if (process.env.NODE_ENV === 'development') {
+      // this.$store.dispatch('setTestBoard', aces);
+    }
   },
   methods: {
-    ...mapActions(['initGame']),
+    ...mapActions(['initGame', 'setGameWon', 'setGameLost']),
   },
 };
 </script>

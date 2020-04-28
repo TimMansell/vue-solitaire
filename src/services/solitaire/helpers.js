@@ -51,10 +51,22 @@ const getSelectedCardPosition = (boardCards, selectedCardId) => {
   };
 };
 
+const getVisibleCards = (cards) => {
+  const visibleCards = cards.flat().filter((card) => card.visible);
+
+  return visibleCards;
+};
+
 const getLastCard = (board, selectedColumn) => {
   const [selectedCard] = board[selectedColumn].slice(-1);
 
   return selectedCard;
+};
+
+const getLastCards = (cards) => {
+  const lastCards = cards.map((card) => card.slice(-1)).flat();
+
+  return lastCards;
 };
 
 const moveCardsFrom = (selectedCardId, cards) => {
@@ -94,4 +106,14 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
   };
 };
 
-export { shuffleCards, showHideCards, getSelectedCard, getLastCard, moveCardsFrom, moveCardsTo };
+export {
+  shuffleCards,
+  showHideCards,
+  getSelectedCard,
+  getSelectedCardPosition,
+  getLastCard,
+  getLastCards,
+  getVisibleCards,
+  moveCardsFrom,
+  moveCardsTo,
+};
