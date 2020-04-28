@@ -368,10 +368,6 @@
         "value": "K",
         "order": 13,
         "suit": "s",
-        "position": [
-          0,
-          0
-        ],
         "visible": true
       },
       {
@@ -379,10 +375,6 @@
         "value": "Q",
         "order": 12,
         "suit": "s",
-        "position": [
-          0,
-          1
-        ],
         "visible": true
       }
     ],

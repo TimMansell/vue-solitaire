@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card.vue matches visible snapshot 1`] = `
+<div data-test="game-overlay" class="game-overlay">
+  <div class="game-overlay__content">
+    <h1 class="game-overlay__title"></h1>
+    <div data-test="game-overlay-btn" class="game-overlay__btn">
+      <newgame-stub></newgame-stub>
+    </div>
+  </div>
+</div>
+`;

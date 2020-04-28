@@ -1,6 +1,6 @@
 {
   "name": "vue-solitaire",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,7 +8,9 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e --headless",
     "test:e2e:gui": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint --fix"
+    "lint": "run-p lint:js lint:css",
+    "lint:js": "vue-cli-service lint --fix",
+    "lint:css": "stylelint src/**/*.{vue,scss} --fix"
   },
   "dependencies": {
     "core-js": "^3.6.4",
@@ -37,7 +39,12 @@
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
     "node-sass": "^4.12.0",
+    "npm-run-all": "^4.1.5",
     "sass-loader": "^8.0.2",
+    "stylelint": "^13.3.3",
+    "stylelint-config-sass-guidelines": "^7.0.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-webpack-plugin": "^1.2.3",
     "svgo": "^1.1.0",
     "svgo-loader": "^2.1.0",
     "vue-cli-plugin-svg-sprite": "~1.0.0",
@@ -49,6 +56,10 @@
   "lint-staged": {
     "*.{js,jsx,vue}": [
       "vue-cli-service lint",
+      "git add"
+    ],
+    "*.{scss,vue}": [
+      "stylelint --fix",
       "git add"
     ]
   }

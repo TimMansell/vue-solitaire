@@ -50,7 +50,6 @@ describe('Card.vue', () => {
         value: 'K',
         suit: 'd',
         order: 1,
-        position: [5, 6],
         visible: true,
         revealed: true,
         clickable: false,
@@ -61,7 +60,6 @@ describe('Card.vue', () => {
     expect(wrapper.props().value).toBe('K');
     expect(wrapper.props().suit).toBe('d');
     expect(wrapper.props().order).toBe(1);
-    expect(wrapper.props().position).toStrictEqual([5, 6]);
     expect(wrapper.props().visible).toBe(true);
     expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
@@ -77,7 +75,7 @@ describe('Card.vue', () => {
       },
     });
 
-    expect(wrapper.classes()).toContain('card--is-d');
+    expect(wrapper.attributes('data-card-suit')).toBe('d');
   });
 
   it('should render a club card', () => {
@@ -90,7 +88,7 @@ describe('Card.vue', () => {
       },
     });
 
-    expect(wrapper.classes()).toContain('card--is-c');
+    expect(wrapper.attributes('data-card-suit')).toBe('c');
   });
 
   it('should render a heart card', () => {
@@ -103,7 +101,7 @@ describe('Card.vue', () => {
       },
     });
 
-    expect(wrapper.classes()).toContain('card--is-h');
+    expect(wrapper.attributes('data-card-suit')).toBe('h');
   });
 
   it('should render a spade card', () => {
@@ -116,23 +114,26 @@ describe('Card.vue', () => {
       },
     });
 
-    expect(wrapper.classes()).toContain('card--is-s');
+    expect(wrapper.attributes('data-card-suit')).toBe('s');
   });
 
   it('should render a visible card', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
-      propsData: {
-        visible: true,
-      },
     });
 
     expect(wrapper.find('[data-test="card-visible"]').exists()).toBe(true);
   });
 
   it('should render a hidden card', () => {
-    const wrapper = shallowMount(Card, { store, localVue });
+    const wrapper = shallowMount(Card, {
+      store,
+      localVue,
+      propsData: {
+        visible: false,
+      },
+    });
 
     expect(wrapper.find('[data-test="card-hidden"]').exists()).toBe(true);
   });
@@ -176,7 +177,13 @@ describe('Card.vue', () => {
   });
 
   it('should not call store action "setCard" when clicked when not visible', () => {
-    const wrapper = shallowMount(Card, { store, localVue });
+    const wrapper = shallowMount(Card, {
+      store,
+      localVue,
+      propsData: {
+        clickable: false,
+      },
+    });
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');
 
@@ -187,9 +194,6 @@ describe('Card.vue', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
-      propsData: {
-        visible: true,
-      },
     });
 
     wrapper.find('[data-test="card-Ac"]').trigger('click');

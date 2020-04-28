@@ -1,8 +1,10 @@
 <template>
-  <div class="winner" data-test="winner">
-    <div class="winner__content">
-      <h1 class="winner__title">Congratulations, you win!</h1>
-      <div class="winner__btn" @click="setGameWon(false)" data-test="winner-btn">
+  <div class="game-overlay" data-test="game-overlay">
+    <div class="game-overlay__content">
+      <h1 class="game-overlay__title">
+        <slot />
+      </h1>
+      <div class="game-overlay__btn" @click="buttonClick" data-test="game-overlay-btn">
         <NewGame />
       </div>
     </div>
@@ -10,22 +12,23 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import NewGame from '@/components/NewGame.vue';
 
 export default {
-  name: 'Winner',
+  name: 'GameOverlay',
   components: {
     NewGame,
   },
   methods: {
-    ...mapActions(['setGameWon']),
+    buttonClick() {
+      this.$emit('buttonClick');
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.winner {
+.game-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +48,7 @@ export default {
   }
 
   &__title {
-    color: white;
+    color: #fff;
     text-shadow: -1px -1px rgba(0, 0, 0, 0.3);
     text-align: center;
   }

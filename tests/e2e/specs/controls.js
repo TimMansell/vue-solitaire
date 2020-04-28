@@ -12,14 +12,15 @@ describe('Controls', () => {
         cy.get('[data-test="card-Ah"]').should('be.visible');
       });
 
-      cy.get('[data-test="card-Ah"]').click();
-      cy.get('[data-test="foundation-0"]').click();
+      cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-0"]');
 
-      cy.get('[data-test="new-game"]').click();
+      cy.get('[data-test="card-5s"]').click();
 
-      cy.get('[data-test="foundation-0"]').within(() => {
-        cy.get('[data-test="card-Ah"]').should('not.be.visible');
-      });
+      cy.get('[data-test="new-game-btn"]').click();
+
+      cy.get('[data-test="foundation-0"]').shouldNotBeVisible(['Ah']);
+
+      cy.get('[data-test="card-5s"]').should('not.have.class', 'card--is-selected');
     });
   });
 
@@ -35,18 +36,18 @@ describe('Controls', () => {
 
   it('should move last cards foundation and then show win screen', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="winner"]').should('not.be.visible');
+      cy.get('[data-test="game-won"]').should('not.be.visible');
 
       cy.get('[data-test="column-0"]').shouldBeVisible(['Ks', 'Qs']);
 
       cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
       cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
 
-      cy.get('[data-test="winner"]').should('be.visible');
+      cy.get('[data-test="game-won"]').should('be.visible');
 
-      cy.get('[data-test="winner-btn"]').click();
+      cy.get('[data-test="game-overlay-btn"]').click();
 
-      cy.get('[data-test="winner"]').should('not.be.visible');
+      cy.get('[data-test="game-won"]').should('not.be.visible');
 
       cy.get('[data-test="foundation-3"]').shouldNotBeVisible(['Ks', 'Qs']);
     });

@@ -1,0 +1,12 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-sass-guidelines"],
+  "rules": {
+    "max-nesting-depth": [
+      2,
+      {
+        "ignore": ["blockless-at-rules", "pseudo-classes"]
+      }
+    ],
+    "order/properties-alphabetical-order": null
+  }
+}
