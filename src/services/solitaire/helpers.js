@@ -38,29 +38,29 @@ const getSelectedCard = (cards, selectedCardId) => {
   return selectedCard;
 };
 
+const getSelectedCardPosition = (boardCards, selectedCardId) => {
+  const columnNo = boardCards.findIndex((cards) =>
+    cards.find((card) => card.id === selectedCardId)
+  );
+
+  const cardPosition = boardCards[columnNo].findIndex((card) => card.id === selectedCardId);
+
+  return {
+    columnNo,
+    cardPosition,
+  };
+};
+
 const getLastCard = (board, selectedColumn) => {
   const [selectedCard] = board[selectedColumn].slice(-1);
 
   return selectedCard;
 };
 
-const mapPositions = (cards, position) => {
-  const updatedCards = cards.map((moveCards, index) => {
-    const newValues = {
-      ...moveCards,
-      position: [position, index],
-    };
-    return newValues;
-  });
-
-  return updatedCards;
-};
-
 const moveCardsFrom = (selectedCardId, cards) => {
-  const selectedCard = getSelectedCard(cards, selectedCardId);
-  const cardPosition = selectedCard.position;
+  const { columnNo, cardPosition } = getSelectedCardPosition(cards, selectedCardId);
 
-  const columnCards = cards[cardPosition[0]].slice(0, cardPosition[1]);
+  const columnCards = cards[columnNo].slice(0, cardPosition);
 
   const remainingCards = columnCards.map((card, index) => {
     if (index === columnCards.length - 1 && !card.visible) {
@@ -75,19 +75,18 @@ const moveCardsFrom = (selectedCardId, cards) => {
   });
 
   return {
-    column: cardPosition[0],
+    column: columnNo,
     cards: remainingCards,
   };
 };
 
 const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
-  const selectedCard = getSelectedCard(cardsFrom, selectedCardId);
-  const cardPosition = selectedCard;
+  const { columnNo, cardPosition } = getSelectedCardPosition(cardsFrom, selectedCardId);
 
   const columnCards = cardsTo[selectedColumn];
-  const moveCards = cardsFrom[cardPosition.position[0]].slice(cardPosition.position[1]);
+  const moveCards = cardsFrom[columnNo].slice(cardPosition);
 
-  const newColumn = mapPositions([...columnCards, ...moveCards], selectedColumn);
+  const newColumn = [...columnCards, ...moveCards];
 
   return {
     column: selectedColumn,

@@ -3,6 +3,7 @@ import {
   isMoveValidSuit,
   isMoveValidOrder,
   isMoveValidColumn,
+  isMoveValidPosition,
   isValidKingMove,
   isMoveValidFoundationSuit,
   isMoveValidFoundationOrder,
@@ -61,14 +62,7 @@ export default class Solitaire {
       const startIndex = startArray.reduce(calcOffset, 0);
       const endIndex = endArray.reduce(calcOffset, 0);
 
-      const cards = deck.slice(startIndex, endIndex).map((shuffledCard, index) => {
-        const card = {
-          ...shuffledCard,
-          position: [columnIndex, index],
-        };
-
-        return card;
-      });
+      const cards = deck.slice(startIndex, endIndex);
 
       // Offset by one.
       if (columnIndex > 3) {
@@ -108,6 +102,7 @@ export default class Solitaire {
 
     const selectedCard = getSelectedCard(boardCards, selectedCardId);
     const lastColumnCard = getLastCard(boardCards, selectedColumn);
+    const selectedColumnCards = boardCards[selectedColumn];
 
     // Relaxed validation for K to empty column
     if (!lastColumnCard) {
@@ -120,7 +115,7 @@ export default class Solitaire {
     const isValidCard = isMoveValidCard(selectedCard, lastColumnCard);
     const isValidSuit = isMoveValidSuit(selectedCard, lastColumnCard);
     const isValidOrder = isMoveValidOrder(selectedCard, lastColumnCard);
-    const isValidColumn = isMoveValidColumn(selectedCard, lastColumnCard);
+    const isValidColumn = isMoveValidColumn(selectedCard, selectedColumnCards);
 
     return isValidCard && isValidSuit && isValidOrder && isValidColumn;
   }
@@ -164,20 +159,16 @@ export default class Solitaire {
     const { selectedCardId, boardCards, foundationCards } = this;
 
     const selectedCard = getSelectedCard(boardCards, selectedCardId);
+    const selectedFoundationCards = foundationCards[selectedColumn];
 
-    const isValidFoundationSuit = isMoveValidFoundationSuit(
-      selectedCard,
-      selectedColumn,
-      foundationCards
-    );
+    const isValidFoundationSuit = isMoveValidFoundationSuit(selectedCard, selectedFoundationCards);
     const isValidFoundationOrder = isMoveValidFoundationOrder(
       selectedCard,
-      selectedColumn,
-      foundationCards,
-      boardCards
+      selectedFoundationCards
     );
+    const isValidPosition = isMoveValidPosition(selectedCard, boardCards);
 
-    return isValidFoundationSuit && isValidFoundationOrder;
+    return isValidFoundationSuit && isValidFoundationOrder && isValidPosition;
   }
 
   isEmptyBoard() {
