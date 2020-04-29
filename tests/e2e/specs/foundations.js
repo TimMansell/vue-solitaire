@@ -1,5 +1,5 @@
-import moveAcetoAces from '../../fixtures/decks/moveAcetoAces.json';
-import invalidMove2ToAces from '../../fixtures/decks/invalidMove2ToAces.json';
+import moveAcetoAces from '../../fixtures/boards/moveAcetoAces.json';
+import invalidMove2ToAces from '../../fixtures/boards/invalidMove2ToAces.json';
 import foundations from '../../fixtures/boards/fullFoundation.json';
 import doubleClickAce1 from '../../fixtures/boards/doubleClickAce1.json';
 import doubleClickAce2 from '../../fixtures/boards/doubleClickAce2.json';
@@ -11,7 +11,7 @@ describe('Foundation moves', () => {
 
   describe('using drag and drop', () => {
     it('should move As to 1st foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 
         cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-0"]');
@@ -23,7 +23,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move As to 2nd foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 
         cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-1"]');
@@ -35,7 +35,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move As to 3rd foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 
         cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-2"]');
@@ -47,7 +47,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move As to 4th foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 
         cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-3"]');
@@ -59,7 +59,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah, 2h, A3 to 1st foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah', '3h']);
 
         cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-0"]');
@@ -75,7 +75,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah then 2h and As then 2s to 2nd & 4th foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         // Hearts
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
@@ -99,7 +99,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah then 2h to 2nd foundation and not move As to same foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         // Hearts
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
@@ -121,7 +121,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah to 1st foundation and not 2h', () => {
-      cy.setDeck(invalidMove2ToAces).then(() => {
+      cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
         cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-0"]');
@@ -136,7 +136,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah to 1st foundation and not move 2c', () => {
-      cy.setDeck(invalidMove2ToAces).then(() => {
+      cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
         cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-0"]');
@@ -151,7 +151,7 @@ describe('Foundation moves', () => {
     });
 
     it('should not move Ad to foundation', () => {
-      cy.setDeck(invalidMove2ToAces).then(() => {
+      cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-1"]').shouldBeVisible(['Ad']);
 
         cy.get('[data-test="card-Ad"]').dragTo('[data-test="foundation-0"]');
@@ -178,7 +178,7 @@ describe('Foundation moves', () => {
 
   describe('using clicks', () => {
     it('should move As to 1st foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 
         cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-0"]');
@@ -190,7 +190,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move As to 2nd foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 
         cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-1"]');
@@ -202,7 +202,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move As to 3rd foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 
         cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-2"]');
@@ -214,7 +214,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move As to 4th foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 
         cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-3"]');
@@ -226,7 +226,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah, 2h, A3 to 1st foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
         cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-0"]');
@@ -242,7 +242,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah then 2h and As then 2s to 2nd & 4th foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         // Hearts
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
@@ -266,7 +266,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah then 2h to 2nd foundation and not move As to same foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         // Hearts
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
@@ -288,7 +288,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah to 1st foundation and not 2h', () => {
-      cy.setDeck(invalidMove2ToAces).then(() => {
+      cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
         cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-0"]');
@@ -303,7 +303,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah to 1st foundation and not move 2c', () => {
-      cy.setDeck(invalidMove2ToAces).then(() => {
+      cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
 
         cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-0"]');
@@ -318,7 +318,7 @@ describe('Foundation moves', () => {
     });
 
     it('should not move Ad to foundation', () => {
-      cy.setDeck(invalidMove2ToAces).then(() => {
+      cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-1"]').shouldBeVisible(['Ad']);
 
         cy.get('[data-test="card-Ad"]').clickTo('[data-test="foundation-0"]');
@@ -345,7 +345,7 @@ describe('Foundation moves', () => {
 
   describe('using double clicks', () => {
     it('should move Ah - 3h to 1st foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah', '3h']);
 
         cy.get('[data-test="card-Ah"]').dblclick();
@@ -359,7 +359,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move Ah - 2h to 1st foundation and As - 2s to 2nd foundation', () => {
-      cy.setDeck(moveAcetoAces).then(() => {
+      cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-3"]').shouldBeVisible(['Ah']);
         cy.get('[data-test="column-7"]').shouldBeVisible(['As']);
 

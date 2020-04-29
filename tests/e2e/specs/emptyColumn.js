@@ -1,5 +1,5 @@
 import emptyColumn from '../../fixtures/boards/emptyColumn.json';
-import invalidMove from '../../fixtures/decks/invalidMove.json';
+import invalidMove from '../../fixtures/boards/invalidMove.json';
 
 describe('Special column moves', () => {
   beforeEach(() => {
@@ -43,7 +43,7 @@ describe('Special column moves', () => {
 
     // K to not empty
     it('should not move Ks to 9d', () => {
-      cy.setDeck(invalidMove).then(() => {
+      cy.setBoard(invalidMove).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['Ks']);
 
         cy.get('[data-test="card-Ks"]').dragTo('[data-test="card-9d"]');
@@ -106,7 +106,7 @@ describe('Special column moves', () => {
 
     // K to not empty
     it('should not move Ks to 9d', () => {
-      cy.setDeck(invalidMove).then(() => {
+      cy.setBoard(invalidMove).then(() => {
         cy.get('[data-test="column-7"]').shouldBeVisible(['Ks']);
 
         cy.get('[data-test="card-Ks"]').clickTo('[data-test="card-9d"]');
