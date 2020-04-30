@@ -7,7 +7,7 @@ describe('Invalid moves', () => {
 
   describe('using drag and drop', () => {
     // invalid value, invalid suit
-    it('should not move 6s to 4d and 5s to 10d', () => {
+    it('should not move 6s to 4d', () => {
       cy.setBoard(invalidMove).then(() => {
         // Test card from middle.
         cy.get('[data-test="column-4"]').shouldContain(['6s']);
@@ -15,7 +15,11 @@ describe('Invalid moves', () => {
         cy.get('[data-test="card-6s"]').dragTo('[data-test="card-4d"]');
 
         cy.get('[data-test="column-5"]').shouldNotContain(['6s']);
+      });
+    });
 
+    it('should not move 5s to 10d', () => {
+      cy.setBoard(invalidMove).then(() => {
         // Test card from bottom.
         cy.get('[data-test="column-0"]').shouldContain(['5s']);
 
@@ -50,7 +54,7 @@ describe('Invalid moves', () => {
 
   describe('using clicks', () => {
     // invalid value, invalid suit
-    it('should not move 6s to 4d and 5s to 10d', () => {
+    it('should not move 6s to 4d', () => {
       cy.setBoard(invalidMove).then(() => {
         // Test card from middle.
         cy.get('[data-test="column-4"]').shouldContain(['6s']);
@@ -58,7 +62,11 @@ describe('Invalid moves', () => {
         cy.get('[data-test="card-6s"]').clickTo('[data-test="card-4d"]');
 
         cy.get('[data-test="column-5"]').shouldNotContain(['6s']);
+      });
+    });
 
+    it('should not move 5s to 10d', () => {
+      cy.setBoard(invalidMove).then(() => {
         // Test card from bottom.
         cy.get('[data-test="column-0"]').shouldContain(['5s']);
 
