@@ -13,30 +13,25 @@
       :id="card.id"
       :value="card.value"
       :suit="card.suit"
-      :order="card.order"
       :revealed="card.revealed"
       :visible="card.visible"
+      :bottom-card="cards.length - 1 === index"
     />
 
-    <SvgIcon
-      class="card-placeholder"
-      data-test="card-placeholder"
-      v-if="!cards.length"
-      name="Card_back_15"
-    />
+    <CardPlaceholder v-if="!cards.length" see-through />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import Card from '@/components/Card.vue';
-import SvgIcon from '@/components/SvgIcon.vue';
+import CardPlaceholder from '@/components/CardPlaceholder.vue';
 
 export default {
   name: 'Column',
   components: {
     Card,
-    SvgIcon,
+    CardPlaceholder,
   },
   props: {
     cards: {
@@ -76,9 +71,5 @@ export default {
     padding-left: $col-padding-lg;
     padding-right: $col-padding-lg;
   }
-}
-
-.card-placeholder {
-  opacity: 0.1;
 }
 </style>

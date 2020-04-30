@@ -39,12 +39,12 @@ export default class Solitaire {
   }
 
   init() {
-    this.setFoundations();
-    this.setDeck();
-    this.setBoard();
+    this.initFoundations();
+    this.initDeck();
+    this.initBoard();
   }
 
-  setDeck(deck) {
+  initDeck(deck) {
     if (deck) {
       this.deck = deck;
     } else {
@@ -52,7 +52,7 @@ export default class Solitaire {
     }
   }
 
-  setBoard() {
+  initBoard() {
     const { columns } = this.rules;
     const { deck } = this;
 
@@ -78,8 +78,16 @@ export default class Solitaire {
     this.boardCards = dealtCards;
   }
 
-  setFoundations() {
+  initFoundations() {
     this.foundationCards = this.rules.foundationColumns.map(() => []);
+  }
+
+  setBoard({ board }) {
+    this.boardCards = [...board];
+  }
+
+  setFoundation({ foundation }) {
+    this.foundationCards = [...foundation];
   }
 
   setSelectedCard(id) {
@@ -252,15 +260,5 @@ export default class Solitaire {
 
   getFoundationCards() {
     return this.foundationCards;
-  }
-
-  setTestBoard({ board, foundation }) {
-    if (board) {
-      this.boardCards = [...board];
-    }
-
-    if (foundation) {
-      this.foundationCards = [...foundation];
-    }
   }
 }
