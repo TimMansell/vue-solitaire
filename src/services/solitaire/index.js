@@ -172,6 +172,10 @@ export default class Solitaire {
     const selectedCard = getSelectedCard(boardCards, selectedCardId);
     const selectedFoundationCards = foundationCards[selectedColumn];
 
+    if (!selectedCardId) {
+      return false;
+    }
+
     const isValidFoundationSuit = isMoveValidFoundationSuit(selectedCard, selectedFoundationCards);
     const isValidFoundationOrder = isMoveValidFoundationOrder(
       selectedCard,
