@@ -10,7 +10,11 @@
     :data-card-suit="cardSuit"
     :data-test="cardTestName"
   >
-    <TouchEvents @swipe="autoMoveCard($event, id)" @doubletap="autoMoveCard($event, id)">
+    <TouchEvents
+      @swipe="autoMoveCard($event, id)"
+      @doubletap="autoMoveCard($event, id)"
+      :disabled="!disableEvents"
+    >
       <SvgIcon
         v-if="visible"
         data-test="card-visible"
@@ -18,7 +22,7 @@
       />
     </TouchEvents>
 
-    <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
+    <CardPlaceholder v-if="!visible" data-test="card-hidden" />
   </div>
 </template>
 
@@ -26,12 +30,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import SvgIcon from '@/components/SvgIcon.vue';
 import TouchEvents from '@/components/TouchEvents.vue';
+import CardPlaceholder from '@/components/CardPlaceholder.vue';
 
 export default {
   name: 'Card',
   components: {
     SvgIcon,
     TouchEvents,
+    CardPlaceholder,
   },
   props: {
     id: {
@@ -46,10 +52,6 @@ export default {
       type: String,
       default: 'c',
     },
-    order: {
-      type: Number,
-      default: 0,
-    },
     visible: {
       type: Boolean,
       default: true,
@@ -61,6 +63,10 @@ export default {
     clickable: {
       type: Boolean,
       default: true,
+    },
+    disableEvents: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
