@@ -15,12 +15,12 @@
         :key="`a-${foundationIndex}`"
         :value="card.value"
         :suit="card.suit"
-        :order="card.order"
         :visible="card.visible"
         :clickable="false"
+        :disable-events="false"
       />
 
-      <SvgIcon class="foundation__placeholder" v-if="!foundation.length" name="Card_back_17" />
+      <CardPlaceholder v-if="!foundation.length" see-through />
     </div>
   </div>
 </template>
@@ -28,13 +28,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import Card from '@/components/Card.vue';
-import SvgIcon from '@/components/SvgIcon.vue';
+import CardPlaceholder from '@/components/CardPlaceholder.vue';
 
 export default {
   name: 'Foundation',
   components: {
     Card,
-    SvgIcon,
+    CardPlaceholder,
   },
   computed: {
     ...mapGetters(['foundationCards']),
@@ -67,10 +67,6 @@ export default {
       padding-left: $col-padding-lg;
       padding-right: $col-padding-lg;
     }
-  }
-
-  &__placeholder {
-    opacity: 0.1;
   }
 }
 
