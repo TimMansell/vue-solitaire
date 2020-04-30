@@ -123,7 +123,6 @@ export default {
     autoMoveCard(e, id) {
       if (this.clickable && this.visible) {
         this.autoMoveCardToFoundation(id);
-        console.log('amc');
       }
     },
     dragCard(e, id) {
