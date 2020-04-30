@@ -16,7 +16,7 @@
       :order="card.order"
       :revealed="card.revealed"
       :visible="card.visible"
-      :disable-events="cards.length - 1 !== index"
+      :bottom-card="cards.length - 1 === index"
     />
 
     <SvgIcon

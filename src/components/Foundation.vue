@@ -18,7 +18,6 @@
         :order="card.order"
         :visible="card.visible"
         :clickable="false"
-        :disable-events="true"
       />
 
       <SvgIcon class="foundation__placeholder" v-if="!foundation.length" name="Card_back_17" />
