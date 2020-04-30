@@ -2,6 +2,6 @@
 
 exports[`Column.vue matches snapshot 1`] = `
 <div data-test="column-0" class="column">
-  <svgicon-stub name="Card_back_15" data-test="card-placeholder" class="card-placeholder"></svgicon-stub>
+  <cardplaceholder-stub seethrough="true"></cardplaceholder-stub>
 </div>
 `;

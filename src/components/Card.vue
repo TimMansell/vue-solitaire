@@ -17,6 +17,7 @@
       v-if="visible && !bottomCard"
       data-test="card-default"
     />
+
     <BottomCard
       :id="id"
       :value="value"
@@ -25,22 +26,22 @@
       data-test="card-bottom"
     />
 
-    <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
+    <CardPlaceholder v-if="!visible" data-test="card-hidden" />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import SvgIcon from '@/components/SvgIcon.vue';
 import DefaultCard from '@/components/DefaultCard.vue';
 import BottomCard from '@/components/BottomCard.vue';
+import CardPlaceholder from '@/components/CardPlaceholder.vue';
 
 export default {
   name: 'Card',
   components: {
-    SvgIcon,
     DefaultCard,
     BottomCard,
+    CardPlaceholder,
   },
   props: {
     id: {
@@ -54,10 +55,6 @@ export default {
     suit: {
       type: String,
       default: 'c',
-    },
-    order: {
-      type: Number,
-      default: 0,
     },
     visible: {
       type: Boolean,
