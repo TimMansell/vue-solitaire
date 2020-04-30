@@ -68,10 +68,6 @@ export default {
       type: Boolean,
       default: true,
     },
-    disableEvents: {
-      type: Boolean,
-      default: false,
-    },
     bottomCard: {
       type: Boolean,
       default: false,
