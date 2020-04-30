@@ -14,14 +14,7 @@ const solitaire = () => {
 
   const setFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
 
-  const setDeck = (cards) => {
-    console.log('cards', cards);
-    // if (cards) {
-    //   return cards;
-    // }
-
-    return shuffleCards(cards);
-  };
+  const setDeck = (cards) => shuffleCards(cards);
 
   const setBoard = ({ rules }) => getBoard(rules, deck);
 
