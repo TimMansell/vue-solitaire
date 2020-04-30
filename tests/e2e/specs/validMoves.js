@@ -1,4 +1,4 @@
-import validMove from '../../fixtures/decks/validMove.json';
+import validMove from '../../fixtures/boards/validMove.json';
 
 describe('Valid moves', () => {
   beforeEach(() => {
@@ -7,7 +7,7 @@ describe('Valid moves', () => {
 
   describe('using drag and drop', () => {
     it('should move 6d to 7d and 9d to 10d', () => {
-      cy.setDeck(validMove).then(() => {
+      cy.setBoard(validMove).then(() => {
         // Test card from middle.
         cy.get('[data-test="column-3"]').shouldBeVisible(['6d']);
 
@@ -27,7 +27,7 @@ describe('Valid moves', () => {
 
   describe('using clicks', () => {
     it('should move 6d to 7d and 9d to 10d', () => {
-      cy.setDeck(validMove).then(() => {
+      cy.setBoard(validMove).then(() => {
         // Test card from middle.
         cy.get('[data-test="column-3"]').shouldBeVisible(['6d']);
 
