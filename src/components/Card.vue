@@ -7,16 +7,23 @@
     @dragend="clearCard()"
     :draggable="visible"
     ref="card"
-    :data-card-suit="cardSuit"
+    :data-card-suit="cardSuitName"
     :data-test="cardTestName"
   >
-    <TouchEvents @swipe="autoMoveCard($event, id)" @doubletap="autoMoveCard($event, id)">
-      <SvgIcon
-        v-if="visible"
-        data-test="card-visible"
-        :name="`${this.value}${this.suit.toUpperCase()}`"
-      />
-    </TouchEvents>
+    <DefaultCard
+      :id="id"
+      :value="value"
+      :suit="suit"
+      v-if="visible && !bottomCard"
+      data-test="card-default"
+    />
+    <BottomCard
+      :id="id"
+      :value="value"
+      :suit="suit"
+      v-if="visible && bottomCard"
+      data-test="card-bottom"
+    />
 
     <SvgIcon v-if="!visible" data-test="card-hidden" name="Card_back_17" />
   </div>
@@ -25,13 +32,15 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import SvgIcon from '@/components/SvgIcon.vue';
-import TouchEvents from '@/components/TouchEvents.vue';
+import DefaultCard from '@/components/DefaultCard.vue';
+import BottomCard from '@/components/BottomCard.vue';
 
 export default {
   name: 'Card',
   components: {
     SvgIcon,
-    TouchEvents,
+    DefaultCard,
+    BottomCard,
   },
   props: {
     id: {
@@ -62,6 +71,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    bottomCard: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -89,7 +102,7 @@ export default {
 
       return 'card';
     },
-    cardSuit() {
+    cardSuitName() {
       const { suit, visible } = this;
 
       if (visible) {
@@ -100,7 +113,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setCard', 'autoMoveCardToFoundation']),
+    ...mapActions(['setCard']),
     selectCard(e, id) {
       const { selectedCardId } = this;
 
@@ -110,11 +123,6 @@ export default {
         if (this.clickable && this.visible) {
           this.setCard(id);
         }
-      }
-    },
-    autoMoveCard(e, id) {
-      if (this.clickable && this.visible) {
-        this.autoMoveCardToFoundation(id);
       }
     },
     dragCard(e, id) {
