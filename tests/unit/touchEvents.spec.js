@@ -8,16 +8,6 @@ describe('TouchEvents.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should have correct props', () => {
-    const wrapper = shallowMount(TouchEvents, {
-      propsData: {
-        disabled: false,
-      },
-    });
-
-    expect(wrapper.props().disabled).toBe(false);
-  });
-
   it('should call swipe method', () => {
     const wrapper = shallowMount(TouchEvents, {
       propsData: {
@@ -40,21 +30,5 @@ describe('TouchEvents.vue', () => {
     wrapper.vm.doubleTap();
 
     expect(wrapper.emitted().doubletap).toBeTruthy();
-  });
-
-  it('should not call swipe method', () => {
-    const wrapper = shallowMount(TouchEvents);
-
-    wrapper.vm.swipe();
-
-    expect(wrapper.emitted().swipe).toBeFalsy();
-  });
-
-  it('should not call doubleTap method', () => {
-    const wrapper = shallowMount(TouchEvents);
-
-    wrapper.vm.doubleTap();
-
-    expect(wrapper.emitted().doubletap).toBeFalsy();
   });
 });
