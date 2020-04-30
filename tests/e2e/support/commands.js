@@ -24,12 +24,6 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('setDeck', (deck) => {
-  const getStore = () => cy.window().its('app.$store');
-
-  return getStore().then((store) => store.dispatch('dealTestCards', deck));
-});
-
 Cypress.Commands.add('setBoard', (board) => {
   const getStore = () => cy.window().its('app.$store');
 
@@ -48,7 +42,7 @@ Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
   cy.get(clickTo).click();
 });
 
-Cypress.Commands.add('shouldBeVisible', { prevSubject: true }, (subject, elements) => {
+Cypress.Commands.add('shouldContain', { prevSubject: true }, (subject, elements) => {
   cy.get(subject).within(() => {
     elements.forEach((element) => {
       cy.get(`[data-test="card-${element}"]`).should('be.visible');
@@ -56,7 +50,7 @@ Cypress.Commands.add('shouldBeVisible', { prevSubject: true }, (subject, element
   });
 });
 
-Cypress.Commands.add('shouldNotBeVisible', { prevSubject: true }, (subject, elements) => {
+Cypress.Commands.add('shouldNotContain', { prevSubject: true }, (subject, elements) => {
   cy.get(subject).within(() => {
     elements.forEach((element) => {
       cy.get(`[data-test="card-${element}"]`).should('not.be.visible');
