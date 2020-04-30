@@ -27,7 +27,7 @@
 Cypress.Commands.add('setBoard', (board) => {
   const getStore = () => cy.window().its('app.$store');
 
-  return getStore().then((store) => store.dispatch('setTestBoard', board));
+  return getStore().then((store) => store.dispatch('setBoardAndFoundation', board));
 });
 
 Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
