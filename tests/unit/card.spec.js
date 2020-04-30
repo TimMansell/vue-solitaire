@@ -49,20 +49,20 @@ describe('Card.vue', () => {
         id: 2,
         value: 'K',
         suit: 'd',
-        order: 1,
         visible: true,
         revealed: true,
         clickable: false,
+        bottomCard: true,
       },
     });
 
     expect(wrapper.props().id).toBe(2);
     expect(wrapper.props().value).toBe('K');
     expect(wrapper.props().suit).toBe('d');
-    expect(wrapper.props().order).toBe(1);
     expect(wrapper.props().visible).toBe(true);
     expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
+    expect(wrapper.props().bottomCard).toBe(true);
   });
 
   it('should render a diamond card', () => {
@@ -117,13 +117,25 @@ describe('Card.vue', () => {
     expect(wrapper.attributes('data-card-suit')).toBe('s');
   });
 
-  it('should render a visible card', () => {
+  it('should render a default card', () => {
     const wrapper = shallowMount(Card, {
       store,
       localVue,
     });
 
-    expect(wrapper.find('[data-test="card-visible"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="card-default"]').exists()).toBe(true);
+  });
+
+  it('should render a bottom card', () => {
+    const wrapper = shallowMount(Card, {
+      store,
+      localVue,
+      propsData: {
+        bottomCard: true,
+      },
+    });
+
+    expect(wrapper.find('[data-test="card-bottom"]').exists()).toBe(true);
   });
 
   it('should render a hidden card', () => {
