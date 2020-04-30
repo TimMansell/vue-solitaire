@@ -15,20 +15,33 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      hammer: '',
+    };
+  },
   mounted() {
     this.init();
   },
+  destroyed() {
+    this.hammer.stop();
+  },
+  watch: {
+    disabled(newValue) {
+      this.hammer.set({ enable: !newValue });
+    },
+  },
   methods: {
     init() {
-      const hammertime = new Hammer(this.$refs.swipe);
+      this.hammer = new Hammer(this.$refs.swipe);
 
-      hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+      this.hammer.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
 
-      hammertime.on('swipe', () => {
+      this.hammer.on('swipe', () => {
         this.swipe();
       });
 
-      hammertime.on('doubletap', () => {
+      this.hammer.on('doubletap', () => {
         this.doubleTap();
       });
     },
