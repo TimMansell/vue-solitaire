@@ -40,13 +40,9 @@ export default {
       });
     },
     swipe() {
-      if (this.disabled) return;
-
       this.$emit('swipe');
     },
     doubleTap() {
-      if (this.disabled) return;
-
       this.$emit('doubletap');
     },
   },
