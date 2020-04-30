@@ -9,24 +9,50 @@ import Hammer from 'hammerjs';
 
 export default {
   name: 'TouchEvents',
+  props: {
+    disabled: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data() {
+    return {
+      hammer: '',
+    };
+  },
   mounted() {
-    const hammertime = new Hammer(this.$refs.swipe);
-
-    hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
-
-    hammertime.on('swipe', () => {
-      this.swipe();
-    });
-
-    hammertime.on('doubletap', () => {
-      this.doubleTap();
-    });
+    this.init();
+  },
+  destroyed() {
+    this.hammer.stop();
+  },
+  watch: {
+    disabled(newValue) {
+      this.hammer.set({ enable: !newValue });
+    },
   },
   methods: {
+    init() {
+      this.hammer = new Hammer(this.$refs.swipe);
+
+      this.hammer.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+
+      this.hammer.on('swipe', () => {
+        this.swipe();
+      });
+
+      this.hammer.on('doubletap', () => {
+        this.doubleTap();
+      });
+    },
     swipe() {
+      if (this.disabled) return;
+
       this.$emit('swipe');
     },
     doubleTap() {
+      if (this.disabled) return;
+
       this.$emit('doubletap');
     },
   },
