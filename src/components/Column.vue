@@ -15,7 +15,7 @@
       :suit="card.suit"
       :revealed="card.revealed"
       :visible="card.visible"
-      :disable-events="cards.length - 1 === index"
+      :bottom-card="cards.length - 1 === index"
     />
 
     <CardPlaceholder v-if="!cards.length" see-through />
