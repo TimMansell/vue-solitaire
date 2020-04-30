@@ -10,7 +10,11 @@
     :data-card-suit="cardSuit"
     :data-test="cardTestName"
   >
-    <TouchEvents @swipe="autoMoveCard($event, id)" @doubletap="autoMoveCard($event, id)">
+    <TouchEvents
+      @swipe="autoMoveCard($event, id)"
+      @doubletap="autoMoveCard($event, id)"
+      :disabled="disableEvents"
+    >
       <SvgIcon
         v-if="visible"
         data-test="card-visible"
@@ -61,6 +65,10 @@ export default {
     clickable: {
       type: Boolean,
       default: true,
+    },
+    disableEvents: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

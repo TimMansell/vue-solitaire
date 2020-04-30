@@ -49,20 +49,20 @@ describe('Card.vue', () => {
         id: 2,
         value: 'K',
         suit: 'd',
-        order: 1,
         visible: true,
         revealed: true,
         clickable: false,
+        disableEvents: true,
       },
     });
 
     expect(wrapper.props().id).toBe(2);
     expect(wrapper.props().value).toBe('K');
     expect(wrapper.props().suit).toBe('d');
-    expect(wrapper.props().order).toBe(1);
     expect(wrapper.props().visible).toBe(true);
     expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
+    expect(wrapper.props().disableEvents).toBe(true);
   });
 
   it('should render a diamond card', () => {
