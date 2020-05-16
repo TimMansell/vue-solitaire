@@ -1,8 +1,17 @@
-import { showHideCards } from './helpers';
+const showHideCards = (cards, offset = 0) =>
+  cards.map((card, index) => {
+    if ((index + offset) % 2 === 0) {
+      return {
+        ...card,
+        visible: true,
+      };
+    }
+
+    return card;
+  });
 
 const getBoard = (rules, deck) => {
   const { columns } = rules;
-  // const { deck } = this;
 
   const dealtCards = columns.map((column, columnIndex, array) => {
     const startArray = array.slice(0, columnIndex);
@@ -26,4 +35,6 @@ const getBoard = (rules, deck) => {
   return dealtCards;
 };
 
-export default getBoard;
+const initBoard = ({ rules }, deck) => getBoard(rules, deck);
+
+export default initBoard;
