@@ -1,9 +1,7 @@
-// import validation from './validation';
-import { shuffleCards } from './helpers';
 import { checkValidCardMove, checkHasMoves } from './moves';
-import { getCardsFom, getCardsTo } from './cards';
-import { getEmptyFoundationColumn, checkValidFoundationMove } from './foundation';
-import getBoard from './board';
+import { initCards, getCardsFom, getCardsTo } from './cards';
+import { initFoundations, getEmptyFoundationColumn, checkValidFoundationMove } from './foundation';
+import initBoard from './board';
 import settings from './settings.json';
 
 const solitaire = () => {
@@ -12,16 +10,10 @@ const solitaire = () => {
   let boardCards = [];
   let selectedCardId = null;
 
-  const initFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
-
-  const initDeck = (cards) => shuffleCards(cards);
-
-  const initBoard = ({ rules }) => getBoard(rules, deck);
-
   const init = () => {
     foundationCards = initFoundations(settings);
-    deck = initDeck(settings.cards);
-    boardCards = initBoard(settings);
+    deck = initCards(settings);
+    boardCards = initBoard(settings, deck);
   };
 
   const setBoard = ({ board }) => {
