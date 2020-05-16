@@ -8,7 +8,7 @@ export const isMoveValidOrder = (selectedCard, lastColumnCard) =>
   selectedCard.order === lastColumnCard.order - 1;
 
 export const isMoveValidColumn = (selectedCard, columnCards) =>
-  columnCards.filter((card) => card.id === selectedCard.id).length > 0;
+  !columnCards.filter((card) => card.id === selectedCard.id).length;
 
 export const isMoveValidPosition = (selectedCard, boardCards) => {
   const isCardValidPosition = boardCards.some((cards) => {
