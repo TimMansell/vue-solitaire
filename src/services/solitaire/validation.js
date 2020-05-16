@@ -1,41 +1,16 @@
-const isMoveValidCard = (selectedCard, lastColumnCard) => {
-  if (
-    `${selectedCard.order}${selectedCard.suit}` === `${lastColumnCard.order}${lastColumnCard.suit}`
-  ) {
-    return false;
-  }
+export const isMoveValidCard = (selectedCard, lastColumnCard) =>
+  `${selectedCard.order}${selectedCard.suit}` !== `${lastColumnCard.order}${lastColumnCard.suit}`;
 
-  return true;
-};
+export const isMoveValidSuit = (selectedCard, lastColumnCard) =>
+  selectedCard.suit === lastColumnCard.suit;
 
-const isMoveValidSuit = (selectedCard, lastColumnCard) => {
-  if (selectedCard.suit !== lastColumnCard.suit) {
-    return false;
-  }
+export const isMoveValidOrder = (selectedCard, lastColumnCard) =>
+  selectedCard.order === lastColumnCard.order - 1;
 
-  return true;
-};
+export const isMoveValidColumn = (selectedCard, columnCards) =>
+  columnCards.filter((card) => card.id === selectedCard.id).length > 0;
 
-const isMoveValidOrder = (selectedCard, lastColumnCard) => {
-  if (selectedCard.order !== lastColumnCard.order - 1) {
-    return false;
-  }
-
-  return true;
-};
-
-// Check card isn't being moved to same column.
-const isMoveValidColumn = (selectedCard, columnCards) => {
-  const cardExistsInColumn = columnCards.filter((card) => card.id === selectedCard.id);
-
-  if (!cardExistsInColumn.length) {
-    return true;
-  }
-
-  return false;
-};
-
-const isMoveValidPosition = (selectedCard, boardCards) => {
+export const isMoveValidPosition = (selectedCard, boardCards) => {
   const isCardValidPosition = boardCards.some((cards) => {
     const cardPosition = cards.findIndex((card) => card.id === selectedCard.id);
 
@@ -49,15 +24,10 @@ const isMoveValidPosition = (selectedCard, boardCards) => {
   return isCardValidPosition;
 };
 
-const isValidKingMove = (selectedCard, lastColumnCard) => {
-  if (selectedCard.order === 13 && !lastColumnCard) {
-    return true;
-  }
+export const isValidKingMove = (selectedCard, lastColumnCard) =>
+  selectedCard.order === 13 && !lastColumnCard;
 
-  return false;
-};
-
-const isMoveValidFoundationSuit = (selectedCard, selectedFoundationCards) => {
+export const isMoveValidFoundationSuit = (selectedCard, selectedFoundationCards) => {
   const { suit } = selectedCard;
 
   const foundationSuit = selectedFoundationCards.filter((ace) => ace.suit === suit);
@@ -69,23 +39,5 @@ const isMoveValidFoundationSuit = (selectedCard, selectedFoundationCards) => {
   return true;
 };
 
-const isMoveValidFoundationOrder = (selectedCard, selectedFoundationCards) => {
-  const { order } = selectedCard;
-
-  if (order === selectedFoundationCards.length + 1) {
-    return true;
-  }
-
-  return false;
-};
-
-export {
-  isMoveValidCard,
-  isMoveValidSuit,
-  isMoveValidOrder,
-  isMoveValidColumn,
-  isMoveValidPosition,
-  isValidKingMove,
-  isMoveValidFoundationSuit,
-  isMoveValidFoundationOrder,
-};
+export const isMoveValidFoundationOrder = (selectedCard, selectedFoundationCards) =>
+  selectedCard.order === selectedFoundationCards.length + 1;
