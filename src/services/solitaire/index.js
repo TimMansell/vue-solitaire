@@ -12,16 +12,24 @@ const solitaire = () => {
   let boardCards = [];
   let selectedCardId = null;
 
-  const setFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
+  const initFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
 
-  const setDeck = (cards) => shuffleCards(cards);
+  const initDeck = (cards) => shuffleCards(cards);
 
-  const setBoard = ({ rules }) => getBoard(rules, deck);
+  const initBoard = ({ rules }) => getBoard(rules, deck);
 
   const init = () => {
-    foundationCards = setFoundations(settings);
-    deck = setDeck(settings.cards);
-    boardCards = setBoard(settings);
+    foundationCards = initFoundations(settings);
+    deck = initDeck(settings.cards);
+    boardCards = initBoard(settings);
+  };
+
+  const setBoard = ({ board }) => {
+    boardCards = [...board];
+  };
+
+  const setFoundation = ({ foundation }) => {
+    foundationCards = [...foundation];
   };
 
   const setSelectedCard = (id) => {
@@ -65,13 +73,10 @@ const solitaire = () => {
 
   const getFoundationCards = () => foundationCards;
 
-  const setTestBoard = ({ board, foundation }) => {
-    boardCards = [...board];
-    foundationCards = [...foundation];
-  };
-
   return {
     init,
+    setBoard,
+    setFoundation,
     isEmptyBoard,
     getFoundationCards,
     getBoardCards,
@@ -83,7 +88,6 @@ const solitaire = () => {
     setMoveCards,
     moveCardsToFoundation,
     findEmptyFoundationColumn,
-    setTestBoard,
   };
 };
 

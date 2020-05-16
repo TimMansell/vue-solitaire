@@ -90,8 +90,9 @@ const actions = {
 
     dispatch('moveCardToFoundation', foundationColumn);
   },
-  setTestBoard({ dispatch }, board) {
-    solitaire.setTestBoard(board);
+  setBoardAndFoundation({ dispatch }, board) {
+    solitaire.setBoard(board);
+    solitaire.setFoundation(board);
 
     dispatch('setBoard');
     dispatch('setFoundations');

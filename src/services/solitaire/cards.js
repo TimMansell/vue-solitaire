@@ -26,8 +26,6 @@ const moveCardsFrom = (selectedCardId, cards) => {
 const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
   const { columnNo, cardPosition } = getSelectedCardPosition(cardsFrom, selectedCardId);
 
-  console.log(selectedCardId, selectedColumn, cardsFrom, cardsTo);
-
   const columnCards = cardsTo[selectedColumn];
   const moveCards = cardsFrom[columnNo].slice(cardPosition);
 
