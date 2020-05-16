@@ -66,13 +66,8 @@ const solitaire = () => {
   const getFoundationCards = () => foundationCards;
 
   const setTestBoard = ({ board, foundation }) => {
-    if (board) {
-      boardCards = [...board];
-    }
-
-    if (foundation) {
-      foundationCards = [...foundation];
-    }
+    boardCards = [...board];
+    foundationCards = [...foundation];
   };
 
   return {

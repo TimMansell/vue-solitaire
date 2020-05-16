@@ -18,7 +18,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="new-game-btn"]').click();
 
-      cy.get('[data-test="foundation-0"]').shouldNotBeVisible(['Ah']);
+      cy.get('[data-test="foundation-0"]').shouldNotContain(['Ah']);
 
       cy.get('[data-test="card-5s"]').should('not.have.class', 'card--is-selected');
     });
@@ -38,7 +38,7 @@ describe('Controls', () => {
     cy.setBoard(foundations).then(() => {
       cy.get('[data-test="game-won"]').should('not.be.visible');
 
-      cy.get('[data-test="column-0"]').shouldBeVisible(['Ks', 'Qs']);
+      cy.get('[data-test="column-0"]').shouldContain(['Ks', 'Qs']);
 
       cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
       cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
@@ -49,7 +49,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="game-won"]').should('not.be.visible');
 
-      cy.get('[data-test="foundation-3"]').shouldNotBeVisible(['Ks', 'Qs']);
+      cy.get('[data-test="foundation-3"]').shouldNotContain(['Ks', 'Qs']);
     });
   });
 });

@@ -27,7 +27,7 @@
 Cypress.Commands.add('setBoard', (board) => {
   const getStore = () => cy.window().its('app.$store');
 
-  return getStore().then((store) => store.dispatch('setTestBoard', board));
+  return getStore().then((store) => store.dispatch('setBoardAndFoundation', board));
 });
 
 Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
@@ -42,7 +42,7 @@ Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
   cy.get(clickTo).click();
 });
 
-Cypress.Commands.add('shouldBeVisible', { prevSubject: true }, (subject, elements) => {
+Cypress.Commands.add('shouldContain', { prevSubject: true }, (subject, elements) => {
   cy.get(subject).within(() => {
     elements.forEach((element) => {
       cy.get(`[data-test="card-${element}"]`).should('be.visible');
@@ -50,7 +50,7 @@ Cypress.Commands.add('shouldBeVisible', { prevSubject: true }, (subject, element
   });
 });
 
-Cypress.Commands.add('shouldNotBeVisible', { prevSubject: true }, (subject, elements) => {
+Cypress.Commands.add('shouldNotContain', { prevSubject: true }, (subject, elements) => {
   cy.get(subject).within(() => {
     elements.forEach((element) => {
       cy.get(`[data-test="card-${element}"]`).should('not.be.visible');

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardPlaceholder.vue matches snapshot 1`] = `<svgicon-stub name="Card_back_17" data-test="card-placeholder" class=""></svgicon-stub>`;
