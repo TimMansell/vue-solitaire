@@ -10,19 +10,12 @@ export const isMoveValidOrder = (selectedCard, lastColumnCard) =>
 export const isMoveValidColumn = (selectedCard, columnCards) =>
   !columnCards.filter((card) => card.id === selectedCard.id).length;
 
-export const isMoveValidPosition = (selectedCard, boardCards) => {
-  const isCardValidPosition = boardCards.some((cards) => {
+export const isMoveValidPosition = (selectedCard, boardCards) =>
+  boardCards.some((cards) => {
     const cardPosition = cards.findIndex((card) => card.id === selectedCard.id);
 
-    if (cardPosition === cards.length - 1) {
-      return true;
-    }
-
-    return false;
+    return cardPosition === cards.length - 1;
   });
-
-  return isCardValidPosition;
-};
 
 export const isValidKingMove = (selectedCard, lastColumnCard) =>
   selectedCard.order === 13 && !lastColumnCard;
