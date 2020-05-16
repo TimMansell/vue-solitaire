@@ -20,18 +20,6 @@ const shuffleCards = ({ values, suits }) => {
   return shuffledDeck;
 };
 
-const showHideCards = (cards, offset = 0) =>
-  cards.map((card, index) => {
-    if ((index + offset) % 2 === 0) {
-      return {
-        ...card,
-        visible: true,
-      };
-    }
-
-    return card;
-  });
-
 const getSelectedCard = (cards, selectedCardId) => {
   const [selectedCard] = cards.flat().filter((card) => card.id === selectedCardId);
 
@@ -106,14 +94,27 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
   };
 };
 
+const initCards = ({ cards }) => shuffleCards(cards);
+
+const getCardsFom = (selectedCardId, boardCards) => {
+  const cardsFromColumn = moveCardsFrom(selectedCardId, boardCards);
+
+  return cardsFromColumn;
+};
+
+const getCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
+  const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, cardsFrom, cardsTo);
+
+  return cardsToColumn;
+};
+
 export {
-  shuffleCards,
-  showHideCards,
+  initCards,
+  getCardsFom,
+  getCardsTo,
   getSelectedCard,
-  getSelectedCardPosition,
   getLastCard,
   getLastCards,
   getVisibleCards,
-  moveCardsFrom,
-  moveCardsTo,
+  getSelectedCardPosition,
 };
