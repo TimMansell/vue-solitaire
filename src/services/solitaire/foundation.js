@@ -1,11 +1,13 @@
-import { getSelectedCard } from './helpers';
+import { getSelectedCard } from './cards';
 import {
   isMoveValidFoundationSuit,
   isMoveValidFoundationOrder,
   isMoveValidPosition,
 } from './validation';
 
-export const getEmptyFoundationColumn = (foundationCards, boardCards, selectedCardId) => {
+const initFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
+
+const getEmptyFoundationColumn = (foundationCards, boardCards, selectedCardId) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
 
   const foundationColumnToUse = foundationCards.findIndex((foundationCard) => {
@@ -28,12 +30,7 @@ export const getEmptyFoundationColumn = (foundationCards, boardCards, selectedCa
   return foundationColumnToUse;
 };
 
-export const checkValidFoundationMove = (
-  selectedColumn,
-  boardCards,
-  selectedCardId,
-  foundationCards
-) => {
+const checkValidFoundationMove = (selectedColumn, boardCards, selectedCardId, foundationCards) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
   const selectedFoundationCards = foundationCards[selectedColumn];
 
@@ -47,3 +44,5 @@ export const checkValidFoundationMove = (
 
   return isValidFoundationSuit && isValidFoundationOrder && isValidPosition;
 };
+
+export { initFoundations, getEmptyFoundationColumn, checkValidFoundationMove };
