@@ -106,14 +106,16 @@ const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
   };
 };
 
+const initCards = ({ cards }) => shuffleCards(cards);
+
 export {
-  shuffleCards,
+  initCards,
   showHideCards,
+  moveCardsFrom,
+  moveCardsTo,
   getSelectedCard,
-  getSelectedCardPosition,
   getLastCard,
   getLastCards,
   getVisibleCards,
-  moveCardsFrom,
-  moveCardsTo,
+  getSelectedCardPosition,
 };
