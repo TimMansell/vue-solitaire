@@ -22,16 +22,13 @@ export default {
 </script>
 
 <style lang="scss">
-* {
-  box-sizing: border-box;
-}
+@import '~sanitize.css';
 
 html {
   font-family: 'Roboto', sans-serif;
 }
 
 body {
-  margin: 0;
   background: #027002;
 
   @media (min-width: $bp-md) {
