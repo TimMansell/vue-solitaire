@@ -25,4 +25,18 @@ const initBoard = ({ rules }, deck) => {
   return dealtCards;
 };
 
-export default initBoard;
+const updateBoard = ({ boardCards }, cardsFrom, cardsTo = {}) => {
+  return boardCards.map((cards, index) => {
+    if (index === cardsFrom.column) {
+      return cardsFrom.cards;
+    }
+
+    if (index === cardsTo.column) {
+      return cardsTo.cards;
+    }
+
+    return cards;
+  });
+};
+
+export { initBoard, updateBoard };

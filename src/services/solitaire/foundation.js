@@ -1,4 +1,4 @@
-import { getSelectedCard } from './cards';
+import { getSelectedCard, getSelectedCardPosition } from './cards';
 import {
   isMoveValidFoundationSuit,
   isMoveValidFoundationOrder,
@@ -7,7 +7,17 @@ import {
 
 const initFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
 
-const getEmptyFoundationColumn = (foundationCards, boardCards, selectedCardId) => {
+const updateFoundation = ({ foundationCards }, cardsTo) => {
+  return foundationCards.map((cards, index) => {
+    if (index === cardsTo.column) {
+      return cardsTo.cards;
+    }
+
+    return cards;
+  });
+};
+
+const getEmptyFoundationColumn = ({ foundationCards, boardCards, selectedCardId }) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
 
   const foundationColumnToUse = foundationCards.findIndex((foundationCard) => {
@@ -30,7 +40,10 @@ const getEmptyFoundationColumn = (foundationCards, boardCards, selectedCardId) =
   return foundationColumnToUse;
 };
 
-const checkValidFoundationMove = (selectedColumn, boardCards, selectedCardId, foundationCards) => {
+const checkValidFoundationMove = (
+  { boardCards, selectedCardId, foundationCards },
+  selectedColumn
+) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
   const selectedFoundationCards = foundationCards[selectedColumn];
 
@@ -45,4 +58,24 @@ const checkValidFoundationMove = (selectedColumn, boardCards, selectedCardId, fo
   return isValidFoundationSuit && isValidFoundationOrder && isValidPosition;
 };
 
-export { initFoundations, getEmptyFoundationColumn, checkValidFoundationMove };
+const moveFoundationCardsTo = ({ selectedCardId, boardCards, foundationCards }, selectedColumn) => {
+  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
+
+  const columnCards = foundationCards[selectedColumn];
+  const moveCards = boardCards[columnNo].slice(cardPosition);
+
+  const newColumn = [...columnCards, ...moveCards];
+
+  return {
+    column: selectedColumn,
+    cards: newColumn,
+  };
+};
+
+export {
+  initFoundations,
+  updateFoundation,
+  getEmptyFoundationColumn,
+  checkValidFoundationMove,
+  moveFoundationCardsTo,
+};
