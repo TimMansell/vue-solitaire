@@ -69,10 +69,10 @@ const getLastCards = (cards) => {
   return lastCards;
 };
 
-const moveCardsFrom = (selectedCardId, cards) => {
-  const { columnNo, cardPosition } = getSelectedCardPosition(cards, selectedCardId);
+const moveCardsFrom = ({ selectedCardId, boardCards }) => {
+  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
 
-  const columnCards = cards[columnNo].slice(0, cardPosition);
+  const columnCards = boardCards[columnNo].slice(0, cardPosition);
 
   const remainingCards = columnCards.map((card, index) => {
     if (index === columnCards.length - 1 && !card.visible) {
@@ -92,11 +92,11 @@ const moveCardsFrom = (selectedCardId, cards) => {
   };
 };
 
-const moveCardsTo = (selectedCardId, selectedColumn, cardsFrom, cardsTo) => {
-  const { columnNo, cardPosition } = getSelectedCardPosition(cardsFrom, selectedCardId);
+const moveCardsTo = ({ selectedCardId, boardCards }, selectedColumn) => {
+  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
 
-  const columnCards = cardsTo[selectedColumn];
-  const moveCards = cardsFrom[columnNo].slice(cardPosition);
+  const columnCards = boardCards[selectedColumn];
+  const moveCards = boardCards[columnNo].slice(cardPosition);
 
   const newColumn = [...columnCards, ...moveCards];
 

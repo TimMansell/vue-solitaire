@@ -13,7 +13,7 @@ import {
   isMoveValidColumn,
 } from './validation';
 
-const checkValidCardMove = (boardCards, selectedCardId, selectedColumn) => {
+const checkValidCardMove = ({ boardCards, selectedCardId }, selectedColumn) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
   const lastColumnCard = getLastCard(boardCards, selectedColumn);
   const selectedColumnCards = boardCards[selectedColumn];
@@ -79,7 +79,7 @@ const foundationMoves = (bottomCards, topFoundationCards) =>
     return hasFoundationMove.length;
   });
 
-const checkHasMoves = (boardCards, foundationCards) => {
+const checkHasMoves = ({ boardCards, foundationCards }) => {
   const topFoundationCards = getLastCards(foundationCards);
   const bottomCards = getLastCards(boardCards);
   const visibleCards = getVisibleCards(boardCards);
