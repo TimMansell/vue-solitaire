@@ -32,7 +32,11 @@ html {
 
 body {
   margin: 0;
-  background: #008000;
+  background: #027002;
+
+  @media (min-width: $bp-md) {
+    background: #027002 url('./assets/felt.png') repeat;
+  }
 }
 
 h1,
