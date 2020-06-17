@@ -30,6 +30,6 @@ export default {
 
 <style scoped lang="scss">
 .card-placeholder {
-  opacity: 0.1;
+  opacity: 0.15;
 }
 </style>
