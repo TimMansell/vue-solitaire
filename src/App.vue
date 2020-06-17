@@ -2,41 +2,38 @@
   <div id="app">
     <Controls />
     <Solitaire />
-    <div class="app-version">v{{ version }}</div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Controls from '@/components/Controls.vue';
 import Solitaire from '@/views/Solitaire.vue';
-import { version } from '../package.json';
+import Footer from '@/components/Footer.vue';
 
 export default {
   name: 'App',
   components: {
     Controls,
     Solitaire,
-  },
-  data() {
-    return {
-      version,
-    };
+    Footer,
   },
 };
 </script>
 
 <style lang="scss">
-* {
-  box-sizing: border-box;
-}
+@import '~sanitize.css';
 
 html {
   font-family: 'Roboto', sans-serif;
 }
 
 body {
-  margin: 0;
-  background: #008000;
+  background: #027002;
+
+  @media (min-width: $bp-md) {
+    background: #027002 url('./assets/felt.png') repeat;
+  }
 }
 
 h1,
@@ -56,12 +53,5 @@ ul {
   @media (min-width: $bp-sm) {
     padding-left: 2rem;
   }
-}
-
-.app-version {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  color: #fff;
 }
 </style>

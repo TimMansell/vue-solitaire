@@ -55,7 +55,7 @@ export default {
   display: flex;
 
   @media (min-width: $bp-sm) {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   &__column {
