@@ -1,34 +1,73 @@
 # vue-solitaire
 
-## Project setup
+## Contents
+
+[How to Play](#how-to-play)
+[Project Setup](#project-setup)
+
+## How to play
+
+The aim of the game is to successfully move all cards from the bottom 8 board columns to the top 4 foundation columns.
+
+### Rules
+
+#### Face up cards
+
+You can move any face up card to any other face up card providing:
+
+* the card being moved to is exposed at the bottom of the column (no cards below it)
+* the cards are the same suit and is one value lower
+* both cards aren't on the same column
+
+For example, you can move 5♦ to 6♦ but *not* 8♦ to 7♦.
+Moving a card will also move all the cards below it.
+
+#### Kings
+
+If you clear out a column you can only move a **K** to fill that column. All cards below the **K** will also be moved to that column.
+
+#### Foundation
+
+Cards can only be moved to the foundation columns in the following order: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K.
+
+* only one suit per column is allowed.
+* you can only move an exposed card at the bottom of the column (no cards below it)
+
+### Moving cards
+
+You can move cards by:
+
+* clicking and dragging the card(s) to the desired column
+* clicking on the card you want to move and then clicking on the desired column. All cards below the selected card will be moved as well
+* double clicking (or tapping) or swiping up on cards will move them to the foundation columns
+
+## Project Setup
+
 ```
-npm install
+yarn
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+yarn serve
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build
+yarn build
 ```
 
-### Run your unit tests
+### Run unit tests
 ```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
+yarn test:unit
 ```
 
-### Lints and fixes files
+### Run end-to-end tests
 ```
-npm run lint
+yarn test:e2e
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Lints and fixes CSS & JS files
+```
+yarn lint
+```
