@@ -25,7 +25,7 @@ const initBoard = ({ rules }, deck) => {
   return dealtCards;
 };
 
-const updateBoard = (boardCards, cardsFrom, cardsTo = {}) => {
+const updateBoard = ({ boardCards }, cardsFrom, cardsTo = {}) => {
   return boardCards.map((cards, index) => {
     if (index === cardsFrom.column) {
       return cardsFrom.cards;
