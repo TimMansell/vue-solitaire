@@ -1,69 +1,126 @@
 import { checkValidCardMove, checkHasMoves } from './moves';
 import { initCards, moveCardsFrom, moveCardsTo } from './cards';
-import { initFoundations, getEmptyFoundationColumn, checkValidFoundationMove } from './foundation';
-import initBoard from './board';
+import {
+  initFoundations,
+  updateFoundation,
+  getEmptyFoundationColumn,
+  checkValidFoundationMove,
+} from './foundation';
+import { initBoard, updateBoard } from './board';
 import settings from './settings.json';
 
 const solitaire = () => {
-  let foundationCards = [];
-  let deck = [];
-  let boardCards = [];
-  let selectedCardId = null;
+  let state = {
+    foundationCards: [],
+    deck: [],
+    boardCards: [],
+    selectedCardId: null,
+  };
 
   const init = () => {
-    foundationCards = initFoundations(settings);
-    deck = initCards(settings);
-    boardCards = initBoard(settings, deck);
+    const foundationCards = initFoundations(settings);
+    const deck = initCards(settings);
+    const boardCards = initBoard(settings, deck);
+
+    state = {
+      ...state,
+      foundationCards,
+      deck,
+      boardCards,
+    };
   };
 
   const setBoard = ({ board }) => {
-    boardCards = [...board];
+    const boardCards = [...board];
+
+    state = {
+      ...state,
+      boardCards,
+    };
   };
 
   const setFoundation = ({ foundation }) => {
-    foundationCards = [...foundation];
+    const foundationCards = [...foundation];
+
+    state = {
+      ...state,
+      foundationCards,
+    };
   };
 
   const setSelectedCard = (id) => {
-    selectedCardId = id;
+    const selectedCardId = id;
+
+    state = {
+      ...state,
+      selectedCardId,
+    };
   };
 
   const removeSelectedCard = () => {
-    selectedCardId = null;
+    const selectedCardId = null;
+
+    state = {
+      ...state,
+      selectedCardId,
+    };
   };
 
   const setMoveCards = (selectedColumn) => {
-    const cardFromColumn = moveCardsFrom(selectedCardId, boardCards);
-    const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, boardCards, boardCards);
+    const cardFromColumn = moveCardsFrom(state.selectedCardId, state.boardCards);
+    const cardsToColumn = moveCardsTo(
+      state.selectedCardId,
+      selectedColumn,
+      state.boardCards,
+      state.boardCards
+    );
+    const boardCards = updateBoard(state.boardCards, cardFromColumn, cardsToColumn);
 
-    boardCards[cardFromColumn.column] = cardFromColumn.cards;
-    boardCards[cardsToColumn.column] = cardsToColumn.cards;
+    state = {
+      ...state,
+      boardCards,
+    };
   };
 
   const isValidCardMove = (selectedColumn) =>
-    checkValidCardMove(boardCards, selectedCardId, selectedColumn);
+    checkValidCardMove(state.boardCards, state.selectedCardId, selectedColumn);
 
   const findEmptyFoundationColumn = () =>
-    getEmptyFoundationColumn(foundationCards, boardCards, selectedCardId);
+    getEmptyFoundationColumn(state.foundationCards, state.boardCards, state.selectedCardId);
 
   const moveCardsToFoundation = (selectedColumn) => {
-    const cardFromColumn = moveCardsFrom(selectedCardId, boardCards);
-    const cardsToColumn = moveCardsTo(selectedCardId, selectedColumn, boardCards, foundationCards);
+    const cardFromColumn = moveCardsFrom(state.selectedCardId, state.boardCards);
+    const cardsToColumn = moveCardsTo(
+      state.selectedCardId,
+      selectedColumn,
+      state.boardCards,
+      state.foundationCards
+    );
+    const boardCards = updateBoard(state.boardCards, cardFromColumn);
+    const foundationCards = updateFoundation(state.foundationCards, cardsToColumn);
 
-    boardCards[cardFromColumn.column] = cardFromColumn.cards;
-    foundationCards[cardsToColumn.column] = cardsToColumn.cards;
+    state = {
+      ...state,
+      boardCards,
+      foundationCards,
+    };
   };
 
   const isValidFoundationMove = (selectedColumn) =>
-    checkValidFoundationMove(selectedColumn, boardCards, selectedCardId, foundationCards);
+    checkValidFoundationMove(
+      selectedColumn,
+      state.boardCards,
+      state.selectedCardId,
+      state.foundationCards
+    );
 
-  const isEmptyBoard = () => !boardCards.flat().length;
+  const isEmptyBoard = () => !state.boardCards.flat().length;
 
-  const hasNoMoves = () => checkHasMoves(boardCards, foundationCards);
+  const hasNoMoves = () => checkHasMoves(state.boardCards, state.foundationCards);
 
-  const getBoardCards = () => boardCards;
+  const getBoardCards = () => state.boardCards;
 
-  const getFoundationCards = () => foundationCards;
+  const getFoundationCards = () => state.foundationCards;
 
   return {
     init,

@@ -7,6 +7,16 @@ import {
 
 const initFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
 
+const updateFoundation = (foundationCards, cardsTo) => {
+  return foundationCards.map((cards, index) => {
+    if (index === cardsTo.column) {
+      return cardsTo.cards;
+    }
+
+    return cards;
+  });
+};
+
 const getEmptyFoundationColumn = (foundationCards, boardCards, selectedCardId) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
 
@@ -45,4 +55,4 @@ const checkValidFoundationMove = (selectedColumn, boardCards, selectedCardId, fo
   return isValidFoundationSuit && isValidFoundationOrder && isValidPosition;
 };
 
-export { initFoundations, getEmptyFoundationColumn, checkValidFoundationMove };
+export { initFoundations, updateFoundation, getEmptyFoundationColumn, checkValidFoundationMove };
