@@ -1,9 +1,7 @@
-# vue-solitaire
+# Contents
 
-## Contents
-
-[How to Play](#how-to-play)
-[Project Setup](#project-setup)
+1. [How to Play](#how-to-play)
+1. [Project Setup](#project-setup)
 
 ## How to play
 
@@ -37,7 +35,7 @@ Cards can only be moved to the foundation columns in the following order: A, 2, 
 
 You can move cards by:
 
-* clicking and dragging the card(s) to the desired column
+* clicking and dragging the card(s) to the desired column (non-touch devices only)
 * clicking on the card you want to move and then clicking on the desired column. All cards below the selected card will be moved as well
 * double clicking (or tapping) or swiping up on cards will move them to the foundation columns
 
