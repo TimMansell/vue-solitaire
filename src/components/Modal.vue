@@ -10,17 +10,22 @@
     transition="scale"
   >
     <div class="modal__content" data-test="modal-content">
-      <button class="modal__close" @click="closeModal" data-test="close-modal">
+      <Button alt class="modal__close" @click="closeModal" data-test="close-modal">
         Close
-      </button>
+      </Button>
       <slot />
     </div>
   </modal>
 </template>
 
 <script>
+import Button from './Button.vue';
+
 export default {
   name: 'Controls',
+  components: {
+    Button,
+  },
   props: {
     isVisible: {
       type: Boolean,
