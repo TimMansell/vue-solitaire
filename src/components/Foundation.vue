@@ -53,6 +53,7 @@ export default {
 <style scoped lang="scss">
 .foundation {
   display: flex;
+  margin-bottom: 0.5rem;
 
   @media (min-width: $bp-sm) {
     margin-bottom: 1rem;
