@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Footer.vue matches snapshot 1`] = `
-<div class="footer"><a href="https://github.com/TimMansell/vue-solitaire" class="footer__link">
-    View source code
+<div class="footer"><a href="https://timmansell.com" class="footer__link">
+    timmansell.com
+  </a> <a href="https://github.com/TimMansell/vue-solitaire" class="footer__link">
+    GitHub
   </a>
   <div>v0.14.0</div>
 </div>
