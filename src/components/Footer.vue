@@ -37,6 +37,7 @@ export default {
   @media (min-width: $bp-sm) {
     justify-content: right;
     right: 0.5rem;
+    bottom: 0.25rem;
     background: transparent;
     text-shadow: 1px 1px 1px #000;
   }
