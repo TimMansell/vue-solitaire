@@ -33,13 +33,17 @@ export default {
   font-size: 0.8rem;
   background: #027002;
   color: #fff;
+  border-top: 1px solid hsla(0, 0%, 100%, 0.05);
+  box-shadow: 0 -1px rgba(0, 0, 0, 0.2);
 
-  @media (min-width: $bp-sm) {
+  @media (min-width: $bp-md) {
     justify-content: right;
     right: 0.5rem;
     bottom: 0.25rem;
     background: transparent;
     text-shadow: 1px 1px 1px #000;
+    border-top: 0;
+    box-shadow: none;
   }
 
   &__link {
