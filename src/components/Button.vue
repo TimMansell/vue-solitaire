@@ -33,7 +33,7 @@ export default {
 <style lang="scss">
 .btn {
   background: transparent;
-  border: 2px solid #fff;
+  border: 1px solid #fff;
   border-radius: 5px;
   padding: 0.5rem;
   color: #fff;
@@ -45,6 +45,7 @@ export default {
 
   @media (min-width: $bp-sm) {
     font-size: 0.9rem;
+    border-width: 2px;
   }
 
   &:hover {
