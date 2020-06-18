@@ -1,36 +1,39 @@
 <template>
   <div class="controls">
     <NewGame />
-    <Rules />
+    <ShowRules />
   </div>
 </template>
 
 <script>
-import NewGame from '@/components/NewGame.vue';
-import Rules from '@/components/Rules.vue';
+import NewGame from './NewGame.vue';
+import ShowRules from './ShowRules.vue';
 
 export default {
   name: 'Controls',
   components: {
     NewGame,
-    Rules,
+    ShowRules,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .controls {
-  position: absolute;
-  left: 0.5rem;
-  bottom: 0.5rem;
   display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px hsla(0, 0%, 100%, 0.05);
 
   @media (min-width: $bp-sm) {
-    display: block;
-    left: auto;
+    position: fixed;
     right: 0.5rem;
     top: 0.5rem;
-    text-align: right;
+    margin-top: auto;
+    border-bottom: 0;
+    box-shadow: none;
   }
 }
 </style>
