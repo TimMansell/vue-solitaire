@@ -7,15 +7,4 @@ describe('Rules.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('calls toggleRules when clicked', () => {
-    const wrapper = shallowMount(Rules);
-    const mockFunction = jest.fn();
-
-    wrapper.setMethods({ toggleRules: mockFunction });
-
-    wrapper.find('[data-test="game-rules"]').trigger('click');
-
-    expect(mockFunction).toHaveBeenCalled();
-  });
 });
