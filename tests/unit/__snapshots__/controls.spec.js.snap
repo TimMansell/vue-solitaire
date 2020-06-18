@@ -3,6 +3,6 @@
 exports[`Controls.vue matches snapshot 1`] = `
 <div class="controls">
   <newgame-stub></newgame-stub>
-  <rules-stub></rules-stub>
+  <showrules-stub></showrules-stub>
 </div>
 `;
