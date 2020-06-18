@@ -1,7 +1,10 @@
 <template>
   <div class="footer">
+    <a class="footer__link" href="https://timmansell.com">
+      timmansell.com
+    </a>
     <a class="footer__link" href="https://github.com/TimMansell/vue-solitaire">
-      View source code
+      GitHub
     </a>
     <div>v{{ version }}</div>
   </div>
@@ -23,10 +26,20 @@ export default {
 <style lang="scss">
 .footer {
   display: flex;
+  justify-content: center;
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+  width: 100%;
+  bottom: 0;
+  font-size: 0.8rem;
+  background: #027002;
   color: #fff;
+
+  @media (min-width: $bp-sm) {
+    justify-content: right;
+    right: 0.5rem;
+    background: transparent;
+    text-shadow: 1px 1px 1px #000;
+  }
 
   &__link {
     color: #fff;
