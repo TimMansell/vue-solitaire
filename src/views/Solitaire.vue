@@ -7,6 +7,7 @@
     <GameOverlay v-if="isGameLost" @buttonClick="setGameLost(false)" data-test="game-lost">
       Sorry, no more Moves!
     </GameOverlay>
+    <Rules />
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import GameOverlay from '@/components/GameOverlay.vue';
+import Rules from '@/components/Rules.vue';
 // import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
@@ -21,6 +23,7 @@ export default {
   components: {
     Board,
     GameOverlay,
+    Rules,
   },
   computed: {
     ...mapGetters(['isGameWon', 'isGameLost']),

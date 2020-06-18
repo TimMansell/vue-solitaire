@@ -1,19 +1,19 @@
 <template>
   <div class="controls">
     <NewGame />
-    <Rules />
+    <ShowRules />
   </div>
 </template>
 
 <script>
-import NewGame from '@/components/NewGame.vue';
-import Rules from '@/components/Rules.vue';
+import NewGame from './NewGame.vue';
+import ShowRules from './ShowRules.vue';
 
 export default {
   name: 'Controls',
   components: {
     NewGame,
-    Rules,
+    ShowRules,
   },
 };
 </script>
