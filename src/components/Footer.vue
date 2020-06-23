@@ -40,6 +40,7 @@ export default {
     justify-content: right;
     right: 0.5rem;
     bottom: 0.25rem;
+    width: auto;
     background: transparent;
     text-shadow: 1px 1px 1px #000;
     border-top: 0;
