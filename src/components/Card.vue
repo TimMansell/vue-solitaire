@@ -184,7 +184,14 @@ export default {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    border-radius: 7px;
+
+    @media (min-width: $bp-sm) {
+      border-radius: 3px;
+    }
+
+    @media (min-width: $bp-lg) {
+      border-radius: 7px;
+    }
   }
 
   &--is-selected {
