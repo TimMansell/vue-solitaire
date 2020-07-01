@@ -24,8 +24,8 @@ export default {
   justify-content: center;
   margin-top: var(--mg-sm);
   padding-bottom: var(--pd-sm);
-  border-bottom: 1px solid rgba(var(--bdr-secondary), 0.2);
-  box-shadow: 0 1px rgba(var(--col-secondary), 0.05);
+  border-bottom: 1px solid rgba($col-tertiary, 0.2);
+  box-shadow: 0 1px rgba($col-secondary, 0.05);
 
   @media (min-width: $bp-sm) {
     position: fixed;
