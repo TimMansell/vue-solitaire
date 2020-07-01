@@ -53,41 +53,19 @@ export default {
 <style scoped lang="scss">
 .foundation {
   display: flex;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--mg-sm);
 
   @media (min-width: $bp-sm) {
-    margin-bottom: 1rem;
+    margin-bottom: var(--mg-md);
   }
 
   &__column {
-    padding-left: $col-padding;
-    padding-right: $col-padding;
+    padding-left: var(--col-padding);
+    padding-right: var(--col-padding);
 
     @media (min-width: $bp-md) {
-      padding-left: $col-padding-lg;
-      padding-right: $col-padding-lg;
-    }
-  }
-}
-
-.card {
-  &:nth-of-type(n + 2) {
-    margin-top: -#{$card-height};
-
-    @media (min-width: $bp-sm) {
-      margin-top: -#{$card-height-sm};
-    }
-
-    @media (min-width: $bp-md) {
-      margin-top: -#{$card-height-md + 4};
-    }
-
-    @media (min-width: $bp-lg) {
-      margin-top: -#{$card-height-lg};
-    }
-
-    @media (min-width: $bp-xl) {
-      margin-top: -#{$card-height-xl};
+      padding-left: var(--col-padding-lg);
+      padding-right: var(--col-padding-lg);
     }
   }
 }
