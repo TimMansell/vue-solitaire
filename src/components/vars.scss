@@ -1,45 +1,7 @@
-// Fonts.
-$font-family: 'Roboto', sans-serif;
-
-$font-size: 0.8rem;
-$font-size-lg: 0.9rem;
-
-// Vertical rythm.
-$vr: 1rem;
-
 // Colours.
 $col-primary: #027002;
 $col-secondary: #fff;
 $col-tertiary: #000;
-
-// Background colours.
-$bg-primary: $col-primary;
-$bg-secondary: $col-secondary;
-$bg-tertiary: $col-tertiary;
-
-// Text colours.
-$text-primary: $col-secondary;
-
-// Column padding.
-$col-padding: 0.2rem;
-$col-padding-lg: 0.5rem;
-
-// Borders
-$bdr-primary: $col-secondary;
-$bdr-secondary: $col-tertiary;
-
-$bdr-radius-sm: 3px;
-$bdr-radius-md: 5px;
-$bdr-radius-lg: 7px;
-
-// Margins.
-$mg-sm: $vr / 2;
-$mg-md: $vr;
-
-// Padding.
-$pd-sm: $vr / 2;
-$pd-md: $vr;
-$pd-lg: $vr * 2;
 
 // Breakpoints
 $bp-sm: 480px;
@@ -47,23 +9,63 @@ $bp-md: 768px;
 $bp-lg: 1024px;
 $bp-xl: 1366px;
 
-// Cards
-$card-width: 33px;
-$card-height: $card-width * 1.4;
-$card-spacer: 0.78;
+:root {
+  // Fonts.
+  --font-family: 'Roboto', sans-serif;
+  --font-size: 0.8rem;
+  --font-size-lg: 0.9rem;
 
-$card-sm-multiplier: 1.5;
-$card-width-sm: $card-width * $card-sm-multiplier;
-$card-height-sm: $card-height * $card-sm-multiplier;
+  // Vertical rythm.
+  --vr: 1rem;
 
-$card-md-multiplier: 2.25;
-$card-width-md: $card-width * $card-md-multiplier;
-$card-height-md: $card-height * $card-md-multiplier;
+  // Colours.
+  --col-primary: #{$col-primary};
+  --col-secondary: #{$col-secondary};
+  --col-tertiary: #{$col-tertiary};
 
-$card-lg-multiplier: 3.25;
-$card-width-lg: $card-width * $card-lg-multiplier;
-$card-height-lg: $card-height * $card-lg-multiplier;
+  // Background colours.
+  --bg-primary: var(--col-primary);
+  --bg-primary-light: lighten($col-primary, 5%);
+  --bg-secondary: var(--col-secondary);
+  --bg-tertiary: var(--col-tertiary);
 
-$card-xl-multiplier: 4.25;
-$card-width-xl: $card-width * $card-xl-multiplier;
-$card-height-xl: $card-height * $card-xl-multiplier;
+  // Text colours.
+  --text-primary: var(--col-secondary);
+
+  // Column padding.
+  --col-padding: 0.2rem;
+  --col-padding-lg: 0.5rem;
+
+  // Borders
+  --bdr-primary: var(--col-secondary);
+  --bdr-secondary: var(--col-tertiary);
+  --bdr-radius-sm: 3px;
+  --bdr-radius-md: 5px;
+  --bdr-radius-lg: 7px;
+
+  // Margins.
+  --mg-sm: calc(var(--vr) / 2);
+  --mg-md: var(--vr);
+
+  // Padding.
+  --pd-sm: calc(var(--vr) / 2);
+  --pd-md: var(--vr);
+  --pd-lg: calc(var(--vr) * 2);
+
+  // Cards
+  --card-width: 33px;
+  --card-height: calc(var(--card-width) * 1.4);
+  --card-spacer: 0.78;
+  --card-sm-multiplier: 1.5;
+  --card-width-sm: calc(var(--card-width) * var(--card-sm-multiplier));
+  --card-height-sm: calc(var(--card-height) * var(--card-sm-multiplier));
+  --card-md-multiplier: 2.25;
+  --card-width-md: calc(var(--card-width) * var(--card-md-multiplier));
+  --card-height-md: calc(var(--card-height) * var(--card-md-multiplier));
+  --card-lg-multiplier: 3.25;
+  --card-width-lg: calc(var(--card-width) * var(--card-lg-multiplier));
+  --card-height-lg: calc(var(--card-height) * var(--card-lg-multiplier));
+  --card-xl-multiplier: 4.25;
+  --card-width-xl: calc(var(--card-width) * var(--card-xl-multiplier));
+  --card-height-xl: calc(var(--card-height) * var(--card-xl-multiplier));
+}

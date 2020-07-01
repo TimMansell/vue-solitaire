@@ -25,14 +25,14 @@ export default {
 @import '~sanitize.css';
 
 html {
-  font-family: $font-family;
+  font-family: var(--font-family);
 }
 
 body {
-  background: $bg-primary;
+  background: var(--bg-primary);
 
   @media (min-width: $bp-md) {
-    background: $bg-primary url('./assets/felt.png') repeat;
+    background: var(--bg-primary) url('./assets/felt.png') repeat;
   }
 }
 
@@ -44,14 +44,14 @@ h5,
 h6,
 p {
   margin-top: 0;
-  margin-bottom: $mg-md;
+  margin-bottom: var(--mg-md);
 }
 
 ul {
-  padding-left: $pd-md;
+  padding-left: var(--pd-md);
 
   @media (min-width: $bp-sm) {
-    padding-left: $pd-lg;
+    padding-left: var(--pd-lg);
   }
 }
 </style>

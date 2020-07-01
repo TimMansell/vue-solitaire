@@ -33,23 +33,23 @@ export default {
 <style lang="scss">
 .btn {
   background: transparent;
-  border: 1px solid $bdr-primary;
-  border-radius: $bdr-radius-md;
-  padding: $pd-sm;
-  color: $text-primary;
+  border: 1px solid var(--bdr-primary);
+  border-radius: var(--bdr-radius-md);
+  padding: var(--pd-sm);
+  color: var(--text-primary);
   transition: all 0.2s;
   font-weight: 700;
-  font-size: $font-size;
+  font-size: var(--font-size);
   text-decoration: none;
-  font-family: $font-family;
+  font-family: var(--font-family);
 
   @media (min-width: $bp-sm) {
-    font-size: $font-size-lg;
+    font-size: var(--font-size-lg);
     border-width: 2px;
   }
 
   &:hover {
-    background: $bg-primary;
+    background: var(--bg-primary);
     cursor: pointer;
   }
 
@@ -68,10 +68,10 @@ export default {
   }
 
   &--alt {
-    background: $bg-primary;
+    background: var(--bg-primary);
 
     &:hover {
-      background: lighten($bg-primary, 5%);
+      background: var(--bg-primary-light);
     }
   }
 }

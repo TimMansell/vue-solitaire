@@ -158,22 +158,22 @@ export default {
   position: relative;
 
   &:nth-of-type(n + 2) {
-    margin-top: -#{$card-height * $card-spacer};
+    margin-top: calc(var(--card-height) * var(--card-spacer) * -1);
 
     @media (min-width: $bp-sm) {
-      margin-top: -#{$card-height-sm * $card-spacer};
+      margin-top: calc(var(--card-height-sm) * var(--card-spacer) * -1);
     }
 
     @media (min-width: $bp-md) {
-      margin-top: -#{$card-height-md * $card-spacer};
+      margin-top: calc(var(--card-height-md) * var(--card-spacer) * -1);
     }
 
     @media (min-width: $bp-lg) {
-      margin-top: -#{$card-height-lg * $card-spacer};
+      margin-top: calc(var(--card-height-lg) * var(--card-spacer) * -1);
     }
 
     @media (min-width: $bp-xl) {
-      margin-top: -#{$card-height-xl * $card-spacer};
+      margin-top: calc(var(--card-height-xl) * var(--card-spacer) * -1);
     }
   }
 
@@ -186,17 +186,17 @@ export default {
     pointer-events: none;
 
     @media (min-width: $bp-sm) {
-      border-radius: $bdr-radius-sm;
+      border-radius: var(--bdr-radius-sm);
     }
 
     @media (min-width: $bp-lg) {
-      border-radius: $bdr-radius-lg;
+      border-radius: var(--bdr-radius-lg);
     }
   }
 
   &--is-selected {
     &::before {
-      background: rgba($bg-tertiary, 0.3);
+      background: rgba(var(--bg-tertiary), 0.3);
     }
   }
 

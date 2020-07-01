@@ -44,16 +44,16 @@ export default {
 .modal {
   &__close {
     position: absolute;
-    right: $vr * 2;
+    right: calc(var(--vr) * 2);
   }
 
   &__content {
-    padding: $pd-md;
-    background-color: $bg-secondary;
+    padding: var(--pd-md);
+    background-color: var(--bg-secondary);
     text-align: left;
-    border-radius: $bdr-radius-sm;
-    box-shadow: 0 0 20px -2px rgba($col-tertiary, 0.4);
-    margin: $mg-md;
+    border-radius: var(--bdr-radius-sm);
+    box-shadow: 0 0 20px -2px rgba(var(--col-tertiary), 0.4);
+    margin: var(--mg-md);
     left: 0;
     right: 0;
   }
