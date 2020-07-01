@@ -38,27 +38,27 @@ export default {
 <style lang="scss">
 .svg-icon {
   fill: currentColor;
-  height: $card-height;
-  width: $card-width;
+  height: var(--card-height);
+  width: var(--card-width);
 
   @media (min-width: $bp-sm) {
-    height: $card-height-sm;
-    width: $card-width-sm;
+    height: var(--card-height-sm);
+    width: var(--card-width-sm);
   }
 
   @media (min-width: $bp-md) {
-    height: $card-height-md;
-    width: $card-width-md;
+    height: var(--card-height-md);
+    width: var(--card-width-md);
   }
 
   @media (min-width: $bp-lg) {
-    height: $card-height-lg;
-    width: $card-width-lg;
+    height: var(--card-height-lg);
+    width: var(--card-width-lg);
   }
 
   @media (min-width: $bp-xl) {
-    height: $card-height-xl;
-    width: $card-width-xl;
+    height: var(--card-height-xl);
+    width: var(--card-width-xl);
   }
 }
 </style>

@@ -22,15 +22,15 @@ export default {
 .controls {
   display: flex;
   justify-content: center;
-  margin-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px hsla(0, 0%, 100%, 0.05);
+  margin-top: var(--mg-sm);
+  padding-bottom: var(--pd-sm);
+  border-bottom: 1px solid rgba(var(--bdr-secondary), 0.2);
+  box-shadow: 0 1px rgba(var(--col-secondary), 0.05);
 
   @media (min-width: $bp-sm) {
     position: fixed;
-    right: 0.5rem;
-    top: 0.5rem;
+    right: calc(var(--vr) / 2);
+    top: calc(var(--vr) / 2);
     margin-top: auto;
     border-bottom: 0;
     box-shadow: none;
