@@ -196,7 +196,8 @@ export default {
 
   &--is-selected {
     &::before {
-      background: rgba(var(--bg-tertiary), 0.3);
+      background: var(--bg-tertiary);
+      opacity: 0.3;
     }
   }
 
