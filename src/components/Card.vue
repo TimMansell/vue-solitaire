@@ -178,25 +178,25 @@ export default {
   }
 
   &::before {
+    content: '';
     transition: all 0.1s ease-in-out;
     position: absolute;
-    content: '';
     width: 100%;
     height: 100%;
     pointer-events: none;
 
     @media (min-width: $bp-sm) {
-      border-radius: 3px;
+      border-radius: $bdr-radius-sm;
     }
 
     @media (min-width: $bp-lg) {
-      border-radius: 7px;
+      border-radius: $bdr-radius-lg;
     }
   }
 
   &--is-selected {
     &::before {
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba($bg-tertiary, 0.3);
     }
   }
 

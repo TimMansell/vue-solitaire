@@ -37,19 +37,19 @@ export default {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba($bg-tertiary, 0.7);
   z-index: 1;
 
   &__content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
+    padding: $pd-lg;
   }
 
   &__title {
-    color: #fff;
-    text-shadow: -1px -1px rgba(0, 0, 0, 0.3);
+    color: $text-primary;
+    text-shadow: -1px -1px rgba($bg-tertiary, 0.3);
     text-align: center;
   }
 }

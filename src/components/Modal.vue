@@ -44,16 +44,16 @@ export default {
 .modal {
   &__close {
     position: absolute;
-    right: 2rem;
+    right: $vr * 2;
   }
 
   &__content {
-    padding: 1rem;
-    background-color: #fff;
+    padding: $pd-md;
+    background-color: $bg-secondary;
     text-align: left;
-    border-radius: 3px;
-    box-shadow: 0 0 20px -2px rgba(27, 33, 58, 0.4);
-    margin: 1rem;
+    border-radius: $bdr-radius-sm;
+    box-shadow: 0 0 20px -2px rgba($col-tertiary, 0.4);
+    margin: $mg-md;
     left: 0;
     right: 0;
   }

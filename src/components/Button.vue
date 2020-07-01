@@ -33,23 +33,23 @@ export default {
 <style lang="scss">
 .btn {
   background: transparent;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  padding: 0.5rem;
-  color: #fff;
+  border: 1px solid $bdr-primary;
+  border-radius: $bdr-radius-md;
+  padding: $pd-sm;
+  color: $text-primary;
   transition: all 0.2s;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: $font-size;
   text-decoration: none;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font-family;
 
   @media (min-width: $bp-sm) {
-    font-size: 0.9rem;
+    font-size: $font-size-lg;
     border-width: 2px;
   }
 
   &:hover {
-    background: #027002;
+    background: $bg-primary;
     cursor: pointer;
   }
 
@@ -68,10 +68,10 @@ export default {
   }
 
   &--alt {
-    background: #027002;
+    background: $bg-primary;
 
     &:hover {
-      background: lighten(#027002, 5%);
+      background: lighten($bg-primary, 5%);
     }
   }
 }

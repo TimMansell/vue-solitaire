@@ -1,6 +1,45 @@
+// Fonts.
+$font-family: 'Roboto', sans-serif;
+
+$font-size: 0.8rem;
+$font-size-lg: 0.9rem;
+
+// Vertical rythm.
+$vr: 1rem;
+
+// Colours.
+$col-primary: #027002;
+$col-secondary: #fff;
+$col-tertiary: #000;
+
+// Background colours.
+$bg-primary: $col-primary;
+$bg-secondary: $col-secondary;
+$bg-tertiary: $col-tertiary;
+
+// Text colours.
+$text-primary: $col-secondary;
+
 // Column padding.
 $col-padding: 0.2rem;
 $col-padding-lg: 0.5rem;
+
+// Borders
+$bdr-primary: $col-secondary;
+$bdr-secondary: $col-tertiary;
+
+$bdr-radius-sm: 3px;
+$bdr-radius-md: 5px;
+$bdr-radius-lg: 7px;
+
+// Margins.
+$mg-sm: $vr / 2;
+$mg-md: $vr;
+
+// Padding.
+$pd-sm: $vr / 2;
+$pd-md: $vr;
+$pd-lg: $vr * 2;
 
 // Breakpoints
 $bp-sm: 480px;
