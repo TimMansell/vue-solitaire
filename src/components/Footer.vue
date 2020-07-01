@@ -33,8 +33,8 @@ export default {
   font-size: var(--font-size);
   background: var(--bg-primary);
   color: var(--text-primary);
-  border-top: 1px solid hsla(0, 0%, 100%, 0.05);
-  box-shadow: 0 -1px rgba(var(--bdr-secondary), 0.2);
+  border-top: 1px solid rgba($col-secondary, 0.05);
+  box-shadow: 0 -1px rgba($col-tertiary, 0.2);
 
   @media (min-width: $bp-md) {
     justify-content: right;

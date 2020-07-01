@@ -25,7 +25,7 @@ $bp-xl: 1366px;
 
   // Background colours.
   --bg-primary: var(--col-primary);
-  --bg-primary-light: lighten($col-primary, 5%);
+  --bg-primary-light: #{lighten($col-primary, 5%)};
   --bg-secondary: var(--col-secondary);
   --bg-tertiary: var(--col-tertiary);
 
