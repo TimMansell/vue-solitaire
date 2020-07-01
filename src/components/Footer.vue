@@ -30,16 +30,16 @@ export default {
   position: fixed;
   width: 100%;
   bottom: 0;
-  font-size: 0.8rem;
-  background: #027002;
-  color: #fff;
+  font-size: var(--font-size);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   border-top: 1px solid hsla(0, 0%, 100%, 0.05);
-  box-shadow: 0 -1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -1px rgba(var(--bdr-secondary), 0.2);
 
   @media (min-width: $bp-md) {
     justify-content: right;
-    right: 0.5rem;
-    bottom: 0.25rem;
+    right: calc(var(--vr) / 2);
+    bottom: calc(var(--vr) / 4);
     width: auto;
     background: transparent;
     text-shadow: 1px 1px 1px #000;
@@ -48,7 +48,7 @@ export default {
   }
 
   &__link {
-    color: #fff;
+    color: var(--text-primary);
 
     &:hover {
       text-decoration: none;
@@ -56,8 +56,8 @@ export default {
 
     &::after {
       content: '|';
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
+      margin-left: var(--mg-sm);
+      margin-right: var(--mg-sm);
     }
   }
 }
