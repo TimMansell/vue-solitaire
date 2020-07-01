@@ -73,19 +73,14 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      isCardDragged: false,
-    };
-  },
   computed: {
     ...mapGetters(['selectedCardId']),
     classes() {
       const { selectedCardId } = this;
-      const { id, isCardDragged, clickable, visible } = this;
+      const { id, clickable, visible } = this;
 
       return {
-        'card--is-selected': selectedCardId === id && !isCardDragged,
+        'card--is-selected': selectedCardId === id,
         'card--is-not-clickable': !clickable,
         'card--is-draggable': visible,
       };
@@ -129,8 +124,6 @@ export default {
       e.dataTransfer.setDragImage(clonedElement, clonedElementOffset, 20);
       e.dataTransfer.dropEffect = 'move';
 
-      this.isCardDragged = !this.isCardDragged;
-
       this.setCard(id);
     },
     cloneCards() {
@@ -140,11 +133,12 @@ export default {
       clonedElement.style.marginTop = '-2000px';
 
       // Find cards below selected card.
-      const siblingCards = [...this.$refs.card.parentElement.childNodes];
+      const siblingCards = [...this.$refs.card.parentElement.children];
       const selectedCard = siblingCards.findIndex((card) => card === this.$refs.card);
       const clonedCards = siblingCards.slice(selectedCard);
 
       clonedCards.forEach((card) => {
+        card.classList.add('card--is-cloned');
         clonedElement.appendChild(card.cloneNode(true));
       });
 
@@ -154,8 +148,6 @@ export default {
     },
     clearCard() {
       document.querySelector('#cloned-card').remove();
-
-      this.isCardDragged = !this.isCardDragged;
     },
   },
 };
@@ -163,31 +155,49 @@ export default {
 
 <style scoped lang="scss">
 .card {
-  transition: all 0.05s ease-in-out;
-  transform-style: preserve-3d;
+  position: relative;
 
   &:nth-of-type(n + 2) {
-    margin-top: -#{$card-height * $card-spacer};
+    margin-top: calc(var(--card-height) * var(--card-spacer) * -1);
 
     @media (min-width: $bp-sm) {
-      margin-top: -#{$card-height-sm * $card-spacer};
+      margin-top: calc(var(--card-height-sm) * var(--card-spacer) * -1);
     }
 
     @media (min-width: $bp-md) {
-      margin-top: -#{$card-height-md * $card-spacer};
+      margin-top: calc(var(--card-height-md) * var(--card-spacer) * -1);
     }
 
     @media (min-width: $bp-lg) {
-      margin-top: -#{$card-height-lg * $card-spacer};
+      margin-top: calc(var(--card-height-lg) * var(--card-spacer) * -1);
     }
 
     @media (min-width: $bp-xl) {
-      margin-top: -#{$card-height-xl * $card-spacer};
+      margin-top: calc(var(--card-height-xl) * var(--card-spacer) * -1);
+    }
+  }
+
+  &::before {
+    content: '';
+    transition: all 0.1s ease-in-out;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    @media (min-width: $bp-sm) {
+      border-radius: var(--bdr-radius-sm);
+    }
+
+    @media (min-width: $bp-lg) {
+      border-radius: var(--bdr-radius-lg);
     }
   }
 
   &--is-selected {
-    transform: scale(1.1);
+    &::before {
+      background: rgba(var(--bg-tertiary), 0.3);
+    }
   }
 
   &--is-not-clickable {
@@ -196,6 +206,12 @@ export default {
 
   &--is-draggable {
     cursor: grab;
+  }
+
+  &--is-cloned {
+    &::before {
+      content: none;
+    }
   }
 }
 </style>

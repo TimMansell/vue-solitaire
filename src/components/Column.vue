@@ -64,12 +64,12 @@ export default {
 
 <style scoped lang="scss">
 .column {
-  padding-left: $col-padding;
-  padding-right: $col-padding;
+  padding-left: var(--col-padding);
+  padding-right: var(--col-padding);
 
   @media (min-width: $bp-md) {
-    padding-left: $col-padding-lg;
-    padding-right: $col-padding-lg;
+    padding-left: var(--col-padding-lg);
+    padding-right: var(--col-padding-lg);
   }
 }
 </style>
