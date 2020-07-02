@@ -17,6 +17,7 @@
         :suit="card.suit"
         :visible="card.visible"
         :clickable="false"
+        stacked
       />
 
       <CardPlaceholder v-if="!foundation.length" see-through />
