@@ -72,15 +72,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    stacked: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapGetters(['selectedCardId']),
     classes() {
       const { selectedCardId } = this;
-      const { id, clickable, visible } = this;
+      const { id, stacked, clickable, visible } = this;
 
       return {
         'card--is-selected': selectedCardId === id,
+        'card--is-stacked': stacked,
         'card--is-not-clickable': !clickable,
         'card--is-draggable': visible,
       };
@@ -191,6 +196,28 @@ export default {
 
     @media (min-width: $bp-lg) {
       border-radius: var(--bdr-radius-lg);
+    }
+  }
+
+  &--is-stacked {
+    &:nth-of-type(n + 2) {
+      margin-top: calc(var(--card-height) * -1);
+
+      @media (min-width: $bp-sm) {
+        margin-top: calc(var(--card-height-sm) * -1);
+      }
+
+      @media (min-width: $bp-md) {
+        margin-top: calc(var(--card-height-md) * -1);
+      }
+
+      @media (min-width: $bp-lg) {
+        margin-top: calc(var(--card-height-lg) * -1);
+      }
+
+      @media (min-width: $bp-xl) {
+        margin-top: calc(var(--card-height-xl) * -1);
+      }
     }
   }
 
