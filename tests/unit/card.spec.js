@@ -53,6 +53,7 @@ describe('Card.vue', () => {
         revealed: true,
         clickable: false,
         bottomCard: true,
+        stacked: true,
       },
     });
 
@@ -63,6 +64,7 @@ describe('Card.vue', () => {
     expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
     expect(wrapper.props().bottomCard).toBe(true);
+    expect(wrapper.props().stacked).toBe(true);
   });
 
   it('should render a diamond card', () => {
@@ -148,6 +150,18 @@ describe('Card.vue', () => {
     });
 
     expect(wrapper.find('[data-test="card-hidden"]').exists()).toBe(true);
+  });
+
+  it('should render a stacked card', () => {
+    const wrapper = shallowMount(Card, {
+      store,
+      localVue,
+      propsData: {
+        stacked: true,
+      },
+    });
+
+    expect(wrapper.classes()).toContain('card--is-stacked');
   });
 
   it('should render a selected card', () => {
