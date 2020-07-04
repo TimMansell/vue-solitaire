@@ -37,7 +37,7 @@ export default {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(var(--bg-tertiary), 0.7);
+  background: rgba($col-tertiary, 0.7);
   z-index: 1;
 
   &__content {
@@ -49,7 +49,7 @@ export default {
 
   &__title {
     color: var(--text-primary);
-    text-shadow: -1px -1px rgba(var(--bg-tertiary), 0.3);
+    text-shadow: -1px -1px rgba($col-tertiary, 0.3);
     text-align: center;
   }
 }
