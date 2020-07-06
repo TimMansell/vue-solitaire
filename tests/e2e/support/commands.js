@@ -61,6 +61,6 @@ Cypress.Commands.add('shouldNotContain', { prevSubject: true }, (subject, elemen
 });
 
 addMatchImageSnapshotCommand({
-  failureThreshold: 5, // threshold for entire image
+  failureThreshold: 0.05, // threshold for entire image
   failureThresholdType: 'percent', // percent of image or number of pixels
 });
