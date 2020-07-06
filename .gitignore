@@ -22,3 +22,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+/tests/e2e/snapshots/app.snapshot.js/__diff_output__/
