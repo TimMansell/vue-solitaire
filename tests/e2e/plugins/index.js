@@ -19,13 +19,13 @@ module.exports = (on, config) => {
 
   on('before:browser:launch', (browser, launchOptions) => {
     if (browser.name === 'electron' && browser.isHeadless) {
-      const preferences = {
+      const width = {
         width: 2560,
       };
 
       return {
         ...launchOptions,
-        preferences,
+        ...width,
       };
     }
 
