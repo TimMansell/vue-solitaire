@@ -1,3 +1,5 @@
+import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -56,4 +58,9 @@ Cypress.Commands.add('shouldNotContain', { prevSubject: true }, (subject, elemen
       cy.get(`[data-test="card-${element}"]`).should('not.be.visible');
     });
   });
+});
+
+addMatchImageSnapshotCommand({
+  failureThreshold: 5, // threshold for entire image
+  failureThresholdType: 'percent', // percent of image or number of pixels
 });

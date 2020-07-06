@@ -9,11 +9,30 @@
 // /* eslint-disable import/no-extraneous-dependencies, global-require */
 // const webpack = require('@cypress/webpack-preprocessor')
 
+const { addMatchImageSnapshotPlugin } = require('cypress-image-snapshot/plugin');
+
 module.exports = (on, config) => {
   // on('file:preprocessor', webpack({
   //  webpackOptions: require('@vue/cli-service/webpack.config'),
   //  watchOptions: {}
   // }))
+
+  on('before:browser:launch', (browser, launchOptions) => {
+    if (browser.name === 'electron' && browser.isHeadless) {
+      const preferences = {
+        width: 2560,
+      };
+
+      return {
+        ...launchOptions,
+        preferences,
+      };
+    }
+
+    return launchOptions;
+  });
+
+  addMatchImageSnapshotPlugin(on, config);
 
   return {
     ...config,
