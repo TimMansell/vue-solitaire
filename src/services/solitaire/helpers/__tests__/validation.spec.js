@@ -6,6 +6,8 @@ import {
   isMoveValidPosition,
   isValidKingMove,
   isMoveValidFoundationSuit,
+  isMoveValidFoundationOrder,
+  isValidAceMove,
 } from '../validation';
 
 describe('validation', () => {
@@ -186,7 +188,7 @@ describe('validation', () => {
   describe('valid king', () => {
     it('should be a valid king', () => {
       const card1 = {
-        isKing: true,
+        value: 'K',
       };
 
       const result = isValidKingMove(card1);
@@ -196,7 +198,7 @@ describe('validation', () => {
 
     it('should be an invalid king', () => {
       const card1 = {
-        isKing: false,
+        value: 'Q',
       };
       const card2 = {};
 
@@ -207,7 +209,7 @@ describe('validation', () => {
 
     it('should be an invalid card', () => {
       const card1 = {
-        isKing: false,
+        value: 'Q',
       };
 
       const result = isValidKingMove(card1);
@@ -245,6 +247,68 @@ describe('validation', () => {
       ];
 
       const result = isMoveValidFoundationSuit(card, cards);
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('valid foundation order', () => {
+    it('should be a valid empty order', () => {
+      const card = {
+        order: 1,
+      };
+
+      const cards = [];
+
+      const result = isMoveValidFoundationOrder(card, cards);
+
+      expect(result).toBe(true);
+    });
+
+    it('should be a valid order', () => {
+      const card = {
+        order: 3,
+      };
+
+      const cards = [{}, {}];
+
+      const result = isMoveValidFoundationOrder(card, cards);
+
+      expect(result).toBe(true);
+    });
+
+    it('should be an invalid order', () => {
+      const card = {
+        order: 5,
+      };
+
+      const cards = [{}];
+
+      const result = isMoveValidFoundationOrder(card, cards);
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('valid ace', () => {
+    it('should be a valid ace', () => {
+      const card = {
+        value: 'A',
+      };
+      const cards = [];
+
+      const result = isValidAceMove(card, cards);
+
+      expect(result).toBe(true);
+    });
+
+    it('should be an invalid card', () => {
+      const card = {
+        value: 'Q',
+      };
+      const cards = [];
+
+      const result = isValidAceMove(card, cards);
 
       expect(result).toBe(false);
     });
