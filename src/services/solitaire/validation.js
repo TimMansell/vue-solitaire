@@ -8,6 +8,7 @@ import {
   isValidKingMove,
   isMoveValidFoundationSuit,
   isMoveValidFoundationOrder,
+  isValidAceMove,
 } from './helpers/validation';
 
 export const validateCard = (card, compareTo) => {
@@ -31,6 +32,11 @@ export const validateColumn = (selectedCard, selectedColumnCards) =>
 
 export const validateFoundationMove = (card, compareTo) => {
   const v = validate(card, compareTo);
+
+  // Relaxed validation for A to empty foundation.
+  if (!compareTo.length) {
+    return v(isValidAceMove);
+  }
 
   const isValidFoundationSuit = v(isMoveValidFoundationSuit);
   const isValidFoundationOrder = v(isMoveValidFoundationOrder);
