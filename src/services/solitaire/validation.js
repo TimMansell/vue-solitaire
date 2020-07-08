@@ -1,36 +1,41 @@
-export const isMoveValidCard = (selectedCard, lastColumnCard) =>
-  `${selectedCard.order}${selectedCard.suit}` !== `${lastColumnCard.order}${lastColumnCard.suit}`;
+import {
+  validate,
+  isMoveValidCard,
+  isMoveValidSuit,
+  isMoveValidOrder,
+  isMoveValidColumn,
+  isMoveValidPosition,
+  isValidKingMove,
+  isMoveValidFoundationSuit,
+  isMoveValidFoundationOrder,
+} from './helpers/validation';
 
-export const isMoveValidSuit = (selectedCard, lastColumnCard) =>
-  selectedCard.suit === lastColumnCard.suit;
+export const checkValidCard = (card, compareTo) => {
+  const v = validate(card, compareTo);
 
-export const isMoveValidOrder = (selectedCard, lastColumnCard) =>
-  selectedCard.order === lastColumnCard.order - 1;
-
-export const isMoveValidColumn = (selectedCard, columnCards) =>
-  !columnCards.filter((card) => card.id === selectedCard.id).length;
-
-export const isMoveValidPosition = (selectedCard, boardCards) =>
-  boardCards.some((cards) => {
-    const cardPosition = cards.findIndex((card) => card.id === selectedCard.id);
-
-    return cardPosition === cards.length - 1;
-  });
-
-export const isValidKingMove = (selectedCard, lastColumnCard) =>
-  selectedCard.order === 13 && !lastColumnCard;
-
-export const isMoveValidFoundationSuit = (selectedCard, selectedFoundationCards) => {
-  const { suit } = selectedCard;
-
-  const foundationSuit = selectedFoundationCards.filter((ace) => ace.suit === suit);
-
-  if (!foundationSuit.length && selectedFoundationCards.length) {
-    return false;
+  // Relaxed validation for K to empty column
+  if (!compareTo) {
+    return v(isValidKingMove);
   }
 
-  return true;
+  // General validation.
+  const isValidCard = v(isMoveValidCard);
+  const isValidSuit = v(isMoveValidSuit);
+  const isValidOrder = v(isMoveValidOrder);
+
+  return isValidCard && isValidSuit && isValidOrder;
 };
 
-export const isMoveValidFoundationOrder = (selectedCard, selectedFoundationCards) =>
-  selectedCard.order === selectedFoundationCards.length + 1;
+export const checkValidColumn = (selectedCard, selectedColumnCards) =>
+  isMoveValidColumn(selectedCard, selectedColumnCards);
+
+export const checkValidFoundationCard = (card, compareTo) => {
+  const v = validate(card, compareTo);
+
+  const isValidFoundationSuit = v(isMoveValidFoundationSuit);
+  const isValidFoundationOrder = v(isMoveValidFoundationOrder);
+
+  return isValidFoundationSuit && isValidFoundationOrder;
+};
+
+export const checkValidCardPosition = (card, compareTo) => isMoveValidPosition(card, compareTo);
