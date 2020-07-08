@@ -1,5 +1,5 @@
 import { getSelectedCard, getSelectedCardPosition } from './cards';
-import { checkValidFoundationCard, checkValidCardPosition } from './validation';
+import { validateFoundationMove, validateCardPosition } from './validation';
 
 const initFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
 
@@ -47,8 +47,8 @@ const checkValidFoundationMove = (
     return false;
   }
 
-  const isValidFoundationMove = checkValidFoundationCard(selectedCard, selectedFoundationCards);
-  const isValidCardPosition = checkValidCardPosition(selectedCard, boardCards);
+  const isValidFoundationMove = validateFoundationMove(selectedCard, selectedFoundationCards);
+  const isValidCardPosition = validateCardPosition(selectedCard, boardCards);
 
   return isValidFoundationMove && isValidCardPosition;
 };
