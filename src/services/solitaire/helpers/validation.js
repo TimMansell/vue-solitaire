@@ -20,7 +20,7 @@ export const isMoveValidPosition = (selectedCard, boardCards) =>
   });
 
 export const isValidKingMove = (selectedCard, lastColumnCard) =>
-  selectedCard.order === 13 && !lastColumnCard;
+  selectedCard.isKing && !lastColumnCard;
 
 export const isMoveValidFoundationSuit = (selectedCard, selectedFoundationCards) => {
   const { suit } = selectedCard;

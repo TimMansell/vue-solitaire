@@ -9,6 +9,7 @@ const shuffleCards = ({ values, suits }) => {
         order: index + 1,
         suit,
         visible: false,
+        isKing: value === 'K',
       };
 
       return card;
