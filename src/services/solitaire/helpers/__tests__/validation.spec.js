@@ -5,6 +5,7 @@ import {
   isMoveValidColumn,
   isMoveValidPosition,
   isValidKingMove,
+  isMoveValidFoundationSuit,
 } from '../validation';
 
 describe('validation', () => {
@@ -185,7 +186,7 @@ describe('validation', () => {
   describe('valid king', () => {
     it('should be a valid king', () => {
       const card1 = {
-        order: 13,
+        isKing: true,
       };
 
       const result = isValidKingMove(card1);
@@ -195,11 +196,10 @@ describe('validation', () => {
 
     it('should be an invalid king', () => {
       const card1 = {
-        order: 13,
+        isKing: false,
       };
-      const card2 = {
-        order: 2,
-      };
+      const card2 = {};
+
       const result = isValidKingMove(card1, card2);
 
       expect(result).toBe(false);
@@ -207,10 +207,44 @@ describe('validation', () => {
 
     it('should be an invalid card', () => {
       const card1 = {
-        order: 2,
+        isKing: false,
       };
 
       const result = isValidKingMove(card1);
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('valid foundation suit', () => {
+    it('should be a valid suit', () => {
+      const card = {
+        suit: 'c',
+      };
+
+      const cards = [
+        {
+          suit: 'c',
+        },
+      ];
+
+      const result = isMoveValidFoundationSuit(card, cards);
+
+      expect(result).toBe(true);
+    });
+
+    it('should be an invalid suit', () => {
+      const card = {
+        suit: 'c',
+      };
+
+      const cards = [
+        {
+          suit: 'd',
+        },
+      ];
+
+      const result = isMoveValidFoundationSuit(card, cards);
 
       expect(result).toBe(false);
     });
