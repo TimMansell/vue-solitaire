@@ -1,3 +1,4 @@
+// Card validation.
 export const validate = (card, cardCompare) => (rule) => rule(card, cardCompare);
 
 export const isMoveValidCard = (selectedCard, compareToCard) =>
@@ -12,19 +13,20 @@ export const isMoveValidOrder = (selectedCard, compareToCard) =>
 export const isMoveValidColumn = (selectedCard, columnCards) =>
   !columnCards.filter((card) => card.id === selectedCard.id).length;
 
-export const isMoveValidPosition = (selectedCard, boardCards) =>
+export const isMoveValidKing = (selectedCard) => selectedCard.value === 'K';
+
+// Foundation validation.
+export const isFoundationMoveValidPosition = (selectedCard, boardCards) =>
   boardCards.some((cards) => {
     const cardPosition = cards.findIndex((card) => card.id === selectedCard.id);
 
     return cardPosition === cards.length - 1;
   });
 
-export const isValidKingMove = (selectedCard) => selectedCard.value === 'K';
+export const isFoundationMoveValidAce = (selectedCard) => selectedCard.value === 'A';
 
-export const isValidAceMove = (selectedCard) => selectedCard.value === 'A';
-
-export const isMoveValidFoundationSuit = ({ suit }, selectedFoundationCards) =>
+export const isFoundationMoveValidSuit = ({ suit }, selectedFoundationCards) =>
   selectedFoundationCards.filter((card) => card.suit === suit).length > 0;
 
-export const isMoveValidFoundationOrder = (selectedCard, selectedFoundationCards) =>
+export const isFoundationMoveValidOrder = (selectedCard, selectedFoundationCards) =>
   selectedCard.order === selectedFoundationCards.length + 1;

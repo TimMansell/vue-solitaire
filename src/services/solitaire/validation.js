@@ -4,11 +4,11 @@ import {
   isMoveValidSuit,
   isMoveValidOrder,
   isMoveValidColumn,
-  isMoveValidPosition,
-  isValidKingMove,
-  isMoveValidFoundationSuit,
-  isMoveValidFoundationOrder,
-  isValidAceMove,
+  isMoveValidKing,
+  isFoundationMoveValidPosition,
+  isFoundationMoveValidSuit,
+  isFoundationMoveValidOrder,
+  isFoundationMoveValidAce,
 } from './helpers/validation';
 
 export const validateCard = (card, compareTo) => {
@@ -16,7 +16,7 @@ export const validateCard = (card, compareTo) => {
 
   // Relaxed validation for K to empty column
   if (!compareTo) {
-    return v(isValidKingMove);
+    return v(isMoveValidKing);
   }
 
   // General validation.
@@ -35,13 +35,14 @@ export const validateFoundationMove = (card, compareTo) => {
 
   // Relaxed validation for A to empty foundation.
   if (!compareTo.length) {
-    return v(isValidAceMove);
+    return v(isFoundationMoveValidAce);
   }
 
-  const isValidFoundationSuit = v(isMoveValidFoundationSuit);
-  const isValidFoundationOrder = v(isMoveValidFoundationOrder);
+  const isValidFoundationSuit = v(isFoundationMoveValidSuit);
+  const isValidFoundationOrder = v(isFoundationMoveValidOrder);
 
   return isValidFoundationSuit && isValidFoundationOrder;
 };
 
-export const validateCardPosition = (card, compareTo) => isMoveValidPosition(card, compareTo);
+export const validateFoundationPosition = (card, compareTo) =>
+  isFoundationMoveValidPosition(card, compareTo);

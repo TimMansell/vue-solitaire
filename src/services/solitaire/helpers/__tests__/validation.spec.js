@@ -3,11 +3,11 @@ import {
   isMoveValidSuit,
   isMoveValidOrder,
   isMoveValidColumn,
-  isMoveValidPosition,
-  isValidKingMove,
-  isMoveValidFoundationSuit,
-  isMoveValidFoundationOrder,
-  isValidAceMove,
+  isMoveValidKing,
+  isFoundationMoveValidPosition,
+  isFoundationMoveValidSuit,
+  isFoundationMoveValidOrder,
+  isFoundationMoveValidAce,
 } from '../validation';
 
 describe('validation', () => {
@@ -156,7 +156,7 @@ describe('validation', () => {
         ],
       ];
 
-      const result = isMoveValidPosition(card, cards);
+      const result = isFoundationMoveValidPosition(card, cards);
 
       expect(result).toBe(true);
     });
@@ -179,7 +179,7 @@ describe('validation', () => {
         ],
       ];
 
-      const result = isMoveValidPosition(card, cards);
+      const result = isFoundationMoveValidPosition(card, cards);
 
       expect(result).toBe(false);
     });
@@ -191,7 +191,7 @@ describe('validation', () => {
         value: 'K',
       };
 
-      const result = isValidKingMove(card1);
+      const result = isMoveValidKing(card1);
 
       expect(result).toBe(true);
     });
@@ -202,7 +202,7 @@ describe('validation', () => {
       };
       const card2 = {};
 
-      const result = isValidKingMove(card1, card2);
+      const result = isMoveValidKing(card1, card2);
 
       expect(result).toBe(false);
     });
@@ -212,7 +212,7 @@ describe('validation', () => {
         value: 'Q',
       };
 
-      const result = isValidKingMove(card1);
+      const result = isMoveValidKing(card1);
 
       expect(result).toBe(false);
     });
@@ -230,7 +230,7 @@ describe('validation', () => {
         },
       ];
 
-      const result = isMoveValidFoundationSuit(card, cards);
+      const result = isFoundationMoveValidSuit(card, cards);
 
       expect(result).toBe(true);
     });
@@ -246,7 +246,7 @@ describe('validation', () => {
         },
       ];
 
-      const result = isMoveValidFoundationSuit(card, cards);
+      const result = isFoundationMoveValidSuit(card, cards);
 
       expect(result).toBe(false);
     });
@@ -260,7 +260,7 @@ describe('validation', () => {
 
       const cards = [];
 
-      const result = isMoveValidFoundationOrder(card, cards);
+      const result = isFoundationMoveValidOrder(card, cards);
 
       expect(result).toBe(true);
     });
@@ -272,7 +272,7 @@ describe('validation', () => {
 
       const cards = [{}, {}];
 
-      const result = isMoveValidFoundationOrder(card, cards);
+      const result = isFoundationMoveValidOrder(card, cards);
 
       expect(result).toBe(true);
     });
@@ -284,7 +284,7 @@ describe('validation', () => {
 
       const cards = [{}];
 
-      const result = isMoveValidFoundationOrder(card, cards);
+      const result = isFoundationMoveValidOrder(card, cards);
 
       expect(result).toBe(false);
     });
@@ -297,7 +297,7 @@ describe('validation', () => {
       };
       const cards = [];
 
-      const result = isValidAceMove(card, cards);
+      const result = isFoundationMoveValidAce(card, cards);
 
       expect(result).toBe(true);
     });
@@ -308,7 +308,7 @@ describe('validation', () => {
       };
       const cards = [];
 
-      const result = isValidAceMove(card, cards);
+      const result = isFoundationMoveValidAce(card, cards);
 
       expect(result).toBe(false);
     });
