@@ -190,8 +190,9 @@ describe('validation', () => {
       const card1 = {
         value: 'K',
       };
+      const card2 = {};
 
-      const result = isMoveValidKing(card1);
+      const result = isMoveValidKing(card1, card2);
 
       expect(result).toBe(true);
     });

@@ -20,14 +20,16 @@ const checkValidCardMove = ({ boardCards, selectedCardId }, selectedColumn) => {
 
 const visibleMoves = (visibleCards, bottomCards, boardCards) =>
   visibleCards.filter((visibleCard) => {
-    const hasMove = bottomCards.filter((bottomCard) => {
-      const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
+    const hasMove =
+      visibleCard.value !== 'K' &&
+      bottomCards.filter((bottomCard) => {
+        const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
 
-      const isValidCard = validateCard(visibleCard, bottomCard);
-      const isValidColumn = validateColumn(visibleCard, boardCards[columnNo]);
+        const isValidCard = validateCard(visibleCard, bottomCard);
+        const isValidColumn = validateColumn(visibleCard, boardCards[columnNo]);
 
-      return isValidCard && isValidColumn;
-    });
+        return isValidCard && isValidColumn;
+      });
 
     return hasMove.length;
   });
@@ -36,7 +38,7 @@ const kingMoves = (visibleCards, bottomCards, boardCards) =>
   visibleCards.filter((visibleCard) => {
     const { cardPosition } = getSelectedCardPosition(boardCards, visibleCard.id);
 
-    if (visibleCard.order === 13 && bottomCards.length < 8 && cardPosition !== 0) {
+    if (visibleCard.value === 'K' && bottomCards.length < 8 && cardPosition !== 0) {
       return true;
     }
 

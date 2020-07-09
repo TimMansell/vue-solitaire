@@ -13,17 +13,20 @@ export const isMoveValidOrder = (selectedCard, compareToCard) =>
 export const isMoveValidColumn = (selectedCard, columnCards) =>
   !columnCards.filter((card) => card.id === selectedCard.id).length;
 
-export const isMoveValidKing = (selectedCard) => selectedCard.value === 'K';
+export const isMoveValidKing = (selectedCard, compareToCard) =>
+  selectedCard.value === 'K' && !compareToCard.value;
 
 // Foundation validation.
 export const isFoundationMoveValidPosition = (selectedCard, boardCards) =>
   boardCards.some((cards) => {
     const cardPosition = cards.findIndex((card) => card.id === selectedCard.id);
+    const emptyColumn = cardPosition !== -1;
 
-    return cardPosition === cards.length - 1;
+    return cardPosition === cards.length - 1 && emptyColumn;
   });
 
-export const isFoundationMoveValidAce = (selectedCard) => selectedCard.value === 'A';
+export const isFoundationMoveValidAce = (selectedCard, compareToCard) =>
+  selectedCard.value === 'A' && !compareToCard.length;
 
 export const isFoundationMoveValidSuit = ({ suit }, selectedFoundationCards) =>
   selectedFoundationCards.filter((card) => card.suit === suit).length > 0;

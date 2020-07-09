@@ -58,9 +58,13 @@ const getVisibleCards = (cards) => {
 };
 
 const getLastCard = (board, selectedColumn) => {
-  const [selectedCard] = board[selectedColumn].slice(-1);
+  const [lastCard] = board[selectedColumn].slice(-1);
 
-  return selectedCard;
+  if (!lastCard) {
+    return {};
+  }
+
+  return lastCard;
 };
 
 const getLastCards = (cards) => {
