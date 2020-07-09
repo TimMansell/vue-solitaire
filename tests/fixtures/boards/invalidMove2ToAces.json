@@ -14,57 +14,7 @@
      ]
   ],
   "board":[
-     [
-        {
-           "id":1,
-           "value":"3",
-           "order":3,
-           "suit":"c",
-           "visible":true
-        },
-        {
-           "id":2,
-           "value":"5",
-           "order":5,
-           "suit":"s",
-           "visible":false
-        },
-        {
-           "id":3,
-           "value":"7",
-           "order":7,
-           "suit":"c",
-           "visible":true
-        },
-        {
-           "id":4,
-           "value":"4",
-           "order":4,
-           "suit":"h",
-           "visible":false
-        },
-        {
-           "id":5,
-           "value":"6",
-           "order":6,
-           "suit":"h",
-           "visible":true
-        },
-        {
-           "id":6,
-           "value":"6",
-           "order":6,
-           "suit":"d",
-           "visible":false
-        },
-        {
-           "id":7,
-           "value":"2",
-           "order":2,
-           "suit":"s",
-           "visible":true
-        }
-     ],
+     [],
      [
         {
            "id":8,
@@ -114,7 +64,56 @@
            "order":9,
            "suit":"d",
            "visible":true
-        }
+        },
+        {
+         "id":1,
+         "value":"3",
+         "order":3,
+         "suit":"c",
+         "visible":true
+      },
+      {
+         "id":2,
+         "value":"5",
+         "order":5,
+         "suit":"s",
+         "visible":false
+      },
+      {
+         "id":3,
+         "value":"7",
+         "order":7,
+         "suit":"c",
+         "visible":true
+      },
+      {
+         "id":4,
+         "value":"4",
+         "order":4,
+         "suit":"h",
+         "visible":false
+      },
+      {
+         "id":5,
+         "value":"6",
+         "order":6,
+         "suit":"h",
+         "visible":true
+      },
+      {
+         "id":6,
+         "value":"6",
+         "order":6,
+         "suit":"d",
+         "visible":false
+      },
+      {
+         "id":7,
+         "value":"2",
+         "order":2,
+         "suit":"s",
+         "visible":true
+      }
      ],
      [
         {
