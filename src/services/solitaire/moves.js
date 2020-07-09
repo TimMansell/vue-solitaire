@@ -5,48 +5,31 @@ import {
   getVisibleCards,
   getSelectedCardPosition,
 } from './cards';
-import {
-  isValidKingMove,
-  isMoveValidCard,
-  isMoveValidSuit,
-  isMoveValidOrder,
-  isMoveValidColumn,
-} from './validation';
+import { validateCardMove, validateCardMoveColumn } from './validation';
 
 const checkValidCardMove = ({ boardCards, selectedCardId }, selectedColumn) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
   const lastColumnCard = getLastCard(boardCards, selectedColumn);
   const selectedColumnCards = boardCards[selectedColumn];
 
-  // Relaxed validation for K to empty column
-  if (!lastColumnCard) {
-    const isValidKing = isValidKingMove(selectedCard, lastColumnCard);
+  const isValidCard = validateCardMove(selectedCard, lastColumnCard);
+  const isValidColumn = validateCardMoveColumn(selectedCard, selectedColumnCards);
 
-    return isValidKing;
-  }
-
-  // General validation.
-  const isValidCard = isMoveValidCard(selectedCard, lastColumnCard);
-  const isValidSuit = isMoveValidSuit(selectedCard, lastColumnCard);
-  const isValidOrder = isMoveValidOrder(selectedCard, lastColumnCard);
-  const isValidColumn = isMoveValidColumn(selectedCard, selectedColumnCards);
-
-  return isValidCard && isValidSuit && isValidOrder && isValidColumn;
+  return isValidCard && isValidColumn;
 };
 
 const visibleMoves = (visibleCards, bottomCards, boardCards) =>
   visibleCards.filter((visibleCard) => {
-    const hasMove = bottomCards.filter((bottomCard) => {
-      const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
+    const hasMove =
+      visibleCard.value !== 'K' &&
+      bottomCards.filter((bottomCard) => {
+        const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
 
-      // General validation.
-      const isValidCard = isMoveValidCard(visibleCard, bottomCard);
-      const isValidSuit = isMoveValidSuit(visibleCard, bottomCard);
-      const isValidOrder = isMoveValidOrder(visibleCard, bottomCard);
-      const isValidColumn = isMoveValidColumn(visibleCard, boardCards[columnNo]);
+        const isValidCard = validateCardMove(visibleCard, bottomCard);
+        const isValidColumn = validateCardMoveColumn(visibleCard, boardCards[columnNo]);
 
-      return isValidCard && isValidSuit && isValidOrder && isValidColumn;
-    });
+        return isValidCard && isValidColumn;
+      });
 
     return hasMove.length;
   });
@@ -55,7 +38,7 @@ const kingMoves = (visibleCards, bottomCards, boardCards) =>
   visibleCards.filter((visibleCard) => {
     const { cardPosition } = getSelectedCardPosition(boardCards, visibleCard.id);
 
-    if (visibleCard.order === 13 && bottomCards.length < 8 && cardPosition !== 0) {
+    if (visibleCard.value === 'K' && bottomCards.length < 8 && cardPosition !== 0) {
       return true;
     }
 
@@ -69,12 +52,9 @@ const foundationMoves = (bottomCards, topFoundationCards) =>
       return true;
     }
 
-    const hasFoundationMove = topFoundationCards.filter((topFoundationCard) => {
-      const isValidSuit = isMoveValidSuit(bottomCard, topFoundationCard);
-      const isValidOrder = bottomCard.order === topFoundationCard.order + 1;
-
-      return isValidSuit && isValidOrder;
-    });
+    const hasFoundationMove = topFoundationCards.filter((topFoundationCard) =>
+      validateCardMove(topFoundationCard, bottomCard)
+    );
 
     return hasFoundationMove.length;
   });
