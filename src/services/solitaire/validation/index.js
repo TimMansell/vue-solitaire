@@ -1,5 +1,5 @@
 import {
-  validate,
+  setupValidation,
   isMoveValidCard,
   isMoveValidSuit,
   isMoveValidOrder,
@@ -9,40 +9,40 @@ import {
   isFoundationMoveValidSuit,
   isFoundationMoveValidOrder,
   isFoundationMoveValidAce,
-} from './helpers/validation';
+} from './validation';
 
 export const validateCard = (card, compareTo) => {
-  const v = validate(card, compareTo);
+  const validate = setupValidation(card, compareTo);
 
   // Relaxed validation for K to empty column
   if (!compareTo) {
-    return v(isMoveValidKing);
+    return validate(isMoveValidKing);
   }
 
   // General validation.
-  const isValidCard = v(isMoveValidCard);
-  const isValidSuit = v(isMoveValidSuit);
-  const isValidOrder = v(isMoveValidOrder);
+  const isValidCard = validate(isMoveValidCard);
+  const isValidSuit = validate(isMoveValidSuit);
+  const isValidOrder = validate(isMoveValidOrder);
 
   return isValidCard && isValidSuit && isValidOrder;
 };
 
-export const validateColumn = (selectedCard, selectedColumnCards) =>
-  isMoveValidColumn(selectedCard, selectedColumnCards);
+export const validateColumn = (card, compareTo) =>
+  setupValidation(card, compareTo)(isMoveValidColumn);
 
 export const validateFoundationMove = (card, compareTo) => {
-  const v = validate(card, compareTo);
+  const validate = setupValidation(card, compareTo);
 
   // Relaxed validation for A to empty foundation.
   if (!compareTo.length) {
-    return v(isFoundationMoveValidAce);
+    return validate(isFoundationMoveValidAce);
   }
 
-  const isValidFoundationSuit = v(isFoundationMoveValidSuit);
-  const isValidFoundationOrder = v(isFoundationMoveValidOrder);
+  const isValidFoundationSuit = validate(isFoundationMoveValidSuit);
+  const isValidFoundationOrder = validate(isFoundationMoveValidOrder);
 
   return isValidFoundationSuit && isValidFoundationOrder;
 };
 
 export const validateFoundationPosition = (card, compareTo) =>
-  isFoundationMoveValidPosition(card, compareTo);
+  setupValidation(card, compareTo)(isFoundationMoveValidPosition);

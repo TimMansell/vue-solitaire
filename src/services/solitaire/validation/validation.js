@@ -1,6 +1,6 @@
-// Card validation.
-export const validate = (card, cardCompare) => (rule) => rule(card, cardCompare);
+export const setupValidation = (card, cardCompare) => (rule) => rule(card, cardCompare);
 
+// Card validation.
 export const isMoveValidCard = (selectedCard, compareToCard) =>
   `${selectedCard.order}${selectedCard.suit}` !== `${compareToCard.order}${compareToCard.suit}`;
 
