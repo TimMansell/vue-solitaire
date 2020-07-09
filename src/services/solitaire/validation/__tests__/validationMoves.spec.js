@@ -1,12 +1,12 @@
 import {
-  validateCard,
-  validateColumn,
+  validateCardMove,
+  validateCardMoveColumn,
   validateFoundationMove,
-  validateFoundationPosition,
+  validateFoundationMovePosition,
 } from '../index';
 
 describe('validation moves', () => {
-  describe('validateCard', () => {
+  describe('validateCardMove', () => {
     describe('card', () => {
       it('should be a valid card', () => {
         const card1 = {
@@ -18,7 +18,7 @@ describe('validation moves', () => {
           suit: 'c',
         };
 
-        const result = validateCard(card1, card2);
+        const result = validateCardMove(card1, card2);
 
         expect(result).toBe(true);
       });
@@ -33,7 +33,7 @@ describe('validation moves', () => {
           suit: 'd',
         };
 
-        const result = validateCard(card1, card2);
+        const result = validateCardMove(card1, card2);
 
         expect(result).toBe(false);
       });
@@ -48,7 +48,7 @@ describe('validation moves', () => {
           suit: 'd',
         };
 
-        const result = validateCard(card1, card2);
+        const result = validateCardMove(card1, card2);
 
         expect(result).toBe(false);
       });
@@ -63,7 +63,7 @@ describe('validation moves', () => {
           suit: 'c',
         };
 
-        const result = validateCard(card1, card2);
+        const result = validateCardMove(card1, card2);
 
         expect(result).toBe(false);
       });
@@ -77,7 +77,7 @@ describe('validation moves', () => {
         };
         const card2 = {};
 
-        const result = validateCard(card1, card2);
+        const result = validateCardMove(card1, card2);
 
         expect(result).toBe(true);
       });
@@ -92,14 +92,14 @@ describe('validation moves', () => {
           suit: 'c',
         };
 
-        const result = validateCard(card1, card2);
+        const result = validateCardMove(card1, card2);
 
         expect(result).toBe(false);
       });
     });
   });
 
-  describe('validateColumn', () => {
+  describe('validateCardMoveColumn', () => {
     it('should be a valid column', () => {
       const card = {
         id: 1,
@@ -110,7 +110,7 @@ describe('validation moves', () => {
         },
       ];
 
-      const result = validateColumn(card, cards);
+      const result = validateCardMoveColumn(card, cards);
 
       expect(result).toBe(true);
     });
@@ -125,7 +125,7 @@ describe('validation moves', () => {
         },
       ];
 
-      const result = validateColumn(card, cards);
+      const result = validateCardMoveColumn(card, cards);
 
       expect(result).toBe(false);
     });
@@ -234,7 +234,7 @@ describe('validation moves', () => {
     });
   });
 
-  describe('validateFoundationPosition', () => {
+  describe('validateFoundationMovePosition', () => {
     it('should be a valid position', () => {
       const card = {
         id: 3,
@@ -254,7 +254,7 @@ describe('validation moves', () => {
         ],
       ];
 
-      const result = validateFoundationPosition(card, cards);
+      const result = validateFoundationMovePosition(card, cards);
 
       expect(result).toBe(true);
     });
@@ -278,7 +278,7 @@ describe('validation moves', () => {
         ],
       ];
 
-      const result = validateFoundationPosition(card, cards);
+      const result = validateFoundationMovePosition(card, cards);
 
       expect(result).toBe(false);
     });

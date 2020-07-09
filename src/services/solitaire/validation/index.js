@@ -11,7 +11,7 @@ import {
   isFoundationMoveValidAce,
 } from './validation';
 
-export const validateCard = (card, compareTo) => {
+export const validateCardMove = (card, compareTo) => {
   const validate = setupValidation(card, compareTo);
 
   const isValidKing = validate(isMoveValidKing);
@@ -22,7 +22,7 @@ export const validateCard = (card, compareTo) => {
   return isValidKing || (isValidCard && isValidSuit && isValidOrder);
 };
 
-export const validateColumn = (card, compareTo) =>
+export const validateCardMoveColumn = (card, compareTo) =>
   setupValidation(card, compareTo)(isMoveValidColumn);
 
 export const validateFoundationMove = (card, compareTo) => {
@@ -35,5 +35,5 @@ export const validateFoundationMove = (card, compareTo) => {
   return isValidFoundationAce || (isValidFoundationSuit && isValidFoundationOrder);
 };
 
-export const validateFoundationPosition = (card, compareTo) =>
+export const validateFoundationMovePosition = (card, compareTo) =>
   setupValidation(card, compareTo)(isFoundationMoveValidPosition);

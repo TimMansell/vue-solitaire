@@ -5,15 +5,15 @@ import {
   getVisibleCards,
   getSelectedCardPosition,
 } from './cards';
-import { validateCard, validateColumn } from './validation';
+import { validateCardMove, validateCardMoveColumn } from './validation';
 
 const checkValidCardMove = ({ boardCards, selectedCardId }, selectedColumn) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
   const lastColumnCard = getLastCard(boardCards, selectedColumn);
   const selectedColumnCards = boardCards[selectedColumn];
 
-  const isValidCard = validateCard(selectedCard, lastColumnCard);
-  const isValidColumn = validateColumn(selectedCard, selectedColumnCards);
+  const isValidCard = validateCardMove(selectedCard, lastColumnCard);
+  const isValidColumn = validateCardMoveColumn(selectedCard, selectedColumnCards);
 
   return isValidCard && isValidColumn;
 };
@@ -25,8 +25,8 @@ const visibleMoves = (visibleCards, bottomCards, boardCards) =>
       bottomCards.filter((bottomCard) => {
         const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
 
-        const isValidCard = validateCard(visibleCard, bottomCard);
-        const isValidColumn = validateColumn(visibleCard, boardCards[columnNo]);
+        const isValidCard = validateCardMove(visibleCard, bottomCard);
+        const isValidColumn = validateCardMoveColumn(visibleCard, boardCards[columnNo]);
 
         return isValidCard && isValidColumn;
       });
@@ -53,7 +53,7 @@ const foundationMoves = (bottomCards, topFoundationCards) =>
     }
 
     const hasFoundationMove = topFoundationCards.filter((topFoundationCard) =>
-      validateCard(topFoundationCard, bottomCard)
+      validateCardMove(topFoundationCard, bottomCard)
     );
 
     return hasFoundationMove.length;
