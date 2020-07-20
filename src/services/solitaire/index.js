@@ -38,7 +38,7 @@ const solitaire = () => {
 
   const removeSelectedCard = () => setGameState({ selectedCardId: null });
 
-  const setMoveCards = (selectedColumn) => {
+  const moveCards = (selectedColumn) => {
     const cardFromColumn = moveCardsFrom(state);
     const cardsToColumn = moveCardsTo(state, selectedColumn);
     const boardCards = updateBoard(state, cardFromColumn, cardsToColumn);
@@ -84,7 +84,7 @@ const solitaire = () => {
     hasNoMoves,
     isValidCardMove,
     isValidFoundationMove,
-    setMoveCards,
+    moveCards,
     moveCardsToFoundation,
     findEmptyFoundationColumn,
   };

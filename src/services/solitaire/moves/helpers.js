@@ -10,8 +10,8 @@ export const displayMoves = (moves) => {
 };
 
 export const checkFoundationMove = (topFoundationCards, bottomCard) => {
-  const hasMoves = topFoundationCards.filter((topFoundationCard) =>
+  const hasFoundationMoves = topFoundationCards.filter((topFoundationCard) =>
     validateCardMove(topFoundationCard, bottomCard)
   );
-  return hasMoves.length > 0;
+  return hasFoundationMoves.length > 0;
 };

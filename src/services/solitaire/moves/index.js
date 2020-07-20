@@ -20,17 +20,17 @@ export const checkValidCardMove = ({ boardCards, selectedCardId }, selectedColum
 };
 
 export const checkHasMoves = ({ boardCards, foundationCards }) => {
-  const topFoundationCards = getLastCards(foundationCards);
-  const bottomCards = getLastCards(boardCards);
+  const lastFoundationCards = getLastCards(foundationCards);
+  const lastCards = getLastCards(boardCards);
   const visibleCards = getVisibleCards(boardCards);
 
-  const hasVisibleMoves = checkVisibleMoves(visibleCards, bottomCards, boardCards);
+  const hasVisibleMoves = checkVisibleMoves(visibleCards, lastCards, boardCards);
 
   // If card is king and there is an empty column then we have a possible move.
-  const hasKingMoves = checkKingMoves(visibleCards, bottomCards, boardCards);
+  const hasKingMoves = checkKingMoves(visibleCards, lastCards, boardCards);
 
   // Can we move any cards to the foundation?
-  const hasFoundationMoves = checkFoundationMoves(bottomCards, topFoundationCards);
+  const hasFoundationMoves = checkFoundationMoves(lastCards, lastFoundationCards);
 
   return ![...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length;
 };
