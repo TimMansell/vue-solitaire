@@ -3,7 +3,7 @@ import defaultState from './state';
 
 const mutations = {
   RESTART_GAME(state) {
-    Object.assign(state, defaultState);
+    Object.assign(state, defaultState());
   },
   SET_GAME_WON(state, isGameWon) {
     state.isGameWon = isGameWon;
