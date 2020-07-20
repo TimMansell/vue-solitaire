@@ -1,4 +1,4 @@
-import { visibleMoves, kingMoves, foundationMoves } from './moves';
+import { visibleMoves, kingMoves, foundationMoves, displayMoves } from './moves';
 import {
   getSelectedCard,
   getLastCard,
@@ -38,10 +38,7 @@ export const checkHasMoves = ({ boardCards, foundationCards }) => {
   const hasFoundationMoves = foundationMoves(bottomCards, topFoundationCards);
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('---');
-    [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].forEach((move) => {
-      console.log('hasMove', `${move.value}${move.suit}`);
-    });
+    displayMoves(hasVisibleMoves, hasFoundationMoves, hasKingMoves);
   }
 
   return ![...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length;

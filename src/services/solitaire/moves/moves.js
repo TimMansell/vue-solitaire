@@ -21,11 +21,7 @@ export const kingMoves = (visibleCards, bottomCards, boardCards) =>
   visibleCards.filter((visibleCard) => {
     const { cardPosition } = getSelectedCardPosition(boardCards, visibleCard.id);
 
-    if (visibleCard.value === 'K' && bottomCards.length < 8 && cardPosition !== 0) {
-      return true;
-    }
-
-    return false;
+    return visibleCard.value === 'K' && bottomCards.length < 8 && cardPosition !== 0;
   });
 
 export const foundationMoves = (bottomCards, topFoundationCards) =>
@@ -41,3 +37,10 @@ export const foundationMoves = (bottomCards, topFoundationCards) =>
 
     return hasFoundationMove.length;
   });
+
+export const displayMoves = (hasVisibleMoves, hasFoundationMoves, hasKingMoves) => {
+  console.log('---');
+  [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].forEach((move) => {
+    console.log('hasMove', `${move.value}${move.suit}`);
+  });
+};
