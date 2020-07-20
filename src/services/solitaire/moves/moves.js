@@ -27,7 +27,7 @@ export const kingMoves = (visibleCards, bottomCards, boardCards) =>
 export const foundationMoves = (bottomCards, topFoundationCards) =>
   bottomCards.filter((bottomCard) => {
     // If bottom card in an A then there is a possible move.
-    if (bottomCard.order === 1) {
+    if (bottomCard.value === 'A') {
       return true;
     }
 
