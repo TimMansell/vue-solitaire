@@ -1,4 +1,4 @@
-import { visibleMoves, kingMoves, foundationMoves } from './moves';
+import { checkVisibleMoves, checkKingMoves, checkFoundationMoves } from './moves';
 import {
   getSelectedCard,
   getLastCard,
@@ -24,13 +24,13 @@ export const checkHasMoves = ({ boardCards, foundationCards }) => {
   const bottomCards = getLastCards(boardCards);
   const visibleCards = getVisibleCards(boardCards);
 
-  const hasVisibleMoves = visibleMoves(visibleCards, bottomCards, boardCards);
+  const hasVisibleMoves = checkVisibleMoves(visibleCards, bottomCards, boardCards);
 
   // If card is king and there is an empty column then we have a possible move.
-  const hasKingMoves = kingMoves(visibleCards, bottomCards, boardCards);
+  const hasKingMoves = checkKingMoves(visibleCards, bottomCards, boardCards);
 
   // Can we move any cards to the foundation?
-  const hasFoundationMoves = foundationMoves(bottomCards, topFoundationCards);
+  const hasFoundationMoves = checkFoundationMoves(bottomCards, topFoundationCards);
 
   return ![...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length;
 };

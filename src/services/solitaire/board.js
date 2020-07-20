@@ -39,4 +39,6 @@ const updateBoard = ({ boardCards }, cardsFrom, cardsTo = {}) => {
   });
 };
 
-export { initBoard, updateBoard };
+const checkEmptyColumns = (cards) => cards.length < 8;
+
+export { initBoard, updateBoard, checkEmptyColumns };

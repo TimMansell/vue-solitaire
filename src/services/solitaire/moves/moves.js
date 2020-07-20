@@ -1,69 +1,57 @@
-import { getSelectedCardPosition } from '../cards';
+import { getSelectedCardPosition, checkCardValue, checkCardTopPosition } from '../cards';
+import { checkEmptyColumns } from '../board';
 import { validateCardMove, validateCardMoveColumn } from '../validation';
+import { displayMoves, checkFoundationMove } from './helpers';
 
-const displayMoves = (moves) => {
-  if (moves.length) {
-    console.log('---------------');
-    [...moves].forEach((move) => {
-      console.log('hasMove', `${move.value}${move.suit}`);
+export const checkVisibleMoves = (visibleCards, bottomCards, boardCards) => {
+  const hasMoves = visibleCards.filter((visibleCard) => {
+    const cardHasMove = bottomCards.filter((bottomCard) => {
+      const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
+
+      const isCardKing = checkCardValue(visibleCard, 'K');
+      const isValidCard = validateCardMove(visibleCard, bottomCard);
+      const isValidColumn = validateCardMoveColumn(visibleCard, boardCards[columnNo]);
+
+      return !isCardKing && isValidCard && isValidColumn;
     });
-  }
-};
 
-export const visibleMoves = (visibleCards, bottomCards, boardCards) => {
-  const moves = visibleCards.filter((visibleCard) => {
-    const hasMove =
-      visibleCard.value !== 'K' &&
-      bottomCards.filter((bottomCard) => {
-        const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
-
-        const isValidCard = validateCardMove(visibleCard, bottomCard);
-        const isValidColumn = validateCardMoveColumn(visibleCard, boardCards[columnNo]);
-
-        return isValidCard && isValidColumn;
-      });
-
-    return hasMove.length;
+    return cardHasMove.length > 0;
   });
 
   if (process.env.NODE_ENV === 'development') {
-    displayMoves(moves);
+    displayMoves(hasMoves);
   }
 
-  return moves;
+  return hasMoves;
 };
 
-export const kingMoves = (visibleCards, bottomCards, boardCards) => {
-  const moves = visibleCards.filter((visibleCard) => {
-    const { cardPosition } = getSelectedCardPosition(boardCards, visibleCard.id);
+export const checkKingMoves = (visibleCards, bottomCards, boardCards) => {
+  const hasMoves = visibleCards.filter((visibleCard) => {
+    const isCardTopPosition = checkCardTopPosition(boardCards, visibleCard.id);
+    const isCardKing = checkCardValue(visibleCard, 'K');
+    const hasEmptyColumns = checkEmptyColumns(bottomCards);
 
-    return visibleCard.value === 'K' && bottomCards.length < 8 && cardPosition !== 0;
+    return isCardKing && hasEmptyColumns && !isCardTopPosition;
   });
 
   if (process.env.NODE_ENV === 'development') {
-    displayMoves(moves);
+    displayMoves(hasMoves);
   }
 
-  return moves;
+  return hasMoves;
 };
 
-export const foundationMoves = (bottomCards, topFoundationCards) => {
-  const moves = bottomCards.filter((bottomCard) => {
-    // If bottom card in an A then there is a possible move.
-    if (bottomCard.value === 'A') {
-      return true;
-    }
+export const checkFoundationMoves = (bottomCards, topFoundationCards) => {
+  const hasMoves = bottomCards.filter((bottomCard) => {
+    const isCardAce = checkCardValue(bottomCard, 'A');
+    const hasFoundationMove = checkFoundationMove(topFoundationCards, bottomCard);
 
-    const hasFoundationMove = topFoundationCards.filter((topFoundationCard) =>
-      validateCardMove(topFoundationCard, bottomCard)
-    );
-
-    return hasFoundationMove.length;
+    return isCardAce || hasFoundationMove;
   });
 
   if (process.env.NODE_ENV === 'development') {
-    displayMoves(moves);
+    displayMoves(hasMoves);
   }
 
-  return moves;
+  return hasMoves;
 };

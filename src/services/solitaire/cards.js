@@ -73,6 +73,14 @@ const getLastCards = (cards) => {
   return lastCards;
 };
 
+const checkCardValue = (card, value) => card.value === value;
+
+const checkCardTopPosition = (cards, selectedCardId) => {
+  const { cardPosition } = getSelectedCardPosition(cards, selectedCardId);
+
+  return cardPosition === 0;
+};
+
 const initCards = ({ cards }) => shuffleCards(cards);
 
 export {
@@ -83,4 +91,6 @@ export {
   getLastCards,
   getVisibleCards,
   getSelectedCardPosition,
+  checkCardValue,
+  checkCardTopPosition,
 };
