@@ -1,5 +1,5 @@
-import { checkValidCardMove, checkHasMoves } from './moves';
-import { initCards, moveCardsFrom, moveCardsTo } from './cards';
+import { initCards } from './cards';
+import { checkValidCardMove, checkHasMoves, moveCardsFrom, moveCardsTo } from './moves';
 import {
   initFoundations,
   updateFoundation,
