@@ -24,11 +24,6 @@ export const checkHasMoves = ({ boardCards, foundationCards }) => {
   const bottomCards = getLastCards(boardCards);
   const visibleCards = getVisibleCards(boardCards);
 
-  // No more cards so game is finished.
-  if (!bottomCards.length) {
-    return false;
-  }
-
   const hasVisibleMoves = visibleMoves(visibleCards, bottomCards, boardCards);
 
   // If card is king and there is an empty column then we have a possible move.
