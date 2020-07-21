@@ -7,12 +7,4 @@ describe('Card.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('calls buttonClick method', () => {
-    const wrapper = shallowMount(GameOverlay);
-
-    wrapper.vm.buttonClick();
-
-    expect(wrapper.emitted().buttonClick).toBeTruthy();
-  });
 });

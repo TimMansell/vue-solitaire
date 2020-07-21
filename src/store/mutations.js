@@ -3,13 +3,10 @@ import defaultState from './state';
 
 const mutations = {
   RESTART_GAME(state) {
-    Object.assign(state, defaultState);
+    Object.assign(state, defaultState());
   },
   SET_GAME_WON(state, isGameWon) {
     state.isGameWon = isGameWon;
-  },
-  SET_GAME_LOST(state, isGameLost) {
-    state.isGameLost = isGameLost;
   },
   SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
@@ -26,6 +23,9 @@ const mutations = {
   },
   UNSELECT_CARD(state) {
     state.selectedCardId = null;
+  },
+  SET_REMAINING_MOVES(state, hasMoves) {
+    state.hasMoves = hasMoves;
   },
 };
 
