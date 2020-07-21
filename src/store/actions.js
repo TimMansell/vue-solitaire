@@ -7,23 +7,13 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
   },
-  restartGame({ commit, dispatch }) {
-    solitaire.init();
-
-    dispatch('unselectCard');
-
+  restartGame({ commit }) {
     commit('RESTART_GAME');
   },
   checkGameWon({ commit }) {
     const isGameWon = solitaire.isEmptyBoard();
 
     commit('SET_GAME_WON', isGameWon);
-  },
-  setGameWon({ commit }, isGameWon) {
-    commit('SET_GAME_WON', isGameWon);
-  },
-  setGameLost({ commit }, isGameLost) {
-    commit('SET_GAME_LOST', isGameLost);
   },
   setFoundations({ commit }) {
     const foundationCards = solitaire.getFoundationCards();
@@ -52,15 +42,15 @@ const actions = {
     commit('UNSELECT_CARD');
   },
   checkRemainingMoves({ commit }) {
-    const isGameLost = solitaire.hasNoMoves();
+    const hasMoves = solitaire.hasMoves();
 
-    commit('SET_GAME_LOST', isGameLost);
+    commit('SET_REMAINING_MOVES', hasMoves);
   },
   moveCardsToColumn({ dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidCardMove(selectedColumn);
 
     if (isValidMove) {
-      solitaire.setMoveCards(selectedColumn);
+      solitaire.moveCards(selectedColumn);
 
       dispatch('setBoard');
       dispatch('checkRemainingMoves');

@@ -1,5 +1,5 @@
-import { checkValidCardMove, checkHasMoves } from './moves';
-import { initCards, moveCardsFrom, moveCardsTo } from './cards';
+import { initCards } from './cards';
+import { checkValidCardMove, checkHasMoves, moveCardsFrom, moveCardsTo } from './moves';
 import {
   initFoundations,
   updateFoundation,
@@ -38,10 +38,10 @@ const solitaire = () => {
 
   const removeSelectedCard = () => setGameState({ selectedCardId: null });
 
-  const setMoveCards = (selectedColumn) => {
-    const cardFromColumn = moveCardsFrom(state);
+  const moveCards = (selectedColumn) => {
+    const cardsFromColumn = moveCardsFrom(state);
     const cardsToColumn = moveCardsTo(state, selectedColumn);
-    const boardCards = updateBoard(state, cardFromColumn, cardsToColumn);
+    const boardCards = updateBoard(state, cardsFromColumn, cardsToColumn);
 
     setGameState({ boardCards });
   };
@@ -51,9 +51,9 @@ const solitaire = () => {
   const findEmptyFoundationColumn = () => getEmptyFoundationColumn(state);
 
   const moveCardsToFoundation = (selectedColumn) => {
-    const cardFromColumn = moveCardsFrom(state);
+    const cardsFromColumn = moveCardsFrom(state);
     const cardsToColumn = moveFoundationCardsTo(state, selectedColumn);
-    const boardCards = updateBoard(state, cardFromColumn);
+    const boardCards = updateBoard(state, cardsFromColumn);
     const foundationCards = updateFoundation(state, cardsToColumn);
 
     setGameState({
@@ -66,7 +66,7 @@ const solitaire = () => {
 
   const isEmptyBoard = () => !state.boardCards.flat().length;
 
-  const hasNoMoves = () => checkHasMoves(state);
+  const hasMoves = () => checkHasMoves(state);
 
   const getBoardCards = () => state.boardCards;
 
@@ -81,10 +81,10 @@ const solitaire = () => {
     getBoardCards,
     setSelectedCard,
     removeSelectedCard,
-    hasNoMoves,
+    hasMoves,
     isValidCardMove,
     isValidFoundationMove,
-    setMoveCards,
+    moveCards,
     moveCardsToFoundation,
     findEmptyFoundationColumn,
   };
