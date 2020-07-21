@@ -1,18 +1,26 @@
-import { getSelectedCardPosition, checkCardValue, checkCardTopPosition } from '../cards';
+import {
+  getSelectedCardPosition,
+  checkCardValue,
+  checkCardTopPosition,
+  getLastCards,
+  getVisibleCards,
+} from '../cards';
 import { checkEmptyColumns } from '../board';
 import { validateCardMove, validateCardMoveColumn } from '../validation';
 import { displayMoves } from './helpers';
 
-export const checkVisibleMoves = (visibleCards, lastCards, boardCards) => {
+export const checkVisibleMoves = (boardCards) => {
+  const lastCards = getLastCards(boardCards);
+  const visibleCards = getVisibleCards(boardCards);
+
   const hasMoves = visibleCards.filter((visibleCard) => {
     const cardHasMove = lastCards.filter((lastCard) => {
       const { columnNo } = getSelectedCardPosition(boardCards, lastCard.id);
 
-      const isCardKing = checkCardValue(visibleCard, 'K');
       const isValidCard = validateCardMove(visibleCard, lastCard);
       const isValidColumn = validateCardMoveColumn(visibleCard, boardCards[columnNo]);
 
-      return !isCardKing && isValidCard && isValidColumn;
+      return isValidCard && isValidColumn;
     });
 
     return cardHasMove.length > 0;
@@ -25,7 +33,10 @@ export const checkVisibleMoves = (visibleCards, lastCards, boardCards) => {
   return hasMoves;
 };
 
-export const checkKingMoves = (visibleCards, lastCards, boardCards) => {
+export const checkKingMoves = (boardCards) => {
+  const lastCards = getLastCards(boardCards);
+  const visibleCards = getVisibleCards(boardCards);
+
   const hasMoves = visibleCards.filter((visibleCard) => {
     const isCardTopPosition = checkCardTopPosition(boardCards, visibleCard.id);
     const isCardKing = checkCardValue(visibleCard, 'K');
@@ -41,7 +52,10 @@ export const checkKingMoves = (visibleCards, lastCards, boardCards) => {
   return hasMoves;
 };
 
-export const checkFoundationMoves = (lastCards, lastFoundationCards) => {
+export const checkFoundationMoves = (boardCards, foundationCards) => {
+  const lastFoundationCards = getLastCards(foundationCards);
+  const lastCards = getLastCards(boardCards);
+
   const hasMoves = lastCards.filter((lastCard) => {
     const isCardAce = checkCardValue(lastCard, 'A');
     const hasFoundationMove = lastFoundationCards.filter((lastFoundationCard) =>

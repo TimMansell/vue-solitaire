@@ -1,12 +1,5 @@
 import { checkVisibleMoves, checkKingMoves, checkFoundationMoves } from './moves';
-import {
-  getSelectedCard,
-  getLastCard,
-  getLastCards,
-  getVisibleCards,
-  getSelectedCardPosition,
-  showLastCard,
-} from '../cards';
+import { getSelectedCard, getLastCard, getSelectedCardPosition, showLastCard } from '../cards';
 import { validateCardMove, validateCardMoveColumn } from '../validation';
 
 export const checkValidCardMove = ({ boardCards, selectedCardId }, selectedColumn) => {
@@ -21,19 +14,11 @@ export const checkValidCardMove = ({ boardCards, selectedCardId }, selectedColum
 };
 
 export const checkHasMoves = ({ boardCards, foundationCards }) => {
-  const lastFoundationCards = getLastCards(foundationCards);
-  const lastCards = getLastCards(boardCards);
-  const visibleCards = getVisibleCards(boardCards);
+  const hasVisibleMoves = checkVisibleMoves(boardCards);
+  const hasKingMoves = checkKingMoves(boardCards);
+  const hasFoundationMoves = checkFoundationMoves(boardCards, foundationCards);
 
-  const hasVisibleMoves = checkVisibleMoves(visibleCards, lastCards, boardCards);
-
-  // If card is king and there is an empty column then we have a possible move.
-  const hasKingMoves = checkKingMoves(visibleCards, lastCards, boardCards);
-
-  // Can we move any cards to the foundation?
-  const hasFoundationMoves = checkFoundationMoves(lastCards, lastFoundationCards);
-
-  return ![...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length;
+  return [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length > 0;
 };
 
 export const moveCardsFrom = ({ selectedCardId, boardCards }) => {
@@ -43,8 +28,8 @@ export const moveCardsFrom = ({ selectedCardId, boardCards }) => {
   const cards = showLastCard(remainingCards);
 
   return {
-    columnNo,
     cards,
+    columnNo,
   };
 };
 
@@ -57,7 +42,7 @@ export const moveCardsTo = ({ selectedCardId, boardCards }, selectedColumn) => {
   const cards = [...columnCards, ...moveCards];
 
   return {
-    columnNo: selectedColumn,
     cards,
+    columnNo: selectedColumn,
   };
 };
