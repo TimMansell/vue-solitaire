@@ -24,8 +24,8 @@ const mutations = {
   UNSELECT_CARD(state) {
     state.selectedCardId = null;
   },
-  SET_NO_MOVES(state, hasNoMoves) {
-    state.hasNoMoves = hasNoMoves;
+  SET_REMAINING_MOVES(state, hasMoves) {
+    state.hasMoves = hasMoves;
   },
 };
 

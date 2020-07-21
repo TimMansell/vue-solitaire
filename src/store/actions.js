@@ -42,9 +42,9 @@ const actions = {
     commit('UNSELECT_CARD');
   },
   checkRemainingMoves({ commit }) {
-    const hasNoMoves = solitaire.hasNoMoves();
+    const hasMoves = solitaire.hasMoves();
 
-    commit('SET_NO_MOVES', hasNoMoves);
+    commit('SET_REMAINING_MOVES', hasMoves);
   },
   moveCardsToColumn({ dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidCardMove(selectedColumn);

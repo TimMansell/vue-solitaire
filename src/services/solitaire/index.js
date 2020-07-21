@@ -66,7 +66,7 @@ const solitaire = () => {
 
   const isEmptyBoard = () => !state.boardCards.flat().length;
 
-  const hasNoMoves = () => checkHasMoves(state);
+  const hasMoves = () => checkHasMoves(state);
 
   const getBoardCards = () => state.boardCards;
 
@@ -81,7 +81,7 @@ const solitaire = () => {
     getBoardCards,
     setSelectedCard,
     removeSelectedCard,
-    hasNoMoves,
+    hasMoves,
     isValidCardMove,
     isValidFoundationMove,
     moveCards,

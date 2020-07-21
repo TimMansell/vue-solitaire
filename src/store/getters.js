@@ -3,7 +3,7 @@ const getters = {
   foundationCards: (state) => state.board.foundation,
   selectedCardId: (state) => state.selectedCardId,
   isGameWon: (state) => state.isGameWon,
-  hasNoMoves: (state) => state.hasNoMoves,
+  hasMoves: (state) => state.hasMoves,
 };
 
 export default getters;

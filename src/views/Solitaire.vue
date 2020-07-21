@@ -1,10 +1,10 @@
 <template>
   <div class="solitaire">
     <Board />
-    <GameOverlay v-if="hasNoMoves && isGameWon" data-test="game-won">
+    <GameOverlay v-if="!hasMoves && isGameWon" data-test="game-won">
       Congratulations, you win!
     </GameOverlay>
-    <GameOverlay v-if="hasNoMoves && !isGameWon" data-test="game-lost">
+    <GameOverlay v-if="!hasMoves && !isGameWon" data-test="game-lost">
       Sorry, no more Moves!
     </GameOverlay>
     <Rules />
@@ -26,7 +26,7 @@ export default {
     Rules,
   },
   computed: {
-    ...mapGetters(['isGameWon', 'hasNoMoves']),
+    ...mapGetters(['isGameWon', 'hasMoves']),
   },
   mounted() {
     this.initGame();
