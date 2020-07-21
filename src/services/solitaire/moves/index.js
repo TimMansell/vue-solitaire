@@ -5,6 +5,7 @@ import {
   getLastCards,
   getVisibleCards,
   getSelectedCardPosition,
+  showLastCard,
 } from '../cards';
 import { validateCardMove, validateCardMoveColumn } from '../validation';
 
@@ -38,23 +39,12 @@ export const checkHasMoves = ({ boardCards, foundationCards }) => {
 export const moveCardsFrom = ({ selectedCardId, boardCards }) => {
   const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
 
-  const columnCards = boardCards[columnNo].slice(0, cardPosition);
-
-  const remainingCards = columnCards.map((card, index) => {
-    if (index === columnCards.length - 1 && !card.visible) {
-      const newValues = {
-        ...card,
-        visible: true,
-      };
-      return newValues;
-    }
-
-    return card;
-  });
+  const remainingCards = boardCards[columnNo].slice(0, cardPosition);
+  const cards = showLastCard(remainingCards);
 
   return {
     column: columnNo,
-    cards: remainingCards,
+    cards,
   };
 };
 
@@ -64,10 +54,10 @@ export const moveCardsTo = ({ selectedCardId, boardCards }, selectedColumn) => {
   const columnCards = boardCards[selectedColumn];
   const moveCards = boardCards[columnNo].slice(cardPosition);
 
-  const newColumn = [...columnCards, ...moveCards];
+  const cards = [...columnCards, ...moveCards];
 
   return {
     column: selectedColumn,
-    cards: newColumn,
+    cards,
   };
 };

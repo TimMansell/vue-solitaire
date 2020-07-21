@@ -73,6 +73,18 @@ const getLastCards = (cards) => {
   return lastCards;
 };
 
+const showLastCard = (cards) =>
+  cards.map((card, index) => {
+    if (index === cards.length - 1) {
+      return {
+        ...card,
+        visible: true,
+      };
+    }
+
+    return card;
+  });
+
 const checkCardValue = (card, value) => card.value === value;
 
 const checkCardTopPosition = (cards, selectedCardId) => {
@@ -89,6 +101,7 @@ export {
   getSelectedCard,
   getLastCard,
   getLastCards,
+  showLastCard,
   getVisibleCards,
   getSelectedCardPosition,
   checkCardValue,
