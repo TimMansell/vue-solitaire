@@ -1,15 +1,15 @@
 import { getSelectedCardPosition, checkCardValue, checkCardTopPosition } from '../cards';
 import { checkEmptyColumns } from '../board';
 import { validateCardMove, validateCardMoveColumn } from '../validation';
-import { displayMoves, checkFoundationMove } from './helpers';
+import { displayMoves } from './helpers';
 
-export const checkVisibleMoves = (visibleCards, bottomCards, boardCards) => {
+export const checkVisibleMoves = (visibleCards, lastCards, boardCards) => {
   const hasMoves = visibleCards.filter((visibleCard) => {
-    const cardHasMove = bottomCards.filter((bottomCard) => {
-      const { columnNo } = getSelectedCardPosition(boardCards, bottomCard.id);
+    const cardHasMove = lastCards.filter((lastCard) => {
+      const { columnNo } = getSelectedCardPosition(boardCards, lastCard.id);
 
       const isCardKing = checkCardValue(visibleCard, 'K');
-      const isValidCard = validateCardMove(visibleCard, bottomCard);
+      const isValidCard = validateCardMove(visibleCard, lastCard);
       const isValidColumn = validateCardMoveColumn(visibleCard, boardCards[columnNo]);
 
       return !isCardKing && isValidCard && isValidColumn;
@@ -25,11 +25,11 @@ export const checkVisibleMoves = (visibleCards, bottomCards, boardCards) => {
   return hasMoves;
 };
 
-export const checkKingMoves = (visibleCards, bottomCards, boardCards) => {
+export const checkKingMoves = (visibleCards, lastCards, boardCards) => {
   const hasMoves = visibleCards.filter((visibleCard) => {
     const isCardTopPosition = checkCardTopPosition(boardCards, visibleCard.id);
     const isCardKing = checkCardValue(visibleCard, 'K');
-    const hasEmptyColumns = checkEmptyColumns(bottomCards);
+    const hasEmptyColumns = checkEmptyColumns(lastCards);
 
     return isCardKing && hasEmptyColumns && !isCardTopPosition;
   });
@@ -41,12 +41,14 @@ export const checkKingMoves = (visibleCards, bottomCards, boardCards) => {
   return hasMoves;
 };
 
-export const checkFoundationMoves = (bottomCards, topFoundationCards) => {
-  const hasMoves = bottomCards.filter((bottomCard) => {
-    const isCardAce = checkCardValue(bottomCard, 'A');
-    const hasFoundationMove = checkFoundationMove(topFoundationCards, bottomCard);
+export const checkFoundationMoves = (lastCards, lastFoundationCards) => {
+  const hasMoves = lastCards.filter((lastCard) => {
+    const isCardAce = checkCardValue(lastCard, 'A');
+    const hasFoundationMove = lastFoundationCards.filter((lastFoundationCard) =>
+      validateCardMove(lastFoundationCard, lastCard)
+    );
 
-    return isCardAce || hasFoundationMove;
+    return isCardAce || hasFoundationMove.length > 0;
   });
 
   if (process.env.NODE_ENV === 'development') {

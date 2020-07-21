@@ -1,5 +1,4 @@
-import { validateCardMove } from '../validation';
-
+// eslint-disable-next-line import/prefer-default-export
 export const displayMoves = (moves) => {
   if (moves.length) {
     console.log('---------------');
@@ -7,11 +6,4 @@ export const displayMoves = (moves) => {
       console.log('hasMove', `${value}${suit}`);
     });
   }
-};
-
-export const checkFoundationMove = (topFoundationCards, bottomCard) => {
-  const hasFoundationMoves = topFoundationCards.filter((topFoundationCard) =>
-    validateCardMove(topFoundationCard, bottomCard)
-  );
-  return hasFoundationMoves.length > 0;
 };
