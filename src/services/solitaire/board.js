@@ -27,11 +27,11 @@ const initBoard = ({ rules }, deck) => {
 
 const updateBoard = ({ boardCards }, cardsFrom, cardsTo = {}) => {
   return boardCards.map((cards, index) => {
-    if (index === cardsFrom.column) {
+    if (index === cardsFrom.columnNo) {
       return cardsFrom.cards;
     }
 
-    if (index === cardsTo.column) {
+    if (index === cardsTo.columnNo) {
       return cardsTo.cards;
     }
 

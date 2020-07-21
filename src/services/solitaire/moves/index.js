@@ -43,7 +43,7 @@ export const moveCardsFrom = ({ selectedCardId, boardCards }) => {
   const cards = showLastCard(remainingCards);
 
   return {
-    column: columnNo,
+    columnNo,
     cards,
   };
 };
@@ -57,7 +57,7 @@ export const moveCardsTo = ({ selectedCardId, boardCards }, selectedColumn) => {
   const cards = [...columnCards, ...moveCards];
 
   return {
-    column: selectedColumn,
+    columnNo: selectedColumn,
     cards,
   };
 };
