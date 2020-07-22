@@ -1,15 +1,15 @@
-import { getSelectedCard, getSelectedCardPosition } from './cards';
+import { getSelectedCard } from './cards';
 import { validateFoundationMove, validateFoundationMovePosition } from './validation';
 
 const initFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
 
-const updateFoundation = ({ foundationCards }, cardsTo) => {
-  return foundationCards.map((cards, index) => {
-    if (index === cardsTo.column) {
-      return cardsTo.cards;
+const updateFoundation = ({ foundationCards }, { foundationCardsTo }) => {
+  return foundationCards.map((columnCards, index) => {
+    if (index === foundationCardsTo.columnNo) {
+      return foundationCardsTo.cards;
     }
 
-    return cards;
+    return columnCards;
   });
 };
 
@@ -53,24 +53,4 @@ const checkValidFoundationMove = (
   return isValidFoundationMove && isValidCardPosition;
 };
 
-const moveFoundationCardsTo = ({ selectedCardId, boardCards, foundationCards }, selectedColumn) => {
-  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
-
-  const columnCards = foundationCards[selectedColumn];
-  const moveCards = boardCards[columnNo].slice(cardPosition);
-
-  const newColumn = [...columnCards, ...moveCards];
-
-  return {
-    column: selectedColumn,
-    cards: newColumn,
-  };
-};
-
-export {
-  initFoundations,
-  updateFoundation,
-  getEmptyFoundationColumn,
-  checkValidFoundationMove,
-  moveFoundationCardsTo,
-};
+export { initFoundations, updateFoundation, getEmptyFoundationColumn, checkValidFoundationMove };

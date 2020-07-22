@@ -4,6 +4,7 @@ import {
   checkCardTopPosition,
   getLastCards,
   getVisibleCards,
+  showLastCard,
 } from '../cards';
 import { checkEmptyColumns } from '../board';
 import { validateCardMove, validateCardMoveColumn } from '../validation';
@@ -70,4 +71,51 @@ export const checkFoundationMoves = (boardCards, foundationCards) => {
   }
 
   return hasMoves;
+};
+
+export const moveCardsFromBoard = ({ selectedCardId, boardCards }) => {
+  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
+
+  const remainingCards = boardCards[columnNo].slice(0, cardPosition);
+  const cards = showLastCard(remainingCards);
+
+  return {
+    cards,
+    columnNo,
+  };
+};
+
+export const moveCardsToBoard = ({ selectedCardId, boardCards }, selectedColumn) => {
+  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
+
+  const columnCards = boardCards[selectedColumn];
+  const moveCards = boardCards[columnNo].slice(cardPosition);
+
+  const cards = [...columnCards, ...moveCards];
+
+  // const cards = getColumnCards(boardCards, boardCards, selectedCardId, selectedColumn);
+
+  return {
+    cards,
+    columnNo: selectedColumn,
+  };
+};
+
+export const moveCardsToFoundation = (
+  { selectedCardId, boardCards, foundationCards },
+  selectedColumn
+) => {
+  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
+
+  const columnCards = foundationCards[selectedColumn];
+  const moveCards = boardCards[columnNo].slice(cardPosition);
+
+  const cards = [...columnCards, ...moveCards];
+
+  // const cards = getColumnCards(foundationCards, boardCards, selectedCardId, selectedColumn);
+
+  return {
+    cards,
+    columnNo: selectedColumn,
+  };
 };
