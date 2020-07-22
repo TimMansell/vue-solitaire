@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const displayMoves = (moves) => {
   if (moves.length) {
     console.log('---------------');
@@ -6,4 +5,11 @@ export const displayMoves = (moves) => {
       console.log('hasMove', `${value}${suit}`);
     });
   }
+};
+
+export const getColumnCards = ({ toCards, fromCards, selectedColumn, columnNo, cardPosition }) => {
+  const columnCards = toCards[selectedColumn];
+  const moveCards = fromCards[columnNo].slice(cardPosition);
+
+  return [...columnCards, ...moveCards];
 };
