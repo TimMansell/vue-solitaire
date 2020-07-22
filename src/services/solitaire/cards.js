@@ -32,6 +32,26 @@ const showHideCards = (cards, offset = 0) =>
     return card;
   });
 
+const dealCards = ({ columns }, deck) =>
+  columns.map((column, columnIndex, array) => {
+    const startArray = array.slice(0, columnIndex);
+    const endArray = array.slice(0, columnIndex + 1);
+
+    const calcOffset = (accumulator, currentValue) => accumulator + currentValue;
+
+    const startIndex = startArray.reduce(calcOffset, 0);
+    const endIndex = endArray.reduce(calcOffset, 0);
+
+    const cards = deck.slice(startIndex, endIndex);
+
+    // Offset by one.
+    if (columnIndex > 3) {
+      return showHideCards(cards, 1);
+    }
+
+    return showHideCards(cards);
+  });
+
 const getSelectedCard = (cards, selectedCardId) => {
   const [selectedCard] = cards.flat().filter((card) => card.id === selectedCardId);
 
@@ -93,10 +113,16 @@ const checkCardTopPosition = (cards, selectedCardId) => {
   return cardPosition === 0;
 };
 
-const initCards = ({ cards }) => shuffleCards(cards);
+const initCards = ({ cards, rules }) => {
+  const deck = shuffleCards(cards);
+  const dealtCards = dealCards(rules, deck);
+
+  return dealtCards;
+};
 
 export {
   initCards,
+  dealCards,
   showHideCards,
   getSelectedCard,
   getLastCard,

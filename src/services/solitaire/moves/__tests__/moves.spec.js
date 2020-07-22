@@ -1,4 +1,11 @@
-import { checkVisibleMoves, checkKingMoves, checkFoundationMoves } from '../moves';
+import {
+  checkVisibleMoves,
+  checkKingMoves,
+  checkFoundationMoves,
+  moveCardsFromBoard,
+  moveCardsToBoard,
+  moveCardsToFoundation,
+} from '../moves';
 
 describe('moves', () => {
   describe('visible moves', () => {
@@ -286,6 +293,164 @@ describe('moves', () => {
       const result = checkFoundationMoves(boardCards, foundationCards);
 
       expect(result).toHaveLength(0);
+    });
+  });
+
+  describe('move cards from', () => {
+    it('should return correct object', () => {
+      const obj = {
+        boardCards: [
+          [
+            {
+              id: 1,
+              suit: 's',
+              order: 3,
+            },
+            {
+              id: 2,
+              suit: 's',
+              order: 8,
+              visible: true,
+            },
+            {
+              id: 3,
+              suit: 'd',
+              order: 8,
+              visible: true,
+            },
+          ],
+          [
+            {
+              id: 4,
+              suit: 's',
+              order: 9,
+              visible: true,
+            },
+          ],
+        ],
+        selectedCardId: 3,
+      };
+
+      const result = moveCardsFromBoard(obj);
+
+      expect(result).toStrictEqual({
+        cards: [
+          { id: 1, order: 3, suit: 's' },
+          { id: 2, order: 8, suit: 's', visible: true },
+        ],
+        columnNo: 0,
+      });
+    });
+  });
+
+  describe('move cards to', () => {
+    it('should return correct object', () => {
+      const obj = {
+        boardCards: [
+          [
+            {
+              id: 1,
+              suit: 's',
+              order: 3,
+            },
+            {
+              id: 2,
+              suit: 's',
+              order: 8,
+              visible: true,
+            },
+            {
+              id: 3,
+              suit: 'd',
+              order: 8,
+              visible: true,
+            },
+          ],
+          [
+            {
+              id: 4,
+              suit: 's',
+              order: 9,
+              visible: true,
+            },
+          ],
+        ],
+        selectedCardId: 2,
+      };
+
+      const selectedColumn = 1;
+
+      const result = moveCardsToBoard(obj, selectedColumn);
+
+      expect(result).toStrictEqual({
+        cards: [
+          {
+            id: 4,
+            order: 9,
+            suit: 's',
+            visible: true,
+          },
+          {
+            id: 2,
+            order: 8,
+            suit: 's',
+            visible: true,
+          },
+          {
+            id: 3,
+            order: 8,
+            suit: 'd',
+            visible: true,
+          },
+        ],
+        columnNo: 1,
+      });
+    });
+  });
+
+  describe('move cards to foundation', () => {
+    it('should return correct object', () => {
+      const obj = {
+        boardCards: [
+          [
+            {
+              id: 1,
+              suit: 's',
+              value: 3,
+            },
+            {
+              id: 2,
+              suit: 's',
+              value: 8,
+              visible: true,
+            },
+            {
+              id: 3,
+              suit: 'd',
+              value: 'A',
+              visible: true,
+            },
+          ],
+        ],
+        foundationCards: [[]],
+        selectedCardId: 3,
+      };
+
+      const selectedColumn = 0;
+
+      const result = moveCardsToFoundation(obj, selectedColumn);
+
+      expect(result).toStrictEqual({
+        cards: [
+          {
+            id: 3,
+            suit: 'd',
+            value: 'A',
+            visible: true,
+          },
+        ],
+        columnNo: 0,
+      });
     });
   });
 });
