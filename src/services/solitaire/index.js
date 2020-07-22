@@ -1,10 +1,11 @@
-import { checkValidCardMove, checkHasMoves, moveBoardCards, moveFoundationCards } from './moves';
 import {
-  initFoundations,
-  updateFoundation,
-  getEmptyFoundationColumn,
+  checkValidCardMove,
+  checkHasMoves,
+  moveBoardCards,
   checkValidFoundationMove,
-} from './foundation';
+  moveFoundationCards,
+} from './moves';
+import { initFoundations, updateFoundation, getEmptyFoundationColumn } from './foundation';
 import { initBoard, updateBoard } from './board';
 import setState from './state';
 import settings from './settings.json';

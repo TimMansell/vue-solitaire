@@ -19,17 +19,17 @@ export const isMoveValidKing = (selectedCard, compareToCard) =>
 // Foundation validation.
 export const isFoundationMoveValidPosition = (selectedCard, boardCards) =>
   boardCards.some((cards) => {
-    const cardPosition = cards.findIndex((card) => card.id === selectedCard.id);
+    const cardPosition = cards.findIndex((card) => card.id === selectedCard?.id);
     const emptyColumn = cardPosition !== -1;
 
     return cardPosition === cards.length - 1 && emptyColumn;
   });
 
 export const isFoundationMoveValidAce = (selectedCard, compareToCard) =>
-  selectedCard.value === 'A' && !compareToCard.length;
+  selectedCard?.value === 'A' && !compareToCard.length;
 
-export const isFoundationMoveValidSuit = ({ suit }, selectedFoundationCards) =>
-  selectedFoundationCards.filter((card) => card.suit === suit).length > 0;
+export const isFoundationMoveValidSuit = (selectedCard, selectedFoundationCards) =>
+  selectedFoundationCards.filter((card) => card.suit === selectedCard?.suit).length > 0;
 
 export const isFoundationMoveValidOrder = (selectedCard, selectedFoundationCards) =>
-  selectedCard.order === selectedFoundationCards.length + 1;
+  selectedCard?.order === selectedFoundationCards.length + 1;
