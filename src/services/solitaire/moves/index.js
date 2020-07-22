@@ -7,7 +7,12 @@ import {
   moveCardsToFoundation,
 } from './moves';
 import { getSelectedCard, getLastCard } from '../cards';
-import { validateCardMove, validateCardMoveColumn } from '../validation';
+import {
+  validateCardMove,
+  validateCardMoveColumn,
+  validateFoundationMove,
+  validateFoundationMovePosition,
+} from '../validation';
 
 export const checkValidCardMove = ({ boardCards, selectedCardId }, selectedColumn) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
@@ -36,6 +41,19 @@ export const moveBoardCards = (state, selectedColumn) => {
     cardsFrom,
     cardsTo,
   };
+};
+
+export const checkValidFoundationMove = (
+  { boardCards, selectedCardId, foundationCards },
+  selectedColumn
+) => {
+  const selectedCard = getSelectedCard(boardCards, selectedCardId);
+  const selectedFoundationCards = foundationCards[selectedColumn];
+
+  const isValidFoundationMove = validateFoundationMove(selectedCard, selectedFoundationCards);
+  const isValidCardPosition = validateFoundationMovePosition(selectedCard, boardCards);
+
+  return isValidFoundationMove && isValidCardPosition;
 };
 
 export const moveFoundationCards = (state, selectedColumn) => {
