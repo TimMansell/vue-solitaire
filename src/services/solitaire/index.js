@@ -1,13 +1,13 @@
-import { checkValidCardMove, checkHasMoves, moveBoardCards, moveFoundationCards } from './moves';
 import {
-  initFoundations,
-  updateFoundation,
-  getEmptyFoundationColumn,
+  checkValidCardMove,
+  checkHasMoves,
+  moveBoardCards,
   checkValidFoundationMove,
-} from './foundation';
+  moveFoundationCards,
+} from './moves';
+import { initFoundation, updateFoundation, getEmptyFoundationColumn } from './foundation';
 import { initBoard, updateBoard } from './board';
 import setState from './state';
-import settings from './settings.json';
 
 const solitaire = () => {
   let state = setState({});
@@ -17,7 +17,7 @@ const solitaire = () => {
   };
 
   const init = () => {
-    const foundationCards = initFoundations(settings);
+    const foundationCards = initFoundation();
     const boardCards = initBoard();
 
     setGameState({
