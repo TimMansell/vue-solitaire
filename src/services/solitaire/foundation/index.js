@@ -21,7 +21,7 @@ export const updateFoundation = ({ foundationCards }, { foundationCardsTo }) =>
 export const getEmptyFoundationColumn = ({ foundationCards, boardCards, selectedCardId }) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
 
-  const foundFoundationColumn = foundationCards.findIndex((foundationColumn) => {
+  const foundationColumnNo = foundationCards.findIndex((foundationColumn) => {
     const isColumnEmpty = checkEmptyFoundationColumn(foundationColumn);
     const isCorrectFoundationSuit = checkFoundationColumnSuit(foundationColumn, selectedCard);
     const isCardAce = checkCardValue(selectedCard, 'A');
@@ -29,7 +29,7 @@ export const getEmptyFoundationColumn = ({ foundationCards, boardCards, selected
     return (isColumnEmpty && isCardAce) || isCorrectFoundationSuit;
   });
 
-  const foundationColumnToUse = getFoundationColumn(foundFoundationColumn);
+  const foundationColumnToUse = getFoundationColumn(foundationColumnNo);
 
   return foundationColumnToUse;
 };
