@@ -32,4 +32,4 @@ export const isFoundationMoveValidSuit = (selectedCard, selectedFoundationCards)
   selectedFoundationCards.filter((card) => card.suit === selectedCard?.suit).length > 0;
 
 export const isFoundationMoveValidOrder = (selectedCard, selectedFoundationCards) =>
-  selectedCard?.order === selectedFoundationCards.length + 1;
+  selectedCard?.order === selectedFoundationCards.length;

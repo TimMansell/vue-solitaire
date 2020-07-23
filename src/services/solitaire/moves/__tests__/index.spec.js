@@ -120,7 +120,7 @@ describe('moves', () => {
             {
               id: 1,
               suit: 's',
-              order: 2,
+              order: 1,
               value: 2,
             },
           ],
@@ -130,7 +130,7 @@ describe('moves', () => {
             {
               id: 2,
               suit: 's',
-              order: 1,
+              order: 0,
               value: 'A',
             },
           ],
