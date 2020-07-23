@@ -1,36 +1,35 @@
-import { getSelectedCard } from '../cards';
+import { getSelectedCard, checkCardValue } from '../cards';
+import {
+  initFoundations,
+  checkEmptyFoundationColumn,
+  checkFoundationColumnSuit,
+  getFoundationColumn,
+} from './foundation';
+import settings from '../settings.json';
 
-export const initFoundations = ({ rules }) => rules.foundationColumns.map(() => []);
+export const initFoundation = () => initFoundations(settings);
 
-export const updateFoundation = ({ foundationCards }, { foundationCardsTo }) => {
-  return foundationCards.map((columnCards, index) => {
+export const updateFoundation = ({ foundationCards }, { foundationCardsTo }) =>
+  foundationCards.map((columnCards, index) => {
     if (index === foundationCardsTo.columnNo) {
       return foundationCardsTo.cards;
     }
 
     return columnCards;
   });
-};
 
 export const getEmptyFoundationColumn = ({ foundationCards, boardCards, selectedCardId }) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
 
-  const foundationColumnToUse = foundationCards.findIndex((foundationCard) => {
-    // Column is empty && we're moving an Ace.
-    if (!foundationCard.length && selectedCard.order === 1) {
-      return true;
-    }
+  const foundFoundationColumn = foundationCards.findIndex((foundationColumn) => {
+    const isColumnEmpty = checkEmptyFoundationColumn(foundationColumn);
+    const isCorrectFoundationSuit = checkFoundationColumnSuit(foundationColumn, selectedCard);
+    const isCardAce = checkCardValue(selectedCard, 'A');
 
-    // Otherwise, check suit is the same as this column
-    const foundationSuit = foundationCard.filter((card) => card.suit === selectedCard.suit);
-
-    return foundationSuit.length;
+    return (isColumnEmpty && isCardAce) || isCorrectFoundationSuit;
   });
 
-  // No cards at all in foundation, so use 1st column.
-  if (foundationColumnToUse === -1) {
-    return 0;
-  }
+  const foundationColumnToUse = getFoundationColumn(foundFoundationColumn);
 
   return foundationColumnToUse;
 };
