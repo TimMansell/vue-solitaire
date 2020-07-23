@@ -1,7 +1,13 @@
-import { checkValidCardMove, checkHasMoves, moveBoardCards, moveFoundationCards } from '../index';
+import {
+  checkValidCardMove,
+  checkHasMoves,
+  moveBoardCards,
+  checkValidFoundationMove,
+  moveFoundationCards,
+} from '../index';
 
 describe('moves', () => {
-  describe('valid card move', () => {
+  describe('valid moves', () => {
     it('should have valid moves', () => {
       const obj = {
         boardCards: [
@@ -80,6 +86,169 @@ describe('moves', () => {
       const selectedColumn = 1;
 
       const result = checkValidCardMove(obj, selectedColumn);
+
+      expect(result).toBe(false);
+    });
+
+    it('should have valid ace foundation moves', () => {
+      const obj = {
+        boardCards: [
+          [
+            {
+              id: 1,
+              suit: 'd',
+              value: 'A',
+              visible: true,
+            },
+          ],
+        ],
+        foundationCards: [[], [], [], []],
+        selectedCardId: 1,
+      };
+
+      const selectedColumn = 0;
+
+      const result = checkValidFoundationMove(obj, selectedColumn);
+
+      expect(result).toBe(true);
+    });
+
+    it('should have valid non-ace foundation moves', () => {
+      const obj = {
+        boardCards: [
+          [
+            {
+              id: 1,
+              suit: 's',
+              order: 2,
+              value: 2,
+            },
+          ],
+        ],
+        foundationCards: [
+          [
+            {
+              id: 2,
+              suit: 's',
+              order: 1,
+              value: 'A',
+            },
+          ],
+          [],
+          [],
+          [],
+        ],
+        selectedCardId: 1,
+      };
+
+      const selectedColumn = 0;
+
+      const result = checkValidFoundationMove(obj, selectedColumn);
+
+      expect(result).toBe(true);
+    });
+
+    it('should not have valid ace foundation move', () => {
+      const obj = {
+        boardCards: [
+          [
+            {
+              id: 1,
+              suit: 'd',
+              value: 'A',
+              order: 1,
+            },
+          ],
+        ],
+        foundationCards: [
+          [
+            {
+              id: 2,
+              suit: 's',
+              value: 'A',
+              order: 1,
+            },
+          ],
+          [],
+          [],
+          [],
+        ],
+        selectedCardId: 1,
+      };
+
+      const selectedColumn = 0;
+
+      const result = checkValidFoundationMove(obj, selectedColumn);
+
+      expect(result).toBe(false);
+    });
+
+    it('should not have valid non-ace to ace foundation move', () => {
+      const obj = {
+        boardCards: [
+          [
+            {
+              id: 1,
+              suit: 'd',
+              value: 2,
+              order: 2,
+            },
+          ],
+        ],
+        foundationCards: [
+          [
+            {
+              id: 2,
+              suit: 's',
+              value: 'A',
+              order: 1,
+            },
+          ],
+          [],
+          [],
+          [],
+        ],
+        selectedCardId: 1,
+      };
+
+      const selectedColumn = 0;
+
+      const result = checkValidFoundationMove(obj, selectedColumn);
+
+      expect(result).toBe(false);
+    });
+
+    it('should not have valid non-ace to empty foundation column move', () => {
+      const obj = {
+        boardCards: [
+          [
+            {
+              id: 1,
+              suit: 'd',
+              value: 3,
+              order: 3,
+            },
+          ],
+        ],
+        foundationCards: [
+          [
+            {
+              id: 2,
+              suit: 's',
+              value: 'A',
+              order: 1,
+            },
+          ],
+          [],
+          [],
+          [],
+        ],
+        selectedCardId: 1,
+      };
+
+      const selectedColumn = 1;
+
+      const result = checkValidFoundationMove(obj, selectedColumn);
 
       expect(result).toBe(false);
     });
