@@ -1,5 +1,5 @@
 import {
-  offsetVisibleCards,
+  setVisibleCards,
   getColumnCardIndexes,
   getColumnCards,
   findCardColumn,
@@ -20,7 +20,7 @@ export const buildCards = ({ values, suits }) =>
 export const dealCards = (deck, { columns }) => {
   const columnCardsIndexes = getColumnCardIndexes(columns);
   const columnCards = getColumnCards(deck, columnCardsIndexes);
-  const dealtCards = offsetVisibleCards(columnCards);
+  const dealtCards = setVisibleCards(columnCards);
 
   return dealtCards;
 };

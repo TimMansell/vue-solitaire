@@ -1,4 +1,4 @@
-export const offsetVisibleCards = (columnCards) =>
+export const setVisibleCards = (columnCards) =>
   columnCards.map((cards) =>
     cards
       .reverse()
