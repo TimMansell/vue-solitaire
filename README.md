@@ -60,7 +60,7 @@ yarn build
 
 ## Tests
 
-More information on testing can be found [here](/tests/README.md)
+More information on testing can be found [here](/tests)
 
 ### Run unit tests
 

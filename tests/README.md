@@ -1,12 +1,14 @@
 # Tests
 
-This folder contains end-to-end tests and fixtures. Unit tests are located inside `__tests__` in their respective folders.
+This folder contains end-to-end tests and fixtures.
 
 ## Unit tests
 
+Unit tests are located inside `__tests__` folder:
+
 1. [App](/src)
-1. [Components](/components)
-1. [Service](/service/solitaire)
+1. [Components](/src/components)
+1. [Service](/src/services/solitaire)
 
 ## Running tests
 
