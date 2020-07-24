@@ -1,48 +1,37 @@
-import shuffle from 'lodash.shuffle';
+export const offsetVisibleCards = (columnCards) =>
+  columnCards.map((cards) =>
+    cards
+      .reverse()
+      .map((card, index) => {
+        if (index % 2 === 0) {
+          return {
+            ...card,
+            visible: true,
+          };
+        }
 
-const offsetCards = (cards) =>
-  cards
-    .reverse()
-    .map((card, index) => {
-      if (index % 2 === 0) {
-        return {
-          ...card,
-          visible: true,
-        };
-      }
-
-      return card;
-    })
-    .reverse();
-
-export const shuffleCards = ({ values, suits }) =>
-  shuffle(
-    values.flatMap((value, order) =>
-      suits.map((suit) => ({
-        id: `${order}${suit}`,
-        value,
-        order,
-        suit,
-        visible: false,
-      }))
-    )
+        return card;
+      })
+      .reverse()
   );
 
-export const dealCards = ({ columns }, deck) =>
+export const getColumnCardIndexes = (columns) =>
   columns.map((column, columnIndex, array) => {
     const startArray = array.slice(0, columnIndex);
     const endArray = array.slice(0, columnIndex + 1);
 
     const calcOffset = (accumulator, currentValue) => accumulator + currentValue;
-
     const startIndex = startArray.reduce(calcOffset, 0);
     const endIndex = endArray.reduce(calcOffset, 0);
 
-    const cards = deck.slice(startIndex, endIndex);
-    const offsettedCards = offsetCards(cards);
-
-    return offsettedCards;
+    return {
+      startIndex,
+      endIndex,
+    };
   });
+
+export const getColumnCards = (deck, columnCardsIndexes) =>
+  columnCardsIndexes.map(({ startIndex, endIndex }) => deck.slice(startIndex, endIndex));
 
 export const findCardPosition = (columnCards, selectedCardId) =>
   columnCards.findIndex((card) => card.id === selectedCardId);

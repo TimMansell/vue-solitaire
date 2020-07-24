@@ -1,8 +1,26 @@
-import { shuffleCards, dealCards, findCardColumn, findCardPosition } from './cards';
+import {
+  offsetVisibleCards,
+  getColumnCardIndexes,
+  getColumnCards,
+  findCardColumn,
+  findCardPosition,
+} from './cards';
 
-export const initCards = ({ cards, rules }) => {
-  const deck = shuffleCards(cards);
-  const dealtCards = dealCards(rules, deck);
+export const buildCards = ({ values, suits }) =>
+  values.flatMap((value, order) =>
+    suits.map((suit) => ({
+      id: `${order}${suit}`,
+      value,
+      order,
+      suit,
+      visible: false,
+    }))
+  );
+
+export const dealCards = (deck, { columns }) => {
+  const columnCardsIndexes = getColumnCardIndexes(columns);
+  const columnCards = getColumnCards(deck, columnCardsIndexes);
+  const dealtCards = offsetVisibleCards(columnCards);
 
   return dealtCards;
 };

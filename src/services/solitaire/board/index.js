@@ -1,7 +1,7 @@
-import { initCards } from '../cards';
+import { initBoardCards } from './board';
 import settings from '../settings.json';
 
-export const initBoard = () => initCards(settings);
+export const initBoard = () => initBoardCards(settings);
 
 export const updateBoard = ({ boardCards }, { cardsFrom, cardsTo }) =>
   boardCards.map((columnCards, index) => {
