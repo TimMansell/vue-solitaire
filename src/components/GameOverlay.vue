@@ -4,7 +4,7 @@
       <h1 class="game-overlay__title">
         <slot />
       </h1>
-      <div class="game-overlay__btn" @click="buttonClick" data-test="game-overlay-btn">
+      <div class="game-overlay__btn" data-test="game-overlay-btn">
         <NewGame />
       </div>
     </div>
@@ -18,11 +18,6 @@ export default {
   name: 'GameOverlay',
   components: {
     NewGame,
-  },
-  methods: {
-    buttonClick() {
-      this.$emit('buttonClick');
-    },
   },
 };
 </script>

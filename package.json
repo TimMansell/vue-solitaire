@@ -1,15 +1,15 @@
 {
   "name": "vue-solitaire",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e --headless --config ignoreTestFiles=\"**/*snapshot*\"",
-    "test:e2e:gui": "vue-cli-service test:e2e",
+    "test:e2e:gui": "vue-cli-service test:e2e --config ignoreTestFiles=\"**/*snapshot*\"",
     "test:e2e:snapshots": "vue-cli-service test:e2e --headless --config ignoreTestFiles=\"**/*spec*\"",
-    "test:e2e:updatesnapshots":"vue-cli-service test:e2e --headless --env updateSnapshots=true --config ignoreTestFiles=\"**/*spec*\"",
+    "test:e2e:updatesnapshots": "vue-cli-service test:e2e --headless --env updateSnapshots=true --config ignoreTestFiles=\"**/*spec*\"",
     "lint": "run-p lint:js lint:css",
     "lint:js": "vue-cli-service lint --fix",
     "lint:css": "stylelint src/**/*.{vue,scss} --fix"

@@ -8,7 +8,7 @@
 
 <script>
 import Controls from '@/components/Controls.vue';
-import Solitaire from '@/views/Solitaire.vue';
+import Solitaire from '@/components/Solitaire.vue';
 import Footer from '@/components/Footer.vue';
 
 export default {
