@@ -1,5 +1,5 @@
 import {
-  getSelectedCardPosition,
+  getCardPosition,
   checkCardValue,
   checkCardTopPosition,
   getLastCards,
@@ -16,7 +16,7 @@ export const checkVisibleMoves = (boardCards) => {
 
   const hasMoves = visibleCards.filter((visibleCard) => {
     const cardHasMove = lastCards.filter((lastCard) => {
-      const { columnNo } = getSelectedCardPosition(boardCards, lastCard.id);
+      const { columnNo } = getCardPosition(boardCards, lastCard.id);
 
       const isValidCard = validateCardMove(visibleCard, lastCard);
       const isValidColumn = validateCardMoveColumn(visibleCard, boardCards[columnNo]);
@@ -74,7 +74,7 @@ export const checkFoundationMoves = (boardCards, foundationCards) => {
 };
 
 export const moveCardsFromBoard = ({ selectedCardId, boardCards }) => {
-  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
+  const { columnNo, cardPosition } = getCardPosition(boardCards, selectedCardId);
 
   const remainingCards = boardCards[columnNo].slice(0, cardPosition);
   const cards = showLastCard(remainingCards);
@@ -86,7 +86,7 @@ export const moveCardsFromBoard = ({ selectedCardId, boardCards }) => {
 };
 
 export const moveCardsToBoard = ({ selectedCardId, boardCards }, selectedColumn) => {
-  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
+  const { columnNo, cardPosition } = getCardPosition(boardCards, selectedCardId);
 
   const cards = getColumnCards({
     toCards: boardCards,
@@ -106,7 +106,7 @@ export const moveCardsToFoundation = (
   { selectedCardId, boardCards, foundationCards },
   selectedColumn
 ) => {
-  const { columnNo, cardPosition } = getSelectedCardPosition(boardCards, selectedCardId);
+  const { columnNo, cardPosition } = getCardPosition(boardCards, selectedCardId);
 
   const cards = getColumnCards({
     toCards: foundationCards,
