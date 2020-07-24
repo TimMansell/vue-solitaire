@@ -1,3 +1,4 @@
+import shuffle from 'lodash.shuffle';
 import {
   setVisibleCards,
   getColumnCardIndexes,
@@ -24,6 +25,8 @@ export const dealCards = (deck, { columns }) => {
 
   return dealtCards;
 };
+
+export const shuffleCards = (cards, toShuffle) => (toShuffle ? shuffle(cards) : cards);
 
 export const getSelectedCard = (cards, selectedCardId) => {
   const [selectedCard] = cards.flat().filter((card) => card.id === selectedCardId);

@@ -1,11 +1,9 @@
-import shuffle from 'lodash.shuffle';
-import { buildCards, dealCards } from '../cards';
+import { buildCards, dealCards, shuffleCards } from '../cards';
 
-// TODO: test
 // eslint-disable-next-line import/prefer-default-export
-export const initBoardCards = ({ cards, rules }) => {
+export const initBoardCards = ({ cards, rules }, toShuffle = true) => {
   const deck = buildCards(cards);
-  const shuffledDeck = shuffle(deck);
+  const shuffledDeck = shuffleCards(deck, toShuffle);
   const boardCards = dealCards(shuffledDeck, rules);
 
   return boardCards;
