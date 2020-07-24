@@ -4,7 +4,9 @@ This folder contains end-to-end tests and fixtures.
 
 ## Unit tests
 
-Unit tests are located inside `__tests__` folder:
+Unit tests are located inside `__tests__`.
+
+Current unit test coverage:
 
 1. [App](/src)
 1. [Components](/src/components)
