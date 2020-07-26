@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="95.999992"
+   inkscape:export-xdpi="95.999992"
+   inkscape:export-filename="C:\Users\fowle\OneDrive\Projects\Playing-Cards\fronts\png-096-dpi\spades_ace.png"
+   sodipodi:docname="favicon.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   version="1.1"
+   id="svg2"
+   height="333.00003"
+   width="234">
+  <title
+     id="title884">Ace of Spades Playing Card</title>
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     inkscape:lockguides="false"
+     inkscape:document-rotation="0"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     inkscape:snap-to-guides="false"
+     showborder="false"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="-8"
+     inkscape:window-height="1377"
+     inkscape:window-width="2560"
+     inkscape:snap-global="true"
+     inkscape:guide-bbox="true"
+     showguides="true"
+     inkscape:showpageshadow="false"
+     showgrid="false"
+     inkscape:current-layer="g1157"
+     inkscape:document-units="px"
+     inkscape:cy="171.7428"
+     inkscape:cx="79.742238"
+     inkscape:zoom="3.099486"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base">
+    <inkscape:grid
+       originy="-6.8515539e-05"
+       originx="0"
+       snapvisiblegridlinesonly="true"
+       enabled="true"
+       visible="true"
+       empspacing="5"
+       id="grid3767"
+       type="xygrid" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Ace of Spades Playing Card</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+        <dc:date>2020-05-05</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Daniel S. Fowler</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Public Domain</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>https://tekeye.uk</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:language>en-GB</dc:language>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>ace; spades; playing; card; black; white</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:description>An ace of spades playing card in black and white with a phrase.</dc:description>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 1" />
+  <g
+     id="g1157">
+    <rect
+       rx="8.8699055"
+       ry="8.8963165"
+       y="1.0223199"
+       x="1.0223199"
+       height="330.40842"
+       width="231.95537"
+       id="rect4266"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.04463;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1" />
+    <g
+       transform="matrix(0.07348588,0,0,0.07370838,-248.01731,214.23848)"
+       id="g4233"
+       style="fill:none;stroke:#000000;stroke-width:3.18132639;stroke-opacity:1" />
+    <g
+       clip-path="none"
+       style="fill:none;stroke:#000000;stroke-width:3.18132639;stroke-opacity:1"
+       id="g4211"
+       transform="matrix(0.07348588,0,0,0.07370838,-248.01728,214.23848)" />
+    <g
+       transform="matrix(0.07348588,0,0,0.07370838,-248.01731,214.23848)"
+       id="g4227"
+       style="fill:none;stroke:#000000;stroke-width:3.18132639;stroke-opacity:1" />
+    <g
+       id="g86-0"
+       transform="matrix(0.25327906,0,0,0.25327906,-6.5396142,-7.5103316)">
+      <g
+         id="g80-6"
+         transform="translate(178.06,235.01)">
+        <path
+           id="path78-5"
+           fill="#41b883"
+           d="M 0,0 -22.669,-39.264 -45.338,0 h -75.491 L -22.669,-170.02 75.491,0 Z" />
+      </g>
+      <g
+         id="g84-9"
+         transform="translate(178.06,235.01)">
+        <path
+           id="path82-8"
+           fill="#34495e"
+           d="M 0,0 -22.669,-39.264 -45.338,0 H -81.565 L -22.669,-102.01 36.227,0 Z" />
+      </g>
+    </g>
+    <g
+       transform="matrix(0.75983712,0,0,-0.75983712,0.07876738,281.12315)"
+       id="g144">
+      <g
+         transform="translate(178.06,235.01)"
+         id="g138">
+        <path
+           d="M 0,0 -22.669,-39.264 -45.338,0 h -75.491 L -22.669,-170.02 75.491,0 Z"
+           fill="#41b883"
+           id="path136" />
+      </g>
+      <g
+         transform="translate(178.06,235.01)"
+         id="g142">
+        <path
+           d="M 0,0 -22.669,-39.264 -45.338,0 H -81.565 L -22.669,-102.01 36.227,0 Z"
+           fill="#34495e"
+           id="path140" />
+      </g>
+    </g>
+    <g
+       transform="matrix(0.25327906,0,0,-0.25327906,161.51212,342.60103)"
+       id="g86-0-5">
+      <g
+         transform="translate(178.06,235.01)"
+         id="g80-6-9">
+        <path
+           d="M 0,0 -22.669,-39.264 -45.338,0 h -75.491 L -22.669,-170.02 75.491,0 Z"
+           fill="#41b883"
+           id="path78-5-0" />
+      </g>
+      <g
+         transform="translate(178.06,235.01)"
+         id="g84-9-1">
+        <path
+           d="M 0,0 -22.669,-39.264 -45.338,0 H -81.565 L -22.669,-102.01 36.227,0 Z"
+           fill="#34495e"
+           id="path82-8-4" />
+      </g>
+    </g>
+  </g>
+</svg>
