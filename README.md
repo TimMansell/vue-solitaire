@@ -1,3 +1,5 @@
+![Solitaire Logo](/src/assets/logo.svg)
+
 # Contents
 
 1. [How to Play](#how-to-play)
