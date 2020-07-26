@@ -14,6 +14,15 @@ module.exports = {
     'vue/html-closing-bracket-newline': 'off',
     'vue/max-attributes-per-line': 'off',
     'vue/singleline-html-element-content-newline': 'off',
+    'vue/html-self-closing': [
+      'error',
+      {
+        html: {
+          normal: 'always',
+          void: 'always',
+        },
+      },
+    ],
   },
   overrides: [
     {
