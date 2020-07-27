@@ -1,14 +1,20 @@
-# Contents
+<div align="center">
+  <a href="https://solitaire.timmansell.com" target="_blank" rel="noopener noreferrer">
+    <img src="/src/assets/logo.svg" alt="Solitaire logo" width="150">
+  </a>
+</div>
+
+<h1>Solitaire</h1>
+
+The aim of the game is to successfully move all cards from the bottom 8 board columns to the top 4 foundation columns.
+
+## Contents
 
 1. [How to Play](#how-to-play)
 1. [Project Setup](#project-setup)
 1. [Tests](#tests)
 
 ## How to play
-
-The aim of the game is to successfully move all cards from the bottom 8 board columns to the top 4 foundation columns.
-
-### Rules
 
 #### Face up cards
 

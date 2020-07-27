@@ -12,7 +12,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="favicon.svg">
+   sodipodi:docname="logo.svg">
   <title
      id="title894">Solitaire Vue Card</title>
   <defs
@@ -25,7 +25,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.099486"
-     inkscape:cx="60.582777"
+     inkscape:cx="60.58278"
      inkscape:cy="63.552681"
      inkscape:document-units="px"
      inkscape:current-layer="g966"
@@ -138,7 +138,7 @@
            height="330.40842"
            width="231.95537"
            id="rect968"
-           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.12461;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1" />
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:3.12461;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1" />
         <g
            transform="matrix(0.07348588,0,0,0.07370838,-248.01731,214.23848)"
            id="g970"
@@ -197,10 +197,10 @@
          inkscape:connector-curvature="0"
          id="path3940-9-6-6"
          d="m 222.53683,138.49037 c -0.35484,0.76176 -0.81289,1.47359 -1.3571,2.109 -0.35097,0.40977 -0.73676,0.78706 -1.1276,1.15752 -0.3053,0.28938 -0.61602,0.57718 -0.86583,0.91729 -0.16876,0.22982 -0.30958,0.48543 -0.37668,0.76412 -0.12152,0.50473 0.0107,1.04585 0.26009,1.49927 0.14607,0.26553 0.33294,0.50971 0.56315,0.70386 0.34201,0.28843 0.78826,0.46088 1.23081,0.42324 0.40585,-0.0345 0.78537,-0.24181 1.08153,-0.52648 0.26211,-0.25192 0.46626,-0.56595 0.59598,-0.91008 0.12973,0.34413 0.33388,0.65816 0.59598,0.91008 0.29617,0.28467 0.67569,0.49194 1.08153,0.52648 0.44253,0.0377 0.88879,-0.13481 1.23082,-0.42324 0.2302,-0.19415 0.41708,-0.43833 0.56315,-0.70386 0.2494,-0.45342 0.3816,-0.99454 0.26009,-1.49927 -0.0671,-0.27869 -0.20793,-0.5343 -0.3767,-0.76412 -0.24979,-0.34011 -0.56053,-0.62791 -0.86582,-0.91729 -0.39084,-0.37046 -0.77663,-0.74775 -1.1276,-1.15752 -0.54422,-0.63541 -1.00227,-1.34724 -1.3571,-2.109"
-         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.56938;stroke-miterlimit:4.3;stroke-dasharray:none" />
+         style="fill:#666666;fill-opacity:1;stroke:none;stroke-width:1.56938;stroke-miterlimit:4.3;stroke-dasharray:none" />
       <path
          id="path898"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.7663px;line-height:1.25;font-family:'Levenim MT';-inkscape-font-specification:'Sans Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.56938;stroke-miterlimit:4.3;stroke-dasharray:none"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.7663px;line-height:1.25;font-family:'Levenim MT';-inkscape-font-specification:'Sans Bold';letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;stroke-width:1.56938;stroke-miterlimit:4.3;stroke-dasharray:none"
          d="m 218.76504,148.64805 1.55119,-0.0271 0.6539,2.3308 3.19835,-0.0558 0.59879,-2.35266 1.55121,-0.0271 -2.82403,11.42017 -1.51388,0.0264 z m 2.80162,4.40359 1.10759,3.88434 0.97667,-3.92072 z" />
     </g>
   </g>
@@ -266,7 +266,7 @@
        id="g909">
       <rect
          transform="matrix(0.64008023,0,0,0.64008023,-54.749304,-2.3991215)"
-         style="display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.12461;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
+         style="display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:3.12461;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
          id="rect926"
          width="231.95537"
          height="330.40842"
@@ -275,13 +275,13 @@
          ry="19.865877"
          rx="20.484724" />
       <path
-         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4.3;stroke-dasharray:none"
+         style="display:inline;fill:#666666;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4.3;stroke-dasharray:none"
          d="m -42.469447,22.771413 4.765571,4.78123 -4.765571,4.781239 -4.76557,-4.781239 z"
          id="path4884-1-4-5-3-5-17"
          inkscape:connector-curvature="0" />
       <path
          id="path898-0"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.7663px;line-height:1.25;font-family:'Levenim MT';-inkscape-font-specification:'Sans Bold';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4.3;stroke-dasharray:none"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32.7663px;line-height:1.25;font-family:'Levenim MT';-inkscape-font-specification:'Sans Bold';letter-spacing:0px;word-spacing:0px;display:inline;fill:#666666;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4.3;stroke-dasharray:none"
          d="m -47.235017,20.702438 1.976821,-0.0345 0.729148,-2.997605 4.07594,-0.07115 0.867263,2.96974 1.976835,-0.03451 -4.104621,-14.419248 -1.929282,0.03368 z m 3.372322,-5.73307 1.237881,-4.996388 1.418276,4.950024 z" />
     </g>
   </g>
@@ -304,7 +304,7 @@
          height="330.40842"
          width="231.95537"
          id="rect4266"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.01878;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1" />
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:3.01878;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1" />
       <g
          transform="matrix(0.07348588,0,0,0.07370838,-248.01731,214.23848)"
          id="g4233"
