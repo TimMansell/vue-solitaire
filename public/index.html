@@ -35,10 +35,6 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-32933519-2"
-    ></script>
   </head>
   <body>
     <noscript>
@@ -49,16 +45,5 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-    <% if (VUE_APP_ANALYTICS === 'true') { %>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-
-      gtag('config', 'UA-32933519-2');
-    </script>
-    <% } %>
   </body>
 </html>

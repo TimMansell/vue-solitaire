@@ -18,6 +18,8 @@ export default {
     newGame() {
       this.restartGame();
       this.initGame();
+
+      this.$gtag.event('New Game', { event_category: 'Buttons' });
     },
   },
 };
