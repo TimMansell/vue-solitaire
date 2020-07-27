@@ -1,6 +1,7 @@
 <template>
   <Modal>
     <h1>How to play</h1>
+    <Logo />
     <p>
       The aim of the game is to successfully move all cards from the bottom 8 board columns to the
       top 4 foundation columns.
@@ -54,11 +55,13 @@
 
 <script>
 import Modal from '@/components/Modal.vue';
+import Logo from '@/components/Logo.vue';
 
 export default {
   name: 'Controls',
   components: {
     Modal,
+    Logo,
   },
 };
 </script>

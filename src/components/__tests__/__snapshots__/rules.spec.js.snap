@@ -3,6 +3,7 @@
 exports[`Rules.vue matches snapshot 1`] = `
 <modal-stub>
   <h1>How to play</h1>
+  <logo-stub></logo-stub>
   <p>
     The aim of the game is to successfully move all cards from the bottom 8 board columns to the
     top 4 foundation columns.
