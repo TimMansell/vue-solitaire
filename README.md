@@ -1,10 +1,10 @@
-<p align="center">
+<div align="center">
   <a href="https://solitaire.timmansell.com" target="_blank" rel="noopener noreferrer">
     <img src="/src/assets/logo.svg" alt="Solitaire logo" width="150">
   </a>
-</p>
+</div>
 
-<h1 align="center">Solitaire</h1>
+<h1>Solitaire</h1>
 
 The aim of the game is to successfully move all cards from the bottom 8 board columns to the top 4 foundation columns.
 
