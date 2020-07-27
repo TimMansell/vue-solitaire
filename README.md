@@ -1,12 +1,10 @@
 <p align="center">
   <a href="https://solitaire.timmansell.com" target="_blank" rel="noopener noreferrer">
-    <img src="/src/assets/logo.svg" alt="Solitaire logo">
+    <img src="/src/assets/logo.svg" alt="Solitaire logo" width="150">
   </a>
 </p>
 
 <h1 align="center">Solitaire</h1>
-
-<hr>
 
 ## Contents
 
