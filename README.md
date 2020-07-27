@@ -1,6 +1,14 @@
-![Solitaire Logo](/src/assets/logo.svg)
+<p align="center">
+  <a href="https://solitaire.timmansell.com" target="_blank" rel="noopener noreferrer">
+    <img src="/src/assets/logo.svg" alt="Solitaire logo">
+  </a>
+</p>
 
-# Contents
+<h1 align="center">Solitaire</h1>
+
+<hr>
+
+## Contents
 
 1. [How to Play](#how-to-play)
 1. [Project Setup](#project-setup)
