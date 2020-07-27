@@ -1,11 +1,16 @@
-import VModal from 'vue-js-modal';
 import Vue from 'vue';
+import VModal from 'vue-js-modal';
+import VueGtag from 'vue-gtag';
 import App from './App.vue';
 import store from './store';
 
 Vue.config.productionTip = false;
 
 Vue.use(VModal);
+
+Vue.use(VueGtag, {
+  config: { id: process.env.VUE_APP_ANALYTICS_UA },
+});
 
 const app = new Vue({
   store,
