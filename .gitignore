@@ -6,6 +6,7 @@ node_modules
 /tests/e2e/screenshots/
 
 # local env files
+.env
 .env.local
 .env.*.local
 
@@ -23,7 +24,8 @@ yarn-error.log*
 *.sln
 *.sw?
 
+# e2e snapshots
 /tests/e2e/snapshots/app.snapshot.js/__diff_output__/
 
+# netlify functions
 /functions
-/.env
