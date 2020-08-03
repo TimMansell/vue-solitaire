@@ -24,3 +24,5 @@ yarn-error.log*
 *.sw?
 
 /tests/e2e/snapshots/app.snapshot.js/__diff_output__/
+
+/functions
