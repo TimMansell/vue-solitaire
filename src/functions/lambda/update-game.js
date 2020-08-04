@@ -21,15 +21,10 @@ export async function handler(event) {
     };
   }
 
-  const { id, data } = event.queryStringParameters;
-
   try {
     const body = await client.mutate({
       mutation,
-      variables: {
-        id,
-        data: JSON.parse(data),
-      },
+      variables: JSON.parse(event.body),
     });
 
     return {
