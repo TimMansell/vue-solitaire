@@ -25,7 +25,7 @@ const variables = {
     won: false,
     lost: false,
     abandoned: false,
-    time: 300,
+    time: 0,
   },
 };
 
