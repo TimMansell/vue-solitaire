@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:functions": "netlify-lambda build src/functions",
+    "build:functions": "netlify-lambda build src/functions/lambda",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e --headless --config ignoreTestFiles=\"**/*snapshot*\"",
     "test:e2e:gui": "vue-cli-service test:e2e --config ignoreTestFiles=\"**/*snapshot*\"",
