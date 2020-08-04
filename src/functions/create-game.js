@@ -14,6 +14,7 @@ const mutation = gql`
       won
       abandoned
       time
+      _id
     }
   }
 `;
