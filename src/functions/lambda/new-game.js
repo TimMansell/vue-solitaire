@@ -1,12 +1,7 @@
-import fetch from 'node-fetch';
-import ApolloClient, { gql } from 'apollo-boost';
 import { format } from 'date-fns';
-import 'dotenv/config';
+import { formatQuery, client } from '../apollo';
 
-const { FAUNA_ACCESS_TOKEN } = process.env;
-const URL = 'https://graphql.fauna.com/graphql';
-
-const mutation = gql`
+const mutation = formatQuery`
   mutation CreateGame($data: GameInput!) {
     createGame(data: $data) {
       date
@@ -28,18 +23,6 @@ const variables = {
     time: 0,
   },
 };
-
-const client = new ApolloClient({
-  uri: URL,
-  fetch,
-  request: (operation) => {
-    operation.setContext({
-      headers: {
-        authorization: `Bearer ${FAUNA_ACCESS_TOKEN}`,
-      },
-    });
-  },
-});
 
 // eslint-disable-next-line import/prefer-default-export, consistent-return
 export async function handler(event) {
