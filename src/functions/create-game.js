@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import ApolloClient, { gql } from 'apollo-boost';
+import { format } from 'date-fns';
 import 'dotenv/config';
 
 const { FAUNA_ACCESS_TOKEN } = process.env;
@@ -19,7 +20,7 @@ const mutation = gql`
 
 const variables = {
   data: {
-    date: '2020-08-03',
+    date: format(new Date(), 'yyyy-MM-dd'),
     won: false,
     lost: false,
     abandoned: false,
@@ -40,20 +41,28 @@ const client = new ApolloClient({
 });
 
 // eslint-disable-next-line import/prefer-default-export, consistent-return
-export async function handler() {
+export async function handler(event) {
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 500,
+      body: 'restricted',
+    };
+  }
+
   try {
     const body = await client.mutate({
       mutation,
       variables,
     });
 
-    console.log({ body });
-
     return {
       statusCode: 200,
       body: `${JSON.stringify(body)}`,
     };
   } catch (error) {
-    console.log({ error });
+    return {
+      statusCode: 500,
+      body: `${JSON.stringify(error)}`,
+    };
   }
 }
