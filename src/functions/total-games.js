@@ -30,13 +30,14 @@ export async function handler() {
   try {
     const body = await client.query({ query });
 
-    console.log({ body });
-
     return {
       statusCode: 200,
       body: `${JSON.stringify(body)}`,
     };
   } catch (error) {
-    console.log({ error });
+    return {
+      statusCode: 500,
+      body: `${JSON.stringify(error)}`,
+    };
   }
 }
