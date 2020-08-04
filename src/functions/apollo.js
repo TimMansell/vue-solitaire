@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import ApolloClient, { gql } from 'apollo-boost';
-import 'dotenv/config';
 
 const { FAUNA_ACCESS_TOKEN } = process.env;
 const URL = 'https://graphql.fauna.com/graphql';
