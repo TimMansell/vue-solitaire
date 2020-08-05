@@ -1,5 +1,7 @@
 import ApolloClient from 'apollo-boost';
 
+const { VUE_APP_GRAPHQL_URL } = process.env;
+
 export default new ApolloClient({
-  uri: 'http://localhost:8888/.netlify/functions/graphql',
+  uri: VUE_APP_GRAPHQL_URL,
 });
