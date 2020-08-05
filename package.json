@@ -15,7 +15,9 @@
     "lint:css": "stylelint src/**/*.{vue,scss} --fix"
   },
   "dependencies": {
+    "apollo-boost": "^0.4.9",
     "core-js": "^3.6.4",
+    "graphql": "^15.3.0",
     "hammerjs": "^2.0.8",
     "lodash.shuffle": "^4.2.0",
     "register-service-worker": "^1.7.1",
