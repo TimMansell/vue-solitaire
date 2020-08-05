@@ -3,7 +3,7 @@ import { typeDefs } from './graphql/schema';
 import { resolvers } from './graphql/resolvers';
 import { client, formatQuery } from './graphql/db';
 
-const { FAUNA_INTROSPECTION, FAUNA_PLAYGROUND } = process.env;
+const { FAUNA_INTROSPECTION, FAUNA_PLAYGROUND, APOLLO_SERVER_CORS_ENABLED } = process.env;
 
 const server = new ApolloServer({
   typeDefs,
@@ -15,4 +15,19 @@ const server = new ApolloServer({
   introspection: FAUNA_INTROSPECTION,
 });
 
-exports.handler = server.createHandler();
+const cors = APOLLO_SERVER_CORS_ENABLED
+  ? {
+      cors: {
+        origin: '*',
+        credentials: true,
+      },
+    }
+  : {};
+
+const options = {
+  ...cors,
+};
+
+console.log({ options });
+
+exports.handler = server.createHandler(options);
