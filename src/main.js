@@ -3,8 +3,10 @@ import VModal from 'vue-js-modal';
 import VueGtag from 'vue-gtag';
 import App from './App.vue';
 import store from './store';
+import apollo from './apolloClient';
 
 Vue.config.productionTip = false;
+Vue.prototype.$apollo = apollo;
 
 Vue.use(VModal);
 
