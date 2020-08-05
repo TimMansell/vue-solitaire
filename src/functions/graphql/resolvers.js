@@ -28,11 +28,6 @@ export const resolvers = {
       const mutation = formatQuery(`
         mutation CreateGame($data: GameInput!) {
           createGame(data: $data) {
-            date
-            lost
-            won
-            abandoned
-            time
             _id
           }
         }
