@@ -1,4 +1,4 @@
-import { formatQuery, client } from '../apollo';
+import { formatQuery, client } from './rest/apollo';
 
 const query = formatQuery(`
   query {

@@ -1,16 +1,28 @@
-import { formatQuery, client } from '../apollo';
+import { format } from 'date-fns';
+import { formatQuery, client } from './rest/apollo';
 
 const mutation = formatQuery`
-  mutation UpdateAGame($id: ID!, $data: GameInput!) {
-    updateGame(id: $id, data: $data) {
+  mutation CreateGame($data: GameInput!) {
+    createGame(data: $data) {
       date
       lost
       won
       abandoned
       time
+      _id
     }
   }
 `;
+
+const variables = {
+  data: {
+    date: format(new Date(), 'yyyy-MM-dd'),
+    won: false,
+    lost: false,
+    abandoned: false,
+    time: 0,
+  },
+};
 
 // eslint-disable-next-line import/prefer-default-export, consistent-return
 export async function handler(event) {
@@ -24,7 +36,7 @@ export async function handler(event) {
   try {
     const body = await client.mutate({
       mutation,
-      variables: JSON.parse(event.body),
+      variables,
     });
 
     return {
