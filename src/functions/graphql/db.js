@@ -1,11 +1,10 @@
 import fetch from 'node-fetch';
 import ApolloClient, { gql } from 'apollo-boost';
 
-const { FAUNA_ACCESS_TOKEN } = process.env;
-const URL = 'https://graphql.fauna.com/graphql';
+const { FAUNA_URL, FAUNA_ACCESS_TOKEN } = process.env;
 
 export const client = new ApolloClient({
-  uri: URL,
+  uri: FAUNA_URL,
   fetch,
   request: (operation) => {
     operation.setContext({
