@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>Total games played: {{ gamesPlayed }}</div>
+    <div>Total games played: {{ totalGames }}</div>
     <div data-test="board">
       <Foundation />
       <Columns />
@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import { gql } from 'apollo-boost';
-
+import { mapGetters } from 'vuex';
 import Foundation from '@/components/Foundation.vue';
 import Columns from '@/components/Columns.vue';
 
@@ -20,23 +19,8 @@ export default {
     Foundation,
     Columns,
   },
-  data() {
-    return {
-      gamesPlayed: 0,
-    };
-  },
-  async created() {
-    const response = await this.$apollo.query({
-      query: gql`
-        query {
-          totalGames {
-            count
-          }
-        }
-      `,
-    });
-
-    this.gamesPlayed = response.data.totalGames.count;
+  computed: {
+    ...mapGetters(['totalGames']),
   },
 };
 </script>

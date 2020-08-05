@@ -3,7 +3,13 @@ import defaultState from './state';
 
 const mutations = {
   RESTART_GAME(state) {
-    Object.assign(state, defaultState());
+    const { totalGames } = state;
+    const newState = {
+      ...defaultState(),
+      totalGames,
+    };
+
+    Object.assign(state, newState);
   },
   SET_GAME_WON(state, isGameWon) {
     state.isGameWon = isGameWon;
@@ -26,6 +32,14 @@ const mutations = {
   },
   SET_REMAINING_MOVES(state, hasMoves) {
     state.hasMoves = hasMoves;
+  },
+  SET_TOTAL_GAMES(state, totalGames) {
+    state.totalGames = totalGames;
+
+    console.log('tg', totalGames);
+  },
+  SET_GAME_ID(state, gameID) {
+    state.gameID = gameID;
   },
 };
 

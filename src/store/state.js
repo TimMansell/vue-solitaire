@@ -7,6 +7,8 @@ const state = () => ({
   selectedCardId: null,
   isGameWon: false,
   hasMoves: true,
+  totalGames: null,
+  gameID: null,
 });
 
 export default state;

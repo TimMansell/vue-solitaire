@@ -1,4 +1,6 @@
+import { gql } from 'apollo-boost';
 import solitaire from '@/services/solitaire';
+import apollo from '../apolloClient';
 
 const actions = {
   initGame({ dispatch }) {
@@ -6,9 +8,39 @@ const actions = {
 
     dispatch('setBoard');
     dispatch('setFoundations');
+    dispatch('apolloNewGame');
   },
   restartGame({ commit }) {
     commit('RESTART_GAME');
+  },
+  async apolloNewGame({ commit, dispatch }) {
+    const response = await apollo.mutate({
+      mutation: gql`
+        mutation {
+          createGame {
+            id
+          }
+        }
+      `,
+    });
+
+    dispatch('apolloTotalGames');
+
+    commit('SET_GAME_ID', response.data.createGame.id);
+  },
+  async apolloTotalGames({ commit }) {
+    const response = await apollo.query({
+      query: gql`
+        query {
+          totalGames {
+            count
+          }
+        }
+      `,
+      fetchPolicy: 'network-only',
+    });
+
+    commit('SET_TOTAL_GAMES', response.data.totalGames.count);
   },
   checkGameWon({ commit }) {
     const isGameWon = solitaire.isEmptyBoard();

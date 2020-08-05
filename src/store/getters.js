@@ -4,6 +4,7 @@ const getters = {
   selectedCardId: (state) => state.selectedCardId,
   isGameWon: (state) => state.isGameWon,
   hasMoves: (state) => state.hasMoves,
+  totalGames: (state) => state.totalGames,
 };
 
 export default getters;
