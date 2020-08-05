@@ -28,6 +28,4 @@ const options = {
   ...cors,
 };
 
-console.log({ options });
-
 exports.handler = server.createHandler(options);
