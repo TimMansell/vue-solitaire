@@ -35,8 +35,6 @@ const mutations = {
   },
   SET_TOTAL_GAMES(state, totalGames) {
     state.totalGames = totalGames;
-
-    console.log('tg', totalGames);
   },
   SET_GAME_ID(state, gameID) {
     state.gameID = gameID;

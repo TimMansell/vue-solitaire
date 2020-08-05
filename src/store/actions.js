@@ -1,6 +1,5 @@
-import { gql } from 'apollo-boost';
 import solitaire from '@/services/solitaire';
-import apollo from '../apolloClient';
+import graphql from '@/services/graphql';
 
 const actions = {
   initGame({ dispatch }) {
@@ -14,33 +13,16 @@ const actions = {
     commit('RESTART_GAME');
   },
   async apolloNewGame({ commit, dispatch }) {
-    const response = await apollo.mutate({
-      mutation: gql`
-        mutation {
-          createGame {
-            id
-          }
-        }
-      `,
-    });
+    const game = await graphql.newGame();
 
     dispatch('apolloTotalGames');
 
-    commit('SET_GAME_ID', response.data.createGame.id);
+    commit('SET_GAME_ID', game.data.createGame.id);
   },
   async apolloTotalGames({ commit }) {
-    const response = await apollo.query({
-      query: gql`
-        query {
-          totalGames {
-            count
-          }
-        }
-      `,
-      fetchPolicy: 'network-only',
-    });
+    const totalGames = await graphql.getTotalGames();
 
-    commit('SET_TOTAL_GAMES', response.data.totalGames.count);
+    commit('SET_TOTAL_GAMES', totalGames.data.totalGames.count);
   },
   checkGameWon({ commit }) {
     const isGameWon = solitaire.isEmptyBoard();
