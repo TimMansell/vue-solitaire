@@ -10,7 +10,6 @@ const server = new ApolloServer({
     return { client, formatQuery };
   },
   playground: true,
-  introspection: true,
 });
 
 exports.handler = server.createHandler();
