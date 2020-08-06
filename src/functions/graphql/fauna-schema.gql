@@ -1,0 +1,16 @@
+type Game {
+  date: Date
+  won: Boolean
+  lost: Boolean
+  completed: Boolean
+  time: Int
+  moves: Int
+}
+
+type totalGames @embedded {
+  count: Int!
+}
+
+type Query {
+  totalGames: totalGames! @resolver(name: "totalGames")
+}

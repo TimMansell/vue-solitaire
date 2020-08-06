@@ -9,7 +9,7 @@ blocks:
     task:
       prologue:
         commands:
-          - sem-version node 10.16.2
+          - sem-version node 10.22.0
       jobs:
         - name: 'Job #1'
           commands:
