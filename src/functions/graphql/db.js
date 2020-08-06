@@ -1,8 +1,9 @@
 import fetch from 'node-fetch';
-import ApolloClient, { gql } from 'apollo-boost';
+import ApolloClient from 'apollo-boost';
 
 const { FAUNA_URL, FAUNA_ACCESS_TOKEN } = process.env;
 
+// eslint-disable-next-line import/prefer-default-export
 export const client = new ApolloClient({
   uri: FAUNA_URL,
   fetch,
@@ -14,7 +15,3 @@ export const client = new ApolloClient({
     });
   },
 });
-
-export const formatQuery = (query) => gql`
-  ${query}
-`;
