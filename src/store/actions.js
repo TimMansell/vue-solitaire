@@ -10,7 +10,11 @@ const actions = {
     dispatch('setFoundations');
     dispatch('apolloNewGame');
   },
-  restartGame({ commit }) {
+  restartGame({ commit, dispatch }, hasQuit) {
+    if (hasQuit) {
+      dispatch('apolloQuitGame');
+    }
+
     commit('RESTART_GAME');
   },
   checkGameWon({ commit, dispatch }) {
@@ -58,11 +62,13 @@ const actions = {
 
     commit('UNSELECT_CARD');
   },
-  moveCardsToColumn({ dispatch }, selectedColumn) {
+  moveCardsToColumn({ commit, dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidCardMove(selectedColumn);
 
     if (isValidMove) {
       solitaire.moveCards(selectedColumn);
+
+      commit('INCREMENT_MOVES');
 
       dispatch('setBoard');
       dispatch('checkGameLost');
@@ -70,11 +76,13 @@ const actions = {
 
     dispatch('unselectCard');
   },
-  moveCardToFoundation({ dispatch }, selectedColumn) {
+  moveCardToFoundation({ commit, dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidFoundationMove(selectedColumn);
 
     if (isValidMove) {
       solitaire.moveCardsToFoundation(selectedColumn);
+
+      commit('INCREMENT_MOVES');
 
       dispatch('setBoard');
       dispatch('setFoundations');
@@ -112,16 +120,22 @@ const actions = {
     commit('SET_GAME', obj);
   },
   async apolloLostGame({ state }) {
-    const { id, start } = state.game;
+    const { id, start, moves } = state.game;
     const time = differenceInSeconds(new Date(), start);
 
-    await graphql.updateGame(id, { lost: true, time, completed: true });
+    await graphql.updateGame(id, { lost: true, time, moves, completed: true });
   },
   async apolloWonGame({ state }) {
-    const { id, start } = state.game;
+    const { id, start, moves } = state.game;
     const time = differenceInSeconds(new Date(), start);
 
-    await graphql.updateGame(id, { won: true, time, completed: true });
+    await graphql.updateGame(id, { won: true, time, moves, completed: true });
+  },
+  async apolloQuitGame({ state }) {
+    const { id, start, moves } = state.game;
+    const time = differenceInSeconds(new Date(), start);
+
+    await graphql.updateGame(id, { time, moves });
   },
   async apolloTotalGames({ commit }) {
     const totalGames = await graphql.getTotalGames();

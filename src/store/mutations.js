@@ -37,7 +37,14 @@ const mutations = {
     state.stats.totalGames = totalGames;
   },
   SET_GAME(state, game) {
-    state.game = game;
+    state.game = {
+      ...state.game,
+      ...game,
+    };
+  },
+  INCREMENT_MOVES(state) {
+    state.game.moves += 1;
+    console.log({ state });
   },
 };
 
