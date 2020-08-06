@@ -1,3 +1,4 @@
+import { differenceInSeconds } from 'date-fns';
 import solitaire from '@/services/solitaire';
 import graphql from '@/services/graphql';
 
@@ -8,8 +9,6 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
     dispatch('apolloNewGame');
-
-    console.log('init');
   },
   restartGame({ commit }) {
     commit('RESTART_GAME');
@@ -105,23 +104,34 @@ const actions = {
 
     dispatch('apolloTotalGames');
 
-    commit('SET_GAME_ID', game.data.createGame.id);
+    const obj = {
+      id: game.data.createGame.id,
+      start: new Date(),
+    };
+
+    commit('SET_GAME', obj);
   },
   async apolloLostGame({ state }) {
+    const time = differenceInSeconds(new Date(), state.game.start);
+
     const payload = {
-      id: state.gameID,
+      id: state.game.id,
       data: {
         lost: true,
+        time,
       },
     };
 
     await graphql.updateGame(payload);
   },
   async apolloWonGame({ state }) {
+    const time = differenceInSeconds(new Date(), state.game.start);
+
     const payload = {
-      id: state.gameID,
+      id: state.game.id,
       data: {
         won: true,
+        time,
       },
     };
 

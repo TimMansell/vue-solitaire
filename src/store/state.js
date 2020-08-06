@@ -10,7 +10,11 @@ const state = () => ({
   stats: {
     totalGames: null,
   },
-  gameID: null,
+  game: {
+    id: null,
+    start: null,
+    stop: null,
+  },
 });
 
 export default state;
