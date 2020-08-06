@@ -112,30 +112,16 @@ const actions = {
     commit('SET_GAME', obj);
   },
   async apolloLostGame({ state }) {
-    const time = differenceInSeconds(new Date(), state.game.start);
+    const { id, start } = state.game;
+    const time = differenceInSeconds(new Date(), start);
 
-    const payload = {
-      id: state.game.id,
-      data: {
-        lost: true,
-        time,
-      },
-    };
-
-    await graphql.updateGame(payload);
+    await graphql.updateGame(id, { lost: true, time, completed: true });
   },
   async apolloWonGame({ state }) {
-    const time = differenceInSeconds(new Date(), state.game.start);
+    const { id, start } = state.game;
+    const time = differenceInSeconds(new Date(), start);
 
-    const payload = {
-      id: state.game.id,
-      data: {
-        won: true,
-        time,
-      },
-    };
-
-    await graphql.updateGame(payload);
+    await graphql.updateGame(id, { won: true, time, completed: true });
   },
   async apolloTotalGames({ commit }) {
     const totalGames = await graphql.getTotalGames();

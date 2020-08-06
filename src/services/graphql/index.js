@@ -13,7 +13,7 @@ const graphql = () => {
       `,
     });
 
-  const updateGame = (payload) =>
+  const updateGame = (id, data) =>
     apollo.mutate({
       mutation: gql`
         mutation UpdateAGame($id: ID!, $data: GameInput!) {
@@ -22,7 +22,10 @@ const graphql = () => {
           }
         }
       `,
-      variables: payload,
+      variables: {
+        id,
+        data,
+      },
     });
 
   const getTotalGames = () =>
