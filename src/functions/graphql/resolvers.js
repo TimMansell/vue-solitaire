@@ -29,6 +29,11 @@ export const resolvers = {
         mutation CreateGame($data: GameInput!) {
           createGame(data: $data) {
             _id
+            date
+            won
+            lost
+            abandoned
+            time
           }
         }
       `);
@@ -77,11 +82,9 @@ export const resolvers = {
       });
 
       const { updateGame } = body.data;
-      const { _id: id } = updateGame;
 
       return {
         ...updateGame,
-        id,
       };
     },
   },
