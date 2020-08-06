@@ -17,14 +17,16 @@ export const typeDefs = gql`
     date: String
     won: Boolean
     lost: Boolean
-    abandoned: Boolean
+    completed: Boolean
     time: Int
+    moves: Int
   }
   input GameInput {
     date: String
     won: Boolean
     lost: Boolean
-    abandoned: Boolean
+    completed: Boolean
     time: Int
+    moves: Int
   }
 `;

@@ -32,8 +32,9 @@ export const resolvers = {
             date
             won
             lost
-            abandoned
+            completed
             time
+            moves
           }
         }
       `);
@@ -43,8 +44,7 @@ export const resolvers = {
           date: format(new Date(), 'yyyy-MM-dd'),
           won: false,
           lost: false,
-          abandoned: false,
-          time: 0,
+          completed: false,
         },
       };
 
@@ -70,8 +70,9 @@ export const resolvers = {
             date
             lost
             won
-            abandoned
+            completed
             time
+            moves
           }
         }
       `;
