@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>Total games played: {{ totalGames }}</div>
+    <div>Total games played: {{ stats.totalGames }}</div>
     <div data-test="board">
       <Foundation />
       <Columns />
@@ -20,7 +20,7 @@ export default {
     Columns,
   },
   computed: {
-    ...mapGetters(['totalGames']),
+    ...mapGetters(['stats']),
   },
 };
 </script>
