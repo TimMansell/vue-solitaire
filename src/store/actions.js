@@ -1,4 +1,6 @@
+import { differenceInSeconds } from 'date-fns';
 import solitaire from '@/services/solitaire';
+import graphql from '@/services/graphql';
 
 const actions = {
   initGame({ dispatch }) {
@@ -6,14 +8,33 @@ const actions = {
 
     dispatch('setBoard');
     dispatch('setFoundations');
+    dispatch('apolloNewGame');
   },
-  restartGame({ commit }) {
+  restartGame({ commit, dispatch }, hasQuit) {
+    if (hasQuit) {
+      dispatch('apolloQuitGame');
+    }
+
     commit('RESTART_GAME');
   },
-  checkGameWon({ commit }) {
-    const isGameWon = solitaire.isEmptyBoard();
+  checkGameWon({ commit, dispatch }) {
+    const hasMoves = solitaire.hasMoves();
+    const isBoardEmpty = solitaire.isEmptyBoard();
 
-    commit('SET_GAME_WON', isGameWon);
+    if (!hasMoves && isBoardEmpty) {
+      commit('SET_GAME_WON', true);
+
+      dispatch('apolloWonGame');
+    }
+  },
+  checkGameLost({ commit, dispatch }) {
+    const hasMoves = solitaire.hasMoves();
+
+    if (!hasMoves) {
+      commit('SET_GAME_LOST', true);
+
+      dispatch('apolloLostGame');
+    }
   },
   setFoundations({ commit }) {
     const foundationCards = solitaire.getFoundationCards();
@@ -41,33 +62,32 @@ const actions = {
 
     commit('UNSELECT_CARD');
   },
-  checkRemainingMoves({ commit }) {
-    const hasMoves = solitaire.hasMoves();
-
-    commit('SET_REMAINING_MOVES', hasMoves);
-  },
-  moveCardsToColumn({ dispatch }, selectedColumn) {
+  moveCardsToColumn({ commit, dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidCardMove(selectedColumn);
 
     if (isValidMove) {
       solitaire.moveCards(selectedColumn);
 
+      commit('INCREMENT_MOVES');
+
       dispatch('setBoard');
-      dispatch('checkRemainingMoves');
+      dispatch('checkGameLost');
     }
 
     dispatch('unselectCard');
   },
-  moveCardToFoundation({ dispatch }, selectedColumn) {
+  moveCardToFoundation({ commit, dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidFoundationMove(selectedColumn);
 
     if (isValidMove) {
       solitaire.moveCardsToFoundation(selectedColumn);
 
+      commit('INCREMENT_MOVES');
+
       dispatch('setBoard');
       dispatch('setFoundations');
       dispatch('checkGameWon');
-      dispatch('checkRemainingMoves');
+      dispatch('checkGameLost');
     }
 
     dispatch('unselectCard');
@@ -86,6 +106,38 @@ const actions = {
 
     dispatch('setBoard');
     dispatch('setFoundations');
+  },
+  async apolloNewGame({ commit }) {
+    const { error, response } = await graphql.newGame();
+
+    if (!error) {
+      const { id, gameNumber } = response;
+
+      commit('SET_GAME', {
+        id,
+        start: new Date(),
+      });
+
+      commit('SET_TOTAL_GAMES', gameNumber);
+    }
+  },
+  apolloLostGame({ state }) {
+    const { id, start, moves } = state.game;
+    const time = differenceInSeconds(new Date(), start);
+
+    graphql.updateGame(id, { lost: true, time, moves, completed: true });
+  },
+  apolloWonGame({ state }) {
+    const { id, start, moves } = state.game;
+    const time = differenceInSeconds(new Date(), start);
+
+    graphql.updateGame(id, { won: true, time, moves, completed: true });
+  },
+  apolloQuitGame({ state }) {
+    const { id, start, moves } = state.game;
+    const time = differenceInSeconds(new Date(), start);
+
+    graphql.updateGame(id, { time, moves });
   },
 };
 
