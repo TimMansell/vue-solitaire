@@ -17,5 +17,5 @@ type Query {
 }
 
 type Mutation {
-  newGame: Game! @resolver(name: "newGame")
+  newGame(date: String!): Game! @resolver(name: "newGame")
 }
