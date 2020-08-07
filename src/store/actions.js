@@ -107,17 +107,16 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
   },
-  async apolloNewGame({ commit, dispatch }) {
+  async apolloNewGame({ commit }) {
     const game = await graphql.newGame();
 
-    dispatch('apolloTotalGames');
-
     const obj = {
-      id: game.data.createGame.id,
+      id: game.data.newGame.id,
       start: new Date(),
     };
 
     commit('SET_GAME', obj);
+    commit('SET_TOTAL_GAMES', game.data.newGame.gameNumber);
   },
   async apolloLostGame({ state }) {
     const { id, start, moves } = state.game;
@@ -136,11 +135,6 @@ const actions = {
     const time = differenceInSeconds(new Date(), start);
 
     await graphql.updateGame(id, { time, moves });
-  },
-  async apolloTotalGames({ commit }) {
-    const totalGames = await graphql.getTotalGames();
-
-    commit('SET_TOTAL_GAMES', totalGames.data.totalGames.count);
   },
 };
 

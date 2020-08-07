@@ -3,19 +3,14 @@ import { format } from 'date-fns';
 
 // eslint-disable-next-line import/prefer-default-export
 export const mutations = {
-  createGame: async (obj, args, context) => {
+  newGame: async (obj, args, context) => {
     const { client } = context;
 
     const mutation = gql`
-      mutation CreateGame($data: GameInput!) {
-        createGame(data: $data) {
+      mutation {
+        newGame {
           _id
-          date
-          won
-          lost
-          completed
-          time
-          moves
+          gameNumber
         }
       }
     `;
@@ -34,11 +29,11 @@ export const mutations = {
       variables,
     });
 
-    const { createGame } = body.data;
-    const { _id: id } = createGame;
+    const { newGame } = body.data;
+    const { _id: id } = newGame;
 
     return {
-      ...createGame,
+      ...newGame,
       id,
     };
   },
@@ -48,12 +43,14 @@ export const mutations = {
     const mutation = gql`
       mutation UpdateAGame($id: ID!, $data: GameInput!) {
         updateGame(id: $id, data: $data) {
+          _id
           date
           lost
           won
           completed
           time
           moves
+          gameNumber
         }
       }
     `;
@@ -64,9 +61,11 @@ export const mutations = {
     });
 
     const { updateGame } = body.data;
+    const { _id: id } = updateGame;
 
     return {
       ...updateGame,
+      id,
     };
   },
 };

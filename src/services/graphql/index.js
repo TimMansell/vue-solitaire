@@ -6,8 +6,9 @@ const graphql = () => {
     apollo.mutate({
       mutation: gql`
         mutation {
-          createGame {
+          newGame {
             id
+            gameNumber
           }
         }
       `,
@@ -37,7 +38,7 @@ const graphql = () => {
           }
         }
       `,
-      fetchPolicy: 'network-only',
+      fetchPolicy: 'no-cache',
     });
 
   return {
