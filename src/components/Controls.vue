@@ -1,6 +1,6 @@
 <template>
   <div class="controls">
-    <NewGame quit />
+    <NewGame />
     <ShowRules />
   </div>
 </template>

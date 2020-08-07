@@ -14,7 +14,7 @@ export default {
     Button,
   },
   props: {
-    quit: {
+    completed: {
       type: Boolean,
       default: false,
     },
@@ -22,9 +22,9 @@ export default {
   methods: {
     ...mapActions(['restartGame', 'initGame']),
     newGame() {
-      const { quit } = this;
+      const { completed } = this;
 
-      this.restartGame(quit);
+      this.restartGame(completed);
       this.initGame();
 
       this.$gtag.event('New Game', { event_category: 'Buttons' });
