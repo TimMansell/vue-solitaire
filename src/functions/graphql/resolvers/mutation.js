@@ -7,21 +7,22 @@ export const mutations = {
     const { client } = context;
 
     const mutation = gql`
-      mutation {
-        newGame {
+      mutation NewGame($date: String!) {
+        newGame(date: $date) {
           _id
+          date
+          lost
+          won
+          completed
+          time
+          moves
           gameNumber
         }
       }
     `;
 
     const variables = {
-      data: {
-        date: format(new Date(), 'yyyy-MM-dd'),
-        won: false,
-        lost: false,
-        completed: false,
-      },
+      date: format(new Date(), 'yyyy-MM-dd'),
     };
 
     const body = await client.mutate({

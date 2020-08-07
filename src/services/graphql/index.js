@@ -19,7 +19,7 @@ const graphql = () => {
       mutation: gql`
         mutation UpdateAGame($id: ID!, $data: GameInput!) {
           updateGame(id: $id, data: $data) {
-            date
+            id
           }
         }
       `,
