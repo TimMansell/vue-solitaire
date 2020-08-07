@@ -108,33 +108,36 @@ const actions = {
     dispatch('setFoundations');
   },
   async apolloNewGame({ commit }) {
-    const game = await graphql.newGame();
+    const { error, response } = await graphql.newGame();
 
-    const obj = {
-      id: game.data.newGame.id,
-      start: new Date(),
-    };
+    if (!error) {
+      const { id, gameNumber } = response;
 
-    commit('SET_GAME', obj);
-    commit('SET_TOTAL_GAMES', game.data.newGame.gameNumber);
+      commit('SET_GAME', {
+        id,
+        start: new Date(),
+      });
+
+      commit('SET_TOTAL_GAMES', gameNumber);
+    }
   },
-  async apolloLostGame({ state }) {
+  apolloLostGame({ state }) {
     const { id, start, moves } = state.game;
     const time = differenceInSeconds(new Date(), start);
 
-    await graphql.updateGame(id, { lost: true, time, moves, completed: true });
+    graphql.updateGame(id, { lost: true, time, moves, completed: true });
   },
-  async apolloWonGame({ state }) {
+  apolloWonGame({ state }) {
     const { id, start, moves } = state.game;
     const time = differenceInSeconds(new Date(), start);
 
-    await graphql.updateGame(id, { won: true, time, moves, completed: true });
+    graphql.updateGame(id, { won: true, time, moves, completed: true });
   },
-  async apolloQuitGame({ state }) {
+  apolloQuitGame({ state }) {
     const { id, start, moves } = state.game;
     const time = differenceInSeconds(new Date(), start);
 
-    await graphql.updateGame(id, { time, moves });
+    graphql.updateGame(id, { time, moves });
   },
 };
 
