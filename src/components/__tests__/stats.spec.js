@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Stats from '@/components/Stats.vue';
-import state from '@/store/state';
+import state from '@/store/db/state';
 
 const localVue = createLocalVue();
 
