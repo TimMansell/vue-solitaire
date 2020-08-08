@@ -13,10 +13,18 @@ export default {
   components: {
     Button,
   },
+  props: {
+    completed: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
     ...mapActions(['restartGame', 'initGame']),
     newGame() {
-      this.restartGame();
+      const { completed } = this;
+
+      this.restartGame(completed);
       this.initGame();
 
       this.$gtag.event('New Game', { event_category: 'Buttons' });
