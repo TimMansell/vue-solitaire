@@ -6,7 +6,7 @@ export const typeDefs = gql`
     totalGames: totalGames!
   }
   type Mutation {
-    createGame: Game!
+    newGame: Game!
     updateGame(id: ID!, data: GameInput!): Game!
   }
   type totalGames {
@@ -20,9 +20,9 @@ export const typeDefs = gql`
     completed: Boolean
     time: Int
     moves: Int
+    gameNumber: Int
   }
   input GameInput {
-    date: String
     won: Boolean
     lost: Boolean
     completed: Boolean
