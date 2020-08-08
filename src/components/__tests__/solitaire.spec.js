@@ -1,8 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Solitaire from '@/components/Solitaire.vue';
-import state from '@/store/state';
-import getters from '@/store/getters';
+import state from '@/store/solitaire/state';
+import getters from '@/store/solitaire/getters';
 
 const localVue = createLocalVue();
 
