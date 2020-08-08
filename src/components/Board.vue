@@ -1,7 +1,7 @@
 <template>
   <div>
     <Stats />
-    <div class="board" data-test="board">
+    <div data-test="board">
       <Foundation />
       <Columns />
     </div>
