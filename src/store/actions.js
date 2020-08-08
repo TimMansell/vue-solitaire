@@ -17,23 +17,24 @@ const actions = {
 
     commit('RESTART_GAME');
   },
-  checkGameWon({ commit, dispatch }) {
+  checkGameState({ commit, dispatch }) {
     const hasMoves = solitaire.hasMoves();
     const isBoardEmpty = solitaire.isEmptyBoard();
 
-    if (!hasMoves && isBoardEmpty) {
-      commit('SET_GAME_WON', true);
-
-      dispatch('apolloWonGame');
-    }
-  },
-  checkGameLost({ commit, dispatch }) {
-    const hasMoves = solitaire.hasMoves();
-
     if (!hasMoves) {
-      commit('SET_GAME_LOST', true);
+      commit('SET_HAS_MOVES', false);
 
-      dispatch('apolloLostGame');
+      if (isBoardEmpty) {
+        commit('SET_GAME_WON', true);
+
+        dispatch('apolloWonGame');
+      }
+
+      if (!isBoardEmpty) {
+        commit('SET_GAME_LOST', true);
+
+        dispatch('apolloLostGame');
+      }
     }
   },
   setFoundations({ commit }) {
@@ -71,7 +72,7 @@ const actions = {
       commit('INCREMENT_MOVES');
 
       dispatch('setBoard');
-      dispatch('checkGameLost');
+      dispatch('checkGameState');
     }
 
     dispatch('unselectCard');
@@ -86,8 +87,7 @@ const actions = {
 
       dispatch('setBoard');
       dispatch('setFoundations');
-      dispatch('checkGameWon');
-      dispatch('checkGameLost');
+      dispatch('checkGameState');
     }
 
     dispatch('unselectCard');

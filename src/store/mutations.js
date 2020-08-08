@@ -42,9 +42,11 @@ const mutations = {
       ...game,
     };
   },
+  SET_HAS_MOVES(state, hasMoves) {
+    state.hasMoves = hasMoves;
+  },
   INCREMENT_MOVES(state) {
     state.game.moves += 1;
-    console.log({ state });
   },
 };
 

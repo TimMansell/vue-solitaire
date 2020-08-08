@@ -1,8 +1,10 @@
 <template>
   <div class="solitaire">
     <Board />
-    <GameOverlay v-if="isGameWon" data-test="game-won">Congratulations, you win!</GameOverlay>
-    <GameOverlay v-if="isGameLost" data-test="game-lost">Sorry, no more Moves!</GameOverlay>
+    <GameOverlay v-if="!hasMoves">
+      <div v-if="isGameWon" data-test="game-won">Congratulations, you win!</div>
+      <div v-if="isGameLost" data-test="game-lost">Sorry, no more Moves!</div>
+    </GameOverlay>
     <Rules />
   </div>
 </template>
@@ -12,7 +14,7 @@ import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import GameOverlay from '@/components/GameOverlay.vue';
 import Rules from '@/components/Rules.vue';
-// import aces from '../../tests/fixtures/boards/noMovesAceFoundation.json';
+// import aces from '../../tests/fixtures/boards/fullFoundation.json';
 
 export default {
   name: 'Home',
@@ -22,7 +24,7 @@ export default {
     Rules,
   },
   computed: {
-    ...mapGetters(['isGameWon', 'isGameLost']),
+    ...mapGetters(['hasMoves', 'isGameWon', 'isGameLost']),
   },
   mounted() {
     this.initGame();
