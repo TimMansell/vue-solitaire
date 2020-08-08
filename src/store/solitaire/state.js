@@ -8,15 +8,6 @@ const state = () => ({
   isGameWon: false,
   isGameLost: false,
   hasMoves: true,
-  stats: {
-    totalGames: null,
-  },
-  game: {
-    id: null,
-    start: null,
-    stop: null,
-    moves: 0,
-  },
 });
 
 export default state;

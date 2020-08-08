@@ -8,7 +8,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters(['stats']),
+    ...mapGetters('dbModule', ['stats']),
   },
 };
 </script>
