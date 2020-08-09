@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Card.vue matches hidden snapshot 1`] = `
-<div draggable="true" data-card-suit="c" data-test="card-Ac" class="card card--is-draggable">
-  <defaultcard-stub value="A" suit="c" id="0" data-test="card-default"></defaultcard-stub>
+<div draggable="false" data-card-suit="" data-test="card" class="card">
   <!---->
   <!---->
+  <cardplaceholder-stub data-test="card-hidden"></cardplaceholder-stub>
 </div>
 `;
 
