@@ -1,33 +1,13 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { shallowMount } from '@vue/test-utils';
 import Column from '@/components/Column.vue';
-import state from '@/store/solitaire/state';
-
-const localVue = createLocalVue();
-
-localVue.use(Vuex);
 
 describe('Column.vue', () => {
-  let store;
-
-  const getters = {
-    selectedCardId: () => 1,
-  };
-
-  const actions = {
-    moveCardsToColumn: jest.fn(),
-  };
-
-  beforeEach(() => {
-    store = new Vuex.Store({
-      state,
-      getters,
-      actions,
-    });
-  });
-
   it('matches snapshot', () => {
-    const wrapper = shallowMount(Column, { store, localVue });
+    const wrapper = shallowMount(Column, {
+      computed: {
+        selectedCardId: () => 1,
+      },
+    });
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -47,20 +27,13 @@ describe('Column.vue', () => {
     };
 
     const wrapper = shallowMount(Column, {
-      store,
-      localVue,
       propsData,
+      computed: {
+        selectedCardId: () => 1,
+      },
     });
 
     expect(wrapper.props().cards).toBe(propsData.cards);
     expect(wrapper.props().columnNo).toBe(1);
-  });
-
-  it('should call store action "moveCardsToColumn" when clicked', () => {
-    const wrapper = shallowMount(Column, { store, localVue });
-
-    wrapper.find('[data-test="column-0"]').trigger('click');
-
-    expect(actions.moveCardsToColumn).toHaveBeenCalled();
   });
 });
