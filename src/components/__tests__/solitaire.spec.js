@@ -1,30 +1,43 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { shallowMount } from '@vue/test-utils';
 import Solitaire from '@/components/Solitaire.vue';
-import state from '@/store/solitaire/state';
-import getters from '@/store/solitaire/getters';
 
-const localVue = createLocalVue();
-
-localVue.use(Vuex);
+const mocks = {
+  $store: { dispatch: jest.fn() },
+};
 
 describe('Solitaire.vue', () => {
-  let store;
-
-  const actions = {
-    initGame: jest.fn(),
-  };
-
-  beforeEach(() => {
-    store = new Vuex.Store({
-      state,
-      actions,
-      getters,
+  it('matches snapshot', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        isGameWon: () => false,
+        hasMoves: () => true,
+      },
     });
+
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it('matches snapshot', () => {
-    const wrapper = shallowMount(Solitaire, { store, localVue });
+  it('matches game won snapshot', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        isGameWon: () => true,
+        hasMoves: () => false,
+      },
+    });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('matches game lost snapshot', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        isGameWon: () => false,
+        hasMoves: () => false,
+      },
+    });
 
     expect(wrapper).toMatchSnapshot();
   });

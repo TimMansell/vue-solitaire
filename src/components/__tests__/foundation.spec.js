@@ -1,58 +1,40 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { shallowMount } from '@vue/test-utils';
 import Foundation from '@/components/Foundation.vue';
 
-const localVue = createLocalVue();
-
-localVue.use(Vuex);
+const computed = {
+  foundationCards: () => [
+    {
+      value: 'A',
+      order: 1,
+      suit: 's',
+      visible: true,
+    },
+  ],
+};
 
 describe('Foundation.vue', () => {
   it('matches snapshot', () => {
-    const getters = {
-      foundationCards: () => [
-        {
-          value: 'A',
-          order: 1,
-          suit: 's',
-          visible: true,
-        },
-      ],
-    };
-
-    const store = new Vuex.Store({
-      getters,
+    const wrapper = shallowMount(Foundation, {
+      computed,
     });
-
-    const wrapper = shallowMount(Foundation, { store, localVue });
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('calls store action "moveCardToFoundation" when clicked', () => {
-    const getters = {
-      foundationCards: () => [
-        {
-          value: 'A',
-          order: 1,
-          suit: 's',
-          visible: true,
-        },
-      ],
+    const mockStore = { dispatch: jest.fn() };
+
+    const mocks = {
+      $store: mockStore,
     };
 
-    const actions = {
-      moveCardToFoundation: jest.fn(),
-    };
-
-    const store = new Vuex.Store({
-      getters,
-      actions,
+    const wrapper = shallowMount(Foundation, {
+      mocks,
+      computed,
     });
-
-    const wrapper = shallowMount(Foundation, { store, localVue });
 
     wrapper.find('[data-test="foundation-0"]').trigger('click');
 
-    expect(actions.moveCardToFoundation).toHaveBeenCalled();
+    expect(mockStore.dispatch).toHaveBeenCalledTimes(1);
   });
 });
