@@ -14,12 +14,6 @@ export const typeDefs = gql`
   }
   type Game {
     id: ID!
-    date: String
-    won: Boolean
-    lost: Boolean
-    completed: Boolean
-    time: Int
-    moves: Int
     gameNumber: Int
   }
   input GameInput {

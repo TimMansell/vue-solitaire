@@ -10,12 +10,6 @@ export const mutations = {
       mutation NewGame($date: String!) {
         newGame(date: $date) {
           _id
-          date
-          lost
-          won
-          completed
-          time
-          moves
           gameNumber
         }
       }
@@ -45,12 +39,6 @@ export const mutations = {
       mutation UpdateAGame($id: ID!, $data: GameInput!) {
         updateGame(id: $id, data: $data) {
           _id
-          date
-          lost
-          won
-          completed
-          time
-          moves
           gameNumber
         }
       }
