@@ -1,5 +1,5 @@
 import { differenceInSeconds } from 'date-fns';
-import db from '@/services/graphql';
+import db from '@/services/db';
 
 const actions = {
   restartGame({ commit }) {
