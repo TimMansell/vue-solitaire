@@ -1,32 +1,23 @@
 import { gql } from 'apollo-boost';
 import { format } from 'date-fns';
+import { formatVariables } from './helpers';
 
 // eslint-disable-next-line import/prefer-default-export
 export const mutations = {
-  createGame: async (obj, args, context) => {
+  newGame: async (obj, args, context) => {
     const { client } = context;
 
     const mutation = gql`
-      mutation CreateGame($data: GameInput!) {
-        createGame(data: $data) {
+      mutation NewGame($date: String!) {
+        newGame(date: $date) {
           _id
-          date
-          won
-          lost
-          completed
-          time
-          moves
+          gameNumber
         }
       }
     `;
 
     const variables = {
-      data: {
-        date: format(new Date(), 'yyyy-MM-dd'),
-        won: false,
-        lost: false,
-        completed: false,
-      },
+      date: format(new Date(), 'yyyy-MM-dd'),
     };
 
     const body = await client.mutate({
@@ -34,39 +25,81 @@ export const mutations = {
       variables,
     });
 
-    const { createGame } = body.data;
-    const { _id: id } = createGame;
-
-    return {
-      ...createGame,
-      id,
-    };
+    return body.data.newGame;
   },
-  updateGame: async (obj, args, context) => {
+  wonGame: async (obj, args, context) => {
     const { client } = context;
+
+    const variables = formatVariables(args, {
+      won: true,
+      lost: false,
+      completed: true,
+    });
 
     const mutation = gql`
       mutation UpdateAGame($id: ID!, $data: GameInput!) {
         updateGame(id: $id, data: $data) {
-          date
-          lost
-          won
-          completed
-          time
-          moves
+          _id
+          gameNumber
         }
       }
     `;
 
     const body = await client.mutate({
       mutation,
-      variables: args,
+      variables,
     });
 
-    const { updateGame } = body.data;
+    return body.data.updateGame;
+  },
+  lostGame: async (obj, args, context) => {
+    const { client } = context;
 
-    return {
-      ...updateGame,
-    };
+    const variables = formatVariables(args, {
+      won: false,
+      lost: true,
+      completed: true,
+    });
+
+    const mutation = gql`
+      mutation UpdateAGame($id: ID!, $data: GameInput!) {
+        updateGame(id: $id, data: $data) {
+          _id
+          gameNumber
+        }
+      }
+    `;
+
+    const body = await client.mutate({
+      mutation,
+      variables,
+    });
+
+    return body.data.updateGame;
+  },
+  completedGame: async (obj, args, context) => {
+    const { client } = context;
+
+    const variables = formatVariables(args, {
+      won: false,
+      lost: false,
+      completed: true,
+    });
+
+    const mutation = gql`
+      mutation UpdateAGame($id: ID!, $data: GameInput!) {
+        updateGame(id: $id, data: $data) {
+          _id
+          gameNumber
+        }
+      }
+    `;
+
+    const body = await client.mutate({
+      mutation,
+      variables,
+    });
+
+    return body.data.updateGame;
   },
 };

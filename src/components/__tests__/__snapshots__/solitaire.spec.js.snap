@@ -26,7 +26,6 @@ exports[`Solitaire.vue matches snapshot 1`] = `
 <div class="solitaire">
   <board-stub></board-stub>
   <!---->
-  <!---->
   <rules-stub></rules-stub>
 </div>
 `;

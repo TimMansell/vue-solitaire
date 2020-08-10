@@ -5,7 +5,7 @@ exports[`Card.vue matches visible snapshot 1`] = `
   <div class="game-overlay__content">
     <h1 class="game-overlay__title"></h1>
     <div data-test="game-overlay-btn" class="game-overlay__btn">
-      <newgame-stub></newgame-stub>
+      <newgame-stub completed="true"></newgame-stub>
     </div>
   </div>
 </div>
