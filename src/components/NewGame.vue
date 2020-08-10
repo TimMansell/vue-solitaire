@@ -1,11 +1,11 @@
 <template>
-  <Button @click="newGame" data-test="new-game-btn">
+  <Button @click="newGame" data-test="new-game-btn" :disabled="!game.id">
     New Game
   </Button>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -18,6 +18,9 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    ...mapGetters('dbModule', ['game']),
   },
   methods: {
     ...mapActions(['restartGame', 'initGame']),
