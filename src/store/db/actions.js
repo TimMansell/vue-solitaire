@@ -12,10 +12,10 @@ const actions = {
     const { error, response } = await db.newGame();
 
     if (!error) {
-      const { id, gameNumber } = response;
+      const { _id, gameNumber } = response;
 
       commit('SET_GAME', {
-        id,
+        id: _id,
         start: new Date(),
       });
 

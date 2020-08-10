@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 import { format } from 'date-fns';
-import { formatVariables, formatResponse } from './helpers';
+import { formatVariables } from './helpers';
 
 // eslint-disable-next-line import/prefer-default-export
 export const mutations = {
@@ -25,9 +25,7 @@ export const mutations = {
       variables,
     });
 
-    const response = formatResponse(body, 'newGame');
-
-    return response;
+    return body.data.newGame;
   },
   wonGame: async (obj, args, context) => {
     const { client } = context;
@@ -52,9 +50,7 @@ export const mutations = {
       variables,
     });
 
-    const response = formatResponse(body, 'updateGame');
-
-    return response;
+    return body.data.updateGame;
   },
   lostGame: async (obj, args, context) => {
     const { client } = context;
@@ -79,9 +75,7 @@ export const mutations = {
       variables,
     });
 
-    const response = formatResponse(body, 'updateGame');
-
-    return response;
+    return body.data.updateGame;
   },
   completedGame: async (obj, args, context) => {
     const { client } = context;
@@ -106,8 +100,6 @@ export const mutations = {
       variables,
     });
 
-    const response = formatResponse(body, 'updateGame');
-
-    return response;
+    return body.data.updateGame;
   },
 };

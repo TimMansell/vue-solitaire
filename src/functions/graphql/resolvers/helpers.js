@@ -1,13 +1,4 @@
-export const formatResponse = (response, name) => {
-  const data = response.data[name];
-  const { _id: id } = data;
-
-  return {
-    ...data,
-    id,
-  };
-};
-
+// eslint-disable-next-line import/prefer-default-export
 export const formatVariables = (args, params) => {
   const { id, data } = args;
 

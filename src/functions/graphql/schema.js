@@ -15,7 +15,7 @@ export const typeDefs = gql`
     count: Int
   }
   type Game {
-    id: ID!
+    _id: ID!
     gameNumber: Int
   }
   input GameInput {
