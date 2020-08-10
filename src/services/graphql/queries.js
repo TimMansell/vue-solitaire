@@ -21,12 +21,12 @@ export const newGame = async () => {
   }
 };
 
-export const updateGame = async (id, data) => {
+export const gameWon = async (id, data) => {
   try {
     const { data: response } = await apollo.mutate({
       mutation: gql`
-        mutation UpdateAGame($id: ID!, $data: GameInput!) {
-          updateGame(id: $id, data: $data) {
+        mutation WonAGame($id: ID!, $data: GameInput!) {
+          wonGame(id: $id, data: $data) {
             id
           }
         }
@@ -37,7 +37,51 @@ export const updateGame = async (id, data) => {
       },
     });
 
-    return formatResponse(response.updateGame);
+    return formatResponse(response.wonGame);
+  } catch (error) {
+    return formatError();
+  }
+};
+
+export const gameLost = async (id, data) => {
+  try {
+    const { data: response } = await apollo.mutate({
+      mutation: gql`
+        mutation LostAGame($id: ID!, $data: GameInput!) {
+          lostGame(id: $id, data: $data) {
+            id
+          }
+        }
+      `,
+      variables: {
+        id,
+        data,
+      },
+    });
+
+    return formatResponse(response.lostGame);
+  } catch (error) {
+    return formatError();
+  }
+};
+
+export const gameCompleted = async (id, data) => {
+  try {
+    const { data: response } = await apollo.mutate({
+      mutation: gql`
+        mutation CompletedAGame($id: ID!, $data: GameInput!) {
+          completedGame(id: $id, data: $data) {
+            id
+          }
+        }
+      `,
+      variables: {
+        id,
+        data,
+      },
+    });
+
+    return formatResponse(response.completedGame);
   } catch (error) {
     return formatError();
   }

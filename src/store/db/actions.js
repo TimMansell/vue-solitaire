@@ -1,5 +1,5 @@
 import { differenceInSeconds } from 'date-fns';
-import graphql from '@/services/graphql';
+import db from '@/services/graphql';
 
 const actions = {
   restartGame({ commit }) {
@@ -9,7 +9,7 @@ const actions = {
     commit('INCREMENT_MOVES');
   },
   async newGame({ commit }) {
-    const { error, response } = await graphql.newGame();
+    const { error, response } = await db.newGame();
 
     if (!error) {
       const { id, gameNumber } = response;
@@ -26,19 +26,19 @@ const actions = {
     const { id, start, moves } = state.game;
     const time = differenceInSeconds(new Date(), start);
 
-    graphql.updateGame(id, { lost: true, time, moves, completed: true });
+    db.gameLost(id, { time, moves });
   },
   wonGame({ state }) {
     const { id, start, moves } = state.game;
     const time = differenceInSeconds(new Date(), start);
 
-    graphql.updateGame(id, { won: true, time, moves, completed: true });
+    db.gameWon(id, { time, moves });
   },
   completedGame({ state }) {
     const { id, start, moves } = state.game;
     const time = differenceInSeconds(new Date(), start);
 
-    graphql.updateGame(id, { time, moves });
+    db.gameCompleted(id, { time, moves });
   },
 };
 

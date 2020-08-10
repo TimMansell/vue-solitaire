@@ -1,5 +1,6 @@
 import { gql } from 'apollo-boost';
 import { format } from 'date-fns';
+import { formatVariables, formatResponse } from './helpers';
 
 // eslint-disable-next-line import/prefer-default-export
 export const mutations = {
@@ -24,16 +25,18 @@ export const mutations = {
       variables,
     });
 
-    const { newGame } = body.data;
-    const { _id: id } = newGame;
+    const response = formatResponse(body, 'newGame');
 
-    return {
-      ...newGame,
-      id,
-    };
+    return response;
   },
-  updateGame: async (obj, args, context) => {
+  wonGame: async (obj, args, context) => {
     const { client } = context;
+
+    const variables = formatVariables(args, {
+      won: true,
+      lost: false,
+      completed: true,
+    });
 
     const mutation = gql`
       mutation UpdateAGame($id: ID!, $data: GameInput!) {
@@ -46,15 +49,65 @@ export const mutations = {
 
     const body = await client.mutate({
       mutation,
-      variables: args,
+      variables,
     });
 
-    const { updateGame } = body.data;
-    const { _id: id } = updateGame;
+    const response = formatResponse(body, 'updateGame');
 
-    return {
-      ...updateGame,
-      id,
-    };
+    return response;
+  },
+  lostGame: async (obj, args, context) => {
+    const { client } = context;
+
+    const variables = formatVariables(args, {
+      won: false,
+      lost: true,
+      completed: true,
+    });
+
+    const mutation = gql`
+      mutation UpdateAGame($id: ID!, $data: GameInput!) {
+        updateGame(id: $id, data: $data) {
+          _id
+          gameNumber
+        }
+      }
+    `;
+
+    const body = await client.mutate({
+      mutation,
+      variables,
+    });
+
+    const response = formatResponse(body, 'updateGame');
+
+    return response;
+  },
+  completedGame: async (obj, args, context) => {
+    const { client } = context;
+
+    const variables = formatVariables(args, {
+      won: false,
+      lost: false,
+      completed: true,
+    });
+
+    const mutation = gql`
+      mutation UpdateAGame($id: ID!, $data: GameInput!) {
+        updateGame(id: $id, data: $data) {
+          _id
+          gameNumber
+        }
+      }
+    `;
+
+    const body = await client.mutate({
+      mutation,
+      variables,
+    });
+
+    const response = formatResponse(body, 'updateGame');
+
+    return response;
   },
 };

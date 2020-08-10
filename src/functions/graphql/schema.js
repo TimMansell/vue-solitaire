@@ -7,7 +7,9 @@ export const typeDefs = gql`
   }
   type Mutation {
     newGame: Game!
-    updateGame(id: ID!, data: GameInput!): Game!
+    wonGame(id: ID!, data: GameInput!): Game!
+    lostGame(id: ID!, data: GameInput!): Game!
+    completedGame(id: ID!, data: GameInput!): Game!
   }
   type totalGames {
     count: Int

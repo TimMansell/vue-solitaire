@@ -1,9 +1,11 @@
-import { newGame, updateGame, getTotalGames } from './queries';
+import { newGame, gameLost, gameWon, gameCompleted, getTotalGames } from './queries';
 
-const graphql = () => ({
+const db = () => ({
   newGame,
-  updateGame,
+  gameWon,
+  gameLost,
+  gameCompleted,
   getTotalGames,
 });
 
-export default graphql();
+export default db();
