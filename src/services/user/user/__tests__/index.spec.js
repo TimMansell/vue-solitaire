@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { getUser, setUser, checkUser } from '../index';
 
 describe('User', () => {
