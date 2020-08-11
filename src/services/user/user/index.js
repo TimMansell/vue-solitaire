@@ -10,4 +10,4 @@ export const setUser = () => {
   return uid;
 };
 
-export const checkUser = () => localStorage.getItem('uid') !== null;
+export const checkUser = () => getUser() !== null;
