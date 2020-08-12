@@ -7,14 +7,36 @@ const actions = {
     dispatch('userModule/initUser');
     dispatch('setBoard');
     dispatch('setFoundations');
+    dispatch('dbModule/newGame');
+    dispatch('dbModule/getGlobalStats');
   },
-  restartGame({ commit }) {
-    commit('RESTART_GAME');
-  },
-  checkGameWon({ commit }) {
-    const isGameWon = solitaire.isEmptyBoard();
+  restartGame({ commit, dispatch }, completed) {
+    if (!completed) {
+      dispatch('dbModule/completedGame');
+    }
 
-    commit('SET_GAME_WON', isGameWon);
+    commit('RESTART_GAME');
+    dispatch('dbModule/restartGame');
+  },
+  checkGameState({ commit, dispatch }) {
+    const hasMoves = solitaire.hasMoves();
+    const isBoardEmpty = solitaire.isEmptyBoard();
+
+    if (!hasMoves) {
+      commit('SET_HAS_MOVES', false);
+
+      if (isBoardEmpty) {
+        commit('SET_GAME_WON', true);
+
+        dispatch('dbModule/wonGame');
+      }
+
+      if (!isBoardEmpty) {
+        commit('SET_GAME_LOST', true);
+
+        dispatch('dbModule/lostGame');
+      }
+    }
   },
   setFoundations({ commit }) {
     const foundationCards = solitaire.getFoundationCards();
@@ -42,19 +64,15 @@ const actions = {
 
     commit('UNSELECT_CARD');
   },
-  checkRemainingMoves({ commit }) {
-    const hasMoves = solitaire.hasMoves();
-
-    commit('SET_REMAINING_MOVES', hasMoves);
-  },
   moveCardsToColumn({ dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidCardMove(selectedColumn);
 
     if (isValidMove) {
       solitaire.moveCards(selectedColumn);
 
+      dispatch('dbModule/incrementMoves');
       dispatch('setBoard');
-      dispatch('checkRemainingMoves');
+      dispatch('checkGameState');
     }
 
     dispatch('unselectCard');
@@ -65,10 +83,10 @@ const actions = {
     if (isValidMove) {
       solitaire.moveCardsToFoundation(selectedColumn);
 
+      dispatch('dbModule/incrementMoves');
       dispatch('setBoard');
       dispatch('setFoundations');
-      dispatch('checkGameWon');
-      dispatch('checkRemainingMoves');
+      dispatch('checkGameState');
     }
 
     dispatch('unselectCard');

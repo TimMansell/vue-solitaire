@@ -5,6 +5,19 @@ type Game {
   completed: Boolean
   time: Int
   moves: Int
+  gameNumber: Int
+  user: User
+}
+
+type AuthUser {
+  uid: String!
+  users: [User] @relation
+}
+
+type User {
+  uid: String
+  authUser: AuthUser @relation 
+  games: [Game] @relation
 }
 
 type totalGames @embedded {
@@ -13,4 +26,8 @@ type totalGames @embedded {
 
 type Query {
   totalGames: totalGames! @resolver(name: "totalGames")
+}
+
+type Mutation {
+  newGame(date: String!, uid: String!): Game! @resolver(name: "newGame")
 }

@@ -5,7 +5,7 @@
         <slot />
       </h1>
       <div class="game-overlay__btn" data-test="game-overlay-btn">
-        <NewGame />
+        <NewGame completed />
       </div>
     </div>
   </div>

@@ -55,9 +55,13 @@ export default {
 .foundation {
   display: flex;
   margin-bottom: var(--mg-sm);
+  margin-left: calc(var(--col-padding) * -1);
+  margin-right: calc(var(--col-padding) * -1);
 
-  @media (min-width: $bp-sm) {
+  @media (min-width: $bp-md) {
     margin-bottom: var(--mg-md);
+    margin-left: calc(var(--col-padding-lg) * -1);
+    margin-right: calc(var(--col-padding-lg) * -1);
   }
 
   &__column {
