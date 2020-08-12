@@ -1,5 +1,5 @@
 <template>
-  <div class="stats">Global games played: {{ stats.totalGames }}</div>
+  <div class="stats">Games played: {{ stats.totalGames }}</div>
 </template>
 
 <script>
