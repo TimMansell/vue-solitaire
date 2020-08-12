@@ -4,6 +4,7 @@ const actions = {
   initGame({ dispatch }) {
     solitaire.init();
 
+    dispatch('userModule/initUser');
     dispatch('setBoard');
     dispatch('setFoundations');
     dispatch('dbModule/newGame');
