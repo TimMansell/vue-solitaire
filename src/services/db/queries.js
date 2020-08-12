@@ -100,7 +100,7 @@ export const getTotalGames = async () => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(data.updateGame);
+    return formatResponse(data.totalGames);
   } catch (error) {
     return formatError();
   }
