@@ -8,8 +8,10 @@ const actions = {
   incrementMoves({ commit }) {
     commit('INCREMENT_MOVES');
   },
-  async newGame({ commit }) {
-    const { error, response } = await db.newGame();
+  async newGame({ commit, rootState }) {
+    const { userModule } = rootState;
+    const { uid } = userModule;
+    const { error, response } = await db.newGame(uid);
 
     if (!error) {
       const { _id, gameNumber } = response;
@@ -19,7 +21,7 @@ const actions = {
         start: new Date(),
       });
 
-      commit('SET_TOTAL_GAMES', gameNumber);
+      commit('SET_USER_GAMES', gameNumber);
     }
   },
   lostGame({ state }) {

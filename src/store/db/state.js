@@ -3,6 +3,9 @@ const state = () => ({
   stats: {
     totalGames: null,
   },
+  userStats: {
+    totalGames: null,
+  },
   game: {
     id: null,
     start: null,

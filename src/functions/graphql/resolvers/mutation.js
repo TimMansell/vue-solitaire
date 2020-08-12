@@ -5,9 +5,11 @@ import { formatVariables, newGameMutation, updateGameMutation } from './helpers'
 export const mutations = {
   newGame: async (obj, args, context) => {
     const { client } = context;
+    // const { uid } = args;
 
     const variables = {
       date: format(new Date(), 'yyyy-MM-dd'),
+      uid: '273629317526716941',
     };
 
     const response = await newGameMutation(client, variables);

@@ -34,8 +34,8 @@ export const updateGameMutation = async (client, variables) => {
 
 export const newGameMutation = async (client, variables) => {
   const mutation = gql`
-    mutation NewGame($date: String!) {
-      newGame(date: $date) {
+    mutation NewGame($date: String!, $uid: String!) {
+      newGame(date: $date, uid: $uid) {
         _id
         gameNumber
       }

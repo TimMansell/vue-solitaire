@@ -6,7 +6,7 @@ export const typeDefs = gql`
     totalGames: totalGames!
   }
   type Mutation {
-    newGame: Game!
+    newGame(uid: String!): Game!
     wonGame(id: ID!, data: GameInput!): Game!
     lostGame(id: ID!, data: GameInput!): Game!
     completedGame(id: ID!, data: GameInput!): Game!

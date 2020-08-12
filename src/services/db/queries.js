@@ -2,17 +2,20 @@ import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { formatError, formatResponse } from './helpers';
 
-export const newGame = async () => {
+export const newGame = async (uid) => {
   try {
     const { data } = await apollo.mutate({
       mutation: gql`
-        mutation {
-          newGame {
+        mutation NewGame($uid: String!) {
+          newGame(uid: $uid) {
             _id
             gameNumber
           }
         }
       `,
+      variables: {
+        uid,
+      },
     });
 
     return formatResponse(data.newGame);

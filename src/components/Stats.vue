@@ -1,5 +1,5 @@
 <template>
-  <div class="stats">Games played: {{ stats.totalGames }}</div>
+  <div class="stats">Games played: {{ userStats.totalGames }}</div>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters('dbModule', ['stats']),
+    ...mapGetters('dbModule', ['userStats']),
   },
 };
 </script>
