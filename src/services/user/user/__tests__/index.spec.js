@@ -1,4 +1,4 @@
-import { getUser, setUser, checkUser } from '../index';
+import { getLocalUser, setLocalUser, checkLocalUser } from '../index';
 
 const uid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
@@ -10,13 +10,13 @@ describe('User', () => {
   it('should get user', () => {
     localStorage.setItem('uid', uid);
 
-    const user = getUser();
+    const user = getLocalUser();
 
     expect(user).toEqual(uid);
   });
 
   it('should set user', () => {
-    const user = setUser();
+    const user = setLocalUser();
 
     expect(user).not.toEqual('');
   });
@@ -24,13 +24,13 @@ describe('User', () => {
   it('should check user and return true', () => {
     localStorage.setItem('uid', uid);
 
-    const user = checkUser();
+    const user = checkLocalUser();
 
     expect(user).toEqual(true);
   });
 
   it('should check user and return false', () => {
-    const user = checkUser();
+    const user = checkLocalUser();
 
     expect(user).toEqual(false);
   });
