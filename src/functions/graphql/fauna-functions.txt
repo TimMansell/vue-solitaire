@@ -1,0 +1,44 @@
+findUserByLID
+
+Query(
+  Lambda(
+    ["uid"],
+    If(IsEmpty(Match(Index("unique_User_uid"), Var("uid"))), null, {
+      uid: Select(["ref"], Get(Match(Index("unique_User_uid"), Var("uid"))))
+    })
+  )
+)
+
+----------------
+
+newGame
+
+Query(
+  Lambda(
+    ["date", "uid"],
+    Create(Collection("Game"), {
+      data: {
+        date: Date(Var("date")),
+        won: false,
+        lost: false,
+        completed: false,
+        gameNumber: Add(
+          Count(
+            Match(
+              Index("game_user_by_user"),
+              Ref(Collection("User"), Var("uid"))
+            )
+          ),
+          1
+        ),
+        user: Ref(Collection("User"), Var("uid"))
+      }
+    })
+  )
+)
+
+----------------
+
+totalGames
+
+Query(Lambda([], { count: Count(Documents(Collection("Game"))) }))
