@@ -2,6 +2,48 @@ import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { formatError, formatResponse } from './helpers';
 
+export const getAUser = async (uid) => {
+  try {
+    const { data } = await apollo.query({
+      query: gql`
+        query GetAUser($uid: String!) {
+          getUser(uid: $uid) {
+            uid
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+    });
+
+    return formatResponse(data.getUser);
+  } catch (error) {
+    return formatError();
+  }
+};
+
+export const createUser = async (uid) => {
+  try {
+    const { data } = await apollo.mutate({
+      mutation: gql`
+        mutation CreateAUser($uid: String!) {
+          createUser(uid: $uid) {
+            _id
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+    });
+
+    return formatResponse(data.createUser);
+  } catch (error) {
+    return formatError();
+  }
+};
+
 export const newGame = async (uid) => {
   try {
     const { data } = await apollo.mutate({

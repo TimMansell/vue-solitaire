@@ -1,5 +1,6 @@
 import { differenceInSeconds } from 'date-fns';
 import db from '@/services/db';
+import user from '@/services/user';
 
 const actions = {
   restartGame({ commit }) {
@@ -8,10 +9,14 @@ const actions = {
   incrementMoves({ commit }) {
     commit('INCREMENT_MOVES');
   },
-  async newGame({ commit, rootState }) {
-    const { userModule } = rootState;
-    const { uid } = userModule;
-    const { error, response } = await db.newGame(uid);
+  async newGame({ commit }) {
+    // const { userModule } = rootState;
+    // const { uid } = userModule;
+    const suid = await user.createServerUser();
+
+    console.log({ suid });
+
+    const { error, response } = await db.newGame(suid);
 
     if (!error) {
       const { _id, gameNumber } = response;
