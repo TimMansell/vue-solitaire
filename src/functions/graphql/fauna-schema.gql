@@ -15,7 +15,7 @@ type AuthUser {
 }
 
 type User {
-  uid: String
+  uid: String @unique
   authUser: AuthUser @relation 
   games: [Game] @relation
 }
@@ -24,8 +24,13 @@ type totalGames @embedded {
   count: Int!
 }
 
+type userLID @embedded {
+  uid: ID
+}
+
 type Query {
   totalGames: totalGames! @resolver(name: "totalGames")
+  findUserByLID(uid: String!): userLID @resolver(name: "findUserByLID")
 }
 
 type Mutation {
