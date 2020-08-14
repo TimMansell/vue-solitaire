@@ -2,10 +2,9 @@ import defaultState from './state';
 
 const mutations = {
   RESTART_GAME(state) {
-    const { stats, userStats } = state;
+    const { userStats } = state;
     const newState = {
       ...defaultState(),
-      stats,
       userStats,
     };
 
