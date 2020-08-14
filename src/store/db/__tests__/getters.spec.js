@@ -6,8 +6,6 @@ const state = {
   },
   game: {
     id: 1,
-    start: null,
-    stop: null,
     moves: 0,
   },
 };
