@@ -1,5 +1,7 @@
 type Game {
-  date: Date
+  date: Time
+  start: Time
+  stop: Time
   won: Boolean
   lost: Boolean
   completed: Boolean
@@ -28,11 +30,19 @@ type userLID @embedded {
   uid: ID
 }
 
+input GameInput {
+  won: Boolean
+  lost: Boolean
+  completed: Boolean
+  moves: Int
+}
+
 type Query {
   totalGames: totalGames! @resolver(name: "totalGames")
   findUserByLID(uid: String!): userLID @resolver(name: "findUserByLID")
 }
 
 type Mutation {
-  newGame(date: String!, uid: String!): Game! @resolver(name: "newGame")
+  newGame(uid: String!): Game! @resolver(name: "newGame")
+  updateGameStatus(id: ID!, data: GameInput!): Game! @resolver(name: "updateGameStatus")
 }

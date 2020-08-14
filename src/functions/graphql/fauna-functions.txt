@@ -15,25 +15,50 @@ newGame
 
 Query(
   Lambda(
-    ["date", "uid"],
-    Create(Collection("Game"), {
-      data: {
-        date: Date(Var("date")),
-        won: false,
-        lost: false,
-        completed: false,
-        gameNumber: Add(
-          Count(
-            Match(
-              Index("game_user_by_user"),
-              Ref(Collection("User"), Var("uid"))
-            )
+    ["uid"],
+    Let(
+      { ref: Ref(Collection("Game"), Var("uid")), date: Now() },
+      Create(Collection("Game"), {
+        data: {
+          date: Var("date"),
+          won: false,
+          lost: false,
+          completed: false,
+          start: Var("date"),
+          gameNumber: Add(
+            Count(Match(Index("game_user_by_user"), Var("ref"))),
+            1
           ),
-          1
-        ),
-        user: Ref(Collection("User"), Var("uid"))
-      }
-    })
+          user: Var("ref")
+        }
+      })
+    )
+  )
+)
+
+----------------
+
+updateGameStatus
+
+Query(
+  Lambda(
+    ["id", "data"],
+    Let(
+      { ref: Ref(Collection("Game"), Var("id")), stop: Now() },
+      Update(Var("ref"), {
+        data: Merge(Var("data"), {
+          stop: Var("stop"),
+          time: TimeDiff(
+            Select(
+              ["data", "start"],
+              Get(Match(Index("game_by_id"), Var("ref")))
+            ),
+            Var("stop"),
+            "seconds"
+          )
+        })
+      })
+    )
   )
 )
 

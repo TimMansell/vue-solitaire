@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import {
   formatVariables,
   createUserMutation,
@@ -27,7 +26,6 @@ export const mutations = {
     const { uid } = args;
 
     const variables = {
-      date: format(new Date(), 'yyyy-MM-dd'),
       uid,
     };
 

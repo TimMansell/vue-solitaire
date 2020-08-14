@@ -38,8 +38,8 @@ export const createUserMutation = async (client, variables) => {
 
 export const updateGameMutation = async (client, variables) => {
   const mutation = gql`
-    mutation UpdateAGame($id: ID!, $data: GameInput!) {
-      updateGame(id: $id, data: $data) {
+    mutation UpdateGameStatus($id: ID!, $data: GameInput!) {
+      updateGameStatus(id: $id, data: $data) {
         _id
         gameNumber
       }
@@ -52,7 +52,7 @@ export const updateGameMutation = async (client, variables) => {
       variables,
     });
 
-    return body.data.updateGame;
+    return body.data.updateGameStatus;
   } catch (error) {
     throw new AuthenticationError(error);
   }
@@ -60,8 +60,8 @@ export const updateGameMutation = async (client, variables) => {
 
 export const newGameMutation = async (client, variables) => {
   const mutation = gql`
-    mutation NewGame($date: String!, $uid: String!) {
-      newGame(date: $date, uid: $uid) {
+    mutation NewGame($uid: String!) {
+      newGame(uid: $uid) {
         _id
         gameNumber
       }
