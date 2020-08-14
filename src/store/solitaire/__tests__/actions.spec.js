@@ -1,11 +1,10 @@
 import actions from '../actions';
 
 const {
-  checkGameWon,
+  checkGameState,
   setFoundations,
   setBoard,
   setCard,
-  checkRemainingMoves,
   moveCardsToColumn,
   moveCardToFoundation,
   autoMoveCardToFoundation,
@@ -15,7 +14,7 @@ jest.mock('@/services/solitaire', () => ({
   isEmptyBoard: () => true,
   getFoundationCards: () => [],
   getBoardCards: () => [],
-  hasMoves: () => true,
+  hasMoves: () => false,
   setSelectedCard: () => 1,
   findEmptyFoundationColumn: () => 0,
   isValidCardMove: () => true,
@@ -33,10 +32,11 @@ describe('Solitaire Store', () => {
     dispatch = jest.fn();
   });
 
-  it('checkGameWon', () => {
-    checkGameWon({ commit });
+  it('checkGameState', () => {
+    checkGameState({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('SET_GAME_WON', true);
+    expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', false);
   });
 
   it('setFoundations', () => {
@@ -69,12 +69,6 @@ describe('Solitaire Store', () => {
     setCard({ commit, state, dispatch }, 1);
 
     expect(dispatch).toHaveBeenCalledWith('unselectCard');
-  });
-
-  it('checkRemainingMoves', () => {
-    checkRemainingMoves({ commit });
-
-    expect(commit).toHaveBeenCalledWith('SET_REMAINING_MOVES', true);
   });
 
   it('moveCardsToColumn', () => {

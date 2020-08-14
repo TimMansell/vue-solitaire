@@ -1,15 +1,18 @@
 import actions from '../actions';
 
+const mockLuid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+
+jest.mock('@/services/user', () => ({
+  getLocalUser: () => mockLuid,
+}));
+
 describe('User', () => {
-  it('initUser', () => {
-    const { initUser } = actions;
+  it('initLocalUser', () => {
+    const { initLocalUser } = actions;
     const commit = jest.fn();
-    const uid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
-    localStorage.setItem('uid', uid);
+    initLocalUser({ commit });
 
-    initUser({ commit });
-
-    expect(commit).toHaveBeenCalledWith('SET_USER', uid);
+    expect(commit).toHaveBeenCalledWith('SET_USER_ID', mockLuid);
   });
 });

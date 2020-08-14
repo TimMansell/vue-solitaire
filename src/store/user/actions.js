@@ -1,11 +1,10 @@
 import user from '@/services/user';
 
 const actions = {
-  initUser({ commit }) {
-    const userExists = user.checkLocalUser();
-    const uid = userExists ? user.getLocalUser() : user.setLocalUser();
+  initLocalUser({ commit }) {
+    const luid = user.getLocalUser();
 
-    commit('SET_USER', uid);
+    commit('SET_USER_ID', luid);
   },
 };
 

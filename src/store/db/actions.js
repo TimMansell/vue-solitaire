@@ -10,12 +10,7 @@ const actions = {
     commit('INCREMENT_MOVES');
   },
   async newGame({ commit }) {
-    // const { userModule } = rootState;
-    // const { uid } = userModule;
-    const suid = await user.createServerUser();
-
-    console.log({ suid });
-
+    const suid = await user.getUser();
     const { error, response } = await db.newGame(suid);
 
     if (!error) {

@@ -4,7 +4,7 @@ const actions = {
   initGame({ dispatch }) {
     solitaire.init();
 
-    dispatch('userModule/initUser');
+    dispatch('userModule/initLocalUser');
     dispatch('setBoard');
     dispatch('setFoundations');
     dispatch('dbModule/newGame');
@@ -23,16 +23,12 @@ const actions = {
 
     if (!hasMoves) {
       commit('SET_HAS_MOVES', false);
+      commit('SET_GAME_WON', isBoardEmpty);
+      commit('SET_GAME_LOST', !isBoardEmpty);
 
       if (isBoardEmpty) {
-        commit('SET_GAME_WON', true);
-
         dispatch('dbModule/wonGame');
-      }
-
-      if (!isBoardEmpty) {
-        commit('SET_GAME_LOST', true);
-
+      } else {
         dispatch('dbModule/lostGame');
       }
     }

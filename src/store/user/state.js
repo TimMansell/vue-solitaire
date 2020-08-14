@@ -1,6 +1,6 @@
 // Return state as function so we can reset it.
 const state = () => ({
-  uid: null,
+  luid: null,
 });
 
 export default state;

@@ -3,11 +3,12 @@ import mutations from '../mutations';
 const {
   RESTART_GAME,
   SET_GAME_WON,
+  SET_GAME_LOST,
   SET_BOARD,
   SET_FOUNDATIONS,
   SELECT_CARD,
   UNSELECT_CARD,
-  SET_REMAINING_MOVES,
+  SET_HAS_MOVES,
 } = mutations;
 
 describe('Solitaire Store', () => {
@@ -20,7 +21,8 @@ describe('Solitaire Store', () => {
         foundation: [],
       },
       selectedCardId: 1,
-      isGameWon: true,
+      isGameWon: false,
+      isGameLost: false,
       hasMoves: false,
     };
   });
@@ -35,6 +37,12 @@ describe('Solitaire Store', () => {
     SET_GAME_WON(state, true);
 
     expect(state.isGameWon).toEqual(true);
+  });
+
+  it('SET_GAME_LOST', () => {
+    SET_GAME_LOST(state, true);
+
+    expect(state.isGameLost).toEqual(true);
   });
 
   it('SET_BOARD', () => {
@@ -65,8 +73,8 @@ describe('Solitaire Store', () => {
     expect(state.selectedCardId).toEqual(null);
   });
 
-  it('SET_REMAINING_MOVES', () => {
-    SET_REMAINING_MOVES(state, true);
+  it('SET_HAS_MOVES', () => {
+    SET_HAS_MOVES(state, true);
 
     expect(state.hasMoves).toEqual(true);
   });

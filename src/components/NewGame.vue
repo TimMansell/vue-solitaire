@@ -1,5 +1,5 @@
 <template>
-  <Button @click="newGame" data-test="new-game-btn" :disabled="!game.id">
+  <Button @click="newGame" data-test="new-game-btn">
     New Game
   </Button>
 </template>

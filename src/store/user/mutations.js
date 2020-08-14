@@ -1,6 +1,6 @@
 const mutations = {
-  SET_USER(state, uid) {
-    state.uid = uid;
+  SET_USER_ID(state, luid) {
+    state.luid = luid;
   },
 };
 
