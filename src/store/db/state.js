@@ -5,8 +5,6 @@ const state = () => ({
   },
   game: {
     id: null,
-    start: null,
-    stop: null,
     moves: 0,
   },
 });
