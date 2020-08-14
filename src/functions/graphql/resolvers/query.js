@@ -24,22 +24,4 @@ export const queries = {
 
     return findUserByLID;
   },
-
-  totalGames: async (obj, args, context) => {
-    const { client } = context;
-
-    const query = gql`
-      query {
-        totalGames {
-          count
-        }
-      }
-    `;
-
-    const body = await client.query({ query });
-
-    const { totalGames } = body.data;
-
-    return totalGames;
-  },
 };

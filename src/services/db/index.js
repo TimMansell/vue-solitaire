@@ -1,12 +1,4 @@
-import {
-  getAUser,
-  createUser,
-  newGame,
-  gameLost,
-  gameWon,
-  gameCompleted,
-  getTotalGames,
-} from './queries';
+import { getAUser, createUser, newGame, gameLost, gameWon, gameCompleted } from './queries';
 
 const db = () => ({
   getAUser,
@@ -15,7 +7,6 @@ const db = () => ({
   gameWon,
   gameLost,
   gameCompleted,
-  getTotalGames,
 });
 
 export default db();

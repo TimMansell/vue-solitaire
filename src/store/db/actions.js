@@ -47,15 +47,6 @@ const actions = {
 
     db.gameCompleted(id, { time, moves });
   },
-  async getGlobalStats({ commit }) {
-    const { error, response } = await db.getTotalGames();
-
-    if (!error) {
-      const { count } = response;
-
-      commit('SET_TOTAL_GAMES', count);
-    }
-  },
 };
 
 export default actions;

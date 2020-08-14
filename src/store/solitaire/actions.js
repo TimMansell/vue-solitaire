@@ -8,7 +8,6 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
     dispatch('dbModule/newGame');
-    dispatch('dbModule/getGlobalStats');
   },
   restartGame({ commit, dispatch }, completed) {
     if (!completed) {

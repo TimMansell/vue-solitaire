@@ -1,8 +1,5 @@
 // Return state as function so we can reset it.
 const state = () => ({
-  stats: {
-    totalGames: null,
-  },
   userStats: {
     totalGames: null,
   },

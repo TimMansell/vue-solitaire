@@ -131,22 +131,3 @@ export const gameCompleted = async (id, data) => {
     return formatError();
   }
 };
-
-export const getTotalGames = async () => {
-  try {
-    const { data } = await apollo.query({
-      query: gql`
-        query {
-          totalGames {
-            count
-          }
-        }
-      `,
-      fetchPolicy: 'no-cache',
-    });
-
-    return formatResponse(data.totalGames);
-  } catch (error) {
-    return formatError();
-  }
-};

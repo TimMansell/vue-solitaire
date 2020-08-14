@@ -11,9 +11,6 @@ const mutations = {
 
     Object.assign(state, newState);
   },
-  SET_TOTAL_GAMES(state, totalGames) {
-    state.stats.totalGames = totalGames;
-  },
   SET_USER_GAMES(state, totalGames) {
     state.userStats.totalGames = totalGames;
   },
