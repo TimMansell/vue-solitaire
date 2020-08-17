@@ -15,7 +15,7 @@ export const createServerUser = async (luid) => {
   return null;
 };
 
-export const getServerUser = async (luid) => {
+export const setServerUserID = async (luid) => {
   const { error, response } = await db.getAUser(luid);
 
   if (!error) {

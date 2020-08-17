@@ -1,13 +1,15 @@
 import solitaire from '@/services/solitaire';
 
 const actions = {
-  initGame({ dispatch }) {
+  async initGame({ dispatch, rootState }) {
     solitaire.init();
 
-    dispatch('userModule/initLocalUser');
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('dbModule/newGame');
+
+    // Wait for user to be set up before dispatching new game.
+    await dispatch('userModule/initUser');
+    dispatch('dbModule/newGame', rootState.userModule.suid);
   },
   restartGame({ commit, dispatch }, completed) {
     if (!completed) {

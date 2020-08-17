@@ -1,5 +1,4 @@
 import db from '@/services/db';
-import user from '@/services/user';
 
 const actions = {
   restartGame({ commit }) {
@@ -8,8 +7,7 @@ const actions = {
   incrementMoves({ commit }) {
     commit('INCREMENT_MOVES');
   },
-  async newGame({ commit }) {
-    const suid = await user.getUser();
+  async newGame({ commit }, suid) {
     const { error, response } = await db.newGame(suid);
 
     if (!error) {

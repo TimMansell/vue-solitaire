@@ -1,4 +1,4 @@
-import { getServerUserID, checkServerUser, createServerUser, getServerUser } from '../serverUser';
+import { getServerUserID, checkServerUser, createServerUser, setServerUserID } from '../serverUser';
 
 const mockId = '123';
 
@@ -49,7 +49,7 @@ describe('User - Server User', () => {
   });
 
   it('should get server user id from response', async () => {
-    const user = await getServerUser();
+    const user = await setServerUserID();
 
     expect(user).toEqual(mockId);
   });

@@ -1,8 +1,8 @@
-import { getLocalUser, getUser } from './user';
+import { getLocalUser, getServerUser } from './user';
 
 const user = () => ({
   getLocalUser,
-  getUser,
+  getServerUser,
 });
 
 export default user();

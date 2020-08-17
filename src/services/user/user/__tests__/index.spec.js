@@ -1,4 +1,4 @@
-import { getLocalUser, getUser } from '../index';
+import { getLocalUser, getServerUser } from '../index';
 
 const mockId = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
@@ -37,17 +37,17 @@ describe('User', () => {
     });
   });
 
-  describe('getUser', () => {
+  describe('getServerUser', () => {
     it('should get user id from getServerUserID', async () => {
       localStorage.setItem('suid', mockId);
 
-      const id = await getUser();
+      const id = await getServerUser();
 
       expect(id).toEqual(mockId);
     });
 
     it('should get user id from getServerUserID', async () => {
-      const id = await getUser();
+      const id = await getServerUser();
 
       expect(id).toEqual(mockId);
     });
