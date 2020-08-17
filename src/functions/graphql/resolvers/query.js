@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { getUserQuery } from './helpers';
 
 // eslint-disable-next-line import/prefer-default-export
 export const queries = {
@@ -6,22 +6,12 @@ export const queries = {
     const { client } = context;
     const { uid } = args;
 
-    const query = gql`
-      query FindAUserByLID($uid: String!) {
-        findUserByLID(uid: $uid) {
-          uid
-        }
-      }
-    `;
-
     const variables = {
       uid,
     };
 
-    const body = await client.query({ query, variables });
+    const response = await getUserQuery(client, variables);
 
-    const { findUserByLID } = body.data;
-
-    return findUserByLID;
+    return response;
   },
 };

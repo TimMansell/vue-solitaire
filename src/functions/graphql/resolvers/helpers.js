@@ -15,6 +15,24 @@ export const formatVariables = (args, params) => {
   return variables;
 };
 
+export const getUserQuery = async (client, variables) => {
+  const query = gql`
+    query FindAUserByLID($uid: String!) {
+      findUserByLID(uid: $uid) {
+        uid
+      }
+    }
+  `;
+
+  try {
+    const body = await client.query({ query, variables });
+
+    return body.data.findUserByLID;
+  } catch (error) {
+    throw new AuthenticationError(error);
+  }
+};
+
 export const createUserMutation = async (client, variables) => {
   const mutation = gql`
     mutation CreateAUser($data: UserInput!) {
