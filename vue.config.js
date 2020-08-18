@@ -1,6 +1,14 @@
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
+  devServer: {
+    proxy: {
+      '/.netlify': {
+        target: 'http://localhost:9000',
+        pathRewrite: { '^/.netlify/functions': '' },
+      },
+    },
+  },
   chainWebpack: (config) => {
     config.module
       .rule('svg-sprite')

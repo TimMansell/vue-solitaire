@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import ApolloClient from 'apollo-boost';
+import 'dotenv/config';
 
 const { FAUNA_URL, FAUNA_ACCESS_TOKEN } = process.env;
 

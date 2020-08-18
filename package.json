@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "run-p serve:app serve:graphql",
+    "serve:app": "vue-cli-service serve",
+    "serve:graphql": "netlify-lambda serve src/functions",
     "build": "run-p build:app build:functions",
     "build:app": "vue-cli-service build",
     "build:functions": "netlify-lambda build src/functions",
@@ -22,6 +24,7 @@
     "apollo-boost": "^0.4.9",
     "apollo-server-lambda": "^2.16.1",
     "core-js": "^3.6.4",
+    "dotenv": "^8.2.0",
     "encoding": "^0.1.13",
     "graphql": "^15.3.0",
     "hammerjs": "^2.0.8",
