@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { AuthenticationError } from 'apollo-server-lambda';
+import { ApolloError } from 'apollo-server-lambda';
 
 export const formatVariables = (args, params) => {
   const { id, data } = args;
@@ -29,7 +29,9 @@ export const getUserQuery = async (client, variables) => {
 
     return body.data.findUserByLID;
   } catch (error) {
-    throw new AuthenticationError(error);
+    console.log({ error });
+
+    throw new ApolloError(error);
   }
 };
 
@@ -50,7 +52,7 @@ export const createUserMutation = async (client, variables) => {
 
     return body.data.createUser;
   } catch (error) {
-    throw new AuthenticationError(error);
+    throw new ApolloError(error);
   }
 };
 
@@ -72,7 +74,7 @@ export const updateGameMutation = async (client, variables) => {
 
     return body.data.updateGameStatus;
   } catch (error) {
-    throw new AuthenticationError(error);
+    throw new ApolloError(error);
   }
 };
 
@@ -94,6 +96,6 @@ export const newGameMutation = async (client, variables) => {
 
     return body.data.newGame;
   } catch (error) {
-    throw new AuthenticationError(error);
+    throw new ApolloError(error);
   }
 };
