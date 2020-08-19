@@ -7,8 +7,6 @@ const actions = {
 
     commit('SET_USER_ID', luid);
     commit('SET_USER_SID', suid);
-
-    return suid;
   },
 };
 
