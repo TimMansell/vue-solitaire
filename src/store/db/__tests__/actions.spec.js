@@ -13,18 +13,16 @@ jest.mock('@/services/db', () => ({
   }),
 }));
 
-jest.mock('@/services/user', () => ({
-  getUser: () => 1,
-}));
-
 describe('DB store', () => {
   it('newGame', async () => {
-    const commit = jest.fn();
+    const dispatch = jest.fn();
 
-    await newGame({ commit });
+    await newGame({ dispatch });
 
     // eslint-disable-next-line no-underscore-dangle
-    expect(commit).toHaveBeenCalledWith('SET_GAME', { id: mockResponse._id });
-    expect(commit).toHaveBeenCalledWith('SET_USER_GAMES', mockResponse.gameNumber);
+    expect(dispatch).toHaveBeenCalledWith('setGame', mockResponse._id, { root: true });
+    expect(dispatch).toHaveBeenCalledWith('user/setGameStats', mockResponse.gameNumber, {
+      root: true,
+    });
   });
 });

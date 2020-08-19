@@ -1,6 +1,8 @@
 import actions from '../actions';
 
 const {
+  restartGame,
+  setGame,
   checkGameState,
   setFoundations,
   setBoard,
@@ -9,6 +11,9 @@ const {
   moveCardToFoundation,
   autoMoveCardToFoundation,
 } = actions;
+
+const commit = jest.fn();
+const dispatch = jest.fn();
 
 jest.mock('@/services/solitaire', () => ({
   isEmptyBoard: () => true,
@@ -21,22 +26,46 @@ jest.mock('@/services/solitaire', () => ({
   moveCards: () => jest.fn(),
   isValidFoundationMove: () => true,
   moveCardsToFoundation: () => jest.fn(),
+  setBoard: () => jest.fn(),
+  setFoundation: () => jest.fn(),
 }));
 
 describe('Solitaire Store', () => {
-  let commit;
-  let dispatch;
+  it('restartGame', () => {
+    const state = {
+      game: {
+        id: 1,
+        moves: 10,
+      },
+    };
 
-  beforeEach(() => {
-    commit = jest.fn();
-    dispatch = jest.fn();
+    restartGame({ commit, dispatch, state }, false);
+
+    expect(dispatch).toHaveBeenCalledWith('db/completedGame', state.game);
+    expect(commit).toHaveBeenCalledWith('RESTART_GAME');
+  });
+
+  it('setGame', () => {
+    const id = 10;
+
+    setGame({ commit }, id);
+
+    expect(commit).toHaveBeenCalledWith('SET_GAME', { id });
   });
 
   it('checkGameState', () => {
-    checkGameState({ commit, dispatch });
+    const state = {
+      game: {
+        id: 1,
+        moves: 10,
+      },
+    };
+
+    checkGameState({ commit, dispatch, state });
 
     expect(commit).toHaveBeenCalledWith('SET_GAME_WON', true);
     expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', false);
+    expect(dispatch).toHaveBeenCalledWith('db/wonGame', state.game);
   });
 
   it('setFoundations', () => {
@@ -72,15 +101,22 @@ describe('Solitaire Store', () => {
   });
 
   it('moveCardsToColumn', () => {
-    moveCardsToColumn({ dispatch });
+    moveCardsToColumn({ commit, dispatch });
 
     expect(dispatch).toHaveBeenCalledWith('setBoard');
+    expect(dispatch).toHaveBeenCalledWith('checkGameState');
+    expect(dispatch).toHaveBeenCalledWith('unselectCard');
+    expect(commit).toHaveBeenCalledWith('INCREMENT_MOVES');
   });
 
   it('moveCardToFoundation', () => {
-    moveCardToFoundation({ dispatch });
+    moveCardToFoundation({ commit, dispatch });
 
     expect(dispatch).toHaveBeenCalledWith('setBoard');
+    expect(dispatch).toHaveBeenCalledWith('setFoundations');
+    expect(dispatch).toHaveBeenCalledWith('checkGameState');
+    expect(dispatch).toHaveBeenCalledWith('unselectCard');
+    expect(commit).toHaveBeenCalledWith('INCREMENT_MOVES');
   });
 
   it('autoMoveCardToFoundation', () => {
