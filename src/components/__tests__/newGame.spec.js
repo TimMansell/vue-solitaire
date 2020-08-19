@@ -13,16 +13,4 @@ describe('NewGame.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('matches disabled snapshot', () => {
-    const wrapper = shallowMount(NewGame, {
-      computed: {
-        game: () => ({
-          id: null,
-        }),
-      },
-    });
-
-    expect(wrapper).toMatchSnapshot();
-  });
 });
