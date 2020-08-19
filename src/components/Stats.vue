@@ -1,6 +1,6 @@
 <template>
   <div class="stats">
-    Games played: <span data-test="stats">{{ userStats.totalGames }}</span>
+    Games played: <span data-test="stats">{{ stats.totalGames }}</span>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters('db', ['userStats']),
+    ...mapGetters('user', ['stats']),
   },
 };
 </script>

@@ -1,35 +1,23 @@
 import db from '@/services/db';
 
 const actions = {
-  restartGame({ commit }) {
-    commit('RESTART_GAME');
-  },
-  incrementMoves({ commit }) {
-    commit('INCREMENT_MOVES');
-  },
-  async newGame({ commit }, suid) {
+  async newGame({ dispatch }, suid) {
     const { error, response } = await db.newGame(suid);
 
     if (!error) {
       const { _id, gameNumber } = response;
 
-      commit('SET_GAME', { id: _id });
-      commit('SET_USER_GAMES', gameNumber);
+      dispatch('setGame', _id, { root: true });
+      dispatch('user/setGameStats', gameNumber, { root: true });
     }
   },
-  lostGame({ state }) {
-    const { id, moves } = state.game;
-
+  lostGame(_, { id, moves }) {
     db.gameLost(id, { moves });
   },
-  wonGame({ state }) {
-    const { id, moves } = state.game;
-
+  wonGame(_, { id, moves }) {
     db.gameWon(id, { moves });
   },
-  completedGame({ state }) {
-    const { id, moves } = state.game;
-
+  completedGame(_, { id, moves }) {
     db.gameCompleted(id, { moves });
   },
 };

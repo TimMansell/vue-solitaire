@@ -2,6 +2,9 @@
 const state = () => ({
   luid: null,
   suid: null,
+  stats: {
+    totalGames: null,
+  },
 });
 
 export default state;
