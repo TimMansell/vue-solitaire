@@ -20,7 +20,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('dbModule', ['game']),
+    ...mapGetters('db', ['game']),
   },
   methods: {
     ...mapActions(['restartGame', 'initGame']),

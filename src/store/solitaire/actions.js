@@ -8,16 +8,16 @@ const actions = {
     dispatch('setFoundations');
 
     // Wait for user to be set up before dispatching new game.
-    await dispatch('userModule/initUser');
-    dispatch('dbModule/newGame', rootState.userModule.suid);
+    await dispatch('user/initUser');
+    dispatch('db/newGame', rootState.user.suid);
   },
   restartGame({ commit, dispatch }, completed) {
     if (!completed) {
-      dispatch('dbModule/completedGame');
+      dispatch('db/completedGame');
     }
 
     commit('RESTART_GAME');
-    dispatch('dbModule/restartGame');
+    dispatch('db/restartGame');
   },
   checkGameState({ commit, dispatch }) {
     const hasMoves = solitaire.hasMoves();
@@ -29,9 +29,9 @@ const actions = {
       commit('SET_GAME_LOST', !isBoardEmpty);
 
       if (isBoardEmpty) {
-        dispatch('dbModule/wonGame');
+        dispatch('db/wonGame');
       } else {
-        dispatch('dbModule/lostGame');
+        dispatch('db/lostGame');
       }
     }
   },
@@ -67,7 +67,7 @@ const actions = {
     if (isValidMove) {
       solitaire.moveCards(selectedColumn);
 
-      dispatch('dbModule/incrementMoves');
+      dispatch('db/incrementMoves');
       dispatch('setBoard');
       dispatch('checkGameState');
     }
@@ -80,7 +80,7 @@ const actions = {
     if (isValidMove) {
       solitaire.moveCardsToFoundation(selectedColumn);
 
-      dispatch('dbModule/incrementMoves');
+      dispatch('db/incrementMoves');
       dispatch('setBoard');
       dispatch('setFoundations');
       dispatch('checkGameState');
