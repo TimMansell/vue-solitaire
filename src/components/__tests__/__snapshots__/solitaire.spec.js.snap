@@ -3,9 +3,9 @@
 exports[`Solitaire.vue matches game lost snapshot 1`] = `
 <div class="solitaire">
   <board-stub></board-stub>
-  <!---->
-  <gameoverlay-stub data-test="game-lost">
-    Sorry, no more Moves!
+  <gameoverlay-stub>
+    <!---->
+    <div data-test="game-lost">Sorry, no more Moves!</div>
   </gameoverlay-stub>
   <rules-stub></rules-stub>
 </div>
@@ -14,10 +14,10 @@ exports[`Solitaire.vue matches game lost snapshot 1`] = `
 exports[`Solitaire.vue matches game won snapshot 1`] = `
 <div class="solitaire">
   <board-stub></board-stub>
-  <gameoverlay-stub data-test="game-won">
-    Congratulations, you win!
+  <gameoverlay-stub>
+    <div data-test="game-won">Congratulations, you win!</div>
+    <!---->
   </gameoverlay-stub>
-  <!---->
   <rules-stub></rules-stub>
 </div>
 `;
@@ -25,7 +25,6 @@ exports[`Solitaire.vue matches game won snapshot 1`] = `
 exports[`Solitaire.vue matches snapshot 1`] = `
 <div class="solitaire">
   <board-stub></board-stub>
-  <!---->
   <!---->
   <rules-stub></rules-stub>
 </div>

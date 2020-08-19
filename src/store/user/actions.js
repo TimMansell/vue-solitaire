@@ -1,11 +1,12 @@
 import user from '@/services/user';
 
 const actions = {
-  initUser({ commit }) {
-    const userExists = user.checkUser();
-    const uid = userExists ? user.getUser() : user.setUser();
+  async initUser({ commit, state }) {
+    const luid = state.luid ? state.luid : user.getLocalUser();
+    const suid = state.suid ? state.suid : await user.getServerUser(luid);
 
-    commit('SET_USER', uid);
+    commit('SET_USER_ID', luid);
+    commit('SET_USER_SID', suid);
   },
 };
 

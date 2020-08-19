@@ -1,20 +1,39 @@
 import solitaire from '@/services/solitaire';
 
 const actions = {
-  initGame({ dispatch }) {
+  async initGame({ dispatch, rootState }) {
     solitaire.init();
 
-    dispatch('userModule/initUser');
     dispatch('setBoard');
     dispatch('setFoundations');
-  },
-  restartGame({ commit }) {
-    commit('RESTART_GAME');
-  },
-  checkGameWon({ commit }) {
-    const isGameWon = solitaire.isEmptyBoard();
 
-    commit('SET_GAME_WON', isGameWon);
+    // Wait for user to be set up before dispatching new game.
+    await dispatch('userModule/initUser');
+    dispatch('dbModule/newGame', rootState.userModule.suid);
+  },
+  restartGame({ commit, dispatch }, completed) {
+    if (!completed) {
+      dispatch('dbModule/completedGame');
+    }
+
+    commit('RESTART_GAME');
+    dispatch('dbModule/restartGame');
+  },
+  checkGameState({ commit, dispatch }) {
+    const hasMoves = solitaire.hasMoves();
+    const isBoardEmpty = solitaire.isEmptyBoard();
+
+    if (!hasMoves) {
+      commit('SET_HAS_MOVES', false);
+      commit('SET_GAME_WON', isBoardEmpty);
+      commit('SET_GAME_LOST', !isBoardEmpty);
+
+      if (isBoardEmpty) {
+        dispatch('dbModule/wonGame');
+      } else {
+        dispatch('dbModule/lostGame');
+      }
+    }
   },
   setFoundations({ commit }) {
     const foundationCards = solitaire.getFoundationCards();
@@ -42,19 +61,15 @@ const actions = {
 
     commit('UNSELECT_CARD');
   },
-  checkRemainingMoves({ commit }) {
-    const hasMoves = solitaire.hasMoves();
-
-    commit('SET_REMAINING_MOVES', hasMoves);
-  },
   moveCardsToColumn({ dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidCardMove(selectedColumn);
 
     if (isValidMove) {
       solitaire.moveCards(selectedColumn);
 
+      dispatch('dbModule/incrementMoves');
       dispatch('setBoard');
-      dispatch('checkRemainingMoves');
+      dispatch('checkGameState');
     }
 
     dispatch('unselectCard');
@@ -65,10 +80,10 @@ const actions = {
     if (isValidMove) {
       solitaire.moveCardsToFoundation(selectedColumn);
 
+      dispatch('dbModule/incrementMoves');
       dispatch('setBoard');
       dispatch('setFoundations');
-      dispatch('checkGameWon');
-      dispatch('checkRemainingMoves');
+      dispatch('checkGameState');
     }
 
     dispatch('unselectCard');

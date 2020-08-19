@@ -1,5 +1,6 @@
 const getters = {
-  uid: (state) => state.uid,
+  luid: (state) => state.luid,
+  suid: (state) => state.suid,
 };
 
 export default getters;

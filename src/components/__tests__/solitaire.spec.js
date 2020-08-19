@@ -11,6 +11,7 @@ describe('Solitaire.vue', () => {
       mocks,
       computed: {
         isGameWon: () => false,
+        isGameLost: () => false,
         hasMoves: () => true,
       },
     });
@@ -23,6 +24,7 @@ describe('Solitaire.vue', () => {
       mocks,
       computed: {
         isGameWon: () => true,
+        isGameLost: () => false,
         hasMoves: () => false,
       },
     });
@@ -35,6 +37,7 @@ describe('Solitaire.vue', () => {
       mocks,
       computed: {
         isGameWon: () => false,
+        isGameLost: () => true,
         hasMoves: () => false,
       },
     });

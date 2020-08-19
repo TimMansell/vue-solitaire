@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`NewGame.vue matches disabled snapshot 1`] = `
+<button-stub data-test="new-game-btn">
+  New Game
+</button-stub>
+`;
+
 exports[`NewGame.vue matches snapshot 1`] = `
 <button-stub data-test="new-game-btn">
   New Game
