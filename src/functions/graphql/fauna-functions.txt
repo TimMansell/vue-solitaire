@@ -17,7 +17,7 @@ Query(
   Lambda(
     ["uid"],
     Let(
-      { ref: Ref(Collection("Game"), Var("uid")), date: Now() },
+      { ref: Ref(Collection("User"), Var("uid")), date: Now() },
       Create(Collection("Game"), {
         data: {
           date: Var("date"),
