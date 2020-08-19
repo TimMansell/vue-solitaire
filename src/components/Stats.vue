@@ -1,5 +1,7 @@
 <template>
-  <div class="stats">Games played: {{ userStats.totalGames }}</div>
+  <div class="stats">
+    Games played: <span data-test="stats">{{ userStats.totalGames }}</span>
+  </div>
 </template>
 
 <script>
