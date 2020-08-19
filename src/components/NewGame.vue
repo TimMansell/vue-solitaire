@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -18,9 +18,6 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  computed: {
-    ...mapGetters('db', ['game']),
   },
   methods: {
     ...mapActions(['restartGame', 'initGame']),
