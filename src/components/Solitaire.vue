@@ -28,7 +28,8 @@ export default {
   },
   async created() {
     await this.initUser();
-    await this.initGame();
+
+    this.initGame();
 
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
