@@ -26,15 +26,18 @@ export default {
   computed: {
     ...mapGetters(['hasMoves', 'isGameWon', 'isGameLost']),
   },
+  async created() {
+    await this.initUser();
+  },
   mounted() {
     this.initGame();
 
-    // if (process.env.NODE_ENV === 'development') {
-    //   this.$store.dispatch('setBoardAndFoundation', aces);
-    // }
+    //   if (process.env.NODE_ENV === 'development') {
+    //     this.$store.dispatch('setBoardAndFoundation', aces);
+    //   }
   },
   methods: {
-    ...mapActions(['initGame']),
+    ...mapActions(['initUser', 'initGame']),
   },
 };
 </script>

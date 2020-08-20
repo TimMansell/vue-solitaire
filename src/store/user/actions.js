@@ -8,7 +8,7 @@ const actions = {
     commit('SET_USER_ID', luid);
     commit('SET_USER_SID', suid);
   },
-  setGameStats({ commit }, totalGames) {
+  setUserStats({ commit }, totalGames) {
     commit('SET_USER_GAME_STATS', totalGames);
   },
 };

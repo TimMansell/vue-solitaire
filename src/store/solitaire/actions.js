@@ -2,7 +2,7 @@ import solitaire from '@/services/solitaire';
 import db from '@/services/db';
 
 const actions = {
-  async initGame({ dispatch }) {
+  initGame({ dispatch }) {
     solitaire.init();
 
     dispatch('setBoard');
@@ -25,8 +25,8 @@ const actions = {
     if (!error) {
       const { _id, gameNumber } = response;
 
+      dispatch('setUserStats', gameNumber);
       commit('SET_GAME', { id: _id });
-      dispatch('user/setGameStats', gameNumber, { root: true });
     }
   },
   checkGameState({ commit, state }) {
@@ -115,6 +115,7 @@ const actions = {
 
     dispatch('setBoard');
     dispatch('setFoundations');
+    dispatch('newGame');
   },
 };
 

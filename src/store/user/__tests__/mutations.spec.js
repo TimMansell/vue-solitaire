@@ -22,13 +22,13 @@ describe('User', () => {
   });
 
   it('SET_USER_GAME_STATS', () => {
-    const stats = {
+    const userStats = {
       totalGames: 1,
     };
-    const state = { stats };
+    const state = { userStats };
 
-    SET_USER_GAME_STATS(state, stats);
+    SET_USER_GAME_STATS(state, userStats);
 
-    expect(state.stats).toEqual(stats);
+    expect(state.userStats).toEqual(userStats);
   });
 });

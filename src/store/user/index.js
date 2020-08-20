@@ -4,7 +4,6 @@ import actions from './actions';
 import getters from './getters';
 
 const userModule = {
-  namespaced: true,
   state,
   mutations,
   actions,

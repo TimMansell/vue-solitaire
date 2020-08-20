@@ -6,7 +6,7 @@ const mutations = {
     state.suid = suid;
   },
   SET_USER_GAME_STATS(state, totalGames) {
-    state.stats.totalGames = totalGames;
+    state.userStats.totalGames = totalGames;
   },
 };
 

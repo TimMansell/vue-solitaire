@@ -2,7 +2,7 @@
 const state = () => ({
   luid: null,
   suid: null,
-  stats: {
+  userStats: {
     totalGames: null,
   },
 });
