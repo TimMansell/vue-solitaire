@@ -28,16 +28,19 @@ export default {
   },
   async created() {
     await this.initUser();
-  },
-  mounted() {
-    this.initGame();
+    await this.initGame();
 
-    //   if (process.env.NODE_ENV === 'development') {
-    //     this.$store.dispatch('setBoardAndFoundation', aces);
-    //   }
+    // Force cypress to wait until async functions have loaded.
+    if (window.Cypress) {
+      window.appReady = true;
+    }
+
+    // if (process.env.NODE_ENV === 'development') {
+    //   this.setBoardAndFoundation(aces);
+    // }
   },
   methods: {
-    ...mapActions(['initUser', 'initGame']),
+    ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
   },
 };
 </script>
