@@ -21,7 +21,9 @@ export const setServerUserID = async (luid) => {
   if (!error) {
     const suid = !response ? await createServerUser(luid) : response.uid;
 
-    localStorage.setItem('suid', suid);
+    if (suid !== null) {
+      localStorage.setItem('suid', suid);
+    }
 
     return suid;
   }
