@@ -45,7 +45,11 @@ export const newGame = async (uid) => {
   }
 };
 
-export const gameWon = async (id, data) => {
+export const gameWon = async ({ id, moves }) => {
+  const data = {
+    moves,
+  };
+
   try {
     const { data: response } = await apollo.mutate({
       mutation: gql`
@@ -67,7 +71,11 @@ export const gameWon = async (id, data) => {
   }
 };
 
-export const gameLost = async (id, data) => {
+export const gameLost = async ({ id, moves }) => {
+  const data = {
+    moves,
+  };
+
   try {
     const { data: response } = await apollo.mutate({
       mutation: gql`
@@ -89,7 +97,11 @@ export const gameLost = async (id, data) => {
   }
 };
 
-export const gameCompleted = async (id, data) => {
+export const gameCompleted = async ({ id, moves }) => {
+  const data = {
+    moves,
+  };
+
   try {
     const { data: response } = await apollo.mutate({
       mutation: gql`

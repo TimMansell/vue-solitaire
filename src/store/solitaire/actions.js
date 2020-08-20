@@ -1,4 +1,5 @@
 import solitaire from '@/services/solitaire';
+import db from '@/services/db';
 
 const actions = {
   async initGame({ dispatch }) {
@@ -6,21 +7,29 @@ const actions = {
 
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('user/initUser');
+    dispatch('newGame');
   },
-  restartGame({ commit, dispatch, state }, completed) {
+  restartGame({ commit, state }, completed) {
     const { game } = state;
 
     if (!completed) {
-      dispatch('db/completedGame', game);
+      db.gameCompleted(game);
     }
 
     commit('RESTART_GAME');
   },
-  setGame({ commit }, id) {
-    commit('SET_GAME', { id });
+  async newGame({ commit, dispatch, rootState }) {
+    const { suid } = rootState.user;
+    const { error, response } = await db.newGame(suid);
+
+    if (!error) {
+      const { _id, gameNumber } = response;
+
+      commit('SET_GAME', { id: _id });
+      dispatch('user/setGameStats', gameNumber, { root: true });
+    }
   },
-  checkGameState({ commit, dispatch, state }) {
+  checkGameState({ commit, state }) {
     const hasMoves = solitaire.hasMoves();
     const isBoardEmpty = solitaire.isEmptyBoard();
     const { game } = state;
@@ -31,9 +40,9 @@ const actions = {
       commit('SET_GAME_LOST', !isBoardEmpty);
 
       if (isBoardEmpty) {
-        dispatch('db/wonGame', game);
+        db.gameWon(game);
       } else {
-        dispatch('db/lostGame', game);
+        db.gameLost(game);
       }
     }
   },
