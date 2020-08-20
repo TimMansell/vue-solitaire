@@ -1,42 +1,88 @@
 import actions from '../actions';
 
 const {
-  checkGameWon,
+  restartGame,
+  newGame,
+  checkGameState,
   setFoundations,
   setBoard,
   setCard,
-  checkRemainingMoves,
   moveCardsToColumn,
   moveCardToFoundation,
   autoMoveCardToFoundation,
 } = actions;
 
+const commit = jest.fn();
+const dispatch = jest.fn();
+
+const mockResponse = {
+  _id: 123,
+  gameNumber: 2,
+};
+
 jest.mock('@/services/solitaire', () => ({
   isEmptyBoard: () => true,
   getFoundationCards: () => [],
   getBoardCards: () => [],
-  hasMoves: () => true,
+  hasMoves: () => false,
   setSelectedCard: () => 1,
   findEmptyFoundationColumn: () => 0,
   isValidCardMove: () => true,
   moveCards: () => jest.fn(),
   isValidFoundationMove: () => true,
   moveCardsToFoundation: () => jest.fn(),
+  setBoard: () => jest.fn(),
+  setFoundation: () => jest.fn(),
+}));
+
+jest.mock('@/services/db', () => ({
+  newGame: () => ({
+    response: mockResponse,
+  }),
+  gameCompleted: () => jest.fn(),
+  gameWon: () => jest.fn(),
 }));
 
 describe('Solitaire Store', () => {
-  let commit;
-  let dispatch;
+  it('restartGame', () => {
+    const state = {
+      game: {
+        id: 1,
+        moves: 10,
+      },
+    };
 
-  beforeEach(() => {
-    commit = jest.fn();
-    dispatch = jest.fn();
+    restartGame({ commit, state }, false);
+
+    expect(commit).toHaveBeenCalledWith('RESTART_GAME');
   });
 
-  it('checkGameWon', () => {
-    checkGameWon({ commit });
+  it('newGame', async () => {
+    const rootState = {
+      user: {
+        suid: 123,
+      },
+    };
+
+    await newGame({ commit, dispatch, rootState });
+
+    expect(dispatch).toHaveBeenCalledWith('setUserStats', { gameNumber: mockResponse.gameNumber });
+    // eslint-disable-next-line no-underscore-dangle
+    expect(commit).toHaveBeenCalledWith('SET_GAME', { id: mockResponse._id });
+  });
+
+  it('checkGameState', () => {
+    const state = {
+      game: {
+        id: 1,
+        moves: 10,
+      },
+    };
+
+    checkGameState({ commit, state });
 
     expect(commit).toHaveBeenCalledWith('SET_GAME_WON', true);
+    expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', false);
   });
 
   it('setFoundations', () => {
@@ -71,22 +117,23 @@ describe('Solitaire Store', () => {
     expect(dispatch).toHaveBeenCalledWith('unselectCard');
   });
 
-  it('checkRemainingMoves', () => {
-    checkRemainingMoves({ commit });
-
-    expect(commit).toHaveBeenCalledWith('SET_REMAINING_MOVES', true);
-  });
-
   it('moveCardsToColumn', () => {
-    moveCardsToColumn({ dispatch });
+    moveCardsToColumn({ commit, dispatch });
 
     expect(dispatch).toHaveBeenCalledWith('setBoard');
+    expect(dispatch).toHaveBeenCalledWith('checkGameState');
+    expect(dispatch).toHaveBeenCalledWith('unselectCard');
+    expect(commit).toHaveBeenCalledWith('INCREMENT_MOVES');
   });
 
   it('moveCardToFoundation', () => {
-    moveCardToFoundation({ dispatch });
+    moveCardToFoundation({ commit, dispatch });
 
     expect(dispatch).toHaveBeenCalledWith('setBoard');
+    expect(dispatch).toHaveBeenCalledWith('setFoundations');
+    expect(dispatch).toHaveBeenCalledWith('checkGameState');
+    expect(dispatch).toHaveBeenCalledWith('unselectCard');
+    expect(commit).toHaveBeenCalledWith('INCREMENT_MOVES');
   });
 
   it('autoMoveCardToFoundation', () => {

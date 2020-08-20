@@ -1,22 +1,17 @@
-import { gql } from 'apollo-boost';
+import { getUserQuery } from './helpers';
 
 // eslint-disable-next-line import/prefer-default-export
 export const queries = {
-  totalGames: async (obj, args, context) => {
+  getUser: async (obj, args, context) => {
     const { client } = context;
+    const { uid } = args;
 
-    const query = gql`
-      query {
-        totalGames {
-          count
-        }
-      }
-    `;
+    const variables = {
+      uid,
+    };
 
-    const body = await client.query({ query });
+    const response = await getUserQuery(client, variables);
 
-    const { totalGames } = body.data;
-
-    return totalGames;
+    return response;
   },
 };

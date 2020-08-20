@@ -1,13 +1,17 @@
 import mutations from '../mutations';
+import defaultState from '../state';
 
 const {
   RESTART_GAME,
+  SET_GAME,
   SET_GAME_WON,
+  SET_GAME_LOST,
   SET_BOARD,
   SET_FOUNDATIONS,
   SELECT_CARD,
   UNSELECT_CARD,
-  SET_REMAINING_MOVES,
+  SET_HAS_MOVES,
+  INCREMENT_MOVES,
 } = mutations;
 
 describe('Solitaire Store', () => {
@@ -20,21 +24,41 @@ describe('Solitaire Store', () => {
         foundation: [],
       },
       selectedCardId: 1,
-      isGameWon: true,
+      isGameWon: false,
+      isGameLost: false,
       hasMoves: false,
+      game: {
+        id: null,
+        moves: 0,
+      },
     };
   });
 
   it('RESTART_GAME', () => {
     RESTART_GAME(state);
 
-    expect(state).toEqual(state);
+    expect(state).toEqual(defaultState());
+  });
+
+  it('SET_GAME', () => {
+    SET_GAME(state, { id: 1 });
+
+    expect(state.game).toEqual({
+      id: 1,
+      moves: 0,
+    });
   });
 
   it('SET_GAME_WON', () => {
     SET_GAME_WON(state, true);
 
     expect(state.isGameWon).toEqual(true);
+  });
+
+  it('SET_GAME_LOST', () => {
+    SET_GAME_LOST(state, true);
+
+    expect(state.isGameLost).toEqual(true);
   });
 
   it('SET_BOARD', () => {
@@ -65,9 +89,15 @@ describe('Solitaire Store', () => {
     expect(state.selectedCardId).toEqual(null);
   });
 
-  it('SET_REMAINING_MOVES', () => {
-    SET_REMAINING_MOVES(state, true);
+  it('SET_HAS_MOVES', () => {
+    SET_HAS_MOVES(state, true);
 
     expect(state.hasMoves).toEqual(true);
+  });
+
+  it('INCREMENT_MOVES', () => {
+    INCREMENT_MOVES(state);
+
+    expect(state.game.moves).toEqual(1);
   });
 });

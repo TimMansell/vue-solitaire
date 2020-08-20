@@ -1,11 +1,19 @@
 import user from '@/services/user';
 
 const actions = {
-  initUser({ commit }) {
-    const userExists = user.checkUser();
-    const uid = userExists ? user.getUser() : user.setUser();
+  async initUser({ commit }) {
+    const stats = user.getUserStats();
+    const luid = user.getLocalUser();
+    const suid = await user.getServerUser(luid);
 
-    commit('SET_USER', uid);
+    commit('SET_USER_GAME_STATS', stats);
+    commit('SET_USER_ID', luid);
+    commit('SET_USER_SID', suid);
+  },
+  setUserStats({ commit }, stats) {
+    user.setUserStats(stats);
+
+    commit('SET_USER_GAME_STATS', stats);
   },
 };
 
