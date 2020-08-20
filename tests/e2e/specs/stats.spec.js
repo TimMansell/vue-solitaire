@@ -8,7 +8,11 @@ describe('Stats', () => {
   });
 
   it('it successfullly retrieves games played', () => {
-    cy.get('[data-test="stats"]').should('not.be.empty');
+    const number = 0;
+
+    cy.get('[data-test="stats"]').then(() => {
+      cy.get('[data-test="stats"]').should('not.equal', number);
+    });
   });
 
   it('it stores ids in local storage', () => {
