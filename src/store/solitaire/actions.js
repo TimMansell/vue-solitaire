@@ -78,10 +78,10 @@ const actions = {
     if (isValidMove) {
       solitaire.moveCards(selectedColumn);
 
+      commit('INCREMENT_MOVES');
+
       dispatch('setBoard');
       dispatch('checkGameState');
-
-      commit('INCREMENT_MOVES');
     }
 
     dispatch('unselectCard');
@@ -92,11 +92,11 @@ const actions = {
     if (isValidMove) {
       solitaire.moveCardsToFoundation(selectedColumn);
 
+      commit('INCREMENT_MOVES');
+
       dispatch('setBoard');
       dispatch('setFoundations');
       dispatch('checkGameState');
-
-      commit('INCREMENT_MOVES');
     }
 
     dispatch('unselectCard');
