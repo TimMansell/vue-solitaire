@@ -66,7 +66,7 @@ describe('Solitaire Store', () => {
 
     await newGame({ commit, dispatch, rootState });
 
-    expect(dispatch).toHaveBeenCalledWith('setUserStats', mockResponse.gameNumber);
+    expect(dispatch).toHaveBeenCalledWith('setUserStats', { gameNumber: mockResponse.gameNumber });
     // eslint-disable-next-line no-underscore-dangle
     expect(commit).toHaveBeenCalledWith('SET_GAME', { id: mockResponse._id });
   });

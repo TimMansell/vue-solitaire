@@ -25,7 +25,7 @@ const actions = {
     if (!error) {
       const { _id, gameNumber } = response;
 
-      dispatch('setUserStats', gameNumber);
+      dispatch('setUserStats', { gameNumber });
       commit('SET_GAME', { id: _id });
     }
   },

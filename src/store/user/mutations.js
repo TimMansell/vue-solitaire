@@ -5,8 +5,8 @@ const mutations = {
   SET_USER_SID(state, suid) {
     state.suid = suid;
   },
-  SET_USER_GAME_STATS(state, totalGames) {
-    state.userStats.totalGames = totalGames;
+  SET_USER_GAME_STATS(state, stats) {
+    state.userStats = stats;
   },
 };
 

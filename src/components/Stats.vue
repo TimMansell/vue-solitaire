@@ -1,6 +1,6 @@
 <template>
   <div class="stats">
-    Games played: <span data-test="stats">{{ userStats.totalGames }}</span>
+    Games played: <span data-test="stats">{{ userStats.gameNumber }}</span>
   </div>
 </template>
 

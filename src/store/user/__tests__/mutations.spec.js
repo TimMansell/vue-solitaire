@@ -23,7 +23,7 @@ describe('User', () => {
 
   it('SET_USER_GAME_STATS', () => {
     const userStats = {
-      totalGames: 1,
+      gameNumber: 1,
     };
     const state = { userStats };
 
