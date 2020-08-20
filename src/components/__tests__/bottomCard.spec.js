@@ -1,10 +1,5 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { shallowMount } from '@vue/test-utils';
 import BottomCard from '@/components/BottomCard.vue';
-
-const localVue = createLocalVue();
-
-localVue.use(Vuex);
 
 describe('BottomCard.vue', () => {
   it('matches snapshot', () => {
@@ -28,17 +23,12 @@ describe('BottomCard.vue', () => {
   });
 
   it('should call autoMoveCard method', () => {
-    const actions = {
-      autoMoveCardToFoundation: jest.fn(),
-    };
-
-    const store = new Vuex.Store({
-      actions,
-    });
+    const mockStore = { dispatch: jest.fn() };
 
     const wrapper = shallowMount(BottomCard, {
-      store,
-      localVue,
+      mocks: {
+        $store: mockStore,
+      },
       propsData: {
         disabled: false,
       },
@@ -46,6 +36,6 @@ describe('BottomCard.vue', () => {
 
     wrapper.vm.autoMoveCard();
 
-    expect(actions.autoMoveCardToFoundation).toHaveBeenCalled();
+    expect(mockStore.dispatch).toHaveBeenCalledTimes(1);
   });
 });

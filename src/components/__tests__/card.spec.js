@@ -1,50 +1,32 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { shallowMount } from '@vue/test-utils';
 import Card from '@/components/Card.vue';
-import state from '@/store/state';
-import getters from '@/store/getters';
 
-const localVue = createLocalVue();
-
-localVue.use(Vuex);
+const computed = {
+  selectedCardId: () => null,
+};
 
 describe('Card.vue', () => {
-  let store;
-
-  const actions = {
-    setCard: jest.fn(),
-  };
-
-  beforeEach(() => {
-    store = new Vuex.Store({
-      state,
-      getters,
-      actions,
-    });
-  });
-
   it('matches visible snapshot', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
-      propsData: {
-        visible: true,
-      },
+      computed,
     });
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('matches hidden snapshot', () => {
-    const wrapper = shallowMount(Card, { store, localVue });
+    const wrapper = shallowMount(Card, {
+      propsData: {
+        visible: false,
+      },
+      computed,
+    });
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should have correct props', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
       propsData: {
         id: 2,
         value: 'K',
@@ -55,6 +37,7 @@ describe('Card.vue', () => {
         bottomCard: true,
         stacked: true,
       },
+      computed,
     });
 
     expect(wrapper.props().id).toBe(2);
@@ -69,12 +52,11 @@ describe('Card.vue', () => {
 
   it('should render a diamond card', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
       propsData: {
         value: '6',
         suit: 'd',
       },
+      computed,
     });
 
     expect(wrapper.attributes('data-card-suit')).toBe('d');
@@ -82,12 +64,11 @@ describe('Card.vue', () => {
 
   it('should render a club card', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
       propsData: {
         value: '6',
         suit: 'c',
       },
+      computed,
     });
 
     expect(wrapper.attributes('data-card-suit')).toBe('c');
@@ -95,12 +76,11 @@ describe('Card.vue', () => {
 
   it('should render a heart card', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
       propsData: {
         value: '6',
         suit: 'h',
       },
+      computed,
     });
 
     expect(wrapper.attributes('data-card-suit')).toBe('h');
@@ -108,12 +88,11 @@ describe('Card.vue', () => {
 
   it('should render a spade card', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
       propsData: {
         value: '6',
         suit: 's',
       },
+      computed,
     });
 
     expect(wrapper.attributes('data-card-suit')).toBe('s');
@@ -121,8 +100,7 @@ describe('Card.vue', () => {
 
   it('should render a default card', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
+      computed,
     });
 
     expect(wrapper.find('[data-test="card-default"]').exists()).toBe(true);
@@ -130,11 +108,10 @@ describe('Card.vue', () => {
 
   it('should render a bottom card', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
       propsData: {
         bottomCard: true,
       },
+      computed,
     });
 
     expect(wrapper.find('[data-test="card-bottom"]').exists()).toBe(true);
@@ -142,11 +119,10 @@ describe('Card.vue', () => {
 
   it('should render a hidden card', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
       propsData: {
         visible: false,
       },
+      computed,
     });
 
     expect(wrapper.find('[data-test="card-hidden"]').exists()).toBe(true);
@@ -154,76 +130,70 @@ describe('Card.vue', () => {
 
   it('should render a stacked card', () => {
     const wrapper = shallowMount(Card, {
-      store,
-      localVue,
       propsData: {
         stacked: true,
       },
+      computed,
     });
 
     expect(wrapper.classes()).toContain('card--is-stacked');
   });
 
   it('should render a selected card', () => {
-    const newGetters = {
-      selectedCardId: () => 0,
-    };
-
-    const storeSelected = new Vuex.Store({
-      state,
-      getters: newGetters,
-      actions,
-    });
-
     const wrapper = shallowMount(Card, {
-      store: storeSelected,
-      localVue,
-      propsData: {
-        value: 'K',
-        suit: 'c',
+      computed: {
+        selectedCardId: () => 0,
       },
     });
 
     expect(wrapper.classes()).toContain('card--is-selected');
   });
 
-  it('should not call store action "setCard" when clicked', () => {
-    const wrapper = shallowMount(Card, {
-      store,
-      localVue,
-      propsData: {
-        clickable: false,
-      },
+  describe('Set Card', () => {
+    const mockStore = { dispatch: jest.fn() };
+
+    const mocks = {
+      $store: mockStore,
+    };
+
+    it('should not call store action "setCard" when clicked', () => {
+      const wrapper = shallowMount(Card, {
+        mocks,
+        propsData: {
+          clickable: false,
+        },
+        computed,
+      });
+
+      wrapper.find('[data-test="card-Ac"]').trigger('click');
+
+      expect(wrapper.classes()).toContain('card--is-not-clickable');
+      expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
     });
 
-    wrapper.find('[data-test="card-Ac"]').trigger('click');
+    it('should not call store action "setCard" when clicked when not visible', () => {
+      const wrapper = shallowMount(Card, {
+        mocks,
+        propsData: {
+          visible: false,
+        },
+        computed,
+      });
 
-    expect(wrapper.classes()).toContain('card--is-not-clickable');
-    expect(actions.setCard).not.toHaveBeenCalled();
-  });
+      wrapper.find('[data-test="card"]').trigger('click');
 
-  it('should not call store action "setCard" when clicked when not visible', () => {
-    const wrapper = shallowMount(Card, {
-      store,
-      localVue,
-      propsData: {
-        clickable: false,
-      },
+      expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
     });
 
-    wrapper.find('[data-test="card-Ac"]').trigger('click');
+    it('should call store action "setCard" when clicked when visible', () => {
+      const wrapper = shallowMount(Card, {
+        mocks,
+        computed,
+      });
 
-    expect(actions.setCard).not.toHaveBeenCalled();
-  });
+      wrapper.find('[data-test="card-Ac"]').trigger('click');
 
-  it('should call store action "setCard" when clicked when visible', () => {
-    const wrapper = shallowMount(Card, {
-      store,
-      localVue,
+      expect(mockStore.dispatch).toHaveBeenCalledTimes(1);
     });
-
-    wrapper.find('[data-test="card-Ac"]').trigger('click');
-
-    expect(actions.setCard).toHaveBeenCalled();
   });
 });

@@ -1,10 +1,5 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { shallowMount } from '@vue/test-utils';
 import Controls from '@/components/Controls.vue';
-
-const localVue = createLocalVue();
-
-localVue.use(Vuex);
 
 describe('Controls.vue', () => {
   it('matches snapshot', () => {

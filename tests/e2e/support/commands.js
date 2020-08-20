@@ -27,6 +27,8 @@ import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('setBoard', (board) => {
+  cy.window().should('have.property', 'appReady', true);
+
   const getStore = () => cy.window().its('app.$store');
 
   return getStore().then((store) => store.dispatch('setBoardAndFoundation', board));

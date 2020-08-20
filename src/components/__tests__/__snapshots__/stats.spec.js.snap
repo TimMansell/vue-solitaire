@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stats.vue matches snapshot 1`] = `
+<div class="stats">
+  Games played: <span data-test="stats">1</span></div>
+`;

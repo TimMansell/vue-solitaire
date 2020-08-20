@@ -22,5 +22,12 @@ export default {
 <style scoped lang="scss">
 .columns {
   display: flex;
+  margin-left: calc(var(--col-padding) * -1);
+  margin-right: calc(var(--col-padding) * -1);
+
+  @media (min-width: $bp-md) {
+    margin-left: calc(var(--col-padding-lg) * -1);
+    margin-right: calc(var(--col-padding-lg) * -1);
+  }
 }
 </style>

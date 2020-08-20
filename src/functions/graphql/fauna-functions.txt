@@ -1,0 +1,69 @@
+findUserByLID
+
+Query(
+  Lambda(
+    ["uid"],
+    If(IsEmpty(Match(Index("unique_User_uid"), Var("uid"))), null, {
+      uid: Select(["ref"], Get(Match(Index("unique_User_uid"), Var("uid"))))
+    })
+  )
+)
+
+----------------
+
+newGame
+
+Query(
+  Lambda(
+    ["uid"],
+    Let(
+      { ref: Ref(Collection("User"), Var("uid")), date: Now() },
+      Create(Collection("Game"), {
+        data: {
+          date: Var("date"),
+          won: false,
+          lost: false,
+          completed: false,
+          start: Var("date"),
+          gameNumber: Add(
+            Count(Match(Index("game_user_by_user"), Var("ref"))),
+            1
+          ),
+          user: Var("ref")
+        }
+      })
+    )
+  )
+)
+
+----------------
+
+updateGameStatus
+
+Query(
+  Lambda(
+    ["id", "data"],
+    Let(
+      { ref: Ref(Collection("Game"), Var("id")), stop: Now() },
+      Update(Var("ref"), {
+        data: Merge(Var("data"), {
+          stop: Var("stop"),
+          time: TimeDiff(
+            Select(
+              ["data", "start"],
+              Get(Match(Index("game_by_id"), Var("ref")))
+            ),
+            Var("stop"),
+            "seconds"
+          )
+        })
+      })
+    )
+  )
+)
+
+----------------
+
+totalGames
+
+Query(Lambda([], { count: Count(Documents(Collection("Game"))) }))
