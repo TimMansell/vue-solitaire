@@ -25,12 +25,10 @@ export const getUserQuery = async (client, variables) => {
   `;
 
   try {
-    const body = await client.query({ query, variables });
+    const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
 
     return body.data.findUserByLID;
   } catch (error) {
-    console.log({ error });
-
     throw new ApolloError(error);
   }
 };
