@@ -1,6 +1,6 @@
 <template>
   <div>
-    Global games: <span data-test="stats">{{ userStats.gameNumber }}</span>
+    Global games: <span data-test="stats">{{ globalStats.count }}</span>
   </div>
 </template>
 
@@ -8,9 +8,9 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'Stats',
+  name: 'GlobalStats',
   computed: {
-    ...mapGetters(['userStats']),
+    ...mapGetters(['globalStats']),
   },
 };
 </script>
