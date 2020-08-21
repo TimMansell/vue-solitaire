@@ -22,11 +22,11 @@ type User {
   games: [Game] @relation
 }
 
-type totalGames @embedded {
+type GlobalStats @embedded {
   count: Int!
 }
 
-type userLID @embedded {
+type UserLID @embedded {
   uid: ID
 }
 
@@ -38,8 +38,8 @@ input GameInput {
 }
 
 type Query {
-  totalGames: totalGames! @resolver(name: "totalGames")
-  findUserByLID(uid: String!): userLID @resolver(name: "findUserByLID")
+  globalStats: GlobalStats! @resolver(name: "globalStats")
+  findUserByLID(uid: String!): UserLID @resolver(name: "findUserByLID")
 }
 
 type Mutation {
