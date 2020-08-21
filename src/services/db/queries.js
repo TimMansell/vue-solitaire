@@ -23,3 +23,23 @@ export const getAUser = async (uid) => {
     return formatError();
   }
 };
+
+export const getGlobalStats = async () => {
+  try {
+    const { data } = await apollo.query({
+      query: gql`
+        query {
+          globalStats {
+            count
+          }
+        }
+      `,
+      variables: {},
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse(data.globalStats);
+  } catch (error) {
+    return formatError();
+  }
+};
