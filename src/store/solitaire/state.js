@@ -12,6 +12,7 @@ const state = () => ({
     id: null,
     moves: 0,
   },
+  globalStats: {},
 });
 
 export default state;

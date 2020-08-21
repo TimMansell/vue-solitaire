@@ -8,6 +8,7 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
     dispatch('newGame');
+    dispatch('getGlobalStats');
   },
   restartGame({ commit, state }, completed) {
     const { game } = state;
@@ -116,6 +117,13 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
     dispatch('newGame');
+  },
+  async getGlobalStats({ commit }) {
+    const { error, response } = await db.getGlobalStats();
+
+    if (!error) {
+      commit('SET_GLOBAL_STATS', { ...response });
+    }
   },
 };
 
