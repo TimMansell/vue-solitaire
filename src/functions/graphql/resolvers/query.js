@@ -1,4 +1,4 @@
-import { getUserQuery } from './helpers';
+import { getUserQuery, globalStatsQuery } from './helpers';
 
 // eslint-disable-next-line import/prefer-default-export
 export const queries = {
@@ -11,6 +11,13 @@ export const queries = {
     };
 
     const response = await getUserQuery(client, variables);
+
+    return response;
+  },
+  globalStats: async (obj, args, context) => {
+    const { client } = context;
+
+    const response = await globalStatsQuery(client);
 
     return response;
   },

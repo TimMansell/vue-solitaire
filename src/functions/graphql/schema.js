@@ -4,6 +4,7 @@ import { gql } from 'apollo-server-lambda';
 export const typeDefs = gql`
   type Query {
     getUser(uid: String!): userLID
+    globalStats: GlobalStats
   }
   type Mutation {
     createUser(uid: String!): User!
@@ -21,6 +22,9 @@ export const typeDefs = gql`
   type Game {
     _id: ID!
     gameNumber: Int
+  }
+  type GlobalStats {
+    count: Int!
   }
   input GameInput {
     won: Boolean
