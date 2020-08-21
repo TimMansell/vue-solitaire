@@ -1,22 +1,26 @@
 <template>
   <div class="stats">
-    Games played: <span data-test="stats">{{ userStats.gameNumber }}</span>
+    <UserStats class="stats__user" />
+    <GlobalStats class="stats__global" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import UserStats from '@/components/UserStats.vue';
+import GlobalStats from '@/components/GlobalStats.vue';
 
 export default {
   name: 'Stats',
-  computed: {
-    ...mapGetters(['userStats']),
+  components: {
+    UserStats,
+    GlobalStats,
   },
 };
 </script>
 
 <style scoped lang="scss">
 .stats {
+  display: flex;
   margin-bottom: var(--mg-sm);
   color: var(--text-primary);
   font-size: var(--font-size);
@@ -24,6 +28,18 @@ export default {
   @media (min-width: $bp-md) {
     margin-bottom: var(--mg-md);
     font-size: var(--font-size-lg);
+  }
+
+  &__user {
+    flex: 1;
+  }
+
+  &__global {
+    display: block;
+
+    @media (min-width: $bp-md) {
+      display: none;
+    }
   }
 }
 </style>

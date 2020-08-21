@@ -1,20 +1,27 @@
 <template>
-  <div class="footer">
-    <a class="footer__link" href="https://timmansell.com">
-      timmansell.com
-    </a>
-    <a class="footer__link" href="https://github.com/TimMansell/vue-solitaire">
-      GitHub
-    </a>
-    <div>v{{ version }}</div>
-  </div>
+  <footer class="footer">
+    <GlobalStats class="footer__stats" />
+    <div class="footer__links">
+      <a class="footer__link" href="https://timmansell.com">
+        timmansell.com
+      </a>
+      <a class="footer__link" href="https://github.com/TimMansell/vue-solitaire">
+        GitHub
+      </a>
+      <span>v{{ version }}</span>
+    </div>
+  </footer>
 </template>
 
 <script>
+import GlobalStats from '@/components/GlobalStats.vue';
 import { version } from '../../package.json';
 
 export default {
   name: 'Footer',
+  components: {
+    GlobalStats,
+  },
   data() {
     return {
       version,
@@ -30,6 +37,8 @@ export default {
   position: fixed;
   width: 100%;
   bottom: 0;
+  padding-left: calc(var(--vr) / 2);
+  padding-right: calc(var(--vr) / 2);
   font-size: var(--font-size);
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -38,13 +47,34 @@ export default {
 
   @media (min-width: $bp-md) {
     justify-content: right;
-    right: calc(var(--vr) / 2);
+    // right: calc(var(--vr) / 2);
     bottom: calc(var(--vr) / 4);
-    width: auto;
+    // width: auto;
     background: transparent;
     text-shadow: 1px 1px 1px #000;
     border-top: 0;
     box-shadow: none;
+  }
+
+  > div {
+    flex: 1;
+  }
+
+  &__stats {
+    display: none;
+
+    @media (min-width: $bp-md) {
+      display: block;
+    }
+  }
+
+  &__links {
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: $bp-md) {
+      justify-content: flex-end;
+    }
   }
 
   &__link {
