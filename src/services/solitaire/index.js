@@ -9,6 +9,30 @@ import { initFoundation, updateFoundation, getEmptyFoundationColumn } from './fo
 import { initBoard, updateBoard } from './board';
 import setState from './state';
 
+const saveGame = (gameState) => localStorage.setItem('game', JSON.stringify(gameState));
+
+const removeSavedGame = () => localStorage.removeItem('game');
+
+const getSavedGame = () => JSON.parse(localStorage.getItem('game'));
+
+const checkSavedGame = () => getSavedGame() !== null;
+
+const loadGame = () => {
+  const { board } = getSavedGame();
+
+  return {
+    foundationCards: board.foundation,
+    boardCards: board.columns,
+  };
+};
+
+const initGame = () => {
+  return {
+    foundationCards: initFoundation(),
+    boardCards: initBoard(),
+  };
+};
+
 const solitaire = () => {
   let state = setState({});
 
@@ -16,19 +40,24 @@ const solitaire = () => {
     state = setState(state, newState);
   };
 
+  const checkGameState = () => checkSavedGame();
+
+  const saveGameState = (gameState) => saveGame(gameState);
+
+  const loadGameState = () => getSavedGame();
+
+  const removeGameState = () => removeSavedGame();
+
+  const setBoard = ({ columns }) => columns;
+
+  const setFoundation = ({ foundation }) => foundation;
+
   const init = () => {
-    const foundationCards = initFoundation();
-    const boardCards = initBoard();
+    const isGameSaved = checkSavedGame();
+    const cards = isGameSaved ? loadGame() : initGame();
 
-    setGameState({
-      foundationCards,
-      boardCards,
-    });
+    setGameState(cards);
   };
-
-  const setBoard = ({ board }) => setGameState({ boardCards: [...board] });
-
-  const setFoundation = ({ foundation }) => setGameState({ foundationCards: [...foundation] });
 
   const setSelectedCard = (selectedCardId) => setGameState({ selectedCardId });
 
@@ -68,6 +97,10 @@ const solitaire = () => {
 
   return {
     init,
+    checkGameState,
+    saveGameState,
+    loadGameState,
+    removeGameState,
     setBoard,
     setFoundation,
     isEmptyBoard,

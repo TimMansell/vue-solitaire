@@ -2,12 +2,20 @@ import solitaire from '@/services/solitaire';
 import db from '@/services/db';
 
 const actions = {
-  initGame({ dispatch }) {
+  async initGame({ dispatch }) {
+    const isGameSaved = solitaire.checkGameState();
+
     solitaire.init();
 
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('newGame');
+
+    if (!isGameSaved) {
+      await dispatch('newGame');
+      dispatch('saveGame');
+    } else {
+      await dispatch('loadGame');
+    }
   },
   restartGame({ commit, state }, completed) {
     const { game } = state;
@@ -15,6 +23,8 @@ const actions = {
     if (!completed) {
       db.gameCompleted(game);
     }
+
+    solitaire.removeGameState();
 
     commit('RESTART_GAME');
   },
@@ -29,10 +39,20 @@ const actions = {
       commit('SET_GAME', { id: _id });
     }
   },
+  loadGame({ commit }) {
+    const gameState = solitaire.loadGameState();
+
+    commit('LOAD_GAME', gameState);
+  },
+  saveGame({ state }) {
+    solitaire.saveGameState(state);
+  },
   checkGameState({ commit, state }) {
     const hasMoves = solitaire.hasMoves();
     const isBoardEmpty = solitaire.isEmptyBoard();
     const { game } = state;
+
+    // solitaire.saveGameState(state);
 
     if (!hasMoves) {
       commit('SET_HAS_MOVES', false);
@@ -85,6 +105,7 @@ const actions = {
     }
 
     dispatch('unselectCard');
+    dispatch('saveGame');
   },
   moveCardToFoundation({ commit, dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidFoundationMove(selectedColumn);
@@ -100,6 +121,7 @@ const actions = {
     }
 
     dispatch('unselectCard');
+    dispatch('saveGame');
   },
   autoMoveCardToFoundation({ dispatch }, id) {
     solitaire.setSelectedCard(id);
