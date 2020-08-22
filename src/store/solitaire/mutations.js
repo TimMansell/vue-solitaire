@@ -43,9 +43,6 @@ const mutations = {
   INCREMENT_MOVES(state) {
     state.game.moves += 1;
   },
-  SET_GLOBAL_STATS(state, stats) {
-    state.globalStats = stats;
-  },
 };
 
 export default mutations;

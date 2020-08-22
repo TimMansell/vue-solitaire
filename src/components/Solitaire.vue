@@ -28,8 +28,8 @@ export default {
   },
   async created() {
     await this.initUser();
-
-    this.initGame();
+    await this.initGame();
+    this.initGlobalStats();
 
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
@@ -41,7 +41,7 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
+    ...mapActions(['initUser', 'initGame', 'initGlobalStats', 'setBoardAndFoundation']),
   },
 };
 </script>
