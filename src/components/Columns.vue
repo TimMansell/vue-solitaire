@@ -1,6 +1,11 @@
 <template>
   <div class="columns">
-    <Column v-for="(column, index) in boardCards" :key="index" :column-no="index" :cards="column" />
+    <Column
+      v-for="(column, index) in columnCards"
+      :key="index"
+      :column-no="index"
+      :cards="column"
+    />
   </div>
 </template>
 
@@ -14,7 +19,7 @@ export default {
     Column,
   },
   computed: {
-    ...mapGetters(['boardCards']),
+    ...mapGetters(['columnCards']),
   },
 };
 </script>

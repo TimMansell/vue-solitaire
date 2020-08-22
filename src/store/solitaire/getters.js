@@ -1,5 +1,5 @@
 const getters = {
-  boardCards: (state) => state.board.cards,
+  columnCards: (state) => state.board.columns,
   foundationCards: (state) => state.board.foundation,
   selectedCardId: (state) => state.selectedCardId,
   hasMoves: (state) => state.hasMoves,

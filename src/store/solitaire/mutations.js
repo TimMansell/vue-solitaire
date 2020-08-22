@@ -9,6 +9,9 @@ const mutations = {
 
     Object.assign(state, newState);
   },
+  LOAD_GAME(state, gameState) {
+    Object.assign(state, gameState);
+  },
   SET_GAME(state, game) {
     state.game = {
       ...state.game,
@@ -23,7 +26,7 @@ const mutations = {
   },
   SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
-      Vue.set(state.board.cards, index, cards);
+      Vue.set(state.board.columns, index, cards);
     });
   },
   SET_FOUNDATIONS(state, foundationColumns) {
