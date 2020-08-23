@@ -5,33 +5,16 @@ import {
   checkValidFoundationMove,
   moveFoundationCards,
 } from './moves';
-import { initFoundation, updateFoundation, getEmptyFoundationColumn } from './foundation';
-import { initBoard, updateBoard } from './board';
+import { updateFoundation, getEmptyFoundationColumn } from './foundation';
+import { updateBoard } from './board';
+import {
+  initGameState,
+  loadGameState,
+  saveGameState,
+  removeSavedGameState,
+  checkSavedGameState,
+} from './gameState';
 import setState from './state';
-
-const saveGame = (gameState) => localStorage.setItem('game', JSON.stringify(gameState));
-
-const removeSavedGame = () => localStorage.removeItem('game');
-
-const getSavedGame = () => JSON.parse(localStorage.getItem('game'));
-
-const checkSavedGame = () => getSavedGame() !== null;
-
-const loadGame = () => {
-  const { board } = getSavedGame();
-
-  return {
-    foundationCards: board.foundation,
-    boardCards: board.columns,
-  };
-};
-
-const initGame = () => {
-  return {
-    foundationCards: initFoundation(),
-    boardCards: initBoard(),
-  };
-};
 
 const solitaire = () => {
   let state = setState({});
@@ -40,21 +23,17 @@ const solitaire = () => {
     state = setState(state, newState);
   };
 
-  const checkGameState = () => checkSavedGame();
+  const checkSavedGame = () => checkSavedGameState();
 
-  const saveGameState = (gameState) => saveGame(gameState);
+  const saveGame = (gameState) => saveGameState(gameState);
 
-  const loadGameState = () => getSavedGame();
+  const loadGame = () => loadGameState();
 
-  const removeGameState = () => removeSavedGame();
+  const removeSavedGame = () => removeSavedGameState();
 
-  const setBoard = ({ columns }) => columns;
-
-  const setFoundation = ({ foundation }) => foundation;
-
-  const init = () => {
-    const isGameSaved = checkSavedGame();
-    const cards = isGameSaved ? loadGame() : initGame();
+  const init = (board) => {
+    const isGameSaved = checkSavedGameState();
+    const cards = isGameSaved ? loadGameState() : initGameState(board);
 
     setGameState(cards);
   };
@@ -97,12 +76,10 @@ const solitaire = () => {
 
   return {
     init,
-    checkGameState,
-    saveGameState,
-    loadGameState,
-    removeGameState,
-    setBoard,
-    setFoundation,
+    checkSavedGame,
+    saveGame,
+    loadGame,
+    removeSavedGame,
     isEmptyBoard,
     getFoundationCards,
     getBoardCards,

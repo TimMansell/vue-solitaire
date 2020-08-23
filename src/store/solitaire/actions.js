@@ -2,13 +2,15 @@ import solitaire from '@/services/solitaire';
 import db from '@/services/db';
 
 const actions = {
-  async initGame({ dispatch }) {
-    const isGameSaved = solitaire.checkGameState();
-
+  initGame({ dispatch }) {
     solitaire.init();
 
     dispatch('setBoard');
     dispatch('setFoundations');
+    dispatch('initGame2');
+  },
+  async initGame2({ dispatch }) {
+    const isGameSaved = solitaire.checkSavedGame();
 
     if (!isGameSaved) {
       await dispatch('newGame');
@@ -24,7 +26,7 @@ const actions = {
       db.gameCompleted(game);
     }
 
-    solitaire.removeGameState();
+    solitaire.removeSavedGame();
 
     commit('RESTART_GAME');
   },
@@ -40,19 +42,17 @@ const actions = {
     }
   },
   loadGame({ commit }) {
-    const gameState = solitaire.loadGameState();
+    const gameState = solitaire.loadGame();
 
     commit('LOAD_GAME', gameState);
   },
   saveGame({ state }) {
-    solitaire.saveGameState(state);
+    solitaire.saveGame(state);
   },
   checkGameState({ commit, state }) {
     const hasMoves = solitaire.hasMoves();
     const isBoardEmpty = solitaire.isEmptyBoard();
     const { game } = state;
-
-    // solitaire.saveGameState(state);
 
     if (!hasMoves) {
       commit('SET_HAS_MOVES', false);
@@ -132,8 +132,8 @@ const actions = {
     dispatch('moveCardToFoundation', foundationColumn);
   },
   setBoardAndFoundation({ dispatch }, board) {
-    solitaire.setBoard(board);
-    solitaire.setFoundation(board);
+    solitaire.saveGame({ board });
+    solitaire.init(board);
 
     dispatch('setBoard');
     dispatch('setFoundations');
