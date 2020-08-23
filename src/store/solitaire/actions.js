@@ -10,7 +10,7 @@ const actions = {
     dispatch('initGame2');
   },
   async initGame2({ dispatch }) {
-    const isGameSaved = solitaire.checkSavedGame();
+    const isGameSaved = solitaire.isGameSaved();
 
     if (!isGameSaved) {
       await dispatch('newGame');
