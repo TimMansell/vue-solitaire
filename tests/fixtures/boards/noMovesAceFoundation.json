@@ -1,6 +1,6 @@
 {
   "foundation": [[], [], [], []],
-  "board": [
+  "columns": [
     [
       {
         "id": "12h",
