@@ -9,8 +9,8 @@ const mutations = {
 
     Object.assign(state, newState);
   },
-  LOAD_GAME(state, gameState) {
-    Object.assign(state, gameState);
+  NEW_GAME(state, isNewGame) {
+    state.newGame = isNewGame;
   },
   SET_GAME(state, game) {
     state.game = {

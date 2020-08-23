@@ -2,22 +2,20 @@ import solitaire from '@/services/solitaire';
 import db from '@/services/db';
 
 const actions = {
-  initGame({ dispatch }) {
-    solitaire.init();
+  async initGame({ commit, dispatch, state }) {
+    const gameState = JSON.parse(localStorage.getItem('vuex'));
+    const boardToUse = state.newGame ? '' : gameState.solitaire.board;
+
+    solitaire.init(boardToUse);
 
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('initGame2');
-  },
-  async initGame2({ dispatch }) {
-    const isGameSaved = solitaire.isGameSaved();
 
-    if (!isGameSaved) {
-      await dispatch('newGame');
-      dispatch('saveGame');
-    } else {
-      await dispatch('loadGame');
+    if (state.newGame) {
+      await dispatch('trackNewGame');
     }
+
+    commit('NEW_GAME', false);
   },
   restartGame({ commit, state }, completed) {
     const { game } = state;
@@ -26,11 +24,10 @@ const actions = {
       db.gameCompleted(game);
     }
 
-    solitaire.removeSavedGame();
-
     commit('RESTART_GAME');
+    commit('NEW_GAME', true);
   },
-  async newGame({ commit, dispatch, rootState }) {
+  async trackNewGame({ commit, dispatch, rootState }) {
     const { suid } = rootState.user;
     const { error, response } = await db.newGame(suid);
 
@@ -40,14 +37,6 @@ const actions = {
       dispatch('setUserStats', { gameNumber });
       commit('SET_GAME', { id: _id });
     }
-  },
-  loadGame({ commit }) {
-    const gameState = solitaire.loadGame();
-
-    commit('LOAD_GAME', gameState);
-  },
-  saveGame({ state }) {
-    solitaire.saveGame(state);
   },
   checkGameState({ commit, state }) {
     const hasMoves = solitaire.hasMoves();
@@ -105,7 +94,6 @@ const actions = {
     }
 
     dispatch('unselectCard');
-    dispatch('saveGame');
   },
   moveCardToFoundation({ commit, dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidFoundationMove(selectedColumn);
@@ -121,7 +109,6 @@ const actions = {
     }
 
     dispatch('unselectCard');
-    dispatch('saveGame');
   },
   autoMoveCardToFoundation({ dispatch }, id) {
     solitaire.setSelectedCard(id);
@@ -132,12 +119,10 @@ const actions = {
     dispatch('moveCardToFoundation', foundationColumn);
   },
   setBoardAndFoundation({ dispatch }, board) {
-    solitaire.saveGame({ board });
     solitaire.init(board);
 
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('newGame');
   },
 };
 

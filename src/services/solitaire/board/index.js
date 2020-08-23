@@ -3,7 +3,7 @@ import settings from '../settings.json';
 
 export const initBoard = () => initBoardCards(settings);
 
-export const loadBoard = ({ board }) => board;
+export const loadBoard = ({ columns }) => columns;
 
 export const updateBoard = ({ boardCards }, { cardsFrom, cardsTo }) =>
   boardCards.map((columnCards, index) => {
