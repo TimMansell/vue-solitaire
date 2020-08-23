@@ -1,3 +1,4 @@
+import createPersistedState from 'vuex-persistedstate';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import solitaire from './solitaire';
@@ -10,4 +11,5 @@ export default new Vuex.Store({
     solitaire,
     user,
   },
+  plugins: [createPersistedState()],
 });
