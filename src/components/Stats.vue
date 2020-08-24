@@ -6,20 +6,17 @@
       <span data-test="timer">{{ timer }}</span
       >s
     </div>
-    <GlobalStats class="stats__global" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import UserStats from '@/components/UserStats.vue';
-import GlobalStats from '@/components/GlobalStats.vue';
 
 export default {
   name: 'Stats',
   components: {
     UserStats,
-    GlobalStats,
   },
   computed: {
     ...mapGetters(['userStats', 'timer']),
@@ -41,25 +38,16 @@ export default {
   }
 
   &__user,
-  &__games,
-  &__global {
+  &__games {
     flex: 1;
   }
 
   &__games {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 
     @media (min-width: $bp-md) {
       display: block;
-    }
-  }
-
-  &__global {
-    display: block;
-
-    @media (min-width: $bp-md) {
-      display: none;
     }
   }
 }
