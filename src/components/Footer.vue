@@ -47,34 +47,17 @@ export default {
 
   @media (min-width: $bp-md) {
     justify-content: right;
-    // right: calc(var(--vr) / 2);
     bottom: calc(var(--vr) / 4);
-    // width: auto;
     background: transparent;
     text-shadow: 1px 1px 1px #000;
     border-top: 0;
     box-shadow: none;
   }
 
-  > div {
-    flex: 1;
-  }
-
-  &__stats {
-    display: none;
-
-    @media (min-width: $bp-md) {
-      display: block;
-    }
-  }
-
   &__links {
     display: flex;
-    justify-content: center;
-
-    @media (min-width: $bp-md) {
-      justify-content: flex-end;
-    }
+    justify-content: flex-end;
+    flex: 1;
   }
 
   &__link {
