@@ -45,9 +45,10 @@ export const newGame = async (uid) => {
   }
 };
 
-export const gameWon = async ({ id, moves }) => {
+export const gameWon = async ({ id, moves, time }) => {
   const data = {
     moves,
+    time,
   };
 
   try {
@@ -71,9 +72,10 @@ export const gameWon = async ({ id, moves }) => {
   }
 };
 
-export const gameLost = async ({ id, moves }) => {
+export const gameLost = async ({ id, moves, time }) => {
   const data = {
     moves,
+    time,
   };
 
   try {
@@ -97,9 +99,10 @@ export const gameLost = async ({ id, moves }) => {
   }
 };
 
-export const gameCompleted = async ({ id, moves }) => {
+export const gameCompleted = async ({ id, moves, time }) => {
   const data = {
     moves,
+    time,
   };
 
   try {

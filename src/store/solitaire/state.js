@@ -11,6 +11,7 @@ const state = () => ({
   game: {
     id: null,
     moves: 0,
+    time: 0,
   },
 });
 

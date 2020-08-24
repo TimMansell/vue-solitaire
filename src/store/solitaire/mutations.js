@@ -46,6 +46,9 @@ const mutations = {
   INCREMENT_MOVES(state) {
     state.game.moves += 1;
   },
+  UPDATE_GAME_TIME(state) {
+    state.game.time += 1;
+  },
 };
 
 export default mutations;

@@ -24,7 +24,6 @@ Query(
           won: false,
           lost: false,
           completed: false,
-          start: Var("date"),
           gameNumber: Add(
             Count(Match(Index("game_user_by_user"), Var("ref"))),
             1
@@ -35,34 +34,6 @@ Query(
     )
   )
 )
-
-----------------
-
-updateGameStatus
-
-Query(
-  Lambda(
-    ["id", "data"],
-    Let(
-      { ref: Ref(Collection("Game"), Var("id")), stop: Now() },
-      Update(Var("ref"), {
-        data: Merge(Var("data"), {
-          stop: Var("stop"),
-          time: TimeDiff(
-            Select(
-              ["data", "start"],
-              Get(Match(Index("game_by_id"), Var("ref")))
-            ),
-            Var("stop"),
-            "seconds"
-          )
-        })
-      })
-    )
-  )
-)
-
-----------------
 
 totalGames
 

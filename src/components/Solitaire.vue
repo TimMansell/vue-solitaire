@@ -34,14 +34,31 @@ export default {
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
       window.appReady = true;
+    } else {
+      this.gameTimer = this.initGameTimer(); // Only init game timer in app so cypress can test visibilityState
     }
+
+    window.addEventListener('visibilitychange', this.toggleGameTimer);
 
     // if (process.env.NODE_ENV === 'development') {
     //   this.setBoardAndFoundation(aces);
     // }
   },
+  destroyed() {
+    window.removeEventListener(this.toggleGameTimer);
+  },
   methods: {
-    ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
+    ...mapActions(['initUser', 'initGame', 'updateTimer', 'setBoardAndFoundation']),
+    initGameTimer() {
+      return window.setInterval(() => this.updateTimer(), 1000);
+    },
+    toggleGameTimer(e) {
+      if (e.target.visibilityState === 'visible') {
+        this.gameTimer = this.initGameTimer();
+      } else {
+        clearInterval(this.gameTimer);
+      }
+    },
   },
 };
 </script>
