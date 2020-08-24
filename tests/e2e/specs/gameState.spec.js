@@ -59,7 +59,7 @@ describe('Game State', () => {
     });
   });
 
-  it.only('refreshing page on game lost shows game lost state', () => {
+  it('refreshing page on game lost shows game lost state', () => {
     cy.setBoard(noMovesKingColumn).then(() => {
       cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
       cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
