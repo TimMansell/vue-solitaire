@@ -43,7 +43,7 @@ Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
 
 Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
   cy.get(subject).click({ force: true });
-  cy.get(clickTo).click();
+  cy.get(clickTo).click({ force: true });
 });
 
 Cypress.Commands.add('shouldContain', { prevSubject: true }, (subject, elements) => {
