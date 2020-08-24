@@ -36,12 +36,26 @@ export default {
       window.appReady = true;
     }
 
+    this.gameTimer = this.initGameTimer();
+
+    document.addEventListener('visibilitychange', this.toggleGameTimer, false);
+
     // if (process.env.NODE_ENV === 'development') {
     //   this.setBoardAndFoundation(aces);
     // }
   },
   methods: {
-    ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
+    ...mapActions(['initUser', 'initGame', 'updateTimer', 'setBoardAndFoundation']),
+    initGameTimer() {
+      return window.setInterval(() => this.updateTimer(), 1000);
+    },
+    toggleGameTimer() {
+      if (document.visibilityState === 'visible') {
+        this.gameTimer = this.initGameTimer();
+      } else {
+        clearInterval(this.gameTimer);
+      }
+    },
   },
 };
 </script>

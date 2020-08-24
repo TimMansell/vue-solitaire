@@ -117,6 +117,9 @@ const actions = {
     dispatch('setFoundations');
     dispatch('newGame');
   },
+  updateTimer({ commit }) {
+    commit('UPDATE_GAME_TIME');
+  },
 };
 
 export default actions;
