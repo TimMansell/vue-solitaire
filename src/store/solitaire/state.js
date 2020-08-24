@@ -1,7 +1,7 @@
 // Return state as function so we can reset it.
 const state = () => ({
   board: {
-    columns: [],
+    cards: [],
     foundation: [],
   },
   selectedCardId: null,

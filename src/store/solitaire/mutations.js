@@ -26,7 +26,7 @@ const mutations = {
   },
   SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
-      Vue.set(state.board.columns, index, cards);
+      Vue.set(state.board.cards, index, cards);
     });
   },
   SET_FOUNDATIONS(state, foundationColumns) {
