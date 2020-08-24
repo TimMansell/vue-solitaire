@@ -1,13 +1,25 @@
 import solitaire from '@/services/solitaire';
 import db from '@/services/db';
 
+import { getBoardState } from './helpers';
+
 const actions = {
-  initGame({ dispatch }) {
-    solitaire.init();
+  initGame({ commit, dispatch, state }) {
+    const { isNewGame, selectedCardId } = state;
+    const boardToUse = getBoardState(isNewGame);
+
+    solitaire.init(boardToUse);
 
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('newGame');
+
+    if (isNewGame) {
+      dispatch('trackNewGame');
+    } else {
+      dispatch('setCard', selectedCardId);
+    }
+
+    commit('NEW_GAME', false);
   },
   restartGame({ commit, state }, completed) {
     const { game } = state;
@@ -17,8 +29,9 @@ const actions = {
     }
 
     commit('RESTART_GAME');
+    commit('NEW_GAME', true);
   },
-  async newGame({ commit, dispatch, rootState }) {
+  async trackNewGame({ commit, dispatch, rootState }) {
     const { suid } = rootState.user;
     const { error, response } = await db.newGame(suid);
 
@@ -110,12 +123,11 @@ const actions = {
     dispatch('moveCardToFoundation', foundationColumn);
   },
   setBoardAndFoundation({ dispatch }, board) {
-    solitaire.setBoard(board);
-    solitaire.setFoundation(board);
+    solitaire.init(board);
 
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('newGame');
+    dispatch('trackNewGame');
   },
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');
