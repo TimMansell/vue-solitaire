@@ -9,6 +9,8 @@ import settings from '../settings.json';
 
 export const initFoundation = () => initFoundations(settings);
 
+export const loadFoundation = ({ foundation }) => foundation;
+
 export const updateFoundation = ({ foundationCards }, { foundationCardsTo }) =>
   foundationCards.map((columnCards, index) => {
     if (index === foundationCardsTo.columnNo) {

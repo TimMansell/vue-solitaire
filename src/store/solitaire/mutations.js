@@ -9,6 +9,9 @@ const mutations = {
 
     Object.assign(state, newState);
   },
+  NEW_GAME(state, isNewGame) {
+    state.isNewGame = isNewGame;
+  },
   SET_GAME(state, game) {
     state.game = {
       ...state.game,
@@ -42,6 +45,9 @@ const mutations = {
   },
   INCREMENT_MOVES(state) {
     state.game.moves += 1;
+  },
+  UPDATE_GAME_TIME(state) {
+    state.game.time += 1;
   },
 };
 

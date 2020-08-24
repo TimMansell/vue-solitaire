@@ -76,8 +76,8 @@ export const createUserMutation = async (client, variables) => {
 
 export const updateGameMutation = async (client, variables) => {
   const mutation = gql`
-    mutation UpdateGameStatus($id: ID!, $data: GameInput!) {
-      updateGameStatus(id: $id, data: $data) {
+    mutation UpdateGame($id: ID!, $data: GameInput!) {
+      updateGame(id: $id, data: $data) {
         _id
         gameNumber
       }
@@ -90,7 +90,7 @@ export const updateGameMutation = async (client, variables) => {
       variables,
     });
 
-    return body.data.updateGameStatus;
+    return body.data.updateGame;
   } catch (error) {
     throw new ApolloError(error);
   }

@@ -11,7 +11,9 @@ const state = () => ({
   game: {
     id: null,
     moves: 0,
+    time: 0,
   },
+  isNewGame: true,
 });
 
 export default state;

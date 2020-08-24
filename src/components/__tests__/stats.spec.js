@@ -8,6 +8,7 @@ describe('Stats.vue', () => {
         userStats: () => ({
           gameNumber: 1,
         }),
+        timer: () => 1,
       },
     });
 
@@ -20,9 +21,23 @@ describe('Stats.vue', () => {
         userStats: () => ({
           gameNumber: 1,
         }),
+        timer: () => 1,
       },
     });
 
-    expect(wrapper.text()).toContain('1');
+    expect(wrapper.find('[data-test="stats"]').text()).toContain('1');
+  });
+
+  it('should show 10 seconds on the timer', () => {
+    const wrapper = shallowMount(Stats, {
+      computed: {
+        userStats: () => ({
+          gameNumber: 1,
+        }),
+        timer: () => 10,
+      },
+    });
+
+    expect(wrapper.find('[data-test="timer"]').text()).toContain('1');
   });
 });

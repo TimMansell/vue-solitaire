@@ -3,6 +3,8 @@ import settings from '../settings.json';
 
 export const initBoard = () => initBoardCards(settings);
 
+export const loadBoard = ({ cards }) => cards;
+
 export const updateBoard = ({ boardCards }, { cardsFrom, cardsTo }) =>
   boardCards.map((columnCards, index) => {
     if (index === cardsFrom.columnNo) {
