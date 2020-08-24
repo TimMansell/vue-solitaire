@@ -45,15 +45,30 @@ jest.mock('@/services/db', () => ({
   gameWon: () => jest.fn(),
 }));
 
+jest.mock('../helpers', () => ({
+  getBoardState: () => jest.fn(),
+}));
+
 describe('Solitaire Store', () => {
-  it('initGame - new game', async () => {
+  it('initGame - new game', () => {
     const state = {
       isNewGame: true,
     };
 
-    await initGame({ commit, dispatch, state });
+    initGame({ commit, dispatch, state });
 
     expect(dispatch).toHaveBeenCalledWith('trackNewGame');
+  });
+
+  it('initGame - saved game', () => {
+    const state = {
+      isNewGame: false,
+      selectedCardId: '3d',
+    };
+
+    initGame({ commit, dispatch, state });
+
+    expect(dispatch).toHaveBeenCalledWith('setCard', '3d');
   });
 
   it('restartGame', () => {

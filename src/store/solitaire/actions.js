@@ -5,7 +5,7 @@ import { getBoardState } from './helpers';
 
 const actions = {
   initGame({ commit, dispatch, state }) {
-    const { isNewGame } = state;
+    const { isNewGame, selectedCardId } = state;
     const boardToUse = getBoardState(isNewGame);
 
     solitaire.init(boardToUse);
@@ -15,6 +15,8 @@ const actions = {
 
     if (isNewGame) {
       dispatch('trackNewGame');
+    } else {
+      dispatch('setCard', selectedCardId);
     }
 
     commit('NEW_GAME', false);
