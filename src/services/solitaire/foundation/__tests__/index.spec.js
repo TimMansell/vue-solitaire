@@ -1,6 +1,19 @@
-import { updateFoundation, getEmptyFoundationColumn } from '../index';
+import { loadFoundation, updateFoundation, getEmptyFoundationColumn } from '../index';
 
 describe('foundation', () => {
+  describe('load foundation', () => {
+    it('should return foundations', () => {
+      const board = {
+        foundation: [[], []],
+        cards: [[], []],
+      };
+
+      const result = loadFoundation(board);
+
+      expect(result).toStrictEqual([[], []]);
+    });
+  });
+
   it('should update foundation', () => {
     const state = {
       foundationCards: [[], [], [], []],

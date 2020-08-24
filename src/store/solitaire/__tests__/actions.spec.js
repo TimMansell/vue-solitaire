@@ -1,8 +1,9 @@
 import actions from '../actions';
 
 const {
+  initGame,
   restartGame,
-  newGame,
+  trackNewGame,
   checkGameState,
   setFoundations,
   setBoard,
@@ -21,6 +22,7 @@ const mockResponse = {
 };
 
 jest.mock('@/services/solitaire', () => ({
+  init: () => jest.fn(),
   isEmptyBoard: () => true,
   getFoundationCards: () => [],
   getBoardCards: () => [],
@@ -44,6 +46,16 @@ jest.mock('@/services/db', () => ({
 }));
 
 describe('Solitaire Store', () => {
+  it('initGame - new game', async () => {
+    const state = {
+      newGame: true,
+    };
+
+    await initGame({ commit, dispatch, state });
+
+    expect(dispatch).toHaveBeenCalledWith('trackNewGame');
+  });
+
   it('restartGame', () => {
     const state = {
       game: {
@@ -57,14 +69,14 @@ describe('Solitaire Store', () => {
     expect(commit).toHaveBeenCalledWith('RESTART_GAME');
   });
 
-  it('newGame', async () => {
+  it('trackNewGame', async () => {
     const rootState = {
       user: {
         suid: 123,
       },
     };
 
-    await newGame({ commit, dispatch, rootState });
+    await trackNewGame({ commit, dispatch, rootState });
 
     expect(dispatch).toHaveBeenCalledWith('setUserStats', { gameNumber: mockResponse.gameNumber });
     // eslint-disable-next-line no-underscore-dangle
