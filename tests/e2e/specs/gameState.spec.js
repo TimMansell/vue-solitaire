@@ -3,11 +3,16 @@ import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
 
 describe('Game State', () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
     cy.visit('/');
   });
 
   it('refreshing page shows same board state', () => {
     cy.setBoard(foundations).then(() => {
+      cy.get('[data-test="card-Qs"]')
+        .click()
+        .should('have.class', 'card--is-selected');
+
       cy.reload();
 
       cy.get('[data-test="column-0"]')
