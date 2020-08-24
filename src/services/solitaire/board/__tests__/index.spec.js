@@ -1,6 +1,19 @@
-import { updateBoard, checkEmptyColumns } from '../index';
+import { loadBoard, updateBoard, checkEmptyColumns } from '../index';
 
 describe('board', () => {
+  describe('load board', () => {
+    it('should return cards', () => {
+      const board = {
+        foundation: [[], [], [], []],
+        cards: [[], []],
+      };
+
+      const result = loadBoard(board);
+
+      expect(result).toStrictEqual([[], []]);
+    });
+  });
+
   describe('update board', () => {
     it('should update both from and to columns', () => {
       const state = {

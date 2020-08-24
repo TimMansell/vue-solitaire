@@ -27,5 +27,6 @@ export const typeDefs = gql`
     lost: Boolean
     completed: Boolean
     moves: Int
+    time: Int
   }
 `;

@@ -5,8 +5,13 @@ import {
   checkValidFoundationMove,
   moveFoundationCards,
 } from './moves';
-import { initFoundation, updateFoundation, getEmptyFoundationColumn } from './foundation';
-import { initBoard, updateBoard } from './board';
+import {
+  initFoundation,
+  loadFoundation,
+  updateFoundation,
+  getEmptyFoundationColumn,
+} from './foundation';
+import { initBoard, loadBoard, updateBoard } from './board';
 import setState from './state';
 
 const solitaire = () => {
@@ -16,19 +21,14 @@ const solitaire = () => {
     state = setState(state, newState);
   };
 
-  const init = () => {
-    const foundationCards = initFoundation();
-    const boardCards = initBoard();
+  const init = (board) => {
+    const cards = {
+      foundationCards: board ? loadFoundation(board) : initFoundation(),
+      boardCards: board ? loadBoard(board) : initBoard(),
+    };
 
-    setGameState({
-      foundationCards,
-      boardCards,
-    });
+    setGameState(cards);
   };
-
-  const setBoard = ({ board }) => setGameState({ boardCards: [...board] });
-
-  const setFoundation = ({ foundation }) => setGameState({ foundationCards: [...foundation] });
 
   const setSelectedCard = (selectedCardId) => setGameState({ selectedCardId });
 
@@ -68,8 +68,6 @@ const solitaire = () => {
 
   return {
     init,
-    setBoard,
-    setFoundation,
     isEmptyBoard,
     getFoundationCards,
     getBoardCards,

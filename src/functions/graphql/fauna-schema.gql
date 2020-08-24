@@ -35,6 +35,7 @@ input GameInput {
   lost: Boolean
   completed: Boolean
   moves: Int
+  time: Int
 }
 
 type Query {
@@ -44,5 +45,4 @@ type Query {
 
 type Mutation {
   newGame(uid: String!): Game! @resolver(name: "newGame")
-  updateGameStatus(id: ID!, data: GameInput!): Game! @resolver(name: "updateGameStatus")
 }
