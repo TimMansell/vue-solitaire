@@ -12,6 +12,7 @@ const {
   UNSELECT_CARD,
   SET_HAS_MOVES,
   INCREMENT_MOVES,
+  UPDATE_GAME_TIME,
 } = mutations;
 
 describe('Solitaire Store', () => {
@@ -30,6 +31,7 @@ describe('Solitaire Store', () => {
       game: {
         id: null,
         moves: 0,
+        time: 0,
       },
     };
   });
@@ -46,6 +48,7 @@ describe('Solitaire Store', () => {
     expect(state.game).toEqual({
       id: 1,
       moves: 0,
+      time: 0,
     });
   });
 
@@ -99,5 +102,11 @@ describe('Solitaire Store', () => {
     INCREMENT_MOVES(state);
 
     expect(state.game.moves).toEqual(1);
+  });
+
+  it('UPDATE_GAME_TIME', () => {
+    UPDATE_GAME_TIME(state);
+
+    expect(state.game.time).toEqual(1);
   });
 });

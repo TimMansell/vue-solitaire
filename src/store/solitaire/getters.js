@@ -5,6 +5,7 @@ const getters = {
   hasMoves: (state) => state.hasMoves,
   isGameWon: (state) => state.isGameWon,
   isGameLost: (state) => state.isGameLost,
+  timer: (state) => state.game.time,
 };
 
 export default getters;

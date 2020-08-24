@@ -52,4 +52,18 @@ describe('Controls', () => {
       cy.get('[data-test="foundation-3"]').shouldNotContain(['Ks', 'Qs']);
     });
   });
+
+  it('it should start a new game and reset timer', () => {
+    cy.setBoard(emptyColumn).then(() => {
+      cy.wait(1500);
+
+      cy.get('[data-test="timer"]').then(($timer) => {
+        const number = $timer.text();
+
+        cy.get('[data-test="new-game-btn"]').click();
+
+        cy.get('[data-test="timer"]').should('not.equal', number);
+      });
+    });
+  });
 });

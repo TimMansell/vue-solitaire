@@ -46,7 +46,7 @@ describe('Graphql Mutation Resolvers', () => {
       client: {
         mutate: () => ({
           data: {
-            updateGameStatus: 1,
+            updateGame: 1,
           },
         }),
       },
@@ -64,7 +64,7 @@ describe('Graphql Mutation Resolvers', () => {
       client: {
         mutate: () => ({
           data: {
-            updateGameStatus: 1,
+            updateGame: 1,
           },
         }),
       },
@@ -82,7 +82,7 @@ describe('Graphql Mutation Resolvers', () => {
       client: {
         mutate: () => ({
           data: {
-            updateGameStatus: 1,
+            updateGame: 1,
           },
         }),
       },
