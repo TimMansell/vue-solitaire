@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div class="columns" data-test="columns">
     <Column v-for="(column, index) in boardCards" :key="index" :column-no="index" :cards="column" />
   </div>
 </template>
