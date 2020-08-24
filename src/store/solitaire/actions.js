@@ -1,18 +1,20 @@
 import solitaire from '@/services/solitaire';
 import db from '@/services/db';
 
+import { getBoardState } from './helpers';
+
 const actions = {
-  async initGame({ commit, dispatch, state }) {
-    const gameState = JSON.parse(localStorage.getItem('vuex'));
-    const boardToUse = state.newGame ? '' : gameState.solitaire.board;
+  initGame({ commit, dispatch, state }) {
+    const { newGame } = state;
+    const boardToUse = getBoardState(newGame);
 
     solitaire.init(boardToUse);
 
     dispatch('setBoard');
     dispatch('setFoundations');
 
-    if (state.newGame) {
-      await dispatch('trackNewGame');
+    if (newGame) {
+      dispatch('trackNewGame');
     }
 
     commit('NEW_GAME', false);
@@ -123,6 +125,7 @@ const actions = {
 
     dispatch('setBoard');
     dispatch('setFoundations');
+    dispatch('trackNewGame');
   },
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');
