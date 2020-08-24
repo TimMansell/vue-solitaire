@@ -5,15 +5,15 @@ import { getBoardState } from './helpers';
 
 const actions = {
   initGame({ commit, dispatch, state }) {
-    const { newGame } = state;
-    const boardToUse = getBoardState(newGame);
+    const { isNewGame } = state;
+    const boardToUse = getBoardState(isNewGame);
 
     solitaire.init(boardToUse);
 
     dispatch('setBoard');
     dispatch('setFoundations');
 
-    if (newGame) {
+    if (isNewGame) {
       dispatch('trackNewGame');
     }
 

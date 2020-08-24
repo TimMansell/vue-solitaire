@@ -18,9 +18,9 @@ describe('Solitaire Store', () => {
   it('getBoardState - saved game', () => {
     localStorage.setItem('vuex', JSON.stringify(vuex));
 
-    const newGame = false;
+    const isNewGame = false;
 
-    const result = getBoardState(newGame);
+    const result = getBoardState(isNewGame);
 
     expect(result).toEqual(vuex.solitaire.board);
   });
@@ -28,9 +28,9 @@ describe('Solitaire Store', () => {
   it('getBoardState - new game', () => {
     localStorage.setItem('vuex', JSON.stringify(vuex));
 
-    const newGame = true;
+    const isNewGame = true;
 
-    const result = getBoardState(newGame);
+    const result = getBoardState(isNewGame);
 
     expect(result).toEqual('');
   });

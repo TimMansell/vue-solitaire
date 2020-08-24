@@ -48,7 +48,7 @@ jest.mock('@/services/db', () => ({
 describe('Solitaire Store', () => {
   it('initGame - new game', async () => {
     const state = {
-      newGame: true,
+      isNewGame: true,
     };
 
     await initGame({ commit, dispatch, state });
