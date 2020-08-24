@@ -70,7 +70,7 @@ describe('Graphql Resolver helpers', () => {
     const mockClient = {
       mutate: () => ({
         data: {
-          updateGameStatus: 1,
+          updateGame: 1,
         },
       }),
     };

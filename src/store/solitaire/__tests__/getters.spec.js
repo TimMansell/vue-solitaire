@@ -1,6 +1,14 @@
 import getters from '../getters';
 
-const { boardCards, foundationCards, selectedCardId, isGameWon, isGameLost, hasMoves } = getters;
+const {
+  boardCards,
+  foundationCards,
+  selectedCardId,
+  isGameWon,
+  isGameLost,
+  hasMoves,
+  timer,
+} = getters;
 
 const state = {
   board: {
@@ -10,6 +18,9 @@ const state = {
   selectedCardId: 1,
   isGameWon: true,
   hasMoves: false,
+  game: {
+    time: 0,
+  },
 };
 
 describe('Solitaire Store', () => {
@@ -47,5 +58,11 @@ describe('Solitaire Store', () => {
     const result = hasMoves(state);
 
     expect(result).toEqual(state.hasMoves);
+  });
+
+  it('timer', () => {
+    const result = timer(state);
+
+    expect(result).toEqual(state.game.time);
   });
 });

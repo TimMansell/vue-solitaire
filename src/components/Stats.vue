@@ -5,7 +5,7 @@
     </div>
     <div>
       Time:
-      <span>{{ timer }}s</span>
+      <span data-test="timer">{{ timer }}s</span>
     </div>
   </div>
 </template>
