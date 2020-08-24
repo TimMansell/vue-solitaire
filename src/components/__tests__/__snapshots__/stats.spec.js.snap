@@ -6,6 +6,7 @@ exports[`Stats.vue matches snapshot 1`] = `
     Games played: <span data-test="stats">1</span></div>
   <div>
     Time:
-    <span data-test="timer">1s</span></div>
+    <span data-test="timer">1</span>s
+  </div>
 </div>
 `;
