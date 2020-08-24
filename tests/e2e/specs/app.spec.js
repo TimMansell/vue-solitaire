@@ -7,7 +7,7 @@ describe('App', () => {
     cy.get('[data-test="board"]').should('be.visible');
   });
 
-  it.only("timer doesn't start untill visibilitychange is triggered", () => {
+  it("timer doesn't start untill visibilitychange is triggered", () => {
     cy.get('[data-test="timer"]').then(($timerStart) => {
       const startNumber = $timerStart.text();
 
