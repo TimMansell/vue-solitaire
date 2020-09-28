@@ -1,6 +1,6 @@
 <template>
   <div>
-    Global games: <span data-test="stats">{{ globalStats.count }}</span>
+    Global Games: <span data-test="stats">{{ globalStats.count }}</span>
   </div>
 </template>
 
