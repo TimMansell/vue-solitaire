@@ -34,6 +34,7 @@ export default {
 .footer {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -45,6 +46,10 @@ export default {
   border-top: 1px solid rgba($col-secondary, 0.05);
   box-shadow: 0 -1px rgba($col-tertiary, 0.2);
 
+  @media (min-width: $bp-sm) {
+    flex-direction: row;
+  }
+
   @media (min-width: $bp-md) {
     justify-content: right;
     bottom: calc(var(--vr) / 4);
@@ -54,10 +59,23 @@ export default {
     box-shadow: none;
   }
 
+  &__stats {
+    align-self: center;
+
+    @media (min-width: $bp-sm) {
+      align-self: inherit;
+    }
+  }
+
   &__links {
     display: flex;
-    justify-content: flex-end;
     flex: 1;
+    align-self: center;
+
+    @media (min-width: $bp-sm) {
+      justify-content: flex-end;
+      align-self: inherit;
+    }
   }
 
   &__link {
