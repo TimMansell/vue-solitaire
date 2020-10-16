@@ -23,6 +23,6 @@ describe('GlobalStats.vue', () => {
       },
     });
 
-    expect(wrapper.find('[data-test="stats"]').text()).toContain('1');
+    expect(wrapper.find('[data-test="global-stats"]').text()).toContain('1');
   });
 });

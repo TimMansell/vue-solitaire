@@ -2,5 +2,5 @@
 
 exports[`GlobalStats.vue matches snapshot 1`] = `
 <div>
-  Global Games: <span data-test="stats">1</span></div>
+  Global Games: <span data-test="global-stats">1</span></div>
 `;
