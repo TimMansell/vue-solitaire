@@ -1,6 +1,7 @@
 import {
   formatVariables,
   getUserQuery,
+  globalStatsQuery,
   createUserMutation,
   updateGameMutation,
   newGameMutation,
@@ -44,6 +45,20 @@ describe('Graphql Resolver helpers', () => {
     };
 
     const result = await getUserQuery(mockClient, mockVariables);
+
+    expect(result).toEqual(1);
+  });
+
+  it('globalStatsQuery', async () => {
+    const mockClient = {
+      query: () => ({
+        data: {
+          globalStats: 1,
+        },
+      }),
+    };
+
+    const result = await globalStatsQuery(mockClient);
 
     expect(result).toEqual(1);
   });

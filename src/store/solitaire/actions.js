@@ -4,7 +4,7 @@ import db from '@/services/db';
 import { getBoardState } from './helpers';
 
 const actions = {
-  initGame({ commit, dispatch, state }) {
+  async initGame({ commit, dispatch, state }) {
     const { isNewGame, selectedCardId } = state;
     const boardToUse = getBoardState(isNewGame);
 
@@ -14,10 +14,12 @@ const actions = {
     dispatch('setFoundations');
 
     if (isNewGame) {
-      dispatch('trackNewGame');
+      await dispatch('trackNewGame');
     } else {
       dispatch('setCard', selectedCardId);
     }
+
+    dispatch('initGlobalStats');
 
     commit('NEW_GAME', false);
   },
