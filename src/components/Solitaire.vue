@@ -28,8 +28,8 @@ export default {
   },
   async created() {
     await this.initUser();
-    await this.initGame();
-    this.initGlobalStats();
+
+    this.initGame();
 
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
@@ -48,13 +48,7 @@ export default {
     window.removeEventListener(this.toggleGameTimer);
   },
   methods: {
-    ...mapActions([
-      'initUser',
-      'initGame',
-      'initGlobalStats',
-      'updateTimer',
-      'setBoardAndFoundation',
-    ]),
+    ...mapActions(['initUser', 'initGame', 'updateTimer', 'setBoardAndFoundation']),
     initGameTimer() {
       return window.setInterval(() => this.updateTimer(), 1000);
     },

@@ -20,13 +20,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['restartGame', 'initGame', 'initGlobalStats']),
+    ...mapActions(['restartGame', 'initGame']),
     newGame() {
       const { completed } = this;
 
       this.restartGame(completed);
       this.initGame();
-      this.initGlobalStats();
 
       this.$gtag.event('New Game', { event_category: 'Buttons' });
     },
