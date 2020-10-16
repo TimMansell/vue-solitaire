@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlobalStats.vue matches snapshot 1`] = `
+<div>
+  Global Games: <span data-test="stats">1</span></div>
+`;
