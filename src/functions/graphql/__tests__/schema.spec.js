@@ -35,6 +35,26 @@ describe('Graphql Schema', () => {
         },
       });
     });
+
+    it('globalStats', async () => {
+      const query = `
+        query {
+          globalStats {
+            count
+          }
+        }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then((response) => response);
+
+      expect(result).toEqual({
+        data: {
+          globalStats: {
+            count: 1,
+          },
+        },
+      });
+    });
   });
 
   describe('Mutations', () => {
