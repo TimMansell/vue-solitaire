@@ -2,9 +2,8 @@
 
 exports[`Stats.vue matches snapshot 1`] = `
 <div class="stats">
+  <userstats-stub class="stats__user"></userstats-stub>
   <div class="stats__games">
-    Games played: <span data-test="stats">1</span></div>
-  <div>
     Time:
     <span data-test="timer">1</span>s
   </div>

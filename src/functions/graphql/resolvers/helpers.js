@@ -33,6 +33,26 @@ export const getUserQuery = async (client, variables) => {
   }
 };
 
+export const globalStatsQuery = async (client) => {
+  const query = gql`
+    query {
+      globalStats {
+        count
+      }
+    }
+  `;
+
+  const variables = {};
+
+  try {
+    const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
+
+    return body.data.globalStats;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
+};
+
 export const createUserMutation = async (client, variables) => {
   const mutation = gql`
     mutation CreateAUser($data: UserInput!) {

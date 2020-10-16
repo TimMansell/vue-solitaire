@@ -5,9 +5,6 @@ describe('Stats.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(Stats, {
       computed: {
-        userStats: () => ({
-          gameNumber: 1,
-        }),
         timer: () => 1,
       },
     });
@@ -15,25 +12,9 @@ describe('Stats.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should show 1 game played', () => {
-    const wrapper = shallowMount(Stats, {
-      computed: {
-        userStats: () => ({
-          gameNumber: 1,
-        }),
-        timer: () => 1,
-      },
-    });
-
-    expect(wrapper.find('[data-test="stats"]').text()).toContain('1');
-  });
-
   it('should show 10 seconds on the timer', () => {
     const wrapper = shallowMount(Stats, {
       computed: {
-        userStats: () => ({
-          gameNumber: 1,
-        }),
         timer: () => 10,
       },
     });

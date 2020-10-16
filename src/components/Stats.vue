@@ -1,9 +1,7 @@
 <template>
   <div class="stats">
+    <UserStats class="stats__user" />
     <div class="stats__games">
-      Games played: <span data-test="stats">{{ userStats.gameNumber }}</span>
-    </div>
-    <div>
       Time:
       <span data-test="timer">{{ timer }}</span
       >s
@@ -13,9 +11,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import UserStats from '@/components/UserStats.vue';
 
 export default {
   name: 'Stats',
+  components: {
+    UserStats,
+  },
   computed: {
     ...mapGetters(['userStats', 'timer']),
   },
@@ -35,8 +37,18 @@ export default {
     font-size: var(--font-size-lg);
   }
 
+  &__user,
   &__games {
     flex: 1;
+  }
+
+  &__games {
+    display: flex;
+    justify-content: flex-end;
+
+    @media (min-width: $bp-md) {
+      display: block;
+    }
   }
 }
 </style>
