@@ -1,6 +1,6 @@
 {
   "name": "vue-solitaire",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "serve": "run-p serve:app serve:graphql",
@@ -14,9 +14,11 @@
     "test:e2e": "run-p -r serve:graphql:test test:e2e:cli",
     "test:e2e:gui": "run-p -r serve:graphql:test test:e2e:visual",
     "test:e2e:cli": "vue-cli-service test:e2e --headless --config ignoreTestFiles=\"**/*snapshot*\"",
+    "test:e2e:snapshots": "run-p -r serve:graphql:test test:e2e:run:snapshots",
+    "test:e2e:updatesnapshots": "run-p -r serve:graphql:test test:e2e:run:updatesnapshots",
     "test:e2e:visual": "vue-cli-service test:e2e --config ignoreTestFiles=\"**/*snapshot*\"",
-    "test:e2e:snapshots": "vue-cli-service test:e2e --headless --config ignoreTestFiles=\"**/*spec*\"",
-    "test:e2e:updatesnapshots": "vue-cli-service test:e2e --headless --env updateSnapshots=true --config ignoreTestFiles=\"**/*spec*\"",
+    "test:e2e:run:snapshots": "vue-cli-service test:e2e --headless --config ignoreTestFiles=\"**/*spec*\"",
+    "test:e2e:run:updatesnapshots": "vue-cli-service test:e2e --headless --env updateSnapshots=true --config ignoreTestFiles=\"**/*spec*\"",
     "lint": "run-p lint:js lint:css",
     "lint:js": "vue-cli-service lint --fix",
     "lint:css": "stylelint src/**/*.{vue,scss} --fix"

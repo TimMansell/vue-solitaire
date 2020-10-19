@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-    <Controls />
+    <Header />
     <Solitaire />
     <Footer />
   </div>
 </template>
 
 <script>
-import Controls from '@/components/Controls.vue';
+import Header from '@/components/Header.vue';
 import Solitaire from '@/components/Solitaire.vue';
 import Footer from '@/components/Footer.vue';
 
 export default {
   name: 'App',
   components: {
-    Controls,
+    Header,
     Solitaire,
     Footer,
   },
@@ -32,7 +32,7 @@ body {
   background: var(--bg-primary);
 
   @media (min-width: $bp-md) {
-    background: var(--bg-primary) url('./assets/felt.png') repeat;
+    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
   }
 }
 

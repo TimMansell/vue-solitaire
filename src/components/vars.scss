@@ -20,6 +20,7 @@ $bp-xl: 1366px;
 
   // Colours.
   --col-primary: #{$col-primary};
+  --col-primary-dark: #{darken($col-primary, 5%)};
   --col-secondary: #{$col-secondary};
   --col-tertiary: #{$col-tertiary};
 
@@ -46,11 +47,20 @@ $bp-xl: 1366px;
   // Margins.
   --mg-sm: calc(var(--vr) / 2);
   --mg-md: var(--vr);
+  --mg-lg: calc(var(--vr) * 2);
 
   // Padding.
   --pd-sm: calc(var(--vr) / 2);
   --pd-md: var(--vr);
   --pd-lg: calc(var(--vr) * 2);
+
+  // z-index.
+  --z-overlay: 900;
+  --z-header: 800;
+  --z-footer: 700;
+  --z-default: 1;
+  --z-below: -1;
+  --z-bottomless-pit: -9000;
 
   // Cards
   --card-width: 33px;
