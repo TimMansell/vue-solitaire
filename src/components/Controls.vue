@@ -29,6 +29,7 @@ export default {
 
   @media (min-width: $bp-sm) {
     position: fixed;
+    z-index: var(--z-header);
     right: calc(var(--vr) / 2);
     top: calc(var(--vr) / 2);
     margin-top: auto;
