@@ -1,7 +1,7 @@
 <template>
   <div>
     <Stats />
-    <div data-test="board">
+    <div class="board" data-test="board">
       <Foundation />
       <Columns />
     </div>
@@ -22,3 +22,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.board {
+  margin-bottom: var(--mg-lg);
+}
+</style>
