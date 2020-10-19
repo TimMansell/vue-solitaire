@@ -55,10 +55,9 @@ $bp-xl: 1366px;
   --pd-lg: calc(var(--vr) * 2);
 
   // z-index.
-  --z-modal: 9000;
-  --z-overlay: 8000;
-  --z-header: 7000;
-  --z-footer: 6000;
+  --z-overlay: 900;
+  --z-header: 800;
+  --z-footer: 700;
   --z-default: 1;
   --z-below: -1;
   --z-bottomless-pit: -9000;

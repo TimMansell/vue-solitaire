@@ -22,19 +22,16 @@ export default {
 .controls {
   display: flex;
   justify-content: center;
-  margin-top: var(--mg-sm);
   padding-bottom: var(--pd-sm);
   border-bottom: 1px solid rgba($col-tertiary, 0.2);
   box-shadow: 0 1px rgba($col-secondary, 0.05);
+  width: 100%;
 
   @media (min-width: $bp-sm) {
-    position: fixed;
-    z-index: var(--z-header);
-    right: calc(var(--vr) / 2);
-    top: calc(var(--vr) / 2);
-    margin-top: auto;
+    width: auto;
     border-bottom: 0;
     box-shadow: none;
+    padding-bottom: 0;
   }
 }
 </style>
