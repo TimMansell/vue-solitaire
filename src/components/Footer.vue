@@ -38,9 +38,9 @@ export default {
   position: fixed;
   width: 100%;
   bottom: 0;
-  padding-left: calc(var(--vr) / 2);
-  padding-right: calc(var(--vr) / 2);
-  font-size: var(--font-size);
+  padding-left: var(--pd-sm);
+  padding-right: var(--pd-sm);
+  font-size: var(--font-size-lg);
   background: var(--bg-primary);
   color: var(--text-primary);
   border-top: 1px solid rgba($col-secondary, 0.05);
@@ -52,11 +52,8 @@ export default {
 
   @media (min-width: $bp-md) {
     justify-content: right;
-    bottom: calc(var(--vr) / 4);
-    background: transparent;
-    text-shadow: 1px 1px 1px #000;
-    border-top: 0;
-    box-shadow: none;
+    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
+    text-shadow: -1px -1px var(--col-primary-dark);
   }
 
   &__stats {

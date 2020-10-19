@@ -20,6 +20,7 @@ $bp-xl: 1366px;
 
   // Colours.
   --col-primary: #{$col-primary};
+  --col-primary-dark: #{darken($col-primary, 5%)};
   --col-secondary: #{$col-secondary};
   --col-tertiary: #{$col-tertiary};
 
@@ -46,6 +47,7 @@ $bp-xl: 1366px;
   // Margins.
   --mg-sm: calc(var(--vr) / 2);
   --mg-md: var(--vr);
+  --mg-lg: calc(var(--vr) * 2);
 
   // Padding.
   --pd-sm: calc(var(--vr) / 2);
