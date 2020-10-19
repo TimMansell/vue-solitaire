@@ -27,28 +27,15 @@ export default {
 <style scoped lang="scss">
 .stats {
   display: flex;
-  margin-bottom: var(--mg-sm);
   color: var(--text-primary);
-  font-size: var(--font-size);
+  font-size: var(--font-size-lg);
+  justify-content: space-between;
+  width: 100%;
 
-  @media (min-width: $bp-md) {
-    display: block;
-    margin-bottom: var(--mg-md);
-    font-size: var(--font-size-lg);
-  }
-
-  &__user,
-  &__games {
-    flex: 1;
-  }
-
-  &__games {
-    display: flex;
-    justify-content: flex-end;
-
-    @media (min-width: $bp-md) {
-      display: block;
-    }
+  @media (min-width: $bp-sm) {
+    flex-direction: column;
+    order: -1;
+    width: auto;
   }
 }
 </style>

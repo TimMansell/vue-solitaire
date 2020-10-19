@@ -54,6 +54,14 @@ $bp-xl: 1366px;
   --pd-md: var(--vr);
   --pd-lg: calc(var(--vr) * 2);
 
+  // z-index.
+  --z-overlay: 900;
+  --z-header: 800;
+  --z-footer: 700;
+  --z-default: 1;
+  --z-below: -1;
+  --z-bottomless-pit: -9000;
+
   // Cards
   --card-width: 33px;
   --card-height: calc(var(--card-width) * 1.4);
