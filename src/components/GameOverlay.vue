@@ -33,7 +33,7 @@ export default {
   width: 100vw;
   height: 100vh;
   background: rgba($col-tertiary, 0.7);
-  z-index: 1;
+  z-index: var(--z-overlay);
 
   &__content {
     display: flex;
