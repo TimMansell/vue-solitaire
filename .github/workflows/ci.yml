@@ -6,7 +6,7 @@ name: CI
 # events but only for the dev branch
 on:
   pull_request:
-    branches: [ master, dev ]
+    branches: [master, dev]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,22 +17,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-    - name: Setup Node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '10.22.0'
-      
-    - name: Install Dependencies
-      run: yarn
-      
-    - name: Linting
-      run: yarn lint
-      
-    - name: Unit Tests
-      run: yarn test:unit
-      
-    - name: e2e Tests
-      run: yarn test:e2e
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.19.0'
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Linting
+        run: yarn lint
+
+      - name: Unit Tests
+        run: yarn test:unit
+
+      - name: e2e Tests
+        run: yarn test:e2e
