@@ -61,6 +61,9 @@ const actions = {
       }
     }
   },
+  setGamePaused({ commit }, isGamePaused) {
+    commit('SET_GAME_PAUSED', isGamePaused);
+  },
   setFoundations({ commit }) {
     const foundationCards = solitaire.getFoundationCards();
 

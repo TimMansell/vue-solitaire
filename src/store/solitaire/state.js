@@ -7,6 +7,7 @@ const state = () => ({
   selectedCardId: null,
   isGameWon: false,
   isGameLost: false,
+  isGamePaused: false,
   hasMoves: true,
   game: {
     id: null,

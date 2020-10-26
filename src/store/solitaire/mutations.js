@@ -24,6 +24,9 @@ const mutations = {
   SET_GAME_LOST(state, isGameLost) {
     state.isGameLost = isGameLost;
   },
+  SET_GAME_PAUSED(state, isGamePaused) {
+    state.isGamePaused = isGamePaused;
+  },
   SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
       Vue.set(state.board.cards, index, cards);

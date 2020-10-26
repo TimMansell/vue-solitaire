@@ -2,23 +2,18 @@
   <div class="game-overlay" data-test="game-overlay">
     <div class="game-overlay__content">
       <h1 class="game-overlay__title">
-        <slot />
+        <slot name="title" />
       </h1>
       <div class="game-overlay__btn" data-test="game-overlay-btn">
-        <NewGame completed />
+        <slot name="buttons" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import NewGame from '@/components/NewGame.vue';
-
 export default {
   name: 'GameOverlay',
-  components: {
-    NewGame,
-  },
 };
 </script>
 
