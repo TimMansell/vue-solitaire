@@ -21,12 +21,6 @@ export default {
   computed: {
     ...mapGetters(['isGamePaused']),
   },
-  props: {
-    completed: {
-      type: Boolean,
-      default: false,
-    },
-  },
   mounted() {
     // Only init game timer in app so cypress can test visibilityState
     if (!window.Cypress) {
