@@ -1,12 +1,12 @@
 <template>
   <Button @click="togglePause" data-test="pause-game-btn">
-    <span v-if="!paused">Pause</span>
-    <span v-if="paused">Play</span> Game
+    <span v-if="!isGamePaused">Pause</span>
+    <span v-if="isGamePaused">Play</span> Game
   </Button>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -20,12 +20,15 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ...mapGetters(['isGamePaused']),
+  },
   methods: {
     ...mapActions(['setGamePaused']),
     togglePause() {
-      this.setGamePaused(false);
+      const { isGamePaused } = this;
 
-      this.$emit('toggle-pause');
+      this.setGamePaused(!isGamePaused);
     },
   },
 };

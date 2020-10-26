@@ -1,8 +1,8 @@
 <template>
   <GameOverlay v-if="isGamePaused" data-test="game-paused">
-    <template #title> Game Paused </template>
+    <template #title> Game Paused</template>
     <template #buttons>
-      <PauseGameButton @toggle-pause="setGameTimer" />
+      <PauseGameButton />
     </template>
   </GameOverlay>
 </template>
@@ -22,36 +22,19 @@ export default {
     ...mapGetters(['isGamePaused']),
   },
   mounted() {
-    // Only init game timer in app so cypress can test visibilityState
-    if (!window.Cypress) {
-      this.setGameTimer();
-    }
-
     window.addEventListener(
       'visibilitychange',
-      (e) => setTimeout(this.toggleGameTimer, 2000, e),
+      (e) => setTimeout(this.checkGamePaused, 2000, e),
       false
     );
   },
   destroyed() {
-    window.removeEventListener('visibilitychange', this.toggleGameTimer);
+    window.removeEventListener('visibilitychange', this.checkGamePaused);
   },
   methods: {
-    ...mapActions(['updateTimer', 'setGamePaused']),
-    initGameTimer() {
-      return window.setInterval(() => this.updateTimer(), 1000);
-    },
-    setGameTimer() {
-      if (!this.isGamePaused) {
-        this.gameTimer = this.initGameTimer();
-      }
-    },
-    toggleGameTimer(e) {
-      console.log(e.target.visibilityState);
-
+    ...mapActions(['setGamePaused']),
+    checkGamePaused(e) {
       if (e.target.visibilityState === 'hidden') {
-        clearInterval(this.gameTimer);
-
         this.setGamePaused(true);
       }
     },
