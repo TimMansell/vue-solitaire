@@ -1,5 +1,5 @@
 <template>
-  <div class="game-overlay" data-test="game-overlay">
+  <div class="game-overlay" :class="classes" data-test="game-overlay">
     <div class="game-overlay__content">
       <h1 class="game-overlay__title">
         <slot name="title" />
@@ -14,6 +14,21 @@
 <script>
 export default {
   name: 'GameOverlay',
+  props: {
+    alt: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    classes() {
+      const { alt } = this;
+
+      return {
+        'game-overlay--alt': alt,
+      };
+    },
+  },
 };
 </script>
 
@@ -29,6 +44,10 @@ export default {
   height: 100vh;
   background: rgba($col-tertiary, 0.7);
   z-index: var(--z-overlay);
+
+  &--alt {
+    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
+  }
 
   &__content {
     display: flex;

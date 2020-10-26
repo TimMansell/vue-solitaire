@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay v-if="isGamePaused" data-test="game-paused">
+  <GameOverlay alt v-if="isGamePaused" data-test="game-paused">
     <template #title> Game Paused</template>
     <template #buttons>
       <PauseGameButton />
