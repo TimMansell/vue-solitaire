@@ -2,7 +2,6 @@
   <div class="solitaire">
     <Board />
     <GameState />
-    <GamePaused />
     <Rules />
   </div>
 </template>
@@ -11,7 +10,6 @@
 import { mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import GameState from '@/components/GameState.vue';
-import GamePaused from '@/components/GamePaused.vue';
 import Rules from '@/components/Rules.vue';
 import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
@@ -20,7 +18,6 @@ export default {
   components: {
     Board,
     GameState,
-    GamePaused,
     Rules,
   },
   async created() {
