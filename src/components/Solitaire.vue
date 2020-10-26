@@ -1,33 +1,27 @@
 <template>
   <div class="solitaire">
     <Board />
-    <GameOverlay v-if="!hasMoves">
-      <div v-if="isGameWon" data-test="game-won">Congratulations, you win!</div>
-      <div v-if="isGameLost" data-test="game-lost">Sorry, no more Moves!</div>
-    </GameOverlay>
+    <GameState />
     <GamePaused />
     <Rules />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
-import GameOverlay from '@/components/GameOverlay.vue';
+import GameState from '@/components/GameState.vue';
 import GamePaused from '@/components/GamePaused.vue';
 import Rules from '@/components/Rules.vue';
-import aces from '../../tests/fixtures/boards/validMove.json';
+import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
   components: {
     Board,
-    GameOverlay,
+    GameState,
     GamePaused,
     Rules,
-  },
-  computed: {
-    ...mapGetters(['hasMoves', 'isGameWon', 'isGameLost']),
   },
   async created() {
     await this.initUser();
