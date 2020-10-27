@@ -8,7 +8,7 @@ describe('GameOverlay.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders an alternate over class', () => {
+  it('renders an alternate overlay class', () => {
     const wrapper = shallowMount(GameOverlay, {
       propsData: {
         alt: true,
