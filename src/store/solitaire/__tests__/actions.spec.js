@@ -5,6 +5,7 @@ const {
   restartGame,
   trackNewGame,
   checkGameState,
+  setGamePaused,
   setFoundations,
   setBoard,
   setCard,
@@ -110,6 +111,12 @@ describe('Solitaire Store', () => {
 
     expect(commit).toHaveBeenCalledWith('SET_GAME_WON', true);
     expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', false);
+  });
+
+  it('setGamePaused', () => {
+    setGamePaused({ commit }, 1);
+
+    expect(commit).toHaveBeenCalledWith('SET_GAME_PAUSED', 1);
   });
 
   it('setFoundations', () => {

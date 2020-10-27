@@ -11,14 +11,4 @@ describe('Stats.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('should show 10 seconds on the timer', () => {
-    const wrapper = shallowMount(Stats, {
-      computed: {
-        timer: () => 10,
-      },
-    });
-
-    expect(wrapper.find('[data-test="timer"]').text()).toContain('1');
-  });
 });

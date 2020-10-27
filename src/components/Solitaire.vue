@@ -1,30 +1,24 @@
 <template>
   <div class="solitaire">
     <Board />
-    <GameOverlay v-if="!hasMoves">
-      <div v-if="isGameWon" data-test="game-won">Congratulations, you win!</div>
-      <div v-if="isGameLost" data-test="game-lost">Sorry, no more Moves!</div>
-    </GameOverlay>
+    <GameState />
     <Rules />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
-import GameOverlay from '@/components/GameOverlay.vue';
+import GameState from '@/components/GameState.vue';
 import Rules from '@/components/Rules.vue';
-// import aces from '../../tests/fixtures/boards/fullFoundation.json';
+import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
   components: {
     Board,
-    GameOverlay,
+    GameState,
     Rules,
-  },
-  computed: {
-    ...mapGetters(['hasMoves', 'isGameWon', 'isGameLost']),
   },
   async created() {
     await this.initUser();
@@ -34,31 +28,14 @@ export default {
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
       window.appReady = true;
-    } else {
-      this.gameTimer = this.initGameTimer(); // Only init game timer in app so cypress can test visibilityState
     }
 
-    window.addEventListener('visibilitychange', this.toggleGameTimer);
-
-    // if (process.env.NODE_ENV === 'development') {
-    //   this.setBoardAndFoundation(aces);
-    // }
-  },
-  destroyed() {
-    window.removeEventListener(this.toggleGameTimer);
+    if (process.env.NODE_ENV === 'development') {
+      this.setBoardAndFoundation(aces);
+    }
   },
   methods: {
-    ...mapActions(['initUser', 'initGame', 'updateTimer', 'setBoardAndFoundation']),
-    initGameTimer() {
-      return window.setInterval(() => this.updateTimer(), 1000);
-    },
-    toggleGameTimer(e) {
-      if (e.target.visibilityState === 'visible') {
-        this.gameTimer = this.initGameTimer();
-      } else {
-        clearInterval(this.gameTimer);
-      }
-    },
+    ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
   },
 };
 </script>

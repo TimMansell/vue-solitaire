@@ -76,4 +76,16 @@ describe('Game State', () => {
       cy.get('[data-test="game-lost"]').should('be.visible');
     });
   });
+
+  it('refreshing page on game paused shows game paused state', () => {
+    cy.setBoard(noMovesKingColumn).then(() => {
+      cy.get('[data-test="pause-game-btn"]').click();
+
+      cy.get('[data-test="game-paused"]').should('be.visible');
+
+      cy.reload();
+
+      cy.get('[data-test="game-paused"]').should('be.visible');
+    });
+  });
 });

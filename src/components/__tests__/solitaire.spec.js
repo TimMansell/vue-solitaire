@@ -9,37 +9,6 @@ describe('Solitaire.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(Solitaire, {
       mocks,
-      computed: {
-        isGameWon: () => false,
-        isGameLost: () => false,
-        hasMoves: () => true,
-      },
-    });
-
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('matches game won snapshot', () => {
-    const wrapper = shallowMount(Solitaire, {
-      mocks,
-      computed: {
-        isGameWon: () => true,
-        isGameLost: () => false,
-        hasMoves: () => false,
-      },
-    });
-
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('matches game lost snapshot', () => {
-    const wrapper = shallowMount(Solitaire, {
-      mocks,
-      computed: {
-        isGameWon: () => false,
-        isGameLost: () => true,
-        hasMoves: () => false,
-      },
     });
 
     expect(wrapper).toMatchSnapshot();

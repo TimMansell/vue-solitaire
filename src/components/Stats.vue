@@ -1,25 +1,19 @@
 <template>
   <div class="stats">
-    <UserStats class="stats__user" />
-    <div class="stats__games">
-      Time:
-      <span data-test="timer">{{ timer }}</span
-      >s
-    </div>
+    <UserStats />
+    <Timer />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import UserStats from '@/components/UserStats.vue';
+import Timer from '@/components/Timer.vue';
 
 export default {
   name: 'Stats',
   components: {
     UserStats,
-  },
-  computed: {
-    ...mapGetters(['userStats', 'timer']),
+    Timer,
   },
 };
 </script>

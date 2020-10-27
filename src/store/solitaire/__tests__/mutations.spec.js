@@ -6,6 +6,7 @@ const {
   SET_GAME,
   SET_GAME_WON,
   SET_GAME_LOST,
+  SET_GAME_PAUSED,
   SET_BOARD,
   SET_FOUNDATIONS,
   SELECT_CARD,
@@ -27,6 +28,10 @@ describe('Solitaire Store', () => {
       selectedCardId: 1,
       isGameWon: false,
       isGameLost: false,
+      isGamePaused: {
+        paused: true,
+        active: true,
+      },
       hasMoves: false,
       game: {
         id: null,
@@ -62,6 +67,17 @@ describe('Solitaire Store', () => {
     SET_GAME_LOST(state, true);
 
     expect(state.isGameLost).toEqual(true);
+  });
+
+  it('SET_GAME_PAUSED', () => {
+    const paused = {
+      paused: true,
+      active: true,
+    };
+
+    SET_GAME_PAUSED(state, paused);
+
+    expect(state.isGamePaused).toEqual(paused);
   });
 
   it('SET_BOARD', () => {

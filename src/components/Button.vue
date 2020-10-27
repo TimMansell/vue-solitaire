@@ -55,6 +55,10 @@ export default {
 
   & + & {
     border-left: 0;
+
+    &:not(:last-of-type) {
+      border-radius: 0;
+    }
   }
 
   &:last-of-type:not(:first-of-type) {

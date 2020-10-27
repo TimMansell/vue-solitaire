@@ -14,7 +14,7 @@
       :id="id"
       :value="value"
       :suit="suit"
-      v-if="visible && !bottomCard"
+      v-show="visible && !bottomCard"
       data-test="card-default"
     />
 
@@ -22,11 +22,11 @@
       :id="id"
       :value="value"
       :suit="suit"
-      v-if="visible && bottomCard"
+      v-show="visible && bottomCard"
       data-test="card-bottom"
     />
 
-    <CardPlaceholder v-if="!visible" data-test="card-hidden" />
+    <CardPlaceholder v-show="!visible" data-test="card-hidden" />
   </div>
 </template>
 
