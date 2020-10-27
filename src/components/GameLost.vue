@@ -19,7 +19,7 @@ export default {
     NewGameButton,
   },
   computed: {
-    ...mapGetters(['isGameLost']),
+    ...mapGetters(['isGameLost', 'hasMoves']),
   },
 };
 </script>
