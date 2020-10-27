@@ -46,13 +46,13 @@ describe('Timer', () => {
     });
   });
 
-  it('it should increment timer correctly', () => {
+  it.only('it should increment timer correctly', () => {
     cy.wait(4000);
 
     cy.get('[data-test="timer"]').then(($timer) => {
       const number = parseInt($timer.text(), 10);
 
-      expect(number).to.be.equal(5);
+      expect(number).to.be.equal(4);
     });
   });
 
