@@ -1,9 +1,13 @@
 <template>
   <div class="game-overlay" :class="classes" data-test="game-overlay">
     <div class="game-overlay__content">
+      <Logo />
       <h1 class="game-overlay__title">
         <slot name="title" />
       </h1>
+      <p class="game-overlay__msg" v-if="hasMsgSlot">
+        <slot name="msg" />
+      </p>
       <div class="game-overlay__btn" data-test="game-overlay-btn">
         <slot name="buttons" />
       </div>
@@ -12,8 +16,13 @@
 </template>
 
 <script>
+import Logo from './Logo.vue';
+
 export default {
   name: 'GameOverlay',
+  components: {
+    Logo,
+  },
   props: {
     alt: {
       type: Boolean,
@@ -27,6 +36,9 @@ export default {
       return {
         'game-overlay--alt': alt,
       };
+    },
+    hasMsgSlot() {
+      return !!this.$slots.msg;
     },
   },
 };
@@ -59,7 +71,12 @@ export default {
   &__title {
     color: var(--text-primary);
     text-shadow: -1px -1px rgba($col-tertiary, 0.3);
-    text-align: center;
+  }
+
+  &__msg {
+    color: var(--text-primary);
+    text-shadow: -1px -1px rgba($col-tertiary, 0.3);
+    margin-bottom: var(--mg-lg);
   }
 }
 </style>

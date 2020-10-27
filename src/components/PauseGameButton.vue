@@ -1,7 +1,7 @@
 <template>
   <Button @click="togglePause" data-test="pause-game-btn">
-    <span v-if="!isGamePaused">Pause</span>
-    <span v-if="isGamePaused">Resume</span> Game
+    <span v-if="!isGamePaused.paused">Pause</span>
+    <span v-if="isGamePaused.paused">Resume</span> Game
   </Button>
 </template>
 
@@ -14,12 +14,6 @@ export default {
   components: {
     Button,
   },
-  props: {
-    paused: {
-      type: Boolean,
-      default: false,
-    },
-  },
   computed: {
     ...mapGetters(['isGamePaused']),
   },
@@ -28,7 +22,12 @@ export default {
     togglePause() {
       const { isGamePaused } = this;
 
-      this.setGamePaused(!isGamePaused);
+      const paused = {
+        paused: !isGamePaused.paused,
+        active: true,
+      };
+
+      this.setGamePaused(paused);
     },
   },
 };
