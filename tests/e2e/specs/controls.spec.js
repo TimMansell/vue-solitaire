@@ -53,17 +53,17 @@ describe('Controls', () => {
     });
   });
 
-  it('it should start a new game and reset timer', () => {
+  it('it should pause a game and show game paused overlay', () => {
     cy.setBoard(emptyColumn).then(() => {
-      cy.wait(1500);
+      cy.get('[data-test="pause-game-btn"]').click();
 
-      cy.get('[data-test="timer"]').then(($timer) => {
-        const number = $timer.text();
+      cy.get('[data-test="game-paused"]').should('be.visible');
 
-        cy.get('[data-test="new-game-btn"]').click();
-
-        cy.get('[data-test="timer"]').should('not.equal', number);
+      cy.get('[data-test="game-overlay-btn"]').within(() => {
+        cy.get('[data-test="pause-game-btn"]').click();
       });
+
+      cy.get('[data-test="game-paused"]').should('not.be.visible');
     });
   });
 });

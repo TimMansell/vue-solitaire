@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShowRulesButton.vue matches snapshot 1`] = `
+<button-stub data-test="game-rules">
+  How to play
+</button-stub>
+`;

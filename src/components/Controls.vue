@@ -1,19 +1,22 @@
 <template>
   <div class="controls">
-    <NewGame />
-    <ShowRules />
+    <NewGameButton />
+    <PauseGameButton />
+    <ShowRulesButton />
   </div>
 </template>
 
 <script>
-import NewGame from './NewGame.vue';
-import ShowRules from './ShowRules.vue';
+import NewGameButton from './NewGameButton.vue';
+import PauseGameButton from './PauseGameButton.vue';
+import ShowRulesButton from './ShowRulesButton.vue';
 
 export default {
   name: 'Controls',
   components: {
-    NewGame,
-    ShowRules,
+    NewGameButton,
+    PauseGameButton,
+    ShowRulesButton,
   },
 };
 </script>
