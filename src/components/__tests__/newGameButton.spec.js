@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import NewGame from '@/components/NewGame.vue';
+import NewGameButton from '@/components/NewGameButton.vue';
 
-describe('NewGame.vue', () => {
+describe('NewGameButton.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(NewGame, {
+    const wrapper = shallowMount(NewGameButton, {
       computed: {
         game: () => ({
           id: 1,

@@ -6,6 +6,7 @@ const {
   selectedCardId,
   isGameWon,
   isGameLost,
+  isGamePaused,
   hasMoves,
   timer,
 } = getters;
@@ -17,6 +18,11 @@ const state = {
   },
   selectedCardId: 1,
   isGameWon: true,
+  isGameLost: true,
+  isGamePaused: {
+    paused: true,
+    active: true,
+  },
   hasMoves: false,
   game: {
     time: 0,
@@ -52,6 +58,12 @@ describe('Solitaire Store', () => {
     const result = isGameWon(state);
 
     expect(result).toEqual(state.isGameWon);
+  });
+
+  it('isGamePaused', () => {
+    const result = isGamePaused(state);
+
+    expect(result).toEqual(state.isGamePaused);
   });
 
   it('hasMoves', () => {

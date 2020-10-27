@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PauseGameButton.vue matches pause snapshot 1`] = `
+<button-stub data-test="pause-game-btn"><span>Pause</span>
+  <!----> Game
+</button-stub>
+`;
+
+exports[`PauseGameButton.vue matches resume snapshot 1`] = `
+<button-stub data-test="pause-game-btn">
+  <!----> <span>Resume</span> Game
+</button-stub>
+`;

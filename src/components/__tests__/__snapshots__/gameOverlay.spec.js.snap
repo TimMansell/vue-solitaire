@@ -1,12 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Card.vue matches visible snapshot 1`] = `
+exports[`GameOverlay.vue matches snapshot 1`] = `
 <div data-test="game-overlay" class="game-overlay">
   <div class="game-overlay__content">
+    <logo-stub></logo-stub>
     <h1 class="game-overlay__title"></h1>
-    <div data-test="game-overlay-btn" class="game-overlay__btn">
-      <newgame-stub completed="true"></newgame-stub>
-    </div>
+    <!---->
+    <div data-test="game-overlay-btn" class="game-overlay__btn"></div>
+  </div>
+</div>
+`;
+
+exports[`GameOverlay.vue renders text in slots 1`] = `
+<div data-test="game-overlay" class="game-overlay">
+  <div class="game-overlay__content">
+    <logo-stub></logo-stub>
+    <h1 class="game-overlay__title">title</h1>
+    <p class="game-overlay__msg">msg</p>
+    <div data-test="game-overlay-btn" class="game-overlay__btn">buttons</div>
   </div>
 </div>
 `;
