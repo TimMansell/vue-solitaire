@@ -15,14 +15,13 @@ export default {
     ...mapGetters(['timer', 'isGamePaused']),
   },
   mounted() {
-    // Only init game timer in app so cypress can test visibilityState
-    if (!window.Cypress) {
-      this.setGameTimer();
-    }
+    this.setGameTimer();
   },
   watch: {
-    isGamePaused({ paused }) {
-      if (paused) {
+    isGamePaused(val, oldVal) {
+      if (val.paused === oldVal.paused) return;
+
+      if (val.paused) {
         this.clearTimer();
       } else {
         this.setGameTimer();
