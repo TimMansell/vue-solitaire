@@ -46,7 +46,7 @@ describe('Timer', () => {
     });
   });
 
-  it.only('it should increment timer correctly', () => {
+  it('it should increment timer correctly', () => {
     cy.wait(4000);
 
     cy.get('[data-test="timer"]').then(($timer) => {
