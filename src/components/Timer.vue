@@ -39,11 +39,6 @@ export default {
         this.gameTimer = this.initGameTimer();
       }
     },
-    toggleGameTimer(e) {
-      if (e.target.visibilityState === 'hidden') {
-        this.clearTimer();
-      }
-    },
     clearTimer() {
       clearInterval(this.gameTimer);
     },
