@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt v-if="isGamePaused" data-test="game-paused">
+  <GameOverlay alt v-if="isGamePaused && hasMoves" data-test="game-paused">
     <template #title> Game Paused</template>
     <template #buttons>
       <PauseGameButton />
@@ -19,7 +19,7 @@ export default {
     PauseGameButton,
   },
   computed: {
-    ...mapGetters(['isGamePaused']),
+    ...mapGetters(['isGamePaused', 'hasMoves']),
   },
   mounted() {
     window.addEventListener(

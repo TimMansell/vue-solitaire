@@ -1,7 +1,7 @@
 <template>
   <Button @click="togglePause" data-test="pause-game-btn">
     <span v-if="!isGamePaused">Pause</span>
-    <span v-if="isGamePaused">Play</span> Game
+    <span v-if="isGamePaused">Resume</span> Game
   </Button>
 </template>
 
