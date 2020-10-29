@@ -39,6 +39,7 @@ export const getUserStatsQuery = async (client, variables) => {
       userStats(uid: $uid) {
         count
         won
+        lost
       }
     }
   `;

@@ -32,6 +32,7 @@ export const getUserStats = async (uid) => {
           getUserStats(uid: $uid) {
             count
             won
+            lost
           }
         }
       `,
