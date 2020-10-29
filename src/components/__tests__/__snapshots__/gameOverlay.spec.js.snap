@@ -3,7 +3,7 @@
 exports[`GameOverlay.vue matches snapshot 1`] = `
 <div data-test="game-overlay" class="game-overlay">
   <div class="game-overlay__content">
-    <logo-stub></logo-stub>
+    <logo-stub class="game-overlay__logo"></logo-stub>
     <h1 class="game-overlay__title"></h1>
     <!---->
     <div data-test="game-overlay-btn" class="game-overlay__btn"></div>
@@ -14,9 +14,9 @@ exports[`GameOverlay.vue matches snapshot 1`] = `
 exports[`GameOverlay.vue renders text in slots 1`] = `
 <div data-test="game-overlay" class="game-overlay">
   <div class="game-overlay__content">
-    <logo-stub></logo-stub>
+    <logo-stub class="game-overlay__logo"></logo-stub>
     <h1 class="game-overlay__title">title</h1>
-    <p class="game-overlay__msg">msg</p>
+    <div class="game-overlay__msg">msg</div>
     <div data-test="game-overlay-btn" class="game-overlay__btn">buttons</div>
   </div>
 </div>

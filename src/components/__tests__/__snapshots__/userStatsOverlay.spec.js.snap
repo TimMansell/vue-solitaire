@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserStatsOverlay.vue matches snapshot 1`] = `
+<gameoverlay-stub alt="true" data-test="user-stats-overlay"> Stats <div>Played: 4</div>
+  <div>Won: 1</div>
+  <div>Lost: 1</div>
+  <div>Abandoned: 2</div>
+  <button-stub>Close</button-stub>
+</gameoverlay-stub>
+`;

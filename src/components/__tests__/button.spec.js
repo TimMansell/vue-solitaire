@@ -18,6 +18,16 @@ describe('Button.vue', () => {
     expect(wrapper.classes()).toContain('btn--alt');
   });
 
+  it('renders a link button', () => {
+    const wrapper = shallowMount(Button, {
+      propsData: {
+        link: true,
+      },
+    });
+
+    expect(wrapper.classes()).toContain('btn--link');
+  });
+
   it('should call click method', () => {
     const wrapper = shallowMount(Button);
 
