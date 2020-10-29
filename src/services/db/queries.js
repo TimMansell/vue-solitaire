@@ -40,6 +40,7 @@ export const getUserStats = async (uid) => {
       variables: {
         uid,
       },
+      fetchPolicy: 'no-cache',
     });
 
     return formatResponse(data.getUserStats);
