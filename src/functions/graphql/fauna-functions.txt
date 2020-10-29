@@ -59,6 +59,9 @@ Query(
         count: Count(Var("user")),
         won: Count(
           Intersection(Var("user"), Match(Index("game_user_by_won"), true))
+        ),
+        lost: Count(
+          Intersection(Var("user"), Match(Index("game_user_by_lost"), true))
         )
       }
     )

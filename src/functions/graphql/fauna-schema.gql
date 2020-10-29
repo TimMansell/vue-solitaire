@@ -41,6 +41,7 @@ input GameInput {
 type UserStats @embedded {
   count: Int
   won: Int
+  lost: Int
 }
 
 type Query {
