@@ -12,13 +12,18 @@ export default {
       type: Boolean,
       default: false,
     },
+    link: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
-      const { alt } = this;
+      const { alt, link } = this;
 
       return {
         'btn--alt': alt,
+        'btn--link': link,
       };
     },
   },
@@ -76,6 +81,17 @@ export default {
 
     &:hover {
       background: var(--bg-primary-light);
+    }
+  }
+
+  &--link {
+    border: 0;
+    font-weight: 500;
+    padding: 0;
+
+    &:hover {
+      background: none;
+      text-decoration: underline;
     }
   }
 }
