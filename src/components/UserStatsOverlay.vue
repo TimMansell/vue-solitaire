@@ -2,10 +2,9 @@
   <GameOverlay alt data-test="user-stats-overlay">
     <template #title> Stats </template>
     <template #msg>
-      <div>Played: {{ played }}</div>
+      <div>Played: {{ played }} (1 in progress)</div>
       <div>Won: {{ won }}</div>
       <div>Lost: {{ lost }}</div>
-      <div>Finished: {{ finished }}</div>
       <div>Gave up: {{ abandoned }}</div>
     </template>
     <template #buttons> <Button @click="toggleStats">Close</Button> </template>
@@ -29,33 +28,26 @@ export default {
   computed: {
     ...mapGetters(['fullUserStats']),
     played() {
-      const { count } = this.fullUserStats;
+      const { completed } = this.fullUserStats;
 
-      return count;
+      return completed;
     },
     won() {
-      const { count, won } = this.fullUserStats;
-      const wonPercent = calcPercent(won / count);
+      const { completed, won } = this.fullUserStats;
+      const wonPercent = calcPercent(won / completed);
 
       return `${won} (${wonPercent})`;
     },
     lost() {
-      const { count, lost } = this.fullUserStats;
-      const lostPercent = calcPercent(lost / count);
+      const { completed, lost } = this.fullUserStats;
+      const lostPercent = calcPercent(lost / completed);
 
       return `${lost} (${lostPercent})`;
     },
-    finished() {
-      const { count, completed } = this.fullUserStats;
-      // const abandoned = count - completed;
-      const completedPercent = calcPercent(completed / count);
-
-      return `${completed} (${completedPercent})`;
-    },
     abandoned() {
-      const { count, completed } = this.fullUserStats;
-      const abandoned = count - completed;
-      const abandonedPercent = calcPercent(abandoned / count);
+      const { won, lost, completed } = this.fullUserStats;
+      const abandoned = completed - won - lost;
+      const abandonedPercent = calcPercent(abandoned / completed);
 
       return `${abandoned} (${abandonedPercent})`;
     },
