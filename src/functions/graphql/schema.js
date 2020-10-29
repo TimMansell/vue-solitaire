@@ -38,5 +38,6 @@ export const typeDefs = gql`
     count: Int
     won: Int
     lost: Int
+    completed: Int
   }
 `;
