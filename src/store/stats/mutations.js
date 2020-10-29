@@ -5,8 +5,8 @@ const mutations = {
   SET_USER_STATS(state, stats) {
     state.fullUserStats = stats;
   },
-  SHOW_STATS(state) {
-    state.showStats = !state.showStats;
+  SHOW_STATS(state, showStats) {
+    state.showStats = showStats;
   },
 };
 

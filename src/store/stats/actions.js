@@ -16,8 +16,10 @@ const actions = {
       commit('SET_USER_STATS', { ...response });
     }
   },
-  toggleStats({ commit }) {
-    commit('SHOW_STATS');
+  toggleStats({ commit, state }) {
+    const showStats = !state.showStats;
+
+    commit('SHOW_STATS', showStats);
   },
 };
 
