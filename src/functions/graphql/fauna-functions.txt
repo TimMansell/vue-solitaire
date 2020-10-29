@@ -62,6 +62,9 @@ Query(
         ),
         lost: Count(
           Intersection(Var("user"), Match(Index("game_user_by_lost"), true))
+        ),
+        completed: Count(
+          Intersection(Var("user"), Match(Index("game_user_by_completed"), true))
         )
       }
     )

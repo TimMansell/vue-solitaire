@@ -42,6 +42,7 @@ type UserStats @embedded {
   count: Int
   won: Int
   lost: Int
+  completed: Int
 }
 
 type Query {

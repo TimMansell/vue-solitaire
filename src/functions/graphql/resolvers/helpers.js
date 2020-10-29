@@ -40,6 +40,7 @@ export const getUserStatsQuery = async (client, variables) => {
         count
         won
         lost
+        completed
       }
     }
   `;

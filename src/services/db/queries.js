@@ -33,6 +33,7 @@ export const getUserStats = async (uid) => {
             count
             won
             lost
+            completed
           }
         }
       `,
