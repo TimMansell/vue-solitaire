@@ -33,6 +33,25 @@ export const getUserQuery = async (client, variables) => {
   }
 };
 
+export const getUserStatsQuery = async (client, variables) => {
+  const query = gql`
+    query GetUserStats($uid: String!) {
+      userStats(uid: $uid) {
+        count
+        won
+      }
+    }
+  `;
+
+  try {
+    const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
+
+    return body.data.userStats;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
+};
+
 export const globalStatsQuery = async (client) => {
   const query = gql`
     query {
