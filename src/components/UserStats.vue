@@ -3,10 +3,11 @@
     Games: <span data-test="stats">{{ userStats.gameNumber }}</span> (<Button
       link
       @click="toggleStats"
+      data-test="view-stats"
     >
       view stats </Button
     >)
-    <UserStatsOverlay v-if="showStats" />
+    <UserStatsOverlay v-if="showStats" data-test="user-stats" />
   </div>
 </template>
 

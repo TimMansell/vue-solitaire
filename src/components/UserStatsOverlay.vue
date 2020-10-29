@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt data-test="user-stats">
+  <GameOverlay alt data-test="user-stats-overlay">
     <template #title> Stats </template>
     <template #msg>
       <div>Played: {{ fullUserStats.count }}</div>
@@ -25,8 +25,8 @@ export default {
   computed: {
     ...mapGetters(['fullUserStats']),
     abandoned() {
-      const { count, completed } = this;
-      const abandoned = completed - count;
+      const { count, completed } = this.fullUserStats;
+      const abandoned = count - completed;
 
       return abandoned;
     },
