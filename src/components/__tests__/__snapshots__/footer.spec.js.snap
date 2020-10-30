@@ -7,6 +7,6 @@ exports[`Footer.vue matches snapshot 1`] = `
       timmansell.com
     </a> <a href="https://github.com/TimMansell/vue-solitaire" class="footer__link">
       GitHub
-    </a> <span>v1.5.0</span></div>
+    </a> <span>v1.6.0</span></div>
 </footer>
 `;
