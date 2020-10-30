@@ -10,7 +10,6 @@ describe('GamePaused.vue', () => {
           isActive: true,
           showMsg: true,
         }),
-        hasMoves: () => true,
       },
     });
 
@@ -25,7 +24,20 @@ describe('GamePaused.vue', () => {
           isActive: false,
           showMsg: true,
         }),
-        hasMoves: () => true,
+      },
+    });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('hides overlay', () => {
+    const wrapper = shallowMount(GamePaused, {
+      computed: {
+        isGamePaused: () => ({
+          isPaused: true,
+          isActive: false,
+          showMsg: false,
+        }),
       },
     });
 
