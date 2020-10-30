@@ -3,7 +3,7 @@
     Games: <span data-test="stats">{{ userStats.gameNumber }}</span> (<Button
       link
       @click="viewStats"
-      data-test="view-stats"
+      data-test="view-stats-btn"
     >
       view stats </Button
     >)

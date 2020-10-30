@@ -7,7 +7,9 @@
       <div>Lost: {{ lost }}</div>
       <div>Gave up: {{ abandoned }}</div>
     </template>
-    <template #buttons> <Button @click="closeStats">Close</Button> </template>
+    <template #buttons>
+      <Button @click="closeStats" data-test="close-stats-btn">Close</Button>
+    </template>
   </GameOverlay>
 </template>
 
