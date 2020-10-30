@@ -1,13 +1,13 @@
 <template>
   <div class="game-overlay" :class="classes" data-test="game-overlay">
     <div class="game-overlay__content">
-      <Logo />
+      <Logo class="game-overlay__logo" />
       <h1 class="game-overlay__title">
         <slot name="title" />
       </h1>
-      <p class="game-overlay__msg" v-if="hasMsgSlot">
+      <div class="game-overlay__msg" v-if="hasMsgSlot">
         <slot name="msg" />
-      </p>
+      </div>
       <div class="game-overlay__btn" data-test="game-overlay-btn">
         <slot name="buttons" />
       </div>
@@ -56,16 +56,26 @@ export default {
   height: 100vh;
   background: rgba($col-tertiary, 0.7);
   z-index: var(--z-overlay);
+  text-align: center;
 
   &--alt {
     background: var(--bg-primary) url('~@/assets/felt.png') repeat;
+  }
+
+  &__logo {
+    width: 100px;
+
+    @media (min-width: $bp-md) {
+      width: 150px;
+    }
   }
 
   &__content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: var(--pd-lg);
+    padding-left: var(--pd-lg);
+    padding-right: var(--pd-lg);
   }
 
   &__title {
@@ -76,7 +86,7 @@ export default {
   &__msg {
     color: var(--text-primary);
     text-shadow: -1px -1px rgba($col-tertiary, 0.3);
-    margin-bottom: var(--mg-lg);
+    margin-bottom: var(--mg-md);
   }
 }
 </style>

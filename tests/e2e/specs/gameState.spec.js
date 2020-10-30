@@ -77,15 +77,25 @@ describe('Game State', () => {
     });
   });
 
-  it('refreshing page on game paused shows game paused state', () => {
-    cy.setBoard(noMovesKingColumn).then(() => {
-      cy.get('[data-test="pause-game-btn"]').click();
-
-      cy.get('[data-test="game-paused"]').should('be.visible');
-
-      cy.reload();
-
-      cy.get('[data-test="game-paused"]').should('be.visible');
+  it('should pause when page is automatically hidden', () => {
+    cy.document().then((doc) => {
+      cy.stub(doc, 'visibilityState').value('hidden');
     });
+
+    cy.document().trigger('visibilitychange');
+
+    cy.wait(3000);
+
+    cy.get('[data-test="game-paused"]').should('be.visible');
+  });
+
+  it('refreshing page on game paused shows game paused state', () => {
+    cy.get('[data-test="pause-game-btn"]').click();
+
+    cy.get('[data-test="game-paused"]').should('be.visible');
+
+    cy.reload();
+
+    cy.get('[data-test="game-paused"]').should('be.visible');
   });
 });

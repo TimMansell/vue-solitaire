@@ -24,6 +24,31 @@ export const getAUser = async (uid) => {
   }
 };
 
+export const getUserStats = async (uid) => {
+  try {
+    const { data } = await apollo.query({
+      query: gql`
+        query GetUserStats($uid: String!) {
+          getUserStats(uid: $uid) {
+            count
+            won
+            lost
+            completed
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse(data.getUserStats);
+  } catch (error) {
+    return formatError();
+  }
+};
+
 export const getGlobalStats = async () => {
   try {
     const { data } = await apollo.query({

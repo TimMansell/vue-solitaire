@@ -29,8 +29,9 @@ describe('Solitaire Store', () => {
       isGameWon: false,
       isGameLost: false,
       isGamePaused: {
-        paused: true,
-        active: true,
+        isPaused: true,
+        isActive: true,
+        showMsg: true,
       },
       hasMoves: false,
       game: {
@@ -71,8 +72,9 @@ describe('Solitaire Store', () => {
 
   it('SET_GAME_PAUSED', () => {
     const paused = {
-      paused: true,
-      active: true,
+      isPaused: true,
+      isActive: true,
+      showMsg: true,
     };
 
     SET_GAME_PAUSED(state, paused);

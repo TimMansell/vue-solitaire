@@ -19,9 +19,9 @@ export default {
   },
   watch: {
     isGamePaused(val, oldVal) {
-      if (val.paused === oldVal.paused) return;
+      if (val.isPaused === oldVal.isPaused) return;
 
-      if (val.paused) {
+      if (val.isPaused) {
         this.clearTimer();
       } else {
         this.setGameTimer();
@@ -34,7 +34,9 @@ export default {
       return window.setInterval(() => this.updateTimer(), 1000);
     },
     setGameTimer() {
-      if (!this.isGamePaused.paused) {
+      const { isPaused } = this.isGamePaused;
+
+      if (!isPaused) {
         this.gameTimer = this.initGameTimer();
       }
     },

@@ -20,8 +20,9 @@ const state = {
   isGameWon: true,
   isGameLost: true,
   isGamePaused: {
-    paused: true,
-    active: true,
+    isPaused: true,
+    isActive: true,
+    showMsg: true,
   },
   hasMoves: false,
   game: {
