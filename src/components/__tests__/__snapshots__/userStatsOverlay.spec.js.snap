@@ -5,6 +5,6 @@ exports[`UserStatsOverlay.vue matches snapshot 1`] = `
   <div>Won: 1 (50.00%)</div>
   <div>Lost: 1 (50.00%)</div>
   <div>Gave up: 0 (0.00%)</div>
-  <button-stub>Close</button-stub>
+  <button-stub data-test="close-stats-btn">Close</button-stub>
 </gameoverlay-stub>
 `;
