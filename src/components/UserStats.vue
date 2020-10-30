@@ -2,7 +2,7 @@
   <div>
     Games: <span data-test="stats">{{ userStats.gameNumber }}</span> (<Button
       link
-      @click="toggleStats"
+      @click="viewStats"
       data-test="view-stats"
     >
       view stats </Button
@@ -26,7 +26,17 @@ export default {
     ...mapGetters(['userStats', 'showStats']),
   },
   methods: {
-    ...mapActions(['toggleStats']),
+    ...mapActions(['toggleStats', 'setGamePaused']),
+    viewStats() {
+      const isPaused = {
+        isPaused: true,
+        isActive: false,
+        showMsg: false,
+      };
+
+      this.setGamePaused(isPaused);
+      this.toggleStats();
+    },
   },
 };
 </script>

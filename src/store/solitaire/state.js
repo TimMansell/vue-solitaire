@@ -8,8 +8,9 @@ const state = () => ({
   isGameWon: false,
   isGameLost: false,
   isGamePaused: {
-    paused: false,
-    active: false,
+    isPaused: false,
+    isActive: false,
+    showMsg: false,
   },
   hasMoves: true,
   game: {

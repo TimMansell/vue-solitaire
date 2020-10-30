@@ -11,7 +11,7 @@ import { mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import GameState from '@/components/GameState.vue';
 import Rules from '@/components/Rules.vue';
-import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
+// import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
@@ -30,9 +30,9 @@ export default {
       window.appReady = true;
     }
 
-    if (process.env.NODE_ENV === 'development') {
-      this.setBoardAndFoundation(aces);
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    //   this.setBoardAndFoundation(aces);
+    // }
   },
   methods: {
     ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),

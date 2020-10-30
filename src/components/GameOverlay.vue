@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Logo from './Logo.vue';
 
 export default {
@@ -30,6 +31,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['isGamePaused']),
     classes() {
       const { alt } = this;
 
@@ -40,6 +42,18 @@ export default {
     hasMsgSlot() {
       return !!this.$slots.msg;
     },
+  },
+  destroyed() {
+    const isPaused = {
+      isPaused: false,
+      isActive: false,
+      showMsg: false,
+    };
+
+    this.setGamePaused(isPaused);
+  },
+  methods: {
+    ...mapActions(['setGamePaused']),
   },
 };
 </script>
