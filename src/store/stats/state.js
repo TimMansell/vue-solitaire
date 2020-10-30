@@ -5,7 +5,7 @@ const state = () => ({
     won: 0,
     lost: 0,
     played: 0,
-    abandoned: 0,
+    completed: 0,
   },
   showStats: false,
 });
