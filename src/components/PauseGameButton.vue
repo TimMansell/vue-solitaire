@@ -20,15 +20,15 @@ export default {
   methods: {
     ...mapActions(['setGamePaused']),
     togglePause() {
-      const { isGamePaused } = this;
+      const { isPaused, isActive, showMsg } = this.isGamePaused;
 
-      const isPaused = {
-        isPaused: !isGamePaused.isPaused,
-        isActive: true,
-        showMsg: true,
+      const isGamePaused = {
+        isPaused: !isPaused,
+        isActive: !isActive,
+        showMsg: !showMsg,
       };
 
-      this.setGamePaused(isPaused);
+      this.setGamePaused(isGamePaused);
     },
   },
 };

@@ -7,7 +7,7 @@
       <div>Lost: {{ lost }}</div>
       <div>Gave up: {{ abandoned }}</div>
     </template>
-    <template #buttons> <Button @click="toggleStats">Close</Button> </template>
+    <template #buttons> <Button @click="closeStats">Close</Button> </template>
   </GameOverlay>
 </template>
 
@@ -56,7 +56,17 @@ export default {
     this.getUserStats();
   },
   methods: {
-    ...mapActions(['getUserStats', 'toggleStats']),
+    ...mapActions(['getUserStats', 'toggleStats', 'setGamePaused']),
+    closeStats() {
+      const isPaused = {
+        isPaused: false,
+        isActive: false,
+        showMsg: false,
+      };
+
+      this.setGamePaused(isPaused);
+      this.toggleStats();
+    },
   },
 };
 </script>
