@@ -6,8 +6,9 @@ describe('GamePaused.vue', () => {
     const wrapper = shallowMount(GamePaused, {
       computed: {
         isGamePaused: () => ({
-          paused: true,
-          active: true,
+          isPaused: true,
+          isActive: true,
+          showMsg: true,
         }),
         hasMoves: () => true,
       },
@@ -20,8 +21,9 @@ describe('GamePaused.vue', () => {
     const wrapper = shallowMount(GamePaused, {
       computed: {
         isGamePaused: () => ({
-          paused: true,
-          active: false,
+          isPaused: true,
+          isActive: false,
+          showMsg: true,
         }),
         hasMoves: () => true,
       },
