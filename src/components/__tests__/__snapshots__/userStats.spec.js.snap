@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserStats.vue matches snapshot 1`] = `
+<div>
+  Games: <span data-test="stats">1</span> (<button-stub link="true" data-test="view-stats-btn">
+    view stats </button-stub>)
+  <userstatsoverlay-stub data-test="user-stats"></userstatsoverlay-stub>
+</div>
+`;

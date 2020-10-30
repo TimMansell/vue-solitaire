@@ -6,7 +6,7 @@ describe('PauseGameButton.vue', () => {
     const wrapper = shallowMount(PauseGameButton, {
       computed: {
         isGamePaused: () => ({
-          paused: false,
+          isPaused: false,
         }),
       },
     });
@@ -18,7 +18,7 @@ describe('PauseGameButton.vue', () => {
     const wrapper = shallowMount(PauseGameButton, {
       computed: {
         isGamePaused: () => ({
-          paused: true,
+          isPaused: true,
         }),
       },
     });

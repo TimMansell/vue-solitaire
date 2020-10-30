@@ -35,6 +35,38 @@ Query(
   )
 )
 
+----------------
+
 totalGames
 
 Query(Lambda([], { count: Count(Documents(Collection("Game"))) }))
+
+----------------
+
+userStats
+
+Query(
+  Lambda(
+    ["uid"],
+    Let(
+      {
+        user: Match(
+          Index("game_user_by_user"),
+          Ref(Collection("User"), Var("uid"))
+        )
+      },
+      {
+        count: Count(Var("user")),
+        won: Count(
+          Intersection(Var("user"), Match(Index("game_user_by_won"), true))
+        ),
+        lost: Count(
+          Intersection(Var("user"), Match(Index("game_user_by_lost"), true))
+        ),
+        completed: Count(
+          Intersection(Var("user"), Match(Index("game_user_by_completed"), true))
+        )
+      }
+    )
+  )
+)

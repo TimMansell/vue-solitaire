@@ -1,7 +1,7 @@
 <template>
-  <GameOverlay alt v-if="isGamePaused.paused && hasMoves" data-test="game-paused">
+  <GameOverlay alt v-if="showOverlay" data-test="game-paused">
     <template #title>Game Paused</template>
-    <template #msg v-if="!isGamePaused.active">
+    <template #msg v-if="!isGamePaused.isActive">
       Your game has been paused due to inactivity
     </template>
     <template #buttons>
@@ -22,7 +22,12 @@ export default {
     PauseGameButton,
   },
   computed: {
-    ...mapGetters(['isGamePaused', 'hasMoves']),
+    ...mapGetters(['isGamePaused']),
+    showOverlay() {
+      const { isPaused, showMsg } = this.isGamePaused;
+
+      return isPaused && showMsg;
+    },
   },
   mounted() {
     window.addEventListener(
@@ -37,13 +42,19 @@ export default {
   methods: {
     ...mapActions(['setGamePaused']),
     checkGamePaused(e) {
-      if (e.target.visibilityState === 'hidden') {
-        const paused = {
-          paused: true,
-          active: false,
+      const { isPaused } = this.isGamePaused;
+      const { visibilityState } = e.target;
+
+      if (isPaused) return;
+
+      if (visibilityState === 'hidden') {
+        const isGamePaused = {
+          isPaused: true,
+          isActive: false,
+          showMsg: true,
         };
 
-        this.setGamePaused(paused);
+        this.setGamePaused(isGamePaused);
       }
     },
   },

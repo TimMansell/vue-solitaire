@@ -1,6 +1,6 @@
 {
   "name": "vue-solitaire",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "engines": {
     "node": ">=12.0.0"
@@ -39,6 +39,7 @@
     "hammerjs": "^2.0.8",
     "lodash.shuffle": "^4.2.0",
     "node-fetch": "^2.6.0",
+    "numeral": "^2.0.6",
     "register-service-worker": "^1.7.1",
     "sanitize.css": "^11.0.1",
     "uuid": "^8.3.0",
