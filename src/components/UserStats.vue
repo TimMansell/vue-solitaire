@@ -1,42 +1,20 @@
 <template>
   <div>
-    Games: <span data-test="stats">{{ userStats.gameNumber }}</span> (<Button
-      link
-      @click="viewStats"
-      data-test="view-stats-btn"
-    >
-      view stats </Button
-    >)
-    <UserStatsOverlay v-if="showStats" data-test="user-stats" />
+    Games: <span data-test="stats">{{ userStats.gameNumber }}</span> (<ViewStatsButton />)
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import UserStatsOverlay from '@/components/UserStatsOverlay.vue';
-import Button from '@/components/Button.vue';
+import { mapGetters } from 'vuex';
+import ViewStatsButton from '@/components/ViewStatsButton.vue';
 
 export default {
   name: 'Stats',
   components: {
-    UserStatsOverlay,
-    Button,
+    ViewStatsButton,
   },
   computed: {
-    ...mapGetters(['userStats', 'showStats']),
-  },
-  methods: {
-    ...mapActions(['toggleStats', 'setGamePaused']),
-    viewStats() {
-      const isPaused = {
-        isPaused: true,
-        isActive: false,
-        showMsg: false,
-      };
-
-      this.setGamePaused(isPaused);
-      this.toggleStats();
-    },
+    ...mapGetters(['userStats']),
   },
 };
 </script>
