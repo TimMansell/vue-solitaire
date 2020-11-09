@@ -39,13 +39,13 @@ describe('Timer', () => {
       cy.get('[data-test="new-game-btn"]').click();
     });
 
-    cy.get('[data-test="timer"]').should('contain', 0);
+    cy.get('[data-test="timer"]').should('contain', '0:00:00');
   });
 
   it('it should increment timer correctly', () => {
     cy.wait(4000);
 
-    cy.get('[data-test="timer"]').should('contain', 4);
+    cy.get('[data-test="timer"]').should('contain', '0:00:04');
   });
 
   it('it should increment timer correctly after pausing', () => {
@@ -61,7 +61,7 @@ describe('Timer', () => {
 
     cy.wait(4000);
 
-    cy.get('[data-test="timer"]').should('contain', 5);
+    cy.get('[data-test="timer"]').should('contain', '0:00:05');
   });
 
   it('timer should pause when page is automatically hidden', () => {
@@ -77,7 +77,7 @@ describe('Timer', () => {
       cy.get('[data-test="pause-game-btn"]').click();
     });
 
-    cy.get('[data-test="timer"]').should('contain', 2);
+    cy.get('[data-test="timer"]').should('contain', '0:00:02');
   });
 
   it('timer should start paused when game is paused and page is refreshed', () => {

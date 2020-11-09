@@ -1,18 +1,23 @@
 <template>
   <div>
     Time:
-    <span data-test="timer">{{ timer }}</span
-    >s
+    <span data-test="timer">{{ formattedTime }}</span>
   </div>
 </template>
 
 <script>
+import numeral from 'numeral';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Stats',
   computed: {
     ...mapGetters(['timer', 'isGamePaused']),
+    formattedTime() {
+      const { timer } = this;
+
+      return numeral(timer).format('00:00:00');
+    },
   },
   mounted() {
     this.setGameTimer();
