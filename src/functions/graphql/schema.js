@@ -27,7 +27,10 @@ export const typeDefs = gql`
     gameNumber: Int
   }
   type GlobalStats {
-    count: Int!
+    count: Int
+    won: Int
+    lost: Int
+    completed: Int
   }
   input GameInput {
     won: Boolean

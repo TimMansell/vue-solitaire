@@ -1,12 +1,14 @@
 <template>
   <div>
     Global Games:
-   <Counter data-test="global-stats" :number="number" /> (<ViewStatsButton />)</span>
+    <span data-test="global-stats"
+      ><Counter data-test="global-stats" :number="number" /> (<ViewStatsButton :load-stats="getGlobalStats" />)</span
+    >
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Counter from '@/components/Counter.vue';
 import ViewStatsButton from '@/components/ViewStatsButton.vue';
 
@@ -25,6 +27,9 @@ export default {
 
       return count;
     },
+  },
+   methods: {
+    ...mapActions(['getGlobalStats']),
   },
 };
 </script>

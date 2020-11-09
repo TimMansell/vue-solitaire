@@ -1,11 +1,13 @@
 <template>
   <div>
-    Games: <Counter data-test="stats" :number="number" /> (<ViewStatsButton />)
+    Games: <span data-test="stats"><Counter data-test="stats" :number="number" /></span> (<ViewStatsButton
+      :load-stats="getUserStats"
+    />)
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import ViewStatsButton from '@/components/ViewStatsButton.vue';
 import Counter from '@/components/Counter.vue';
 
@@ -24,6 +26,9 @@ export default {
 
       return gameNumber;
     },
+  },
+   methods: {
+    ...mapActions(['getUserStats']),
   },
 };
 </script>

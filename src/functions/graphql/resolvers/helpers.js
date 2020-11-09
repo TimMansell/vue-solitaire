@@ -3,6 +3,9 @@ import { ApolloError } from 'apollo-server-lambda';
 export const runQuery = async (variables, context) => {
   const { client, query } = context;
 
+        won
+        lost
+        completed
   try {
     const body = await client.query({
       query,

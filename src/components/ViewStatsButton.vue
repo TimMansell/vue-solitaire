@@ -11,6 +11,12 @@ export default {
   components: {
     Button,
   },
+  props: {
+    loadStats: {
+      type: Function,
+      default: () => {},
+    },
+  },
   methods: {
     ...mapActions(['toggleStats', 'setGamePaused']),
     viewStats() {
@@ -20,6 +26,7 @@ export default {
         showMsg: false,
       };
 
+      this.loadStats();
       this.setGamePaused(isPaused);
       this.toggleStats();
     },
