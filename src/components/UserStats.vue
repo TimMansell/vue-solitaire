@@ -1,6 +1,6 @@
 <template>
   <div>
-    Games: <span data-test="stats">{{ userStats.gameNumber }}</span> (<Button
+    Games: <Counter data-test="stats" :number="number" /> (<Button
       link
       @click="viewStats"
       data-test="view-stats-btn"
@@ -15,15 +15,24 @@
 import { mapGetters, mapActions } from 'vuex';
 import UserStatsOverlay from '@/components/UserStatsOverlay.vue';
 import Button from '@/components/Button.vue';
+import Counter from '@/components/Counter.vue';
 
 export default {
   name: 'Stats',
   components: {
     UserStatsOverlay,
     Button,
+    Counter,
   },
   computed: {
     ...mapGetters(['userStats', 'showStats']),
+    number() {
+      const {
+        userStats: { gameNumber },
+      } = this;
+
+      return gameNumber;
+    },
   },
   methods: {
     ...mapActions(['toggleStats', 'setGamePaused']),
