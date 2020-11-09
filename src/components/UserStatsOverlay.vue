@@ -2,7 +2,8 @@
   <GameOverlay alt data-test="user-stats-overlay">
     <template #title> Stats </template>
     <template #msg>
-      <div>Completed: {{ played }}</div>
+      <div>Played: {{ played }}</div>
+      <div>Completed: {{ completed }}</div>
       <div>Won: {{ won }}</div>
       <div>Lost: {{ lost }}</div>
       <div>Gave up: {{ abandoned }}</div>
@@ -30,6 +31,11 @@ export default {
   computed: {
     ...mapGetters(['fullStats']),
     played() {
+      const { count } = this.fullStats;
+
+      return count;
+    },
+    completed() {
       const { completed } = this.fullStats;
 
       return completed;
