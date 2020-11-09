@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span data-test="counter">
     {{ formattedCount }}
   </span>
 </template>
