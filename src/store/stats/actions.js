@@ -13,6 +13,7 @@ const actions = {
 
     if (!error) {
       commit('SET_FULL_STATS', { ...response });
+      commit('SET_GLOBAL_STATS_COUNT', { ...response });
     }
   },
   async getUserStats({ commit, rootState }) {
