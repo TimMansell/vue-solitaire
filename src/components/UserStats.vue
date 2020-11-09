@@ -1,11 +1,13 @@
 <template>
   <div>
-    Games: <span data-test="stats">{{ userStats.gameNumber }}</span> (<ViewStatsButton />)
+    Games: <span data-test="stats">{{ userStats.gameNumber }}</span> (<ViewStatsButton
+      :load-stats="getUserStats"
+    />)
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import ViewStatsButton from '@/components/ViewStatsButton.vue';
 
 export default {
@@ -15,6 +17,9 @@ export default {
   },
   computed: {
     ...mapGetters(['userStats']),
+  },
+  methods: {
+    ...mapActions(['getUserStats']),
   },
 };
 </script>

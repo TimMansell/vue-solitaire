@@ -59,6 +59,9 @@ export const globalStatsQuery = async (client) => {
     query {
       globalStats {
         count
+        won
+        lost
+        completed
       }
     }
   `;

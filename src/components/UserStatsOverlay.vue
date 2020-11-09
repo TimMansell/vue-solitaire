@@ -2,7 +2,7 @@
   <GameOverlay alt data-test="user-stats-overlay">
     <template #title> Stats </template>
     <template #msg>
-      <div>Played: {{ played }} (1 in progress)</div>
+      <div>Completed: {{ played }}</div>
       <div>Won: {{ won }}</div>
       <div>Lost: {{ lost }}</div>
       <div>Gave up: {{ abandoned }}</div>
@@ -28,37 +28,34 @@ export default {
     Button,
   },
   computed: {
-    ...mapGetters(['fullUserStats']),
+    ...mapGetters(['fullStats']),
     played() {
-      const { completed } = this.fullUserStats;
+      const { completed } = this.fullStats;
 
       return completed;
     },
     won() {
-      const { completed, won } = this.fullUserStats;
+      const { completed, won } = this.fullStats;
       const wonPercent = calcPercent(won / completed);
 
       return `${won} (${wonPercent})`;
     },
     lost() {
-      const { completed, lost } = this.fullUserStats;
+      const { completed, lost } = this.fullStats;
       const lostPercent = calcPercent(lost / completed);
 
       return `${lost} (${lostPercent})`;
     },
     abandoned() {
-      const { won, lost, completed } = this.fullUserStats;
+      const { won, lost, completed } = this.fullStats;
       const abandoned = completed - won - lost;
       const abandonedPercent = calcPercent(abandoned / completed);
 
       return `${abandoned} (${abandonedPercent})`;
     },
   },
-  mounted() {
-    this.getUserStats();
-  },
   methods: {
-    ...mapActions(['getUserStats', 'toggleStats', 'setGamePaused']),
+    ...mapActions(['toggleStats', 'setGamePaused']),
     closeStats() {
       const isPaused = {
         isPaused: false,
