@@ -3,6 +3,5 @@
 exports[`Timer.vue matches snapshot 1`] = `
 <div>
   Time:
-  <span data-test="timer">1</span>s
-</div>
+  <span data-test="timer">0:00:01</span></div>
 `;
