@@ -80,7 +80,7 @@ totalGames
 
 Query(
   Lambda([], {
-    count: Count(Documents(Collection("Game"))),
+    count: Count(Match(Index("all_games"))),
     won: Count(Match(Index("game_by_won"), true)),
     lost: Count(Match(Index("game_by_lost"), true)),
     completed: Count(Match(Index("game_by_completed"), true))
