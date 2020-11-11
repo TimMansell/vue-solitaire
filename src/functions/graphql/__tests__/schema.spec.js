@@ -16,10 +16,10 @@ const schemaWithMocks = addMocksToSchema({ schema, mocks });
 
 describe('Graphql Schema', () => {
   describe('Queries', () => {
-    it('getUser', async () => {
+    it('findUserByLID', async () => {
       const query = `
         query {
-          getUser(uid: "1") {
+          findUserByLID(uid: "1") {
             uid
           }
         }
@@ -29,17 +29,17 @@ describe('Graphql Schema', () => {
 
       expect(result).toEqual({
         data: {
-          getUser: {
+          findUserByLID: {
             uid: 'String',
           },
         },
       });
     });
 
-    it('getUserStats', async () => {
+    it('userStats', async () => {
       const query = `
         query {
-          getUserStats(uid: "1") {
+          userStats(uid: "1") {
             count
             won
             lost
@@ -52,7 +52,7 @@ describe('Graphql Schema', () => {
 
       expect(result).toEqual({
         data: {
-          getUserStats: {
+          userStats: {
             count: 1,
             won: 1,
             lost: 1,
@@ -86,11 +86,11 @@ describe('Graphql Schema', () => {
   describe('Mutations', () => {
     it('createUser', async () => {
       const query = `
-        mutation {
-          createUser(uid: "1") {
-            _id
-          }
+      mutation {
+        createUser(data: {}) {
+          _id
         }
+      }
       `;
 
       const result = await graphql(schemaWithMocks, query).then((response) => response);

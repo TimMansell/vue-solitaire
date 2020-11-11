@@ -1,13 +1,13 @@
 import { setupQuery } from './helpers';
 
-export const findUserByLID = (obj, variables, context) => {
+export const findUserByLID = (_, variables, context) => {
   const query = setupQuery('findUserByLID');
   const result = query(variables, context);
 
   return result;
 };
 
-export const userStats = (obj, variables, context) => {
+export const userStats = (_, variables, context) => {
   const query = setupQuery('userStats');
   const result = query(variables, context);
 
