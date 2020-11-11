@@ -53,4 +53,8 @@ type Query {
 
 type Mutation {
   newGame(uid: String!): Game! @resolver(name: "newGame")
+  wonGame(id: ID!, data: GameInput!): Game! @resolver(name: "wonGame")
+  lostGame(id: ID!, data: GameInput!): Game! @resolver(name: "lostGame")
+  completedGame(id: ID!, data: GameInput!): Game!
+    @resolver(name: "completedGame")
 }
