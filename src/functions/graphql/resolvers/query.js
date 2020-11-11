@@ -1,12 +1,7 @@
 import { ApolloError } from 'apollo-server-lambda';
 
-export const findUserByLID = async (obj, args, context) => {
+export const findUserByLID = async (obj, variables, context) => {
   const { client, query } = context;
-  const { uid } = args;
-
-  const variables = {
-    uid,
-  };
 
   try {
     const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
@@ -17,13 +12,8 @@ export const findUserByLID = async (obj, args, context) => {
   }
 };
 
-export const userStats = async (obj, args, context) => {
+export const userStats = async (obj, variables, context) => {
   const { client, query } = context;
-  const { uid } = args;
-
-  const variables = {
-    uid,
-  };
 
   try {
     const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
@@ -34,10 +24,8 @@ export const userStats = async (obj, args, context) => {
   }
 };
 
-export const globalStats = async (obj, args, context) => {
+export const globalStats = async (obj, variables, context) => {
   const { client, query } = context;
-
-  const variables = {};
 
   try {
     const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
