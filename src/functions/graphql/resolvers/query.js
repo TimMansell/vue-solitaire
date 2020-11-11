@@ -1,36 +1,49 @@
-import { getUserQuery, getUserStatsQuery, globalStatsQuery } from './helpers';
+import { ApolloError } from 'apollo-server-lambda';
 
-// eslint-disable-next-line import/prefer-default-export
-export const queries = {
-  getUser: async (obj, args, context) => {
-    const { client } = context;
-    const { uid } = args;
+export const findUserByLID = async (obj, args, context) => {
+  const { client, query } = context;
+  const { uid } = args;
 
-    const variables = {
-      uid,
-    };
+  const variables = {
+    uid,
+  };
 
-    const response = await getUserQuery(client, variables);
+  try {
+    const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
 
-    return response;
-  },
-  getUserStats: async (obj, args, context) => {
-    const { client } = context;
-    const { uid } = args;
+    return body.data.findUserByLID;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
+};
 
-    const variables = {
-      uid,
-    };
+export const userStats = async (obj, args, context) => {
+  const { client, query } = context;
+  const { uid } = args;
 
-    const response = await getUserStatsQuery(client, variables);
+  const variables = {
+    uid,
+  };
 
-    return response;
-  },
-  globalStats: async (obj, args, context) => {
-    const { client } = context;
+  try {
+    const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
 
-    const response = await globalStatsQuery(client);
+    return body.data.userStats;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
+};
 
-    return response;
-  },
+export const globalStats = async (obj, args, context) => {
+  const { client, query } = context;
+
+  const variables = {};
+
+  try {
+    const body = await client.query({ query, variables, fetchPolicy: 'no-cache' });
+
+    return body.data.globalStats;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
 };

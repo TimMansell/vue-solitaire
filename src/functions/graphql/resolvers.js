@@ -1,5 +1,5 @@
-import { queries } from './resolvers/query';
-import { mutations } from './resolvers/mutation';
+import { queries } from './queries';
+import { mutations } from './mutations';
 
 // eslint-disable-next-line import/prefer-default-export
 export const resolvers = {

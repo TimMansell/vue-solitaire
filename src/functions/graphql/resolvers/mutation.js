@@ -1,75 +1,120 @@
-import {
-  formatVariables,
-  createUserMutation,
-  newGameMutation,
-  updateGameMutation,
-} from './helpers';
+import { gql } from 'apollo-boost';
+import { ApolloError } from 'apollo-server-lambda';
+import { formatVariables } from './helpers';
 
-// eslint-disable-next-line import/prefer-default-export
-export const mutations = {
-  createUser: async (obj, args, context) => {
-    const { client } = context;
-    const { uid } = args;
+export const createUser = async (obj, variables, context) => {
+  const { client, query } = context;
 
-    const variables = {
-      data: {
-        uid,
-      },
-    };
-
-    const response = await createUserMutation(client, variables);
-
-    return response;
-  },
-  newGame: async (obj, args, context) => {
-    const { client } = context;
-    const { uid } = args;
-
-    const variables = {
-      uid,
-    };
-
-    const response = await newGameMutation(client, variables);
-
-    return response;
-  },
-  wonGame: async (obj, args, context) => {
-    const { client } = context;
-
-    const variables = formatVariables(args, {
-      won: true,
-      lost: false,
-      completed: true,
+  try {
+    const body = await client.mutate({
+      mutation: query,
+      variables,
     });
 
-    const response = await updateGameMutation(client, variables);
+    return body.data.createUser;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
+};
 
-    return response;
-  },
-  lostGame: async (obj, args, context) => {
-    const { client } = context;
+export const wonGame = async (obj, args, context) => {
+  const { client } = context;
 
-    const variables = formatVariables(args, {
-      won: false,
-      lost: true,
-      completed: true,
+  const variables = formatVariables(args, {
+    won: true,
+    lost: false,
+    completed: true,
+  });
+
+  const mutation = gql`
+    mutation UpdateGame($id: ID!, $data: GameInput!) {
+      updateGame(id: $id, data: $data) {
+        _id
+      }
+    }
+  `;
+
+  try {
+    const body = await client.mutate({
+      mutation,
+      variables,
     });
 
-    const response = await updateGameMutation(client, variables);
+    return body.data.updateGame;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
+};
 
-    return response;
-  },
-  completedGame: async (obj, args, context) => {
-    const { client } = context;
+export const lostGame = async (obj, args, context) => {
+  const { client } = context;
 
-    const variables = formatVariables(args, {
-      won: false,
-      lost: false,
-      completed: true,
+  const variables = formatVariables(args, {
+    won: false,
+    lost: true,
+    completed: true,
+  });
+
+  const mutation = gql`
+    mutation UpdateGame($id: ID!, $data: GameInput!) {
+      updateGame(id: $id, data: $data) {
+        _id
+      }
+    }
+  `;
+
+  try {
+    const body = await client.mutate({
+      mutation,
+      variables,
     });
 
-    const response = await updateGameMutation(client, variables);
+    return body.data.updateGame;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
+};
 
-    return response;
-  },
+export const completedGame = async (obj, args, context) => {
+  const { client } = context;
+
+  const variables = formatVariables(args, {
+    won: false,
+    lost: false,
+    completed: true,
+  });
+
+  const mutation = gql`
+    mutation UpdateGame($id: ID!, $data: GameInput!) {
+      updateGame(id: $id, data: $data) {
+        _id
+      }
+    }
+  `;
+
+  try {
+    const body = await client.mutate({
+      mutation,
+      variables,
+    });
+
+    return body.data.updateGame;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
+};
+
+export const newGame = async (obj, variables, context) => {
+  const { client, query } = context;
+
+  try {
+    const body = await client.mutate({
+      mutation: query,
+      variables,
+    });
+
+    return body.data.newGame;
+  } catch (error) {
+    throw new ApolloError(error);
+  }
 };

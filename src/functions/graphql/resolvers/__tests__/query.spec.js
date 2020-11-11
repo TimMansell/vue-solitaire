@@ -1,9 +1,7 @@
-import { queries } from '../query';
-
-const { getUser, getUserStats, globalStats } = queries;
+import { findUserByLID, userStats, globalStats } from '../query';
 
 describe('Graphql Query Resolvers', () => {
-  it('getUser', async () => {
+  it('findUserByLID', async () => {
     const mockArgs = { uid: 100 };
 
     const mockContext = {
@@ -16,13 +14,13 @@ describe('Graphql Query Resolvers', () => {
       },
     };
 
-    const result = await getUser('', mockArgs, mockContext);
+    const result = await findUserByLID('', mockArgs, mockContext);
 
     expect(result).toEqual(1);
   });
 
-  it('getUserStats', async () => {
-    const userStats = {
+  it('userStats', async () => {
+    const stats = {
       count: 1,
       won: 1,
       lost: 1,
@@ -35,15 +33,15 @@ describe('Graphql Query Resolvers', () => {
       client: {
         query: () => ({
           data: {
-            userStats,
+            userStats: stats,
           },
         }),
       },
     };
 
-    const result = await getUserStats('', mockArgs, mockContext);
+    const result = await userStats('', mockArgs, mockContext);
 
-    expect(result).toEqual(userStats);
+    expect(result).toEqual(stats);
   });
 
   it('globalStats', async () => {

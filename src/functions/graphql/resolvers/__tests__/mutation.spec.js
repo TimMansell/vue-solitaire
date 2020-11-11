@@ -1,6 +1,4 @@
-import { mutations } from '../mutation';
-
-const { createUser, newGame, wonGame, lostGame, completedGame } = mutations;
+import { createUser, newGame, wonGame, lostGame, completedGame } from '../mutation';
 
 describe('Graphql Mutation Resolvers', () => {
   it('createUser', async () => {

@@ -1,11 +1,11 @@
 import {
   formatVariables,
-  getUserQuery,
-  getUserStatsQuery,
-  globalStatsQuery,
-  createUserMutation,
+  // getUserQuery,
+  // getUserStatsQuery,
+  // globalStatsQuery,
+  // createUserMutation,
   updateGameMutation,
-  newGameMutation,
+  // newGameMutation,
 } from '../helpers';
 
 describe('Graphql Resolver helpers', () => {
@@ -34,74 +34,74 @@ describe('Graphql Resolver helpers', () => {
     });
   });
 
-  it('getUserQuery', async () => {
-    const mockVariables = { uid: 100 };
+  // it('getUserQuery', async () => {
+  //   const mockVariables = { uid: 100 };
 
-    const mockClient = {
-      query: () => ({
-        data: {
-          findUserByLID: 1,
-        },
-      }),
-    };
+  //   const mockClient = {
+  //     query: () => ({
+  //       data: {
+  //         findUserByLID: 1,
+  //       },
+  //     }),
+  //   };
 
-    const result = await getUserQuery(mockClient, mockVariables);
+  //   const result = await getUserQuery(mockClient, mockVariables);
 
-    expect(result).toEqual(1);
-  });
+  //   expect(result).toEqual(1);
+  // });
 
-  it('getUserStatsQuery', async () => {
-    const userStats = {
-      count: 1,
-      won: 1,
-      lost: 1,
-      completed: 1,
-    };
+  // it('getUserStatsQuery', async () => {
+  //   const userStats = {
+  //     count: 1,
+  //     won: 1,
+  //     lost: 1,
+  //     completed: 1,
+  //   };
 
-    const mockVariables = { uid: 100 };
+  //   const mockVariables = { uid: 100 };
 
-    const mockClient = {
-      query: () => ({
-        data: {
-          userStats,
-        },
-      }),
-    };
+  //   const mockClient = {
+  //     query: () => ({
+  //       data: {
+  //         userStats,
+  //       },
+  //     }),
+  //   };
 
-    const result = await getUserStatsQuery(mockClient, mockVariables);
+  //   const result = await getUserStatsQuery(mockClient, mockVariables);
 
-    expect(result).toEqual(userStats);
-  });
+  //   expect(result).toEqual(userStats);
+  // });
 
-  it('globalStatsQuery', async () => {
-    const mockClient = {
-      query: () => ({
-        data: {
-          globalStats: 1,
-        },
-      }),
-    };
+  // it('globalStatsQuery', async () => {
+  //   const mockClient = {
+  //     query: () => ({
+  //       data: {
+  //         globalStats: 1,
+  //       },
+  //     }),
+  //   };
 
-    const result = await globalStatsQuery(mockClient);
+  //   const result = await globalStatsQuery(mockClient);
 
-    expect(result).toEqual(1);
-  });
+  //   expect(result).toEqual(1);
+  // });
 
-  it('createUserMutation', async () => {
-    const mockVariables = { uid: 100 };
+  // it('createUserMutation', async () => {
+  //   const mockVariables = { uid: 100 };
 
-    const mockClient = {
-      mutate: () => ({
-        data: {
-          createUser: 1,
-        },
-      }),
-    };
+  //   const mockClient = {
+  //     mutate: () => ({
+  //       data: {
+  //         createUser: 1,
+  //       },
+  //     }),
+  //   };
 
-    const result = await createUserMutation(mockClient, mockVariables);
+  //   const result = await createUserMutation(mockClient, mockVariables);
 
-    expect(result).toEqual(1);
-  });
+  //   expect(result).toEqual(1);
+  // });
 
   it('updateGameMutation', async () => {
     const mockVariables = { uid: 100 };
@@ -119,19 +119,19 @@ describe('Graphql Resolver helpers', () => {
     expect(result).toEqual(1);
   });
 
-  it('newGameMutation', async () => {
-    const mockVariables = { uid: 100 };
+  // it('newGameMutation', async () => {
+  //   const mockVariables = { uid: 100 };
 
-    const mockClient = {
-      mutate: () => ({
-        data: {
-          newGame: 1,
-        },
-      }),
-    };
+  //   const mockClient = {
+  //     mutate: () => ({
+  //       data: {
+  //         newGame: 1,
+  //       },
+  //     }),
+  //   };
 
-    const result = await newGameMutation(mockClient, mockVariables);
+  //   const result = await newGameMutation(mockClient, mockVariables);
 
-    expect(result).toEqual(1);
-  });
+  //   expect(result).toEqual(1);
+  // });
 });
