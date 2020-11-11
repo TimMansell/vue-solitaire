@@ -1,37 +1,31 @@
-import { gql } from 'apollo-boost';
 import { ApolloError } from 'apollo-server-lambda';
 
-export const formatVariables = (args, params) => {
-  const { id, data } = args;
+export const setupQuery = (id) => async (variables, context) => {
+  const { client, query } = context;
 
-  const variables = {
-    id,
-    data: {
-      ...data,
-      ...params,
-    },
-  };
+  try {
+    const body = await client.query({
+      query,
+      variables,
+      fetchPolicy: 'no-cache',
+    });
 
-  return variables;
+    return body.data[id];
+  } catch (error) {
+    throw new ApolloError(error);
+  }
 };
 
-export const updateGameMutation = async (client, variables) => {
-  const mutation = gql`
-    mutation UpdateGame($id: ID!, $data: GameInput!) {
-      updateGame(id: $id, data: $data) {
-        _id
-        gameNumber
-      }
-    }
-  `;
+export const setupMutation = (id) => async (variables, context) => {
+  const { client, query } = context;
 
   try {
     const body = await client.mutate({
-      mutation,
+      mutation: query,
       variables,
     });
 
-    return body.data.updateGame;
+    return body.data[id];
   } catch (error) {
     throw new ApolloError(error);
   }

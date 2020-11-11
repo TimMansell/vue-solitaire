@@ -1,76 +1,36 @@
-import { ApolloError } from 'apollo-server-lambda';
+import { setupMutation } from './helpers';
 
-export const createUser = async (obj, variables, context) => {
-  const { client, query } = context;
+export const createUser = (obj, variables, context) => {
+  const mutation = setupMutation('createUser');
+  const result = mutation(variables, context);
 
-  try {
-    const body = await client.mutate({
-      mutation: query,
-      variables,
-    });
-
-    return body.data.createUser;
-  } catch (error) {
-    throw new ApolloError(error);
-  }
+  return result;
 };
 
-export const wonGame = async (obj, variables, context) => {
-  const { client, query } = context;
+export const wonGame = (obj, variables, context) => {
+  const mutation = setupMutation('wonGame');
+  const result = mutation(variables, context);
 
-  try {
-    const body = await client.mutate({
-      mutation: query,
-      variables,
-    });
-
-    return body.data.wonGame;
-  } catch (error) {
-    throw new ApolloError(error);
-  }
+  return result;
 };
 
-export const lostGame = async (obj, variables, context) => {
-  const { client, query } = context;
+export const lostGame = (obj, variables, context) => {
+  const mutation = setupMutation('lostGame');
+  const result = mutation(variables, context);
 
-  try {
-    const body = await client.mutate({
-      mutation: query,
-      variables,
-    });
-
-    return body.data.lostGame;
-  } catch (error) {
-    throw new ApolloError(error);
-  }
+  return result;
 };
 
-export const completedGame = async (obj, variables, context) => {
-  const { client, query } = context;
+export const completedGame = (obj, variables, context) => {
+  const mutation = setupMutation('completedGame');
+  const result = mutation(variables, context);
 
-  try {
-    const body = await client.mutate({
-      mutation: query,
-      variables,
-    });
-
-    return body.data.completedGame;
-  } catch (error) {
-    throw new ApolloError(error);
-  }
+  return result;
 };
 
-export const newGame = async (obj, variables, context) => {
-  const { client, query } = context;
+export const newGame = (obj, variables, context) => {
+  const mutation = setupMutation('newGame');
+  const result = mutation(variables, context);
 
-  try {
-    const body = await client.mutate({
-      mutation: query,
-      variables,
-    });
-
-    return body.data.newGame;
-  } catch (error) {
-    throw new ApolloError(error);
-  }
+  return result;
 };
