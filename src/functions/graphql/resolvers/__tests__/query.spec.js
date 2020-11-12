@@ -1,11 +1,7 @@
-import { queries } from '../query';
-
-const { getUser, getUserStats, globalStats } = queries;
+import { findUserByLID, userStats, globalStats } from '../query';
 
 describe('Graphql Query Resolvers', () => {
-  it('getUser', async () => {
-    const mockArgs = { uid: 100 };
-
+  it('findUserByLID', async () => {
     const mockContext = {
       client: {
         query: () => ({
@@ -16,34 +12,32 @@ describe('Graphql Query Resolvers', () => {
       },
     };
 
-    const result = await getUser('', mockArgs, mockContext);
+    const result = await findUserByLID('', {}, mockContext);
 
     expect(result).toEqual(1);
   });
 
-  it('getUserStats', async () => {
-    const userStats = {
+  it('userStats', async () => {
+    const stats = {
       count: 1,
       won: 1,
       lost: 1,
       completed: 1,
     };
 
-    const mockArgs = { uid: 100 };
-
     const mockContext = {
       client: {
         query: () => ({
           data: {
-            userStats,
+            userStats: stats,
           },
         }),
       },
     };
 
-    const result = await getUserStats('', mockArgs, mockContext);
+    const result = await userStats('', {}, mockContext);
 
-    expect(result).toEqual(userStats);
+    expect(result).toEqual(stats);
   });
 
   it('globalStats', async () => {
@@ -57,7 +51,7 @@ describe('Graphql Query Resolvers', () => {
       },
     };
 
-    const result = await globalStats('', '', mockContext);
+    const result = await globalStats('', {}, mockContext);
 
     expect(result).toEqual(1);
   });

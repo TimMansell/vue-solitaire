@@ -7,8 +7,8 @@ export const getAUser = async (uid) => {
   try {
     const { data } = await apollo.query({
       query: gql`
-        query GetAUser($uid: String!) {
-          getUser(uid: $uid) {
+        query FindAUserByLID($uid: String!) {
+          findUserByLID(uid: $uid) {
             uid
           }
         }
@@ -18,7 +18,7 @@ export const getAUser = async (uid) => {
       },
     });
 
-    return formatResponse(data.getUser);
+    return formatResponse(data.findUserByLID);
   } catch (error) {
     return formatError();
   }
@@ -29,7 +29,7 @@ export const getUserStats = async (uid) => {
     const { data } = await apollo.query({
       query: gql`
         query GetUserStats($uid: String!) {
-          getUserStats(uid: $uid) {
+          userStats(uid: $uid) {
             count
             won
             lost
@@ -43,7 +43,7 @@ export const getUserStats = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(data.getUserStats);
+    return formatResponse(data.userStats);
   } catch (error) {
     return formatError();
   }

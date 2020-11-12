@@ -3,14 +3,17 @@ import depthLimit from 'graphql-depth-limit';
 import { typeDefs } from './graphql/schema';
 import { resolvers } from './graphql/resolvers';
 import { client } from './graphql/db';
+import { grabQuery } from './graphql/helpers';
 
 const { FAUNA_INTROSPECTION, FAUNA_PLAYGROUND, NODE_ENV } = process.env;
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context() {
-    return { client };
+  context({ event }) {
+    const query = grabQuery(event);
+
+    return { client, query };
   },
   playground: FAUNA_PLAYGROUND,
   introspection: FAUNA_INTROSPECTION,

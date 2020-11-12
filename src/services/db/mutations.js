@@ -6,14 +6,16 @@ export const createUser = async (uid) => {
   try {
     const { data } = await apollo.mutate({
       mutation: gql`
-        mutation CreateAUser($uid: String!) {
-          createUser(uid: $uid) {
+        mutation CreateAUser($data: UserInput!) {
+          createUser(data: $data) {
             _id
           }
         }
       `,
       variables: {
-        uid,
+        data: {
+          uid,
+        },
       },
     });
 

@@ -1,36 +1,19 @@
-import { getUserQuery, getUserStatsQuery, globalStatsQuery } from './helpers';
+import { runQuery } from './helpers';
 
-// eslint-disable-next-line import/prefer-default-export
-export const queries = {
-  getUser: async (obj, args, context) => {
-    const { client } = context;
-    const { uid } = args;
+export const findUserByLID = async (_, variables, context) => {
+  const result = await runQuery(variables, context);
 
-    const variables = {
-      uid,
-    };
+  return result.findUserByLID;
+};
 
-    const response = await getUserQuery(client, variables);
+export const userStats = async (_, variables, context) => {
+  const result = await runQuery(variables, context);
 
-    return response;
-  },
-  getUserStats: async (obj, args, context) => {
-    const { client } = context;
-    const { uid } = args;
+  return result.userStats;
+};
 
-    const variables = {
-      uid,
-    };
+export const globalStats = async (_, variables, context) => {
+  const result = await runQuery(variables, context);
 
-    const response = await getUserStatsQuery(client, variables);
-
-    return response;
-  },
-  globalStats: async (obj, args, context) => {
-    const { client } = context;
-
-    const response = await globalStatsQuery(client);
-
-    return response;
-  },
+  return result.globalStats;
 };
