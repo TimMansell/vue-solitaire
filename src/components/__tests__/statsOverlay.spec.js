@@ -41,19 +41,9 @@ describe('StatsOverlay.vue', () => {
       mocks,
     });
 
-    expect(wrapper.vm.played).toBe(10);
-    expect(wrapper.vm.completed).toBe(9);
+    expect(wrapper.vm.played).toBe(9);
     expect(wrapper.vm.won.count).toBe(2);
     expect(wrapper.vm.lost.count).toBe(4);
     expect(wrapper.vm.abandoned.count).toBe(3);
-  });
-
-  it('calculates progress correctly', () => {
-    const wrapper = shallowMount(StatsOverlay, {
-      computed,
-      mocks,
-    });
-
-    expect(wrapper.vm.progress).toBe(1);
   });
 });

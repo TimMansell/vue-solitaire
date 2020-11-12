@@ -2,8 +2,8 @@
   <GameOverlay alt data-test="stats-overlay">
     <template #title> Stats </template>
     <template #msg>
-      <div>Played: <Counter :number="played" /> ({{ progress }} in progress)</div>
-      <div>Completed: <Counter :number="completed" /></div>
+      <p>Showing stats for completed games:</p>
+      <div>Played: <Counter :number="played" /></div>
       <div>Won: <Counter :number="won.count" /> ({{ won.percent }})</div>
       <div>Lost: <Counter :number="lost.count" /> ({{ lost.percent }})</div>
       <div>Gave up: <Counter :number="abandoned.count" /> ({{ abandoned.percent }})</div>
@@ -33,16 +33,6 @@ export default {
   computed: {
     ...mapGetters(['fullStats']),
     played() {
-      const { count } = this.fullStats;
-
-      return count;
-    },
-    progress() {
-      const { count, completed } = this.fullStats;
-
-      return count - completed;
-    },
-    completed() {
       const { completed } = this.fullStats;
 
       return completed;

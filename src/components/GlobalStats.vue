@@ -25,10 +25,10 @@ export default {
     ...mapGetters(['globalStats']),
     number() {
       const {
-        globalStats: { count },
+        globalStats: { completed },
       } = this;
 
-      return count;
+      return completed;
     },
   },
   methods: {

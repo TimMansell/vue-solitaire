@@ -55,7 +55,7 @@ export const getGlobalStatsCount = async () => {
       query: gql`
         query {
           globalStats {
-            count
+            completed
           }
         }
       `,
@@ -75,7 +75,6 @@ export const getGlobalStats = async () => {
       query: gql`
         query {
           globalStats {
-            count
             won
             lost
             completed
