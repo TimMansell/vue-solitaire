@@ -2,7 +2,9 @@
   <div>
     Global Games:
     <span data-test="global-stats"
-      ><Counter data-test="global-stats" :number="number" /> (<ViewStatsButton :load-stats="getGlobalStats" />)</span
+      ><Counter data-test="global-stats" :number="number" /> (<ViewStatsButton
+        :load-stats="getGlobalStats"
+      />)</span
     >
   </div>
 </template>
@@ -28,7 +30,7 @@ export default {
       return count;
     },
   },
-   methods: {
+  methods: {
     ...mapActions(['getGlobalStats']),
   },
 };

@@ -1,6 +1,7 @@
 <template>
   <div>
-    Games: <span data-test="stats"><Counter data-test="stats" :number="number" /></span> (<ViewStatsButton
+    Games:
+    <span data-test="stats"><Counter data-test="stats" :number="number"/></span> (<ViewStatsButton
       :load-stats="getUserStats"
     />)
   </div>
@@ -27,7 +28,7 @@ export default {
       return gameNumber;
     },
   },
-   methods: {
+  methods: {
     ...mapActions(['getUserStats']),
   },
 };
