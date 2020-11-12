@@ -1,13 +1,13 @@
 import { shallowMount } from '@vue/test-utils';
-import UserStatsOverlay from '@/components/UserStatsOverlay.vue';
+import StatsOverlay from '@/components/StatsOverlay.vue';
 
 const mocks = {
   $store: { dispatch: jest.fn() },
 };
 
-describe('UserStatsOverlay.vue', () => {
+describe('StatsOverlay.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(UserStatsOverlay, {
+    const wrapper = shallowMount(StatsOverlay, {
       computed: {
         fullUserStats: () => ({
           count: 4,
