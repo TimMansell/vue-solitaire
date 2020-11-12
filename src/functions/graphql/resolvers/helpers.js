@@ -1,6 +1,6 @@
 import { ApolloError } from 'apollo-server-lambda';
 
-export const setupQuery = (id) => async (variables, context) => {
+export const runQuery = async (variables, context) => {
   const { client, query } = context;
 
   try {
@@ -10,13 +10,13 @@ export const setupQuery = (id) => async (variables, context) => {
       fetchPolicy: 'no-cache',
     });
 
-    return body.data[id];
+    return body.data;
   } catch (error) {
     throw new ApolloError(error);
   }
 };
 
-export const setupMutation = (id) => async (variables, context) => {
+export const runMutation = async (variables, context) => {
   const { client, query } = context;
 
   try {
@@ -25,7 +25,7 @@ export const setupMutation = (id) => async (variables, context) => {
       variables,
     });
 
-    return body.data[id];
+    return body.data;
   } catch (error) {
     throw new ApolloError(error);
   }

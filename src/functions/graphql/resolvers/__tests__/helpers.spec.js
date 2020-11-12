@@ -1,7 +1,7 @@
-import { setupQuery, setupMutation } from '../helpers';
+import { runQuery, runMutation } from '../helpers';
 
 describe('Graphql Resolver helpers', () => {
-  it('setupQuery', async () => {
+  it('runQuery', async () => {
     const mockContext = {
       client: {
         query: () => ({
@@ -12,13 +12,12 @@ describe('Graphql Resolver helpers', () => {
       },
     };
 
-    const query = setupQuery('test');
-    const result = await query({}, mockContext);
+    const result = await runQuery({}, mockContext);
 
-    expect(result).toEqual(1);
+    expect(result).toEqual({ test: 1 });
   });
 
-  it('setupMutation', async () => {
+  it('runMutation', async () => {
     const mockContext = {
       client: {
         mutate: () => ({
@@ -29,9 +28,8 @@ describe('Graphql Resolver helpers', () => {
       },
     };
 
-    const mutation = setupMutation('test');
-    const result = await mutation({}, mockContext);
+    const result = await runMutation({}, mockContext);
 
-    expect(result).toEqual(1);
+    expect(result).toEqual({ test: 1 });
   });
 });

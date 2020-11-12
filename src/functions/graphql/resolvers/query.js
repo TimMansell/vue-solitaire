@@ -1,22 +1,19 @@
-import { setupQuery } from './helpers';
+import { runQuery } from './helpers';
 
-export const findUserByLID = (_, variables, context) => {
-  const query = setupQuery('findUserByLID');
-  const result = query(variables, context);
+export const findUserByLID = async (_, variables, context) => {
+  const result = await runQuery(variables, context);
 
-  return result;
+  return result.findUserByLID;
 };
 
-export const userStats = (_, variables, context) => {
-  const query = setupQuery('userStats');
-  const result = query(variables, context);
+export const userStats = async (_, variables, context) => {
+  const result = await runQuery(variables, context);
 
-  return result;
+  return result.userStats;
 };
 
-export const globalStats = (_, variables, context) => {
-  const query = setupQuery('globalStats');
-  const result = query(variables, context);
+export const globalStats = async (_, variables, context) => {
+  const result = await runQuery(variables, context);
 
-  return result;
+  return result.globalStats;
 };

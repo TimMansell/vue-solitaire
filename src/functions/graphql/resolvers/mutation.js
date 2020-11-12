@@ -1,36 +1,31 @@
-import { setupMutation } from './helpers';
+import { runMutation } from './helpers';
 
-export const createUser = (_, variables, context) => {
-  const mutation = setupMutation('createUser');
-  const result = mutation(variables, context);
+export const createUser = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-  return result;
+  return result.createUser;
 };
 
-export const wonGame = (_, variables, context) => {
-  const mutation = setupMutation('wonGame');
-  const result = mutation(variables, context);
+export const wonGame = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-  return result;
+  return result.wonGame;
 };
 
-export const lostGame = (_, variables, context) => {
-  const mutation = setupMutation('lostGame');
-  const result = mutation(variables, context);
+export const lostGame = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-  return result;
+  return result.lostGame;
 };
 
-export const completedGame = (_, variables, context) => {
-  const mutation = setupMutation('completedGame');
-  const result = mutation(variables, context);
+export const completedGame = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-  return result;
+  return result.completedGame;
 };
 
-export const newGame = (_, variables, context) => {
-  const mutation = setupMutation('newGame');
-  const result = mutation(variables, context);
+export const newGame = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-  return result;
+  return result.newGame;
 };
