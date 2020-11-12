@@ -97,4 +97,98 @@ describe('Timer', () => {
       });
     });
   });
+
+  it('timer should start paused when user stats overlay is open and page is refreshed', () => {
+    cy.get('[data-test="timer"]').then(($timerStart) => {
+      const startNumber = $timerStart.text();
+
+      cy.get('[data-test="user-stats-btn"]').click();
+
+      cy.reload();
+
+      cy.wait(2000);
+
+      cy.get('[data-test="timer"]').then(($timerEnd) => {
+        const endNumber = $timerEnd.text();
+
+        expect(startNumber).to.equal(endNumber);
+      });
+    });
+  });
+
+  it('timer should start paused when global stats overlay is open and page is refreshed', () => {
+    cy.get('[data-test="timer"]').then(($timerStart) => {
+      const startNumber = $timerStart.text();
+
+      cy.get('[data-test="global-stats-btn"]').click();
+
+      cy.reload();
+
+      cy.wait(2000);
+
+      cy.get('[data-test="timer"]').then(($timerEnd) => {
+        const endNumber = $timerEnd.text();
+
+        expect(startNumber).to.equal(endNumber);
+      });
+    });
+  });
+
+  it('timer stops when user overlay is open and starts when resumed', () => {
+    cy.wait(1000);
+
+    cy.get('[data-test="timer"]').then(($timerStart) => {
+      const startNumber = $timerStart.text();
+
+      cy.get('[data-test="user-stats-btn"]').click();
+
+      cy.wait(2000);
+
+      cy.get('[data-test="timer"]').then(($timerPaused) => {
+        const pausedNumber = $timerPaused.text();
+
+        cy.get('[data-test="game-overlay-btn"]').within(() => {
+          cy.get('[data-test="close-stats-btn"]').click();
+        });
+
+        cy.wait(2000);
+
+        cy.get('[data-test="timer"]').then(($timerResumed) => {
+          const resumedNumber = $timerResumed.text();
+
+          expect(startNumber).to.equal(pausedNumber);
+          expect(pausedNumber).to.not.equal(resumedNumber);
+        });
+      });
+    });
+  });
+
+  it.only('timer stops when global overlay is open and starts when resumed', () => {
+    cy.wait(1000);
+
+    cy.get('[data-test="timer"]').then(($timerStart) => {
+      const startNumber = $timerStart.text();
+
+      cy.get('[data-test="global-stats-btn"]').click();
+
+      cy.wait(2000);
+
+      cy.get('[data-test="timer"]').then(($timerPaused) => {
+        const pausedNumber = $timerPaused.text();
+
+        cy.get('[data-test="game-overlay-btn"]').within(() => {
+          cy.get('[data-test="close-stats-btn"]').click();
+        });
+
+        cy.wait(2000);
+
+        cy.get('[data-test="timer"]').then(($timerResumed) => {
+          const resumedNumber = $timerResumed.text();
+
+          expect(startNumber).to.equal(pausedNumber);
+          expect(pausedNumber).to.not.equal(resumedNumber);
+        });
+      });
+    });
+  });
 });

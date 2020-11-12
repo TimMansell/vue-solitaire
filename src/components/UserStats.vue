@@ -1,31 +1,26 @@
 <template>
   <div>
-    Games: <Counter data-test="stats" :number="number" /> (<Button
-      link
-      @click="viewStats"
-      data-test="view-stats-btn"
-    >
-      view stats </Button
-    >)
-    <UserStatsOverlay v-if="showStats" data-test="user-stats" />
+    Games:
+    <span data-test="stats"> <Counter data-test="stats" :number="number"/></span> (<ViewStatsButton
+      :load-stats="getUserStats"
+      data-test="user-stats-btn"
+    />)
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import UserStatsOverlay from '@/components/UserStatsOverlay.vue';
-import Button from '@/components/Button.vue';
+import ViewStatsButton from '@/components/ViewStatsButton.vue';
 import Counter from '@/components/Counter.vue';
 
 export default {
   name: 'Stats',
   components: {
-    UserStatsOverlay,
-    Button,
+    ViewStatsButton,
     Counter,
   },
   computed: {
-    ...mapGetters(['userStats', 'showStats']),
+    ...mapGetters(['userStats']),
     number() {
       const {
         userStats: { gameNumber },
@@ -35,17 +30,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['toggleStats', 'setGamePaused']),
-    viewStats() {
-      const isPaused = {
-        isPaused: true,
-        isActive: false,
-        showMsg: false,
-      };
-
-      this.setGamePaused(isPaused);
-      this.toggleStats();
-    },
+    ...mapActions(['getUserStats']),
   },
 };
 </script>

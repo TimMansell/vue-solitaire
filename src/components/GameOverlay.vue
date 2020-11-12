@@ -68,6 +68,14 @@ export default {
     @media (min-width: $bp-md) {
       width: 150px;
     }
+
+    @media (orientation: landscape) and (pointer: coarse) {
+      display: none;
+    }
+
+    @media (orientation: landscape) and (min-width: $bp-lg) {
+      display: inherit;
+    }
   }
 
   &__content {

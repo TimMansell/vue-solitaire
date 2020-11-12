@@ -1,6 +1,6 @@
 const getters = {
   globalStats: (state) => state.globalStats,
-  fullUserStats: (state) => state.fullUserStats,
+  fullStats: (state) => state.fullStats,
   showStats: (state) => state.showStats,
 };
 

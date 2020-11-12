@@ -3,14 +3,17 @@
     <Board />
     <GameState />
     <Rules />
+    <StatsOverlay v-if="showStats" data-test="stats-overlay" />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import GameState from '@/components/GameState.vue';
 import Rules from '@/components/Rules.vue';
+import StatsOverlay from '@/components/StatsOverlay.vue';
+
 // import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
@@ -19,6 +22,10 @@ export default {
     Board,
     GameState,
     Rules,
+    StatsOverlay,
+  },
+  computed: {
+    ...mapGetters(['showStats']),
   },
   async created() {
     await this.initUser();

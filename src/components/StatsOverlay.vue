@@ -1,8 +1,9 @@
 <template>
-  <GameOverlay alt data-test="user-stats-overlay">
+  <GameOverlay alt data-test="stats-overlay">
     <template #title> Stats </template>
     <template #msg>
-      <div>Played: <Counter :number="completed" /> (1 in progress)</div>
+      <p>Showing stats for completed games:</p>
+      <div>Played: <Counter :number="played" /></div>
       <div>Won: <Counter :number="won.count" /> ({{ won.percent }})</div>
       <div>Lost: <Counter :number="lost.count" /> ({{ lost.percent }})</div>
       <div>Gave up: <Counter :number="abandoned.count" /> ({{ abandoned.percent }})</div>
@@ -30,14 +31,14 @@ export default {
     Counter,
   },
   computed: {
-    ...mapGetters(['fullUserStats']),
-    completed() {
-      const { completed } = this.fullUserStats;
+    ...mapGetters(['fullStats']),
+    played() {
+      const { completed } = this.fullStats;
 
       return completed;
     },
     won() {
-      const { completed, won } = this.fullUserStats;
+      const { completed, won } = this.fullStats;
       const percent = calcPercent(won / completed);
 
       return {
@@ -46,7 +47,7 @@ export default {
       };
     },
     lost() {
-      const { completed, lost } = this.fullUserStats;
+      const { completed, lost } = this.fullStats;
       const percent = calcPercent(lost / completed);
 
       return {
@@ -55,7 +56,7 @@ export default {
       };
     },
     abandoned() {
-      const { won, lost, completed } = this.fullUserStats;
+      const { won, lost, completed } = this.fullStats;
       const abandoned = completed - won - lost;
       const percent = calcPercent(abandoned / completed);
 
@@ -65,11 +66,8 @@ export default {
       };
     },
   },
-  mounted() {
-    this.getUserStats();
-  },
   methods: {
-    ...mapActions(['getUserStats', 'toggleStats', 'setGamePaused']),
+    ...mapActions(['toggleStats', 'setGamePaused']),
     closeStats() {
       const isPaused = {
         isPaused: false,
