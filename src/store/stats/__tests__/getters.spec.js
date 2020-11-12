@@ -1,12 +1,12 @@
 import getters from '../getters';
 
-const { globalStats, fullUserStats, showStats } = getters;
+const { globalStats, fullStats, showStats } = getters;
 
 const state = {
   globalStats: {
     count: 1,
   },
-  fullUserStats: {
+  fullStats: {
     count: 4,
     won: 1,
     lost: 1,
@@ -22,10 +22,10 @@ describe('Stats', () => {
     expect(result).toEqual(state.globalStats);
   });
 
-  it('fullUserStats', () => {
-    const result = fullUserStats(state);
+  it('fullStats', () => {
+    const result = fullStats(state);
 
-    expect(result).toEqual(state.fullUserStats);
+    expect(result).toEqual(state.fullStats);
   });
 
   it('showStats', () => {

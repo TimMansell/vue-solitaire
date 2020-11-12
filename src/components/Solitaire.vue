@@ -3,7 +3,7 @@
     <Board />
     <GameState />
     <Rules />
-    <StatsOverlay v-if="showStats" data-test="user-stats" />
+    <StatsOverlay v-if="showStats" data-test="stats" />
   </div>
 </template>
 

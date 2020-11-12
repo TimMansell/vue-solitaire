@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt data-test="user-stats-overlay">
+  <GameOverlay alt data-test="stats-overlay">
     <template #title> Stats </template>
     <template #msg>
       <div>Played: <Counter :number="played" /> ({{ progress }} in progress)</div>
