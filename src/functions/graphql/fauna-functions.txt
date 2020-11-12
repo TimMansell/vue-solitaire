@@ -76,7 +76,7 @@ Query(
 
 ----------------
 
-totalGames
+globalStats
 
 Query(
   Lambda([], {
