@@ -37,9 +37,55 @@ Query(
 
 ----------------
 
-totalGames
+wonGame
 
-Query(Lambda([], { count: Count(Documents(Collection("Game"))) }))
+Query(
+  Lambda(
+    ["uid", "data"],
+    Update(Ref(Collection("Game"), Var("uid")), {
+      data: Merge(Var("data"), { won: true, lost: false, completed: true })
+    })
+  )
+)
+
+----------------
+
+lostGame
+
+Query(
+  Lambda(
+    ["uid", "data"],
+    Update(Ref(Collection("Game"), Var("uid")), {
+      data: Merge(Var("data"), { won: false, lost: true, completed: true })
+    })
+  )
+)
+
+----------------
+
+completedGame
+
+Query(
+  Lambda(
+    ["uid", "data"],
+    Update(Ref(Collection("Game"), Var("uid")), {
+      data: Merge(Var("data"), { won: false, lost: false, completed: true })
+    })
+  )
+)
+
+----------------
+
+globalStats
+
+Query(
+  Lambda([], {
+    count: Count(Match(Index("all_games"))),
+    won: Count(Match(Index("game_by_won"), true)),
+    lost: Count(Match(Index("game_by_lost"), true)),
+    completed: Count(Match(Index("game_by_completed"), true))
+  })
+)
 
 ----------------
 

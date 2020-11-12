@@ -1,75 +1,31 @@
-import {
-  formatVariables,
-  createUserMutation,
-  newGameMutation,
-  updateGameMutation,
-} from './helpers';
+import { runMutation } from './helpers';
 
-// eslint-disable-next-line import/prefer-default-export
-export const mutations = {
-  createUser: async (obj, args, context) => {
-    const { client } = context;
-    const { uid } = args;
+export const createUser = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-    const variables = {
-      data: {
-        uid,
-      },
-    };
+  return result.createUser;
+};
 
-    const response = await createUserMutation(client, variables);
+export const wonGame = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-    return response;
-  },
-  newGame: async (obj, args, context) => {
-    const { client } = context;
-    const { uid } = args;
+  return result.wonGame;
+};
 
-    const variables = {
-      uid,
-    };
+export const lostGame = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-    const response = await newGameMutation(client, variables);
+  return result.lostGame;
+};
 
-    return response;
-  },
-  wonGame: async (obj, args, context) => {
-    const { client } = context;
+export const completedGame = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-    const variables = formatVariables(args, {
-      won: true,
-      lost: false,
-      completed: true,
-    });
+  return result.completedGame;
+};
 
-    const response = await updateGameMutation(client, variables);
+export const newGame = async (_, variables, context) => {
+  const result = await runMutation(variables, context);
 
-    return response;
-  },
-  lostGame: async (obj, args, context) => {
-    const { client } = context;
-
-    const variables = formatVariables(args, {
-      won: false,
-      lost: true,
-      completed: true,
-    });
-
-    const response = await updateGameMutation(client, variables);
-
-    return response;
-  },
-  completedGame: async (obj, args, context) => {
-    const { client } = context;
-
-    const variables = formatVariables(args, {
-      won: false,
-      lost: false,
-      completed: true,
-    });
-
-    const response = await updateGameMutation(client, variables);
-
-    return response;
-  },
+  return result.newGame;
 };

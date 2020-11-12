@@ -1,11 +1,7 @@
-import { mutations } from '../mutation';
-
-const { createUser, newGame, wonGame, lostGame, completedGame } = mutations;
+import { createUser, newGame, wonGame, lostGame, completedGame } from '../mutation';
 
 describe('Graphql Mutation Resolvers', () => {
   it('createUser', async () => {
-    const mockArgs = { uid: 100 };
-
     const mockContext = {
       client: {
         mutate: () => ({
@@ -16,14 +12,12 @@ describe('Graphql Mutation Resolvers', () => {
       },
     };
 
-    const result = await createUser('', mockArgs, mockContext);
+    const result = await createUser('', {}, mockContext);
 
     expect(result).toEqual(1);
   });
 
   it('newGame', async () => {
-    const mockArgs = { uid: 100 };
-
     const mockContext = {
       client: {
         mutate: () => ({
@@ -34,61 +28,55 @@ describe('Graphql Mutation Resolvers', () => {
       },
     };
 
-    const result = await newGame('', mockArgs, mockContext);
+    const result = await newGame('', {}, mockContext);
 
     expect(result).toEqual(1);
   });
 
   it('wonGame', async () => {
-    const mockArgs = { uid: 100 };
-
     const mockContext = {
       client: {
         mutate: () => ({
           data: {
-            updateGame: 1,
+            wonGame: 1,
           },
         }),
       },
     };
 
-    const result = await wonGame('', mockArgs, mockContext);
+    const result = await wonGame('', {}, mockContext);
 
     expect(result).toEqual(1);
   });
 
   it('lostGame', async () => {
-    const mockArgs = { uid: 100 };
-
     const mockContext = {
       client: {
         mutate: () => ({
           data: {
-            updateGame: 1,
+            lostGame: 1,
           },
         }),
       },
     };
 
-    const result = await lostGame('', mockArgs, mockContext);
+    const result = await lostGame('', {}, mockContext);
 
     expect(result).toEqual(1);
   });
 
   it('completedGame', async () => {
-    const mockArgs = { uid: 100 };
-
     const mockContext = {
       client: {
         mutate: () => ({
           data: {
-            updateGame: 1,
+            completedGame: 1,
           },
         }),
       },
     };
 
-    const result = await completedGame('', mockArgs, mockContext);
+    const result = await completedGame('', {}, mockContext);
 
     expect(result).toEqual(1);
   });

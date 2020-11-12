@@ -3,8 +3,8 @@ import { getAUser, getUserStats, getGlobalStats } from '../queries';
 jest.mock('../apollo', () => ({
   query: () => ({
     data: {
-      getUser: 1,
-      getUserStats: 1,
+      findUserByLID: 1,
+      userStats: 1,
       globalStats: 1,
     },
   }),

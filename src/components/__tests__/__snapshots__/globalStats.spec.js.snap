@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlobalStats.vue matches snapshot 1`] = `
+<div>
+  Global Games:
+  <span data-test="global-stats"><counter-stub number="0" data-test="global-stats"></counter-stub> (<viewstatsbutton-stub loadstats="function () { [native code] }" data-test="global-stats-btn"></viewstatsbutton-stub>)</span></div>
+`;

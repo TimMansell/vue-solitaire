@@ -13,16 +13,4 @@ describe('GlobalStats.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('should show 1 game played', () => {
-    const wrapper = shallowMount(GlobalStats, {
-      computed: {
-        globalStats: () => ({
-          count: 1,
-        }),
-      },
-    });
-
-    expect(wrapper.find('[data-test="global-stats"]').text()).toContain('1');
-  });
 });

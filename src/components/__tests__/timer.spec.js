@@ -25,6 +25,19 @@ describe('Timer.vue', () => {
       },
     });
 
-    expect(wrapper.find('[data-test="timer"]').text()).toContain('1');
+    expect(wrapper.find('[data-test="timer"]').text()).toContain('0:00:10');
+  });
+
+  it('should show 1m 15s seconds on the timer', () => {
+    const wrapper = shallowMount(Timer, {
+      computed: {
+        timer: () => 75,
+        isGamePaused: () => ({
+          paused: true,
+        }),
+      },
+    });
+
+    expect(wrapper.find('[data-test="timer"]').text()).toContain('0:01:15');
   });
 });

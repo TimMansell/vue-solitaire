@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter.vue matches snapshot 1`] = `
+<span data-test="counter">
+  0
+</span>
+`;
