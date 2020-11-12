@@ -3,6 +3,7 @@
     Games:
     <span data-test="stats"> <Counter data-test="stats" :number="number"/></span> (<ViewStatsButton
       :load-stats="getUserStats"
+      data-test="user-stats-btn"
     />)
   </div>
 </template>

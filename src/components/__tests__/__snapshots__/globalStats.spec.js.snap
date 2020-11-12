@@ -3,5 +3,5 @@
 exports[`GlobalStats.vue matches snapshot 1`] = `
 <div>
   Global Games:
-  <span data-test="global-stats"><counter-stub number="1" data-test="global-stats"></counter-stub> (<viewstatsbutton-stub loadstats="function () { [native code] }"></viewstatsbutton-stub>)</span></div>
+  <span data-test="global-stats"><counter-stub number="1" data-test="global-stats"></counter-stub> (<viewstatsbutton-stub loadstats="function () { [native code] }" data-test="global-stats-btn"></viewstatsbutton-stub>)</span></div>
 `;

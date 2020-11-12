@@ -1,5 +1,5 @@
 <template>
-  <Button link @click="viewStats" data-test="view-stats-btn"> view stats </Button>
+  <Button link @click="viewStats"> view stats </Button>
 </template>
 
 <script>

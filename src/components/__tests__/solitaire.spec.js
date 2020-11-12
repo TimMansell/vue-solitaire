@@ -25,7 +25,7 @@ describe('Solitaire.vue', () => {
       },
     });
 
-    expect(wrapper.find('[data-test="stats"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="stats-overlay"]').exists()).toBe(true);
   });
 
   it('does not shows stats overlay', () => {
@@ -36,6 +36,6 @@ describe('Solitaire.vue', () => {
       },
     });
 
-    expect(wrapper.find('[data-test="stats"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="stats-overlay"]').exists()).toBe(false);
   });
 });

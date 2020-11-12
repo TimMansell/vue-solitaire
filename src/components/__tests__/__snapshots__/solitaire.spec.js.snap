@@ -5,6 +5,6 @@ exports[`Solitaire.vue matches snapshot 1`] = `
   <board-stub></board-stub>
   <gamestate-stub></gamestate-stub>
   <rules-stub></rules-stub>
-  <statsoverlay-stub data-test="stats"></statsoverlay-stub>
+  <statsoverlay-stub data-test="stats-overlay"></statsoverlay-stub>
 </div>
 `;
