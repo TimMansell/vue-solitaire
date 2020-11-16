@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay v-if="isGameWon && !hasMoves" data-test="game-won">
+  <GameOverlay center-content show-logo v-if="isGameWon && !hasMoves" data-test="game-won">
     <template #title> Congratulations, you win! </template>
     <template #buttons>
       <NewGameButton completed />

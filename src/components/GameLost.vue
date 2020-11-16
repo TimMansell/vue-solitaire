@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay v-if="isGameLost && !hasMoves" data-test="game-lost">
+  <GameOverlay center-content show-logo v-if="isGameLost && !hasMoves" data-test="game-lost">
     <template #title> Sorry, no more Moves! </template>
     <template #buttons>
       <NewGameButton completed />

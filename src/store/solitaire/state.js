@@ -19,6 +19,7 @@ const state = () => ({
     time: 0,
   },
   isNewGame: true,
+  showRules: false,
 });
 
 export default state;

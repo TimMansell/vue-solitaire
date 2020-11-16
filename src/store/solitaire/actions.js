@@ -164,6 +164,11 @@ const actions = {
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');
   },
+  toggleRules({ commit, state }) {
+    const showRules = !state.showRules;
+
+    commit('SHOW_RULES', showRules);
+  },
 };
 
 export default actions;
