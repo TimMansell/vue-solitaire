@@ -52,7 +52,7 @@
       </ul>
     </template>
     <template #buttons>
-      <Button @click="closeRules" data-test="close-stats-btn">Close</Button>
+      <Button @click="closeRules" data-test="close-rules-btn">Close</Button>
     </template>
   </GameOverlay>
 </template>

@@ -48,6 +48,6 @@ exports[`RulesOverlay.vue matches snapshot 1`] = `
       the foundation columns
     </li>
   </ul>
-  <button-stub data-test="close-stats-btn">Close</button-stub>
+  <button-stub data-test="close-rules-btn">Close</button-stub>
 </gameoverlay-stub>
 `;
