@@ -1,7 +1,7 @@
 <template>
   <div>
-    <GameWon v-if="isGameWon && !hasMoves" />
-    <GameLost v-if="isGameLost && !hasMoves" />
+    <GameWon v-if="isGameWon && !hasMoves" data-test="game-state-won" />
+    <GameLost v-if="isGameLost && !hasMoves" data-test="game-state-lost" />
     <GamePaused />
   </div>
 </template>

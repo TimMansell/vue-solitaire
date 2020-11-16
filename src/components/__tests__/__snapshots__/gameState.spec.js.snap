@@ -2,8 +2,8 @@
 
 exports[`GameState.vue matches snapshot 1`] = `
 <div>
-  <!---->
-  <!---->
+  <gamewon-stub data-test="game-state-won"></gamewon-stub>
+  <gamelost-stub data-test="game-state-lost"></gamelost-stub>
   <gamepaused-stub></gamepaused-stub>
 </div>
 `;

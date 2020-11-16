@@ -10,7 +10,7 @@ describe('GameState.vue', () => {
     const wrapper = shallowMount(GameState, {
       mocks,
       computed: {
-        hasMoves: () => true,
+        hasMoves: () => false,
         isGameWon: () => true,
         isGameLost: () => true,
       },
@@ -24,12 +24,12 @@ describe('GameState.vue', () => {
       mocks,
       computed: {
         hasMoves: () => true,
-        isGameWon: () => false,
+        isGameWon: () => true,
         isGameLost: () => false,
       },
     });
 
-    expect(wrapper.find('[data-test="game-won"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="game-state-won"]').exists()).toBe(false);
   });
 
   it('should not render game lost if there are moves', () => {
@@ -38,10 +38,36 @@ describe('GameState.vue', () => {
       computed: {
         hasMoves: () => true,
         isGameWon: () => false,
+        isGameLost: () => true,
+      },
+    });
+
+    expect(wrapper.find('[data-test="game-state-lost"]').exists()).toBe(false);
+  });
+
+  it('should render game won if there are no moves', () => {
+    const wrapper = shallowMount(GameState, {
+      mocks,
+      computed: {
+        hasMoves: () => false,
+        isGameWon: () => true,
         isGameLost: () => false,
       },
     });
 
-    expect(wrapper.find('[data-test="game-lost"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="game-state-won"]').exists()).toBe(true);
+  });
+
+  it('should render game lost if there are no moves', () => {
+    const wrapper = shallowMount(GameState, {
+      mocks,
+      computed: {
+        hasMoves: () => false,
+        isGameWon: () => false,
+        isGameLost: () => true,
+      },
+    });
+
+    expect(wrapper.find('[data-test="game-state-lost"]').exists()).toBe(true);
   });
 });
