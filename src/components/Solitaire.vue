@@ -13,8 +13,7 @@ import Board from '@/components/Board.vue';
 import GameState from '@/components/GameState.vue';
 import RulesOverlay from '@/components/RulesOverlay.vue';
 import StatsOverlay from '@/components/StatsOverlay.vue';
-
-// import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
+import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
@@ -37,9 +36,9 @@ export default {
       window.appReady = true;
     }
 
-    // if (process.env.NODE_ENV === 'development') {
-    //   this.setBoardAndFoundation(aces);
-    // }
+    if (process.env.NODE_ENV === 'development') {
+      this.setBoardAndFoundation(aces);
+    }
   },
   methods: {
     ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
