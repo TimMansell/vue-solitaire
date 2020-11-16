@@ -9,6 +9,7 @@ const {
   isGamePaused,
   hasMoves,
   timer,
+  showRules,
 } = getters;
 
 const state = {
@@ -28,6 +29,7 @@ const state = {
   game: {
     time: 0,
   },
+  showRules: false,
 };
 
 describe('Solitaire Store', () => {
@@ -77,5 +79,11 @@ describe('Solitaire Store', () => {
     const result = timer(state);
 
     expect(result).toEqual(state.game.time);
+  });
+
+  it('showRules', () => {
+    const result = showRules(state);
+
+    expect(result).toEqual(state.showRules);
   });
 });

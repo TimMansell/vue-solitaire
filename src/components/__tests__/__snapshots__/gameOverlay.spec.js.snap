@@ -1,23 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GameOverlay.vue does not render logo 1`] = `
+<div data-test="game-overlay" class="game-overlay">
+  <div class="game-overlay__container">
+    <div class="game-overlay__content">
+      <!---->
+      <h1 class="game-overlay__title"></h1>
+      <!---->
+      <div data-test="game-overlay-btn" class="game-overlay__btns"></div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`GameOverlay.vue matches snapshot 1`] = `
 <div data-test="game-overlay" class="game-overlay">
-  <div class="game-overlay__content">
-    <logo-stub class="game-overlay__logo"></logo-stub>
-    <h1 class="game-overlay__title"></h1>
-    <!---->
-    <div data-test="game-overlay-btn" class="game-overlay__btn"></div>
+  <div class="game-overlay__container">
+    <div class="game-overlay__content">
+      <!---->
+      <h1 class="game-overlay__title"></h1>
+      <!---->
+      <div data-test="game-overlay-btn" class="game-overlay__btns"></div>
+    </div>
   </div>
 </div>
 `;
 
 exports[`GameOverlay.vue renders text in slots 1`] = `
 <div data-test="game-overlay" class="game-overlay">
-  <div class="game-overlay__content">
-    <logo-stub class="game-overlay__logo"></logo-stub>
-    <h1 class="game-overlay__title">title</h1>
-    <div class="game-overlay__msg">msg</div>
-    <div data-test="game-overlay-btn" class="game-overlay__btn">buttons</div>
+  <div class="game-overlay__container">
+    <div class="game-overlay__content">
+      <!---->
+      <h1 class="game-overlay__title">title</h1>
+      <div class="game-overlay__msg">msg</div>
+      <div data-test="game-overlay-btn" class="game-overlay__btns">buttons</div>
+    </div>
   </div>
 </div>
 `;
