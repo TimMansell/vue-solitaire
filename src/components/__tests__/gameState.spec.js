@@ -1,5 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import GameState from '@/components/GameState.vue';
+import GameWon from '@/components/GameWon.vue';
+import GameLost from '@/components/GameLost.vue';
 
 const mocks = {
   $store: { dispatch: jest.fn() },
@@ -29,7 +31,7 @@ describe('GameState.vue', () => {
       },
     });
 
-    expect(wrapper.find('[data-test="game-state-won"]').exists()).toBe(false);
+    expect(wrapper.findComponent(GameWon).exists()).toBe(false);
   });
 
   it('should not render game lost if there are moves', () => {
@@ -42,7 +44,7 @@ describe('GameState.vue', () => {
       },
     });
 
-    expect(wrapper.find('[data-test="game-state-lost"]').exists()).toBe(false);
+    expect(wrapper.findComponent(GameLost).exists()).toBe(false);
   });
 
   it('should render game won if there are no moves', () => {
@@ -55,7 +57,7 @@ describe('GameState.vue', () => {
       },
     });
 
-    expect(wrapper.find('[data-test="game-state-won"]').exists()).toBe(true);
+    expect(wrapper.findComponent(GameWon).exists()).toBe(true);
   });
 
   it('should render game lost if there are no moves', () => {
@@ -68,6 +70,6 @@ describe('GameState.vue', () => {
       },
     });
 
-    expect(wrapper.find('[data-test="game-state-lost"]').exists()).toBe(true);
+    expect(wrapper.findComponent(GameLost).exists()).toBe(true);
   });
 });
