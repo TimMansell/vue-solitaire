@@ -67,15 +67,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['toggleStats', 'setGamePaused']),
+    ...mapActions(['toggleStats', 'setGameResumed']),
     closeStats() {
-      const isPaused = {
-        isPaused: false,
-        isActive: false,
-        showMsg: false,
-      };
-
-      this.setGamePaused(isPaused);
+      this.setGameResumed();
       this.toggleStats();
     },
   },

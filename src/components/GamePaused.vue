@@ -48,13 +48,11 @@ export default {
       if (isPaused) return;
 
       if (visibilityState === 'hidden') {
-        const isGamePaused = {
-          isPaused: true,
-          isActive: false,
+        const options = {
           showMsg: true,
         };
 
-        this.setGamePaused(isGamePaused);
+        this.setGamePaused(options);
       }
     },
   },

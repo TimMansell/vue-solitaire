@@ -61,7 +61,34 @@ const actions = {
       }
     }
   },
-  setGamePaused({ commit }, isGamePaused) {
+  setGamePaused({ commit }, options) {
+    const isGamePaused = {
+      isPaused: true,
+      isActive: false,
+      showMsg: false,
+      ...options,
+    };
+
+    commit('SET_GAME_PAUSED', isGamePaused);
+  },
+  setGameResumed({ commit }) {
+    const isGamePaused = {
+      isPaused: false,
+      isActive: false,
+      showMsg: false,
+    };
+
+    commit('SET_GAME_PAUSED', isGamePaused);
+  },
+  toggleGamePaused({ commit, state }) {
+    const { isPaused, isActive, showMsg } = state.isGamePaused;
+
+    const isGamePaused = {
+      isPaused: !isPaused,
+      isActive: !isActive,
+      showMsg: !showMsg,
+    };
+
     commit('SET_GAME_PAUSED', isGamePaused);
   },
   setFoundations({ commit }) {
