@@ -9,7 +9,7 @@
         <div class="game-overlay__msg" v-if="hasMsgSlot">
           <slot name="msg" />
         </div>
-        <div class="game-overlay__btns" data-test="game-overlay-btn">
+        <div class="game-overlay__btns" data-test="game-overlay-btns">
           <slot name="buttons" />
         </div>
       </div>

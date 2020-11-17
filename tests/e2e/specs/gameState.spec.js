@@ -77,6 +77,16 @@ describe('Game State', () => {
     });
   });
 
+  it('refreshing page on how to play shows how to play', () => {
+    cy.get('[data-test="game-rules-btn"]').click();
+
+    cy.get('[data-test="rules-overlay"]').should('be.visible');
+
+    cy.reload();
+
+    cy.get('[data-test="rules-overlay"]').should('be.visible');
+  });
+
   it('should pause when page is automatically hidden', () => {
     cy.document().then((doc) => {
       cy.stub(doc, 'visibilityState').value('hidden');
