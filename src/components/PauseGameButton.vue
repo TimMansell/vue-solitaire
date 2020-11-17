@@ -1,5 +1,5 @@
 <template>
-  <Button @click="togglePause" data-test="pause-game-btn">
+  <Button @click="toggleGamePaused" data-test="pause-game-btn">
     <span v-if="!isGamePaused.isPaused">Pause</span>
     <span v-if="isGamePaused.isPaused">Resume</span> Game
   </Button>
@@ -18,18 +18,7 @@ export default {
     ...mapGetters(['isGamePaused']),
   },
   methods: {
-    ...mapActions(['setGamePaused']),
-    togglePause() {
-      const { isPaused, isActive, showMsg } = this.isGamePaused;
-
-      const isGamePaused = {
-        isPaused: !isPaused,
-        isActive: !isActive,
-        showMsg: !showMsg,
-      };
-
-      this.setGamePaused(isGamePaused);
-    },
+    ...mapActions(['toggleGamePaused']),
   },
 };
 </script>

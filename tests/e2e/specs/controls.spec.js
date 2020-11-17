@@ -25,13 +25,13 @@ describe('Controls', () => {
   });
 
   it('it should open and close rules', () => {
-    cy.get('[data-test="game-rules"]').click();
+    cy.get('[data-test="game-rules-btn"]').click();
 
-    cy.get('[data-test="modal-content"]').should('be.visible');
+    cy.get('[data-test="rules-overlay"]').should('be.visible');
 
-    cy.get('[data-test="close-modal"]').click();
+    cy.get('[data-test="close-rules-btn"]').click();
 
-    cy.get('[data-test="modal-content"]').should('not.be.visible');
+    cy.get('[data-test="rules-overlay"]').should('not.be.visible');
   });
 
   it('should move last cards foundation and then show win screen', () => {
@@ -45,7 +45,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="game-won"]').should('be.visible');
 
-      cy.get('[data-test="game-overlay-btn"]').click();
+      cy.get('[data-test="game-overlay-btns"]').click();
 
       cy.get('[data-test="game-won"]').should('not.be.visible');
 
@@ -59,7 +59,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="game-paused"]').should('be.visible');
 
-      cy.get('[data-test="game-overlay-btn"]').within(() => {
+      cy.get('[data-test="game-overlay-btns"]').within(() => {
         cy.get('[data-test="pause-game-btn"]').click();
       });
 

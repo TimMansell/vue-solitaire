@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GameWon.vue matches snapshot 1`] = `
-<gameoverlay-stub data-test="game-won"> Congratulations, you win! <newgamebutton-stub completed="true"></newgamebutton-stub>
+<gameoverlay-stub centercontent="true" showlogo="true" data-test="game-won"> Congratulations, you win! <newgamebutton-stub completed="true"></newgamebutton-stub>
 </gameoverlay-stub>
 `;

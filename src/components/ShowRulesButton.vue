@@ -1,10 +1,11 @@
 <template>
-  <Button @click="showRules" data-test="game-rules">
+  <Button @click="showRules" data-test="game-rules-btn">
     How to play
   </Button>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -13,8 +14,10 @@ export default {
     Button,
   },
   methods: {
+    ...mapActions(['toggleRules', 'setGamePaused']),
     showRules() {
-      this.$modal.show('modal');
+      this.setGamePaused();
+      this.toggleRules();
     },
   },
 };

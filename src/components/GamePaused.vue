@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt v-if="showOverlay" data-test="game-paused">
+  <GameOverlay center-content show-logo alt v-if="showOverlay" data-test="game-paused">
     <template #title>Game Paused</template>
     <template #msg v-if="!isGamePaused.isActive">
       Your game has been paused due to inactivity
@@ -48,13 +48,11 @@ export default {
       if (isPaused) return;
 
       if (visibilityState === 'hidden') {
-        const isGamePaused = {
-          isPaused: true,
-          isActive: false,
+        const options = {
           showMsg: true,
         };
 
-        this.setGamePaused(isGamePaused);
+        this.setGamePaused(options);
       }
     },
   },
