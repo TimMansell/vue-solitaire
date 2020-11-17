@@ -73,7 +73,7 @@ describe('No moves', () => {
 
       cy.get('[data-test="game-lost"]').should('be.visible');
 
-      cy.get('[data-test="game-overlay-btn"]').click();
+      cy.get('[data-test="game-overlay-btns"]').click();
 
       cy.get('[data-test="game-lost"]').should('not.be.visible');
     });

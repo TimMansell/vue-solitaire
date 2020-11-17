@@ -45,7 +45,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="game-won"]').should('be.visible');
 
-      cy.get('[data-test="game-overlay-btn"]').click();
+      cy.get('[data-test="game-overlay-btns"]').click();
 
       cy.get('[data-test="game-won"]').should('not.be.visible');
 
@@ -59,7 +59,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="game-paused"]').should('be.visible');
 
-      cy.get('[data-test="game-overlay-btn"]').within(() => {
+      cy.get('[data-test="game-overlay-btns"]').within(() => {
         cy.get('[data-test="pause-game-btn"]').click();
       });
 
