@@ -14,6 +14,7 @@
       :id="id"
       :value="value"
       :suit="suit"
+      :width="width"
       v-show="visible && !bottomCard"
       data-test="card-default"
     />
@@ -22,11 +23,12 @@
       :id="id"
       :value="value"
       :suit="suit"
+      :width="width"
       v-show="visible && bottomCard"
       data-test="card-bottom"
     />
 
-    <CardPlaceholder v-show="!visible" data-test="card-hidden" />
+    <CardPlaceholder :width="width" v-show="!visible" data-test="card-hidden" />
   </div>
 </template>
 
@@ -77,6 +79,11 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      width: 0,
+    };
+  },
   computed: {
     ...mapGetters(['selectedCardId']),
     classes() {
@@ -108,6 +115,11 @@ export default {
 
       return '';
     },
+  },
+  mounted() {
+    const { card } = this.$refs;
+
+    this.width = card.offsetWidth;
   },
   methods: {
     ...mapActions(['setCard']),

@@ -1,5 +1,7 @@
 <template>
-  <SvgIcon :class="classes" data-test="card-placeholder" name="Card_back_17" />
+  <div ref="card">
+    <SvgIcon :width="width" :class="classes" data-test="card-placeholder" name="Card_back_17" />
+  </div>
 </template>
 
 <script>
@@ -9,6 +11,11 @@ export default {
   name: 'CardPlaceholder',
   components: {
     SvgIcon,
+  },
+  data() {
+    return {
+      width: 0,
+    };
   },
   props: {
     seeThrough: {
@@ -24,6 +31,11 @@ export default {
         'card-placeholder': seeThrough,
       };
     },
+  },
+  mounted() {
+    const { card } = this.$refs;
+
+    this.width = card.offsetWidth;
   },
 };
 </script>

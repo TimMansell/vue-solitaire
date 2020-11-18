@@ -1,5 +1,5 @@
 <template>
-  <SvgIcon :name="cardName" />
+  <SvgIcon :name="cardName" :width="width" />
 </template>
 
 <script>
@@ -18,6 +18,10 @@ export default {
     suit: {
       type: String,
       default: 'c',
+    },
+    width: {
+      type: Number,
+      default: 0,
     },
   },
   computed: {
