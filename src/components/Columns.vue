@@ -21,13 +21,10 @@ export default {
 
 <style scoped lang="scss">
 .columns {
-  display: flex;
-  margin-left: calc(var(--col-padding) * -1);
-  margin-right: calc(var(--col-padding) * -1);
-
-  @media (min-width: $bp-md) {
-    margin-left: calc(var(--col-padding-lg) * -1);
-    margin-right: calc(var(--col-padding-lg) * -1);
-  }
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-auto-flow: column;
+  margin-left: calc(var(--pd-sm) * -1);
+  margin-right: calc(var(--pd-sm) * -1);
 }
 </style>

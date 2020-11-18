@@ -53,15 +53,15 @@ export default {
 
 <style scoped lang="scss">
 .foundation {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 4fr;
+  grid-auto-flow: column;
   margin-bottom: var(--mg-sm);
-  margin-left: calc(var(--col-padding) * -1);
-  margin-right: calc(var(--col-padding) * -1);
+  margin-left: calc(var(--pd-sm) * -1);
+  margin-right: calc(var(--pd-sm) * -1);
 
   @media (min-width: $bp-md) {
     margin-bottom: var(--mg-md);
-    margin-left: calc(var(--col-padding-lg) * -1);
-    margin-right: calc(var(--col-padding-lg) * -1);
   }
 
   &__column {
