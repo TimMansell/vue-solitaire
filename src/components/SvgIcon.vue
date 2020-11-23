@@ -1,5 +1,5 @@
 <template>
-  <svg :class="className" :style="styles" xmlns="http://www.w3.org/2000/svg">
+  <svg :class="className" :style="styles" xmlns="http://www.w3.org/2000/svg" ref="card">
     <title v-if="title">{{ title }}</title>
     <use :xlink:href="iconPath" xmlns:xlink="http://www.w3.org/1999/xlink" />
   </svg>
@@ -17,10 +17,11 @@ export default {
       type: String,
       default: null,
     },
-    width: {
-      type: Number,
-      default: 100,
-    },
+  },
+  data() {
+    return {
+      width: 0,
+    };
   },
   computed: {
     iconPath() {
@@ -37,12 +38,21 @@ export default {
     },
     styles() {
       const { width } = this;
+      const height = width * 1.4;
 
       return {
-        width,
-        height: width * 1.4,
+        width: `${width}px`,
+        height: `${height}px`,
       };
     },
+  },
+  mounted() {
+    const { card } = this.$refs;
+    const {
+      parentNode: { clientWidth },
+    } = card;
+
+    this.width = clientWidth;
   },
 };
 </script>
