@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StatsOverlay.vue matches snapshot 1`] = `
-<gameoverlay-stub alt="true" data-test="stats-overlay"> Stats <p>Showing stats for completed games:</p>
+<gameoverlay-stub alt="true" centercontent="true" showlogo="true" data-test="stats-overlay"> Stats <p>Showing stats for completed games:</p>
   <div>Played: <counter-stub number="9"></counter-stub>
   </div>
   <div>Won: <counter-stub number="2"></counter-stub> (22.22%)</div>

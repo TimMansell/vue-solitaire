@@ -11,6 +11,7 @@ describe('Solitaire.vue', () => {
       mocks,
       computed: {
         showStats: () => true,
+        showRules: () => true,
       },
     });
 
@@ -22,20 +23,46 @@ describe('Solitaire.vue', () => {
       mocks,
       computed: {
         showStats: () => true,
+        showRules: () => false,
       },
     });
 
     expect(wrapper.find('[data-test="stats-overlay"]').exists()).toBe(true);
   });
 
-  it('does not shows stats overlay', () => {
+  it('does not show stats overlay', () => {
     const wrapper = shallowMount(Solitaire, {
       mocks,
       computed: {
         showStats: () => false,
+        showRules: () => false,
       },
     });
 
     expect(wrapper.find('[data-test="stats-overlay"]').exists()).toBe(false);
+  });
+
+  it('shows rules overlay', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        showStats: () => false,
+        showRules: () => true,
+      },
+    });
+
+    expect(wrapper.find('[data-test="rules-overlay"]').exists()).toBe(true);
+  });
+
+  it('does not show rules overlay', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        showStats: () => false,
+        showRules: () => false,
+      },
+    });
+
+    expect(wrapper.find('[data-test="rules-overlay"]').exists()).toBe(false);
   });
 });

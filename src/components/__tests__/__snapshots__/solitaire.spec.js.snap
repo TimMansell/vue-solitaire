@@ -4,7 +4,7 @@ exports[`Solitaire.vue matches snapshot 1`] = `
 <div class="solitaire">
   <board-stub></board-stub>
   <gamestate-stub></gamestate-stub>
-  <rules-stub></rules-stub>
+  <rulesoverlay-stub data-test="rules-overlay"></rulesoverlay-stub>
   <statsoverlay-stub data-test="stats-overlay"></statsoverlay-stub>
 </div>
 `;

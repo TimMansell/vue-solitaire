@@ -48,7 +48,7 @@ describe('Stats', () => {
         cy.get('[data-test="stats"]').then(($stats) => {
           const number = $stats.text();
 
-          cy.get('[data-test="game-overlay-btn"]').click();
+          cy.get('[data-test="game-overlay-btns"]').click();
 
           cy.get('[data-test="stats"]').should('not.equal', number);
         });
@@ -63,7 +63,7 @@ describe('Stats', () => {
         cy.get('[data-test="stats"]').then(($stats) => {
           const number = $stats.text();
 
-          cy.get('[data-test="game-overlay-btn"]').click();
+          cy.get('[data-test="game-overlay-btns"]').click();
 
           cy.get('[data-test="stats"]').should('not.equal', number);
         });
@@ -136,7 +136,7 @@ describe('Stats', () => {
         cy.get('[data-test="global-stats"]').then(($stats) => {
           const number = $stats.text();
 
-          cy.get('[data-test="game-overlay-btn"]').click();
+          cy.get('[data-test="game-overlay-btns"]').click();
 
           cy.get('[data-test="global-stats"]').should('not.equal', number);
         });
@@ -151,7 +151,7 @@ describe('Stats', () => {
         cy.get('[data-test="global-stats"]').then(($stats) => {
           const number = $stats.text();
 
-          cy.get('[data-test="game-overlay-btn"]').click();
+          cy.get('[data-test="game-overlay-btns"]').click();
 
           cy.get('[data-test="global-stats"]').should('not.equal', number);
         });

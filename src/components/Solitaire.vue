@@ -2,7 +2,7 @@
   <div class="solitaire">
     <Board />
     <GameState />
-    <Rules />
+    <RulesOverlay v-if="showRules" data-test="rules-overlay" />
     <StatsOverlay v-if="showStats" data-test="stats-overlay" />
   </div>
 </template>
@@ -11,9 +11,8 @@
 import { mapGetters, mapActions } from 'vuex';
 import Board from '@/components/Board.vue';
 import GameState from '@/components/GameState.vue';
-import Rules from '@/components/Rules.vue';
+import RulesOverlay from '@/components/RulesOverlay.vue';
 import StatsOverlay from '@/components/StatsOverlay.vue';
-
 // import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
@@ -21,11 +20,11 @@ export default {
   components: {
     Board,
     GameState,
-    Rules,
+    RulesOverlay,
     StatsOverlay,
   },
   computed: {
-    ...mapGetters(['showStats']),
+    ...mapGetters(['showStats', 'showRules']),
   },
   async created() {
     await this.initUser();

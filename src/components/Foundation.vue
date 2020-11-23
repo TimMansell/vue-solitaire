@@ -53,24 +53,26 @@ export default {
 
 <style scoped lang="scss">
 .foundation {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 4fr;
+  grid-auto-flow: column;
   margin-bottom: var(--mg-sm);
-  margin-left: calc(var(--col-padding) * -1);
-  margin-right: calc(var(--col-padding) * -1);
+  padding-left: var(--pd-xs);
+  padding-right: var(--pd-xs);
 
   @media (min-width: $bp-md) {
+    padding-left: 0;
+    padding-right: 0;
     margin-bottom: var(--mg-md);
-    margin-left: calc(var(--col-padding-lg) * -1);
-    margin-right: calc(var(--col-padding-lg) * -1);
   }
 
   &__column {
-    padding-left: var(--col-padding);
-    padding-right: var(--col-padding);
+    padding-left: var(--pd-xs);
+    padding-right: var(--pd-xs);
 
-    @media (min-width: $bp-md) {
-      padding-left: var(--col-padding-lg);
-      padding-right: var(--col-padding-lg);
+    @media (min-width: $bp-lg) {
+      padding-left: var(--pd-sm);
+      padding-right: var(--pd-sm);
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <svg :class="className" xmlns="http://www.w3.org/2000/svg">
+  <svg :class="className" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 140">
     <title v-if="title">{{ title }}</title>
     <use :xlink:href="iconPath" xmlns:xlink="http://www.w3.org/1999/xlink" />
   </svg>
@@ -37,28 +37,6 @@ export default {
 
 <style lang="scss">
 .svg-icon {
-  fill: currentColor;
-  height: var(--card-height);
-  width: var(--card-width);
-
-  @media (min-width: $bp-sm) {
-    height: var(--card-height-sm);
-    width: var(--card-width-sm);
-  }
-
-  @media (min-width: $bp-md) {
-    height: var(--card-height-md);
-    width: var(--card-width-md);
-  }
-
-  @media (min-width: $bp-lg) {
-    height: var(--card-height-lg);
-    width: var(--card-width-lg);
-  }
-
-  @media (min-width: $bp-xl) {
-    height: var(--card-height-xl);
-    width: var(--card-width-xl);
-  }
+  width: 100%;
 }
 </style>

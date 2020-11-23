@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay v-if="isGameWon && !hasMoves" data-test="game-won">
+  <GameOverlay center-content show-logo data-test="game-won">
     <template #title> Congratulations, you win! </template>
     <template #buttons>
       <NewGameButton completed />
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import NewGameButton from './NewGameButton.vue';
 
@@ -18,8 +18,11 @@ export default {
     GameOverlay,
     NewGameButton,
   },
-  computed: {
-    ...mapGetters(['isGameWon', 'hasMoves']),
+  mounted() {
+    this.setGamePaused();
+  },
+  methods: {
+    ...mapActions(['setGamePaused']),
   },
 };
 </script>

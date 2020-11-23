@@ -14,6 +14,7 @@ const {
   SET_HAS_MOVES,
   INCREMENT_MOVES,
   UPDATE_GAME_TIME,
+  SHOW_RULES,
 } = mutations;
 
 describe('Solitaire Store', () => {
@@ -39,6 +40,7 @@ describe('Solitaire Store', () => {
         moves: 0,
         time: 0,
       },
+      showRules: false,
     };
   });
 
@@ -126,5 +128,11 @@ describe('Solitaire Store', () => {
     UPDATE_GAME_TIME(state);
 
     expect(state.game.time).toEqual(1);
+  });
+
+  it('SHOW_RULES', () => {
+    SHOW_RULES(state, true);
+
+    expect(state.showRules).toEqual(true);
   });
 });

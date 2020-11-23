@@ -6,12 +6,15 @@ const {
   trackNewGame,
   checkGameState,
   setGamePaused,
+  setGameResumed,
+  toggleGamePaused,
   setFoundations,
   setBoard,
   setCard,
   moveCardsToColumn,
   moveCardToFoundation,
   autoMoveCardToFoundation,
+  toggleRules,
 } = actions;
 
 const commit = jest.fn();
@@ -114,9 +117,51 @@ describe('Solitaire Store', () => {
   });
 
   it('setGamePaused', () => {
-    setGamePaused({ commit }, 1);
+    const options = {
+      showMsg: true,
+    };
 
-    expect(commit).toHaveBeenCalledWith('SET_GAME_PAUSED', 1);
+    const result = {
+      isPaused: true,
+      isActive: false,
+      showMsg: true,
+    };
+
+    setGamePaused({ commit }, options);
+
+    expect(commit).toHaveBeenCalledWith('SET_GAME_PAUSED', result);
+  });
+
+  it('setGameResumed', () => {
+    const result = {
+      isPaused: false,
+      isActive: false,
+      showMsg: false,
+    };
+
+    setGameResumed({ commit });
+
+    expect(commit).toHaveBeenCalledWith('SET_GAME_PAUSED', result);
+  });
+
+  it('toggleGamePaused', () => {
+    const state = {
+      isGamePaused: {
+        isPaused: false,
+        isActive: false,
+        showMsg: false,
+      },
+    };
+
+    const result = {
+      isPaused: true,
+      isActive: true,
+      showMsg: true,
+    };
+
+    toggleGamePaused({ commit, state });
+
+    expect(commit).toHaveBeenCalledWith('SET_GAME_PAUSED', result);
   });
 
   it('setFoundations', () => {
@@ -174,5 +219,15 @@ describe('Solitaire Store', () => {
     autoMoveCardToFoundation({ dispatch });
 
     expect(dispatch).toHaveBeenCalledWith('moveCardToFoundation', 0);
+  });
+
+  it('toggleRules', () => {
+    const state = {
+      showRules: false,
+    };
+
+    toggleRules({ commit, state });
+
+    expect(commit).toHaveBeenCalledWith('SHOW_RULES', true);
   });
 });

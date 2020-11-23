@@ -1,15 +1,17 @@
 <template>
   <div class="game-overlay" :class="classes" data-test="game-overlay">
-    <div class="game-overlay__content">
-      <Logo class="game-overlay__logo" />
-      <h1 class="game-overlay__title">
-        <slot name="title" />
-      </h1>
-      <div class="game-overlay__msg" v-if="hasMsgSlot">
-        <slot name="msg" />
-      </div>
-      <div class="game-overlay__btn" data-test="game-overlay-btn">
-        <slot name="buttons" />
+    <div class="game-overlay__container">
+      <div class="game-overlay__content">
+        <Logo class="game-overlay__logo" v-if="showLogo" />
+        <h1 class="game-overlay__title">
+          <slot name="title" />
+        </h1>
+        <div class="game-overlay__msg" v-if="hasMsgSlot">
+          <slot name="msg" />
+        </div>
+        <div class="game-overlay__btns" data-test="game-overlay-btns">
+          <slot name="buttons" />
+        </div>
       </div>
     </div>
   </div>
@@ -28,13 +30,22 @@ export default {
       type: Boolean,
       default: false,
     },
+    centerContent: {
+      type: Boolean,
+      default: false,
+    },
+    showLogo: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
-      const { alt } = this;
+      const { alt, centerContent } = this;
 
       return {
         'game-overlay--alt': alt,
+        'game-overlay--centered': centerContent,
       };
     },
     hasMsgSlot() {
@@ -46,9 +57,8 @@ export default {
 
 <style lang="scss" scoped>
 .game-overlay {
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: center;
   position: fixed;
   left: 0;
   top: 0;
@@ -56,19 +66,29 @@ export default {
   height: 100vh;
   background: rgba($col-tertiary, 0.7);
   z-index: var(--z-overlay);
-  text-align: center;
+  overflow-y: auto;
 
   &--alt {
     background: var(--bg-primary) url('~@/assets/felt.png') repeat;
   }
 
-  &__logo {
-    width: 100px;
+  &--centered {
+    text-align: center;
+  }
+
+  &__container {
+    justify-self: center;
 
     @media (min-width: $bp-md) {
-      width: 150px;
+      width: 80%;
     }
 
+    @media (min-width: $bp-xl) {
+      width: 40%;
+    }
+  }
+
+  &__logo {
     @media (orientation: landscape) and (pointer: coarse) {
       display: none;
     }
@@ -79,11 +99,7 @@ export default {
   }
 
   &__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-left: var(--pd-lg);
-    padding-right: var(--pd-lg);
+    padding: var(--pd-lg);
   }
 
   &__title {
@@ -95,6 +111,11 @@ export default {
     color: var(--text-primary);
     text-shadow: -1px -1px rgba($col-tertiary, 0.3);
     margin-bottom: var(--mg-md);
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

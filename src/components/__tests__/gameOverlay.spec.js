@@ -8,6 +8,16 @@ describe('GameOverlay.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('does not render logo', () => {
+    const wrapper = shallowMount(GameOverlay, {
+      propsData: {
+        showLogo: false,
+      },
+    });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders an alternate overlay class', () => {
     const wrapper = shallowMount(GameOverlay, {
       propsData: {
@@ -16,6 +26,16 @@ describe('GameOverlay.vue', () => {
     });
 
     expect(wrapper.classes()).toContain('game-overlay--alt');
+  });
+
+  it('renders an center content class', () => {
+    const wrapper = shallowMount(GameOverlay, {
+      propsData: {
+        centerContent: true,
+      },
+    });
+
+    expect(wrapper.classes()).toContain('game-overlay--centered');
   });
 
   it('renders text in slots', () => {

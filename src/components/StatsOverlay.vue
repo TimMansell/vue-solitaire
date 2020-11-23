@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt data-test="stats-overlay">
+  <GameOverlay alt center-content show-logo data-test="stats-overlay">
     <template #title> Stats </template>
     <template #msg>
       <p>Showing stats for completed games:</p>
@@ -67,15 +67,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['toggleStats', 'setGamePaused']),
+    ...mapActions(['toggleStats', 'setGameResumed']),
     closeStats() {
-      const isPaused = {
-        isPaused: false,
-        isActive: false,
-        showMsg: false,
-      };
-
-      this.setGamePaused(isPaused);
+      this.setGameResumed();
       this.toggleStats();
     },
   },
