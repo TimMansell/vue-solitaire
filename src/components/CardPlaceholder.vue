@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <SvgIcon :class="classes" data-test="card-placeholder" name="Card_back_17" />
+  <div :class="classes">
+    <SvgIcon data-test="card-placeholder" name="Card_back_17" />
   </div>
 </template>
 
