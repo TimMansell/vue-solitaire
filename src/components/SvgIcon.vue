@@ -1,5 +1,5 @@
 <template>
-  <svg :class="className" :style="styles" xmlns="http://www.w3.org/2000/svg" ref="card">
+  <svg :class="className" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 140">
     <title v-if="title">{{ title }}</title>
     <use :xlink:href="iconPath" xmlns:xlink="http://www.w3.org/1999/xlink" />
   </svg>
@@ -18,11 +18,6 @@ export default {
       default: null,
     },
   },
-  data() {
-    return {
-      width: 0,
-    };
-  },
   computed: {
     iconPath() {
       // eslint-disable-next-line global-require, import/no-dynamic-require
@@ -36,29 +31,12 @@ export default {
     className() {
       return `svg-icon svg-icon--${this.name}`;
     },
-    styles() {
-      const { width } = this;
-      const height = width * 1.4;
-
-      return {
-        width: `${width}px`,
-        height: `${height}px`,
-      };
-    },
-  },
-  mounted() {
-    const { card } = this.$refs;
-    const {
-      parentNode: { clientWidth },
-    } = card;
-
-    this.width = clientWidth;
   },
 };
 </script>
 
 <style lang="scss">
 .svg-icon {
-  fill: currentColor;
+  width: 100%;
 }
 </style>

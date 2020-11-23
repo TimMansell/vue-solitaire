@@ -163,23 +163,7 @@ export default {
   position: relative;
 
   &:nth-of-type(n + 2) {
-    margin-top: calc(var(--card-height) * var(--card-spacer) * -1);
-
-    @media (min-width: $bp-sm) {
-      margin-top: calc(var(--card-height-sm) * var(--card-spacer) * -1);
-    }
-
-    @media (min-width: $bp-md) {
-      margin-top: calc(var(--card-height-md) * var(--card-spacer) * -1);
-    }
-
-    @media (min-width: $bp-lg) {
-      margin-top: calc(var(--card-height-lg) * var(--card-spacer) * -1);
-    }
-
-    @media (min-width: $bp-xl) {
-      margin-top: calc(var(--card-height-xl) * var(--card-spacer) * -1);
-    }
+    margin-top: -110%;
   }
 
   &::before {
@@ -201,23 +185,7 @@ export default {
 
   &--is-stacked {
     &:nth-of-type(n + 2) {
-      margin-top: calc(var(--card-height) * -1);
-
-      @media (min-width: $bp-sm) {
-        margin-top: calc(var(--card-height-sm) * -1);
-      }
-
-      @media (min-width: $bp-md) {
-        margin-top: calc(var(--card-height-md) * -1);
-      }
-
-      @media (min-width: $bp-lg) {
-        margin-top: calc(var(--card-height-lg) * -1);
-      }
-
-      @media (min-width: $bp-xl) {
-        margin-top: calc(var(--card-height-xl) * -1);
-      }
+      margin-top: -140%;
     }
   }
 
