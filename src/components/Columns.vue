@@ -24,7 +24,12 @@ export default {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-auto-flow: column;
-  margin-left: calc(var(--pd-sm) * -1);
-  margin-right: calc(var(--pd-sm) * -1);
+  padding-left: var(--pd-xs);
+  padding-right: var(--pd-xs);
+
+  @media (min-width: $bp-lg) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 </style>

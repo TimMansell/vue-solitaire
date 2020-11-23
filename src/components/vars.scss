@@ -50,6 +50,7 @@ $bp-xl: 1366px;
   --mg-lg: calc(var(--vr) * 2);
 
   // Padding.
+  --pd-xs: calc(var(--vr) / 4);
   --pd-sm: calc(var(--vr) / 2);
   --pd-md: var(--vr);
   --pd-lg: calc(var(--vr) * 2);
