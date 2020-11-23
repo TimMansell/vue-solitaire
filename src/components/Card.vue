@@ -132,19 +132,25 @@ export default {
       this.setCard(id);
     },
     cloneCards() {
+      const { card } = this.$refs;
       const clonedElement = document.createElement('div');
-      clonedElement.id = 'cloned-card';
-      clonedElement.style.marginLeft = '-2000px';
-      clonedElement.style.marginTop = '-2000px';
+      const styles = {
+        width: `${card.clientWidth}px`,
+        marginLeft: '-2000px',
+        marginTop: '-2000px',
+      };
+
+      Object.assign(clonedElement.style, styles);
+      Object.assign(clonedElement.id, 'cloned-card');
 
       // Find cards below selected card.
-      const siblingCards = [...this.$refs.card.parentElement.children];
-      const selectedCard = siblingCards.findIndex((card) => card === this.$refs.card);
+      const siblingCards = [...card.parentElement.children];
+      const selectedCard = siblingCards.findIndex((siblingCard) => siblingCard === card);
       const clonedCards = siblingCards.slice(selectedCard);
 
-      clonedCards.forEach((card) => {
-        card.classList.add('card--is-cloned');
-        clonedElement.appendChild(card.cloneNode(true));
+      clonedCards.forEach((clonedCard) => {
+        clonedCard.classList.add('card--is-cloned');
+        clonedElement.appendChild(clonedCard.cloneNode(true));
       });
 
       document.body.appendChild(clonedElement);
@@ -163,23 +169,7 @@ export default {
   position: relative;
 
   &:nth-of-type(n + 2) {
-    margin-top: calc(var(--card-height) * var(--card-spacer) * -1);
-
-    @media (min-width: $bp-sm) {
-      margin-top: calc(var(--card-height-sm) * var(--card-spacer) * -1);
-    }
-
-    @media (min-width: $bp-md) {
-      margin-top: calc(var(--card-height-md) * var(--card-spacer) * -1);
-    }
-
-    @media (min-width: $bp-lg) {
-      margin-top: calc(var(--card-height-lg) * var(--card-spacer) * -1);
-    }
-
-    @media (min-width: $bp-xl) {
-      margin-top: calc(var(--card-height-xl) * var(--card-spacer) * -1);
-    }
+    margin-top: -110%;
   }
 
   &::before {
@@ -201,23 +191,7 @@ export default {
 
   &--is-stacked {
     &:nth-of-type(n + 2) {
-      margin-top: calc(var(--card-height) * -1);
-
-      @media (min-width: $bp-sm) {
-        margin-top: calc(var(--card-height-sm) * -1);
-      }
-
-      @media (min-width: $bp-md) {
-        margin-top: calc(var(--card-height-md) * -1);
-      }
-
-      @media (min-width: $bp-lg) {
-        margin-top: calc(var(--card-height-lg) * -1);
-      }
-
-      @media (min-width: $bp-xl) {
-        margin-top: calc(var(--card-height-xl) * -1);
-      }
+      margin-top: -140%;
     }
   }
 
