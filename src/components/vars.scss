@@ -33,10 +33,6 @@ $bp-xl: 1366px;
   // Text colours.
   --text-primary: var(--col-secondary);
 
-  // Column padding.
-  --col-padding: 0.2rem;
-  --col-padding-lg: 0.5rem;
-
   // Borders
   --bdr-primary: var(--col-secondary);
   --bdr-secondary: var(--col-tertiary);
@@ -62,21 +58,4 @@ $bp-xl: 1366px;
   --z-default: 1;
   --z-below: -1;
   --z-bottomless-pit: -9000;
-
-  // Cards
-  --card-width: 33px;
-  --card-height: calc(var(--card-width) * 1.4);
-  --card-spacer: 0.78;
-  --card-sm-multiplier: 1.5;
-  --card-width-sm: calc(var(--card-width) * var(--card-sm-multiplier));
-  --card-height-sm: calc(var(--card-height) * var(--card-sm-multiplier));
-  --card-md-multiplier: 2.25;
-  --card-width-md: calc(var(--card-width) * var(--card-md-multiplier));
-  --card-height-md: calc(var(--card-height) * var(--card-md-multiplier));
-  --card-lg-multiplier: 3.25;
-  --card-width-lg: calc(var(--card-width) * var(--card-lg-multiplier));
-  --card-height-lg: calc(var(--card-height) * var(--card-lg-multiplier));
-  --card-xl-multiplier: 4.25;
-  --card-width-xl: calc(var(--card-width) * var(--card-xl-multiplier));
-  --card-height-xl: calc(var(--card-height) * var(--card-xl-multiplier));
 }
