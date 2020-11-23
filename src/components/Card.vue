@@ -132,19 +132,25 @@ export default {
       this.setCard(id);
     },
     cloneCards() {
+      const { card } = this.$refs;
       const clonedElement = document.createElement('div');
-      clonedElement.id = 'cloned-card';
-      clonedElement.style.marginLeft = '-2000px';
-      clonedElement.style.marginTop = '-2000px';
+      const styles = {
+        width: `${card.clientWidth}px`,
+        marginLeft: '-2000px',
+        marginTop: '-2000px',
+      };
+
+      Object.assign(clonedElement.style, styles);
+      Object.assign(clonedElement.id, 'cloned-card');
 
       // Find cards below selected card.
-      const siblingCards = [...this.$refs.card.parentElement.children];
-      const selectedCard = siblingCards.findIndex((card) => card === this.$refs.card);
+      const siblingCards = [...card.parentElement.children];
+      const selectedCard = siblingCards.findIndex((siblingCard) => siblingCard === card);
       const clonedCards = siblingCards.slice(selectedCard);
 
-      clonedCards.forEach((card) => {
-        card.classList.add('card--is-cloned');
-        clonedElement.appendChild(card.cloneNode(true));
+      clonedCards.forEach((clonedCard) => {
+        clonedCard.classList.add('card--is-cloned');
+        clonedElement.appendChild(clonedCard.cloneNode(true));
       });
 
       document.body.appendChild(clonedElement);
