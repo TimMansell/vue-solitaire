@@ -1,6 +1,6 @@
 import mutations from '../mutations';
 
-const { SET_GLOBAL_STATS, SET_FULL_STATS, SHOW_STATS } = mutations;
+const { SET_GLOBAL_STATS, SET_USER_STATS, SET_FULL_STATS, SHOW_STATS } = mutations;
 
 describe('Stats', () => {
   it('SET_GLOBAL_STATS', () => {
@@ -10,6 +10,15 @@ describe('Stats', () => {
     SET_GLOBAL_STATS(state, globalStats);
 
     expect(state.globalStats).toEqual(globalStats);
+  });
+
+  it('SET_USER_STATS', () => {
+    const userStats = { count: 1 };
+    const state = { userStats };
+
+    SET_USER_STATS(state, userStats);
+
+    expect(state.userStats).toEqual(userStats);
   });
 
   it('SET_FULL_STATS', () => {
