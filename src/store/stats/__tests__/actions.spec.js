@@ -17,14 +17,14 @@ describe('Stats', () => {
   it('getGlobalStatsCount', async () => {
     await getGlobalStatsCount({ commit });
 
-    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_STATS_COUNT', mockStatsResult);
+    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_STATS', mockStatsResult);
   });
 
   it('getGlobalStats', async () => {
     await getGlobalStats({ commit });
 
     expect(commit).toHaveBeenCalledWith('SET_FULL_STATS', mockStatsResult);
-    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_STATS_COUNT', mockStatsResult);
+    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_STATS', mockStatsResult);
   });
 
   it('getUserStats', async () => {

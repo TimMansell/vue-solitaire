@@ -1,6 +1,6 @@
 import getters from '../getters';
 
-const { luid, suid, userStats } = getters;
+const { luid, suid } = getters;
 
 const state = {
   luid: 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7',
@@ -21,11 +21,5 @@ describe('User', () => {
     const result = suid(state);
 
     expect(result).toEqual(state.suid);
-  });
-
-  it('userStats', () => {
-    const result = userStats(state);
-
-    expect(result).toEqual(state.userStats);
   });
 });
