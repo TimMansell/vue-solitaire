@@ -3,6 +3,9 @@ const state = () => ({
   globalStats: {
     count: 0,
   },
+  userStats: {
+    count: 0,
+  },
   fullStats: {
     count: 0,
     won: 0,

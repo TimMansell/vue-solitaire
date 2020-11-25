@@ -2,9 +2,6 @@
 const state = () => ({
   luid: null,
   suid: null,
-  userStats: {
-    totalGames: null,
-  },
 });
 
 export default state;

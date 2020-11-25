@@ -1,6 +1,5 @@
 import { checkLocalUser, getLocalUserID, setLocalUserID } from './localUser';
 import { checkServerUser, getServerUserID, setServerUserID } from './serverUser';
-import { checkLocalStats, getLocalStats, setLocalStats } from './stats';
 
 export const getLocalUser = () => {
   const userExists = checkLocalUser();
@@ -17,13 +16,3 @@ export const getServerUser = async (luid) => {
 
   return suid;
 };
-
-export const getUserStats = () => {
-  const isStatsSaved = checkLocalStats();
-
-  const stats = isStatsSaved ? getLocalStats() : {};
-
-  return stats;
-};
-
-export const setUserStats = (stats) => setLocalStats(stats);
