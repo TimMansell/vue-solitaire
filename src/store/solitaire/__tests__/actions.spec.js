@@ -22,7 +22,6 @@ const dispatch = jest.fn();
 
 const mockResponse = {
   _id: 123,
-  gameNumber: 2,
 };
 
 jest.mock('@/services/solitaire', () => ({
@@ -97,7 +96,6 @@ describe('Solitaire Store', () => {
 
     await trackNewGame({ commit, dispatch, rootState });
 
-    expect(dispatch).toHaveBeenCalledWith('setUserStats', { gameNumber: mockResponse.gameNumber });
     // eslint-disable-next-line no-underscore-dangle
     expect(commit).toHaveBeenCalledWith('SET_GAME', { id: mockResponse._id });
   });

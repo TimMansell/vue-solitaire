@@ -1,4 +1,10 @@
-import { getAUser, getUserStats, getGlobalStats } from '../queries';
+import {
+  getAUser,
+  getUserStats,
+  getUserStatsCount,
+  getGlobalStats,
+  getGlobalStatsCount,
+} from '../queries';
 
 jest.mock('../apollo', () => ({
   query: () => ({
@@ -29,8 +35,26 @@ describe('DB service queries', () => {
     });
   });
 
+  it('getUserStatsCount', async () => {
+    const result = await getUserStatsCount(1);
+
+    expect(result).toEqual({
+      error: false,
+      response: 1,
+    });
+  });
+
   it('getGlobalStats', async () => {
     const result = await getGlobalStats();
+
+    expect(result).toEqual({
+      error: false,
+      response: 1,
+    });
+  });
+
+  it('getGlobalStatsCount', async () => {
+    const result = await getGlobalStatsCount();
 
     expect(result).toEqual({
       error: false,

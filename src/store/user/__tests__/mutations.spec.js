@@ -1,6 +1,6 @@
 import mutations from '../mutations';
 
-const { SET_USER_ID, SET_USER_SID, SET_USER_GAME_STATS } = mutations;
+const { SET_USER_ID, SET_USER_SID } = mutations;
 
 describe('User', () => {
   it('SET_USER_ID', () => {
@@ -19,16 +19,5 @@ describe('User', () => {
     SET_USER_SID(state, suid);
 
     expect(state.suid).toEqual(suid);
-  });
-
-  it('SET_USER_GAME_STATS', () => {
-    const userStats = {
-      gameNumber: 1,
-    };
-    const state = { userStats };
-
-    SET_USER_GAME_STATS(state, userStats);
-
-    expect(state.userStats).toEqual(userStats);
   });
 });

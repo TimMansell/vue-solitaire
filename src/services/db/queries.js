@@ -49,6 +49,28 @@ export const getUserStats = async (uid) => {
   }
 };
 
+export const getUserStatsCount = async (uid) => {
+  try {
+    const { data } = await apollo.query({
+      query: gql`
+        query GetUserStats($uid: String!) {
+          userStats(uid: $uid) {
+            count
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse(data.userStats);
+  } catch (error) {
+    return formatError();
+  }
+};
+
 export const getGlobalStatsCount = async () => {
   try {
     const { data } = await apollo.query({

@@ -23,10 +23,10 @@ export default {
     ...mapGetters(['userStats']),
     number() {
       const {
-        userStats: { gameNumber },
+        userStats: { count },
       } = this;
 
-      return gameNumber;
+      return count;
     },
   },
   methods: {

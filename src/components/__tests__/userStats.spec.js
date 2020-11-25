@@ -6,7 +6,7 @@ describe('UserStats.vue', () => {
     const wrapper = shallowMount(UserStats, {
       computed: {
         userStats: () => ({
-          gameNumber: 1,
+          count: 1,
         }),
       },
     });

@@ -1,7 +1,6 @@
-import { getLocalUser, getServerUser, getUserStats, setUserStats } from '../index';
+import { getLocalUser, getServerUser } from '../index';
 
 const mockId = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-const mockStats = { gameNumber: 1 };
 
 jest.mock('@/services/db', () => ({
   getAUser: () => ({
@@ -51,26 +50,6 @@ describe('User', () => {
       const id = await getServerUser();
 
       expect(id).toEqual(mockId);
-    });
-  });
-
-  describe('getUserStats', () => {
-    it('should get user stats from getLocalStats', () => {
-      localStorage.setItem('userStats', JSON.stringify(mockStats));
-
-      const stats = getUserStats();
-
-      expect(stats).toEqual(mockStats);
-    });
-  });
-
-  describe('setUserStats', () => {
-    it('should set user stats from setUserStats', () => {
-      setUserStats(mockStats);
-
-      const stats = JSON.parse(localStorage.getItem('userStats'));
-
-      expect(stats).toEqual(mockStats);
     });
   });
 });
