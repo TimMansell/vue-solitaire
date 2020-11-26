@@ -5,11 +5,14 @@ export const getServerUserID = () => localStorage.getItem('suid');
 export const checkServerUser = () => getServerUserID() !== null;
 
 export const createServerUser = async (luid) => {
-  const { error, response } = await db.createUser(luid);
+  const { error, response } = await db.newUser(luid);
+  const {
+    createUser: { _id: id },
+  } = response;
 
   if (!error) {
     // eslint-disable-next-line no-underscore-dangle
-    return response._id;
+    return id;
   }
 
   return null;
@@ -17,9 +20,13 @@ export const createServerUser = async (luid) => {
 
 export const setServerUserID = async (luid) => {
   const { error, response } = await db.getAUser(luid);
+  const {
+    findUserByLID,
+    findUserByLID: { uid },
+  } = response;
 
   if (!error) {
-    const suid = !response ? await createServerUser(luid) : response.uid;
+    const suid = !findUserByLID ? await createServerUser(luid) : uid;
 
     if (suid !== null) {
       localStorage.setItem('suid', suid);

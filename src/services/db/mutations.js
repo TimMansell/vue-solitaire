@@ -2,9 +2,11 @@ import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { formatError, formatResponse } from './helpers';
 
-export const createUser = async (uid) => {
+export const newUser = async (uid) => {
   try {
-    const { data } = await apollo.mutate({
+    const {
+      data: { createUser },
+    } = await apollo.mutate({
       mutation: gql`
         mutation CreateAUser($data: UserInput!) {
           createUser(data: $data) {
@@ -19,15 +21,17 @@ export const createUser = async (uid) => {
       },
     });
 
-    return formatResponse(data.createUser);
+    return formatResponse({ createUser });
   } catch (error) {
     return formatError();
   }
 };
 
-export const newGame = async (uid) => {
+export const gameNew = async (uid) => {
   try {
-    const { data } = await apollo.mutate({
+    const {
+      data: { newGame },
+    } = await apollo.mutate({
       mutation: gql`
         mutation NewGame($uid: String!) {
           newGame(uid: $uid) {
@@ -40,7 +44,7 @@ export const newGame = async (uid) => {
       },
     });
 
-    return formatResponse(data.newGame);
+    return formatResponse({ newGame });
   } catch (error) {
     return formatError();
   }
@@ -53,7 +57,9 @@ export const gameWon = async ({ id, moves, time }) => {
   };
 
   try {
-    const { data: response } = await apollo.mutate({
+    const {
+      data: { wonGame },
+    } = await apollo.mutate({
       mutation: gql`
         mutation WonAGame($id: ID!, $data: GameInput!) {
           wonGame(id: $id, data: $data) {
@@ -67,7 +73,7 @@ export const gameWon = async ({ id, moves, time }) => {
       },
     });
 
-    return formatResponse(response.wonGame);
+    return formatResponse({ wonGame });
   } catch (error) {
     return formatError();
   }
@@ -80,7 +86,9 @@ export const gameLost = async ({ id, moves, time }) => {
   };
 
   try {
-    const { data: response } = await apollo.mutate({
+    const {
+      data: { lostGame },
+    } = await apollo.mutate({
       mutation: gql`
         mutation LostAGame($id: ID!, $data: GameInput!) {
           lostGame(id: $id, data: $data) {
@@ -94,7 +102,7 @@ export const gameLost = async ({ id, moves, time }) => {
       },
     });
 
-    return formatResponse(response.lostGame);
+    return formatResponse({ lostGame });
   } catch (error) {
     return formatError();
   }
@@ -107,7 +115,9 @@ export const gameCompleted = async ({ id, moves, time }) => {
   };
 
   try {
-    const { data: response } = await apollo.mutate({
+    const {
+      data: { completedGame },
+    } = await apollo.mutate({
       mutation: gql`
         mutation CompletedAGame($id: ID!, $data: GameInput!) {
           completedGame(id: $id, data: $data) {
@@ -121,7 +131,7 @@ export const gameCompleted = async ({ id, moves, time }) => {
       },
     });
 
-    return formatResponse(response.completedGame);
+    return formatResponse({ completedGame });
   } catch (error) {
     return formatError();
   }
