@@ -12,7 +12,7 @@ describe('Graphql Resolver helpers', () => {
       },
     };
 
-    const result = await runQuery({}, mockContext);
+    const result = await runQuery(mockContext);
 
     expect(result).toEqual({ test: 1 });
   });
@@ -28,7 +28,7 @@ describe('Graphql Resolver helpers', () => {
       },
     };
 
-    const result = await runMutation({}, mockContext);
+    const result = await runMutation(mockContext);
 
     expect(result).toEqual({ test: 1 });
   });
