@@ -1,17 +1,12 @@
 import { getLocalUser, getServerUser } from '../index';
 
-const mockId = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+const mockSuid = 123;
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
-jest.mock('@/services/db', () => ({
-  getAUser: () => ({
-    response: {
-      uid: mockId,
-    },
-  }),
-}));
+jest.mock('@/services/db');
 
 jest.mock('uuid', () => ({
-  v4: () => mockId,
+  v4: () => mockUid,
 }));
 
 describe('User', () => {
@@ -21,35 +16,35 @@ describe('User', () => {
 
   describe('getLocalUser', () => {
     it('should get user id from getLocalUserID', () => {
-      localStorage.setItem('luid', mockId);
+      localStorage.setItem('luid', mockUid);
 
       const id = getLocalUser();
 
-      expect(id).toEqual(mockId);
+      expect(id).toEqual(mockUid);
     });
 
     it('should set user id from setLocalUserID', () => {
       const id = getLocalUser();
       const luid = localStorage.getItem('luid');
 
-      expect(id).toEqual(mockId);
-      expect(luid).toEqual(mockId);
+      expect(id).toEqual(mockUid);
+      expect(luid).toEqual(mockUid);
     });
   });
 
   describe('getServerUser', () => {
     it('should get user id from getServerUserID', async () => {
-      localStorage.setItem('suid', mockId);
+      localStorage.setItem('suid', `${mockSuid}`);
 
-      const id = await getServerUser();
+      const id = await getServerUser(mockUid);
 
-      expect(id).toEqual(mockId);
+      expect(id).toEqual(`${mockSuid}`);
     });
 
-    it('should get user id from getServerUserID', async () => {
-      const id = await getServerUser();
+    it('should set user id from getServerUserID', async () => {
+      const id = await getServerUser(mockUid);
 
-      expect(id).toEqual(mockId);
+      expect(id).toEqual(mockSuid);
     });
   });
 });

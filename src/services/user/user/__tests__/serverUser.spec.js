@@ -1,19 +1,8 @@
 import { getServerUserID, checkServerUser, createServerUser, setServerUserID } from '../serverUser';
 
-const mockId = '123';
+const mockSuid = 123;
 
-jest.mock('@/services/db', () => ({
-  createUser: () => ({
-    response: {
-      _id: mockId,
-    },
-  }),
-  getAUser: () => ({
-    response: {
-      uid: mockId,
-    },
-  }),
-}));
+jest.mock('@/services/db');
 
 describe('User - Server User', () => {
   beforeEach(() => {
@@ -21,21 +10,21 @@ describe('User - Server User', () => {
   });
 
   it('should get user id', () => {
-    localStorage.setItem('suid', mockId);
+    localStorage.setItem('suid', `${mockSuid}`);
 
     const id = getServerUserID();
 
-    expect(id).toEqual(mockId);
+    expect(id).toEqual(`${mockSuid}`);
   });
 
   it('should set user id from response', async () => {
-    const user = await createServerUser();
+    const id = await createServerUser();
 
-    expect(user).toEqual(mockId);
+    expect(id).toEqual(mockSuid);
   });
 
   it('should check user id exists and return true', () => {
-    localStorage.setItem('suid', mockId);
+    localStorage.setItem('suid', `${mockSuid}`);
 
     const user = checkServerUser();
 
@@ -49,8 +38,8 @@ describe('User - Server User', () => {
   });
 
   it('should get server user id from response', async () => {
-    const user = await setServerUserID();
+    const id = await setServerUserID();
 
-    expect(user).toEqual(mockId);
+    expect(id).toEqual(mockSuid);
   });
 });
