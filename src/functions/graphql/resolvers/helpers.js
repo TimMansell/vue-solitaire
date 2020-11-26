@@ -1,8 +1,6 @@
 import { ApolloError } from 'apollo-server-lambda';
 
-export const runQuery = async (variables, context) => {
-  const { client, query } = context;
-
+export const runQuery = async ({ client, query, variables }) => {
   try {
     const body = await client.query({
       query,
@@ -16,9 +14,7 @@ export const runQuery = async (variables, context) => {
   }
 };
 
-export const runMutation = async (variables, context) => {
-  const { client, query } = context;
-
+export const runMutation = async ({ client, query, variables }) => {
   try {
     const body = await client.mutate({
       mutation: query,
