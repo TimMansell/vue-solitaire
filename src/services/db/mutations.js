@@ -32,7 +32,6 @@ export const newGame = async (uid) => {
         mutation NewGame($uid: String!) {
           newGame(uid: $uid) {
             _id
-            gameNumber
           }
         }
       `,
