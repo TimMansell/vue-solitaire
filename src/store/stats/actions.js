@@ -1,11 +1,14 @@
 import db from '@/services/db';
 
 const actions = {
-  async getGlobalStatsCount({ commit }) {
-    const { error, response } = await db.getGlobalStatsCount();
+  async getStatsCount({ commit, rootState }) {
+    const { suid } = rootState.user;
+
+    const { error, response } = await db.getStatsCount(suid);
 
     if (!error) {
-      commit('SET_GLOBAL_STATS', { ...response });
+      commit('SET_GLOBAL_STATS', { ...response.globalStats });
+      commit('SET_USER_STATS', { ...response.userStats });
     }
   },
   async getGlobalStats({ commit }) {
@@ -14,14 +17,6 @@ const actions = {
     if (!error) {
       commit('SET_FULL_STATS', { ...response });
       commit('SET_GLOBAL_STATS', { ...response });
-    }
-  },
-  async getUserStatsCount({ commit, rootState }) {
-    const { suid } = rootState.user;
-    const { error, response } = await db.getUserStatsCount(suid);
-
-    if (!error) {
-      commit('SET_USER_STATS', { ...response });
     }
   },
   async getUserStats({ commit, rootState }) {

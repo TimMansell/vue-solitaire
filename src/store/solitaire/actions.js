@@ -19,8 +19,7 @@ const actions = {
       dispatch('setCard', selectedCardId);
     }
 
-    dispatch('getUserStatsCount');
-    dispatch('getGlobalStatsCount');
+    dispatch('getStatsCount');
 
     commit('NEW_GAME', false);
   },

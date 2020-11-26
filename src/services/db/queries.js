@@ -24,6 +24,31 @@ export const getAUser = async (uid) => {
   }
 };
 
+export const getStatsCount = async (uid) => {
+  try {
+    const { data } = await apollo.query({
+      query: gql`
+        query GetStats($uid: String!) {
+          userStats(uid: $uid) {
+            count
+          }
+          globalStats {
+            completed
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse(data);
+  } catch (error) {
+    return formatError();
+  }
+};
+
 export const getUserStats = async (uid) => {
   try {
     const { data } = await apollo.query({
@@ -44,48 +69,6 @@ export const getUserStats = async (uid) => {
     });
 
     return formatResponse(data.userStats);
-  } catch (error) {
-    return formatError();
-  }
-};
-
-export const getUserStatsCount = async (uid) => {
-  try {
-    const { data } = await apollo.query({
-      query: gql`
-        query GetUserStats($uid: String!) {
-          userStats(uid: $uid) {
-            count
-          }
-        }
-      `,
-      variables: {
-        uid,
-      },
-      fetchPolicy: 'no-cache',
-    });
-
-    return formatResponse(data.userStats);
-  } catch (error) {
-    return formatError();
-  }
-};
-
-export const getGlobalStatsCount = async () => {
-  try {
-    const { data } = await apollo.query({
-      query: gql`
-        query {
-          globalStats {
-            completed
-          }
-        }
-      `,
-      variables: {},
-      fetchPolicy: 'no-cache',
-    });
-
-    return formatResponse(data.globalStats);
   } catch (error) {
     return formatError();
   }
