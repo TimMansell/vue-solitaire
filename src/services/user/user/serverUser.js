@@ -6,14 +6,14 @@ export const checkServerUser = () => getServerUserID() !== null;
 
 export const createServerUser = async (luid) => {
   const { error, response } = await db.newUser(luid);
-  // const {
-  //   createUser: { _id: id },
-  // } = response;
+  const {
+    createUser: { _id: id },
+  } = response;
 
   if (!error) {
-    // return id;
+    return id;
     // eslint-disable-next-line no-underscore-dangle
-    return response.createUser._id;
+    // return response.createUser._id;
   }
 
   return null;
