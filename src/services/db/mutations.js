@@ -6,7 +6,6 @@ export const newUser = async (uid) => {
   try {
     const {
       data: { createUser },
-      // data,
     } = await apollo.mutate({
       mutation: gql`
         mutation CreateAUser($data: UserInput!) {
@@ -23,7 +22,6 @@ export const newUser = async (uid) => {
     });
 
     return formatResponse({ createUser });
-    // return formatResponse(data.createUser);
   } catch (error) {
     return formatError();
   }
@@ -33,7 +31,6 @@ export const gameNew = async (uid) => {
   try {
     const {
       data: { newGame },
-      // data,
     } = await apollo.mutate({
       mutation: gql`
         mutation NewGame($uid: String!) {
@@ -48,7 +45,6 @@ export const gameNew = async (uid) => {
     });
 
     return formatResponse({ newGame });
-    // return formatResponse(data.newGame);
   } catch (error) {
     return formatError();
   }
@@ -63,7 +59,6 @@ export const gameWon = async ({ id, moves, time }) => {
   try {
     const {
       data: { wonGame },
-      // data: response,
     } = await apollo.mutate({
       mutation: gql`
         mutation WonAGame($id: ID!, $data: GameInput!) {
@@ -79,7 +74,6 @@ export const gameWon = async ({ id, moves, time }) => {
     });
 
     return formatResponse({ wonGame });
-    // return formatResponse(response.wonGame);
   } catch (error) {
     return formatError();
   }
@@ -94,7 +88,6 @@ export const gameLost = async ({ id, moves, time }) => {
   try {
     const {
       data: { lostGame },
-      // data: response,
     } = await apollo.mutate({
       mutation: gql`
         mutation LostAGame($id: ID!, $data: GameInput!) {
@@ -110,7 +103,6 @@ export const gameLost = async ({ id, moves, time }) => {
     });
 
     return formatResponse({ lostGame });
-    // return formatResponse(response.lostGame);
   } catch (error) {
     return formatError();
   }
@@ -125,7 +117,6 @@ export const gameCompleted = async ({ id, moves, time }) => {
   try {
     const {
       data: { completedGame },
-      // data: response,
     } = await apollo.mutate({
       mutation: gql`
         mutation CompletedAGame($id: ID!, $data: GameInput!) {
@@ -141,7 +132,6 @@ export const gameCompleted = async ({ id, moves, time }) => {
     });
 
     return formatResponse({ completedGame });
-    // return formatResponse(response.completedGame);
   } catch (error) {
     return formatError();
   }

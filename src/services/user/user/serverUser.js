@@ -12,7 +12,6 @@ export const createServerUser = async (luid) => {
 
   if (!error) {
     // return id;
-    // return response._id;
     // eslint-disable-next-line no-underscore-dangle
     return response.createUser._id;
   }
@@ -26,7 +25,9 @@ export const setServerUserID = async (luid) => {
 
   if (!error) {
     // const suid = !findUserByLID ? await createServerUser(luid) : findUserByLID.uid;
-    const suid = !response ? await createServerUser(luid) : response.uid;
+    const suid = !response.findUserByLID
+      ? await createServerUser(luid)
+      : response.findUserByLID.uid;
 
     if (suid !== null) {
       localStorage.setItem('suid', suid);
