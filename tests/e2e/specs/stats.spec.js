@@ -24,12 +24,6 @@ describe('Stats', () => {
       expect(suid).to.not.equal('');
     });
 
-    it('it stores user stats in local storage', () => {
-      const userStats = localStorage.getItem('userStats');
-
-      expect(userStats).to.not.equal('');
-    });
-
     it('it successfully increments games played', () => {
       cy.get('[data-test="stats"]').then(($stats) => {
         const number = $stats.text();
