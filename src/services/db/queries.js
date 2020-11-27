@@ -6,7 +6,8 @@ import { formatError, formatResponse } from './helpers';
 export const getAUser = async (uid) => {
   try {
     const {
-      data: { findUserByLID },
+      // data: { findUserByLID },
+      data,
     } = await apollo.query({
       query: gql`
         query FindAUserByLID($uid: String!) {
@@ -20,7 +21,8 @@ export const getAUser = async (uid) => {
       },
     });
 
-    return formatResponse({ findUserByLID });
+    // return formatResponse({ findUserByLID });
+    return formatResponse(data.findUserByLID);
   } catch (error) {
     return formatError();
   }
@@ -29,7 +31,8 @@ export const getAUser = async (uid) => {
 export const getStatsCount = async (uid) => {
   try {
     const {
-      data: { userStats, globalStats },
+      // data: { userStats, globalStats },
+      data,
     } = await apollo.query({
       query: gql`
         query GetStats($uid: String!) {
@@ -47,7 +50,8 @@ export const getStatsCount = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse({ userStats, globalStats });
+    // return formatResponse({ userStats, globalStats });
+    return formatResponse(data);
   } catch (error) {
     return formatError();
   }
@@ -56,7 +60,8 @@ export const getStatsCount = async (uid) => {
 export const getUserStats = async (uid) => {
   try {
     const {
-      data: { userStats },
+      // data: { userStats },
+      data,
     } = await apollo.query({
       query: gql`
         query GetUserStats($uid: String!) {
@@ -74,7 +79,8 @@ export const getUserStats = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse({ userStats });
+    // return formatResponse({ userStats });
+    return formatResponse(data.userStats);
   } catch (error) {
     return formatError();
   }
@@ -83,7 +89,8 @@ export const getUserStats = async (uid) => {
 export const getGlobalStats = async () => {
   try {
     const {
-      data: { globalStats },
+      // data: { globalStats },
+      data,
     } = await apollo.query({
       query: gql`
         query {
@@ -98,7 +105,8 @@ export const getGlobalStats = async () => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse({ globalStats });
+    // return formatResponse({ globalStats });
+    return formatResponse(data.globalStats);
   } catch (error) {
     return formatError();
   }

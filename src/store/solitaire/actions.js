@@ -38,9 +38,10 @@ const actions = {
     const { error, response } = await db.gameNew(suid);
 
     if (!error) {
-      const {
-        newGame: { _id: id },
-      } = response;
+      // const {
+      //   newGame: { _id: id },
+      // } = response;
+      const { _id: id } = response;
 
       commit('SET_GAME', { id });
     }
