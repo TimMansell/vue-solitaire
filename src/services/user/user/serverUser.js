@@ -1,4 +1,4 @@
-// import db from '@/services/db';
+import db from '@/services/db';
 
 export const getServerUserID = () => localStorage.getItem('suid');
 
@@ -22,11 +22,11 @@ export const createServerUser = async (luid) => {
 };
 
 export const setServerUserID = async (luid) => {
-  // const { error, response } = await db.getAUser(luid);
-  const error = false;
-  const response = {
-    findUserByLID: null,
-  };
+  const { error, response } = await db.getAUser(luid);
+  // const error = false;
+  // const response = {
+  //   findUserByLID: null,
+  // };
   const { findUserByLID } = response;
 
   if (!error) {
