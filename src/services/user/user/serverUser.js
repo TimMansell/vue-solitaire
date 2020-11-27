@@ -21,14 +21,17 @@ export const setServerUserID = async (luid) => {
   const { error, response } = await db.getAUser(luid);
   const { findUserByLID } = response;
 
+  console.log({ findUserByLID });
+
   if (!error) {
-    const suid = !findUserByLID ? await createServerUser(luid) : findUserByLID.uid;
+    //   const suid = !findUserByLID ? await createServerUser(luid) : findUserByLID.uid;
 
-    if (suid !== null) {
-      localStorage.setItem('suid', suid);
-    }
+    //   if (suid !== null) {
+    //     localStorage.setItem('suid', suid);
+    //   }
 
-    return suid;
+    //   return suid;
+    return luid;
   }
 
   return null;
