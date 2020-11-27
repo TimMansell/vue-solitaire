@@ -19,8 +19,7 @@ const actions = {
       dispatch('setCard', selectedCardId);
     }
 
-    dispatch('getUserStatsCount');
-    dispatch('getGlobalStatsCount');
+    dispatch('getStatsCount');
 
     commit('NEW_GAME', false);
   },
@@ -36,10 +35,12 @@ const actions = {
   },
   async trackNewGame({ commit, rootState }) {
     const { suid } = rootState.user;
-    const { error, response } = await db.newGame(suid);
+    const { error, response } = await db.gameNew(suid);
 
     if (!error) {
-      const { _id: id } = response;
+      const {
+        newGame: { _id: id },
+      } = response;
 
       commit('SET_GAME', { id });
     }

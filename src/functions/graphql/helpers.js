@@ -10,3 +10,9 @@ export const grabQuery = ({ body }) => {
 
   return gqlQuery;
 };
+
+export const grabVariables = ({ body }) => {
+  const { variables } = JSON.parse(body);
+
+  return variables;
+};

@@ -20,10 +20,6 @@ const {
 const commit = jest.fn();
 const dispatch = jest.fn();
 
-const mockResponse = {
-  _id: 123,
-};
-
 jest.mock('@/services/solitaire', () => ({
   init: () => jest.fn(),
   isEmptyBoard: () => true,
@@ -40,13 +36,7 @@ jest.mock('@/services/solitaire', () => ({
   setFoundation: () => jest.fn(),
 }));
 
-jest.mock('@/services/db', () => ({
-  newGame: () => ({
-    response: mockResponse,
-  }),
-  gameCompleted: () => jest.fn(),
-  gameWon: () => jest.fn(),
-}));
+jest.mock('@/services/db');
 
 jest.mock('../helpers', () => ({
   getBoardState: () => jest.fn(),
@@ -92,6 +82,10 @@ describe('Solitaire Store', () => {
       user: {
         suid: 123,
       },
+    };
+
+    const mockResponse = {
+      _id: 123,
     };
 
     await trackNewGame({ commit, dispatch, rootState });

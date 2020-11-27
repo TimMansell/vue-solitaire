@@ -5,7 +5,9 @@ import { formatError, formatResponse } from './helpers';
 // eslint-disable-next-line import/prefer-default-export
 export const getAUser = async (uid) => {
   try {
-    const { data } = await apollo.query({
+    const {
+      data: { findUserByLID },
+    } = await apollo.query({
       query: gql`
         query FindAUserByLID($uid: String!) {
           findUserByLID(uid: $uid) {
@@ -18,7 +20,34 @@ export const getAUser = async (uid) => {
       },
     });
 
-    return formatResponse(data.findUserByLID);
+    return formatResponse({ findUserByLID });
+  } catch (error) {
+    return formatError();
+  }
+};
+
+export const getStatsCount = async (uid) => {
+  try {
+    const {
+      data: { userStats, globalStats },
+    } = await apollo.query({
+      query: gql`
+        query GetStats($uid: String!) {
+          userStats(uid: $uid) {
+            count
+          }
+          globalStats {
+            completed
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse({ userStats, globalStats });
   } catch (error) {
     return formatError();
   }
@@ -26,7 +55,9 @@ export const getAUser = async (uid) => {
 
 export const getUserStats = async (uid) => {
   try {
-    const { data } = await apollo.query({
+    const {
+      data: { userStats },
+    } = await apollo.query({
       query: gql`
         query GetUserStats($uid: String!) {
           userStats(uid: $uid) {
@@ -43,49 +74,7 @@ export const getUserStats = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(data.userStats);
-  } catch (error) {
-    return formatError();
-  }
-};
-
-export const getUserStatsCount = async (uid) => {
-  try {
-    const { data } = await apollo.query({
-      query: gql`
-        query GetUserStats($uid: String!) {
-          userStats(uid: $uid) {
-            count
-          }
-        }
-      `,
-      variables: {
-        uid,
-      },
-      fetchPolicy: 'no-cache',
-    });
-
-    return formatResponse(data.userStats);
-  } catch (error) {
-    return formatError();
-  }
-};
-
-export const getGlobalStatsCount = async () => {
-  try {
-    const { data } = await apollo.query({
-      query: gql`
-        query {
-          globalStats {
-            completed
-          }
-        }
-      `,
-      variables: {},
-      fetchPolicy: 'no-cache',
-    });
-
-    return formatResponse(data.globalStats);
+    return formatResponse({ userStats });
   } catch (error) {
     return formatError();
   }
@@ -93,7 +82,9 @@ export const getGlobalStatsCount = async () => {
 
 export const getGlobalStats = async () => {
   try {
-    const { data } = await apollo.query({
+    const {
+      data: { globalStats },
+    } = await apollo.query({
       query: gql`
         query {
           globalStats {
@@ -107,7 +98,7 @@ export const getGlobalStats = async () => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(data.globalStats);
+    return formatResponse({ globalStats });
   } catch (error) {
     return formatError();
   }

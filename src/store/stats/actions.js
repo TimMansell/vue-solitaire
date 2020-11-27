@@ -1,36 +1,34 @@
 import db from '@/services/db';
 
 const actions = {
-  async getGlobalStatsCount({ commit }) {
-    const { error, response } = await db.getGlobalStatsCount();
+  async getStatsCount({ commit, rootState }) {
+    const { suid } = rootState.user;
+
+    const { error, response } = await db.getStatsCount(suid);
+    const { userStats, globalStats } = response;
 
     if (!error) {
-      commit('SET_GLOBAL_STATS', { ...response });
+      commit('SET_GLOBAL_STATS', { ...globalStats });
+      commit('SET_USER_STATS', { ...userStats });
     }
   },
   async getGlobalStats({ commit }) {
     const { error, response } = await db.getGlobalStats();
+    const { globalStats } = response;
 
     if (!error) {
-      commit('SET_FULL_STATS', { ...response });
-      commit('SET_GLOBAL_STATS', { ...response });
-    }
-  },
-  async getUserStatsCount({ commit, rootState }) {
-    const { suid } = rootState.user;
-    const { error, response } = await db.getUserStatsCount(suid);
-
-    if (!error) {
-      commit('SET_USER_STATS', { ...response });
+      commit('SET_FULL_STATS', { ...globalStats });
+      commit('SET_GLOBAL_STATS', { ...globalStats });
     }
   },
   async getUserStats({ commit, rootState }) {
     const { suid } = rootState.user;
     const { error, response } = await db.getUserStats(suid);
+    const { userStats } = response;
 
     if (!error) {
-      commit('SET_FULL_STATS', { ...response });
-      commit('SET_USER_STATS', { ...response });
+      commit('SET_FULL_STATS', { ...userStats });
+      commit('SET_USER_STATS', { ...userStats });
     }
   },
   toggleStats({ commit, state }) {
