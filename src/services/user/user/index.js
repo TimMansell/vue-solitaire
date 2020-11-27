@@ -1,5 +1,5 @@
 import { checkLocalUser, getLocalUserID, setLocalUserID } from './localUser';
-import { checkServerUser } from './serverUser';
+import { checkServerUser, getServerUserID } from './serverUser';
 
 export const getLocalUser = () => {
   const userExists = checkLocalUser();
@@ -12,9 +12,7 @@ export const getLocalUser = () => {
 export const getServerUser = async (luid) => {
   const isUserSaved = checkServerUser();
 
-  console.log({ isUserSaved });
-
-  const suid = luid;
+  const suid = isUserSaved ? getServerUserID() : luid;
 
   return suid;
 };
