@@ -28,11 +28,5 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Linting
-        run: yarn lint
-
-      - name: Unit Tests
-        run: yarn test:unit
-
       - name: e2e Tests
         run: yarn test:e2e
