@@ -34,6 +34,7 @@ export default {
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
       window.appReady = true;
+      console.log({ window });
     }
 
     // if (process.env.NODE_ENV === 'development') {
