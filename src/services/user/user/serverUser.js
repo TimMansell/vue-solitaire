@@ -11,7 +11,6 @@ export const createServerUser = async (luid) => {
   } = response;
 
   if (!error) {
-    // eslint-disable-next-line no-underscore-dangle
     return id;
   }
 
