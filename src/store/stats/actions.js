@@ -5,9 +5,7 @@ const actions = {
     const { suid } = rootState.user;
 
     const { error, response } = await db.getStatsCount(suid);
-    const {
-      data: { userStats, globalStats },
-    } = response;
+    const { userStats, globalStats } = response;
 
     if (!error) {
       commit('SET_GLOBAL_STATS', { ...globalStats });
@@ -16,9 +14,7 @@ const actions = {
   },
   async getGlobalStats({ commit }) {
     const { error, response } = await db.getGlobalStats();
-    const {
-      data: { globalStats },
-    } = response;
+    const { globalStats } = response;
 
     if (!error) {
       commit('SET_FULL_STATS', { ...globalStats });
@@ -28,9 +24,7 @@ const actions = {
   async getUserStats({ commit, rootState }) {
     const { suid } = rootState.user;
     const { error, response } = await db.getUserStats(suid);
-    const {
-      data: { userStats },
-    } = response;
+    const { userStats } = response;
 
     if (!error) {
       commit('SET_FULL_STATS', { ...userStats });
