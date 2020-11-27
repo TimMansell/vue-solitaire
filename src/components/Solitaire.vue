@@ -27,7 +27,7 @@ export default {
     ...mapGetters(['showStats', 'showRules']),
   },
   async created() {
-    await this.initUser();
+    // await this.initUser();
 
     this.initGame();
 
