@@ -1,14 +1,6 @@
 import { getAUser, getUserStats, getStatsCount, getGlobalStats } from '../queries';
 
-jest.mock('../apollo', () => ({
-  query: () => ({
-    data: {
-      findUserByLID: 1,
-      userStats: 1,
-      globalStats: 1,
-    },
-  }),
-}));
+jest.mock('../apollo');
 
 describe('DB service queries', () => {
   it('getAUser', async () => {

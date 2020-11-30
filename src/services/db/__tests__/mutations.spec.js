@@ -1,16 +1,6 @@
 import { newUser, gameNew, gameWon, gameLost, gameCompleted } from '../mutations';
 
-jest.mock('../apollo', () => ({
-  mutate: () => ({
-    data: {
-      createUser: 1,
-      newGame: 1,
-      wonGame: 1,
-      lostGame: 1,
-      completedGame: 1,
-    },
-  }),
-}));
+jest.mock('../apollo');
 
 describe('DB service mutations', () => {
   it('newUser', async () => {
