@@ -7,10 +7,7 @@ const mockSuid = 123;
 
 const commit = jest.fn();
 
-jest.mock('@/services/user', () => ({
-  getLocalUser: () => mockLuid,
-  getServerUser: () => mockSuid,
-}));
+jest.mock('@/services/user');
 
 describe('User', () => {
   it('initUser', async () => {

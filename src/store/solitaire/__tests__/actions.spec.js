@@ -20,27 +20,9 @@ const {
 const commit = jest.fn();
 const dispatch = jest.fn();
 
-jest.mock('@/services/solitaire', () => ({
-  init: () => jest.fn(),
-  isEmptyBoard: () => true,
-  getFoundationCards: () => [],
-  getBoardCards: () => [],
-  hasMoves: () => false,
-  setSelectedCard: () => 1,
-  findEmptyFoundationColumn: () => 0,
-  isValidCardMove: () => true,
-  moveCards: () => jest.fn(),
-  isValidFoundationMove: () => true,
-  moveCardsToFoundation: () => jest.fn(),
-  setBoard: () => jest.fn(),
-  setFoundation: () => jest.fn(),
-}));
-
+jest.mock('@/services/solitaire');
 jest.mock('@/services/db');
-
-jest.mock('../helpers', () => ({
-  getBoardState: () => jest.fn(),
-}));
+jest.mock('../helpers');
 
 describe('Solitaire Store', () => {
   it('initGame - new game', () => {
