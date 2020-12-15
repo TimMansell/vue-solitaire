@@ -1,14 +1,14 @@
 <template>
-  <GameOverlay alt center-content show-logo data-test="game-won">
+  <GameOverlay alt center-content show-logo data-test="game-new">
     <template #title> Are you sure? </template>
     <template #msg>
       This will count towards your abandoned games statistics
     </template>
     <template #buttons>
-      <Button @click="newGame">
+      <Button @click="newGame" data-test="new-game-overlay-new-btn">
         New Game
       </Button>
-      <Button @click="continueGame">
+      <Button @click="continueGame" data-test="new-game-overlay-continue-btn">
         Continue Game
       </Button>
     </template>
