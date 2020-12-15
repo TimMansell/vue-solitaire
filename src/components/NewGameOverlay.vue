@@ -2,7 +2,7 @@
   <GameOverlay alt center-content show-logo data-test="game-new">
     <template #title> Are you sure? </template>
     <template #msg>
-      This will count towards your abandoned games statistics
+      This game will still count towards your statistics
     </template>
     <template #buttons>
       <Button @click="newGame" data-test="new-game-overlay-new-btn">
