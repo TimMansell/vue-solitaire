@@ -18,9 +18,31 @@ describe('Controls', () => {
 
       cy.get('[data-test="new-game-btn"]').click();
 
+      cy.get('[data-test="new-game-overlay-new-btn"]').click();
+
       cy.get('[data-test="foundation-0"]').shouldNotContain(['Ah']);
 
       cy.get('[data-test="card-5s"]').should('not.have.class', 'card--is-selected');
+    });
+  });
+
+  it('it should continue current game', () => {
+    cy.setBoard(emptyColumn).then(() => {
+      cy.get('[data-test="column-3"]').within(() => {
+        cy.get('[data-test="card-Ah"]').should('be.visible');
+      });
+
+      cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-0"]');
+
+      cy.get('[data-test="card-5s"]').click();
+
+      cy.get('[data-test="new-game-btn"]').click();
+
+      cy.get('[data-test="new-game-overlay-continue-btn"]').click();
+
+      cy.get('[data-test="foundation-0"]').shouldContain(['Ah']);
+
+      cy.get('[data-test="card-5s"]').should('have.class', 'card--is-selected');
     });
   });
 
@@ -28,6 +50,8 @@ describe('Controls', () => {
     cy.get('[data-test="game-rules-btn"]').click();
 
     cy.get('[data-test="rules-overlay"]').should('be.visible');
+
+    cy.get('[data-test="close-rules-btn"]').scrollIntoView();
 
     cy.get('[data-test="close-rules-btn"]').click();
 

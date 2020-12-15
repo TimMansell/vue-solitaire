@@ -170,6 +170,11 @@ const actions = {
 
     commit('SHOW_RULES', showRules);
   },
+  toggleNewGame({ commit, state }) {
+    const showNewGame = !state.showNewGame;
+
+    commit('SHOW_NEW_GAME', showNewGame);
+  },
 };
 
 export default actions;

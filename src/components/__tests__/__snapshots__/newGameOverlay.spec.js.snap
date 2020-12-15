@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewGameOverlay.vue matches snapshot 1`] = `
+<gameoverlay-stub alt="true" centercontent="true" showlogo="true" data-test="game-won"> Are you sure?
+  This will count towards your abandoned games statistics
+  <button-stub>
+    New Game
+  </button-stub>
+  <button-stub>
+    Continue Game
+  </button-stub>
+</gameoverlay-stub>
+`;

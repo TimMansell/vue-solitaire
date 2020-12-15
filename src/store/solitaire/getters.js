@@ -8,6 +8,7 @@ const getters = {
   isGamePaused: (state) => state.isGamePaused,
   timer: (state) => state.game.time,
   showRules: (state) => state.showRules,
+  showNewGame: (state) => state.showNewGame,
 };
 
 export default getters;

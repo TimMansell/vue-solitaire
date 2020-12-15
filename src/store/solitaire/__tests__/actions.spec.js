@@ -15,6 +15,7 @@ const {
   moveCardToFoundation,
   autoMoveCardToFoundation,
   toggleRules,
+  toggleNewGame,
 } = actions;
 
 const commit = jest.fn();
@@ -203,5 +204,15 @@ describe('Solitaire Store', () => {
     toggleRules({ commit, state });
 
     expect(commit).toHaveBeenCalledWith('SHOW_RULES', true);
+  });
+
+  it('toggleNewGame', () => {
+    const state = {
+      showNewGame: false,
+    };
+
+    toggleNewGame({ commit, state });
+
+    expect(commit).toHaveBeenCalledWith('SHOW_NEW_GAME', true);
   });
 });

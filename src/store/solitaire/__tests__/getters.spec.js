@@ -10,6 +10,7 @@ const {
   hasMoves,
   timer,
   showRules,
+  showNewGame,
 } = getters;
 
 const state = {
@@ -30,6 +31,7 @@ const state = {
     time: 0,
   },
   showRules: false,
+  showNewGame: false,
 };
 
 describe('Solitaire Store', () => {
@@ -85,5 +87,11 @@ describe('Solitaire Store', () => {
     const result = showRules(state);
 
     expect(result).toEqual(state.showRules);
+  });
+
+  it('showNewGame', () => {
+    const result = showNewGame(state);
+
+    expect(result).toEqual(state.showNewGame);
   });
 });

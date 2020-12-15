@@ -55,6 +55,9 @@ const mutations = {
   SHOW_RULES(state, showRules) {
     state.showRules = showRules;
   },
+  SHOW_NEW_GAME(state, showNewGame) {
+    state.showNewGame = showNewGame;
+  },
 };
 
 export default mutations;

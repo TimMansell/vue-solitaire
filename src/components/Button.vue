@@ -16,14 +16,19 @@ export default {
       type: Boolean,
       default: false,
     },
+    isStacked: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
-      const { alt, link } = this;
+      const { alt, link, isStacked } = this;
 
       return {
         'btn--alt': alt,
         'btn--link': link,
+        'btn--is-stacked': isStacked,
       };
     },
   },
@@ -43,13 +48,13 @@ export default {
   padding: var(--pd-sm);
   color: var(--text-primary);
   transition: all 0.2s;
-  font-weight: 700;
   font-size: var(--font-size);
   text-decoration: none;
   font-family: var(--font-family);
 
-  @media (min-width: $bp-sm) {
+  @media (min-width: $bp-md) {
     font-size: var(--font-size-lg);
+    font-weight: 700;
     border-width: 2px;
   }
 
@@ -58,22 +63,24 @@ export default {
     cursor: pointer;
   }
 
-  & + & {
-    border-left: 0;
+  &--is-stacked {
+    & + & {
+      border-left: 0;
 
-    &:not(:last-of-type) {
-      border-radius: 0;
+      &:not(:last-of-type) {
+        border-radius: 0;
+      }
     }
-  }
 
-  &:last-of-type:not(:first-of-type) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
+    &:last-of-type:not(:first-of-type) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
 
-  &:first-of-type:not(:last-of-type) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    &:first-of-type:not(:last-of-type) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 
   &--alt {

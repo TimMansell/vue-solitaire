@@ -1,5 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
 import Solitaire from '@/components/Solitaire.vue';
+import RulesOverlay from '@/components/RulesOverlay.vue';
+import StatsOverlay from '@/components/StatsOverlay.vue';
+import NewGameOverlay from '@/components/NewGameOverlay.vue';
 
 const mocks = {
   $store: { dispatch: jest.fn() },
@@ -12,6 +15,7 @@ describe('Solitaire.vue', () => {
       computed: {
         showStats: () => true,
         showRules: () => true,
+        showNewGame: () => true,
       },
     });
 
@@ -24,10 +28,11 @@ describe('Solitaire.vue', () => {
       computed: {
         showStats: () => true,
         showRules: () => false,
+        showNewGame: () => false,
       },
     });
 
-    expect(wrapper.find('[data-test="stats-overlay"]').exists()).toBe(true);
+    expect(wrapper.findComponent(StatsOverlay).exists()).toBe(true);
   });
 
   it('does not show stats overlay', () => {
@@ -36,10 +41,11 @@ describe('Solitaire.vue', () => {
       computed: {
         showStats: () => false,
         showRules: () => false,
+        showNewGame: () => false,
       },
     });
 
-    expect(wrapper.find('[data-test="stats-overlay"]').exists()).toBe(false);
+    expect(wrapper.findComponent(StatsOverlay).exists()).toBe(false);
   });
 
   it('shows rules overlay', () => {
@@ -48,10 +54,11 @@ describe('Solitaire.vue', () => {
       computed: {
         showStats: () => false,
         showRules: () => true,
+        showNewGame: () => false,
       },
     });
 
-    expect(wrapper.find('[data-test="rules-overlay"]').exists()).toBe(true);
+    expect(wrapper.findComponent(RulesOverlay).exists()).toBe(true);
   });
 
   it('does not show rules overlay', () => {
@@ -60,9 +67,36 @@ describe('Solitaire.vue', () => {
       computed: {
         showStats: () => false,
         showRules: () => false,
+        showNewGame: () => false,
       },
     });
 
-    expect(wrapper.find('[data-test="rules-overlay"]').exists()).toBe(false);
+    expect(wrapper.findComponent(RulesOverlay).exists()).toBe(false);
+  });
+
+  it('shows new game overlay', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        showStats: () => false,
+        showRules: () => false,
+        showNewGame: () => true,
+      },
+    });
+
+    expect(wrapper.findComponent(NewGameOverlay).exists()).toBe(true);
+  });
+
+  it('does not show new game overlay', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        showStats: () => false,
+        showRules: () => false,
+        showNewGame: () => false,
+      },
+    });
+
+    expect(wrapper.findComponent(NewGameOverlay).exists()).toBe(false);
   });
 });

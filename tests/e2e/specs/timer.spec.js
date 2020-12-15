@@ -193,6 +193,28 @@ describe('Timer', () => {
         });
       });
     });
+
+    it('timer should start paused when new game overlay is open and page is refreshed', () => {
+      cy.setBoard(foundations).then(() => {
+        cy.wait(1000);
+
+        cy.get('[data-test="timer"]').then(($timerStart) => {
+          const startNumber = $timerStart.text();
+
+          cy.get('[data-test="new-game-btn"]').click();
+
+          cy.reload();
+
+          cy.wait(2000);
+
+          cy.get('[data-test="timer"]').then(($timerEnd) => {
+            const endNumber = $timerEnd.text();
+
+            expect(startNumber).to.equal(endNumber);
+          });
+        });
+      });
+    });
   });
 
   describe('Resuming Timer', () => {
@@ -253,13 +275,41 @@ describe('Timer', () => {
         });
       });
     });
+
+    it('timer stops when new game overlay is open and starts when resumed', () => {
+      cy.wait(1000);
+
+      cy.get('[data-test="timer"]').then(($timerStart) => {
+        const startNumber = $timerStart.text();
+
+        cy.get('[data-test="new-game-btn"]').click();
+
+        cy.wait(2000);
+
+        cy.get('[data-test="timer"]').then(($timerPaused) => {
+          const pausedNumber = $timerPaused.text();
+
+          cy.get('[data-test="new-game-overlay-continue-btn"]').click();
+
+          cy.wait(2000);
+
+          cy.get('[data-test="timer"]').then(($timerResumed) => {
+            const resumedNumber = $timerResumed.text();
+
+            expect(startNumber).to.equal(pausedNumber);
+            expect(pausedNumber).to.not.equal(resumedNumber);
+          });
+        });
+      });
+    });
   });
 
   describe('Resetting timer', () => {
-    it('it should reset timer', () => {
+    it('it should reset timer when new game is pressed', () => {
       cy.wait(1000);
 
       cy.get('[data-test="new-game-btn"]').click();
+      cy.get('[data-test="new-game-overlay-new-btn"]').click();
 
       cy.get('[data-test="timer"]').should('contain', '0:00:00');
     });

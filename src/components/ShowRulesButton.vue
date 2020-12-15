@@ -1,5 +1,5 @@
 <template>
-  <Button @click="showRules" data-test="game-rules-btn">
+  <Button is-stacked @click="showRules" data-test="game-rules-btn">
     How to play
   </Button>
 </template>
