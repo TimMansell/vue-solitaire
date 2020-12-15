@@ -28,6 +28,16 @@ describe('Button.vue', () => {
     expect(wrapper.classes()).toContain('btn--link');
   });
 
+  it('renders a stacked button', () => {
+    const wrapper = shallowMount(Button, {
+      propsData: {
+        isStacked: true,
+      },
+    });
+
+    expect(wrapper.classes()).toContain('btn--is-stacked');
+  });
+
   it('should call click method', () => {
     const wrapper = shallowMount(Button);
 

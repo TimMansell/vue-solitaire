@@ -2,8 +2,8 @@
   <div class="solitaire">
     <Board />
     <GameState />
-    <RulesOverlay v-if="showRules" data-test="rules-overlay" />
-    <StatsOverlay v-if="showStats" data-test="stats-overlay" />
+    <RulesOverlay v-if="showRules" />
+    <StatsOverlay v-if="showStats" />
     <NewGameOverlay v-if="showNewGame" />
   </div>
 </template>
