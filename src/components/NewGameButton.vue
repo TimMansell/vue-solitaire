@@ -18,11 +18,21 @@ export default {
       type: Boolean,
       default: false,
     },
+    showConfirmation: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
-    ...mapActions(['restartGame', 'initGame']),
+    ...mapActions(['restartGame', 'initGame', 'toggleNewGame']),
     newGame() {
-      const { completed } = this;
+      const { completed, showConfirmation } = this;
+
+      if (showConfirmation) {
+        this.toggleNewGame();
+
+        return;
+      }
 
       this.restartGame(completed);
       this.initGame();
