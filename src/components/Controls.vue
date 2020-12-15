@@ -1,6 +1,6 @@
 <template>
   <div class="controls">
-    <NewGameButton />
+    <NewGameButton show-confirmation />
     <PauseGameButton />
     <ShowRulesButton />
   </div>

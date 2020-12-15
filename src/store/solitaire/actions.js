@@ -19,7 +19,7 @@ const actions = {
       dispatch('setCard', selectedCardId);
     }
 
-    dispatch('getGlobalStatsCount');
+    dispatch('getStatsCount');
 
     commit('NEW_GAME', false);
   },
@@ -33,15 +33,16 @@ const actions = {
     commit('RESTART_GAME');
     commit('NEW_GAME', true);
   },
-  async trackNewGame({ commit, dispatch, rootState }) {
+  async trackNewGame({ commit, rootState }) {
     const { suid } = rootState.user;
-    const { error, response } = await db.newGame(suid);
+    const { error, response } = await db.gameNew(suid);
 
     if (!error) {
-      const { _id, gameNumber } = response;
+      const {
+        newGame: { _id: id },
+      } = response;
 
-      dispatch('setUserStats', { gameNumber });
-      commit('SET_GAME', { id: _id });
+      commit('SET_GAME', { id });
     }
   },
   checkGameState({ commit, state }) {
@@ -168,6 +169,11 @@ const actions = {
     const showRules = !state.showRules;
 
     commit('SHOW_RULES', showRules);
+  },
+  toggleNewGame({ commit, state }) {
+    const showNewGame = !state.showNewGame;
+
+    commit('SHOW_NEW_GAME', showNewGame);
   },
 };
 

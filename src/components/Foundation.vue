@@ -61,9 +61,12 @@ export default {
   padding-right: var(--pd-xs);
 
   @media (min-width: $bp-md) {
+    margin-bottom: var(--mg-md);
+  }
+
+  @media (min-width: $bp-lg) {
     padding-left: 0;
     padding-right: 0;
-    margin-bottom: var(--mg-md);
   }
 
   &__column {

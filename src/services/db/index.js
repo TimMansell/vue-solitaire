@@ -1,13 +1,13 @@
-import { getAUser, getUserStats, getGlobalStats, getGlobalStatsCount } from './queries';
-import { createUser, newGame, gameLost, gameWon, gameCompleted } from './mutations';
+import { getAUser, getUserStats, getGlobalStats, getStatsCount } from './queries';
+import { newUser, gameNew, gameLost, gameWon, gameCompleted } from './mutations';
 
 const db = () => ({
   getAUser,
   getUserStats,
   getGlobalStats,
-  getGlobalStatsCount,
-  createUser,
-  newGame,
+  getStatsCount,
+  newUser,
+  gameNew,
   gameWon,
   gameLost,
   gameCompleted,

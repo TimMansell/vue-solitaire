@@ -6,8 +6,8 @@ export const typeDefs = gql`
     getUser(uid: String!): userLID
     getUserStats(uid: String!): UserStats
     findUserByLID(uid: String!): userLID
-    userStats(uid: String!): UserStats
-    globalStats: GlobalStats
+    userStats(uid: String!): UserStats!
+    globalStats: GlobalStats!
   }
   type Mutation {
     createUser(data: UserInput!): User!

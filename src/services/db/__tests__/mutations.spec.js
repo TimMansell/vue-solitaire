@@ -1,33 +1,23 @@
-import { createUser, newGame, gameWon, gameLost, gameCompleted } from '../mutations';
+import { newUser, gameNew, gameWon, gameLost, gameCompleted } from '../mutations';
 
-jest.mock('../apollo', () => ({
-  mutate: () => ({
-    data: {
-      createUser: 1,
-      newGame: 1,
-      wonGame: 1,
-      lostGame: 1,
-      completedGame: 1,
-    },
-  }),
-}));
+jest.mock('../apollo');
 
 describe('DB service mutations', () => {
-  it('createUser', async () => {
-    const result = await createUser(1);
+  it('newUser', async () => {
+    const result = await newUser(1);
 
     expect(result).toEqual({
       error: false,
-      response: 1,
+      response: { createUser: 1 },
     });
   });
 
-  it('newGame', async () => {
-    const result = await newGame(1);
+  it('gameNew', async () => {
+    const result = await gameNew(1);
 
     expect(result).toEqual({
       error: false,
-      response: 1,
+      response: { newGame: 1 },
     });
   });
 
@@ -36,7 +26,7 @@ describe('DB service mutations', () => {
 
     expect(result).toEqual({
       error: false,
-      response: 1,
+      response: { wonGame: 1 },
     });
   });
 
@@ -45,7 +35,7 @@ describe('DB service mutations', () => {
 
     expect(result).toEqual({
       error: false,
-      response: 1,
+      response: { lostGame: 1 },
     });
   });
 
@@ -54,7 +44,7 @@ describe('DB service mutations', () => {
 
     expect(result).toEqual({
       error: false,
-      response: 1,
+      response: { completedGame: 1 },
     });
   });
 });

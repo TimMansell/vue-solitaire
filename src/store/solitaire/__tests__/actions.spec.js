@@ -15,43 +15,15 @@ const {
   moveCardToFoundation,
   autoMoveCardToFoundation,
   toggleRules,
+  toggleNewGame,
 } = actions;
 
 const commit = jest.fn();
 const dispatch = jest.fn();
 
-const mockResponse = {
-  _id: 123,
-  gameNumber: 2,
-};
-
-jest.mock('@/services/solitaire', () => ({
-  init: () => jest.fn(),
-  isEmptyBoard: () => true,
-  getFoundationCards: () => [],
-  getBoardCards: () => [],
-  hasMoves: () => false,
-  setSelectedCard: () => 1,
-  findEmptyFoundationColumn: () => 0,
-  isValidCardMove: () => true,
-  moveCards: () => jest.fn(),
-  isValidFoundationMove: () => true,
-  moveCardsToFoundation: () => jest.fn(),
-  setBoard: () => jest.fn(),
-  setFoundation: () => jest.fn(),
-}));
-
-jest.mock('@/services/db', () => ({
-  newGame: () => ({
-    response: mockResponse,
-  }),
-  gameCompleted: () => jest.fn(),
-  gameWon: () => jest.fn(),
-}));
-
-jest.mock('../helpers', () => ({
-  getBoardState: () => jest.fn(),
-}));
+jest.mock('@/services/solitaire');
+jest.mock('@/services/db');
+jest.mock('../helpers');
 
 describe('Solitaire Store', () => {
   it('initGame - new game', () => {
@@ -95,9 +67,12 @@ describe('Solitaire Store', () => {
       },
     };
 
+    const mockResponse = {
+      _id: 123,
+    };
+
     await trackNewGame({ commit, dispatch, rootState });
 
-    expect(dispatch).toHaveBeenCalledWith('setUserStats', { gameNumber: mockResponse.gameNumber });
     // eslint-disable-next-line no-underscore-dangle
     expect(commit).toHaveBeenCalledWith('SET_GAME', { id: mockResponse._id });
   });
@@ -229,5 +204,15 @@ describe('Solitaire Store', () => {
     toggleRules({ commit, state });
 
     expect(commit).toHaveBeenCalledWith('SHOW_RULES', true);
+  });
+
+  it('toggleNewGame', () => {
+    const state = {
+      showNewGame: false,
+    };
+
+    toggleNewGame({ commit, state });
+
+    expect(commit).toHaveBeenCalledWith('SHOW_NEW_GAME', true);
   });
 });

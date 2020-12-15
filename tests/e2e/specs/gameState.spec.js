@@ -28,6 +28,7 @@ describe('Game State', () => {
   it('clicking on new game sets new board state', () => {
     cy.setBoard(foundations).then(() => {
       cy.get('[data-test="new-game-btn"]').click();
+      cy.get('[data-test="new-game-overlay-new-btn"]').click();
 
       cy.reload();
 
@@ -107,5 +108,15 @@ describe('Game State', () => {
     cy.reload();
 
     cy.get('[data-test="game-paused"]').should('be.visible');
+  });
+
+  it('refreshing page on new game shows new game state', () => {
+    cy.setBoard(foundations).then(() => {
+      cy.get('[data-test="new-game-btn"]').click();
+
+      cy.reload();
+
+      cy.get('[data-test="game-new"]').should('be.visible');
+    });
   });
 });

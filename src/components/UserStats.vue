@@ -1,7 +1,7 @@
 <template>
   <div>
     Games:
-    <span data-test="stats"> <Counter data-test="stats" :number="number"/></span> (<ViewStatsButton
+    <span> <Counter data-test="stats" :number="number"/></span> (<ViewStatsButton
       :load-stats="getUserStats"
       data-test="user-stats-btn"
     />)
@@ -23,10 +23,10 @@ export default {
     ...mapGetters(['userStats']),
     number() {
       const {
-        userStats: { gameNumber },
+        userStats: { count },
       } = this;
 
-      return gameNumber;
+      return count;
     },
   },
   methods: {

@@ -2,7 +2,7 @@
 
 exports[`Controls.vue matches snapshot 1`] = `
 <div class="controls">
-  <newgamebutton-stub></newgamebutton-stub>
+  <newgamebutton-stub showconfirmation="true"></newgamebutton-stub>
   <pausegamebutton-stub></pausegamebutton-stub>
   <showrulesbutton-stub></showrulesbutton-stub>
 </div>

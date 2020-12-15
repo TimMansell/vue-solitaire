@@ -20,6 +20,7 @@ const state = () => ({
   },
   isNewGame: true,
   showRules: false,
+  showNewGame: false,
 });
 
 export default state;

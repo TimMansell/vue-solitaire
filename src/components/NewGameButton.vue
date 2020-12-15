@@ -1,5 +1,5 @@
 <template>
-  <Button @click="newGame" data-test="new-game-btn">
+  <Button is-stacked @click="newGame" data-test="new-game-btn">
     New Game
   </Button>
 </template>
@@ -18,11 +18,21 @@ export default {
       type: Boolean,
       default: false,
     },
+    showConfirmation: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
-    ...mapActions(['restartGame', 'initGame']),
+    ...mapActions(['restartGame', 'initGame', 'toggleNewGame']),
     newGame() {
-      const { completed } = this;
+      const { completed, showConfirmation } = this;
+
+      if (showConfirmation) {
+        this.toggleNewGame();
+
+        return;
+      }
 
       this.restartGame(completed);
       this.initGame();
