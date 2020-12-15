@@ -309,7 +309,7 @@ describe('cards', () => {
           value: 3,
         },
         {
-          id: 3,
+          id: 4,
           suit: '♠',
           value: 4,
           visible: true,
@@ -321,7 +321,7 @@ describe('cards', () => {
 
     expect(result).toStrictEqual([
       { id: 1, suit: '♠', value: 'A', visible: true },
-      { id: 3, suit: '♠', value: 4, visible: true },
+      { id: 4, suit: '♠', value: 4, visible: true },
     ]);
   });
 
@@ -347,7 +347,7 @@ describe('cards', () => {
           value: 3,
         },
         {
-          id: 3,
+          id: 4,
           suit: '♠',
           value: 4,
           visible: true,
@@ -355,7 +355,7 @@ describe('cards', () => {
       ],
       [
         {
-          id: 4,
+          id: 5,
           suit: '♦',
           value: 'A',
           visble: true,
@@ -368,7 +368,7 @@ describe('cards', () => {
     const result = getLastCard(boardCards, selectedColumn);
 
     expect(result).toStrictEqual({
-      id: 3,
+      id: 4,
       suit: '♠',
       value: 4,
       visible: true,
@@ -397,7 +397,7 @@ describe('cards', () => {
           value: 3,
         },
         {
-          id: 3,
+          id: 4,
           suit: '♠',
           value: 4,
           visible: true,
@@ -435,7 +435,7 @@ describe('cards', () => {
           value: 3,
         },
         {
-          id: 3,
+          id: 4,
           suit: '♠',
           value: 4,
           visible: true,
@@ -443,7 +443,7 @@ describe('cards', () => {
       ],
       [
         {
-          id: 4,
+          id: 5,
           suit: '♦',
           value: 'A',
           visble: true,
@@ -456,21 +456,21 @@ describe('cards', () => {
 
     expect(result).toStrictEqual([
       { id: 1, suit: '♠', value: 'A', visble: true },
-      { id: 3, suit: '♠', value: 4, visible: true },
-      { id: 4, suit: '♦', value: 'A', visble: true },
+      { id: 4, suit: '♠', value: 4, visible: true },
+      { id: 5, suit: '♦', value: 'A', visble: true },
     ]);
   });
 
   it('should show last card in column', () => {
     const cards = [
       {
-        id: 2,
+        id: 1,
         suit: '♠',
         value: 2,
         visible: false,
       },
       {
-        id: 3,
+        id: 2,
         suit: '♠',
         value: 3,
         visible: false,
@@ -486,8 +486,8 @@ describe('cards', () => {
     const result = showLastCard(cards);
 
     expect(result).toStrictEqual([
-      { id: 2, suit: '♠', value: 2, visible: false },
-      { id: 3, suit: '♠', value: 3, visible: false },
+      { id: 1, suit: '♠', value: 2, visible: false },
+      { id: 2, suit: '♠', value: 3, visible: false },
       { id: 3, suit: '♠', value: 4, visible: true },
     ]);
   });
@@ -526,13 +526,13 @@ describe('cards', () => {
     const boardCards = [
       [
         {
-          id: 2,
+          id: 1,
           suit: '♠',
           value: 2,
           visible: false,
         },
         {
-          id: 3,
+          id: 2,
           suit: '♠',
           value: 3,
           visible: false,
@@ -546,7 +546,7 @@ describe('cards', () => {
       ],
     ];
 
-    const selectedCardId = 2;
+    const selectedCardId = 1;
 
     const result = checkCardTopPosition(boardCards, selectedCardId);
 
@@ -557,13 +557,13 @@ describe('cards', () => {
     const boardCards = [
       [
         {
-          id: 2,
+          id: 1,
           suit: '♠',
           value: 2,
           visible: false,
         },
         {
-          id: 3,
+          id: 2,
           suit: '♠',
           value: 3,
           visible: false,
