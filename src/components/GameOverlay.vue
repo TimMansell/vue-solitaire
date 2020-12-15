@@ -99,7 +99,7 @@ export default {
   }
 
   &__content {
-    padding: var(--pd-lg);
+    padding: var(--pd-md);
   }
 
   &__title {
@@ -116,7 +116,7 @@ export default {
   &__btns {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: var(--vr);
   }
 }
 </style>
