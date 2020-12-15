@@ -110,12 +110,13 @@ export default {
   &__msg {
     color: var(--text-primary);
     text-shadow: -1px -1px rgba($col-tertiary, 0.3);
-    margin-bottom: var(--mg-md);
+    margin-bottom: var(--mg-lg);
   }
 
   &__btns {
     display: flex;
     justify-content: center;
+    gap: 1rem;
   }
 }
 </style>
