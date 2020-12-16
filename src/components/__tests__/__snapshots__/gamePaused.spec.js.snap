@@ -3,12 +3,16 @@
 exports[`GamePaused.vue hides overlay 1`] = ``;
 
 exports[`GamePaused.vue matches snapshot 1`] = `
-<gameoverlay-stub alt="true" centercontent="true" showlogo="true" data-test="game-paused">Game Paused<pausegamebutton-stub></pausegamebutton-stub>
+<gameoverlay-stub alt="true" centercontent="true" showlogo="true" data-test="game-paused">
+  Game Paused
+  <pausegamebutton-stub></pausegamebutton-stub>
 </gameoverlay-stub>
 `;
 
 exports[`GamePaused.vue shows inactive msg 1`] = `
-<gameoverlay-stub alt="true" centercontent="true" showlogo="true" data-test="game-paused">Game Paused
+<gameoverlay-stub alt="true" centercontent="true" showlogo="true" data-test="game-paused">
+  Game Paused
+
   Your game has been paused due to inactivity
   <pausegamebutton-stub></pausegamebutton-stub>
 </gameoverlay-stub>
