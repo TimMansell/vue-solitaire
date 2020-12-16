@@ -20,7 +20,7 @@ describe('Game State', () => {
         .should('have.length', 2);
 
       cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="card-placeholder"]').should('have.length', 7);
+        cy.get('[data-test="column-card-placeholder"]').should('have.length', 7);
       });
     });
   });
@@ -33,7 +33,7 @@ describe('Game State', () => {
       cy.reload();
 
       cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="card-placeholder"]').should('have.length', 0);
+        cy.get('[data-test="column-card-placeholder"]').should('have.length', 0);
       });
     });
   });

@@ -9,7 +9,7 @@ describe('Special column moves', () => {
   it('should show empty column card placeholder', () => {
     cy.setBoard(emptyColumn).then(() => {
       cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="card-placeholder"]').should('be.visible');
+        cy.get('[data-test="column-card-placeholder"]').should('be.visible');
       });
     });
   });
