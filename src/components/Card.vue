@@ -128,7 +128,9 @@ export default {
 
       // Find cards below selected card.
       const siblingCards = [...card.parentElement.children];
-      const selectedCard = siblingCards.findIndex((siblingCard) => siblingCard === card);
+      const selectedCard = siblingCards.findIndex(
+        (siblingCard) => siblingCard === card
+      );
       const clonedCards = siblingCards.slice(selectedCard);
 
       clonedCards.forEach((clonedCard) => {

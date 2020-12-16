@@ -1,5 +1,8 @@
 <template>
-  <TouchEvents @swipe="autoMoveCard($event, id)" @doubletap="autoMoveCard($event, id)">
+  <TouchEvents
+    @swipe="autoMoveCard($event, id)"
+    @doubletap="autoMoveCard($event, id)"
+  >
     <DefaultCard :value="value" />
   </TouchEvents>
 </template>

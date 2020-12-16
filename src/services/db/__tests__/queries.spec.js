@@ -1,4 +1,9 @@
-import { getAUser, getUserStats, getStatsCount, getGlobalStats } from '../queries';
+import {
+  getAUser,
+  getUserStats,
+  getStatsCount,
+  getGlobalStats,
+} from '../queries';
 
 jest.mock('../apollo');
 

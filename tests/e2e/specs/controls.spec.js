@@ -22,7 +22,10 @@ describe('Controls', () => {
 
       cy.get('[data-test="foundation-0"]').shouldNotContain(['A♥']);
 
-      cy.get('[data-test="card-5♠"]').should('not.have.class', 'card--is-selected');
+      cy.get('[data-test="card-5♠"]').should(
+        'not.have.class',
+        'card--is-selected'
+      );
     });
   });
 

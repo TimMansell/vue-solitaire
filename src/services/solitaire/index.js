@@ -41,7 +41,8 @@ const solitaire = () => {
     setGameState({ boardCards });
   };
 
-  const isValidCardMove = (selectedColumn) => checkValidCardMove(state, selectedColumn);
+  const isValidCardMove = (selectedColumn) =>
+    checkValidCardMove(state, selectedColumn);
 
   const findEmptyFoundationColumn = () => getEmptyFoundationColumn(state);
 
@@ -56,7 +57,8 @@ const solitaire = () => {
     });
   };
 
-  const isValidFoundationMove = (selectedColumn) => checkValidFoundationMove(state, selectedColumn);
+  const isValidFoundationMove = (selectedColumn) =>
+    checkValidFoundationMove(state, selectedColumn);
 
   const isEmptyBoard = () => !state.boardCards.flat().length;
 

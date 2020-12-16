@@ -1,4 +1,8 @@
-import { loadFoundation, updateFoundation, getEmptyFoundationColumn } from '../index';
+import {
+  loadFoundation,
+  updateFoundation,
+  getEmptyFoundationColumn,
+} from '../index';
 
 describe('foundation', () => {
   describe('load foundation', () => {
@@ -34,7 +38,12 @@ describe('foundation', () => {
 
     const result = updateFoundation(state, cards);
 
-    expect(result).toStrictEqual([[], [], [{ id: 2, suit: '♠', value: 'A' }], []]);
+    expect(result).toStrictEqual([
+      [],
+      [],
+      [{ id: 2, suit: '♠', value: 'A' }],
+      [],
+    ]);
   });
 
   it('should return first empty Ace column', () => {

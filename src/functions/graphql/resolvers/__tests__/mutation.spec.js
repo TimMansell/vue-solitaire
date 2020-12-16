@@ -1,4 +1,10 @@
-import { createUser, newGame, wonGame, lostGame, completedGame } from '../mutation';
+import {
+  createUser,
+  newGame,
+  wonGame,
+  lostGame,
+  completedGame,
+} from '../mutation';
 
 describe('Graphql Mutation Resolvers', () => {
   it('createUser', async () => {

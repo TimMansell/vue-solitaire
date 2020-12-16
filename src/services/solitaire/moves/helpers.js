@@ -7,7 +7,13 @@ export const displayMoves = (moves) => {
   }
 };
 
-export const getColumnCards = ({ toCards, fromCards, selectedColumn, columnNo, cardPosition }) => {
+export const getColumnCards = ({
+  toCards,
+  fromCards,
+  selectedColumn,
+  columnNo,
+  cardPosition,
+}) => {
   const columnCards = toCards[selectedColumn];
   const moveCards = fromCards[columnNo].slice(cardPosition);
 

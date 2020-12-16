@@ -20,7 +20,10 @@ describe('Game State', () => {
         .should('have.length', 2);
 
       cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="column-card-placeholder"]').should('have.length', 7);
+        cy.get('[data-test="column-card-placeholder"]').should(
+          'have.length',
+          7
+        );
       });
     });
   });
@@ -33,7 +36,10 @@ describe('Game State', () => {
       cy.reload();
 
       cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="column-card-placeholder"]').should('have.length', 0);
+        cy.get('[data-test="column-card-placeholder"]').should(
+          'have.length',
+          0
+        );
       });
     });
   });
@@ -48,7 +54,10 @@ describe('Game State', () => {
 
       cy.get('[data-test="column-1"]').click();
 
-      cy.get('[data-test="card-Q♠"]').should('not.have.class', 'card--is-selected');
+      cy.get('[data-test="card-Q♠"]').should(
+        'not.have.class',
+        'card--is-selected'
+      );
     });
   });
 
