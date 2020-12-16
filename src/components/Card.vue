@@ -7,26 +7,13 @@
     @dragend="clearCard()"
     :draggable="visible"
     ref="card"
-    :data-card-suit="cardSuitName"
     :data-test="cardTestName"
   >
-    <DefaultCard
-      :id="id"
-      :value="value"
-      :suit="suit"
-      v-show="visible && !bottomCard"
-      data-test="card-default"
-    />
+    <DefaultCard :value="cardValue" v-show="visible && !bottomCard" />
 
-    <BottomCard
-      :id="id"
-      :value="value"
-      :suit="suit"
-      v-show="visible && bottomCard"
-      data-test="card-bottom"
-    />
+    <BottomCard :id="id" :value="cardValue" v-show="visible && bottomCard" />
 
-    <CardPlaceholder v-show="!visible" data-test="card-hidden" />
+    <CardPlaceholder v-show="!visible" />
   </div>
 </template>
 
@@ -79,6 +66,11 @@ export default {
   },
   computed: {
     ...mapGetters(['selectedCardId']),
+    cardValue() {
+      const { value, suit } = this;
+
+      return `${value}${suit}`;
+    },
     classes() {
       const { selectedCardId } = this;
       const { id, stacked, clickable, visible } = this;
@@ -97,16 +89,7 @@ export default {
         return `card-${value}${suit}`;
       }
 
-      return 'card';
-    },
-    cardSuitName() {
-      const { suit, visible } = this;
-
-      if (visible) {
-        return suit;
-      }
-
-      return '';
+      return 'card-hidden';
     },
   },
   methods: {
