@@ -4,12 +4,12 @@ import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
 describe('Timer', () => {
   beforeEach(() => {
     cy.visit('/');
+
+    cy.wait(1000);
   });
 
   describe('Default Functionality', () => {
     it('timer stops when game is paused and starts when resumed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -37,14 +37,12 @@ describe('Timer', () => {
     });
 
     it('it should increment timer correctly', () => {
-      cy.wait(4000);
+      cy.wait(3000);
 
       cy.get('[data-test="timer"]').should('contain', '0:00:04');
     });
 
     it('it should increment timer correctly after pausing', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="pause-game-btn"]').click();
 
       cy.wait(1000);
@@ -71,7 +69,7 @@ describe('Timer', () => {
         cy.get('[data-test="pause-game-btn"]').click();
       });
 
-      cy.get('[data-test="timer"]').should('contain', '0:00:02');
+      cy.get('[data-test="timer"]').should('contain', '0:00:03');
     });
   });
 
@@ -150,8 +148,6 @@ describe('Timer', () => {
 
     it('timer should start paused when game lost overlay is open and page is refreshed', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
         cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
@@ -173,8 +169,6 @@ describe('Timer', () => {
 
     it('timer should start paused when game won overlay is open and page is refreshed', () => {
       cy.setBoard(foundations).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
         cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
@@ -196,8 +190,6 @@ describe('Timer', () => {
 
     it('timer should start paused when new game overlay is open and page is refreshed', () => {
       cy.setBoard(foundations).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="timer"]').then(($timerStart) => {
           const startNumber = $timerStart.text();
 
@@ -219,8 +211,6 @@ describe('Timer', () => {
 
   describe('Resuming Timer', () => {
     it('timer stops when user stats overlay is open and starts when resumed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -248,8 +238,6 @@ describe('Timer', () => {
     });
 
     it('timer stops when global stats overlay is open and starts when resumed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -277,8 +265,6 @@ describe('Timer', () => {
     });
 
     it('timer stops when new game overlay is open and starts when resumed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -306,8 +292,6 @@ describe('Timer', () => {
 
   describe('Resetting timer', () => {
     it('it should reset timer when new game is pressed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="new-game-btn"]').click();
       cy.get('[data-test="new-game-overlay-new-btn"]').click();
 
@@ -316,8 +300,6 @@ describe('Timer', () => {
 
     it('it stops timer when game is lost and resets when new game is started', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
         cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
@@ -343,8 +325,6 @@ describe('Timer', () => {
 
     it('it stops timer when game is won and resets when new game is started', () => {
       cy.setBoard(foundations).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
         cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
