@@ -15,11 +15,11 @@ describe('validation', () => {
     it('should be a valid card', () => {
       const card1 = {
         order: 9,
-        suit: 'c',
+        suit: '♣',
       };
       const card2 = {
         order: 10,
-        suit: 'c',
+        suit: '♣',
       };
       const result = isMoveValidCard(card1, card2);
 
@@ -29,11 +29,11 @@ describe('validation', () => {
     it('should be an invalid card', () => {
       const card1 = {
         order: 9,
-        suit: 'c',
+        suit: '♣',
       };
       const card2 = {
         order: 9,
-        suit: 'c',
+        suit: '♣',
       };
       const result = isMoveValidCard(card1, card2);
 
@@ -44,10 +44,10 @@ describe('validation', () => {
   describe('valid suit', () => {
     it('should be a valid suit', () => {
       const card1 = {
-        suit: 'c',
+        suit: '♣',
       };
       const card2 = {
-        suit: 'c',
+        suit: '♣',
       };
       const result = isMoveValidSuit(card1, card2);
 
@@ -56,10 +56,10 @@ describe('validation', () => {
 
     it('should be an invalid suit', () => {
       const card1 = {
-        suit: 'c',
+        suit: '♣',
       };
       const card2 = {
-        suit: 'd',
+        suit: '♦',
       };
       const result = isMoveValidSuit(card1, card2);
 
@@ -222,12 +222,12 @@ describe('validation', () => {
   describe('valid foundation suit', () => {
     it('should be a valid suit', () => {
       const card = {
-        suit: 'c',
+        suit: '♣',
       };
 
       const cards = [
         {
-          suit: 'c',
+          suit: '♣',
         },
       ];
 
@@ -238,12 +238,12 @@ describe('validation', () => {
 
     it('should be an invalid suit', () => {
       const card = {
-        suit: 'c',
+        suit: '♣',
       };
 
       const cards = [
         {
-          suit: 'd',
+          suit: '♦',
         },
       ];
 

@@ -5,8 +5,8 @@ const vuex = {
     board: {
       cards: [
         [
-          { id: '1d', value: '2', order: 1, suit: 'd', visible: true },
-          { id: '1s', value: '2', order: 1, suit: 's', visible: false },
+          { id: '1d', value: '2', order: 1, suit: '♦', visible: true },
+          { id: '1s', value: '2', order: 1, suit: '♠', visible: false },
         ],
       ],
       foundation: [[], [], [], []],

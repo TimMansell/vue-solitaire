@@ -11,11 +11,11 @@ describe('validation moves', () => {
       it('should be a valid card', () => {
         const card1 = {
           order: 9,
-          suit: 'c',
+          suit: '♣',
         };
         const card2 = {
           order: 10,
-          suit: 'c',
+          suit: '♣',
         };
 
         const result = validateCardMove(card1, card2);
@@ -26,11 +26,11 @@ describe('validation moves', () => {
       it('should be an invalid card', () => {
         const card1 = {
           order: 9,
-          suit: 'c',
+          suit: '♣',
         };
         const card2 = {
           order: 8,
-          suit: 'd',
+          suit: '♦',
         };
 
         const result = validateCardMove(card1, card2);
@@ -41,11 +41,11 @@ describe('validation moves', () => {
       it('should be a valid card order but invalid card suit', () => {
         const card1 = {
           order: 9,
-          suit: 'c',
+          suit: '♣',
         };
         const card2 = {
           order: 10,
-          suit: 'd',
+          suit: '♦',
         };
 
         const result = validateCardMove(card1, card2);
@@ -56,11 +56,11 @@ describe('validation moves', () => {
       it('should be a valid card suit but invalid card order', () => {
         const card1 = {
           order: 9,
-          suit: 'c',
+          suit: '♣',
         };
         const card2 = {
           order: 8,
-          suit: 'c',
+          suit: '♣',
         };
 
         const result = validateCardMove(card1, card2);
@@ -73,7 +73,7 @@ describe('validation moves', () => {
       it('should be a valid king', () => {
         const card1 = {
           value: 'K',
-          suit: 'c',
+          suit: '♣',
         };
         const card2 = {};
 
@@ -85,11 +85,11 @@ describe('validation moves', () => {
       it('should be an invalid king', () => {
         const card1 = {
           value: 'K',
-          suit: 'c',
+          suit: '♣',
         };
         const card2 = {
           value: '10',
-          suit: 'c',
+          suit: '♣',
         };
 
         const result = validateCardMove(card1, card2);
@@ -136,12 +136,12 @@ describe('validation moves', () => {
       it('should be a valid card', () => {
         const card = {
           order: 1,
-          suit: 'c',
+          suit: '♣',
         };
         const cards = [
           {
             order: 0,
-            suit: 'c',
+            suit: '♣',
           },
         ];
 
@@ -153,12 +153,12 @@ describe('validation moves', () => {
       it('should be an invalid card', () => {
         const card = {
           order: 3,
-          suit: 'd',
+          suit: '♦',
         };
         const cards = [
           {
             order: 1,
-            suit: 'c',
+            suit: '♣',
           },
         ];
 
@@ -170,12 +170,12 @@ describe('validation moves', () => {
       it('should be a valid card order but invalid card suit', () => {
         const card = {
           order: 2,
-          suit: 'c',
+          suit: '♣',
         };
         const cards = [
           {
             order: 1,
-            suit: 'd',
+            suit: '♦',
           },
         ];
 
@@ -187,12 +187,12 @@ describe('validation moves', () => {
       it('should be a valid card suit but invalid card order', () => {
         const card = {
           order: 3,
-          suit: 'c',
+          suit: '♣',
         };
         const cards = [
           {
             order: 1,
-            suit: 'c',
+            suit: '♣',
           },
         ];
 
@@ -206,7 +206,7 @@ describe('validation moves', () => {
       it('should be a valid ace', () => {
         const card = {
           value: 'A',
-          suit: 'c',
+          suit: '♣',
         };
         const cards = [];
 
@@ -218,12 +218,12 @@ describe('validation moves', () => {
       it('should be an invalid ace', () => {
         const card = {
           value: 'A',
-          suit: 'c',
+          suit: '♣',
         };
         const cards = [
           {
             value: 'A',
-            suit: 'd',
+            suit: '♦',
           },
         ];
 

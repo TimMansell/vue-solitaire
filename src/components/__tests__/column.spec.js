@@ -17,7 +17,7 @@ describe('Column.vue', () => {
       cards: [
         {
           value: 'K',
-          suit: 'd',
+          suit: '♦',
           order: 1,
           visible: true,
           clickable: false,

@@ -14,18 +14,18 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               order: 3,
             },
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               order: 8,
               visible: true,
             },
             {
               id: 3,
-              suit: 'd',
+              suit: '♦',
               order: 8,
               visible: true,
             },
@@ -33,7 +33,7 @@ describe('moves', () => {
           [
             {
               id: 4,
-              suit: 's',
+              suit: '♠',
               order: 9,
               visible: true,
             },
@@ -55,18 +55,18 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               order: 3,
             },
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               order: 8,
               visible: true,
             },
             {
               id: 3,
-              suit: 'd',
+              suit: '♦',
               order: 8,
               visible: true,
             },
@@ -74,7 +74,7 @@ describe('moves', () => {
           [
             {
               id: 4,
-              suit: 's',
+              suit: '♠',
               order: 10,
               visible: true,
             },
@@ -96,7 +96,7 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 'd',
+              suit: '♦',
               value: 'A',
               visible: true,
             },
@@ -119,7 +119,7 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               order: 1,
               value: 2,
             },
@@ -129,7 +129,7 @@ describe('moves', () => {
           [
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               order: 0,
               value: 'A',
             },
@@ -154,7 +154,7 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 'd',
+              suit: '♦',
               value: 'A',
               order: 1,
             },
@@ -164,7 +164,7 @@ describe('moves', () => {
           [
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               value: 'A',
               order: 1,
             },
@@ -189,7 +189,7 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 'd',
+              suit: '♦',
               value: 2,
               order: 2,
             },
@@ -199,7 +199,7 @@ describe('moves', () => {
           [
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               value: 'A',
               order: 1,
             },
@@ -224,7 +224,7 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 'd',
+              suit: '♦',
               value: 3,
               order: 3,
             },
@@ -234,7 +234,7 @@ describe('moves', () => {
           [
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               value: 'A',
               order: 1,
             },
@@ -262,7 +262,7 @@ describe('moves', () => {
             {
               id: 1,
               value: 'A',
-              suit: 'c',
+              suit: '♣',
               visible: true,
             },
           ],
@@ -302,18 +302,18 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               order: 3,
             },
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               order: 8,
               visible: true,
             },
             {
               id: 3,
-              suit: 'd',
+              suit: '♦',
               order: 8,
               visible: true,
             },
@@ -321,7 +321,7 @@ describe('moves', () => {
           [
             {
               id: 4,
-              suit: 's',
+              suit: '♠',
               order: 9,
               visible: true,
             },
@@ -335,12 +335,12 @@ describe('moves', () => {
       const result = moveBoardCards(obj, selectedColumn);
 
       expect(result).toStrictEqual({
-        cardsFrom: { cards: [{ id: 1, order: 3, suit: 's', visible: true }], columnNo: 0 },
+        cardsFrom: { cards: [{ id: 1, order: 3, suit: '♠', visible: true }], columnNo: 0 },
         cardsTo: {
           cards: [
-            { id: 4, order: 9, suit: 's', visible: true },
-            { id: 2, order: 8, suit: 's', visible: true },
-            { id: 3, order: 8, suit: 'd', visible: true },
+            { id: 4, order: 9, suit: '♠', visible: true },
+            { id: 2, order: 8, suit: '♠', visible: true },
+            { id: 3, order: 8, suit: '♦', visible: true },
           ],
           columnNo: 1,
         },
@@ -353,18 +353,18 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               value: 3,
             },
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               value: 8,
               visible: true,
             },
             {
               id: 3,
-              suit: 'd',
+              suit: '♦',
               value: 'A',
               visible: true,
             },
@@ -381,13 +381,13 @@ describe('moves', () => {
       expect(result).toStrictEqual({
         cardsFrom: {
           cards: [
-            { id: 1, suit: 's', value: 3 },
-            { id: 2, suit: 's', value: 8, visible: true },
+            { id: 1, suit: '♠', value: 3 },
+            { id: 2, suit: '♠', value: 8, visible: true },
           ],
           columnNo: 0,
         },
         foundationCardsTo: {
-          cards: [{ id: 3, suit: 'd', value: 'A', visible: true }],
+          cards: [{ id: 3, suit: '♦', value: 'A', visible: true }],
           columnNo: 0,
         },
       });

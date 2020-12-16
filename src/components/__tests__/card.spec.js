@@ -26,23 +26,25 @@ describe('Card.vue', () => {
   });
 
   it('should have correct props', () => {
+    const propsData = {
+      id: 2,
+      value: 'K',
+      suit: '♦',
+      visible: true,
+      revealed: true,
+      clickable: false,
+      bottomCard: true,
+      stacked: true,
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        id: 2,
-        value: 'K',
-        suit: 'd',
-        visible: true,
-        revealed: true,
-        clickable: false,
-        bottomCard: true,
-        stacked: true,
-      },
+      propsData,
       computed,
     });
 
     expect(wrapper.props().id).toBe(2);
-    expect(wrapper.props().value).toBe('K');
-    expect(wrapper.props().suit).toBe('d');
+    expect(wrapper.props().value).toBe(propsData.value);
+    expect(wrapper.props().suit).toBe(propsData.suit);
     expect(wrapper.props().visible).toBe(true);
     expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
@@ -51,51 +53,59 @@ describe('Card.vue', () => {
   });
 
   it('should render a diamond card', () => {
+    const propsData = {
+      value: '6',
+      suit: '♦',
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        value: '6',
-        suit: 'd',
-      },
+      propsData,
       computed,
     });
 
-    expect(wrapper.attributes('data-card-suit')).toBe('d');
+    expect(wrapper.attributes('data-card-suit')).toBe(propsData.suit);
   });
 
   it('should render a club card', () => {
+    const propsData = {
+      value: '6',
+      suit: '♣',
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        value: '6',
-        suit: 'c',
-      },
+      propsData,
       computed,
     });
 
-    expect(wrapper.attributes('data-card-suit')).toBe('c');
+    expect(wrapper.attributes('data-card-suit')).toBe(propsData.suit);
   });
 
   it('should render a heart card', () => {
+    const propsData = {
+      value: '6',
+      suit: '♥',
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        value: '6',
-        suit: 'h',
-      },
+      propsData,
       computed,
     });
 
-    expect(wrapper.attributes('data-card-suit')).toBe('h');
+    expect(wrapper.attributes('data-card-suit')).toBe(propsData.suit);
   });
 
   it('should render a spade card', () => {
+    const propsData = {
+      value: '6',
+      suit: '♠',
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        value: '6',
-        suit: 's',
-      },
+      propsData,
       computed,
     });
 
-    expect(wrapper.attributes('data-card-suit')).toBe('s');
+    expect(wrapper.attributes('data-card-suit')).toBe(propsData.suit);
   });
 
   it('should render a default card', () => {
@@ -165,7 +175,7 @@ describe('Card.vue', () => {
         computed,
       });
 
-      wrapper.find('[data-test="card-Ac"]').trigger('click');
+      wrapper.trigger('click');
 
       expect(wrapper.classes()).toContain('card--is-not-clickable');
       expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
@@ -180,7 +190,7 @@ describe('Card.vue', () => {
         computed,
       });
 
-      wrapper.find('[data-test="card"]').trigger('click');
+      wrapper.trigger('click');
 
       expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
     });
@@ -191,7 +201,7 @@ describe('Card.vue', () => {
         computed,
       });
 
-      wrapper.find('[data-test="card-Ac"]').trigger('click');
+      wrapper.trigger('click');
 
       expect(mockStore.dispatch).toHaveBeenCalledTimes(1);
     });
