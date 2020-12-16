@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" data-test="card-placeholder">
+  <div :class="classes">
     <SvgIcon name="Card_back_17" />
   </div>
 </template>
