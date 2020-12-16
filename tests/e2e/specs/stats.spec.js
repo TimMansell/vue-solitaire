@@ -36,8 +36,8 @@ describe('Stats', () => {
 
     it('it successfully increments games played after lost game', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
-        cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
+        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
         cy.get('[data-test="stats"]').then(($stats) => {
           const number = $stats.text();
@@ -51,8 +51,8 @@ describe('Stats', () => {
 
     it('it successfully increments games played after won game', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
         cy.get('[data-test="stats"]').then(($stats) => {
           const number = $stats.text();
@@ -124,8 +124,8 @@ describe('Stats', () => {
 
     it('it successfully increments games played after lost game', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
-        cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
+        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
         cy.get('[data-test="global-stats"]').then(($stats) => {
           const number = $stats.text();
@@ -139,8 +139,8 @@ describe('Stats', () => {
 
     it('it successfully increments games played after won game', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
         cy.get('[data-test="global-stats"]').then(($stats) => {
           const number = $stats.text();

@@ -9,7 +9,7 @@ describe('Game State', () => {
 
   it('refreshing page shows same board state', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="card-Qs"]')
+      cy.get('[data-test="card-Q♠"]')
         .click()
         .should('have.class', 'card--is-selected');
 
@@ -40,7 +40,7 @@ describe('Game State', () => {
 
   it('clicking on card then refreshing page should highlight card, then unhighlight card', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="card-Qs"]')
+      cy.get('[data-test="card-Q♠"]')
         .click()
         .should('have.class', 'card--is-selected');
 
@@ -48,14 +48,14 @@ describe('Game State', () => {
 
       cy.get('[data-test="column-1"]').click();
 
-      cy.get('[data-test="card-Qs"]').should('not.have.class', 'card--is-selected');
+      cy.get('[data-test="card-Q♠"]').should('not.have.class', 'card--is-selected');
     });
   });
 
   it('refreshing page on game won shows game won state', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-      cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+      cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+      cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
       cy.get('[data-test="game-won"]').should('be.visible');
 
@@ -67,8 +67,8 @@ describe('Game State', () => {
 
   it('refreshing page on game lost shows game lost state', () => {
     cy.setBoard(noMovesKingColumn).then(() => {
-      cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
-      cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
+      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
 

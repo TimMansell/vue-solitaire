@@ -10,155 +10,155 @@ describe('Foundation moves', () => {
   });
 
   describe('using drag and drop', () => {
-    it('should move As to 1st foundation', () => {
+    it('should move A♠ to 1st foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="column-7"]').shouldNotContain(['As']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠']);
       });
     });
 
-    it('should move As to 2nd foundation', () => {
+    it('should move A♠ to 2nd foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-1"]');
 
-        cy.get('[data-test="foundation-1"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-1"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="column-7"]').shouldNotContain(['As']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠']);
       });
     });
 
-    it('should move As to 3rd foundation', () => {
+    it('should move A♠ to 3rd foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-2"]');
+        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-2"]');
 
-        cy.get('[data-test="foundation-2"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-2"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="column-7"]').shouldNotContain(['As']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠']);
       });
     });
 
-    it('should move As to 4th foundation', () => {
+    it('should move A♠ to 4th foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-3"]');
 
-        cy.get('[data-test="foundation-3"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-3"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="column-7"]').shouldNotContain(['As']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠']);
       });
     });
 
-    it('should move Ah, 2h, A3 to 1st foundation', () => {
+    it('should move A♥, 2♥, 3♥ to 1st foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah', '3h']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥', '3♥']);
 
-        cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="card-2h"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-2♥"]').dragTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="card-3h"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-3♥"]').dragTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah', '2h', '3h']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥', '2♥', '3♥']);
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h', '3h']);
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥', '3♥']);
       });
     });
 
-    it('should move Ah then 2h and As then 2s to 2nd & 4th foundation', () => {
-      cy.setBoard(moveAcetoAces).then(() => {
-        // Hearts
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
-
-        cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-1"]');
-
-        cy.get('[data-test="card-2h"]').dragTo('[data-test="foundation-1"]');
-
-        cy.get('[data-test="foundation-1"]').shouldContain(['Ah', '2h']);
-
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h']);
-
-        // Spades
-        cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-3"]');
-
-        cy.get('[data-test="card-2s"]').dragTo('[data-test="foundation-3"]');
-
-        cy.get('[data-test="foundation-3"]').shouldContain(['As', '2s']);
-
-        cy.get('[data-test="column-7"]').shouldNotContain(['As', '2s']);
-      });
-    });
-
-    it('should move Ah then 2h to 2nd foundation and not move As to same foundation', () => {
+    it('should move A♥ then 2♥ and A♠ then 2♠ to 2nd & 4th foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
         // Hearts
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-1"]');
-        cy.get('[data-test="card-2h"]').dragTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-1"]');
 
-        cy.get('[data-test="foundation-1"]').shouldContain(['Ah', '2h']);
+        cy.get('[data-test="card-2♥"]').dragTo('[data-test="foundation-1"]');
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h']);
+        cy.get('[data-test="foundation-1"]').shouldContain(['A♥', '2♥']);
+
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
 
         // Spades
-        cy.get('[data-test="card-As"]').dragTo('[data-test="foundation-1"]');
-        // cy.get('[data-test="card-2s"]').dragTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-3"]');
 
-        cy.get('[data-test="foundation-1"]').shouldNotContain(['As']);
+        cy.get('[data-test="card-2♠"]').dragTo('[data-test="foundation-3"]');
 
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-3"]').shouldContain(['A♠', '2♠']);
+
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠', '2♠']);
       });
     });
 
-    it('should move Ah to 1st foundation and not 2h', () => {
-      cy.setBoard(invalidMove2ToAces).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
+    it('should move A♥ then 2♥ to 2nd foundation and not move A♠ to same foundation', () => {
+      cy.setBoard(moveAcetoAces).then(() => {
+        // Hearts
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-2♥"]').dragTo('[data-test="foundation-1"]');
 
-        cy.get('[data-test="card-2h"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="foundation-1"]').shouldContain(['A♥', '2♥']);
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah']);
-        cy.get('[data-test="foundation-0"]').shouldNotContain(['2h']);
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
 
-        cy.get('[data-test="column-2"]').shouldContain(['2h']);
+        // Spades
+        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-1"]');
+        // cy.get('[data-test="card-2♠"]').dragTo('[data-test="foundation-1"]');
+
+        cy.get('[data-test="foundation-1"]').shouldNotContain(['A♠']);
+
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
       });
     });
 
-    it('should move Ah to 1st foundation and not move 2c', () => {
+    it('should move A♥ to 1st foundation and not 2♥', () => {
       cy.setBoard(invalidMove2ToAces).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ah"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="card-2c"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-2♥"]').dragTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah']);
-        cy.get('[data-test="foundation-0"]').shouldNotContain(['2c']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥']);
+        cy.get('[data-test="foundation-0"]').shouldNotContain(['2♥']);
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah']);
+        cy.get('[data-test="column-2"]').shouldContain(['2♥']);
       });
     });
 
-    it('should not move Ad to foundation', () => {
+    it('should move A♥ to 1st foundation and not move 2♣', () => {
       cy.setBoard(invalidMove2ToAces).then(() => {
-        cy.get('[data-test="column-1"]').shouldContain(['Ad']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ad"]').dragTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="column-1"]').shouldContain(['Ad']);
+        cy.get('[data-test="card-2♣"]').dragTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="foundation-0"]').shouldNotContain(['Ad']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥']);
+        cy.get('[data-test="foundation-0"]').shouldNotContain(['2♣']);
+
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥']);
+      });
+    });
+
+    it('should not move A♦ to foundation', () => {
+      cy.setBoard(invalidMove2ToAces).then(() => {
+        cy.get('[data-test="column-1"]').shouldContain(['A♦']);
+
+        cy.get('[data-test="card-A♦"]').dragTo('[data-test="foundation-0"]');
+
+        cy.get('[data-test="column-1"]').shouldContain(['A♦']);
+
+        cy.get('[data-test="foundation-0"]').shouldNotContain(['A♦']);
       });
     });
 
@@ -166,10 +166,10 @@ describe('Foundation moves', () => {
       cy.setBoard(foundations).then(() => {
         cy.get('[data-test="game-won"]').should('not.be.visible');
 
-        cy.get('[data-test="column-0"]').shouldContain(['Ks', 'Qs']);
+        cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 
-        cy.get('[data-test="card-Qs"]').dragTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-Ks"]').dragTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Q♠"]').dragTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').dragTo('[data-test="foundation-3"]');
       });
 
       cy.get('[data-test="game-won"]').should('be.visible');
@@ -177,155 +177,155 @@ describe('Foundation moves', () => {
   });
 
   describe('using clicks', () => {
-    it('should move As to 1st foundation', () => {
+    it('should move A♠ to 1st foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="column-7"]').shouldNotContain(['As']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠']);
       });
     });
 
-    it('should move As to 2nd foundation', () => {
+    it('should move A♠ to 2nd foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-1"]');
 
-        cy.get('[data-test="foundation-1"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-1"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="column-7"]').shouldNotContain(['As']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠']);
       });
     });
 
-    it('should move As to 3rd foundation', () => {
+    it('should move A♠ to 3rd foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-2"]');
+        cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-2"]');
 
-        cy.get('[data-test="foundation-2"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-2"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="column-7"]').shouldNotContain(['As']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠']);
       });
     });
 
-    it('should move As to 4th foundation', () => {
+    it('should move A♠ to 4th foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-3"]');
 
-        cy.get('[data-test="foundation-3"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-3"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="column-7"]').shouldNotContain(['As']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠']);
       });
     });
 
-    it('should move Ah, 2h, A3 to 1st foundation', () => {
+    it('should move A♥, 2♥, 3♥ to 1st foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♥"]').clickTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="card-2h"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-2♥"]').clickTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="card-3h"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-3♥"]').clickTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah', '2h', '3h']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥', '2♥', '3♥']);
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h', '3h']);
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥', '3♥']);
       });
     });
 
-    it('should move Ah then 2h and As then 2s to 2nd & 4th foundation', () => {
-      cy.setBoard(moveAcetoAces).then(() => {
-        // Hearts
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
-
-        cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-1"]');
-
-        cy.get('[data-test="card-2h"]').clickTo('[data-test="foundation-1"]');
-
-        cy.get('[data-test="foundation-1"]').shouldContain(['Ah', '2h']);
-
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h']);
-
-        // Spades
-        cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-3"]');
-
-        cy.get('[data-test="card-2s"]').clickTo('[data-test="foundation-3"]');
-
-        cy.get('[data-test="foundation-3"]').shouldContain(['As', '2s']);
-
-        cy.get('[data-test="column-7"]').shouldNotContain(['As', '2s']);
-      });
-    });
-
-    it('should move Ah then 2h to 2nd foundation and not move As to same foundation', () => {
+    it('should move A♥ then 2♥ and A♠ then 2♠ to 2nd & 4th foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
         // Hearts
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-1"]');
-        cy.get('[data-test="card-2h"]').clickTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-A♥"]').clickTo('[data-test="foundation-1"]');
 
-        cy.get('[data-test="foundation-1"]').shouldContain(['Ah', '2h']);
+        cy.get('[data-test="card-2♥"]').clickTo('[data-test="foundation-1"]');
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h']);
+        cy.get('[data-test="foundation-1"]').shouldContain(['A♥', '2♥']);
+
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
 
         // Spades
-        cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-1"]');
-        // cy.get('[data-test="card-2s"]').clickTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-3"]');
 
-        cy.get('[data-test="foundation-1"]').shouldNotContain(['As']);
+        cy.get('[data-test="card-2♠"]').clickTo('[data-test="foundation-3"]');
 
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="foundation-3"]').shouldContain(['A♠', '2♠']);
+
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠', '2♠']);
       });
     });
 
-    it('should move Ah to 1st foundation and not 2h', () => {
-      cy.setBoard(invalidMove2ToAces).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
+    it('should move A♥ then 2♥ to 2nd foundation and not move A♠ to same foundation', () => {
+      cy.setBoard(moveAcetoAces).then(() => {
+        // Hearts
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♥"]').clickTo('[data-test="foundation-1"]');
+        cy.get('[data-test="card-2♥"]').clickTo('[data-test="foundation-1"]');
 
-        cy.get('[data-test="card-2h"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="foundation-1"]').shouldContain(['A♥', '2♥']);
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah']);
-        cy.get('[data-test="foundation-0"]').shouldNotContain(['2h']);
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
 
-        cy.get('[data-test="column-2"]').shouldContain(['2h']);
+        // Spades
+        cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-1"]');
+        // cy.get('[data-test="card-2♠"]').clickTo('[data-test="foundation-1"]');
+
+        cy.get('[data-test="foundation-1"]').shouldNotContain(['A♠']);
+
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
       });
     });
 
-    it('should move Ah to 1st foundation and not move 2c', () => {
+    it('should move A♥ to 1st foundation and not 2♥', () => {
       cy.setBoard(invalidMove2ToAces).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ah"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♥"]').clickTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="card-2c"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-2♥"]').clickTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah']);
-        cy.get('[data-test="foundation-0"]').shouldNotContain(['2c']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥']);
+        cy.get('[data-test="foundation-0"]').shouldNotContain(['2♥']);
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah']);
+        cy.get('[data-test="column-2"]').shouldContain(['2♥']);
       });
     });
 
-    it('should not move Ad to foundation', () => {
+    it('should move A♥ to 1st foundation and not move 2♣', () => {
       cy.setBoard(invalidMove2ToAces).then(() => {
-        cy.get('[data-test="column-1"]').shouldContain(['Ad']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-Ad"]').clickTo('[data-test="foundation-0"]');
+        cy.get('[data-test="card-A♥"]').clickTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="column-1"]').shouldContain(['Ad']);
+        cy.get('[data-test="card-2♣"]').clickTo('[data-test="foundation-0"]');
 
-        cy.get('[data-test="foundation-0"]').shouldNotContain(['Ad']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥']);
+        cy.get('[data-test="foundation-0"]').shouldNotContain(['2♣']);
+
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥']);
+      });
+    });
+
+    it('should not move A♦ to foundation', () => {
+      cy.setBoard(invalidMove2ToAces).then(() => {
+        cy.get('[data-test="column-1"]').shouldContain(['A♦']);
+
+        cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
+
+        cy.get('[data-test="column-1"]').shouldContain(['A♦']);
+
+        cy.get('[data-test="foundation-0"]').shouldNotContain(['A♦']);
       });
     });
 
@@ -333,10 +333,10 @@ describe('Foundation moves', () => {
       cy.setBoard(foundations).then(() => {
         cy.get('[data-test="game-won"]').should('not.be.visible');
 
-        cy.get('[data-test="column-0"]').shouldContain(['Ks', 'Qs']);
+        cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 
-        cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
       });
 
       cy.get('[data-test="game-won"]').should('be.visible');
@@ -344,68 +344,68 @@ describe('Foundation moves', () => {
   });
 
   describe('using double clicks', () => {
-    it('should move Ah - 3h to 1st foundation', () => {
+    it('should move A♥ - 3♥ to 1st foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah', '3h']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥', '3♥']);
 
-        cy.get('[data-test="card-Ah"]').dblclick();
-        cy.get('[data-test="card-2h"]').dblclick();
-        cy.get('[data-test="card-3h"]').dblclick();
+        cy.get('[data-test="card-A♥"]').dblclick();
+        cy.get('[data-test="card-2♥"]').dblclick();
+        cy.get('[data-test="card-3♥"]').dblclick();
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah', '2h', '3h']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥', '2♥', '3♥']);
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h', '3h']);
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥', '3♥']);
       });
     });
 
-    it('should move Ah - 2h to 1st foundation and As - 2s to 2nd foundation', () => {
+    it('should move A♥ - 2♥ to 1st foundation and A♠ - 2♠ to 2nd foundation', () => {
       cy.setBoard(moveAcetoAces).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
-        cy.get('[data-test="column-7"]').shouldContain(['As']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
+        cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-Ah"]').dblclick();
-        cy.get('[data-test="card-As"]').dblclick();
-        cy.get('[data-test="card-2h"]').dblclick();
-        cy.get('[data-test="card-2s"]').dblclick();
+        cy.get('[data-test="card-A♥"]').dblclick();
+        cy.get('[data-test="card-A♠"]').dblclick();
+        cy.get('[data-test="card-2♥"]').dblclick();
+        cy.get('[data-test="card-2♠"]').dblclick();
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah', '2h']);
-        cy.get('[data-test="foundation-1"]').shouldContain(['As', '2s']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥', '2♥']);
+        cy.get('[data-test="foundation-1"]').shouldContain(['A♠', '2♠']);
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h']);
-        cy.get('[data-test="column-7"]').shouldNotContain(['As', '2s']);
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['A♠', '2♠']);
       });
     });
 
-    it('should move Ah - 2h to 1st foundation and 2s to 3rd foundation', () => {
+    it('should move A♥ - 2♥ to 1st foundation and 2♠ to 3rd foundation', () => {
       cy.setBoard(doubleClickAce1).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['Ah']);
-        cy.get('[data-test="column-7"]').shouldContain(['2s']);
+        cy.get('[data-test="column-3"]').shouldContain(['A♥']);
+        cy.get('[data-test="column-7"]').shouldContain(['2♠']);
 
-        cy.get('[data-test="card-Ah"]').dblclick();
-        cy.get('[data-test="card-2h"]').dblclick();
-        cy.get('[data-test="card-2s"]').dblclick();
+        cy.get('[data-test="card-A♥"]').dblclick();
+        cy.get('[data-test="card-2♥"]').dblclick();
+        cy.get('[data-test="card-2♠"]').dblclick();
 
-        cy.get('[data-test="foundation-0"]').shouldContain(['Ah', '2h']);
-        cy.get('[data-test="foundation-2"]').shouldContain(['As', '2s']);
+        cy.get('[data-test="foundation-0"]').shouldContain(['A♥', '2♥']);
+        cy.get('[data-test="foundation-2"]').shouldContain(['A♠', '2♠']);
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['Ah', '2h']);
-        cy.get('[data-test="column-7"]').shouldNotContain(['2s']);
+        cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['2♠']);
       });
     });
 
-    it('should move 2h to 2nd foundation and 2s to 3rd foundation', () => {
+    it('should move 2♥ to 2nd foundation and 2♠ to 3rd foundation', () => {
       cy.setBoard(doubleClickAce2).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['2h']);
-        cy.get('[data-test="column-7"]').shouldContain(['2s']);
+        cy.get('[data-test="column-3"]').shouldContain(['2♥']);
+        cy.get('[data-test="column-7"]').shouldContain(['2♠']);
 
-        cy.get('[data-test="card-2h"]').dblclick();
-        cy.get('[data-test="card-2s"]').dblclick();
+        cy.get('[data-test="card-2♥"]').dblclick();
+        cy.get('[data-test="card-2♠"]').dblclick();
 
-        cy.get('[data-test="foundation-1"]').shouldContain(['As', '2s']);
-        cy.get('[data-test="foundation-2"]').shouldContain(['Ah', '2h']);
+        cy.get('[data-test="foundation-1"]').shouldContain(['A♠', '2♠']);
+        cy.get('[data-test="foundation-2"]').shouldContain(['A♥', '2♥']);
 
-        cy.get('[data-test="column-3"]').shouldNotContain(['2h']);
-        cy.get('[data-test="column-7"]').shouldNotContain(['2s']);
+        cy.get('[data-test="column-3"]').shouldNotContain(['2♥']);
+        cy.get('[data-test="column-7"]').shouldNotContain(['2♠']);
       });
     });
   });
