@@ -11,8 +11,7 @@ describe('BottomCard.vue', () => {
   it('should have correct props', () => {
     const propsData = {
       id: 1,
-      value: 'J',
-      suit: '♣',
+      value: 'J♣',
     };
 
     const wrapper = shallowMount(BottomCard, {
@@ -21,7 +20,6 @@ describe('BottomCard.vue', () => {
 
     expect(wrapper.props().id).toBe(1);
     expect(wrapper.props().value).toBe(propsData.value);
-    expect(wrapper.props().suit).toBe(propsData.suit);
   });
 
   it('should call autoMoveCard method', () => {
