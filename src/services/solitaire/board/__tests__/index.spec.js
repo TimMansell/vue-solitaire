@@ -25,7 +25,7 @@ describe('board', () => {
           cards: [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               value: 3,
             },
           ],
@@ -35,7 +35,7 @@ describe('board', () => {
           cards: [
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               value: 4,
             },
           ],
@@ -46,9 +46,9 @@ describe('board', () => {
       const result = updateBoard(state, cards);
 
       expect(result).toStrictEqual([
-        [{ id: 1, suit: 's', value: 3 }],
+        [{ id: 1, suit: '♠', value: 3 }],
         [],
-        [{ id: 2, suit: 's', value: 4 }],
+        [{ id: 2, suit: '♠', value: 4 }],
         [],
         [],
         [],
@@ -67,7 +67,7 @@ describe('board', () => {
           cards: [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               value: 3,
             },
           ],
@@ -77,7 +77,7 @@ describe('board', () => {
 
       const result = updateBoard(state, cards);
 
-      expect(result).toStrictEqual([[{ id: 1, suit: 's', value: 3 }], [], [], [], [], [], [], []]);
+      expect(result).toStrictEqual([[{ id: 1, suit: '♠', value: 3 }], [], [], [], [], [], [], []]);
     });
   });
 

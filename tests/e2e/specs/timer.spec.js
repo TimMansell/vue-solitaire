@@ -152,8 +152,8 @@ describe('Timer', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
         cy.wait(1000);
 
-        cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
-        cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
+        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
         cy.get('[data-test="timer"]').then(($timerStart) => {
           const startNumber = $timerStart.text();
@@ -175,8 +175,8 @@ describe('Timer', () => {
       cy.setBoard(foundations).then(() => {
         cy.wait(1000);
 
-        cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
         cy.get('[data-test="timer"]').then(($timerStart) => {
           const startNumber = $timerStart.text();
@@ -318,8 +318,8 @@ describe('Timer', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
         cy.wait(1000);
 
-        cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
-        cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
+        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
         cy.get('[data-test="timer"]').then(($timerStart) => {
           const startNumber = $timerStart.text();
@@ -345,8 +345,8 @@ describe('Timer', () => {
       cy.setBoard(foundations).then(() => {
         cy.wait(1000);
 
-        cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
         cy.get('[data-test="timer"]').then(($timerStart) => {
           const startNumber = $timerStart.text();

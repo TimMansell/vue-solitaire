@@ -18,7 +18,7 @@
       :bottom-card="cards.length - 1 === index"
     />
 
-    <CardPlaceholder v-if="!cards.length" see-through />
+    <CardPlaceholder v-if="!cards.length" see-through data-test="column-card-placeholder" />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <TouchEvents @swipe="autoMoveCard($event, id)" @doubletap="autoMoveCard($event, id)">
-    <DefaultCard :value="value" :suit="suit" />
+    <DefaultCard :value="value" />
   </TouchEvents>
 </template>
 
@@ -17,16 +17,12 @@ export default {
   },
   props: {
     id: {
-      type: [String, Number],
+      type: Number,
       default: 0,
     },
     value: {
       type: String,
-      default: 'A',
-    },
-    suit: {
-      type: String,
-      default: 'c',
+      default: 'A♣',
     },
   },
   methods: {

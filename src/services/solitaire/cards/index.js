@@ -9,8 +9,8 @@ import {
 
 export const buildCards = ({ values, suits }) =>
   values.flatMap((value, order) =>
-    suits.map((suit) => ({
-      id: `${order}${suit}`,
+    suits.map((suit, index) => ({
+      id: order + values.length * index,
       value,
       order,
       suit,

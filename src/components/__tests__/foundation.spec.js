@@ -6,7 +6,7 @@ const computed = {
     {
       value: 'A',
       order: 1,
-      suit: 's',
+      suit: '♠',
       visible: true,
     },
   ],

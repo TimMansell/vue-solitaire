@@ -1,5 +1,5 @@
 <template>
-  <SvgIcon :name="cardName" />
+  <SvgIcon :name="value" />
 </template>
 
 <script>
@@ -13,18 +13,7 @@ export default {
   props: {
     value: {
       type: String,
-      default: 'A',
-    },
-    suit: {
-      type: String,
-      default: 'c',
-    },
-  },
-  computed: {
-    cardName() {
-      const { suit, value } = this;
-
-      return `${value}${suit.toUpperCase()}`;
+      default: 'A♣',
     },
   },
 };
