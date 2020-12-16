@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   extends: ['plugin:vue/strongly-recommended', '@vue/airbnb', 'plugin:prettier/recommended'],
-  plugins: ['jest'],
+  plugins: ['jest', 'prettier'],
   parserOptions: {
     parser: 'babel-eslint',
   },
