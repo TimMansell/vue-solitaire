@@ -4,17 +4,19 @@ import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
 describe('Timer', () => {
   beforeEach(() => {
     cy.visit('/');
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
   });
 
   describe('Default Functionality', () => {
     it('timer stops when game is paused and starts when resumed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
         cy.get('[data-test="pause-game-btn"]').click();
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000);
 
         cy.get('[data-test="timer"]').then(($timerPaused) => {
@@ -24,6 +26,7 @@ describe('Timer', () => {
             cy.get('[data-test="pause-game-btn"]').click();
           });
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerResumed) => {
@@ -37,22 +40,23 @@ describe('Timer', () => {
     });
 
     it('it should increment timer correctly', () => {
-      cy.wait(4000);
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(3000);
 
       cy.get('[data-test="timer"]').should('contain', '0:00:04');
     });
 
     it('it should increment timer correctly after pausing', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="pause-game-btn"]').click();
 
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
 
       cy.get('[data-test="game-overlay-btns"]').within(() => {
         cy.get('[data-test="pause-game-btn"]').click();
       });
 
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(4000);
 
       cy.get('[data-test="timer"]').should('contain', '0:00:05');
@@ -65,13 +69,14 @@ describe('Timer', () => {
 
       cy.document().trigger('visibilitychange');
 
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(4000);
 
       cy.get('[data-test="game-overlay-btns"]').within(() => {
         cy.get('[data-test="pause-game-btn"]').click();
       });
 
-      cy.get('[data-test="timer"]').should('contain', '0:00:02');
+      cy.get('[data-test="timer"]').should('contain', '0:00:03');
     });
   });
 
@@ -84,6 +89,7 @@ describe('Timer', () => {
 
         cy.reload();
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000);
 
         cy.get('[data-test="timer"]').then(($timerEnd) => {
@@ -102,6 +108,7 @@ describe('Timer', () => {
 
         cy.reload();
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000);
 
         cy.get('[data-test="timer"]').then(($timerEnd) => {
@@ -120,6 +127,7 @@ describe('Timer', () => {
 
         cy.reload();
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000);
 
         cy.get('[data-test="timer"]').then(($timerEnd) => {
@@ -138,6 +146,7 @@ describe('Timer', () => {
 
         cy.reload();
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000);
 
         cy.get('[data-test="timer"]').then(($timerEnd) => {
@@ -150,8 +159,6 @@ describe('Timer', () => {
 
     it('timer should start paused when game lost overlay is open and page is refreshed', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
         cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
@@ -160,6 +167,7 @@ describe('Timer', () => {
 
           cy.reload();
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerEnd) => {
@@ -173,8 +181,6 @@ describe('Timer', () => {
 
     it('timer should start paused when game won overlay is open and page is refreshed', () => {
       cy.setBoard(foundations).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
         cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
@@ -183,6 +189,7 @@ describe('Timer', () => {
 
           cy.reload();
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerEnd) => {
@@ -196,8 +203,6 @@ describe('Timer', () => {
 
     it('timer should start paused when new game overlay is open and page is refreshed', () => {
       cy.setBoard(foundations).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="timer"]').then(($timerStart) => {
           const startNumber = $timerStart.text();
 
@@ -205,6 +210,7 @@ describe('Timer', () => {
 
           cy.reload();
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerEnd) => {
@@ -219,13 +225,12 @@ describe('Timer', () => {
 
   describe('Resuming Timer', () => {
     it('timer stops when user stats overlay is open and starts when resumed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
         cy.get('[data-test="user-stats-btn"]').click();
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000);
 
         cy.get('[data-test="timer"]').then(($timerPaused) => {
@@ -235,6 +240,7 @@ describe('Timer', () => {
             cy.get('[data-test="close-stats-btn"]').click();
           });
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerResumed) => {
@@ -248,13 +254,12 @@ describe('Timer', () => {
     });
 
     it('timer stops when global stats overlay is open and starts when resumed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
         cy.get('[data-test="global-stats-btn"]').click();
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000);
 
         cy.get('[data-test="timer"]').then(($timerPaused) => {
@@ -264,6 +269,7 @@ describe('Timer', () => {
             cy.get('[data-test="close-stats-btn"]').click();
           });
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerResumed) => {
@@ -277,13 +283,12 @@ describe('Timer', () => {
     });
 
     it('timer stops when new game overlay is open and starts when resumed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
         cy.get('[data-test="new-game-btn"]').click();
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000);
 
         cy.get('[data-test="timer"]').then(($timerPaused) => {
@@ -291,6 +296,7 @@ describe('Timer', () => {
 
           cy.get('[data-test="new-game-overlay-continue-btn"]').click();
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerResumed) => {
@@ -306,8 +312,6 @@ describe('Timer', () => {
 
   describe('Resetting timer', () => {
     it('it should reset timer when new game is pressed', () => {
-      cy.wait(1000);
-
       cy.get('[data-test="new-game-btn"]').click();
       cy.get('[data-test="new-game-overlay-new-btn"]').click();
 
@@ -316,14 +320,13 @@ describe('Timer', () => {
 
     it('it stops timer when game is lost and resets when new game is started', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
         cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
         cy.get('[data-test="timer"]').then(($timerStart) => {
           const startNumber = $timerStart.text();
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerPaused) => {
@@ -343,14 +346,13 @@ describe('Timer', () => {
 
     it('it stops timer when game is won and resets when new game is started', () => {
       cy.setBoard(foundations).then(() => {
-        cy.wait(1000);
-
         cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
         cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
         cy.get('[data-test="timer"]').then(($timerStart) => {
           const startNumber = $timerStart.text();
 
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
 
           cy.get('[data-test="timer"]').then(($timerPaused) => {

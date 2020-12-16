@@ -93,8 +93,6 @@ describe('Stats', () => {
 
       cy.document().trigger('visibilitychange');
 
-      cy.wait(4000);
-
       cy.get('[data-test="game-paused"]').should('not.be.visible');
     });
   });
@@ -180,8 +178,6 @@ describe('Stats', () => {
       cy.get('[data-test="global-stats-btn"]').click();
 
       cy.document().trigger('visibilitychange');
-
-      cy.wait(4000);
 
       cy.get('[data-test="game-paused"]').should('not.be.visible');
     });

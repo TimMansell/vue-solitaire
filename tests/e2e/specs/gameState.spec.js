@@ -95,8 +95,6 @@ describe('Game State', () => {
 
     cy.document().trigger('visibilitychange');
 
-    cy.wait(3000);
-
     cy.get('[data-test="game-paused"]').should('be.visible');
   });
 
