@@ -17,14 +17,14 @@ export default {
     },
     suit: {
       type: String,
-      default: 'c',
+      default: '♣',
     },
   },
   computed: {
     cardName() {
       const { suit, value } = this;
 
-      return `${value}${suit.toUpperCase()}`;
+      return `${value}${suit}`;
     },
   },
 };

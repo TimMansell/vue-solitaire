@@ -45,7 +45,7 @@ export default {
   },
   props: {
     id: {
-      type: [String, Number],
+      type: Number,
       default: 0,
     },
     value: {
@@ -54,7 +54,7 @@ export default {
     },
     suit: {
       type: String,
-      default: 'c',
+      default: '♣',
     },
     visible: {
       type: Boolean,
