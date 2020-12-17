@@ -5,7 +5,10 @@
       <a class="footer__link" href="https://timmansell.com">
         timmansell.com
       </a>
-      <a class="footer__link" href="https://github.com/TimMansell/vue-solitaire">
+      <a
+        class="footer__link"
+        href="https://github.com/TimMansell/vue-solitaire"
+      >
         GitHub
       </a>
       <span>v{{ version }}</span>

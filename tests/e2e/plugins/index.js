@@ -9,7 +9,9 @@
 // /* eslint-disable import/no-extraneous-dependencies, global-require */
 // const webpack = require('@cypress/webpack-preprocessor')
 
-const { addMatchImageSnapshotPlugin } = require('cypress-image-snapshot/plugin');
+const {
+  addMatchImageSnapshotPlugin,
+} = require('cypress-image-snapshot/plugin');
 
 module.exports = (on, config) => {
   // on('file:preprocessor', webpack({

@@ -1,4 +1,10 @@
-import { newUser, gameNew, gameWon, gameLost, gameCompleted } from '../mutations';
+import {
+  newUser,
+  gameNew,
+  gameWon,
+  gameLost,
+  gameCompleted,
+} from '../mutations';
 
 jest.mock('../apollo');
 

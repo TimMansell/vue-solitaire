@@ -1,6 +1,11 @@
 import mutations from '../mutations';
 
-const { SET_GLOBAL_STATS, SET_USER_STATS, SET_FULL_STATS, SHOW_STATS } = mutations;
+const {
+  SET_GLOBAL_STATS,
+  SET_USER_STATS,
+  SET_FULL_STATS,
+  SHOW_STATS,
+} = mutations;
 
 describe('Stats', () => {
   it('SET_GLOBAL_STATS', () => {

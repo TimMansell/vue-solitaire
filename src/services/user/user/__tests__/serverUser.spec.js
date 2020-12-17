@@ -1,4 +1,9 @@
-import { getServerUserID, checkServerUser, createServerUser, setServerUserID } from '../serverUser';
+import {
+  getServerUserID,
+  checkServerUser,
+  createServerUser,
+  setServerUserID,
+} from '../serverUser';
 
 const mockSuid = 123;
 const mockLID = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';

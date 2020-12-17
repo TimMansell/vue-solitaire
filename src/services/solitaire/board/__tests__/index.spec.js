@@ -77,7 +77,16 @@ describe('board', () => {
 
       const result = updateBoard(state, cards);
 
-      expect(result).toStrictEqual([[{ id: 1, suit: '♠', value: 3 }], [], [], [], [], [], [], []]);
+      expect(result).toStrictEqual([
+        [{ id: 1, suit: '♠', value: 3 }],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+      ]);
     });
   });
 

@@ -18,4 +18,5 @@ export const updateBoard = ({ boardCards }, { cardsFrom, cardsTo }) =>
     return columnCards;
   });
 
-export const checkEmptyColumns = (cards) => cards.length < settings.rules.columns.length;
+export const checkEmptyColumns = (cards) =>
+  cards.length < settings.rules.columns.length;

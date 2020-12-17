@@ -1,12 +1,10 @@
 <template>
   <div>
     Global Games:
-    <span data-test="global-stats"
-      ><Counter data-test="global-stats" :number="number" /> (<ViewStatsButton
-        :load-stats="getGlobalStats"
-        data-test="global-stats-btn"
-      />)</span
-    >
+    <Counter data-test="global-stats" :number="number" /> (<ViewStatsButton
+      :load-stats="getGlobalStats"
+      data-test="global-stats-btn"
+    />)
   </div>
 </template>
 

@@ -1,6 +1,8 @@
 <template>
   <GameOverlay center-content show-logo data-test="game-lost">
-    <template #title> Sorry, no more Moves! </template>
+    <template #title>
+      Sorry, no more Moves!
+    </template>
     <template #buttons>
       <NewGameButton completed />
     </template>

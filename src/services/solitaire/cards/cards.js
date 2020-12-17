@@ -20,7 +20,8 @@ export const getColumnCardIndexes = (columns) =>
     const startArray = array.slice(0, columnIndex);
     const endArray = array.slice(0, columnIndex + 1);
 
-    const calcOffset = (accumulator, currentValue) => accumulator + currentValue;
+    const calcOffset = (accumulator, currentValue) =>
+      accumulator + currentValue;
     const startIndex = startArray.reduce(calcOffset, 0);
     const endIndex = endArray.reduce(calcOffset, 0);
 
@@ -31,10 +32,14 @@ export const getColumnCardIndexes = (columns) =>
   });
 
 export const getColumnCards = (deck, columnCardsIndexes) =>
-  columnCardsIndexes.map(({ startIndex, endIndex }) => deck.slice(startIndex, endIndex));
+  columnCardsIndexes.map(({ startIndex, endIndex }) =>
+    deck.slice(startIndex, endIndex)
+  );
 
 export const findCardPosition = (columnCards, selectedCardId) =>
   columnCards.findIndex((card) => card.id === selectedCardId);
 
 export const findCardColumn = (boardCards, selectedCardId) =>
-  boardCards.findIndex((cards) => cards.find((card) => card.id === selectedCardId));
+  boardCards.findIndex((cards) =>
+    cards.find((card) => card.id === selectedCardId)
+  );

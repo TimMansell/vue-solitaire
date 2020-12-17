@@ -32,7 +32,9 @@ export const validateFoundationMove = (card, compareTo) => {
   const isValidFoundationSuit = validate(isFoundationMoveValidSuit);
   const isValidFoundationOrder = validate(isFoundationMoveValidOrder);
 
-  return isValidFoundationAce || (isValidFoundationSuit && isValidFoundationOrder);
+  return (
+    isValidFoundationAce || (isValidFoundationSuit && isValidFoundationOrder)
+  );
 };
 
 export const validateFoundationMovePosition = (card, compareTo) =>

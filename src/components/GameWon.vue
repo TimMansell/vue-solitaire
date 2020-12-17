@@ -1,6 +1,8 @@
 <template>
   <GameOverlay center-content show-logo data-test="game-won">
-    <template #title> Congratulations, you win! </template>
+    <template #title>
+      Congratulations, you win!
+    </template>
     <template #buttons>
       <NewGameButton completed />
     </template>

@@ -31,11 +31,16 @@ Cypress.Commands.add('setBoard', (board) => {
 
   const getStore = () => cy.window().its('app.$store');
 
-  return getStore().then((store) => store.dispatch('setBoardAndFoundation', board));
+  return getStore().then((store) =>
+    store.dispatch('setBoardAndFoundation', board)
+  );
 });
 
 Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
-  cy.get(subject).trigger('dragstart', { dataTransfer: new DataTransfer(), force: true });
+  cy.get(subject).trigger('dragstart', {
+    dataTransfer: new DataTransfer(),
+    force: true,
+  });
   cy.get(dragTo)
     .trigger('drop')
     .trigger('dragend', { force: true });
@@ -46,21 +51,29 @@ Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
   cy.get(clickTo).click({ force: true });
 });
 
-Cypress.Commands.add('shouldContain', { prevSubject: true }, (subject, elements) => {
-  cy.get(subject).within(() => {
-    elements.forEach((element) => {
-      cy.get(`[data-test="card-${element}"]`).should('be.visible');
+Cypress.Commands.add(
+  'shouldContain',
+  { prevSubject: true },
+  (subject, elements) => {
+    cy.get(subject).within(() => {
+      elements.forEach((element) => {
+        cy.get(`[data-test="card-${element}"]`).should('be.visible');
+      });
     });
-  });
-});
+  }
+);
 
-Cypress.Commands.add('shouldNotContain', { prevSubject: true }, (subject, elements) => {
-  cy.get(subject).within(() => {
-    elements.forEach((element) => {
-      cy.get(`[data-test="card-${element}"]`).should('not.be.visible');
+Cypress.Commands.add(
+  'shouldNotContain',
+  { prevSubject: true },
+  (subject, elements) => {
+    cy.get(subject).within(() => {
+      elements.forEach((element) => {
+        cy.get(`[data-test="card-${element}"]`).should('not.be.visible');
+      });
     });
-  });
-});
+  }
+);
 
 addMatchImageSnapshotCommand({
   failureThreshold: 0.05, // threshold for entire image

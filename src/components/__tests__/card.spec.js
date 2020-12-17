@@ -78,7 +78,9 @@ describe('Card.vue', () => {
     });
 
     expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
-    expect(wrapper.attributes('data-test')).toBe(`card-${propsData.value}${propsData.suit}`);
+    expect(wrapper.attributes('data-test')).toBe(
+      `card-${propsData.value}${propsData.suit}`
+    );
   });
 
   it('should render a club card', () => {
@@ -93,7 +95,9 @@ describe('Card.vue', () => {
     });
 
     expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
-    expect(wrapper.attributes('data-test')).toBe(`card-${propsData.value}${propsData.suit}`);
+    expect(wrapper.attributes('data-test')).toBe(
+      `card-${propsData.value}${propsData.suit}`
+    );
   });
 
   it('should render a heart card', () => {
@@ -108,7 +112,9 @@ describe('Card.vue', () => {
     });
 
     expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
-    expect(wrapper.attributes('data-test')).toBe(`card-${propsData.value}${propsData.suit}`);
+    expect(wrapper.attributes('data-test')).toBe(
+      `card-${propsData.value}${propsData.suit}`
+    );
   });
 
   it('should render a spade card', () => {
@@ -123,7 +129,9 @@ describe('Card.vue', () => {
     });
 
     expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
-    expect(wrapper.attributes('data-test')).toBe(`card-${propsData.value}${propsData.suit}`);
+    expect(wrapper.attributes('data-test')).toBe(
+      `card-${propsData.value}${propsData.suit}`
+    );
   });
 
   it('should render a default card', () => {

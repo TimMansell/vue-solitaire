@@ -1,5 +1,9 @@
 import { checkLocalUser, getLocalUserID, setLocalUserID } from './localUser';
-import { checkServerUser, getServerUserID, setServerUserID } from './serverUser';
+import {
+  checkServerUser,
+  getServerUserID,
+  setServerUserID,
+} from './serverUser';
 
 export const getLocalUser = () => {
   const userExists = checkLocalUser();

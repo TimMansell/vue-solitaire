@@ -335,7 +335,10 @@ describe('moves', () => {
       const result = moveBoardCards(obj, selectedColumn);
 
       expect(result).toStrictEqual({
-        cardsFrom: { cards: [{ id: 1, order: 3, suit: '♠', visible: true }], columnNo: 0 },
+        cardsFrom: {
+          cards: [{ id: 1, order: 3, suit: '♠', visible: true }],
+          columnNo: 0,
+        },
         cardsTo: {
           cards: [
             { id: 4, order: 9, suit: '♠', visible: true },

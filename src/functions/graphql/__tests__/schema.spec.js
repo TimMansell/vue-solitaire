@@ -25,7 +25,9 @@ describe('Graphql Schema', () => {
         }
       `;
 
-      const result = await graphql(schemaWithMocks, query).then((response) => response);
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
 
       expect(result).toEqual({
         data: {
@@ -48,7 +50,9 @@ describe('Graphql Schema', () => {
         }
       `;
 
-      const result = await graphql(schemaWithMocks, query).then((response) => response);
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
 
       expect(result).toEqual({
         data: {
@@ -71,7 +75,9 @@ describe('Graphql Schema', () => {
         }
       `;
 
-      const result = await graphql(schemaWithMocks, query).then((response) => response);
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
 
       expect(result).toEqual({
         data: {
@@ -93,7 +99,9 @@ describe('Graphql Schema', () => {
       }
       `;
 
-      const result = await graphql(schemaWithMocks, query).then((response) => response);
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
 
       expect(result).toEqual({
         data: {
@@ -113,7 +121,9 @@ describe('Graphql Schema', () => {
         }
       `;
 
-      const result = await graphql(schemaWithMocks, query).then((response) => response);
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
 
       expect(result).toEqual({
         data: {
@@ -133,7 +143,9 @@ describe('Graphql Schema', () => {
         }
       `;
 
-      const result = await graphql(schemaWithMocks, query).then((response) => response);
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
 
       expect(result).toEqual({
         data: {
@@ -153,7 +165,9 @@ describe('Graphql Schema', () => {
         }
       `;
 
-      const result = await graphql(schemaWithMocks, query).then((response) => response);
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
 
       expect(result).toEqual({
         data: {
@@ -173,7 +187,9 @@ describe('Graphql Schema', () => {
         }
       `;
 
-      const result = await graphql(schemaWithMocks, query).then((response) => response);
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
 
       expect(result).toEqual({
         data: {

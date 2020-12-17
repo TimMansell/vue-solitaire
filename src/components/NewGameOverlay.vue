@@ -1,6 +1,8 @@
 <template>
   <GameOverlay alt center-content show-logo data-test="game-new">
-    <template #title> Are you sure? </template>
+    <template #title>
+      Are you sure?
+    </template>
     <template #msg>
       This game will still count towards your statistics
     </template>
@@ -30,7 +32,13 @@ export default {
     this.setGamePaused();
   },
   methods: {
-    ...mapActions(['restartGame', 'initGame', 'setGamePaused', 'setGameResumed', 'toggleNewGame']),
+    ...mapActions([
+      'restartGame',
+      'initGame',
+      'setGamePaused',
+      'setGameResumed',
+      'toggleNewGame',
+    ]),
     newGame() {
       this.restartGame();
       this.initGame();
