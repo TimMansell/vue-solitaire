@@ -23,6 +23,26 @@ import DefaultCard from '@/components/DefaultCard.vue';
 import BottomCard from '@/components/BottomCard.vue';
 import CardPlaceholder from '@/components/CardPlaceholder.vue';
 
+const checkSuit = (suit) => {
+  if (suit === 'h') {
+    return '♥';
+  }
+
+  if (suit === 'c') {
+    return '♣';
+  }
+
+  if (suit === 's') {
+    return '♠';
+  }
+
+  if (suit === 'd') {
+    return '♦';
+  }
+
+  return suit;
+};
+
 export default {
   name: 'Card',
   components: {
@@ -32,7 +52,7 @@ export default {
   },
   props: {
     id: {
-      type: Number,
+      type: [String, Number],
       default: 0,
     },
     value: {
@@ -69,7 +89,9 @@ export default {
     cardValue() {
       const { value, suit } = this;
 
-      return `${value}${suit}`;
+      const useSuit = checkSuit(suit);
+
+      return `${value}${useSuit}`;
     },
     classes() {
       const { selectedCardId } = this;
