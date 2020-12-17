@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NewGameButton.vue matches snapshot 1`] = `
-<button-stub isstacked="true" data-test="new-game-btn">
+<button-stub data-test="new-game-btn">
   New Game
 </button-stub>
 `;

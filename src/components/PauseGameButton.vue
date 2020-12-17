@@ -1,5 +1,9 @@
 <template>
-  <Button is-stacked @click="toggleGamePaused" data-test="pause-game-btn">
+  <Button
+    :is-stacked="isStacked"
+    @click="toggleGamePaused"
+    data-test="pause-game-btn"
+  >
     <span v-if="!isGamePaused.isPaused">Pause</span>
     <span v-if="isGamePaused.isPaused">Resume</span> Game
   </Button>
@@ -13,6 +17,12 @@ export default {
   name: 'PauseGameButton',
   components: {
     Button,
+  },
+  props: {
+    isStacked: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapGetters(['isGamePaused']),
