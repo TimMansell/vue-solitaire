@@ -1,8 +1,8 @@
 <template>
   <div class="controls">
-    <NewGameButton show-confirmation />
-    <PauseGameButton />
-    <ShowRulesButton />
+    <NewGameButton show-confirmation is-stacked />
+    <PauseGameButton is-stacked />
+    <ShowRulesButton is-stacked />
   </div>
 </template>
 

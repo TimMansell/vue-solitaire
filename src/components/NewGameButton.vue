@@ -1,5 +1,5 @@
 <template>
-  <Button is-stacked @click="newGame" data-test="new-game-btn">
+  <Button :is-stacked="isStacked" @click="newGame" data-test="new-game-btn">
     New Game
   </Button>
 </template>
@@ -19,6 +19,10 @@ export default {
       default: false,
     },
     showConfirmation: {
+      type: Boolean,
+      default: false,
+    },
+    isStacked: {
       type: Boolean,
       default: false,
     },
