@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'plugin:vue/strongly-recommended',
     '@vue/airbnb',
+    'plugin:vue-scoped-css/recommended',
     'plugin:prettier/recommended',
   ],
   plugins: ['jest', 'prettier'],

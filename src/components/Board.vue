@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .board {
   width: 100%;
   margin-bottom: var(--mg-lg);

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+/* eslint vue-scoped-css/require-scoped: off */
 import Header from '@/components/Header.vue';
 import Solitaire from '@/components/Solitaire.vue';
 import Footer from '@/components/Footer.vue';
