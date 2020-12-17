@@ -2,8 +2,8 @@
 
 exports[`Controls.vue matches snapshot 1`] = `
 <div class="controls">
-  <newgamebutton-stub showconfirmation="true"></newgamebutton-stub>
-  <pausegamebutton-stub></pausegamebutton-stub>
-  <showrulesbutton-stub></showrulesbutton-stub>
+  <newgamebutton-stub showconfirmation="true" isstacked="true"></newgamebutton-stub>
+  <pausegamebutton-stub isstacked="true"></pausegamebutton-stub>
+  <showrulesbutton-stub isstacked="true"></showrulesbutton-stub>
 </div>
 `;
