@@ -18,7 +18,9 @@ describe('Controls', () => {
 
       cy.get('[data-test="new-game-btn"]').click();
 
-      cy.get('[data-test="new-game-overlay-new-btn"]').click();
+      cy.get('[data-test="game-overlay-btns"]').within(() => {
+        cy.get('[data-test="new-game-btn"]').click();
+      });
 
       cy.get('[data-test="foundation-0"]').shouldNotContain(['A♥']);
 
@@ -41,7 +43,9 @@ describe('Controls', () => {
 
       cy.get('[data-test="new-game-btn"]').click();
 
-      cy.get('[data-test="new-game-overlay-continue-btn"]').click();
+      cy.get('[data-test="game-overlay-btns"]').within(() => {
+        cy.get('[data-test="continue-game-btn"]').click();
+      });
 
       cy.get('[data-test="foundation-0"]').shouldContain(['A♥']);
 

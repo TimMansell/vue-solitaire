@@ -294,7 +294,9 @@ describe('Timer', () => {
         cy.get('[data-test="timer"]').then(($timerPaused) => {
           const pausedNumber = $timerPaused.text();
 
-          cy.get('[data-test="new-game-overlay-continue-btn"]').click();
+          cy.get('[data-test="game-overlay-btns"]').within(() => {
+            cy.get('[data-test="continue-game-btn"]').click();
+          });
 
           // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(2000);
@@ -313,7 +315,10 @@ describe('Timer', () => {
   describe('Resetting timer', () => {
     it('it should reset timer when new game is pressed', () => {
       cy.get('[data-test="new-game-btn"]').click();
-      cy.get('[data-test="new-game-overlay-new-btn"]').click();
+
+      cy.get('[data-test="game-overlay-btns"]').within(() => {
+        cy.get('[data-test="new-game-btn"]').click();
+      });
 
       cy.get('[data-test="timer"]').should('contain', '0:00:00');
     });

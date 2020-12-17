@@ -31,7 +31,10 @@ describe('Game State', () => {
   it('clicking on new game sets new board state', () => {
     cy.setBoard(foundations).then(() => {
       cy.get('[data-test="new-game-btn"]').click();
-      cy.get('[data-test="new-game-overlay-new-btn"]').click();
+
+      cy.get('[data-test="game-overlay-btns"]').within(() => {
+        cy.get('[data-test="new-game-btn"]').click();
+      });
 
       cy.reload();
 
