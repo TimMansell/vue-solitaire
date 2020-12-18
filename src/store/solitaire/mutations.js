@@ -58,6 +58,12 @@ const mutations = {
   SHOW_NEW_GAME(state, showNewGame) {
     state.showNewGame = showNewGame;
   },
+  CLONE_CARDS(state, cards) {
+    state.clonedCards = cards;
+  },
+  CLEAR_CLONE_CARDS(state) {
+    state.clonedCards = {};
+  },
 };
 
 export default mutations;

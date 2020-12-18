@@ -2,18 +2,21 @@
   <div class="board" data-test="board">
     <Foundation />
     <Columns />
+    <DraggedCards />
   </div>
 </template>
 
 <script>
 import Foundation from '@/components/Foundation.vue';
 import Columns from '@/components/Columns.vue';
+import DraggedCards from '@/components/DraggedCards.vue';
 
 export default {
   name: 'Board',
   components: {
     Foundation,
     Columns,
+    DraggedCards,
   },
 };
 </script>

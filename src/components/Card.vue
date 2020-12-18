@@ -4,7 +4,6 @@
     :class="classes"
     @click="selectCard($event, id)"
     @dragstart="dragCard($event, id)"
-    @dragend="clearCard()"
     :draggable="visible"
     ref="card"
     :data-test="cardTestName"
@@ -115,7 +114,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setCard']),
+    ...mapActions(['setCard', 'setCloneCards']),
     selectCard(e, id) {
       const { selectedCardId } = this;
 
@@ -128,44 +127,10 @@ export default {
       }
     },
     dragCard(e, id) {
-      const clonedElement = this.cloneCards();
-      const clonedElementOffset = this.$refs.card.clientWidth / 2;
+      const cardWidth = this.$refs.card.clientWidth;
 
-      e.dataTransfer.setDragImage(clonedElement, clonedElementOffset, 20);
-      e.dataTransfer.dropEffect = 'move';
-
+      this.setCloneCards({ id, cardWidth });
       this.setCard(id);
-    },
-    cloneCards() {
-      const { card } = this.$refs;
-      const clonedElement = document.createElement('div');
-      const styles = {
-        width: `${card.clientWidth}px`,
-        marginLeft: '-2000px',
-        marginTop: '-2000px',
-      };
-
-      Object.assign(clonedElement.style, styles);
-      Object.assign(clonedElement.id, 'cloned-card');
-
-      // Find cards below selected card.
-      const siblingCards = [...card.parentElement.children];
-      const selectedCard = siblingCards.findIndex(
-        (siblingCard) => siblingCard === card
-      );
-      const clonedCards = siblingCards.slice(selectedCard);
-
-      clonedCards.forEach((clonedCard) => {
-        clonedCard.classList.add('card--is-cloned');
-        clonedElement.appendChild(clonedCard.cloneNode(true));
-      });
-
-      document.body.appendChild(clonedElement);
-
-      return clonedElement;
-    },
-    clearCard() {
-      document.querySelector('#cloned-card').remove();
     },
   },
 };
