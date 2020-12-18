@@ -13,6 +13,7 @@
       <Card
         v-for="(card, foundationIndex) in foundation"
         :key="`a-${foundationIndex}`"
+        :id="card.id"
         :value="card.value"
         :suit="card.suit"
         :visible="card.visible"
