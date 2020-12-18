@@ -175,11 +175,10 @@ const actions = {
 
     commit('SHOW_NEW_GAME', showNewGame);
   },
-  setCloneCards({ commit }, card) {
-    const { id, cardWidth } = card;
+  setCloneCards({ commit }, id) {
     const cards = solitaire.getClonedCards(id);
 
-    commit('CLONE_CARDS', { cards, cardWidth });
+    commit('CLONE_CARDS', cards);
   },
   clearCloneCards({ commit }) {
     commit('CLEAR_CLONE_CARDS');

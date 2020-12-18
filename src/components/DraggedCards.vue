@@ -1,15 +1,17 @@
 <template>
-  <div class="cloned-card" :style="clonedCardStyles">
-    <Card
-      v-for="(card, index) in clonedCards.cards"
-      id="xxx"
-      :key="index"
-      :value="card.value"
-      :suit="card.suit"
-      :revealed="card.revealed"
-      :visible="card.visible"
-      :clickable="false"
-    />
+  <div class="cloned-card" :style="containerStyles">
+    <div :style="cardStyles">
+      <Card
+        v-for="(card, index) in clonedCards"
+        id="xxx"
+        :key="index"
+        :value="card.value"
+        :suit="card.suit"
+        :revealed="card.revealed"
+        :visible="card.visible"
+        :clickable="false"
+      />
+    </div>
   </div>
 </template>
 
@@ -23,47 +25,67 @@ export default {
   components: {
     Card,
   },
+  props: {
+    width: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
-      clonedCardStyles: {},
+      x: 0,
+      y: 0,
+      yOffset: 20,
     };
   },
   computed: {
     ...mapGetters(['clonedCards']),
     cardOffset() {
-      const { cardWidth } = this.clonedCards;
+      const { width } = this;
 
-      if (!cardWidth) {
+      if (!width) {
         return 0;
       }
 
-      return cardWidth / 2;
+      return width / 2;
+    },
+    cardStyles() {
+      const { width } = this;
+
+      return {
+        width: `${width}px`,
+      };
+    },
+    containerStyles() {
+      const { x, y, yOffset, cardOffset } = this;
+
+      return {
+        top: `${y - yOffset}px`,
+        left: `${x - cardOffset}px`,
+      };
     },
   },
   mounted() {
-    window.addEventListener('mousemove', debounce(0, false, this.setStyles));
-    window.addEventListener('dragover', throttle(30, false, this.setStyles));
+    window.addEventListener(
+      'mousemove',
+      debounce(0, false, this.setCardPosition)
+    );
+    window.addEventListener(
+      'dragover',
+      throttle(10, false, this.setCardPosition)
+    );
     window.addEventListener('dragend', this.clearCloneCards);
   },
   destroyed() {
-    window.removeEventListener('mousemove', this.setStyles);
-    window.removeEventListener('dragover', this.setStyles);
+    window.removeEventListener('mousemove', this.setCardPosition);
+    window.removeEventListener('dragover', this.setCardPosition);
     window.removeEventListener('dragend', this.clearCloneCards);
   },
   methods: {
     ...mapActions(['clearCloneCards']),
-    setStyles(event) {
-      const { x, y } = event;
-      const {
-        cardOffset,
-        clonedCards: { cardWidth },
-      } = this;
-
-      this.clonedCardStyles = {
-        top: `${y - 20}px`,
-        left: `${x - cardOffset}px`,
-        width: `${cardWidth}px`,
-      };
+    setCardPosition({ x, y }) {
+      this.x = x;
+      this.y = y;
     },
   },
 };

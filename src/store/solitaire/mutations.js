@@ -62,7 +62,7 @@ const mutations = {
     state.clonedCards = cards;
   },
   CLEAR_CLONE_CARDS(state) {
-    state.clonedCards = {};
+    state.clonedCards = [];
   },
 };
 

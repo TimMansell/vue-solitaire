@@ -6,7 +6,6 @@
     @dragstart="dragCard($event, id)"
     @dragend="dropCard()"
     :draggable="visible"
-    ref="card"
     :data-test="cardTestName"
   >
     <DefaultCard :value="cardValue" v-show="visible && !bottomCard" />
@@ -133,12 +132,10 @@ export default {
         }
       }
     },
-    dragCard(e, id) {
-      const cardWidth = this.$refs.card.clientWidth;
+    dragCard(event, id) {
+      event.dataTransfer.setDragImage(new Image(), 0, 0);
 
-      e.dataTransfer.setDragImage(new Image(), 0, 0);
-
-      this.setCloneCards({ id, cardWidth });
+      this.setCloneCards(id);
       this.setCard(id);
 
       setTimeout(() => {
