@@ -15,7 +15,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { throttle } from 'throttle-debounce';
+import { throttle, debounce } from 'throttle-debounce';
 import Card from '@/components/Card.vue';
 
 export default {
@@ -41,12 +41,12 @@ export default {
     },
   },
   mounted() {
-    // window.addEventListener('mousedown', this.setStyles);
-    window.addEventListener('dragover', throttle(10, false, this.setStyles));
+    window.addEventListener('mousemove', debounce(0, false, this.setStyles));
+    window.addEventListener('dragover', throttle(30, false, this.setStyles));
     window.addEventListener('dragend', this.clearCloneCards);
   },
   destroyed() {
-    // window.removeEventListener('mousedown', this.setStyles);
+    window.removeEventListener('mousemove', this.setStyles);
     window.removeEventListener('dragover', this.setStyles);
     window.removeEventListener('dragend', this.clearCloneCards);
   },
@@ -72,5 +72,6 @@ export default {
 <style scoped lang="scss">
 .cloned-card {
   position: absolute;
+  pointer-events: none;
 }
 </style>
