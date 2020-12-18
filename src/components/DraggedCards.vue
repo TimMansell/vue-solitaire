@@ -2,8 +2,8 @@
   <div class="cloned-card" :style="clonedCardStyles">
     <Card
       v-for="(card, index) in clonedCards.cards"
+      id="xxx"
       :key="index"
-      :id="card.id"
       :value="card.value"
       :suit="card.suit"
       :revealed="card.revealed"
@@ -33,27 +33,36 @@ export default {
     cardOffset() {
       const { cardWidth } = this.clonedCards;
 
+      if (!cardWidth) {
+        return 0;
+      }
+
       return cardWidth / 2;
     },
   },
   mounted() {
-    window.addEventListener('dragover', throttle(60, false, this.setStyles));
+    // window.addEventListener('mousedown', this.setStyles);
+    window.addEventListener('dragover', throttle(10, false, this.setStyles));
     window.addEventListener('dragend', this.clearCloneCards);
   },
   destroyed() {
+    // window.removeEventListener('mousedown', this.setStyles);
     window.removeEventListener('dragover', this.setStyles);
     window.removeEventListener('dragend', this.clearCloneCards);
   },
   methods: {
     ...mapActions(['clearCloneCards']),
-    setStyles(e) {
-      // console.log({ e });
-      const { x, y } = e;
-      const { cardOffset } = this;
+    setStyles(event) {
+      const { x, y } = event;
+      const {
+        cardOffset,
+        clonedCards: { cardWidth },
+      } = this;
 
       this.clonedCardStyles = {
-        top: `${y}px`,
+        top: `${y - 20}px`,
         left: `${x - cardOffset}px`,
+        width: `${cardWidth}px`,
       };
     },
   },
@@ -63,6 +72,5 @@ export default {
 <style scoped lang="scss">
 .cloned-card {
   position: absolute;
-  width: 150px;
 }
 </style>
