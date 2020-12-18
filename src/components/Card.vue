@@ -53,15 +53,15 @@ export default {
   props: {
     id: {
       type: [String, Number],
-      default: 0,
+      required: true,
     },
     value: {
       type: String,
-      default: 'A',
+      required: true,
     },
     suit: {
       type: String,
-      default: '♣',
+      required: true,
     },
     visible: {
       type: Boolean,
@@ -138,9 +138,12 @@ export default {
 
       e.dataTransfer.setDragImage(new Image(), 0, 0);
 
-      this.isDragged = true;
       this.setCloneCards({ id, cardWidth });
       this.setCard(id);
+
+      setTimeout(() => {
+        this.isDragged = true;
+      }, 0);
     },
     dropCard() {
       this.isDragged = false;
@@ -196,11 +199,11 @@ export default {
   }
 
   &--is-dragged {
-    display: none;
+    opacity: 0;
 
     /* stylelint-disable */
     & ~ .card {
-      display: none;
+      opacity: 0;
     }
     /* stylelint-enable */
   }
