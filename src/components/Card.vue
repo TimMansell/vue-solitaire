@@ -4,6 +4,7 @@
     :class="classes"
     @click="selectCard($event, id)"
     @dragstart="dragCard($event, id)"
+    @dragend="dropCard()"
     :draggable="visible"
     ref="card"
     :data-test="cardTestName"
@@ -83,6 +84,11 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      isDragged: false,
+    };
+  },
   computed: {
     ...mapGetters(['selectedCardId']),
     cardValue() {
@@ -94,13 +100,14 @@ export default {
     },
     classes() {
       const { selectedCardId } = this;
-      const { id, stacked, clickable, visible } = this;
+      const { id, stacked, clickable, visible, isDragged } = this;
 
       return {
         'card--is-selected': selectedCardId === id,
         'card--is-stacked': stacked,
         'card--is-not-clickable': !clickable,
         'card--is-draggable': visible,
+        'card--is-dragged': isDragged,
       };
     },
     cardTestName() {
@@ -131,8 +138,12 @@ export default {
 
       e.dataTransfer.setDragImage(new Image(), 0, 0);
 
+      this.isDragged = true;
       this.setCloneCards({ id, cardWidth });
       this.setCard(id);
+    },
+    dropCard() {
+      this.isDragged = false;
     },
   },
 };
@@ -184,10 +195,14 @@ export default {
     cursor: grab;
   }
 
-  &--is-cloned {
-    &::before {
-      content: none;
+  &--is-dragged {
+    display: none;
+
+    /* stylelint-disable */
+    & ~ .card {
+      display: none;
     }
+    /* stylelint-enable */
   }
 }
 </style>
