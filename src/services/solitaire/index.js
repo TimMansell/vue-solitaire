@@ -12,6 +12,7 @@ import {
   getEmptyFoundationColumn,
 } from './foundation';
 import { initBoard, loadBoard, updateBoard } from './board';
+import { getCardsFromPosition } from './cards';
 import setState from './state';
 
 const solitaire = () => {
@@ -68,6 +69,9 @@ const solitaire = () => {
 
   const getFoundationCards = () => state.foundationCards;
 
+  const getClonedCards = (selectedCardId) =>
+    getCardsFromPosition(state, selectedCardId);
+
   return {
     init,
     isEmptyBoard,
@@ -81,6 +85,7 @@ const solitaire = () => {
     moveCards,
     moveCardsToFoundation,
     findEmptyFoundationColumn,
+    getClonedCards,
   };
 };
 

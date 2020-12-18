@@ -82,3 +82,14 @@ export const checkCardTopPosition = (cards, selectedCardId) => {
 
   return cardPosition === 0;
 };
+
+export const getCardsFromPosition = ({ boardCards }, selectedCardId) => {
+  const columnNo = findCardColumn(boardCards, selectedCardId);
+
+  const selectedCard = boardCards[columnNo].findIndex(
+    (card) => card.id === selectedCardId
+  );
+  const clonedCards = boardCards[columnNo].slice(selectedCard);
+
+  return clonedCards;
+};
