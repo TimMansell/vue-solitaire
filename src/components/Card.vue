@@ -129,6 +129,8 @@ export default {
     dragCard(e, id) {
       const cardWidth = this.$refs.card.clientWidth;
 
+      e.dataTransfer.setDragImage(new Image(), 0, 0);
+
       this.setCloneCards({ id, cardWidth });
       this.setCard(id);
     },
