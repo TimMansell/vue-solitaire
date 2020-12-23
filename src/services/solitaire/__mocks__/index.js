@@ -14,6 +14,7 @@ const solitaire = () => ({
   moveCardsToFoundation: () => jest.fn(),
   setBoard: () => jest.fn(),
   setFoundation: () => jest.fn(),
+  getDraggedCards: () => [],
 });
 
 export default solitaire();
