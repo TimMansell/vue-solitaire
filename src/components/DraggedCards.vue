@@ -3,7 +3,7 @@
     <div :style="cardStyles">
       <Card
         v-for="(card, index) in draggedCards"
-        id="xxx"
+        :id="`dragged-${index}`"
         :key="index"
         :value="card.value"
         :suit="card.suit"
@@ -47,10 +47,6 @@ export default {
     cardOffset() {
       const { width } = this;
 
-      if (!width) {
-        return 0;
-      }
-
       return width / 2;
     },
     cardStyles() {
@@ -60,12 +56,25 @@ export default {
         width: `${width}px`,
       };
     },
-    containerStyles() {
+    cardPosition() {
       const { x, y, yOffset, cardOffset } = this;
 
+      const topOffset = y - yOffset;
+      const leftOffset = x - cardOffset;
+
       return {
-        top: `${y - yOffset}px`,
-        left: `${x - cardOffset}px`,
+        topOffset,
+        leftOffset,
+      };
+    },
+    containerStyles() {
+      const {
+        cardPosition: { topOffset, leftOffset },
+      } = this;
+
+      return {
+        top: `${topOffset}px`,
+        left: `${leftOffset}px`,
       };
     },
   },
