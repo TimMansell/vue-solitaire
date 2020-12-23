@@ -176,7 +176,7 @@ const actions = {
     commit('SHOW_NEW_GAME', showNewGame);
   },
   setDraggedCards({ commit }, id) {
-    const cards = solitaire.getCardsToDrag(id);
+    const cards = solitaire.getDraggedCards(id);
 
     commit('DRAG_CARDS', cards);
   },

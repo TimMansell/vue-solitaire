@@ -4,6 +4,7 @@ import {
   moveBoardCards,
   checkValidFoundationMove,
   moveFoundationCards,
+  getCardsToDrag,
 } from './moves';
 import {
   initFoundation,
@@ -12,7 +13,6 @@ import {
   getEmptyFoundationColumn,
 } from './foundation';
 import { initBoard, loadBoard, updateBoard } from './board';
-import { getCardsFromPosition } from './cards';
 import setState from './state';
 
 const solitaire = () => {
@@ -69,8 +69,8 @@ const solitaire = () => {
 
   const getFoundationCards = () => state.foundationCards;
 
-  const getCardsToDrag = (selectedCardId) =>
-    getCardsFromPosition(state, selectedCardId);
+  const getDraggedCards = (selectedCardId) =>
+    getCardsToDrag(state, selectedCardId);
 
   return {
     init,
@@ -85,7 +85,7 @@ const solitaire = () => {
     moveCards,
     moveCardsToFoundation,
     findEmptyFoundationColumn,
-    getCardsToDrag,
+    getDraggedCards,
   };
 };
 
