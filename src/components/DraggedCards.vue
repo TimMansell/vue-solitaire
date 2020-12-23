@@ -74,12 +74,12 @@ export default {
       'dragover',
       throttle(10, false, this.setCardPosition)
     );
-    window.addEventListener('dragend', this.clearDraggedCards);
+    window.addEventListener('drop', this.clearDraggedCards);
   },
   destroyed() {
     window.removeEventListener('mousemove', this.setCardPosition);
     window.removeEventListener('dragover', this.setCardPosition);
-    window.removeEventListener('dragend', this.clearDraggedCards);
+    window.removeEventListener('drop', this.clearDraggedCards);
   },
   methods: {
     ...mapActions(['clearDraggedCards']),
