@@ -181,8 +181,6 @@ const actions = {
     commit('DRAG_CARDS', cards);
   },
   clearDraggedCards({ commit }) {
-    console.log('cdc');
-
     commit('CLEAR_DRAG_CARDS');
   },
 };
