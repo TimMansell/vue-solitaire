@@ -9,7 +9,7 @@ const getters = {
   timer: (state) => state.game.time,
   showRules: (state) => state.showRules,
   showNewGame: (state) => state.showNewGame,
-  clonedCards: (state) => state.clonedCards,
+  draggedCards: (state) => state.draggedCards,
 };
 
 export default getters;

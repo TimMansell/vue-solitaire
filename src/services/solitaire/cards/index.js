@@ -89,7 +89,7 @@ export const getCardsFromPosition = ({ boardCards }, selectedCardId) => {
   const selectedCard = boardCards[columnNo].findIndex(
     (card) => card.id === selectedCardId
   );
-  const clonedCards = boardCards[columnNo].slice(selectedCard);
+  const cards = boardCards[columnNo].slice(selectedCard);
 
-  return clonedCards;
+  return cards;
 };

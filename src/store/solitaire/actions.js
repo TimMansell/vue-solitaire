@@ -175,13 +175,15 @@ const actions = {
 
     commit('SHOW_NEW_GAME', showNewGame);
   },
-  setCloneCards({ commit }, id) {
-    const cards = solitaire.getClonedCards(id);
+  setDraggedCards({ commit }, id) {
+    const cards = solitaire.getCardsToDrag(id);
 
-    commit('CLONE_CARDS', cards);
+    commit('DRAG_CARDS', cards);
   },
-  clearCloneCards({ commit }) {
-    commit('CLEAR_CLONE_CARDS');
+  clearDraggedCards({ commit }) {
+    console.log('cdc');
+
+    commit('CLEAR_DRAG_CARDS');
   },
 };
 

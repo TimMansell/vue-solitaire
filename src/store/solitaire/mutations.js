@@ -58,11 +58,11 @@ const mutations = {
   SHOW_NEW_GAME(state, showNewGame) {
     state.showNewGame = showNewGame;
   },
-  CLONE_CARDS(state, cards) {
-    state.clonedCards = cards;
+  DRAG_CARDS(state, cards) {
+    state.draggedCards = cards;
   },
-  CLEAR_CLONE_CARDS(state) {
-    state.clonedCards = [];
+  CLEAR_DRAG_CARDS(state) {
+    state.draggedCards = [];
   },
 };
 

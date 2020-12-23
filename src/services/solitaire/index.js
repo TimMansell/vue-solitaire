@@ -69,7 +69,7 @@ const solitaire = () => {
 
   const getFoundationCards = () => state.foundationCards;
 
-  const getClonedCards = (selectedCardId) =>
+  const getCardsToDrag = (selectedCardId) =>
     getCardsFromPosition(state, selectedCardId);
 
   return {
@@ -85,7 +85,7 @@ const solitaire = () => {
     moveCards,
     moveCardsToFoundation,
     findEmptyFoundationColumn,
-    getClonedCards,
+    getCardsToDrag,
   };
 };
 

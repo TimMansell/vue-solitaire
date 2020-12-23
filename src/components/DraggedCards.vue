@@ -1,8 +1,8 @@
 <template>
-  <div class="cloned-card" :style="containerStyles">
+  <div class="dragged-cards" :style="containerStyles">
     <div :style="cardStyles">
       <Card
-        v-for="(card, index) in clonedCards"
+        v-for="(card, index) in draggedCards"
         id="xxx"
         :key="index"
         :value="card.value"
@@ -39,7 +39,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['clonedCards']),
+    ...mapGetters(['draggedCards']),
     cardOffset() {
       const { width } = this;
 
@@ -74,15 +74,15 @@ export default {
       'dragover',
       throttle(10, false, this.setCardPosition)
     );
-    window.addEventListener('dragend', this.clearCloneCards);
+    window.addEventListener('dragend', this.clearDraggedCards);
   },
   destroyed() {
     window.removeEventListener('mousemove', this.setCardPosition);
     window.removeEventListener('dragover', this.setCardPosition);
-    window.removeEventListener('dragend', this.clearCloneCards);
+    window.removeEventListener('dragend', this.clearDraggedCards);
   },
   methods: {
-    ...mapActions(['clearCloneCards']),
+    ...mapActions(['clearDraggedCards']),
     setCardPosition({ x, y }) {
       this.x = x;
       this.y = y;
@@ -92,7 +92,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.cloned-card {
+.dragged-cards {
   position: absolute;
   pointer-events: none;
 }

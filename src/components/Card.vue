@@ -120,7 +120,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setCard', 'setCloneCards']),
+    ...mapActions(['setCard', 'setDraggedCards']),
     selectCard(e, id) {
       const { selectedCardId } = this;
 
@@ -135,7 +135,7 @@ export default {
     dragCard(event, id) {
       event.dataTransfer.setDragImage(new Image(), 0, 0);
 
-      this.setCloneCards(id);
+      this.setDraggedCards(id);
       this.setCard(id);
 
       setTimeout(() => {

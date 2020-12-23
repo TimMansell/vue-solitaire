@@ -21,7 +21,7 @@ const state = () => ({
   isNewGame: true,
   showRules: false,
   showNewGame: false,
-  clonedCards: [],
+  draggedCards: [],
 });
 
 export default state;
