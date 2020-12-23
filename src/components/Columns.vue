@@ -13,6 +13,10 @@
 </template>
 
 <script>
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
 import { debounce } from 'throttle-debounce';
 import { mapGetters } from 'vuex';
 import Column from '@/components/Column.vue';
@@ -33,15 +37,18 @@ export default {
     ...mapGetters(['boardCards']),
   },
   mounted() {
-    window.addEventListener(
-      'resize',
-      debounce(300, false, this.getColumnWidth)
-    );
+    const events = {
+      resize: debounce(300, false, this.getColumnWidth),
+    };
+
+    this.events = addEventListener(events);
 
     this.getColumnWidth();
   },
   destroyed() {
-    window.removeEventListener('resize', this.getColumnWidth);
+    const { events } = this;
+
+    removeEventListener(events);
   },
   methods: {
     getColumnWidth() {

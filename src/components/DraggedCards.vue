@@ -16,6 +16,10 @@
 </template>
 
 <script>
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
 import { mapGetters, mapActions } from 'vuex';
 import { throttle, debounce } from 'throttle-debounce';
 import Card from '@/components/Card.vue';
@@ -66,20 +70,18 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener(
-      'mousemove',
-      debounce(0, false, this.setCardPosition)
-    );
-    window.addEventListener(
-      'dragover',
-      throttle(10, false, this.setCardPosition)
-    );
-    window.addEventListener('drop', this.clearDraggedCards);
+    const events = {
+      mousemove: debounce(0, false, this.setCardPosition),
+      dragover: throttle(10, false, this.setCardPosition),
+      drop: this.clearDraggedCards,
+    };
+
+    this.events = addEventListener(events);
   },
   destroyed() {
-    window.removeEventListener('mousemove', this.setCardPosition);
-    window.removeEventListener('dragover', this.setCardPosition);
-    window.removeEventListener('drop', this.clearDraggedCards);
+    const { events } = this;
+
+    removeEventListener(events);
   },
   methods: {
     ...mapActions(['clearDraggedCards']),
