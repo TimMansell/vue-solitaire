@@ -102,7 +102,7 @@ export default {
       const { id, stacked, clickable, visible, isDragged } = this;
 
       return {
-        'card--is-selected': selectedCardId === id,
+        'card--is-selected': selectedCardId === id && !isDragged,
         'card--is-stacked': stacked,
         'card--is-not-clickable': !clickable,
         'card--is-draggable': visible,
