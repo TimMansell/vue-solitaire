@@ -156,8 +156,8 @@ describe('Solitaire Store', () => {
   });
 
   it('CLEAR_DRAG_CARDS', () => {
-    CLEAR_DRAG_CARDS(state, true);
+    CLEAR_DRAG_CARDS(state);
 
-    expect(state.showNewGame).toEqual([]);
+    expect(state.draggedCards).toEqual([]);
   });
 });

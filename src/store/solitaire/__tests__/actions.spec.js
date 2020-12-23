@@ -16,6 +16,8 @@ const {
   autoMoveCardToFoundation,
   toggleRules,
   toggleNewGame,
+  setDraggedCards,
+  clearDraggedCards,
 } = actions;
 
 const commit = jest.fn();
@@ -214,5 +216,17 @@ describe('Solitaire Store', () => {
     toggleNewGame({ commit, state });
 
     expect(commit).toHaveBeenCalledWith('SHOW_NEW_GAME', true);
+  });
+
+  it('setDraggedCards', () => {
+    setDraggedCards({ commit }, 1);
+
+    expect(commit).toHaveBeenCalledWith('DRAG_CARDS', []);
+  });
+
+  it('clearDraggedCards', () => {
+    clearDraggedCards({ commit });
+
+    expect(commit).toHaveBeenCalledWith('CLEAR_DRAG_CARDS');
   });
 });
