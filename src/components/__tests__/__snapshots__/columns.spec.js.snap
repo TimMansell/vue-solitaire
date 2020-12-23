@@ -1,3 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Columns.vue matches snapshot 1`] = `<div data-test="columns" class="columns"></div>`;
+exports[`Columns.vue matches snapshot 1`] = `
+<div>
+  <div data-test="columns" class="columns">
+    <column-stub cards="" columnno="0"></column-stub>
+    <column-stub cards="" columnno="1"></column-stub>
+    <column-stub cards="" columnno="2"></column-stub>
+    <column-stub cards="" columnno="3"></column-stub>
+    <column-stub cards="" columnno="4"></column-stub>
+    <column-stub cards="" columnno="5"></column-stub>
+    <column-stub cards="" columnno="6"></column-stub>
+    <column-stub cards="" columnno="7"></column-stub>
+  </div>
+  <draggedcards-stub width="150"></draggedcards-stub>
+</div>
+`;
