@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div class="columns" data-test="columns" ref="columns">
+    <div class="columns" data-test="columns">
       <Column
         v-for="(column, index) in boardCards"
         :key="index"
         :column-no="index"
         :cards="column"
+        ref="column"
       />
     </div>
     <DraggedCards :width="cardWidth" />
@@ -52,9 +53,8 @@ export default {
   },
   methods: {
     getColumnWidth() {
-      const { columns } = this.$refs;
-      const card = columns.childNodes[0].childNodes[0];
-      const { clientWidth } = card;
+      const { column } = this.$refs;
+      const { clientWidth } = column[0].$el;
 
       this.cardWidth = clientWidth;
     },
@@ -67,12 +67,10 @@ export default {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-auto-flow: column;
-  padding-left: var(--pd-xs);
-  padding-right: var(--pd-xs);
+  gap: var(--pd-xs);
 
-  @media (min-width: $bp-lg) {
-    padding-left: 0;
-    padding-right: 0;
+  @media (min-width: $bp-md) {
+    gap: var(--pd-sm);
   }
 }
 </style>

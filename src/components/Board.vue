@@ -21,6 +21,8 @@ export default {
 <style scoped lang="scss">
 .board {
   width: 100%;
+  padding-left: var(--pd-sm);
+  padding-right: var(--pd-sm);
   margin-bottom: var(--mg-lg);
 
   @media (min-width: $bp-md) {

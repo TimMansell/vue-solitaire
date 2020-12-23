@@ -1,7 +1,6 @@
 <template>
   <div class="foundation">
     <div
-      class="foundation__column"
       v-for="(foundation, foundationsIndex) in foundationCards"
       :key="`f-${foundationsIndex}`"
       @click="setFoundationColumn(foundationsIndex)"
@@ -55,29 +54,14 @@ export default {
 <style scoped lang="scss">
 .foundation {
   display: grid;
-  grid-template-columns: repeat(4, 1fr) 4fr;
+  grid-template-columns: repeat(8, 1fr);
   grid-auto-flow: column;
   margin-bottom: var(--mg-sm);
-  padding-left: var(--pd-xs);
-  padding-right: var(--pd-xs);
+  gap: var(--pd-xs);
 
   @media (min-width: $bp-md) {
+    gap: var(--pd-sm);
     margin-bottom: var(--mg-md);
-  }
-
-  @media (min-width: $bp-lg) {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  &__column {
-    padding-left: var(--pd-xs);
-    padding-right: var(--pd-xs);
-
-    @media (min-width: $bp-lg) {
-      padding-left: var(--pd-sm);
-      padding-right: var(--pd-sm);
-    }
   }
 }
 </style>
