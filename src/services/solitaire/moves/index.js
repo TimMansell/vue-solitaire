@@ -6,7 +6,7 @@ import {
   moveCardsToBoard,
   moveCardsToFoundation,
 } from './moves';
-import { getSelectedCard, getLastCard } from '../cards';
+import { getSelectedCard, getLastCard, getCardPosition } from '../cards';
 import {
   validateCardMove,
   validateCardMoveColumn,
@@ -78,4 +78,15 @@ export const moveFoundationCards = (state, selectedColumn) => {
     cardsFrom,
     foundationCardsTo,
   };
+};
+
+export const getCardsToDrag = ({ boardCards }, selectedCardId) => {
+  const { columnNo, cardPosition } = getCardPosition(
+    boardCards,
+    selectedCardId
+  );
+
+  const cards = boardCards[columnNo].slice(cardPosition);
+
+  return cards;
 };

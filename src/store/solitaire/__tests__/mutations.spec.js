@@ -16,6 +16,8 @@ const {
   UPDATE_GAME_TIME,
   SHOW_RULES,
   SHOW_NEW_GAME,
+  DRAG_CARDS,
+  CLEAR_DRAG_CARDS,
 } = mutations;
 
 describe('Solitaire Store', () => {
@@ -43,6 +45,7 @@ describe('Solitaire Store', () => {
       },
       showRules: false,
       showNewGame: false,
+      draggedCards: [],
     };
   });
 
@@ -142,5 +145,19 @@ describe('Solitaire Store', () => {
     SHOW_NEW_GAME(state, true);
 
     expect(state.showNewGame).toEqual(true);
+  });
+
+  it('DRAG_CARDS', () => {
+    const cards = [{}];
+
+    DRAG_CARDS(state, cards);
+
+    expect(state.draggedCards).toEqual(cards);
+  });
+
+  it('CLEAR_DRAG_CARDS', () => {
+    CLEAR_DRAG_CARDS(state);
+
+    expect(state.draggedCards).toEqual([]);
   });
 });

@@ -19,6 +19,10 @@
 </template>
 
 <script>
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
 import { mapGetters, mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import PauseGameButton from './PauseGameButton.vue';
@@ -38,14 +42,16 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener(
-      'visibilitychange',
-      (e) => setTimeout(this.checkGamePaused, 2000, e),
-      false
-    );
+    const events = {
+      visibilitychange: (e) => setTimeout(this.checkGamePaused, 2000, e),
+    };
+
+    this.events = addEventListener(events);
   },
   destroyed() {
-    window.removeEventListener('visibilitychange', this.checkGamePaused);
+    const { events } = this;
+
+    removeEventListener(events);
   },
   methods: {
     ...mapActions(['setGamePaused']),

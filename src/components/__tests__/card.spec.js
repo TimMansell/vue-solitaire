@@ -4,6 +4,12 @@ import DefaultCard from '@/components/DefaultCard.vue';
 import BottomCard from '@/components/BottomCard.vue';
 import CardPlaceholder from '@/components/CardPlaceholder.vue';
 
+const defaultProps = {
+  id: 2,
+  value: 'K',
+  suit: '♦',
+};
+
 const computed = {
   selectedCardId: () => null,
 };
@@ -11,6 +17,9 @@ const computed = {
 describe('Card.vue', () => {
   it('matches visible snapshot', () => {
     const wrapper = shallowMount(Card, {
+      propsData: {
+        ...defaultProps,
+      },
       computed,
     });
 
@@ -20,6 +29,7 @@ describe('Card.vue', () => {
   it('matches hidden snapshot', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         visible: false,
       },
       computed,
@@ -31,6 +41,7 @@ describe('Card.vue', () => {
   it('matches bottom card snapshot', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         bottomCard: true,
       },
       computed,
@@ -41,9 +52,7 @@ describe('Card.vue', () => {
 
   it('should have correct props', () => {
     const propsData = {
-      id: 2,
-      value: 'K',
-      suit: '♦',
+      ...defaultProps,
       visible: true,
       revealed: true,
       clickable: false,
@@ -68,6 +77,7 @@ describe('Card.vue', () => {
 
   it('should render a diamond card', () => {
     const propsData = {
+      ...defaultProps,
       value: '6',
       suit: '♦',
     };
@@ -85,6 +95,7 @@ describe('Card.vue', () => {
 
   it('should render a club card', () => {
     const propsData = {
+      ...defaultProps,
       value: '6',
       suit: '♣',
     };
@@ -102,6 +113,7 @@ describe('Card.vue', () => {
 
   it('should render a heart card', () => {
     const propsData = {
+      ...defaultProps,
       value: '6',
       suit: '♥',
     };
@@ -119,6 +131,7 @@ describe('Card.vue', () => {
 
   it('should render a spade card', () => {
     const propsData = {
+      ...defaultProps,
       value: '6',
       suit: '♠',
     };
@@ -136,6 +149,9 @@ describe('Card.vue', () => {
 
   it('should render a default card', () => {
     const wrapper = shallowMount(Card, {
+      propsData: {
+        ...defaultProps,
+      },
       computed,
     });
 
@@ -145,6 +161,7 @@ describe('Card.vue', () => {
   it('should render a bottom card', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         bottomCard: true,
       },
       computed,
@@ -156,6 +173,7 @@ describe('Card.vue', () => {
   it('should render a hidden card', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         visible: false,
       },
       computed,
@@ -168,6 +186,7 @@ describe('Card.vue', () => {
   it('should render a stacked card', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         stacked: true,
       },
       computed,
@@ -178,12 +197,32 @@ describe('Card.vue', () => {
 
   it('should render a selected card', () => {
     const wrapper = shallowMount(Card, {
+      propsData: {
+        ...defaultProps,
+      },
       computed: {
-        selectedCardId: () => 0,
+        selectedCardId: () => 2,
       },
     });
 
     expect(wrapper.classes()).toContain('card--is-selected');
+    expect(wrapper.classes()).not.toContain('card--is-dragged');
+  });
+
+  it('should render a dragged card', async () => {
+    const wrapper = shallowMount(Card, {
+      propsData: {
+        ...defaultProps,
+      },
+      computed: {
+        selectedCardId: () => 2,
+      },
+    });
+
+    await wrapper.setData({ isDragged: true });
+
+    expect(wrapper.classes()).toContain('card--is-dragged');
+    expect(wrapper.classes()).not.toContain('card--is-selected');
   });
 
   describe('Set Card', () => {
@@ -197,6 +236,7 @@ describe('Card.vue', () => {
       const wrapper = shallowMount(Card, {
         mocks,
         propsData: {
+          ...defaultProps,
           clickable: false,
         },
         computed,
@@ -212,6 +252,7 @@ describe('Card.vue', () => {
       const wrapper = shallowMount(Card, {
         mocks,
         propsData: {
+          ...defaultProps,
           visible: false,
         },
         computed,
@@ -224,6 +265,9 @@ describe('Card.vue', () => {
 
     it('should call store action "setCard" when clicked when visible', () => {
       const wrapper = shallowMount(Card, {
+        propsData: {
+          ...defaultProps,
+        },
         mocks,
         computed,
       });

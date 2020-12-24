@@ -11,6 +11,7 @@ const {
   timer,
   showRules,
   showNewGame,
+  draggedCards,
 } = getters;
 
 const state = {
@@ -32,6 +33,7 @@ const state = {
   },
   showRules: false,
   showNewGame: false,
+  draggedCards: [],
 };
 
 describe('Solitaire Store', () => {
@@ -93,5 +95,11 @@ describe('Solitaire Store', () => {
     const result = showNewGame(state);
 
     expect(result).toEqual(state.showNewGame);
+  });
+
+  it('draggedCards', () => {
+    const result = draggedCards(state);
+
+    expect(result).toEqual(state.draggedCards);
   });
 });

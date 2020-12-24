@@ -58,6 +58,12 @@ const mutations = {
   SHOW_NEW_GAME(state, showNewGame) {
     state.showNewGame = showNewGame;
   },
+  DRAG_CARDS(state, cards) {
+    state.draggedCards = cards;
+  },
+  CLEAR_DRAG_CARDS(state) {
+    state.draggedCards = [];
+  },
 };
 
 export default mutations;

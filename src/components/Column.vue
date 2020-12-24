@@ -1,6 +1,5 @@
 <template>
   <div
-    class="column"
     @click="setColumn(columnNo)"
     @drop="dropCard(columnNo)"
     @dragover.prevent
@@ -65,15 +64,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.column {
-  padding-left: var(--pd-xs);
-  padding-right: var(--pd-xs);
-
-  @media (min-width: $bp-lg) {
-    padding-left: var(--pd-sm);
-    padding-right: var(--pd-sm);
-  }
-}
-</style>
