@@ -42,25 +42,37 @@ Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
     force: true,
   });
 
-  cy.get(subject).should('have.css', 'opacity', '0');
-  cy.get('[data-test="dragged-cards"]').should('be.visible');
+  cy.get('[data-test="columns"]').within(() => {
+    cy.get(subject).should('have.css', 'opacity', '0');
+  });
+
+  cy.get('[data-test="dragged-cards"]').within(() => {
+    cy.get(subject).should('be.visible');
+  });
 
   cy.get(dragTo)
     .trigger('drop')
     .trigger('dragend', { force: true });
 
-  cy.get('[data-test="dragged-cards"]').should('not.be.visible');
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(500);
+
+  cy.get('[data-test="dragged-cards"]')
+    .children()
+    .should('have.length', 0);
 });
 
 Cypress.Commands.add('drag', { prevSubject: true }, (subject, x, y) => {
-  cy.get(subject)
-    .trigger('dragstart', 0, 0, {
-      dataTransfer: new DataTransfer(),
-      force: true,
-    })
-    .trigger('mousemove', x, y, {
-      force: true,
-    });
+  cy.get('[data-test="columns"]').within(() => {
+    cy.get(subject)
+      .trigger('dragstart', 0, 0, {
+        dataTransfer: new DataTransfer(),
+        force: true,
+      })
+      .trigger('mousemove', x, y, {
+        force: true,
+      });
+  });
 });
 
 Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
