@@ -85,7 +85,7 @@ export default {
     const events = {
       mousemove: debounce(0, false, this.setCardPosition),
       dragover: throttle(10, false, this.setCardPosition),
-      drop: this.clearDraggedCards,
+      dragend: this.clearDraggedCards,
     };
 
     this.events = addEventListener(events);
