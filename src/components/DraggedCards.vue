@@ -39,7 +39,6 @@ export default {
     return {
       x: 0,
       y: 0,
-      yOffset: 20,
     };
   },
   computed: {
@@ -57,9 +56,9 @@ export default {
       };
     },
     cardPosition() {
-      const { x, y, yOffset, cardOffset } = this;
+      const { x, y, cardOffset } = this;
 
-      const topOffset = y - yOffset;
+      const topOffset = y;
       const leftOffset = x - cardOffset;
 
       return {
@@ -94,9 +93,9 @@ export default {
   },
   methods: {
     ...mapActions(['clearDraggedCards']),
-    setCardPosition({ x, y }) {
-      this.x = x;
-      this.y = y;
+    setCardPosition({ clientX, clientY }) {
+      this.x = clientX;
+      this.y = clientY;
     },
   },
 };
@@ -106,5 +105,6 @@ export default {
 .dragged-cards {
   position: absolute;
   pointer-events: none;
+  margin-top: calc(var(--vr) * -1);
 }
 </style>
