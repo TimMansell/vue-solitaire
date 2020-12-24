@@ -1,6 +1,10 @@
 <template>
-  <div class="dragged-cards" :style="containerStyles">
-    <div :style="cardStyles">
+  <div
+    class="dragged-cards"
+    :style="containerStyles"
+    data-test="dragged-cards-container"
+  >
+    <div :style="cardStyles" data-test="dragged-cards">
       <Card
         v-for="(card, index) in draggedCards"
         :id="`dragged-${index}`"

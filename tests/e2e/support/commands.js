@@ -41,9 +41,15 @@ Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
     dataTransfer: new DataTransfer(),
     force: true,
   });
+
+  cy.get(subject).should('have.css', 'opacity', '0');
+  cy.get('[data-test="dragged-cards"]').should('be.visible');
+
   cy.get(dragTo)
     .trigger('drop')
     .trigger('dragend', { force: true });
+
+  cy.get('[data-test="dragged-cards"]').should('not.be.visible');
 });
 
 Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
