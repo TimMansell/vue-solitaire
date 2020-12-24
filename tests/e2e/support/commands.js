@@ -52,6 +52,17 @@ Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
   cy.get('[data-test="dragged-cards"]').should('not.be.visible');
 });
 
+Cypress.Commands.add('drag', { prevSubject: true }, (subject, x, y) => {
+  cy.get(subject)
+    .trigger('dragstart', 0, 0, {
+      dataTransfer: new DataTransfer(),
+      force: true,
+    })
+    .trigger('mousemove', x, y, {
+      force: true,
+    });
+});
+
 Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
   cy.get(subject).click({ force: true });
   cy.get(clickTo).click({ force: true });
