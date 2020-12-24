@@ -68,6 +68,6 @@ describe('DraggedCards.vue', () => {
 
     await wrapper.setData({ x: 50, y: 100 });
 
-    expect(wrapper.vm.cardPosition).toEqual({ leftOffset: 0, topOffset: 80 });
+    expect(wrapper.vm.cardPosition).toEqual({ leftOffset: 0, topOffset: 100 });
   });
 });
