@@ -20,9 +20,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['toggleRules', 'setGamePaused']),
+    ...mapActions(['toggleRules']),
     showRules() {
-      this.setGamePaused();
       this.toggleRules();
     },
   },

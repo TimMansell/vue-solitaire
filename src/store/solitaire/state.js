@@ -10,8 +10,8 @@ const state = () => ({
   isGamePaused: {
     isPaused: false,
     isActive: false,
-    showMsg: false,
   },
+  isTimerPaused: false,
   hasMoves: true,
   game: {
     id: null,
