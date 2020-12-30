@@ -7,6 +7,8 @@ const {
   isGameWon,
   isGameLost,
   isGamePaused,
+  isGameActive,
+  isTimerPaused,
   hasMoves,
   timer,
   showRules,
@@ -25,7 +27,6 @@ const state = {
   isGamePaused: {
     isPaused: true,
     isActive: true,
-    showMsg: true,
   },
   hasMoves: false,
   game: {
@@ -34,6 +35,7 @@ const state = {
   showRules: false,
   showNewGame: false,
   draggedCards: [],
+  isTimerPaused: true,
 };
 
 describe('Solitaire Store', () => {
@@ -70,7 +72,19 @@ describe('Solitaire Store', () => {
   it('isGamePaused', () => {
     const result = isGamePaused(state);
 
-    expect(result).toEqual(state.isGamePaused);
+    expect(result).toEqual(state.isGamePaused.isPaused);
+  });
+
+  it('isGameActive', () => {
+    const result = isGameActive(state);
+
+    expect(result).toEqual(state.isGamePaused.isActive);
+  });
+
+  it('isTimerPaused', () => {
+    const result = isTimerPaused(state);
+
+    expect(result).toEqual(state.isTimerPaused);
   });
 
   it('hasMoves', () => {

@@ -20,10 +20,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['toggleStats', 'setGamePaused']),
+    ...mapActions(['toggleStats']),
     viewStats() {
       this.loadStats();
-      this.setGamePaused();
       this.toggleStats();
     },
   },

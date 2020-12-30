@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Logo from './Logo.vue';
 
 export default {
@@ -51,6 +52,15 @@ export default {
     hasMsgSlot() {
       return !!this.$slots.msg;
     },
+  },
+  mounted() {
+    this.setTimerPaused(true);
+  },
+  destroyed() {
+    this.setTimerPaused(false);
+  },
+  methods: {
+    ...mapActions(['setTimerPaused']),
   },
 };
 </script>

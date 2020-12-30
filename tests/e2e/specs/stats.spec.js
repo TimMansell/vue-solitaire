@@ -116,6 +116,10 @@ describe('Stats', () => {
 
         cy.get('[data-test="new-game-btn"]').click();
 
+        cy.get('[data-test="game-overlay-btns"]').within(() => {
+          cy.get('[data-test="new-game-btn"]').click();
+        });
+
         cy.get('[data-test="global-stats"]').should('not.equal', number);
       });
     });
@@ -175,7 +179,7 @@ describe('Stats', () => {
         cy.stub(doc, 'visibilityState').value('hidden');
       });
 
-      cy.get('[data-test="global-stats-btn"]').click();
+      cy.get('[data-test="global-stats-btn"]').click({ force: true });
 
       cy.document().trigger('visibilitychange');
 

@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GamePaused.vue hides overlay 1`] = ``;
-
 exports[`GamePaused.vue matches snapshot 1`] = `
 <gameoverlay-stub alt="true" centercontent="true" showlogo="true" data-test="game-paused">
   Game Paused

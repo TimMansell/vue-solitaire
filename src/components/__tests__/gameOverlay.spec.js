@@ -1,15 +1,22 @@
 import { shallowMount } from '@vue/test-utils';
 import GameOverlay from '@/components/GameOverlay.vue';
 
+const mocks = {
+  $store: { dispatch: jest.fn() },
+};
+
 describe('GameOverlay.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(GameOverlay);
+    const wrapper = shallowMount(GameOverlay, {
+      mocks,
+    });
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('does not render logo', () => {
     const wrapper = shallowMount(GameOverlay, {
+      mocks,
       propsData: {
         showLogo: false,
       },
@@ -20,6 +27,7 @@ describe('GameOverlay.vue', () => {
 
   it('renders an alternate overlay class', () => {
     const wrapper = shallowMount(GameOverlay, {
+      mocks,
       propsData: {
         alt: true,
       },
@@ -30,6 +38,7 @@ describe('GameOverlay.vue', () => {
 
   it('renders an center content class', () => {
     const wrapper = shallowMount(GameOverlay, {
+      mocks,
       propsData: {
         centerContent: true,
       },
@@ -40,6 +49,7 @@ describe('GameOverlay.vue', () => {
 
   it('renders text in slots', () => {
     const wrapper = shallowMount(GameOverlay, {
+      mocks,
       slots: {
         title: 'title',
         msg: 'msg',

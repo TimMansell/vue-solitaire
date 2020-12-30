@@ -62,32 +62,20 @@ const actions = {
       }
     }
   },
-  setGamePaused({ commit }, options) {
+  setGameInactive({ commit }) {
     const isGamePaused = {
       isPaused: true,
       isActive: false,
-      showMsg: false,
-      ...options,
-    };
-
-    commit('SET_GAME_PAUSED', isGamePaused);
-  },
-  setGameResumed({ commit }) {
-    const isGamePaused = {
-      isPaused: false,
-      isActive: false,
-      showMsg: false,
     };
 
     commit('SET_GAME_PAUSED', isGamePaused);
   },
   toggleGamePaused({ commit, state }) {
-    const { isPaused, isActive, showMsg } = state.isGamePaused;
+    const { isPaused } = state.isGamePaused;
 
     const isGamePaused = {
       isPaused: !isPaused,
-      isActive: !isActive,
-      showMsg: !showMsg,
+      isActive: true,
     };
 
     commit('SET_GAME_PAUSED', isGamePaused);
@@ -161,6 +149,9 @@ const actions = {
     dispatch('setBoard');
     dispatch('setFoundations');
     dispatch('trackNewGame');
+  },
+  setTimerPaused({ commit }, isPaused) {
+    commit('SET_TIMER_PAUSED', isPaused);
   },
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');
