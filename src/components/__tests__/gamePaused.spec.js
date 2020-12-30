@@ -5,11 +5,7 @@ describe('GamePaused.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(GamePaused, {
       computed: {
-        isGamePaused: () => ({
-          isPaused: true,
-          isActive: true,
-          showMsg: true,
-        }),
+        isGameActive: () => true,
       },
     });
 
@@ -19,25 +15,7 @@ describe('GamePaused.vue', () => {
   it('shows inactive msg', () => {
     const wrapper = shallowMount(GamePaused, {
       computed: {
-        isGamePaused: () => ({
-          isPaused: true,
-          isActive: false,
-          showMsg: true,
-        }),
-      },
-    });
-
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('hides overlay', () => {
-    const wrapper = shallowMount(GamePaused, {
-      computed: {
-        isGamePaused: () => ({
-          isPaused: true,
-          isActive: false,
-          showMsg: false,
-        }),
+        isGameActive: () => false,
       },
     });
 

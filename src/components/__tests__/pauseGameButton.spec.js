@@ -5,9 +5,7 @@ describe('PauseGameButton.vue', () => {
   it('matches pause snapshot', () => {
     const wrapper = shallowMount(PauseGameButton, {
       computed: {
-        isGamePaused: () => ({
-          isPaused: false,
-        }),
+        isGamePaused: () => false,
       },
     });
 
@@ -17,9 +15,7 @@ describe('PauseGameButton.vue', () => {
   it('matches resume snapshot', () => {
     const wrapper = shallowMount(PauseGameButton, {
       computed: {
-        isGamePaused: () => ({
-          isPaused: true,
-        }),
+        isGamePaused: () => true,
       },
     });
 
