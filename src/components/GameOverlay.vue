@@ -40,14 +40,6 @@ export default {
       default: false,
     },
   },
-  mounted() {
-    // Stop body from scrolling when overlay is open.
-    document.body.style.overflow = 'hidden';
-  },
-  destroyed() {
-    // Enable body scrolling.
-    document.body.style.overflow = 'auto';
-  },
   computed: {
     classes() {
       const { alt, centerContent } = this;
@@ -62,13 +54,20 @@ export default {
     },
   },
   mounted() {
+    // Stop body from scrolling when overlay is open.
+    this.setHideBody('hidden');
     this.setTimerPaused(true);
   },
   destroyed() {
+    // Enable body scrolling.
+    this.setHideBody('auto');
     this.setTimerPaused(false);
   },
   methods: {
     ...mapActions(['setTimerPaused']),
+    setHideBody(value) {
+      document.body.style.overflow = value;
+    },
   },
 };
 </script>
