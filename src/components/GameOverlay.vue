@@ -125,7 +125,10 @@ export default {
   &__btns {
     display: flex;
     justify-content: center;
-    gap: var(--vr);
+
+    > * + * {
+      margin-left: var(--vr);
+    }
   }
 }
 </style>
