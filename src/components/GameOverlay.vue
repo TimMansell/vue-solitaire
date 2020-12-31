@@ -39,6 +39,14 @@ export default {
       default: false,
     },
   },
+  mounted() {
+    // Stop body from scrolling when overlay is open.
+    document.body.style.overflow = 'hidden';
+  },
+  destroyed() {
+    // Enable body scrolling.
+    document.body.style.overflow = 'auto';
+  },
   computed: {
     classes() {
       const { alt, centerContent } = this;
