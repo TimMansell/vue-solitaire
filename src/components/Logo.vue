@@ -26,9 +26,11 @@ export default {
 
   &__image {
     width: 100px;
+    height: 103px;
 
     @media (min-width: $bp-sm) {
       width: 175px;
+      height: 180px;
     }
   }
 }
