@@ -4,29 +4,15 @@
     :class="classes"
     @click="selectCard($event, id)"
     @dragstart="dragCard($event, id)"
-    @dragend="clearCard()"
+    @dragend="dropCard()"
     :draggable="visible"
-    ref="card"
-    :data-card-suit="cardSuitName"
     :data-test="cardTestName"
   >
-    <DefaultCard
-      :id="id"
-      :value="value"
-      :suit="suit"
-      v-show="visible && !bottomCard"
-      data-test="card-default"
-    />
+    <DefaultCard :value="cardValue" v-show="visible && !bottomCard" />
 
-    <BottomCard
-      :id="id"
-      :value="value"
-      :suit="suit"
-      v-show="visible && bottomCard"
-      data-test="card-bottom"
-    />
+    <BottomCard :id="id" :value="cardValue" v-show="visible && bottomCard" />
 
-    <CardPlaceholder v-show="!visible" data-test="card-hidden" />
+    <CardPlaceholder v-show="!visible" />
   </div>
 </template>
 
@@ -35,6 +21,26 @@ import { mapGetters, mapActions } from 'vuex';
 import DefaultCard from '@/components/DefaultCard.vue';
 import BottomCard from '@/components/BottomCard.vue';
 import CardPlaceholder from '@/components/CardPlaceholder.vue';
+
+const checkSuit = (suit) => {
+  if (suit === 'h') {
+    return '♥';
+  }
+
+  if (suit === 'c') {
+    return '♣';
+  }
+
+  if (suit === 's') {
+    return '♠';
+  }
+
+  if (suit === 'd') {
+    return '♦';
+  }
+
+  return suit;
+};
 
 export default {
   name: 'Card',
@@ -46,15 +52,15 @@ export default {
   props: {
     id: {
       type: [String, Number],
-      default: 0,
+      required: true,
     },
     value: {
       type: String,
-      default: 'A',
+      required: true,
     },
     suit: {
       type: String,
-      default: 'c',
+      required: true,
     },
     visible: {
       type: Boolean,
@@ -77,17 +83,30 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      isDragged: false,
+    };
+  },
   computed: {
     ...mapGetters(['selectedCardId']),
+    cardValue() {
+      const { value, suit } = this;
+
+      const useSuit = checkSuit(suit);
+
+      return `${value}${useSuit}`;
+    },
     classes() {
       const { selectedCardId } = this;
-      const { id, stacked, clickable, visible } = this;
+      const { id, stacked, clickable, visible, isDragged } = this;
 
       return {
-        'card--is-selected': selectedCardId === id,
+        'card--is-selected': selectedCardId === id && !isDragged,
         'card--is-stacked': stacked,
         'card--is-not-clickable': !clickable,
         'card--is-draggable': visible,
+        'card--is-dragged': isDragged,
       };
     },
     cardTestName() {
@@ -97,20 +116,11 @@ export default {
         return `card-${value}${suit}`;
       }
 
-      return 'card';
-    },
-    cardSuitName() {
-      const { suit, visible } = this;
-
-      if (visible) {
-        return suit;
-      }
-
-      return '';
+      return 'card-hidden';
     },
   },
   methods: {
-    ...mapActions(['setCard']),
+    ...mapActions(['setCard', 'setDraggedCards']),
     selectCard(e, id) {
       const { selectedCardId } = this;
 
@@ -122,43 +132,18 @@ export default {
         }
       }
     },
-    dragCard(e, id) {
-      const clonedElement = this.cloneCards();
-      const clonedElementOffset = this.$refs.card.clientWidth / 2;
+    dragCard(event, id) {
+      event.dataTransfer.setDragImage(new Image(), 0, 0);
 
-      e.dataTransfer.setDragImage(clonedElement, clonedElementOffset, 20);
-      e.dataTransfer.dropEffect = 'move';
-
+      this.setDraggedCards(id);
       this.setCard(id);
+
+      setTimeout(() => {
+        this.isDragged = true;
+      }, 0);
     },
-    cloneCards() {
-      const { card } = this.$refs;
-      const clonedElement = document.createElement('div');
-      const styles = {
-        width: `${card.clientWidth}px`,
-        marginLeft: '-2000px',
-        marginTop: '-2000px',
-      };
-
-      Object.assign(clonedElement.style, styles);
-      Object.assign(clonedElement.id, 'cloned-card');
-
-      // Find cards below selected card.
-      const siblingCards = [...card.parentElement.children];
-      const selectedCard = siblingCards.findIndex((siblingCard) => siblingCard === card);
-      const clonedCards = siblingCards.slice(selectedCard);
-
-      clonedCards.forEach((clonedCard) => {
-        clonedCard.classList.add('card--is-cloned');
-        clonedElement.appendChild(clonedCard.cloneNode(true));
-      });
-
-      document.body.appendChild(clonedElement);
-
-      return clonedElement;
-    },
-    clearCard() {
-      document.querySelector('#cloned-card').remove();
+    dropCard() {
+      this.isDragged = false;
     },
   },
 };
@@ -210,10 +195,14 @@ export default {
     cursor: grab;
   }
 
-  &--is-cloned {
-    &::before {
-      content: none;
+  &--is-dragged {
+    opacity: 0;
+
+    /* stylelint-disable scss/selector-no-redundant-nesting-selector */
+    & ~ .card {
+      opacity: 0;
     }
+    /* stylelint-enable scss/selector-no-redundant-nesting-selector */
   }
 }
 </style>

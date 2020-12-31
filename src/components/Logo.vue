@@ -17,7 +17,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .logo {
   display: flex;
   justify-content: center;
@@ -26,9 +26,11 @@ export default {
 
   &__image {
     width: 100px;
+    height: 103px;
 
     @media (min-width: $bp-sm) {
       width: 175px;
+      height: 180px;
     }
   }
 }

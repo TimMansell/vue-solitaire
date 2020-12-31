@@ -1,5 +1,14 @@
 import { shallowMount } from '@vue/test-utils';
 import Card from '@/components/Card.vue';
+import DefaultCard from '@/components/DefaultCard.vue';
+import BottomCard from '@/components/BottomCard.vue';
+import CardPlaceholder from '@/components/CardPlaceholder.vue';
+
+const defaultProps = {
+  id: 2,
+  value: 'K',
+  suit: '♦',
+};
 
 const computed = {
   selectedCardId: () => null,
@@ -8,6 +17,9 @@ const computed = {
 describe('Card.vue', () => {
   it('matches visible snapshot', () => {
     const wrapper = shallowMount(Card, {
+      propsData: {
+        ...defaultProps,
+      },
       computed,
     });
 
@@ -17,6 +29,7 @@ describe('Card.vue', () => {
   it('matches hidden snapshot', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         visible: false,
       },
       computed,
@@ -25,24 +38,36 @@ describe('Card.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should have correct props', () => {
+  it('matches bottom card snapshot', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
-        id: 2,
-        value: 'K',
-        suit: 'd',
-        visible: true,
-        revealed: true,
-        clickable: false,
+        ...defaultProps,
         bottomCard: true,
-        stacked: true,
       },
       computed,
     });
 
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should have correct props', () => {
+    const propsData = {
+      ...defaultProps,
+      visible: true,
+      revealed: true,
+      clickable: false,
+      bottomCard: true,
+      stacked: true,
+    };
+
+    const wrapper = shallowMount(Card, {
+      propsData,
+      computed,
+    });
+
     expect(wrapper.props().id).toBe(2);
-    expect(wrapper.props().value).toBe('K');
-    expect(wrapper.props().suit).toBe('d');
+    expect(wrapper.props().value).toBe(propsData.value);
+    expect(wrapper.props().suit).toBe(propsData.suit);
     expect(wrapper.props().visible).toBe(true);
     expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
@@ -51,86 +76,117 @@ describe('Card.vue', () => {
   });
 
   it('should render a diamond card', () => {
+    const propsData = {
+      ...defaultProps,
+      value: '6',
+      suit: '♦',
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        value: '6',
-        suit: 'd',
-      },
+      propsData,
       computed,
     });
 
-    expect(wrapper.attributes('data-card-suit')).toBe('d');
+    expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
+    expect(wrapper.attributes('data-test')).toBe(
+      `card-${propsData.value}${propsData.suit}`
+    );
   });
 
   it('should render a club card', () => {
+    const propsData = {
+      ...defaultProps,
+      value: '6',
+      suit: '♣',
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        value: '6',
-        suit: 'c',
-      },
+      propsData,
       computed,
     });
 
-    expect(wrapper.attributes('data-card-suit')).toBe('c');
+    expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
+    expect(wrapper.attributes('data-test')).toBe(
+      `card-${propsData.value}${propsData.suit}`
+    );
   });
 
   it('should render a heart card', () => {
+    const propsData = {
+      ...defaultProps,
+      value: '6',
+      suit: '♥',
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        value: '6',
-        suit: 'h',
-      },
+      propsData,
       computed,
     });
 
-    expect(wrapper.attributes('data-card-suit')).toBe('h');
+    expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
+    expect(wrapper.attributes('data-test')).toBe(
+      `card-${propsData.value}${propsData.suit}`
+    );
   });
 
   it('should render a spade card', () => {
+    const propsData = {
+      ...defaultProps,
+      value: '6',
+      suit: '♠',
+    };
+
     const wrapper = shallowMount(Card, {
-      propsData: {
-        value: '6',
-        suit: 's',
-      },
+      propsData,
       computed,
     });
 
-    expect(wrapper.attributes('data-card-suit')).toBe('s');
+    expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
+    expect(wrapper.attributes('data-test')).toBe(
+      `card-${propsData.value}${propsData.suit}`
+    );
   });
 
   it('should render a default card', () => {
     const wrapper = shallowMount(Card, {
+      propsData: {
+        ...defaultProps,
+      },
       computed,
     });
 
-    expect(wrapper.find('[data-test="card-default"]').exists()).toBe(true);
+    expect(wrapper.findComponent(DefaultCard).exists()).toBe(true);
   });
 
   it('should render a bottom card', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         bottomCard: true,
       },
       computed,
     });
 
-    expect(wrapper.find('[data-test="card-bottom"]').exists()).toBe(true);
+    expect(wrapper.findComponent(BottomCard).exists()).toBe(true);
   });
 
   it('should render a hidden card', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         visible: false,
       },
       computed,
     });
 
-    expect(wrapper.find('[data-test="card-hidden"]').exists()).toBe(true);
+    expect(wrapper.attributes('data-test')).toBe('card-hidden');
+    expect(wrapper.findComponent(CardPlaceholder).exists()).toBe(true);
   });
 
   it('should render a stacked card', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
+        ...defaultProps,
         stacked: true,
       },
       computed,
@@ -141,12 +197,32 @@ describe('Card.vue', () => {
 
   it('should render a selected card', () => {
     const wrapper = shallowMount(Card, {
+      propsData: {
+        ...defaultProps,
+      },
       computed: {
-        selectedCardId: () => 0,
+        selectedCardId: () => 2,
       },
     });
 
     expect(wrapper.classes()).toContain('card--is-selected');
+    expect(wrapper.classes()).not.toContain('card--is-dragged');
+  });
+
+  it('should render a dragged card', async () => {
+    const wrapper = shallowMount(Card, {
+      propsData: {
+        ...defaultProps,
+      },
+      computed: {
+        selectedCardId: () => 2,
+      },
+    });
+
+    await wrapper.setData({ isDragged: true });
+
+    expect(wrapper.classes()).toContain('card--is-dragged');
+    expect(wrapper.classes()).not.toContain('card--is-selected');
   });
 
   describe('Set Card', () => {
@@ -160,12 +236,13 @@ describe('Card.vue', () => {
       const wrapper = shallowMount(Card, {
         mocks,
         propsData: {
+          ...defaultProps,
           clickable: false,
         },
         computed,
       });
 
-      wrapper.find('[data-test="card-Ac"]').trigger('click');
+      wrapper.trigger('click');
 
       expect(wrapper.classes()).toContain('card--is-not-clickable');
       expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
@@ -175,23 +252,27 @@ describe('Card.vue', () => {
       const wrapper = shallowMount(Card, {
         mocks,
         propsData: {
+          ...defaultProps,
           visible: false,
         },
         computed,
       });
 
-      wrapper.find('[data-test="card"]').trigger('click');
+      wrapper.trigger('click');
 
       expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
     });
 
     it('should call store action "setCard" when clicked when visible', () => {
       const wrapper = shallowMount(Card, {
+        propsData: {
+          ...defaultProps,
+        },
         mocks,
         computed,
       });
 
-      wrapper.find('[data-test="card-Ac"]').trigger('click');
+      wrapper.trigger('click');
 
       expect(mockStore.dispatch).toHaveBeenCalledTimes(1);
     });

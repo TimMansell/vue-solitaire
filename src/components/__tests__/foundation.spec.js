@@ -3,12 +3,26 @@ import Foundation from '@/components/Foundation.vue';
 
 const computed = {
   foundationCards: () => [
-    {
-      value: 'A',
-      order: 1,
-      suit: 's',
-      visible: true,
-    },
+    [
+      {
+        id: 0,
+        value: 'A',
+        order: 1,
+        suit: '♠',
+        visible: true,
+      },
+    ],
+    [],
+    [
+      {
+        id: 1,
+        value: 'A',
+        order: 1,
+        suit: '♦',
+        visible: true,
+      },
+    ],
+    [],
   ],
 };
 

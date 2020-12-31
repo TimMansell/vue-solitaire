@@ -9,17 +9,17 @@ describe('BottomCard.vue', () => {
   });
 
   it('should have correct props', () => {
+    const propsData = {
+      id: 1,
+      value: 'J♣',
+    };
+
     const wrapper = shallowMount(BottomCard, {
-      propsData: {
-        id: 1,
-        value: 'J',
-        suit: 'c',
-      },
+      propsData,
     });
 
     expect(wrapper.props().id).toBe(1);
-    expect(wrapper.props().value).toBe('J');
-    expect(wrapper.props().suit).toBe('c');
+    expect(wrapper.props().value).toBe(propsData.value);
   });
 
   it('should call autoMoveCard method', () => {

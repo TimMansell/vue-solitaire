@@ -9,8 +9,8 @@ import {
 
 export const buildCards = ({ values, suits }) =>
   values.flatMap((value, order) =>
-    suits.map((suit) => ({
-      id: `${order}${suit}`,
+    suits.map((suit, index) => ({
+      id: order + values.length * index,
       value,
       order,
       suit,
@@ -26,10 +26,13 @@ export const dealCards = (deck, { columns }) => {
   return dealtCards;
 };
 
-export const shuffleCards = (cards, toShuffle) => (toShuffle ? shuffle(cards) : cards);
+export const shuffleCards = (cards, toShuffle) =>
+  toShuffle ? shuffle(cards) : cards;
 
 export const getSelectedCard = (cards, selectedCardId) => {
-  const [selectedCard] = cards.flat().filter((card) => card.id === selectedCardId);
+  const [selectedCard] = cards
+    .flat()
+    .filter((card) => card.id === selectedCardId);
 
   return selectedCard;
 };
@@ -44,7 +47,8 @@ export const getCardPosition = (boardCards, selectedCardId) => {
   };
 };
 
-export const getVisibleCards = (cards) => cards.flat().filter((card) => card.visible);
+export const getVisibleCards = (cards) =>
+  cards.flat().filter((card) => card.visible);
 
 export const getLastCard = (board, selectedColumn) => {
   const [lastCard] = board[selectedColumn].slice(-1);
@@ -56,7 +60,8 @@ export const getLastCard = (board, selectedColumn) => {
   return lastCard;
 };
 
-export const getLastCards = (cards) => cards.map((card) => card.slice(-1)).flat();
+export const getLastCards = (cards) =>
+  cards.map((card) => card.slice(-1)).flat();
 
 export const showLastCard = (cards) =>
   cards.map((card, index) => {

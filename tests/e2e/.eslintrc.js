@@ -1,4 +1,5 @@
 module.exports = {
+  extends: ['plugin:cypress/recommended'],
   plugins: ['cypress'],
   env: {
     mocha: true,

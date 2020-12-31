@@ -1,15 +1,21 @@
 <template>
   <GameOverlay alt center-content show-logo data-test="stats-overlay">
-    <template #title> Stats </template>
+    <template #title>
+      Stats
+    </template>
     <template #msg>
       <p>Showing stats for completed games:</p>
       <div>Played: <Counter :number="played" /></div>
       <div>Won: <Counter :number="won.count" /> ({{ won.percent }})</div>
       <div>Lost: <Counter :number="lost.count" /> ({{ lost.percent }})</div>
-      <div>Gave up: <Counter :number="abandoned.count" /> ({{ abandoned.percent }})</div>
+      <div>
+        Gave up: <Counter :number="abandoned.count" /> ({{ abandoned.percent }})
+      </div>
     </template>
     <template #buttons>
-      <Button @click="closeStats" data-test="close-stats-btn">Close</Button>
+      <Button @click="closeStats" data-test="close-stats-btn">
+        Close
+      </Button>
     </template>
   </GameOverlay>
 </template>
@@ -67,9 +73,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['toggleStats', 'setGameResumed']),
+    ...mapActions(['toggleStats']),
     closeStats() {
-      this.setGameResumed();
       this.toggleStats();
     },
   },

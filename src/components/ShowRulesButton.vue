@@ -1,5 +1,5 @@
 <template>
-  <Button is-stacked @click="showRules" data-test="game-rules-btn">
+  <Button :is-stacked="isStacked" @click="showRules" data-test="game-rules-btn">
     How to play
   </Button>
 </template>
@@ -13,10 +13,15 @@ export default {
   components: {
     Button,
   },
+  props: {
+    isStacked: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
-    ...mapActions(['toggleRules', 'setGamePaused']),
+    ...mapActions(['toggleRules']),
     showRules() {
-      this.setGamePaused();
       this.toggleRules();
     },
   },

@@ -20,12 +20,19 @@ export const updateFoundation = ({ foundationCards }, { foundationCardsTo }) =>
     return columnCards;
   });
 
-export const getEmptyFoundationColumn = ({ foundationCards, boardCards, selectedCardId }) => {
+export const getEmptyFoundationColumn = ({
+  foundationCards,
+  boardCards,
+  selectedCardId,
+}) => {
   const selectedCard = getSelectedCard(boardCards, selectedCardId);
 
   const foundationColumnNo = foundationCards.findIndex((foundationColumn) => {
     const isColumnEmpty = checkEmptyFoundationColumn(foundationColumn);
-    const isCorrectFoundationSuit = checkFoundationColumnSuit(foundationColumn, selectedCard);
+    const isCorrectFoundationSuit = checkFoundationColumnSuit(
+      foundationColumn,
+      selectedCard
+    );
     const isCardAce = checkCardValue(selectedCard, 'A');
 
     return (isColumnEmpty && isCardAce) || isCorrectFoundationSuit;

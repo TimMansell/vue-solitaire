@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .btn {
   background: transparent;
   border: 1px solid var(--bdr-primary);

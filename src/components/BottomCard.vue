@@ -1,6 +1,9 @@
 <template>
-  <TouchEvents @swipe="autoMoveCard($event, id)" @doubletap="autoMoveCard($event, id)">
-    <DefaultCard :value="value" :suit="suit" />
+  <TouchEvents
+    @swipe="autoMoveCard($event, id)"
+    @doubletap="autoMoveCard($event, id)"
+  >
+    <DefaultCard :value="value" />
   </TouchEvents>
 </template>
 
@@ -22,11 +25,7 @@ export default {
     },
     value: {
       type: String,
-      default: 'A',
-    },
-    suit: {
-      type: String,
-      default: 'c',
+      default: 'A♣',
     },
   },
   methods: {

@@ -27,6 +27,9 @@ const mutations = {
   SET_GAME_PAUSED(state, isGamePaused) {
     state.isGamePaused = isGamePaused;
   },
+  SET_TIMER_PAUSED(state, isTimerPaused) {
+    state.isTimerPaused = isTimerPaused;
+  },
   SET_BOARD(state, deck) {
     deck.forEach((cards, index) => {
       Vue.set(state.board.cards, index, cards);
@@ -57,6 +60,12 @@ const mutations = {
   },
   SHOW_NEW_GAME(state, showNewGame) {
     state.showNewGame = showNewGame;
+  },
+  DRAG_CARDS(state, cards) {
+    state.draggedCards = cards;
+  },
+  CLEAR_DRAG_CARDS(state) {
+    state.draggedCards = [];
   },
 };
 

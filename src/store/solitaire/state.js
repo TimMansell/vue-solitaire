@@ -10,8 +10,8 @@ const state = () => ({
   isGamePaused: {
     isPaused: false,
     isActive: false,
-    showMsg: false,
   },
+  isTimerPaused: false,
   hasMoves: true,
   game: {
     id: null,
@@ -21,6 +21,7 @@ const state = () => ({
   isNewGame: true,
   showRules: false,
   showNewGame: false,
+  draggedCards: [],
 });
 
 export default state;

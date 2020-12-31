@@ -9,14 +9,14 @@ describe('DefaultCard.vue', () => {
   });
 
   it('should have correct props', () => {
+    const propsData = {
+      value: 'J♣',
+    };
+
     const wrapper = shallowMount(DefaultCard, {
-      propsData: {
-        value: 'J',
-        suit: 'c',
-      },
+      propsData,
     });
 
-    expect(wrapper.props().value).toBe('J');
-    expect(wrapper.props().suit).toBe('c');
+    expect(wrapper.props().value).toBe(propsData.value);
   });
 });

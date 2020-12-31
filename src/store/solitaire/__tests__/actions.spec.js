@@ -5,8 +5,7 @@ const {
   restartGame,
   trackNewGame,
   checkGameState,
-  setGamePaused,
-  setGameResumed,
+  setGameInactive,
   toggleGamePaused,
   setFoundations,
   setBoard,
@@ -14,8 +13,11 @@ const {
   moveCardsToColumn,
   moveCardToFoundation,
   autoMoveCardToFoundation,
+  setTimerPaused,
   toggleRules,
   toggleNewGame,
+  setDraggedCards,
+  clearDraggedCards,
 } = actions;
 
 const commit = jest.fn();
@@ -91,32 +93,15 @@ describe('Solitaire Store', () => {
     expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', false);
   });
 
-  it('setGamePaused', () => {
-    const options = {
-      showMsg: true,
-    };
-
-    const result = {
+  it('setGameInactive', () => {
+    const isGamePaused = {
       isPaused: true,
       isActive: false,
-      showMsg: true,
     };
 
-    setGamePaused({ commit }, options);
+    setGameInactive({ commit }, isGamePaused);
 
-    expect(commit).toHaveBeenCalledWith('SET_GAME_PAUSED', result);
-  });
-
-  it('setGameResumed', () => {
-    const result = {
-      isPaused: false,
-      isActive: false,
-      showMsg: false,
-    };
-
-    setGameResumed({ commit });
-
-    expect(commit).toHaveBeenCalledWith('SET_GAME_PAUSED', result);
+    expect(commit).toHaveBeenCalledWith('SET_GAME_PAUSED', isGamePaused);
   });
 
   it('toggleGamePaused', () => {
@@ -124,14 +109,12 @@ describe('Solitaire Store', () => {
       isGamePaused: {
         isPaused: false,
         isActive: false,
-        showMsg: false,
       },
     };
 
     const result = {
       isPaused: true,
       isActive: true,
-      showMsg: true,
     };
 
     toggleGamePaused({ commit, state });
@@ -196,6 +179,12 @@ describe('Solitaire Store', () => {
     expect(dispatch).toHaveBeenCalledWith('moveCardToFoundation', 0);
   });
 
+  it('setTimerPaused', () => {
+    setTimerPaused({ commit }, true);
+
+    expect(commit).toHaveBeenCalledWith('SET_TIMER_PAUSED', true);
+  });
+
   it('toggleRules', () => {
     const state = {
       showRules: false,
@@ -214,5 +203,17 @@ describe('Solitaire Store', () => {
     toggleNewGame({ commit, state });
 
     expect(commit).toHaveBeenCalledWith('SHOW_NEW_GAME', true);
+  });
+
+  it('setDraggedCards', () => {
+    setDraggedCards({ commit }, 1);
+
+    expect(commit).toHaveBeenCalledWith('DRAG_CARDS', []);
+  });
+
+  it('clearDraggedCards', () => {
+    clearDraggedCards({ commit });
+
+    expect(commit).toHaveBeenCalledWith('CLEAR_DRAG_CARDS');
   });
 });

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContinueGameButton.vue matches snapshot 1`] = `
+<button-stub data-test="continue-game-btn">
+  Continue Game
+</button-stub>
+`;

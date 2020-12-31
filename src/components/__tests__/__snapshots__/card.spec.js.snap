@@ -1,17 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Card.vue matches bottom card snapshot 1`] = `
+<div draggable="true" data-test="card-K♦" class="card card--is-draggable">
+  <defaultcard-stub value="K♦" style="display: none;"></defaultcard-stub>
+  <bottomcard-stub id="2" value="K♦"></bottomcard-stub>
+  <cardplaceholder-stub style="display: none;"></cardplaceholder-stub>
+</div>
+`;
+
 exports[`Card.vue matches hidden snapshot 1`] = `
-<div draggable="false" data-card-suit="" data-test="card" class="card">
-  <defaultcard-stub value="A" suit="c" id="0" data-test="card-default" style="display: none;"></defaultcard-stub>
-  <bottomcard-stub id="0" value="A" suit="c" data-test="card-bottom" style="display: none;"></bottomcard-stub>
-  <cardplaceholder-stub data-test="card-hidden"></cardplaceholder-stub>
+<div draggable="false" data-test="card-hidden" class="card">
+  <defaultcard-stub value="K♦" style="display: none;"></defaultcard-stub>
+  <bottomcard-stub id="2" value="K♦" style="display: none;"></bottomcard-stub>
+  <cardplaceholder-stub></cardplaceholder-stub>
 </div>
 `;
 
 exports[`Card.vue matches visible snapshot 1`] = `
-<div draggable="true" data-card-suit="c" data-test="card-Ac" class="card card--is-draggable">
-  <defaultcard-stub value="A" suit="c" id="0" data-test="card-default"></defaultcard-stub>
-  <bottomcard-stub id="0" value="A" suit="c" data-test="card-bottom" style="display: none;"></bottomcard-stub>
-  <cardplaceholder-stub data-test="card-hidden" style="display: none;"></cardplaceholder-stub>
+<div draggable="true" data-test="card-K♦" class="card card--is-draggable">
+  <defaultcard-stub value="K♦"></defaultcard-stub>
+  <bottomcard-stub id="2" value="K♦" style="display: none;"></bottomcard-stub>
+  <cardplaceholder-stub style="display: none;"></cardplaceholder-stub>
 </div>
 `;

@@ -2,11 +2,18 @@
 
 exports[`Foundation.vue matches snapshot 1`] = `
 <div class="foundation">
-  <div data-test="foundation-0" class="foundation__column">
-    <card-stub id="0" value="A" suit="c" visible="true" stacked="true"></card-stub>
-    <card-stub id="0" value="A" suit="c" visible="true" stacked="true"></card-stub>
-    <card-stub id="0" value="A" suit="c" visible="true" stacked="true"></card-stub>
-    <card-stub id="0" value="A" suit="c" visible="true" stacked="true"></card-stub>
+  <div data-test="foundation-0">
+    <card-stub id="0" value="A" suit="♠" visible="true" stacked="true"></card-stub>
+    <!---->
+  </div>
+  <div data-test="foundation-1">
+    <cardplaceholder-stub seethrough="true"></cardplaceholder-stub>
+  </div>
+  <div data-test="foundation-2">
+    <card-stub id="1" value="A" suit="♦" visible="true" stacked="true"></card-stub>
+    <!---->
+  </div>
+  <div data-test="foundation-3">
     <cardplaceholder-stub seethrough="true"></cardplaceholder-stub>
   </div>
 </div>

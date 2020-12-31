@@ -25,7 +25,7 @@ describe('foundation', () => {
     const foundationColumn = [
       {
         id: 1,
-        suit: 's',
+        suit: '♠',
         value: 'A',
       },
     ];
@@ -39,14 +39,14 @@ describe('foundation', () => {
     const foundationColumn = [
       {
         id: 1,
-        suit: 's',
+        suit: '♠',
         value: 'A',
       },
     ];
 
     const selectedCard = {
       id: 1,
-      suit: 's',
+      suit: '♠',
       value: 2,
     };
 
@@ -59,14 +59,14 @@ describe('foundation', () => {
     const foundationColumn = [
       {
         id: 1,
-        suit: 's',
+        suit: '♠',
         value: 'A',
       },
     ];
 
     const selectedCard = {
       id: 1,
-      suit: 'd',
+      suit: '♦',
       value: 2,
     };
 

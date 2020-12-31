@@ -1,6 +1,5 @@
 <template>
   <div
-    class="column"
     @click="setColumn(columnNo)"
     @drop="dropCard(columnNo)"
     @dragover.prevent
@@ -18,7 +17,11 @@
       :bottom-card="cards.length - 1 === index"
     />
 
-    <CardPlaceholder v-if="!cards.length" see-through />
+    <CardPlaceholder
+      v-if="!cards.length"
+      see-through
+      data-test="column-card-placeholder"
+    />
   </div>
 </template>
 
@@ -61,15 +64,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.column {
-  padding-left: var(--pd-xs);
-  padding-right: var(--pd-xs);
-
-  @media (min-width: $bp-lg) {
-    padding-left: var(--pd-sm);
-    padding-right: var(--pd-sm);
-  }
-}
-</style>

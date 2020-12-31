@@ -36,8 +36,8 @@ describe('Stats', () => {
 
     it('it successfully increments games played after lost game', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
-        cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
+        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
         cy.get('[data-test="stats"]').then(($stats) => {
           const number = $stats.text();
@@ -51,8 +51,8 @@ describe('Stats', () => {
 
     it('it successfully increments games played after won game', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
         cy.get('[data-test="stats"]').then(($stats) => {
           const number = $stats.text();
@@ -93,8 +93,6 @@ describe('Stats', () => {
 
       cy.document().trigger('visibilitychange');
 
-      cy.wait(4000);
-
       cy.get('[data-test="game-paused"]').should('not.be.visible');
     });
   });
@@ -118,14 +116,18 @@ describe('Stats', () => {
 
         cy.get('[data-test="new-game-btn"]').click();
 
+        cy.get('[data-test="game-overlay-btns"]').within(() => {
+          cy.get('[data-test="new-game-btn"]').click();
+        });
+
         cy.get('[data-test="global-stats"]').should('not.equal', number);
       });
     });
 
     it('it successfully increments games played after lost game', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
-        cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
+        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
         cy.get('[data-test="global-stats"]').then(($stats) => {
           const number = $stats.text();
@@ -139,8 +141,8 @@ describe('Stats', () => {
 
     it('it successfully increments games played after won game', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
         cy.get('[data-test="global-stats"]').then(($stats) => {
           const number = $stats.text();
@@ -177,11 +179,9 @@ describe('Stats', () => {
         cy.stub(doc, 'visibilityState').value('hidden');
       });
 
-      cy.get('[data-test="global-stats-btn"]').click();
+      cy.get('[data-test="global-stats-btn"]').click({ force: true });
 
       cy.document().trigger('visibilitychange');
-
-      cy.wait(4000);
 
       cy.get('[data-test="game-paused"]').should('not.be.visible');
     });

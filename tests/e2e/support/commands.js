@@ -31,14 +31,48 @@ Cypress.Commands.add('setBoard', (board) => {
 
   const getStore = () => cy.window().its('app.$store');
 
-  return getStore().then((store) => store.dispatch('setBoardAndFoundation', board));
+  return getStore().then((store) =>
+    store.dispatch('setBoardAndFoundation', board)
+  );
 });
 
 Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
-  cy.get(subject).trigger('dragstart', { dataTransfer: new DataTransfer(), force: true });
+  cy.get(subject).trigger('dragstart', {
+    dataTransfer: new DataTransfer(),
+    force: true,
+  });
+
+  cy.get('[data-test="columns"]').within(() => {
+    cy.get(subject).should('have.css', 'opacity', '0');
+  });
+
+  cy.get('[data-test="dragged-cards"]').within(() => {
+    cy.get(subject).should('be.visible');
+  });
+
   cy.get(dragTo)
     .trigger('drop')
     .trigger('dragend', { force: true });
+
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(500);
+
+  cy.get('[data-test="dragged-cards"]')
+    .children()
+    .should('have.length', 0);
+});
+
+Cypress.Commands.add('drag', { prevSubject: true }, (subject, x, y) => {
+  cy.get('[data-test="columns"]').within(() => {
+    cy.get(subject)
+      .trigger('dragstart', 0, 0, {
+        dataTransfer: new DataTransfer(),
+        force: true,
+      })
+      .trigger('mousemove', x, y, {
+        force: true,
+      });
+  });
 });
 
 Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
@@ -46,21 +80,29 @@ Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
   cy.get(clickTo).click({ force: true });
 });
 
-Cypress.Commands.add('shouldContain', { prevSubject: true }, (subject, elements) => {
-  cy.get(subject).within(() => {
-    elements.forEach((element) => {
-      cy.get(`[data-test="card-${element}"]`).should('be.visible');
+Cypress.Commands.add(
+  'shouldContain',
+  { prevSubject: true },
+  (subject, elements) => {
+    cy.get(subject).within(() => {
+      elements.forEach((element) => {
+        cy.get(`[data-test="card-${element}"]`).should('be.visible');
+      });
     });
-  });
-});
+  }
+);
 
-Cypress.Commands.add('shouldNotContain', { prevSubject: true }, (subject, elements) => {
-  cy.get(subject).within(() => {
-    elements.forEach((element) => {
-      cy.get(`[data-test="card-${element}"]`).should('not.be.visible');
+Cypress.Commands.add(
+  'shouldNotContain',
+  { prevSubject: true },
+  (subject, elements) => {
+    cy.get(subject).within(() => {
+      elements.forEach((element) => {
+        cy.get(`[data-test="card-${element}"]`).should('not.be.visible');
+      });
     });
-  });
-});
+  }
+);
 
 addMatchImageSnapshotCommand({
   failureThreshold: 0.05, // threshold for entire image

@@ -14,18 +14,18 @@ describe('moves', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             order: 3,
           },
           {
             id: 2,
-            suit: 's',
+            suit: '♠',
             order: 8,
             visible: true,
           },
           {
             id: 3,
-            suit: 'd',
+            suit: '♦',
             order: 8,
             visible: true,
           },
@@ -33,7 +33,7 @@ describe('moves', () => {
         [
           {
             id: 4,
-            suit: 's',
+            suit: '♠',
             order: 9,
             visible: true,
           },
@@ -50,18 +50,18 @@ describe('moves', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             order: 3,
           },
           {
             id: 2,
-            suit: 's',
+            suit: '♠',
             order: 8,
             visible: false,
           },
           {
             id: 3,
-            suit: 'd',
+            suit: '♦',
             order: 8,
             visible: true,
           },
@@ -69,7 +69,7 @@ describe('moves', () => {
         [
           {
             id: 4,
-            suit: 's',
+            suit: '♠',
             order: 9,
             visible: true,
           },
@@ -86,18 +86,18 @@ describe('moves', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             order: 3,
           },
           {
             id: 2,
-            suit: 's',
+            suit: '♠',
             order: 8,
             visible: false,
           },
           {
             id: 3,
-            suit: 'd',
+            suit: '♦',
             order: 8,
             visible: true,
           },
@@ -204,7 +204,7 @@ describe('moves', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             value: 'A',
           },
         ],
@@ -222,7 +222,7 @@ describe('moves', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             value: 'A',
           },
         ],
@@ -232,7 +232,7 @@ describe('moves', () => {
         [
           {
             id: 1,
-            suit: 'd',
+            suit: '♦',
             value: 'A',
           },
         ],
@@ -248,7 +248,7 @@ describe('moves', () => {
         [
           {
             id: 2,
-            suit: 's',
+            suit: '♠',
             order: 2,
           },
         ],
@@ -258,7 +258,7 @@ describe('moves', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             order: 1,
           },
         ],
@@ -274,7 +274,7 @@ describe('moves', () => {
         [
           {
             id: 2,
-            suit: 's',
+            suit: '♠',
             order: 3,
           },
         ],
@@ -284,7 +284,7 @@ describe('moves', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             order: 1,
           },
         ],
@@ -303,18 +303,18 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               order: 3,
             },
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               order: 8,
               visible: true,
             },
             {
               id: 3,
-              suit: 'd',
+              suit: '♦',
               order: 8,
               visible: true,
             },
@@ -322,7 +322,7 @@ describe('moves', () => {
           [
             {
               id: 4,
-              suit: 's',
+              suit: '♠',
               order: 9,
               visible: true,
             },
@@ -335,8 +335,8 @@ describe('moves', () => {
 
       expect(result).toStrictEqual({
         cards: [
-          { id: 1, order: 3, suit: 's' },
-          { id: 2, order: 8, suit: 's', visible: true },
+          { id: 1, order: 3, suit: '♠' },
+          { id: 2, order: 8, suit: '♠', visible: true },
         ],
         columnNo: 0,
       });
@@ -350,18 +350,18 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               order: 3,
             },
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               order: 8,
               visible: true,
             },
             {
               id: 3,
-              suit: 'd',
+              suit: '♦',
               order: 8,
               visible: true,
             },
@@ -369,7 +369,7 @@ describe('moves', () => {
           [
             {
               id: 4,
-              suit: 's',
+              suit: '♠',
               order: 9,
               visible: true,
             },
@@ -387,19 +387,19 @@ describe('moves', () => {
           {
             id: 4,
             order: 9,
-            suit: 's',
+            suit: '♠',
             visible: true,
           },
           {
             id: 2,
             order: 8,
-            suit: 's',
+            suit: '♠',
             visible: true,
           },
           {
             id: 3,
             order: 8,
-            suit: 'd',
+            suit: '♦',
             visible: true,
           },
         ],
@@ -415,18 +415,18 @@ describe('moves', () => {
           [
             {
               id: 1,
-              suit: 's',
+              suit: '♠',
               value: 3,
             },
             {
               id: 2,
-              suit: 's',
+              suit: '♠',
               value: 8,
               visible: true,
             },
             {
               id: 3,
-              suit: 'd',
+              suit: '♦',
               value: 'A',
               visible: true,
             },
@@ -444,7 +444,7 @@ describe('moves', () => {
         cards: [
           {
             id: 3,
-            suit: 'd',
+            suit: '♦',
             value: 'A',
             visible: true,
           },

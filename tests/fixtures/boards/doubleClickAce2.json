@@ -6,7 +6,7 @@
         "id": 1,
         "value": "A",
         "order": 0,
-        "suit": "s",
+        "suit": "♠",
         "visible": true
       }
     ],
@@ -15,7 +15,7 @@
         "id": 2,
         "value": "A",
         "order": 0,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       }
     ],
@@ -27,49 +27,49 @@
         "id": 3,
         "value": "3",
         "order": 2,
-        "suit": "c",
+        "suit": "♣",
         "visible": true
       },
       {
         "id": 4,
         "value": "5",
         "order": 4,
-        "suit": "s",
+        "suit": "♠",
         "visible": false
       },
       {
         "id": 5,
         "value": "7",
         "order": 6,
-        "suit": "c",
+        "suit": "♣",
         "visible": true
       },
       {
         "id": 6,
         "value": "4",
         "order": 3,
-        "suit": "h",
+        "suit": "♥",
         "visible": false
       },
       {
         "id": 7,
         "value": "6",
         "order": 5,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       },
       {
         "id": 8,
         "value": "6",
         "order": 5,
-        "suit": "d",
+        "suit": "♦",
         "visible": false
       },
       {
         "id": 9,
         "value": "J",
         "order": 10,
-        "suit": "s",
+        "suit": "♠",
         "visible": true
       }
     ],
@@ -78,49 +78,49 @@
         "id": 10,
         "value": "10",
         "order": 9,
-        "suit": "s",
+        "suit": "♠",
         "visible": true
       },
       {
         "id": 11,
         "value": "K",
         "order": 12,
-        "suit": "c",
+        "suit": "♣",
         "visible": false
       },
       {
         "id": 12,
         "value": "9",
         "order": 8,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       },
       {
         "id": 13,
         "value": "A",
         "order": 0,
-        "suit": "d",
+        "suit": "♦",
         "visible": false
       },
       {
         "id": 14,
         "value": "K",
         "order": 12,
-        "suit": "d",
+        "suit": "♦",
         "visible": true
       },
       {
         "id": 15,
         "value": "5",
         "order": 4,
-        "suit": "d",
+        "suit": "♦",
         "visible": false
       },
       {
         "id": 16,
         "value": "9",
         "order": 8,
-        "suit": "d",
+        "suit": "♦",
         "visible": true
       }
     ],
@@ -129,49 +129,49 @@
         "id": 17,
         "value": "2",
         "order": 1,
-        "suit": "c",
+        "suit": "♣",
         "visible": true
       },
       {
         "id": 18,
         "value": "5",
         "order": 4,
-        "suit": "c",
+        "suit": "♣",
         "visible": false
       },
       {
         "id": 19,
         "value": "3",
         "order": 2,
-        "suit": "d",
+        "suit": "♦",
         "visible": true
       },
       {
         "id": 20,
         "value": "8",
         "order": 7,
-        "suit": "c",
+        "suit": "♣",
         "visible": false
       },
       {
         "id": 21,
         "value": "J",
         "order": 10,
-        "suit": "d",
+        "suit": "♦",
         "visible": true
       },
       {
         "id": 22,
         "value": "Q",
         "order": 11,
-        "suit": "c",
+        "suit": "♣",
         "visible": false
       },
       {
         "id": 23,
         "value": "7",
         "order": 6,
-        "suit": "d",
+        "suit": "♦",
         "visible": true
       }
     ],
@@ -180,42 +180,42 @@
         "id": 24,
         "value": "9",
         "order": 8,
-        "suit": "c",
+        "suit": "♣",
         "visible": true
       },
       {
         "id": 25,
         "value": "3",
         "order": 2,
-        "suit": "s",
+        "suit": "♠",
         "visible": false
       },
       {
         "id": 26,
         "value": "J",
         "order": 10,
-        "suit": "c",
+        "suit": "♣",
         "visible": true
       },
       {
         "id": 27,
         "value": "5",
         "order": 4,
-        "suit": "h",
+        "suit": "♥",
         "visible": false
       },
       {
         "id": 28,
         "value": "3",
         "order": 2,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       },
       {
         "id": 29,
         "value": "2",
         "order": 1,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       }
     ],
@@ -224,42 +224,42 @@
         "id": 30,
         "value": "K",
         "order": 12,
-        "suit": "s",
+        "suit": "♠",
         "visible": false
       },
       {
         "id": 31,
         "value": "4",
         "order": 3,
-        "suit": "s",
+        "suit": "♠",
         "visible": true
       },
       {
         "id": 32,
         "value": "A",
         "order": 0,
-        "suit": "c",
+        "suit": "♣",
         "visible": false
       },
       {
         "id": 33,
         "value": "6",
         "order": 5,
-        "suit": "s",
+        "suit": "♠",
         "visible": true
       },
       {
         "id": 34,
         "value": "Q",
         "order": 11,
-        "suit": "d",
+        "suit": "♦",
         "visible": false
       },
       {
         "id": 35,
         "value": "7",
         "order": 6,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       }
     ],
@@ -268,42 +268,42 @@
         "id": 36,
         "value": "7",
         "order": 6,
-        "suit": "s",
+        "suit": "♠",
         "visible": false
       },
       {
         "id": 37,
         "value": "8",
         "order": 7,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       },
       {
         "id": 38,
         "value": "9",
         "order": 8,
-        "suit": "s",
+        "suit": "♠",
         "visible": false
       },
       {
         "id": 39,
         "value": "J",
         "order": 10,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       },
       {
         "id": 40,
         "value": "6",
         "order": 5,
-        "suit": "c",
+        "suit": "♣",
         "visible": false
       },
       {
         "id": 41,
         "value": "4",
         "order": 3,
-        "suit": "d",
+        "suit": "♦",
         "visible": true
       }
     ],
@@ -312,42 +312,42 @@
         "id": 42,
         "value": "2",
         "order": 1,
-        "suit": "d",
+        "suit": "♦",
         "visible": false
       },
       {
         "id": 43,
         "value": "10",
         "order": 9,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       },
       {
         "id": 44,
         "value": "Q",
         "order": 11,
-        "suit": "h",
+        "suit": "♥",
         "visible": false
       },
       {
         "id": 45,
         "value": "10",
         "order": 9,
-        "suit": "c",
+        "suit": "♣",
         "visible": true
       },
       {
         "id": 46,
         "value": "8",
         "order": 7,
-        "suit": "d",
+        "suit": "♦",
         "visible": false
       },
       {
         "id": 47,
         "value": "10",
         "order": 9,
-        "suit": "d",
+        "suit": "♦",
         "visible": true
       }
     ],
@@ -356,35 +356,35 @@
         "id": 48,
         "value": "4",
         "order": 3,
-        "suit": "c",
+        "suit": "♣",
         "visible": false
       },
       {
         "id": 49,
         "value": "Q",
         "order": 11,
-        "suit": "s",
+        "suit": "♠",
         "visible": true
       },
       {
         "id": 50,
         "value": "8",
         "order": 7,
-        "suit": "s",
+        "suit": "♠",
         "visible": false
       },
       {
         "id": 51,
         "value": "K",
         "order": 12,
-        "suit": "h",
+        "suit": "♥",
         "visible": true
       },
       {
         "id": 52,
         "value": "2",
         "order": 1,
-        "suit": "s",
+        "suit": "♠",
         "visible": true
       }
     ]

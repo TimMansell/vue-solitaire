@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DraggedCards.vue matches visible snapshot 1`] = `
+<div class="dragged-cards" style="top: -20px; left: -50px;">
+  <div style="width: 100px;">
+    <card-stub id="dragged-0" value="A" suit="♠" visible="true"></card-stub>
+    <card-stub id="dragged-1" value="A" suit="♦" visible="true"></card-stub>
+  </div>
+</div>
+`;

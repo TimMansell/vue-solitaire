@@ -1,5 +1,9 @@
 <template>
-  <svg :class="className" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 140">
+  <svg
+    :class="className"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 100 140"
+  >
     <title v-if="title">{{ title }}</title>
     <use :xlink:href="iconPath" xmlns:xlink="http://www.w3.org/1999/xlink" />
   </svg>
@@ -35,7 +39,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .svg-icon {
   width: 100%;
 }

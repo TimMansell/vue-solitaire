@@ -4,6 +4,7 @@ import {
   moveBoardCards,
   checkValidFoundationMove,
   moveFoundationCards,
+  getCardsToDrag,
 } from './moves';
 import {
   initFoundation,
@@ -41,7 +42,8 @@ const solitaire = () => {
     setGameState({ boardCards });
   };
 
-  const isValidCardMove = (selectedColumn) => checkValidCardMove(state, selectedColumn);
+  const isValidCardMove = (selectedColumn) =>
+    checkValidCardMove(state, selectedColumn);
 
   const findEmptyFoundationColumn = () => getEmptyFoundationColumn(state);
 
@@ -56,7 +58,8 @@ const solitaire = () => {
     });
   };
 
-  const isValidFoundationMove = (selectedColumn) => checkValidFoundationMove(state, selectedColumn);
+  const isValidFoundationMove = (selectedColumn) =>
+    checkValidFoundationMove(state, selectedColumn);
 
   const isEmptyBoard = () => !state.boardCards.flat().length;
 
@@ -65,6 +68,9 @@ const solitaire = () => {
   const getBoardCards = () => state.boardCards;
 
   const getFoundationCards = () => state.foundationCards;
+
+  const getDraggedCards = (selectedCardId) =>
+    getCardsToDrag(state, selectedCardId);
 
   return {
     init,
@@ -79,6 +85,7 @@ const solitaire = () => {
     moveCards,
     moveCardsToFoundation,
     findEmptyFoundationColumn,
+    getDraggedCards,
   };
 };
 

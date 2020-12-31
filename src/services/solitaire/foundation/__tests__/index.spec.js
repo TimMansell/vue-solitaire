@@ -1,4 +1,8 @@
-import { loadFoundation, updateFoundation, getEmptyFoundationColumn } from '../index';
+import {
+  loadFoundation,
+  updateFoundation,
+  getEmptyFoundationColumn,
+} from '../index';
 
 describe('foundation', () => {
   describe('load foundation', () => {
@@ -24,7 +28,7 @@ describe('foundation', () => {
         cards: [
           {
             id: 2,
-            suit: 's',
+            suit: '♠',
             value: 'A',
           },
         ],
@@ -34,7 +38,12 @@ describe('foundation', () => {
 
     const result = updateFoundation(state, cards);
 
-    expect(result).toStrictEqual([[], [], [{ id: 2, suit: 's', value: 'A' }], []]);
+    expect(result).toStrictEqual([
+      [],
+      [],
+      [{ id: 2, suit: '♠', value: 'A' }],
+      [],
+    ]);
   });
 
   it('should return first empty Ace column', () => {
@@ -43,7 +52,7 @@ describe('foundation', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             value: 'A',
           },
         ],
@@ -70,7 +79,7 @@ describe('foundation', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             value: 'A',
           },
         ],
@@ -86,7 +95,7 @@ describe('foundation', () => {
         [
           {
             id: 2,
-            suit: 'd',
+            suit: '♦',
             value: 'A',
           },
         ],
@@ -108,7 +117,7 @@ describe('foundation', () => {
         [
           {
             id: 1,
-            suit: 's',
+            suit: '♠',
             order: 2,
             value: 2,
           },
@@ -125,7 +134,7 @@ describe('foundation', () => {
         [
           {
             id: 2,
-            suit: 's',
+            suit: '♠',
             order: 1,
             value: 'A',
           },

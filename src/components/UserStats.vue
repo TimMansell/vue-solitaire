@@ -1,7 +1,7 @@
 <template>
   <div>
     Games:
-    <span> <Counter data-test="stats" :number="number"/></span> (<ViewStatsButton
+    <Counter data-test="stats" :number="number" /> (<ViewStatsButton
       :load-stats="getUserStats"
       data-test="user-stats-btn"
     />)

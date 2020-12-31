@@ -7,6 +7,7 @@ const {
   SET_GAME_WON,
   SET_GAME_LOST,
   SET_GAME_PAUSED,
+  SET_TIMER_PAUSED,
   SET_BOARD,
   SET_FOUNDATIONS,
   SELECT_CARD,
@@ -16,6 +17,8 @@ const {
   UPDATE_GAME_TIME,
   SHOW_RULES,
   SHOW_NEW_GAME,
+  DRAG_CARDS,
+  CLEAR_DRAG_CARDS,
 } = mutations;
 
 describe('Solitaire Store', () => {
@@ -31,9 +34,8 @@ describe('Solitaire Store', () => {
       isGameWon: false,
       isGameLost: false,
       isGamePaused: {
-        isPaused: true,
-        isActive: true,
-        showMsg: true,
+        isPaused: false,
+        isActive: false,
       },
       hasMoves: false,
       game: {
@@ -43,6 +45,8 @@ describe('Solitaire Store', () => {
       },
       showRules: false,
       showNewGame: false,
+      draggedCards: [],
+      isTimerPaused: false,
     };
   });
 
@@ -78,12 +82,17 @@ describe('Solitaire Store', () => {
     const paused = {
       isPaused: true,
       isActive: true,
-      showMsg: true,
     };
 
     SET_GAME_PAUSED(state, paused);
 
     expect(state.isGamePaused).toEqual(paused);
+  });
+
+  it('SET_TIMER_PAUSED', () => {
+    SET_TIMER_PAUSED(state, true);
+
+    expect(state.isTimerPaused).toEqual(true);
   });
 
   it('SET_BOARD', () => {
@@ -142,5 +151,19 @@ describe('Solitaire Store', () => {
     SHOW_NEW_GAME(state, true);
 
     expect(state.showNewGame).toEqual(true);
+  });
+
+  it('DRAG_CARDS', () => {
+    const cards = [{}];
+
+    DRAG_CARDS(state, cards);
+
+    expect(state.draggedCards).toEqual(cards);
+  });
+
+  it('CLEAR_DRAG_CARDS', () => {
+    CLEAR_DRAG_CARDS(state);
+
+    expect(state.draggedCards).toEqual([]);
   });
 });

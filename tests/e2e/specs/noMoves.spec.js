@@ -8,44 +8,44 @@ describe('No moves', () => {
     cy.visit('/');
   });
 
-  it('should have Kc as an available move then no moves after that', () => {
+  it('should have K♣ as an available move then no moves after that', () => {
     cy.setBoard(noMovesKingColumn).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['Kc']);
+      cy.get('[data-test="column-2"]').shouldContain(['K♣']);
 
-      cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
+      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
       cy.get('[data-test="game-lost"]').should('not.be.visible');
 
-      cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
+      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
     });
   });
 
-  it('should have As as an available foundation move then no moves after that', () => {
+  it('should have A♠ as an available foundation move then no moves after that', () => {
     cy.setBoard(noMovesAceFoundation).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['As']);
+      cy.get('[data-test="column-2"]').shouldContain(['A♠']);
 
-      cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
+      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
       cy.get('[data-test="game-lost"]').should('not.be.visible');
 
-      cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-0"]');
+      cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
     });
   });
 
-  it('should have 2s as an available foundation move then no moves after that', () => {
+  it('should have 2♠ as an available foundation move then no moves after that', () => {
     cy.setBoard(noMovesAceTwoFoundation).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['As']);
+      cy.get('[data-test="column-2"]').shouldContain(['A♠']);
 
-      cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
-      cy.get('[data-test="card-As"]').clickTo('[data-test="foundation-0"]');
+      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+      cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
 
       cy.get('[data-test="game-lost"]').should('not.be.visible');
 
-      cy.get('[data-test="card-2s"]').clickTo('[data-test="foundation-0"]');
+      cy.get('[data-test="card-2♠"]').clickTo('[data-test="foundation-0"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
     });
@@ -55,10 +55,10 @@ describe('No moves', () => {
     cy.setBoard(foundations).then(() => {
       cy.get('[data-test="winner"]').should('not.be.visible');
 
-      cy.get('[data-test="column-0"]').shouldContain(['Ks', 'Qs']);
+      cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 
-      cy.get('[data-test="card-Qs"]').clickTo('[data-test="foundation-3"]');
-      cy.get('[data-test="card-Ks"]').clickTo('[data-test="foundation-3"]');
+      cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+      cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
       cy.get('[data-test="game-lost"]').should('not.be.visible');
     });
@@ -66,10 +66,10 @@ describe('No moves', () => {
 
   it('it should start a new game and reset board', () => {
     cy.setBoard(noMovesKingColumn).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['Kc']);
+      cy.get('[data-test="column-2"]').shouldContain(['K♣']);
 
-      cy.get('[data-test="card-Qc"]').clickTo('[data-test="card-Kc"]');
-      cy.get('[data-test="card-Kc"]').clickTo('[data-test="column-1"]');
+      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
 

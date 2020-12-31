@@ -1,5 +1,7 @@
 <template>
-  <Button link @click="viewStats"> view stats </Button>
+  <Button link @click="viewStats">
+    view stats
+  </Button>
 </template>
 
 <script>
@@ -18,10 +20,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['toggleStats', 'setGamePaused']),
+    ...mapActions(['toggleStats']),
     viewStats() {
       this.loadStats();
-      this.setGamePaused();
       this.toggleStats();
     },
   },

@@ -2,6 +2,6 @@
 
 exports[`BottomCard.vue matches snapshot 1`] = `
 <touchevents-stub>
-  <defaultcard-stub value="A" suit="c"></defaultcard-stub>
+  <defaultcard-stub value="A♣"></defaultcard-stub>
 </touchevents-stub>
 `;

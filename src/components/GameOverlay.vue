@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Logo from './Logo.vue';
 
 export default {
@@ -52,6 +53,22 @@ export default {
       return !!this.$slots.msg;
     },
   },
+  mounted() {
+    // Stop body from scrolling when overlay is open.
+    this.setHideBody('hidden');
+    this.setTimerPaused(true);
+  },
+  destroyed() {
+    // Enable body scrolling.
+    this.setHideBody('auto');
+    this.setTimerPaused(false);
+  },
+  methods: {
+    ...mapActions(['setTimerPaused']),
+    setHideBody(value) {
+      document.body.style.overflow = value;
+    },
+  },
 };
 </script>
 
@@ -60,10 +77,11 @@ export default {
   display: grid;
   align-items: center;
   position: fixed;
-  left: 0;
   top: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 100%;
   background: rgba($col-tertiary, 0.7);
   z-index: var(--z-overlay);
   overflow-y: auto;
@@ -116,7 +134,10 @@ export default {
   &__btns {
     display: flex;
     justify-content: center;
-    gap: var(--vr);
+
+    > * + * {
+      margin-left: var(--vr);
+    }
   }
 }
 </style>

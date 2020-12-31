@@ -54,6 +54,5 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0.5rem 0;
 }
 </style>
