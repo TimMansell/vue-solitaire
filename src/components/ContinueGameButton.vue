@@ -14,9 +14,8 @@ export default {
     Button,
   },
   methods: {
-    ...mapActions(['setGameResumed', 'toggleNewGame']),
+    ...mapActions(['toggleNewGame']),
     continueGame() {
-      this.setGameResumed();
       this.toggleNewGame();
     },
   },

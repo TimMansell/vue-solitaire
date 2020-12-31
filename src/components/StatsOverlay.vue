@@ -73,9 +73,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['toggleStats', 'setGameResumed']),
+    ...mapActions(['toggleStats']),
     closeStats() {
-      this.setGameResumed();
       this.toggleStats();
     },
   },

@@ -12,7 +12,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters(['timer', 'isGamePaused']),
+    ...mapGetters(['timer', 'isTimerPaused']),
     formattedTime() {
       const { timer } = this;
 
@@ -23,10 +23,10 @@ export default {
     this.setGameTimer();
   },
   watch: {
-    isGamePaused(val, oldVal) {
-      if (val.isPaused === oldVal.isPaused) return;
+    isTimerPaused(val, oldVal) {
+      if (val === oldVal) return;
 
-      if (val.isPaused) {
+      if (val) {
         this.clearTimer();
       } else {
         this.setGameTimer();
@@ -39,9 +39,9 @@ export default {
       return window.setInterval(() => this.updateTimer(), 1000);
     },
     setGameTimer() {
-      const { isPaused } = this.isGamePaused;
+      const { isTimerPaused } = this;
 
-      if (!isPaused) {
+      if (!isTimerPaused) {
         this.gameTimer = this.initGameTimer();
       }
     },

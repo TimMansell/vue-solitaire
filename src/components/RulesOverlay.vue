@@ -80,9 +80,8 @@ export default {
     Button,
   },
   methods: {
-    ...mapActions(['toggleRules', 'setGameResumed']),
+    ...mapActions(['toggleRules']),
     closeRules() {
-      this.setGameResumed();
       this.toggleRules();
     },
   },

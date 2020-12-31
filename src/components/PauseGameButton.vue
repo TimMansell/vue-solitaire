@@ -4,8 +4,8 @@
     @click="toggleGamePaused"
     data-test="pause-game-btn"
   >
-    <span v-if="!isGamePaused.isPaused">Pause</span>
-    <span v-if="isGamePaused.isPaused">Resume</span> Game
+    <span v-if="!isGamePaused">Pause</span>
+    <span v-if="isGamePaused">Resume</span> Game
   </Button>
 </template>
 

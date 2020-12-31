@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import NewGameButton from './NewGameButton.vue';
 import ContinueGameButton from './ContinueGameButton.vue';
@@ -25,12 +24,6 @@ export default {
     GameOverlay,
     NewGameButton,
     ContinueGameButton,
-  },
-  mounted() {
-    this.setGamePaused();
-  },
-  methods: {
-    ...mapActions(['setGamePaused']),
   },
 };
 </script>

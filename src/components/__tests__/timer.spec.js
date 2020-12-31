@@ -6,9 +6,7 @@ describe('Timer.vue', () => {
     const wrapper = shallowMount(Timer, {
       computed: {
         timer: () => 1,
-        isGamePaused: () => ({
-          paused: true,
-        }),
+        isTimerPaused: () => true,
       },
     });
 
@@ -19,9 +17,7 @@ describe('Timer.vue', () => {
     const wrapper = shallowMount(Timer, {
       computed: {
         timer: () => 10,
-        isGamePaused: () => ({
-          paused: true,
-        }),
+        isTimerPaused: () => true,
       },
     });
 
@@ -32,9 +28,7 @@ describe('Timer.vue', () => {
     const wrapper = shallowMount(Timer, {
       computed: {
         timer: () => 75,
-        isGamePaused: () => ({
-          paused: true,
-        }),
+        isTimerPaused: () => true,
       },
     });
 
