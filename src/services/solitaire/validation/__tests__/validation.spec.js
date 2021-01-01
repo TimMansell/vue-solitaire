@@ -256,7 +256,7 @@ describe('validation', () => {
   describe('valid foundation order', () => {
     it('should be a valid empty order', () => {
       const card = {
-        order: 0,
+        order: 1,
       };
 
       const cards = [];
@@ -271,7 +271,11 @@ describe('validation', () => {
         order: 2,
       };
 
-      const cards = [{}, {}];
+      const cards = [
+        {
+          order: 1,
+        },
+      ];
 
       const result = isFoundationMoveValidOrder(card, cards);
 
@@ -283,7 +287,11 @@ describe('validation', () => {
         order: 5,
       };
 
-      const cards = [{}];
+      const cards = [
+        {
+          order: 1,
+        },
+      ];
 
       const result = isFoundationMoveValidOrder(card, cards);
 

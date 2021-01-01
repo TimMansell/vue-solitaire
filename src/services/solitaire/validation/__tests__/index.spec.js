@@ -135,12 +135,12 @@ describe('validation moves', () => {
     describe('card', () => {
       it('should be a valid card', () => {
         const card = {
-          order: 1,
+          order: 2,
           suit: '♣',
         };
         const cards = [
           {
-            order: 0,
+            order: 1,
             suit: '♣',
           },
         ];
