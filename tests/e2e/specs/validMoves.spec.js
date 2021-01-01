@@ -32,7 +32,7 @@ describe('Valid moves', () => {
 
         cy.get('[data-test="card-A♣"]').dragTo('[data-test="card-2♣"]');
 
-        cy.get('[data-test="column-3"]').shouldContain(['A♣']);
+        cy.get('[data-test="column-0"]').shouldContain(['A♣']);
       });
     });
   });
@@ -64,7 +64,7 @@ describe('Valid moves', () => {
 
         cy.get('[data-test="card-A♣"]').clickTo('[data-test="card-2♣"]');
 
-        cy.get('[data-test="column-3"]').shouldContain(['A♣']);
+        cy.get('[data-test="column-0"]').shouldContain(['A♣']);
       });
     });
   });
