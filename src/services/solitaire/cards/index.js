@@ -8,15 +8,19 @@ import {
 } from './cards';
 
 export const buildCards = ({ values, suits }) =>
-  values.flatMap((value, order) =>
-    suits.map((suit, index) => ({
-      id: order + values.length * index,
+  values.flatMap((value, valueOrder) => {
+    const order = valueOrder + 1;
+
+    const cards = suits.map((suit, suitOrder) => ({
+      id: order + values.length * suitOrder,
       value,
       order,
       suit,
       visible: false,
-    }))
-  );
+    }));
+
+    return cards;
+  });
 
 export const dealCards = (deck, { columns }) => {
   const columnCardsIndexes = getColumnCardIndexes(columns);
