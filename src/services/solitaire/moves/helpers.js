@@ -4,6 +4,9 @@ export const displayMoves = (moves) => {
     moves.forEach(({ value, suit }) => {
       console.log('hasMove', `${value}${suit}`);
     });
+  } else {
+    console.log('---------------');
+    console.log('No Moves');
   }
 };
 
