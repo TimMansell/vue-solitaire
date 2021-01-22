@@ -13,6 +13,7 @@ import {
   validateFoundationMove,
   validateFoundationMovePosition,
 } from '../validation';
+import { displayMoves } from './helpers';
 
 export const checkValidCardMove = (
   { boardCards, selectedCardId },
@@ -36,9 +37,13 @@ export const checkHasMoves = ({ boardCards, foundationCards }) => {
   const hasKingMoves = checkKingMoves(boardCards);
   const hasFoundationMoves = checkFoundationMoves(boardCards, foundationCards);
 
-  return (
-    [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves].length > 0
-  );
+  const moves = [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves];
+
+  if (process.env.NODE_ENV === 'development') {
+    displayMoves(moves);
+  }
+
+  return moves.length > 0;
 };
 
 export const moveBoardCards = (state, selectedColumn) => {
