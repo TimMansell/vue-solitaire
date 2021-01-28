@@ -1,6 +1,18 @@
-import { loadBoard, updateBoard, checkEmptyColumns } from '../index';
+import { initBoard, loadBoard, updateBoard, checkEmptyColumns } from '../index';
+import settings from '../../settings.json';
+import fixture from '../../../../../tests/fixtures/boards/aceOnlyMove.json';
 
 describe('board', () => {
+  describe('init board', () => {
+    it('should shuffle cards', () => {
+      const { cards } = fixture;
+
+      const result = initBoard(settings, cards);
+
+      expect(result).not.toStrictEqual(fixture);
+    });
+  });
+
   describe('load board', () => {
     it('should return cards', () => {
       const board = {

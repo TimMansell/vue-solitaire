@@ -1,11 +1,14 @@
-import { initBoardCards } from '../board';
+import { getBoardCards, initBoardCards } from '../board';
 import settings from '../../settings.json';
 
+import noMovesBoard from '../../../../../tests/fixtures/boards/noMoves.json';
+import oneMoveBoard from '../../../../../tests/fixtures/boards/aceOnlyMove.json';
+
 describe('board', () => {
-  it('init board cards', () => {
+  it('get board cards', () => {
     const toShuffle = false;
 
-    const result = initBoardCards(settings, toShuffle);
+    const result = getBoardCards(settings, toShuffle);
 
     expect(result).toStrictEqual([
       [
@@ -77,5 +80,21 @@ describe('board', () => {
         { id: 52, order: 13, suit: '♦', value: 'K', visible: true },
       ],
     ]);
+  });
+
+  it('init board cards - with moves', () => {
+    const { cards } = oneMoveBoard;
+
+    const result = initBoardCards(settings, cards);
+
+    expect(result).toStrictEqual(cards);
+  });
+
+  it('init board cards - with no moves', () => {
+    const { cards } = noMovesBoard;
+
+    const result = initBoardCards(settings, cards);
+
+    expect(result).not.toStrictEqual(cards);
   });
 });
