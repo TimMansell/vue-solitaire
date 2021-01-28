@@ -1,9 +1,9 @@
 import { buildCards, dealCards, shuffleCards } from '../cards';
-import { checkHasMoves } from '../moves';
-// import fixture from '../../../../tests/fixtures/boards/noMoves.json';
-import fixture from '../../../../tests/fixtures/boards/aceOnlyMove.json';
+import { checkInitialMoves } from '../moves';
+import settings from '../settings.json';
 
-export const initBoard = ({ cards, rules }, toShuffle = true) => {
+export const getBoardCards = (toShuffle = true) => {
+  const { cards, rules } = settings;
   const deck = buildCards(cards);
   const shuffledDeck = shuffleCards(deck, toShuffle);
   const boardCards = dealCards(shuffledDeck, rules);
@@ -11,20 +11,14 @@ export const initBoard = ({ cards, rules }, toShuffle = true) => {
   return boardCards;
 };
 
-export const setBoardCards = (boardCards, settings) => {
-  const foundationCards = [[], [], [], []];
-  const hasBoardMoves = checkHasMoves({ boardCards, foundationCards });
+export const initBoardCards = (boardCards) => {
+  const hasBoardMoves = checkInitialMoves(boardCards);
 
-  const cards = hasBoardMoves ? boardCards : setBoardCards(initBoard(settings));
+  if (!hasBoardMoves) {
+    const cards = getBoardCards();
 
-  return cards;
-};
-
-export const initBoardCards = (settings) => {
-  // const cards = initBoard(settings);
-  const { cards } = fixture;
-
-  const boardCards = setBoardCards(cards, settings);
+    return initBoardCards(cards);
+  }
 
   return boardCards;
 };
