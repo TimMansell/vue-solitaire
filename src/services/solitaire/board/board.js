@@ -1,8 +1,7 @@
 import { buildCards, dealCards, shuffleCards } from '../cards';
 import { checkInitialMoves } from '../moves';
-import settings from '../settings.json';
 
-export const getBoardCards = (toShuffle = true) => {
+export const getBoardCards = (settings, toShuffle = true) => {
   const { cards, rules } = settings;
   const deck = buildCards(cards);
   const shuffledDeck = shuffleCards(deck, toShuffle);
@@ -11,13 +10,13 @@ export const getBoardCards = (toShuffle = true) => {
   return boardCards;
 };
 
-export const initBoardCards = (boardCards) => {
+export const initBoardCards = (settings, boardCards) => {
   const hasBoardMoves = checkInitialMoves(boardCards);
 
   if (!hasBoardMoves) {
-    const cards = getBoardCards();
+    const cards = getBoardCards(settings);
 
-    return initBoardCards(cards);
+    return initBoardCards(settings, cards);
   }
 
   return boardCards;

@@ -1,14 +1,14 @@
-import { /* getBoardCards, */ initBoardCards } from './board';
+import { getBoardCards, initBoardCards } from './board';
 import settings from '../settings.json';
 
-import fixture from '../../../../tests/fixtures/boards/noMoves.json';
+// import fixture from '../../../../tests/fixtures/boards/noMoves.json';
 // import fixture from '../../../../tests/fixtures/boards/aceOnlyMove.json';
 
 export const initBoard = () => {
-  // const cards = getBoardCards();
-  const { cards } = fixture;
+  const cards = getBoardCards(settings);
+  // const { cards } = fixture;
 
-  const boardCards = initBoardCards(cards);
+  const boardCards = initBoardCards(settings, cards);
 
   return boardCards;
 };
