@@ -1,6 +1,18 @@
-import { loadBoard, updateBoard, checkEmptyColumns } from '../index';
+import { initBoard, loadBoard, updateBoard } from '../index';
+import settings from '../../settings.json';
+import fixture from '../../../../../tests/fixtures/boards/aceOnlyMove.json';
 
 describe('board', () => {
+  describe('init board', () => {
+    it('should shuffle cards', () => {
+      const { cards } = fixture;
+
+      const result = initBoard(settings, cards);
+
+      expect(result).not.toStrictEqual(fixture);
+    });
+  });
+
   describe('load board', () => {
     it('should return cards', () => {
       const board = {
@@ -87,24 +99,6 @@ describe('board', () => {
         [],
         [],
       ]);
-    });
-  });
-
-  describe('empty columns', () => {
-    it('should have no empty columns', () => {
-      const cards = [[], [], [], [], [], [], [], []];
-
-      const result = checkEmptyColumns(cards);
-
-      expect(result).toBe(false);
-    });
-
-    it('should have empty columns', () => {
-      const cards = [[], [], [], [], [], [], []];
-
-      const result = checkEmptyColumns(cards);
-
-      expect(result).toBe(true);
     });
   });
 });
