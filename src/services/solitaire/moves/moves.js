@@ -6,9 +6,8 @@ import {
   getVisibleCards,
   showLastCard,
 } from '../cards';
-import { checkEmptyColumns } from '../board';
 import { validateCardMove, validateCardMoveColumn } from '../validation';
-import { displayMoves, getColumnCards } from './helpers';
+import { getColumnCards, checkEmptyColumns } from './helpers';
 
 export const checkVisibleMoves = (boardCards) => {
   const lastCards = getLastCards(boardCards);
@@ -30,10 +29,6 @@ export const checkVisibleMoves = (boardCards) => {
     return cardHasMove.length > 0;
   });
 
-  if (process.env.NODE_ENV === 'development') {
-    displayMoves(hasMoves);
-  }
-
   return hasMoves;
 };
 
@@ -48,10 +43,6 @@ export const checkKingMoves = (boardCards) => {
 
     return isCardKing && hasEmptyColumns && !isCardTopPosition;
   });
-
-  if (process.env.NODE_ENV === 'development') {
-    displayMoves(hasMoves);
-  }
 
   return hasMoves;
 };
@@ -68,10 +59,6 @@ export const checkFoundationMoves = (boardCards, foundationCards) => {
 
     return isCardAce || hasFoundationMove.length > 0;
   });
-
-  if (process.env.NODE_ENV === 'development') {
-    displayMoves(hasMoves);
-  }
 
   return hasMoves;
 };

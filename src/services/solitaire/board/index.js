@@ -1,7 +1,12 @@
-import { initBoardCards } from './board';
+import { getBoardCards, initBoardCards } from './board';
 import settings from '../settings.json';
 
-export const initBoard = () => initBoardCards(settings);
+export const initBoard = () => {
+  const cards = getBoardCards(settings);
+  const boardCards = initBoardCards(settings, cards);
+
+  return boardCards;
+};
 
 export const loadBoard = ({ cards }) => cards;
 
@@ -17,6 +22,3 @@ export const updateBoard = ({ boardCards }, { cardsFrom, cardsTo }) =>
 
     return columnCards;
   });
-
-export const checkEmptyColumns = (cards) =>
-  cards.length < settings.rules.columns.length;
