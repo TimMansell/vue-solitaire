@@ -1,8 +1,10 @@
 import { getBoardCards, initBoardCards } from '../board';
+import { checkInitialMoves } from '../../moves';
 import settings from '../../settings.json';
 
 import noMovesBoard from '../../../../../tests/fixtures/boards/noMoves.json';
 import oneMoveBoard from '../../../../../tests/fixtures/boards/aceOnlyMove.json';
+import validMoveBoard from '../../../../../tests/fixtures/boards/validMove.json';
 
 describe('board', () => {
   it('get board cards', () => {
@@ -83,10 +85,22 @@ describe('board', () => {
   });
 
   it('init board cards - with moves', () => {
+    const { cards } = validMoveBoard;
+
+    const result = initBoardCards(settings, cards);
+    const hasMoves = checkInitialMoves(cards);
+
+    expect(hasMoves).toEqual(true);
+    expect(result).toStrictEqual(cards);
+  });
+
+  it('init board cards - with Ace move', () => {
     const { cards } = oneMoveBoard;
 
     const result = initBoardCards(settings, cards);
+    const hasMoves = checkInitialMoves(cards);
 
+    expect(hasMoves).toEqual(true);
     expect(result).toStrictEqual(cards);
   });
 
@@ -94,7 +108,9 @@ describe('board', () => {
     const { cards } = noMovesBoard;
 
     const result = initBoardCards(settings, cards);
+    const hasMoves = checkInitialMoves(cards);
 
+    expect(hasMoves).toEqual(false);
     expect(result).not.toStrictEqual(cards);
   });
 });
