@@ -1,11 +1,15 @@
 import {
   checkValidCardMove,
   checkHasMoves,
+  checkInitialMoves,
   moveBoardCards,
   checkValidFoundationMove,
   moveFoundationCards,
   getCardsToDrag,
 } from '../index';
+
+import noMovesBoard from '../../../../../tests/fixtures/boards/noMoves.json';
+import oneMoveBoard from '../../../../../tests/fixtures/boards/aceOnlyMove.json';
 
 describe('moves', () => {
   describe('valid moves', () => {
@@ -291,6 +295,24 @@ describe('moves', () => {
       };
 
       const result = checkHasMoves(obj);
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('initial board moves', () => {
+    it('should have board moves', () => {
+      const { cards } = oneMoveBoard;
+
+      const result = checkInitialMoves(cards);
+
+      expect(result).toBe(true);
+    });
+
+    it('should have no board moves', () => {
+      const { cards } = noMovesBoard;
+
+      const result = checkInitialMoves(cards);
 
       expect(result).toBe(false);
     });
