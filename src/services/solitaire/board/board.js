@@ -1,5 +1,19 @@
 import { buildCards, dealCards, shuffleCards } from '../cards';
-import { checkInitialMoves } from '../moves';
+import { checkHasMoves } from '../moves';
+import { initFoundation } from '../foundation';
+
+export const checkInitialBoardMoves = (boardCards) => {
+  const foundationCards = initFoundation();
+
+  const board = {
+    foundationCards,
+    boardCards,
+  };
+
+  const hasBoardMoves = checkHasMoves(board);
+
+  return hasBoardMoves;
+};
 
 export const getBoardCards = (settings, toShuffle = true) => {
   const { cards, rules } = settings;
@@ -11,7 +25,7 @@ export const getBoardCards = (settings, toShuffle = true) => {
 };
 
 export const initBoardCards = (settings, boardCards) => {
-  const hasBoardMoves = checkInitialMoves(boardCards);
+  const hasBoardMoves = checkInitialBoardMoves(boardCards);
 
   if (!hasBoardMoves) {
     const cards = getBoardCards(settings);

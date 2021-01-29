@@ -6,9 +6,8 @@ import {
   getVisibleCards,
   showLastCard,
 } from '../cards';
-import { checkEmptyColumns } from '../board';
 import { validateCardMove, validateCardMoveColumn } from '../validation';
-import { getColumnCards } from './helpers';
+import { getColumnCards, checkEmptyColumns } from './helpers';
 
 export const checkVisibleMoves = (boardCards) => {
   const lastCards = getLastCards(boardCards);

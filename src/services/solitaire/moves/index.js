@@ -6,7 +6,6 @@ import {
   moveCardsToBoard,
   moveCardsToFoundation,
 } from './moves';
-import { initFoundation } from '../foundation';
 import { getSelectedCard, getLastCard, getCardPosition } from '../cards';
 import {
   validateCardMove,
@@ -45,19 +44,6 @@ export const checkHasMoves = ({ boardCards, foundationCards }) => {
   }
 
   return moves.length > 0;
-};
-
-export const checkInitialMoves = (boardCards) => {
-  const foundationCards = initFoundation();
-
-  const board = {
-    foundationCards,
-    boardCards,
-  };
-
-  const hasBoardMoves = checkHasMoves(board);
-
-  return hasBoardMoves;
 };
 
 export const moveBoardCards = (state, selectedColumn) => {

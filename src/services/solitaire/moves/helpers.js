@@ -1,3 +1,5 @@
+import settings from '../settings.json';
+
 export const displayMoves = (moves) => {
   if (moves.length) {
     console.log('---------------');
@@ -22,3 +24,6 @@ export const getColumnCards = ({
 
   return [...columnCards, ...moveCards];
 };
+
+export const checkEmptyColumns = (cards) =>
+  cards.length < settings.rules.columns.length;
