@@ -33,18 +33,18 @@ const actions = {
     commit('RESTART_GAME');
     commit('NEW_GAME', true);
   },
-  async trackNewGame({ commit, rootState }) {
-    const { suid } = rootState.user;
-    const { error, response } = await db.gameNew(suid);
+  // async trackNewGame({ commit, rootState }) {
+  //   const { suid } = rootState.user;
+  //   const { error, response } = await db.gameNew(suid);
 
-    if (!error) {
-      const {
-        newGame: { _id: id },
-      } = response;
+  //   if (!error) {
+  //     const {
+  //       newGame: { _id: id },
+  //     } = response;
 
-      commit('SET_GAME', { id });
-    }
-  },
+  //     commit('SET_GAME', { id });
+  //   }
+  // },
   checkGameState({ commit, state }) {
     const hasMoves = solitaire.hasMoves();
     const isBoardEmpty = solitaire.isEmptyBoard();
@@ -62,24 +62,24 @@ const actions = {
       }
     }
   },
-  setGameInactive({ commit }) {
-    const isGamePaused = {
-      isPaused: true,
-      isActive: false,
-    };
+  // setGameInactive({ commit }) {
+  //   const isGamePaused = {
+  //     isPaused: true,
+  //     isActive: false,
+  //   };
 
-    commit('SET_GAME_PAUSED', isGamePaused);
-  },
-  toggleGamePaused({ commit, state }) {
-    const { isPaused } = state.isGamePaused;
+  //   commit('SET_GAME_PAUSED', isGamePaused);
+  // },
+  // toggleGamePaused({ commit, state }) {
+  //   const { isPaused } = state.isGamePaused;
 
-    const isGamePaused = {
-      isPaused: !isPaused,
-      isActive: true,
-    };
+  //   const isGamePaused = {
+  //     isPaused: !isPaused,
+  //     isActive: true,
+  //   };
 
-    commit('SET_GAME_PAUSED', isGamePaused);
-  },
+  //   commit('SET_GAME_PAUSED', isGamePaused);
+  // },
   setFoundations({ commit }) {
     const foundationCards = solitaire.getFoundationCards();
 
@@ -150,22 +150,22 @@ const actions = {
     dispatch('setFoundations');
     dispatch('trackNewGame');
   },
-  setTimerPaused({ commit }, isPaused) {
-    commit('SET_TIMER_PAUSED', isPaused);
-  },
-  updateTimer({ commit }) {
-    commit('UPDATE_GAME_TIME');
-  },
-  toggleRules({ commit, state }) {
-    const showRules = !state.showRules;
+  // setTimerPaused({ commit }, isPaused) {
+  //   commit('SET_TIMER_PAUSED', isPaused);
+  // },
+  // updateTimer({ commit }) {
+  //   commit('UPDATE_GAME_TIME');
+  // },
+  // toggleRules({ commit, state }) {
+  //   const showRules = !state.showRules;
 
-    commit('SHOW_RULES', showRules);
-  },
-  toggleNewGame({ commit, state }) {
-    const showNewGame = !state.showNewGame;
+  //   commit('SHOW_RULES', showRules);
+  // },
+  // toggleNewGame({ commit, state }) {
+  //   const showNewGame = !state.showNewGame;
 
-    commit('SHOW_NEW_GAME', showNewGame);
-  },
+  //   commit('SHOW_NEW_GAME', showNewGame);
+  // },
   setDraggedCards({ commit }, id) {
     const cards = solitaire.getDraggedCards(id);
 
