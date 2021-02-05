@@ -15,7 +15,7 @@ import GameState from '@/components/GameState.vue';
 import RulesOverlay from '@/components/RulesOverlay.vue';
 import StatsOverlay from '@/components/StatsOverlay.vue';
 import NewGameOverlay from '@/components/NewGameOverlay.vue';
-// import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
+// import fixture from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
@@ -40,7 +40,7 @@ export default {
     }
 
     // if (process.env.NODE_ENV === 'development') {
-    //   this.setBoardAndFoundation(aces);
+    //   this.setBoardAndFoundation(fixture);
     // }
   },
   methods: {
