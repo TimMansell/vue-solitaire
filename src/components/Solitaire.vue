@@ -30,10 +30,9 @@ export default {
     ...mapGetters(['showStats', 'showRules', 'showNewGame']),
   },
   async created() {
-    // await this.initUser();
+    await this.initUser();
 
-    // this.initGame();
-    this.init();
+    this.initGame();
 
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
@@ -45,7 +44,7 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(['init', 'setBoardAndFoundation']),
+    ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
   },
 };
 </script>

@@ -1,14 +1,13 @@
-// import Vue from 'vue';
-// import defaultState from './state';
+import defaultState from './state';
 
 const mutations = {
-  // RESTART_GAME(state) {
-  //   const newState = {
-  //     ...defaultState(),
-  //   };
+  RESTART(state) {
+    const newState = {
+      ...defaultState(),
+    };
 
-  //   Object.assign(state, newState);
-  // },
+    Object.assign(state, newState);
+  },
   NEW_GAME(state, isNewGame) {
     state.isNewGame = isNewGame;
   },
@@ -30,25 +29,6 @@ const mutations = {
   SET_TIMER_PAUSED(state, isTimerPaused) {
     state.isTimerPaused = isTimerPaused;
   },
-  // SET_BOARD(state, deck) {
-  //   deck.forEach((cards, index) => {
-  //     Vue.set(state.board.cards, index, cards);
-  //   });
-  // },
-  // SET_FOUNDATIONS(state, foundationColumns) {
-  //   foundationColumns.forEach((foundation, index) => {
-  //     Vue.set(state.board.foundation, index, foundation);
-  //   });
-  // },
-  // SELECT_CARD(state, id) {
-  //   state.selectedCardId = id;
-  // },
-  // UNSELECT_CARD(state) {
-  //   state.selectedCardId = null;
-  // },
-  SET_HAS_MOVES(state, hasMoves) {
-    state.hasMoves = hasMoves;
-  },
   INCREMENT_MOVES(state) {
     state.game.moves += 1;
   },
@@ -61,12 +41,6 @@ const mutations = {
   SHOW_NEW_GAME(state, showNewGame) {
     state.showNewGame = showNewGame;
   },
-  // DRAG_CARDS(state, cards) {
-  //   state.draggedCards = cards;
-  // },
-  // CLEAR_DRAG_CARDS(state) {
-  //   state.draggedCards = [];
-  // },
 };
 
 export default mutations;

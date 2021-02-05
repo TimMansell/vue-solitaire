@@ -1,87 +1,30 @@
 import solitaire from '@/services/solitaire';
-import db from '@/services/db';
-
 import { getBoardState } from './helpers';
 
 const actions = {
-  async initGame({ commit, dispatch, state }) {
-    const { isNewGame, selectedCardId } = state;
+  async init({ dispatch, state }, isNewGame) {
+    const { selectedCardId } = state;
     const boardToUse = getBoardState(isNewGame);
 
     solitaire.init(boardToUse);
 
-    console.log('ig');
-
     dispatch('setBoard');
     dispatch('setFoundations');
-
-    if (isNewGame) {
-      await dispatch('trackNewGame');
-    } else {
-      dispatch('setCard', selectedCardId);
-    }
-
-    dispatch('getStatsCount');
-
-    commit('NEW_GAME', false);
+    dispatch('setCard', selectedCardId);
   },
-  restartGame({ commit, state }, completed) {
-    const { game } = state;
-
-    if (!completed) {
-      db.gameCompleted(game);
-    }
-
+  restart({ commit }) {
     commit('RESTART_GAME');
-    commit('NEW_GAME', true);
   },
-  // async trackNewGame({ commit, rootState }) {
-  //   const { suid } = rootState.user;
-  //   const { error, response } = await db.gameNew(suid);
-
-  //   if (!error) {
-  //     const {
-  //       newGame: { _id: id },
-  //     } = response;
-
-  //     commit('SET_GAME', { id });
-  //   }
-  // },
-  checkGameState({ commit, state }) {
+  checkGameState({ commit, dispatch }) {
     const hasMoves = solitaire.hasMoves();
     const isBoardEmpty = solitaire.isEmptyBoard();
-    const { game } = state;
 
     if (!hasMoves) {
       commit('SET_HAS_MOVES', false);
-      commit('SET_GAME_WON', isBoardEmpty);
-      commit('SET_GAME_LOST', !isBoardEmpty);
-
-      if (isBoardEmpty) {
-        db.gameWon(game);
-      } else {
-        db.gameLost(game);
-      }
     }
+
+    dispatch('setGameState', isBoardEmpty);
   },
-  // setGameInactive({ commit }) {
-  //   const isGamePaused = {
-  //     isPaused: true,
-  //     isActive: false,
-  //   };
-
-  //   commit('SET_GAME_PAUSED', isGamePaused);
-  // },
-  // toggleGamePaused({ commit, state }) {
-  //   const { isPaused } = state.isGamePaused;
-
-  //   const isGamePaused = {
-  //     isPaused: !isPaused,
-  //     isActive: true,
-  //   };
-
-  //   commit('SET_GAME_PAUSED', isGamePaused);
-  // },
   setFoundations({ commit }) {
     const foundationCards = solitaire.getFoundationCards();
 
@@ -108,28 +51,26 @@ const actions = {
 
     commit('UNSELECT_CARD');
   },
-  moveCardsToColumn({ commit, dispatch }, selectedColumn) {
+  moveCardsToColumn({ dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidCardMove(selectedColumn);
 
     if (isValidMove) {
       solitaire.moveCards(selectedColumn);
 
-      commit('INCREMENT_MOVES');
-
+      dispatch('incrementMoves');
       dispatch('setBoard');
       dispatch('checkGameState');
     }
 
     dispatch('unselectCard');
   },
-  moveCardToFoundation({ commit, dispatch }, selectedColumn) {
+  moveCardToFoundation({ dispatch }, selectedColumn) {
     const isValidMove = solitaire.isValidFoundationMove(selectedColumn);
 
     if (isValidMove) {
       solitaire.moveCardsToFoundation(selectedColumn);
 
-      commit('INCREMENT_MOVES');
-
+      dispatch('incrementMoves');
       dispatch('setBoard');
       dispatch('setFoundations');
       dispatch('checkGameState');
@@ -152,22 +93,6 @@ const actions = {
     dispatch('setFoundations');
     dispatch('trackNewGame');
   },
-  // setTimerPaused({ commit }, isPaused) {
-  //   commit('SET_TIMER_PAUSED', isPaused);
-  // },
-  // updateTimer({ commit }) {
-  //   commit('UPDATE_GAME_TIME');
-  // },
-  // toggleRules({ commit, state }) {
-  //   const showRules = !state.showRules;
-
-  //   commit('SHOW_RULES', showRules);
-  // },
-  // toggleNewGame({ commit, state }) {
-  //   const showNewGame = !state.showNewGame;
-
-  //   commit('SHOW_NEW_GAME', showNewGame);
-  // },
   setDraggedCards({ commit }, id) {
     const cards = solitaire.getDraggedCards(id);
 
