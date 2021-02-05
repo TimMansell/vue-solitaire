@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import defaultState from './state';
 
 const mutations = {
@@ -31,14 +30,10 @@ const mutations = {
     state.isTimerPaused = isTimerPaused;
   },
   SET_BOARD(state, deck) {
-    deck.forEach((cards, index) => {
-      Vue.set(state.board.cards, index, cards);
-    });
+    state.board.cards = deck;
   },
   SET_FOUNDATIONS(state, foundationColumns) {
-    foundationColumns.forEach((foundation, index) => {
-      Vue.set(state.board.foundation, index, foundation);
-    });
+    state.board.foundation = foundationColumns;
   },
   SELECT_CARD(state, id) {
     state.selectedCardId = id;
