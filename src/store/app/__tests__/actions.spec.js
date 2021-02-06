@@ -25,6 +25,7 @@ describe('Solitaire Store', () => {
     initGame({ commit, dispatch, state });
 
     expect(dispatch).toHaveBeenCalledWith('init', true);
+    expect(dispatch).toHaveBeenCalledWith('newGame', true);
   });
 
   it('initGame - saved game', () => {
@@ -35,6 +36,7 @@ describe('Solitaire Store', () => {
     initGame({ commit, dispatch, state });
 
     expect(dispatch).toHaveBeenCalledWith('init', false);
+    expect(dispatch).not.toHaveBeenCalledWith('newGame');
   });
 
   it('restartGame', () => {
