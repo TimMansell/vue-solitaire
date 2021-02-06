@@ -18,23 +18,6 @@ describe('Solitaire Store', () => {
   let state = {};
 
   beforeEach(() => {
-    // state = {
-    //   isGameWon: false,
-    //   isGameLost: false,
-    //   isGamePaused: {
-    //     isPaused: false,
-    //     isActive: false,
-    //   },
-    //   game: {
-    //     id: null,
-    //     moves: 0,
-    //     time: 0,
-    //   },
-    //   showRules: false,
-    //   showNewGame: false,
-    //   isTimerPaused: false,
-    // };
-
     state = {
       ...defaultState(),
     };
