@@ -108,7 +108,7 @@ export const gameLost = async ({ id, moves, time }) => {
   }
 };
 
-export const gameCompleted = async ({ id, moves, time }) => {
+export const gameAbandoned = async ({ id, moves, time }) => {
   const data = {
     moves,
     time,

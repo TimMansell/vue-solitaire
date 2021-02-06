@@ -13,7 +13,7 @@ const actions = {
     const { game } = state;
 
     if (!completed) {
-      db.gameCompleted(game);
+      db.gameAbandoned(game);
     }
 
     dispatch('restart');

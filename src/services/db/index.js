@@ -9,7 +9,7 @@ import {
   gameNew,
   gameLost,
   gameWon,
-  gameCompleted,
+  gameAbandoned,
 } from './mutations';
 
 const db = () => ({
@@ -21,7 +21,7 @@ const db = () => ({
   gameNew,
   gameWon,
   gameLost,
-  gameCompleted,
+  gameAbandoned,
 });
 
 export default db();
