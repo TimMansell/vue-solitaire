@@ -24,9 +24,9 @@ const actions = {
 
     if (!hasMoves) {
       commit('SET_HAS_MOVES', false);
-    }
 
-    dispatch('setGameState', isBoardEmpty);
+      dispatch('setGameState', isBoardEmpty);
+    }
   },
   setFoundations({ commit }) {
     const foundationCards = solitaire.getFoundationCards();
@@ -97,7 +97,6 @@ const actions = {
 
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('trackNewGame');
   },
   setDraggedCards({ commit }, id) {
     const cards = solitaire.getDraggedCards(id);
