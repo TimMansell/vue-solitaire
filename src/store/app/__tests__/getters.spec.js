@@ -12,22 +12,6 @@ const {
   showNewGame,
 } = getters;
 
-// const state = {
-//   isGameWon: true,
-//   isGameLost: true,
-//   isGamePaused: {
-//     isPaused: true,
-//     isActive: true,
-//   },
-//   hasMoves: false,
-//   game: {
-//     time: 0,
-//   },
-//   showRules: false,
-//   showNewGame: false,
-//   isTimerPaused: true,
-// };
-
 const state = {
   ...defaultState(),
 };
