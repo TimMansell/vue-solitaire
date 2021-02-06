@@ -10,7 +10,10 @@ const actions = {
 
     dispatch('setBoard');
     dispatch('setFoundations');
-    dispatch('setCard', selectedCardId);
+
+    if (selectedCardId) {
+      dispatch('setCard', selectedCardId);
+    }
   },
   restart({ commit }) {
     commit('RESTART_GAME');
@@ -35,16 +38,19 @@ const actions = {
 
     commit('SET_BOARD', board);
   },
-  setCard({ commit, state, dispatch }, id) {
+  setCard({ state, dispatch }, id) {
     const { selectedCard } = state;
 
     if (selectedCard === id) {
       dispatch('unselectCard');
     } else {
-      solitaire.setSelectedCard(id);
-
-      commit('SELECT_CARD', id);
+      dispatch('selectCard', id);
     }
+  },
+  selectCard({ commit }, id) {
+    solitaire.setSelectedCard(id);
+
+    commit('SELECT_CARD', id);
   },
   unselectCard({ commit }) {
     solitaire.removeSelectedCard();
