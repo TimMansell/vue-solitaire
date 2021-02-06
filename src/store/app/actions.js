@@ -11,7 +11,6 @@ const actions = {
     }
 
     dispatch('getStatsCount');
-    // commit('NEW_GAME', false);
   },
   restartGame({ dispatch, commit, state }, completed) {
     const { game } = state;
@@ -21,7 +20,6 @@ const actions = {
     }
 
     dispatch('restart');
-    // dispatch('newGame', true);
 
     commit('RESTART');
   },
@@ -29,9 +27,7 @@ const actions = {
     if (isNewGame) {
       await dispatch('trackNewGame');
     }
-    // } else {
-    //   commit('NEW_GAME', completed);
-    // }
+
     commit('NEW_GAME', false);
   },
   async trackNewGame({ commit, rootState }) {
