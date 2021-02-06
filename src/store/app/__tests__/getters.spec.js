@@ -1,62 +1,38 @@
 import getters from '../getters';
+import defaultState from '../state';
 
 const {
-  boardCards,
-  foundationCards,
-  selectedCardId,
   isGameWon,
   isGameLost,
   isGamePaused,
   isGameActive,
   isTimerPaused,
-  hasMoves,
   timer,
   showRules,
   showNewGame,
-  draggedCards,
 } = getters;
 
+// const state = {
+//   isGameWon: true,
+//   isGameLost: true,
+//   isGamePaused: {
+//     isPaused: true,
+//     isActive: true,
+//   },
+//   hasMoves: false,
+//   game: {
+//     time: 0,
+//   },
+//   showRules: false,
+//   showNewGame: false,
+//   isTimerPaused: true,
+// };
+
 const state = {
-  board: {
-    cards: [],
-    foundation: [],
-  },
-  selectedCardId: 1,
-  isGameWon: true,
-  isGameLost: true,
-  isGamePaused: {
-    isPaused: true,
-    isActive: true,
-  },
-  hasMoves: false,
-  game: {
-    time: 0,
-  },
-  showRules: false,
-  showNewGame: false,
-  draggedCards: [],
-  isTimerPaused: true,
+  ...defaultState(),
 };
 
 describe('Solitaire Store', () => {
-  it('boardCards', () => {
-    const result = boardCards(state);
-
-    expect(result).toEqual(state.board.cards);
-  });
-
-  it('foundationCards', () => {
-    const result = foundationCards(state);
-
-    expect(result).toEqual(state.board.foundation);
-  });
-
-  it('selectedCardId', () => {
-    const result = selectedCardId(state);
-
-    expect(result).toEqual(state.selectedCardId);
-  });
-
   it('isGameLost', () => {
     const result = isGameLost(state);
 
@@ -87,12 +63,6 @@ describe('Solitaire Store', () => {
     expect(result).toEqual(state.isTimerPaused);
   });
 
-  it('hasMoves', () => {
-    const result = hasMoves(state);
-
-    expect(result).toEqual(state.hasMoves);
-  });
-
   it('timer', () => {
     const result = timer(state);
 
@@ -109,11 +79,5 @@ describe('Solitaire Store', () => {
     const result = showNewGame(state);
 
     expect(result).toEqual(state.showNewGame);
-  });
-
-  it('draggedCards', () => {
-    const result = draggedCards(state);
-
-    expect(result).toEqual(state.draggedCards);
   });
 });

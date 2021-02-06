@@ -2,56 +2,46 @@ import mutations from '../mutations';
 import defaultState from '../state';
 
 const {
-  RESTART_GAME,
+  RESTART,
   SET_GAME,
   SET_GAME_WON,
   SET_GAME_LOST,
   SET_GAME_PAUSED,
   SET_TIMER_PAUSED,
-  SET_BOARD,
-  SET_FOUNDATIONS,
-  SELECT_CARD,
-  UNSELECT_CARD,
-  SET_HAS_MOVES,
   INCREMENT_MOVES,
   UPDATE_GAME_TIME,
   SHOW_RULES,
   SHOW_NEW_GAME,
-  DRAG_CARDS,
-  CLEAR_DRAG_CARDS,
 } = mutations;
 
 describe('Solitaire Store', () => {
   let state = {};
 
   beforeEach(() => {
+    // state = {
+    //   isGameWon: false,
+    //   isGameLost: false,
+    //   isGamePaused: {
+    //     isPaused: false,
+    //     isActive: false,
+    //   },
+    //   game: {
+    //     id: null,
+    //     moves: 0,
+    //     time: 0,
+    //   },
+    //   showRules: false,
+    //   showNewGame: false,
+    //   isTimerPaused: false,
+    // };
+
     state = {
-      board: {
-        cards: [],
-        foundation: [],
-      },
-      selectedCardId: 1,
-      isGameWon: false,
-      isGameLost: false,
-      isGamePaused: {
-        isPaused: false,
-        isActive: false,
-      },
-      hasMoves: false,
-      game: {
-        id: null,
-        moves: 0,
-        time: 0,
-      },
-      showRules: false,
-      showNewGame: false,
-      draggedCards: [],
-      isTimerPaused: false,
+      ...defaultState(),
     };
   });
 
-  it('RESTART_GAME', () => {
-    RESTART_GAME(state);
+  it('RESTART', () => {
+    RESTART(state);
 
     expect(state).toEqual(defaultState());
   });
@@ -95,40 +85,6 @@ describe('Solitaire Store', () => {
     expect(state.isTimerPaused).toEqual(true);
   });
 
-  it('SET_BOARD', () => {
-    const deck = [{}];
-
-    SET_BOARD(state, deck);
-
-    expect(state.board.cards).toEqual(deck);
-  });
-
-  it('SET_FOUNDATIONS', () => {
-    const foundation = [{}];
-
-    SET_FOUNDATIONS(state, foundation);
-
-    expect(state.board.foundation).toEqual(foundation);
-  });
-
-  it('SELECT_CARD', () => {
-    SELECT_CARD(state, 2);
-
-    expect(state.selectedCardId).toEqual(2);
-  });
-
-  it('UNSELECT_CARD', () => {
-    UNSELECT_CARD(state);
-
-    expect(state.selectedCardId).toEqual(null);
-  });
-
-  it('SET_HAS_MOVES', () => {
-    SET_HAS_MOVES(state, true);
-
-    expect(state.hasMoves).toEqual(true);
-  });
-
   it('INCREMENT_MOVES', () => {
     INCREMENT_MOVES(state);
 
@@ -151,19 +107,5 @@ describe('Solitaire Store', () => {
     SHOW_NEW_GAME(state, true);
 
     expect(state.showNewGame).toEqual(true);
-  });
-
-  it('DRAG_CARDS', () => {
-    const cards = [{}];
-
-    DRAG_CARDS(state, cards);
-
-    expect(state.draggedCards).toEqual(cards);
-  });
-
-  it('CLEAR_DRAG_CARDS', () => {
-    CLEAR_DRAG_CARDS(state);
-
-    expect(state.draggedCards).toEqual([]);
   });
 });
