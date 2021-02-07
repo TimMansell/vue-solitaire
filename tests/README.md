@@ -13,7 +13,7 @@ Current unit test coverage:
 1. [Netlify Functions](/src/functions)
 1. [Helpers](/src/helpers)
 1. [Services](/src/services)
-1. [Store](/src/services/solitaire)
+1. [Store](/src/store)
 
 ## Running tests
 
