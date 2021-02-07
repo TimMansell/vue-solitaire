@@ -36,15 +36,15 @@ const actions = {
       commit('NEW_GAME', false);
     }
   },
-  setGameState({ commit, dispatch }, isBoardEmpty) {
-    if (isBoardEmpty) {
+  setGameState({ commit, dispatch }, hasWon) {
+    if (hasWon) {
       dispatch('setGameWon');
     } else {
       dispatch('setGameLost');
     }
 
-    commit('SET_GAME_WON', isBoardEmpty);
-    commit('SET_GAME_LOST', !isBoardEmpty);
+    commit('SET_GAME_WON', hasWon);
+    commit('SET_GAME_LOST', !hasWon);
   },
   setGameWon({ state }) {
     const { game } = state;
