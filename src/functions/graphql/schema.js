@@ -3,8 +3,6 @@ import { gql } from 'apollo-server-lambda';
 // eslint-disable-next-line import/prefer-default-export
 export const typeDefs = gql`
   type Query {
-    getUser(uid: String!): userLID
-    getUserStats(uid: String!): UserStats
     findUserByLID(uid: String!): userLID
     userStats(uid: String!): UserStats!
     globalStats: GlobalStats!
