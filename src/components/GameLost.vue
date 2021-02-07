@@ -4,7 +4,7 @@
       Sorry, no more Moves!
     </template>
     <template #buttons>
-      <NewGameButton completed />
+      <NewGameButton is-completed />
     </template>
   </GameOverlay>
 </template>
