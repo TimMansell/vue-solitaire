@@ -1,9 +1,9 @@
 import actions from '../actions';
 
 const {
-  init,
-  restart,
-  create,
+  initApp,
+  restartApp,
+  createGame,
   setGameState,
   setGameInactive,
   toggleGamePaused,
@@ -18,29 +18,29 @@ const dispatch = jest.fn();
 jest.mock('@/services/db');
 
 describe('Solitaire Store', () => {
-  it('init - new game', () => {
+  it('initApp - new game', () => {
     const state = {
       isNewGame: true,
     };
 
-    init({ commit, dispatch, state });
+    initApp({ commit, dispatch, state });
 
     expect(dispatch).toHaveBeenCalledWith('initGame', true);
-    expect(dispatch).toHaveBeenCalledWith('create', true);
+    expect(dispatch).toHaveBeenCalledWith('createGame', true);
   });
 
-  it('init - saved game', () => {
+  it('initApp - saved game', () => {
     const state = {
       isNewGame: false,
     };
 
-    init({ commit, dispatch, state });
+    initApp({ commit, dispatch, state });
 
     expect(dispatch).toHaveBeenCalledWith('initGame', false);
-    expect(dispatch).not.toHaveBeenCalledWith('create');
+    expect(dispatch).not.toHaveBeenCalledWith('createGame');
   });
 
-  it('restart', () => {
+  it('restartApp', () => {
     const state = {
       game: {
         id: 1,
@@ -48,12 +48,12 @@ describe('Solitaire Store', () => {
       },
     };
 
-    restart({ dispatch, commit, state }, false);
+    restartApp({ dispatch, commit, state }, false);
 
     expect(commit).toHaveBeenCalledWith('RESTART');
   });
 
-  it('create(', async () => {
+  it('createGame', async () => {
     const rootState = {
       user: {
         suid: 123,
@@ -64,7 +64,7 @@ describe('Solitaire Store', () => {
       _id: 123,
     };
 
-    await create({ commit, dispatch, rootState });
+    await createGame({ commit, dispatch, rootState });
 
     // eslint-disable-next-line no-underscore-dangle
     expect(commit).toHaveBeenCalledWith('SET_GAME', { id: mockResponse._id });

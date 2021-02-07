@@ -32,7 +32,7 @@ export default {
   async created() {
     await this.initUser();
 
-    this.initGame();
+    this.initApp();
 
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
@@ -44,7 +44,7 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
+    ...mapActions(['initUser', 'initApp', 'setBoardAndFoundation']),
   },
 };
 </script>
