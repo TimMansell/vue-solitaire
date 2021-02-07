@@ -1,5 +1,5 @@
 <template>
-  <div class="foundation">
+  <div class="foundation" data-test="foundations">
     <div
       v-for="(foundation, foundationsIndex) in foundationCards"
       :key="`f-${foundationsIndex}`"
