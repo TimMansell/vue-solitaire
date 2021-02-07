@@ -7,7 +7,7 @@ const actions = {
     dispatch('initGame', isNewGame);
 
     if (isNewGame) {
-      await dispatch('newGame', true);
+      await dispatch('create', true);
     }
 
     dispatch('getStatsCount');
@@ -23,14 +23,7 @@ const actions = {
 
     commit('RESTART');
   },
-  async newGame({ dispatch, commit }, isNewGame) {
-    if (isNewGame) {
-      await dispatch('trackNewGame');
-    }
-
-    commit('NEW_GAME', false);
-  },
-  async trackNewGame({ commit, rootState }) {
+  async create({ commit, rootState }) {
     const { suid } = rootState.user;
     const { error, response } = await db.gameNew(suid);
 
@@ -40,6 +33,7 @@ const actions = {
       } = response;
 
       commit('SET_GAME', { id });
+      commit('NEW_GAME', false);
     }
   },
   setGameState({ commit, state }, isBoardEmpty) {
