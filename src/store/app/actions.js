@@ -12,10 +12,10 @@ const actions = {
 
     dispatch('getStatsCount');
   },
-  restartGame({ dispatch, commit, state }, completed) {
+  restartGame({ dispatch, commit, state }, isCompleted) {
     const { game } = state;
 
-    if (!completed) {
+    if (!isCompleted) {
       db.gameAbandoned(game);
     }
 
