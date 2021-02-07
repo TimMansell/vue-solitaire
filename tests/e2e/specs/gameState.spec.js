@@ -39,6 +39,9 @@ describe('Game State', () => {
         });
     });
 
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
+
     cy.reload();
 
     cy.get('[data-test="column-0"]').within(() => {
