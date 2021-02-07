@@ -1,18 +1,15 @@
 import actions from '../actions';
 
 const {
-  init,
-  restart,
+  initGame,
   checkGameState,
   setFoundations,
   setBoard,
   setCard,
-  unselectCard,
   moveCardsToColumn,
   moveCardToFoundation,
   autoMoveCardToFoundation,
   setDraggedCards,
-  clearDraggedCards,
 } = actions;
 
 const commit = jest.fn();
@@ -23,12 +20,12 @@ jest.mock('@/services/db');
 jest.mock('../helpers');
 
 describe('Solitaire Store', () => {
-  it('init - new game', () => {
+  it('initGame - new game', () => {
     const state = {
       isNewGame: true,
     };
 
-    init({ dispatch, state }, true);
+    initGame({ dispatch, state }, true);
 
     expect(dispatch).not.toHaveBeenCalledWith('setCard');
   });
@@ -38,21 +35,15 @@ describe('Solitaire Store', () => {
       selectedCardId: 1,
     };
 
-    init({ dispatch, state }, false);
+    initGame({ dispatch, state }, false);
 
     expect(dispatch).toHaveBeenCalledWith('setCard', 1);
   });
 
-  it('restart', () => {
-    restart({ commit });
-
-    expect(commit).toHaveBeenCalledWith('RESTART_GAME');
-  });
-
-  it('checkGameState', () => {
+  it('checkGameState - no moves', () => {
     checkGameState({ commit, dispatch });
 
-    dispatch('setGameState', true);
+    expect(dispatch).toHaveBeenCalledWith('setGameState', true);
   });
 
   it('setFoundations', () => {
@@ -87,12 +78,6 @@ describe('Solitaire Store', () => {
     expect(dispatch).toHaveBeenCalledWith('unselectCard');
   });
 
-  it('unselectCard', () => {
-    unselectCard({ commit });
-
-    expect(commit).toHaveBeenCalledWith('UNSELECT_CARD');
-  });
-
   it('moveCardsToColumn', () => {
     moveCardsToColumn({ dispatch });
 
@@ -122,11 +107,5 @@ describe('Solitaire Store', () => {
     setDraggedCards({ commit }, 1);
 
     expect(commit).toHaveBeenCalledWith('DRAG_CARDS', []);
-  });
-
-  it('clearDraggedCards', () => {
-    clearDraggedCards({ commit });
-
-    expect(commit).toHaveBeenCalledWith('CLEAR_DRAG_CARDS');
   });
 });

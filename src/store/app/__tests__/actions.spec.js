@@ -1,9 +1,10 @@
 import actions from '../actions';
 
 const {
-  initGame,
-  restartGame,
-  trackNewGame,
+  init,
+  restart,
+  create,
+  setGameState,
   setGameInactive,
   toggleGamePaused,
   setTimerPaused,
@@ -17,29 +18,29 @@ const dispatch = jest.fn();
 jest.mock('@/services/db');
 
 describe('Solitaire Store', () => {
-  it('initGame - new game', () => {
+  it('init - new game', () => {
     const state = {
       isNewGame: true,
     };
 
-    initGame({ commit, dispatch, state });
+    init({ commit, dispatch, state });
 
-    expect(dispatch).toHaveBeenCalledWith('init', true);
-    expect(dispatch).toHaveBeenCalledWith('newGame', true);
+    expect(dispatch).toHaveBeenCalledWith('initGame', true);
+    expect(dispatch).toHaveBeenCalledWith('create', true);
   });
 
-  it('initGame - saved game', () => {
+  it('init - saved game', () => {
     const state = {
       isNewGame: false,
     };
 
-    initGame({ commit, dispatch, state });
+    init({ commit, dispatch, state });
 
-    expect(dispatch).toHaveBeenCalledWith('init', false);
-    expect(dispatch).not.toHaveBeenCalledWith('newGame');
+    expect(dispatch).toHaveBeenCalledWith('initGame', false);
+    expect(dispatch).not.toHaveBeenCalledWith('create');
   });
 
-  it('restartGame', () => {
+  it('restart', () => {
     const state = {
       game: {
         id: 1,
@@ -47,12 +48,12 @@ describe('Solitaire Store', () => {
       },
     };
 
-    restartGame({ dispatch, commit, state }, false);
+    restart({ dispatch, commit, state }, false);
 
     expect(commit).toHaveBeenCalledWith('RESTART');
   });
 
-  it('trackNewGame', async () => {
+  it('create(', async () => {
     const rootState = {
       user: {
         suid: 123,
@@ -63,10 +64,30 @@ describe('Solitaire Store', () => {
       _id: 123,
     };
 
-    await trackNewGame({ commit, dispatch, rootState });
+    await create({ commit, dispatch, rootState });
 
     // eslint-disable-next-line no-underscore-dangle
     expect(commit).toHaveBeenCalledWith('SET_GAME', { id: mockResponse._id });
+  });
+
+  it('setGameState - game won', () => {
+    const hasWon = true;
+
+    setGameState({ commit, dispatch }, hasWon);
+
+    expect(dispatch).toHaveBeenCalledWith('setGameWon');
+    expect(commit).toHaveBeenCalledWith('SET_GAME_WON', hasWon);
+    expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', !hasWon);
+  });
+
+  it('setGameState - game lost', () => {
+    const hasWon = false;
+
+    setGameState({ commit, dispatch }, hasWon);
+
+    expect(dispatch).toHaveBeenCalledWith('setGameLost');
+    expect(commit).toHaveBeenCalledWith('SET_GAME_WON', hasWon);
+    expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', !hasWon);
   });
 
   it('setGameInactive', () => {
