@@ -2,7 +2,7 @@ import solitaire from '@/services/solitaire';
 import { getBoardState } from './helpers';
 
 const actions = {
-  async init({ dispatch, state }, isNewGame) {
+  async initGame({ dispatch, state }, isNewGame) {
     const { selectedCardId } = state;
     const boardToUse = getBoardState(isNewGame);
 
@@ -15,7 +15,7 @@ const actions = {
       dispatch('setCard', selectedCardId);
     }
   },
-  restart({ commit }) {
+  restartGame({ commit }) {
     commit('RESTART_GAME');
   },
   checkGameState({ commit, dispatch }) {

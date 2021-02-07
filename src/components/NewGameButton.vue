@@ -28,7 +28,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['restartGame', 'initGame', 'toggleNewGame']),
+    ...mapActions(['restart', 'init', 'toggleNewGame']),
     newGame() {
       const { isCompleted, showConfirmation } = this;
 
@@ -38,8 +38,8 @@ export default {
         return;
       }
 
-      this.restartGame(isCompleted);
-      this.initGame();
+      this.restart(isCompleted);
+      this.init();
     },
   },
 };

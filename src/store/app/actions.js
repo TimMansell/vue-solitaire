@@ -1,10 +1,10 @@
 import db from '@/services/db';
 
 const actions = {
-  async initGame({ dispatch, state }) {
+  async init({ dispatch, state }) {
     const { isNewGame } = state;
 
-    dispatch('init', isNewGame);
+    dispatch('initGame', isNewGame);
 
     if (isNewGame) {
       await dispatch('newGame', true);
@@ -12,14 +12,14 @@ const actions = {
 
     dispatch('getStatsCount');
   },
-  restartGame({ dispatch, commit, state }, isCompleted) {
+  restart({ dispatch, commit, state }, isCompleted) {
     const { game } = state;
 
     if (!isCompleted) {
       db.gameAbandoned(game);
     }
 
-    dispatch('restart');
+    dispatch('restartGame');
 
     commit('RESTART');
   },
