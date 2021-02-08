@@ -36,7 +36,7 @@ const gameLost = () => ({
   response: { lostGame: mockID },
 });
 
-const gameCompleted = () => ({
+const gameAbandoned = () => ({
   response: { completedGame: mockID },
 });
 
@@ -49,7 +49,7 @@ const db = () => ({
   gameNew,
   gameWon,
   gameLost,
-  gameCompleted,
+  gameAbandoned,
 });
 
 export default db();

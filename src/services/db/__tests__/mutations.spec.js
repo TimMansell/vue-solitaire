@@ -3,7 +3,7 @@ import {
   gameNew,
   gameWon,
   gameLost,
-  gameCompleted,
+  gameAbandoned,
 } from '../mutations';
 
 jest.mock('../apollo');
@@ -45,8 +45,8 @@ describe('DB service mutations', () => {
     });
   });
 
-  it('gameCompleted', async () => {
-    const result = await gameCompleted(1);
+  it('gameAbandoned', async () => {
+    const result = await gameAbandoned(1);
 
     expect(result).toEqual({
       error: false,

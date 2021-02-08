@@ -15,7 +15,7 @@ import GameState from '@/components/GameState.vue';
 import RulesOverlay from '@/components/RulesOverlay.vue';
 import StatsOverlay from '@/components/StatsOverlay.vue';
 import NewGameOverlay from '@/components/NewGameOverlay.vue';
-// import aces from '../../tests/fixtures/boards/noMovesKingColumn.json';
+// import fixture from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
@@ -32,7 +32,7 @@ export default {
   async created() {
     await this.initUser();
 
-    this.initGame();
+    this.initApp();
 
     // Force cypress to wait until async functions have loaded.
     if (window.Cypress) {
@@ -40,11 +40,11 @@ export default {
     }
 
     // if (process.env.NODE_ENV === 'development') {
-    //   this.setBoardAndFoundation(aces);
+    //   this.setBoardAndFoundation(fixture);
     // }
   },
   methods: {
-    ...mapActions(['initUser', 'initGame', 'setBoardAndFoundation']),
+    ...mapActions(['initUser', 'initApp', 'setBoardAndFoundation']),
   },
 };
 </script>

@@ -70,7 +70,11 @@ describe('Graphql Schema', () => {
       const query = `
         query {
           globalStats {
+            won
+            lost
             count
+            completed
+            players
           }
         }
       `;
@@ -82,7 +86,11 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           globalStats: {
+            won: 1,
+            lost: 1,
             count: 1,
+            completed: 1,
+            players: 1,
           },
         },
       });

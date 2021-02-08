@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import defaultState from './state';
 
 const mutations = {
@@ -9,36 +8,11 @@ const mutations = {
 
     Object.assign(state, newState);
   },
-  NEW_GAME(state, isNewGame) {
-    state.isNewGame = isNewGame;
-  },
-  SET_GAME(state, game) {
-    state.game = {
-      ...state.game,
-      ...game,
-    };
-  },
-  SET_GAME_WON(state, isGameWon) {
-    state.isGameWon = isGameWon;
-  },
-  SET_GAME_LOST(state, isGameLost) {
-    state.isGameLost = isGameLost;
-  },
-  SET_GAME_PAUSED(state, isGamePaused) {
-    state.isGamePaused = isGamePaused;
-  },
-  SET_TIMER_PAUSED(state, isTimerPaused) {
-    state.isTimerPaused = isTimerPaused;
-  },
   SET_BOARD(state, deck) {
-    deck.forEach((cards, index) => {
-      Vue.set(state.board.cards, index, cards);
-    });
+    state.board.cards = deck;
   },
   SET_FOUNDATIONS(state, foundationColumns) {
-    foundationColumns.forEach((foundation, index) => {
-      Vue.set(state.board.foundation, index, foundation);
-    });
+    state.board.foundation = foundationColumns;
   },
   SELECT_CARD(state, id) {
     state.selectedCardId = id;
@@ -48,18 +22,6 @@ const mutations = {
   },
   SET_HAS_MOVES(state, hasMoves) {
     state.hasMoves = hasMoves;
-  },
-  INCREMENT_MOVES(state) {
-    state.game.moves += 1;
-  },
-  UPDATE_GAME_TIME(state) {
-    state.game.time += 1;
-  },
-  SHOW_RULES(state, showRules) {
-    state.showRules = showRules;
-  },
-  SHOW_NEW_GAME(state, showNewGame) {
-    state.showNewGame = showNewGame;
   },
   DRAG_CARDS(state, cards) {
     state.draggedCards = cards;

@@ -7,6 +7,7 @@ const solitaire = () => ({
   getBoardCards: () => [],
   hasMoves: () => false,
   setSelectedCard: () => 1,
+  removeSelectedCard: () => jest.fn(),
   findEmptyFoundationColumn: () => 0,
   isValidCardMove: () => true,
   moveCards: () => jest.fn(),

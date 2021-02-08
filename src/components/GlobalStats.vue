@@ -1,7 +1,8 @@
 <template>
   <div>
-    Global Games:
-    <Counter data-test="global-stats" :number="number" /> (<ViewStatsButton
+    Players:
+    <Counter data-test="player-count" :number="players" /> | Global Games:
+    <Counter data-test="global-stats" :number="games" /> (<ViewStatsButton
       :load-stats="getGlobalStats"
       data-test="global-stats-btn"
     />)
@@ -21,12 +22,19 @@ export default {
   },
   computed: {
     ...mapGetters(['globalStats']),
-    number() {
+    games() {
       const {
         globalStats: { completed },
       } = this;
 
       return completed;
+    },
+    players() {
+      const {
+        globalStats: { players },
+      } = this;
+
+      return players;
     },
   },
   methods: {

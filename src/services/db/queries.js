@@ -38,6 +38,7 @@ export const getStatsCount = async (uid) => {
           }
           globalStats {
             completed
+            players
           }
         }
       `,
