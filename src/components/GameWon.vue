@@ -4,7 +4,7 @@
       Congratulations, you win!
     </template>
     <template #buttons>
-      <NewGameButton completed />
+      <NewGameButton is-completed />
     </template>
   </GameOverlay>
 </template>

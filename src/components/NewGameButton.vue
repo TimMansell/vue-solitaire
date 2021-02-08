@@ -14,7 +14,7 @@ export default {
     Button,
   },
   props: {
-    completed: {
+    isCompleted: {
       type: Boolean,
       default: false,
     },
@@ -28,9 +28,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['restartGame', 'initGame', 'toggleNewGame']),
+    ...mapActions(['restartApp', 'initApp', 'toggleNewGame']),
     newGame() {
-      const { completed, showConfirmation } = this;
+      const { isCompleted, showConfirmation } = this;
 
       if (showConfirmation) {
         this.toggleNewGame();
@@ -38,8 +38,8 @@ export default {
         return;
       }
 
-      this.restartGame(completed);
-      this.initGame();
+      this.restartApp(isCompleted);
+      this.initApp();
     },
   },
 };

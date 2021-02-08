@@ -8,23 +8,70 @@ describe('Game State', () => {
   });
 
   it('refreshing page shows same board state', () => {
-    cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="card-Q♠"]')
-        .click()
-        .should('have.class', 'card--is-selected');
+    let initalCard1;
+    let initialCard2;
+    let initialCard3;
+    let finalCard1;
+    let finalCard2;
+    let finalCard3;
 
-      cy.reload();
+    cy.get('[data-test="column-0"]').within(() => {
+      cy.get('[data-test^="card"]')
+        .eq(6)
+        .then(($card) => {
+          initalCard1 = $card.attr('data-test');
+        });
+    });
 
-      cy.get('[data-test="column-0"]')
-        .children()
-        .should('have.length', 2);
+    cy.get('[data-test="column-2"]').within(() => {
+      cy.get('[data-test^="card"]')
+        .eq(4)
+        .then(($card) => {
+          initialCard2 = $card.attr('data-test');
+        });
+    });
 
-      cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="column-card-placeholder"]').should(
-          'have.length',
-          7
-        );
-      });
+    cy.get('[data-test="column-5"]').within(() => {
+      cy.get('[data-test^="card"]')
+        .eq(1)
+        .then(($card) => {
+          initialCard3 = $card.attr('data-test');
+        });
+    });
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
+
+    cy.reload();
+
+    cy.get('[data-test="column-0"]').within(() => {
+      cy.get('[data-test^="card"]')
+        .eq(6)
+        .then(($card) => {
+          finalCard1 = $card.attr('data-test');
+
+          expect(initalCard1).to.equal(finalCard1);
+        });
+    });
+
+    cy.get('[data-test="column-2"]').within(() => {
+      cy.get('[data-test^="card"]')
+        .eq(4)
+        .then(($card) => {
+          finalCard2 = $card.attr('data-test');
+
+          expect(initialCard2).to.equal(finalCard2);
+        });
+    });
+
+    cy.get('[data-test="column-5"]').within(() => {
+      cy.get('[data-test^="card"]')
+        .eq(1)
+        .then(($card) => {
+          finalCard3 = $card.attr('data-test');
+
+          expect(initialCard3).to.equal(finalCard3);
+        });
     });
   });
 
@@ -48,19 +95,21 @@ describe('Game State', () => {
   });
 
   it('clicking on card then refreshing page should highlight card, then unhighlight card', () => {
-    cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="card-Q♠"]')
+    cy.get('[data-test="column-0"]').within(() => {
+      cy.get('[data-test^="card"]')
+        .eq(6)
         .click()
         .should('have.class', 'card--is-selected');
+    });
 
-      cy.reload();
+    cy.reload();
 
-      cy.get('[data-test="column-1"]').click();
-
-      cy.get('[data-test="card-Q♠"]').should(
-        'not.have.class',
-        'card--is-selected'
-      );
+    cy.get('[data-test="column-0"]').within(() => {
+      cy.get('[data-test^="card"]')
+        .eq(6)
+        .should('have.class', 'card--is-selected')
+        .click()
+        .should('not.have.class', 'card--is-selected');
     });
   });
 
