@@ -92,7 +92,6 @@ export const getGlobalStats = async () => {
             won
             lost
             completed
-            players
           }
         }
       `,
