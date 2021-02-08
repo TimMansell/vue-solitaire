@@ -105,8 +105,16 @@ describe('Stats', () => {
     it('it successfully retrieves games played', () => {
       const number = 0;
 
-      cy.get('[data-test="stats"]').then(() => {
-        cy.get('[data-test="stats"]').should('not.equal', number);
+      cy.get('[data-test="global-stats"]').then(() => {
+        cy.get('[data-test="global-stats"]').should('not.equal', number);
+      });
+    });
+
+    it('it successfully retrieves player count', () => {
+      const number = 0;
+
+      cy.get('[data-test="player-count"]').then(() => {
+        cy.get('[data-test="player-count"]').should('not.equal', number);
       });
     });
 

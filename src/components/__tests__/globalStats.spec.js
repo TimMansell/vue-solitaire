@@ -7,6 +7,7 @@ describe('GlobalStats.vue', () => {
       computed: {
         globalStats: () => ({
           count: 1,
+          players: 1,
         }),
       },
     });

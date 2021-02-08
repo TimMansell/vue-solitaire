@@ -29,6 +29,7 @@ export const typeDefs = gql`
     won: Int
     lost: Int
     completed: Int
+    players: Int
   }
   input GameInput {
     won: Boolean
