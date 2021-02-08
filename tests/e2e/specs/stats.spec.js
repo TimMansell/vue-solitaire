@@ -105,8 +105,16 @@ describe('Stats', () => {
     it('it successfully retrieves games played', () => {
       const number = 0;
 
-      cy.get('[data-test="stats"]').then(() => {
-        cy.get('[data-test="stats"]').should('not.equal', number);
+      cy.get('[data-test="global-stats"]').then(() => {
+        cy.get('[data-test="global-stats"]').should('not.equal', number);
+      });
+    });
+
+    it('it successfully retrieves player count', () => {
+      const number = 0;
+
+      cy.get('[data-test="player-count"]').then(() => {
+        cy.get('[data-test="player-count"]').should('not.equal', number);
       });
     });
 
@@ -184,6 +192,29 @@ describe('Stats', () => {
       cy.document().trigger('visibilitychange');
 
       cy.get('[data-test="game-paused"]').should('not.be.visible');
+    });
+
+    it('it successfully retrieves player count when view stats are clicked', () => {
+      let number1 = 0;
+      let number2 = 0;
+
+      cy.get('[data-test="global-stats-btn"]').click({ force: true });
+
+      cy.get('[data-test="close-stats-btn"]').click();
+
+      cy.get('[data-test="player-count"]').within(($counter) => {
+        number1 = $counter[0].innerText;
+      });
+
+      cy.get('[data-test="global-stats-btn"]').click();
+
+      cy.get('[data-test="close-stats-btn"]').click();
+
+      cy.get('[data-test="player-count"]').within(($counter) => {
+        number2 = $counter[0].innerText;
+
+        expect(number1).not.to.equal(number2);
+      });
     });
   });
 });
