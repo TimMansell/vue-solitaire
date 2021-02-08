@@ -8,8 +8,8 @@ const actions = {
     const { userStats, globalStats } = response;
 
     if (!error) {
-      commit('SET_GLOBAL_STATS', { ...globalStats });
-      commit('SET_USER_STATS', { ...userStats });
+      commit('SET_GLOBAL_STATS', globalStats);
+      commit('SET_USER_STATS', userStats);
     }
   },
   async getGlobalStats({ commit }) {
@@ -17,8 +17,8 @@ const actions = {
     const { globalStats } = response;
 
     if (!error) {
-      commit('SET_FULL_STATS', { ...globalStats });
-      commit('SET_GLOBAL_STATS', { ...globalStats });
+      commit('SET_FULL_STATS', globalStats);
+      commit('SET_GLOBAL_STATS', globalStats);
     }
   },
   async getUserStats({ commit, rootState }) {
@@ -27,8 +27,8 @@ const actions = {
     const { userStats } = response;
 
     if (!error) {
-      commit('SET_FULL_STATS', { ...userStats });
-      commit('SET_USER_STATS', { ...userStats });
+      commit('SET_FULL_STATS', userStats);
+      commit('SET_USER_STATS', userStats);
     }
   },
   toggleStats({ commit, state }) {

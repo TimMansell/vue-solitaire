@@ -1,12 +1,27 @@
 const mutations = {
   SET_GLOBAL_STATS(state, stats) {
-    state.globalStats = stats;
+    const { globalStats } = state;
+
+    state.globalStats = {
+      ...globalStats,
+      ...stats,
+    };
   },
   SET_USER_STATS(state, stats) {
-    state.userStats = stats;
+    const { userStats } = state;
+
+    state.userStats = {
+      ...userStats,
+      ...stats,
+    };
   },
   SET_FULL_STATS(state, stats) {
-    state.fullStats = stats;
+    const { fullStats } = state;
+
+    state.fullStats = {
+      ...fullStats,
+      ...stats,
+    };
   },
   SHOW_STATS(state, showStats) {
     state.showStats = showStats;
