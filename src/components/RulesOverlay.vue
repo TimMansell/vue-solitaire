@@ -45,7 +45,7 @@
       <p>
         You can move cards by:
       </p>
-      <ul>
+      <ul data-test="rules-overlay-move-list">
         <li class="show-on-click">
           clicking and dragging the card(s) to the desired column
         </li>
