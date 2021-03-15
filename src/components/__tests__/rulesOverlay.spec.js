@@ -7,4 +7,13 @@ describe('RulesOverlay.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('should show correct amount of move options', () => {
+    const wrapper = shallowMount(RulesOverlay);
+    const list = wrapper
+      .find('[data-test="rules-overlay-move-list"]')
+      .findAll('li');
+
+    expect(list).toHaveLength(3);
+  });
 });
