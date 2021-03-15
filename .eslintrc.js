@@ -26,6 +26,13 @@ module.exports = {
         },
       },
     ],
+
+    'vue-scoped-css/no-unused-selector': [
+      'error',
+      {
+        ignoreBEMModifier: true,
+      },
+    ],
   },
   overrides: [
     {
