@@ -46,7 +46,7 @@
         You can move cards by:
       </p>
       <ul>
-        <li class="display-on--click">
+        <li class="show-on-click">
           clicking and dragging the card(s) to the desired column
         </li>
         <li>
@@ -54,9 +54,9 @@
           column. All cards below the selected card will be moved as well
         </li>
         <li>
-          double <span class="display-on--click">clicking</span>
-          <span class="display-on--touch">tapping or swiping up</span> on cards
-          will move them to the foundation columns
+          double <span class="show-on-click">clicking</span>
+          <span class="show-on-touch">tapping or swiping up</span> on cards will
+          move them to the foundation columns
         </li>
       </ul>
     </template>
@@ -87,3 +87,17 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.show-on-touch {
+  @media (hover: hover) and (pointer: fine) {
+    display: none;
+  }
+}
+
+.show-on-click {
+  @media (hover: none) and (pointer: coarse) {
+    display: none;
+  }
+}
+</style>
