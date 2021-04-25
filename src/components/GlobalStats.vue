@@ -1,10 +1,10 @@
 <template>
   <div>
-    Players:
-    <Counter data-test="player-count" :number="players" /> | Global Games:
-    <Counter data-test="global-stats" :number="games" />
-    <span v-if="isStatsEnabled"
-      >(<ViewStatsButton
+    <span v-if="isStatsEnabled">
+      Players:
+      <Counter data-test="player-count" :number="players" /> | Global Games:
+      <Counter data-test="global-stats" :number="games" />
+      (<ViewStatsButton
         :load-stats="getGlobalStats"
         data-test="global-stats-btn"
       />)</span

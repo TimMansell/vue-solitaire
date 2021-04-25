@@ -102,72 +102,72 @@ describe('Stats', () => {
     }
   });
 
-  describe('Global Stats', () => {
-    beforeEach(() => {
-      cy.visit('/');
-    });
-
-    it('it successfully retrieves games played', () => {
-      const number = 0;
-
-      cy.get('[data-test="global-stats"]').then(() => {
-        cy.get('[data-test="global-stats"]').should('not.equal', number);
+  if (isStatsEnabled) {
+    describe('Global Stats', () => {
+      beforeEach(() => {
+        cy.visit('/');
       });
-    });
 
-    it('it successfully retrieves player count', () => {
-      const number = 0;
+      it('it successfully retrieves games played', () => {
+        const number = 0;
 
-      cy.get('[data-test="player-count"]').then(() => {
-        cy.get('[data-test="player-count"]').should('not.equal', number);
+        cy.get('[data-test="global-stats"]').then(() => {
+          cy.get('[data-test="global-stats"]').should('not.equal', number);
+        });
       });
-    });
 
-    it('it successfully increments games played', () => {
-      cy.get('[data-test="global-stats"]').then(($stats) => {
-        const number = $stats.text();
+      it('it successfully retrieves player count', () => {
+        const number = 0;
 
-        cy.get('[data-test="new-game-btn"]').click();
+        cy.get('[data-test="player-count"]').then(() => {
+          cy.get('[data-test="player-count"]').should('not.equal', number);
+        });
+      });
 
-        cy.get('[data-test="game-overlay-btns"]').within(() => {
+      it('it successfully increments games played', () => {
+        cy.get('[data-test="global-stats"]').then(($stats) => {
+          const number = $stats.text();
+
           cy.get('[data-test="new-game-btn"]').click();
-        });
 
-        cy.get('[data-test="global-stats"]').should('not.equal', number);
-      });
-    });
-
-    it('it successfully increments games played after lost game', () => {
-      cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
-        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
-
-        cy.get('[data-test="global-stats"]').then(($stats) => {
-          const number = $stats.text();
-
-          cy.get('[data-test="game-overlay-btns"]').click();
+          cy.get('[data-test="game-overlay-btns"]').within(() => {
+            cy.get('[data-test="new-game-btn"]').click();
+          });
 
           cy.get('[data-test="global-stats"]').should('not.equal', number);
         });
       });
-    });
 
-    it('it successfully increments games played after won game', () => {
-      cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+      it('it successfully increments games played after lost game', () => {
+        cy.setBoard(noMovesKingColumn).then(() => {
+          cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+          cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
-        cy.get('[data-test="global-stats"]').then(($stats) => {
-          const number = $stats.text();
+          cy.get('[data-test="global-stats"]').then(($stats) => {
+            const number = $stats.text();
 
-          cy.get('[data-test="game-overlay-btns"]').click();
+            cy.get('[data-test="game-overlay-btns"]').click();
 
-          cy.get('[data-test="global-stats"]').should('not.equal', number);
+            cy.get('[data-test="global-stats"]').should('not.equal', number);
+          });
         });
       });
-    });
 
-    if (isStatsEnabled) {
+      it('it successfully increments games played after won game', () => {
+        cy.setBoard(foundations).then(() => {
+          cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+          cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+
+          cy.get('[data-test="global-stats"]').then(($stats) => {
+            const number = $stats.text();
+
+            cy.get('[data-test="game-overlay-btns"]').click();
+
+            cy.get('[data-test="global-stats"]').should('not.equal', number);
+          });
+        });
+      });
+
       it('should show global stats overlay and then close overlay', () => {
         cy.get('[data-test="global-stats-btn"]').click();
 
@@ -199,6 +199,6 @@ describe('Stats', () => {
 
         cy.get('[data-test="game-paused"]').should('not.be.visible');
       });
-    }
-  });
+    });
+  }
 });
