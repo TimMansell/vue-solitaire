@@ -1,5 +1,8 @@
 import foundations from '../../fixtures/boards/fullFoundation.json';
 import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
+import { checkStatsFlag } from '../../../src/helpers/stats';
+
+const isStatsEnabled = checkStatsFlag();
 
 describe('Stats', () => {
   describe('User Stats', () => {
@@ -64,37 +67,39 @@ describe('Stats', () => {
       });
     });
 
-    it('should show user stats overlay and then close overlay', () => {
-      cy.get('[data-test="user-stats-btn"]').click();
+    if (isStatsEnabled) {
+      it('should show user stats overlay and then close overlay', () => {
+        cy.get('[data-test="user-stats-btn"]').click();
 
-      cy.get('[data-test="stats-overlay"]')
-        .should('be.visible')
-        .within(() => {
-          cy.get('[data-test="close-stats-btn"]').click();
-        });
+        cy.get('[data-test="stats-overlay"]')
+          .should('be.visible')
+          .within(() => {
+            cy.get('[data-test="close-stats-btn"]').click();
+          });
 
-      cy.get('[data-test="stats-overlay"]').should('not.be.visible');
-    });
-
-    it('should show user stats overlay on page refresh', () => {
-      cy.get('[data-test="user-stats-btn"]').click();
-
-      cy.reload();
-
-      cy.get('[data-test="stats-overlay"]').should('be.visible');
-    });
-
-    it('should not show game paused if user stats overlay is visible', () => {
-      cy.document().then((doc) => {
-        cy.stub(doc, 'visibilityState').value('hidden');
+        cy.get('[data-test="stats-overlay"]').should('not.be.visible');
       });
 
-      cy.get('[data-test="user-stats-btn"]').click();
+      it('should show user stats overlay on page refresh', () => {
+        cy.get('[data-test="user-stats-btn"]').click();
 
-      cy.document().trigger('visibilitychange');
+        cy.reload();
 
-      cy.get('[data-test="game-paused"]').should('not.be.visible');
-    });
+        cy.get('[data-test="stats-overlay"]').should('be.visible');
+      });
+
+      it('should not show game paused if user stats overlay is visible', () => {
+        cy.document().then((doc) => {
+          cy.stub(doc, 'visibilityState').value('hidden');
+        });
+
+        cy.get('[data-test="user-stats-btn"]').click();
+
+        cy.document().trigger('visibilitychange');
+
+        cy.get('[data-test="game-paused"]').should('not.be.visible');
+      });
+    }
   });
 
   describe('Global Stats', () => {
@@ -162,36 +167,38 @@ describe('Stats', () => {
       });
     });
 
-    it('should show global stats overlay and then close overlay', () => {
-      cy.get('[data-test="global-stats-btn"]').click();
+    if (isStatsEnabled) {
+      it('should show global stats overlay and then close overlay', () => {
+        cy.get('[data-test="global-stats-btn"]').click();
 
-      cy.get('[data-test="stats-overlay"]')
-        .should('be.visible')
-        .within(() => {
-          cy.get('[data-test="close-stats-btn"]').click();
-        });
+        cy.get('[data-test="stats-overlay"]')
+          .should('be.visible')
+          .within(() => {
+            cy.get('[data-test="close-stats-btn"]').click();
+          });
 
-      cy.get('[data-test="stats-overlay"]').should('not.be.visible');
-    });
-
-    it('should show global stats overlay on page refresh', () => {
-      cy.get('[data-test="global-stats-btn"]').click();
-
-      cy.reload();
-
-      cy.get('[data-test="stats-overlay"]').should('be.visible');
-    });
-
-    it('should not show game paused if global stats overlay is visible', () => {
-      cy.document().then((doc) => {
-        cy.stub(doc, 'visibilityState').value('hidden');
+        cy.get('[data-test="stats-overlay"]').should('not.be.visible');
       });
 
-      cy.get('[data-test="global-stats-btn"]').click({ force: true });
+      it('should show global stats overlay on page refresh', () => {
+        cy.get('[data-test="global-stats-btn"]').click();
 
-      cy.document().trigger('visibilitychange');
+        cy.reload();
 
-      cy.get('[data-test="game-paused"]').should('not.be.visible');
-    });
+        cy.get('[data-test="stats-overlay"]').should('be.visible');
+      });
+
+      it('should not show game paused if global stats overlay is visible', () => {
+        cy.document().then((doc) => {
+          cy.stub(doc, 'visibilityState').value('hidden');
+        });
+
+        cy.get('[data-test="global-stats-btn"]').click({ force: true });
+
+        cy.document().trigger('visibilitychange');
+
+        cy.get('[data-test="game-paused"]').should('not.be.visible');
+      });
+    }
   });
 });
