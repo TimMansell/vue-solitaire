@@ -37,4 +37,4 @@ jobs:
       - name: e2e Tests
         run: yarn test:e2e
           env: 
-            ENABLE_STATS:false
+            ENABLE_STATS: false
