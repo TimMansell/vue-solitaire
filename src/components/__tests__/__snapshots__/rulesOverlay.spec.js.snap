@@ -44,8 +44,8 @@ exports[`RulesOverlay.vue matches snapshot 1`] = `
   <p>
     You can move cards by:
   </p>
-  <ul>
-    <li class="display-on--click">
+  <ul data-test="rules-overlay-move-list">
+    <li class="show-on-click">
       clicking and dragging the card(s) to the desired column
     </li>
     <li>
@@ -53,8 +53,8 @@ exports[`RulesOverlay.vue matches snapshot 1`] = `
       column. All cards below the selected card will be moved as well
     </li>
     <li>
-      double <span class="display-on--click">clicking</span> <span class="display-on--touch">tapping or swiping up</span> on cards
-      will move them to the foundation columns
+      double <span class="show-on-click">clicking</span> <span class="show-on-touch">tapping or swiping up</span> on cards will
+      move them to the foundation columns
     </li>
   </ul>
   <button-stub data-test="close-rules-btn">
