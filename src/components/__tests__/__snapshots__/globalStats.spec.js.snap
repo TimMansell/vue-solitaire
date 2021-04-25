@@ -2,9 +2,6 @@
 
 exports[`GlobalStats.vue matches snapshot 1`] = `
 <div>
-  Players:
-  <counter-stub number="1" data-test="player-count"></counter-stub> | Global Games:
-  <counter-stub number="0" data-test="global-stats"></counter-stub>
   <!---->
 </div>
 `;
