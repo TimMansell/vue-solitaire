@@ -5,17 +5,23 @@ export const userStats = async (_, __, context) => {
 
   const db = await context.client();
 
-  const won = await db
+  const wonQuery = db
     .collection('game')
     .find({ uid, won: true }, { projection: { won: 1 } });
 
-  const lost = await db
+  const lostQuery = db
     .collection('game')
     .find({ uid, lost: true }, { projection: { lost: 1 } });
 
-  const completed = await db
+  const completedQuery = db
     .collection('game')
     .find({ uid, completed: true }, { projection: { completed: 1 } });
+
+  const result = await Promise.all([wonQuery, lostQuery, completedQuery]).then(
+    (values) => values
+  );
+
+  const [won, lost, completed] = result;
 
   return {
     won: won.count(),
@@ -27,17 +33,23 @@ export const userStats = async (_, __, context) => {
 export const globalStats = async (_, __, context) => {
   const db = await context.client();
 
-  const won = await db
+  const wonQuery = db
     .collection('game')
     .find({ won: true }, { projection: { won: 1 } });
 
-  const lost = await db
+  const lostQuery = db
     .collection('game')
     .find({ lost: true }, { projection: { lost: 1 } });
 
-  const completed = await db
+  const completedQuery = db
     .collection('game')
     .find({ completed: true }, { projection: { completed: 1 } });
+
+  const result = await Promise.all([wonQuery, lostQuery, completedQuery]).then(
+    (values) => values
+  );
+
+  const [won, lost, completed] = result;
 
   return {
     won: won.count(),
