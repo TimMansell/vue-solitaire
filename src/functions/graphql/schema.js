@@ -22,7 +22,6 @@ export const typeDefs = gql`
     uid: String
   }
   type GlobalStats {
-    count: Int
     won: Int
     lost: Int
     completed: Int
@@ -40,7 +39,6 @@ export const typeDefs = gql`
     uid: String
   }
   type UserStats {
-    count: Int
     won: Int
     lost: Int
     completed: Int
