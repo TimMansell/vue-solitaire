@@ -2,9 +2,9 @@ import db from '@/services/db';
 
 const actions = {
   async getStatsCount({ commit, rootState }) {
-    const { suid } = rootState.user;
+    const { luid } = rootState.user;
 
-    const { error, response } = await db.getStatsCount(suid);
+    const { error, response } = await db.getStatsCount(luid);
     const { userStats, globalStats } = response;
 
     if (!error) {
@@ -22,8 +22,8 @@ const actions = {
     }
   },
   async getUserStats({ commit, rootState }) {
-    const { suid } = rootState.user;
-    const { error, response } = await db.getUserStats(suid);
+    const { luid } = rootState.user;
+    const { error, response } = await db.getUserStats(luid);
     const { userStats } = response;
 
     if (!error) {
