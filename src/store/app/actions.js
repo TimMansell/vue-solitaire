@@ -6,9 +6,9 @@ const actions = {
 
     dispatch('initGame', isNewGame);
 
-    if (isNewGame) {
-      await dispatch('createGame', true);
-    }
+    // if (isNewGame) {
+    //   await dispatch('createGame', true);
+    // }
 
     dispatch('getStatsCount');
   },
@@ -24,19 +24,19 @@ const actions = {
 
     commit('RESTART');
   },
-  async createGame({ commit, rootState }) {
-    const { suid } = rootState.user;
-    const { error, response } = await db.gameNew(suid);
+  // async createGame({ commit, rootState }) {
+  //   const { suid } = rootState.user;
+  //   const { error, response } = await db.gameNew(suid);
 
-    if (!error) {
-      const {
-        newGame: { _id: id },
-      } = response;
+  //   if (!error) {
+  //     const {
+  //       newGame: { _id: id },
+  //     } = response;
 
-      commit('SET_GAME', { id });
-      commit('NEW_GAME', false);
-    }
-  },
+  //     commit('SET_GAME', { id });
+  //     commit('NEW_GAME', false);
+  //   }
+  // },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {
       dispatch('setGameWon');
