@@ -8,7 +8,6 @@ const state = () => ({
   },
   isTimerPaused: false,
   game: {
-    id: null,
     moves: 0,
     time: 0,
   },

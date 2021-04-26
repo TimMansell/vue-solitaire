@@ -12,11 +12,12 @@ const actions = {
 
     dispatch('getStatsCount');
   },
-  restartApp({ dispatch, commit, state }, isCompleted) {
+  restartApp({ dispatch, commit, state, rootState }, isCompleted) {
+    const { luid } = rootState.user;
     const { game } = state;
 
     if (!isCompleted) {
-      db.gameAbandoned(game);
+      db.gameAbandoned({ luid, ...game });
     }
 
     dispatch('restartGame');
@@ -46,15 +47,17 @@ const actions = {
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
-  setGameWon({ state }) {
+  setGameWon({ state, rootState }) {
+    const { luid } = rootState.user;
     const { game } = state;
 
-    db.gameWon(game);
+    db.gameWon({ luid, ...game });
   },
-  setGameLost({ state }) {
+  setGameLost({ state, rootState }) {
+    const { luid } = rootState.user;
     const { game } = state;
 
-    db.gameLost(game);
+    db.gameLost({ luid, ...game });
   },
   setGameInactive({ commit }) {
     const isGamePaused = {

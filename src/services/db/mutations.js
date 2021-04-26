@@ -50,8 +50,9 @@ export const gameNew = async (uid) => {
   }
 };
 
-export const gameWon = async ({ id, moves, time }) => {
+export const gameWon = async ({ luid: uid, moves, time }) => {
   const data = {
+    uid,
     moves,
     time,
   };
@@ -61,14 +62,13 @@ export const gameWon = async ({ id, moves, time }) => {
       data: { wonGame },
     } = await apollo.mutate({
       mutation: gql`
-        mutation WonAGame($id: ID!, $data: GameInput!) {
-          wonGame(id: $id, data: $data) {
-            _id
+        mutation WonAGame($data: GameInput!) {
+          wonGame(data: $data) {
+            uid
           }
         }
       `,
       variables: {
-        id,
         data,
       },
     });
@@ -79,8 +79,9 @@ export const gameWon = async ({ id, moves, time }) => {
   }
 };
 
-export const gameLost = async ({ id, moves, time }) => {
+export const gameLost = async ({ luid: uid, moves, time }) => {
   const data = {
+    uid,
     moves,
     time,
   };
@@ -90,14 +91,13 @@ export const gameLost = async ({ id, moves, time }) => {
       data: { lostGame },
     } = await apollo.mutate({
       mutation: gql`
-        mutation LostAGame($id: ID!, $data: GameInput!) {
-          lostGame(id: $id, data: $data) {
-            _id
+        mutation LostAGame($data: GameInput!) {
+          lostGame(data: $data) {
+            uid
           }
         }
       `,
       variables: {
-        id,
         data,
       },
     });
@@ -108,8 +108,9 @@ export const gameLost = async ({ id, moves, time }) => {
   }
 };
 
-export const gameAbandoned = async ({ id, moves, time }) => {
+export const gameAbandoned = async ({ luid: uid, moves, time }) => {
   const data = {
+    uid,
     moves,
     time,
   };
@@ -119,14 +120,13 @@ export const gameAbandoned = async ({ id, moves, time }) => {
       data: { completedGame },
     } = await apollo.mutate({
       mutation: gql`
-        mutation CompletedAGame($id: ID!, $data: GameInput!) {
-          completedGame(id: $id, data: $data) {
-            _id
+        mutation CompletedAGame($data: GameInput!) {
+          completedGame(data: $data) {
+            uid
           }
         }
       `,
       variables: {
-        id,
         data,
       },
     });

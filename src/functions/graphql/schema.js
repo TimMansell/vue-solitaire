@@ -12,7 +12,7 @@ export const typeDefs = gql`
     newGame(uid: String!): Game!
     wonGame(id: ID!, data: GameInput!): Game!
     lostGame(id: ID!, data: GameInput!): Game!
-    completedGame(id: ID!, data: GameInput!): Game!
+    completedGame(data: GameInput!): Game!
   }
   type userLID {
     uid: String!
@@ -21,8 +21,7 @@ export const typeDefs = gql`
     _id: ID!
   }
   type Game {
-    _id: ID!
-    gameNumber: Int
+    uid: String
   }
   type GlobalStats {
     count: Int
@@ -32,6 +31,7 @@ export const typeDefs = gql`
     players: Int
   }
   input GameInput {
+    uid: String
     won: Boolean
     lost: Boolean
     completed: Boolean
