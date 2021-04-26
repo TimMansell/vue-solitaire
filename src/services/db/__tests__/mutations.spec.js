@@ -1,10 +1,4 @@
-import {
-  newUser,
-  gameNew,
-  gameWon,
-  gameLost,
-  gameAbandoned,
-} from '../mutations';
+import { newUser, gameWon, gameLost, gameAbandoned } from '../mutations';
 
 jest.mock('../apollo');
 
@@ -15,15 +9,6 @@ describe('DB service mutations', () => {
     expect(result).toEqual({
       error: false,
       response: { createUser: 1 },
-    });
-  });
-
-  it('gameNew', async () => {
-    const result = await gameNew(1);
-
-    expect(result).toEqual({
-      error: false,
-      response: { newGame: 1 },
     });
   });
 

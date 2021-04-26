@@ -27,29 +27,6 @@ export const newUser = async (uid) => {
   }
 };
 
-export const gameNew = async (uid) => {
-  try {
-    const {
-      data: { newGame },
-    } = await apollo.mutate({
-      mutation: gql`
-        mutation NewGame($uid: String!) {
-          newGame(uid: $uid) {
-            _id
-          }
-        }
-      `,
-      variables: {
-        uid,
-      },
-    });
-
-    return formatResponse({ newGame });
-  } catch (error) {
-    return formatError();
-  }
-};
-
 export const gameWon = async ({ luid: uid, moves, time }) => {
   const data = {
     uid,

@@ -3,13 +3,11 @@ import { gql } from 'apollo-server-lambda';
 // eslint-disable-next-line import/prefer-default-export
 export const typeDefs = gql`
   type Query {
-    findUserByLID(uid: String!): userLID
     userStats(uid: String!): UserStats!
     globalStats: GlobalStats!
   }
   type Mutation {
     createUser(data: UserInput!): User!
-    newGame(uid: String!): Game!
     wonGame(id: ID!, data: GameInput!): Game!
     lostGame(id: ID!, data: GameInput!): Game!
     completedGame(data: GameInput!): Game!

@@ -1,6 +1,5 @@
 import {
   createUser,
-  newGame,
   wonGame,
   lostGame,
   completedGame,
@@ -9,7 +8,6 @@ import {
 // eslint-disable-next-line import/prefer-default-export
 export const mutations = {
   createUser,
-  newGame,
   wonGame,
   lostGame,
   completedGame,

@@ -47,9 +47,3 @@ export const completedGame = async (_, __, context) => {
 
   return { ...document };
 };
-
-export const newGame = async (_, __, context) => {
-  const result = await runMutation(context);
-
-  return result.newGame;
-};

@@ -1,22 +1,6 @@
-import { findUserByLID, userStats, globalStats } from '../query';
+import { userStats, globalStats } from '../query';
 
 describe('Graphql Query Resolvers', () => {
-  it('findUserByLID', async () => {
-    const mockContext = {
-      client: {
-        query: () => ({
-          data: {
-            findUserByLID: 1,
-          },
-        }),
-      },
-    };
-
-    const result = await findUserByLID('', {}, mockContext);
-
-    expect(result).toEqual(1);
-  });
-
   it('userStats', async () => {
     const stats = {
       count: 1,
