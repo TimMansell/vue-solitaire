@@ -1,3 +1,5 @@
+import { createISODate } from './helpers';
+
 export const createUser = async (_, __, { client, variables }) => {
   const { data } = variables;
 
@@ -10,8 +12,9 @@ export const createUser = async (_, __, { client, variables }) => {
 
 export const wonGame = async (_, __, { client, variables }) => {
   const { data } = variables;
+  const date = createISODate();
 
-  const document = { ...data, won: true, lost: false, completed: true };
+  const document = { date, ...data, won: true, lost: false, completed: true };
 
   const db = await client();
 
@@ -22,8 +25,9 @@ export const wonGame = async (_, __, { client, variables }) => {
 
 export const lostGame = async (_, __, { client, variables }) => {
   const { data } = variables;
+  const date = createISODate();
 
-  const document = { ...data, won: false, lost: true, completed: true };
+  const document = { date, ...data, won: false, lost: true, completed: true };
 
   const db = await client();
 
@@ -34,8 +38,9 @@ export const lostGame = async (_, __, { client, variables }) => {
 
 export const completedGame = async (_, __, { client, variables }) => {
   const { data } = variables;
+  const date = createISODate();
 
-  const document = { ...data, won: false, lost: false, completed: true };
+  const document = { date, ...data, won: false, lost: false, completed: true };
 
   const db = await client();
 
