@@ -15,7 +15,7 @@ export const wonGame = async (_, __, { client, variables }) => {
 
   const db = await client();
 
-  await db.collection('game').insertOne({ ...document });
+  await db.collection('games').insertOne({ ...document });
 
   return { ...document };
 };
@@ -27,7 +27,7 @@ export const lostGame = async (_, __, { client, variables }) => {
 
   const db = await client();
 
-  await db.collection('game').insertOne({ ...document });
+  await db.collection('games').insertOne({ ...document });
 
   return { ...document };
 };
@@ -39,7 +39,7 @@ export const completedGame = async (_, __, { client, variables }) => {
 
   const db = await client();
 
-  await db.collection('game').insertOne({ ...document });
+  await db.collection('games').insertOne({ ...document });
 
   return { ...document };
 };
