@@ -5,7 +5,7 @@ import { resolvers } from './graphql/resolvers';
 import { client } from './graphql/db';
 import { grabQuery, grabVariables } from './graphql/helpers';
 
-const { FAUNA_INTROSPECTION, FAUNA_PLAYGROUND, NODE_ENV } = process.env;
+const { GQL_INTROSPECTION, GQL_PLAYGROUND, NODE_ENV } = process.env;
 
 const server = new ApolloServer({
   typeDefs,
@@ -19,8 +19,8 @@ const server = new ApolloServer({
 
     return { client, query, variables };
   },
-  playground: FAUNA_PLAYGROUND,
-  introspection: FAUNA_INTROSPECTION,
+  playground: GQL_PLAYGROUND === 'true',
+  introspection: GQL_INTROSPECTION === 'true',
   validationRules: [depthLimit(1)],
   mocks: NODE_ENV !== 'production',
 });
