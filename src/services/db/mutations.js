@@ -85,7 +85,7 @@ export const gameLost = async ({ luid: uid, moves, time }) => {
   }
 };
 
-export const gameAbandoned = async ({ luid: uid, moves, time }) => {
+export const gameQuit = async ({ luid: uid, moves, time }) => {
   const data = {
     uid,
     moves,
@@ -94,11 +94,11 @@ export const gameAbandoned = async ({ luid: uid, moves, time }) => {
 
   try {
     const {
-      data: { completedGame },
+      data: { quitGame },
     } = await apollo.mutate({
       mutation: gql`
         mutation CompletedAGame($data: GameInput!) {
-          completedGame(data: $data) {
+          quitGame(data: $data) {
             uid
           }
         }
@@ -108,7 +108,7 @@ export const gameAbandoned = async ({ luid: uid, moves, time }) => {
       },
     });
 
-    return formatResponse({ completedGame });
+    return formatResponse({ quitGame });
   } catch (error) {
     return formatError();
   }

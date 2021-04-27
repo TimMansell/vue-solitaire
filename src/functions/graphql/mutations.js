@@ -1,14 +1,9 @@
-import {
-  createUser,
-  wonGame,
-  lostGame,
-  completedGame,
-} from './resolvers/mutation';
+import { createUser, wonGame, lostGame, quitGame } from './resolvers/mutation';
 
 // eslint-disable-next-line import/prefer-default-export
 export const mutations = {
   createUser,
   wonGame,
   lostGame,
-  completedGame,
+  quitGame,
 };

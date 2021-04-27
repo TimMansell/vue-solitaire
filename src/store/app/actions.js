@@ -17,7 +17,7 @@ const actions = {
     const { game } = state;
 
     if (!isCompleted) {
-      db.gameAbandoned({ luid, ...game });
+      db.gameQuit({ luid, ...game });
     }
 
     dispatch('restartGame');

@@ -1,4 +1,4 @@
-import { createUser, wonGame, lostGame, completedGame } from '../mutation';
+import { createUser, wonGame, lostGame, quitGame } from '../mutation';
 
 describe('Graphql Mutation Resolvers', () => {
   it('createUser', async () => {
@@ -49,18 +49,18 @@ describe('Graphql Mutation Resolvers', () => {
     expect(result).toEqual(1);
   });
 
-  it('completedGame', async () => {
+  it('quitGame', async () => {
     const mockContext = {
       client: {
         mutate: () => ({
           data: {
-            completedGame: 1,
+            quitGame: 1,
           },
         }),
       },
     };
 
-    const result = await completedGame('', {}, mockContext);
+    const result = await quitGame('', {}, mockContext);
 
     expect(result).toEqual(1);
   });

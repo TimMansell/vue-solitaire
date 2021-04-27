@@ -36,7 +36,7 @@ export const lostGame = async (_, __, { client, variables }) => {
   return { ...document };
 };
 
-export const completedGame = async (_, __, { client, variables }) => {
+export const quitGame = async (_, __, { client, variables }) => {
   const { data } = variables;
   const date = createISODate();
 

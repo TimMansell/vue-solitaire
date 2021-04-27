@@ -11,7 +11,7 @@ export const typeDefs = gql`
     createUser(data: UserInput!): User!
     wonGame(data: GameInput!): Game!
     lostGame(data: GameInput!): Game!
-    completedGame(data: GameInput!): Game!
+    quitGame(data: GameInput!): Game!
   }
   type User {
     uid: String

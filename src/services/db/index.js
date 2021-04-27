@@ -4,17 +4,17 @@ import {
   getGlobalStats,
   getStatsCount,
 } from './queries';
-import { newUser, gameLost, gameWon, gameAbandoned } from './mutations';
+import { newUser, gameLost, gameWon, gameQuit } from './mutations';
 
 const db = () => ({
   checkUserExists,
+  newUser,
   getUserStats,
   getGlobalStats,
   getStatsCount,
-  newUser,
   gameWon,
   gameLost,
-  gameAbandoned,
+  gameQuit,
 });
 
 export default db();

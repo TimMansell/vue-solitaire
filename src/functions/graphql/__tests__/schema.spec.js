@@ -186,10 +186,10 @@ describe('Graphql Schema', () => {
       });
     });
 
-    it('completedGame', async () => {
+    it('quitGame', async () => {
       const query = `
         mutation {
-          completedGame(id: "1", data: {}) {
+          quitGame(id: "1", data: {}) {
             _id
           }
         }
@@ -201,7 +201,7 @@ describe('Graphql Schema', () => {
 
       expect(result).toEqual({
         data: {
-          completedGame: {
+          quitGame: {
             _id: '123',
           },
         },

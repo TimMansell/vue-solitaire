@@ -12,7 +12,7 @@ const mutate = () => ({
     newGame: 1,
     wonGame: 1,
     lostGame: 1,
-    completedGame: 1,
+    quitGame: 1,
   },
 });
 
