@@ -2,6 +2,30 @@ import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { formatError, formatResponse } from './helpers';
 
+export const checkUserExists = async (uid) => {
+  try {
+    const {
+      data: { findUser },
+    } = await apollo.query({
+      query: gql`
+        query FindUser($uid: String!) {
+          findUser(uid: $uid) {
+            exists
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse({ findUser });
+  } catch (error) {
+    return formatError();
+  }
+};
+
 export const getStatsCount = async (uid) => {
   try {
     const {

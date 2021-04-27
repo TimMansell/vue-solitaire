@@ -2,4 +2,5 @@
 export const queries = {
   userStats: (_, { uid }) => ({ uid }),
   globalStats: () => ({}),
+  findUser: (_, { uid }) => ({ uid }),
 };

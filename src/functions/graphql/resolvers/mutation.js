@@ -1,9 +1,11 @@
-import { runMutation } from './helpers';
+export const createUser = async (_, __, { client, variables }) => {
+  const { data } = variables;
 
-export const createUser = async (_, __, context) => {
-  const result = await runMutation(context);
+  const db = await client();
 
-  return result.createUser;
+  await db.collection('user').insertOne({ ...data });
+
+  return { ...data };
 };
 
 export const wonGame = async (_, __, context) => {
