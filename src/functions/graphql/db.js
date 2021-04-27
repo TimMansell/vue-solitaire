@@ -9,8 +9,6 @@ let cachedDb = null;
 
 // eslint-disable-next-line import/prefer-default-export
 export const client = async () => {
-  // we can cache the access to our database to speed things up a bit
-  // (this is the only thing that is safe to cache here)
   if (cachedDb) return cachedDb;
 
   const connection = await MongoClient.connect(uri, {

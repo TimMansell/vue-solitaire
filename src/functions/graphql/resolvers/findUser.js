@@ -1,8 +1,6 @@
 export const exists = async ({ uid }, __, { client }) => {
   const db = await client();
 
-  console.log({ uid });
-
   const existsQuery = await db
     .collection('users')
     .find({ uid }, { projection: { uid: 1 } })
