@@ -3,7 +3,7 @@ export const createUser = async (_, __, { client, variables }) => {
 
   const db = await client();
 
-  await db.collection('user').insertOne({ ...data });
+  await db.collection('users').insertOne({ ...data });
 
   return { ...data };
 };
