@@ -11,7 +11,6 @@ const state = () => ({
     moves: 0,
     time: 0,
   },
-  isNewGame: true,
   showRules: false,
   showNewGame: false,
 });

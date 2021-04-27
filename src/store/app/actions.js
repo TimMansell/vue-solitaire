@@ -1,15 +1,8 @@
 import db from '@/services/db';
 
 const actions = {
-  async initApp({ dispatch, state }) {
-    const { isNewGame } = state;
-
-    dispatch('initGame', isNewGame);
-
-    // if (isNewGame) {
-    //   await dispatch('createGame', true);
-    // }
-
+  async initApp({ dispatch }) {
+    dispatch('initGame');
     dispatch('getStatsCount');
   },
   restartApp({ dispatch, commit, state, rootState }, isCompleted) {
@@ -24,19 +17,6 @@ const actions = {
 
     commit('RESTART');
   },
-  // async createGame({ commit, rootState }) {
-  //   const { suid } = rootState.user;
-  //   const { error, response } = await db.gameNew(suid);
-
-  //   if (!error) {
-  //     const {
-  //       newGame: { _id: id },
-  //     } = response;
-
-  //     commit('SET_GAME', { id });
-  //     commit('NEW_GAME', false);
-  //   }
-  // },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {
       dispatch('setGameWon');
