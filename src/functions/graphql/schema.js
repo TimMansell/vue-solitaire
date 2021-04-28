@@ -17,23 +17,23 @@ export const typeDefs = gql`
     uid: String
     exists: Boolean
   }
+  input UserInput {
+    uid: String!
+  }
   type FindUser {
     uid: String
     exists: Boolean
-  }
-  input UserInput {
-    uid: String
   }
   type Game {
     uid: String
   }
   input GameInput {
-    uid: String
+    uid: String!
     won: Boolean
     lost: Boolean
     completed: Boolean
-    moves: Int
-    time: Int
+    moves: Int!
+    time: Int!
   }
   type GlobalStats {
     won: Int
