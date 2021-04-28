@@ -1,8 +1,10 @@
 import { formatResponse } from '../helpers';
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-const userStats = { count: 1 };
-const globalStats = { count: 1 };
+const mockStats = { won: 1, lost: 2, competed: 3 };
+
+const userStats = { ...mockStats };
+const globalStats = { ...mockStats };
 const mockUidResult = { uid: mockUid };
 
 const checkUserExists = (uid) => {
