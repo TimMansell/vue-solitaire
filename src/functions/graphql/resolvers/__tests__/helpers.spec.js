@@ -8,8 +8,8 @@ describe('Graphql Helpers', () => {
   });
 
   it('should not be a valid date', () => {
-    const date = '2012';
+    const date = '2012-a';
 
-    expect(parseAndValidDate(date)).toEqual(true);
+    expect(parseAndValidDate(date)).toEqual(false);
   });
 });
