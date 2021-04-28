@@ -12,18 +12,20 @@ const mockClient = {
 describe('Graphql Mutation Resolvers', () => {
   describe('Users', () => {
     it('createUser', async () => {
+      const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+
       const mockContext = {
         ...mockClient,
         variables: {
           data: {
-            uid: '123',
+            uid: mockUid,
           },
         },
       };
 
       const { uid } = await createUser('', {}, mockContext);
 
-      expect(uid).toEqual('123');
+      expect(uid).toEqual(mockUid);
     });
   });
 

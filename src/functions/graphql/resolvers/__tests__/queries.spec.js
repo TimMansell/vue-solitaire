@@ -1,12 +1,12 @@
 import { userStats, globalStats, findUser } from '../queries';
 
-const uid = '123';
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
 describe('Graphql Query Resolvers', () => {
-  it('userStats', async () => {
-    const result = userStats('', { uid });
+  it('userStats', () => {
+    const result = userStats('', { uid: mockUid });
 
-    expect(result).toEqual({ uid });
+    expect(result).toEqual({ uid: mockUid });
   });
 
   it('globalStats', () => {
@@ -15,9 +15,9 @@ describe('Graphql Query Resolvers', () => {
     expect(result).toEqual({});
   });
 
-  it('findUser', async () => {
-    const result = findUser('', { uid });
+  it('findUser', () => {
+    const result = findUser('', { uid: mockUid });
 
-    expect(result).toEqual({ uid });
+    expect(result).toEqual({ uid: mockUid });
   });
 });
