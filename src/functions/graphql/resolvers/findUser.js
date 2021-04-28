@@ -3,10 +3,9 @@ export const exists = async ({ uid }, __, { client }) => {
 
   const existsQuery = await db
     .collection('users')
-    .find({ uid }, { projection: { uid: 1 } })
-    .toArray();
+    .find({ uid }, { projection: { uid: 1 } });
 
-  return existsQuery.length > 0;
+  return existsQuery.count() > 0;
 };
 
 export const findUser = {
