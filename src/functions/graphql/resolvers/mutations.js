@@ -48,3 +48,10 @@ export const quitGame = async (_, __, { client, variables }) => {
 
   return { ...document };
 };
+
+export const mutations = {
+  createUser,
+  wonGame,
+  lostGame,
+  quitGame,
+};

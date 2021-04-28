@@ -1,5 +1,5 @@
 import { queries } from './resolvers/queries';
-import { mutations } from './mutations';
+import { mutations } from './resolvers/mutations';
 import { userStats } from './resolvers/userStats';
 import { globalStats } from './resolvers/globalStats';
 import { findUser } from './resolvers/findUser';
