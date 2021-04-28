@@ -1,47 +1,36 @@
+import { formatResponse } from '../helpers';
+
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 const userStats = { count: 1 };
 const globalStats = { count: 1 };
-const findUserByLID = { uid: 123 };
-const mockID = { _id: 123 };
+const mockUidResult = { uid: mockUid };
 
-const getAUser = () => ({
-  response: { findUserByLID },
-});
+const checkUserExists = (uid) => {
+  const exists = uid === mockUid;
+  const response = formatResponse({ data: { findUser: { exists } } });
 
-const getStatsCount = () => ({
-  response: { userStats, globalStats },
-});
+  return response;
+};
 
-const getGlobalStats = () => ({
-  response: { globalStats },
-});
+const getStatsCount = () =>
+  formatResponse({ data: { userStats, globalStats } });
 
-const getUserStats = () => ({
-  response: { userStats },
-});
+const getGlobalStats = () => formatResponse({ data: { globalStats } });
 
-const newUser = () => ({
-  error: false,
-  response: { createUser: mockID },
-});
+const getUserStats = () => formatResponse({ data: { userStats } });
 
-const gameNew = () => ({
-  response: { newGame: mockID },
-});
+const newUser = () => formatResponse({ data: { createUser: mockUidResult } });
 
-const gameWon = () => ({
-  response: { wonGame: mockID },
-});
+const gameNew = () => formatResponse({ data: { newGame: mockUidResult } });
 
-const gameLost = () => ({
-  response: { lostGame: mockID },
-});
+const gameWon = () => formatResponse({ data: { wonGame: mockUidResult } });
 
-const gameQuit = () => ({
-  response: { quitGame: mockID },
-});
+const gameLost = () => formatResponse({ data: { lostGame: mockUidResult } });
+
+const gameQuit = () => formatResponse({ data: { quitGame: mockUidResult } });
 
 const db = () => ({
-  getAUser,
+  checkUserExists,
   getUserStats,
   getGlobalStats,
   getStatsCount,
