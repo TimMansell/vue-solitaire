@@ -1,7 +1,7 @@
 import defaultState from './state';
 
 const mutations = {
-  RESTART(state) {
+  RESTART_APP(state) {
     const newState = {
       ...defaultState(),
     };
