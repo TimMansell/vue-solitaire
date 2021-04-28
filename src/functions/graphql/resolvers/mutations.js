@@ -1,13 +1,13 @@
-import { createISODate } from './helpers';
+import { createISODate, insertIntoDb } from './helpers';
 
 export const createUser = async (_, __, { client, variables }) => {
   const { data } = variables;
 
-  const db = await client();
+  const document = { ...data };
 
-  await db.collection('users').insertOne({ ...data });
+  await insertIntoDb(client, 'users', document);
 
-  return { ...data };
+  return { ...document };
 };
 
 export const wonGame = async (_, __, { client, variables }) => {
@@ -16,9 +16,7 @@ export const wonGame = async (_, __, { client, variables }) => {
 
   const document = { date, ...data, won: true, lost: false, completed: true };
 
-  const db = await client();
-
-  await db.collection('games').insertOne({ ...document });
+  await insertIntoDb(client, 'games', document);
 
   return { ...document };
 };
@@ -29,9 +27,7 @@ export const lostGame = async (_, __, { client, variables }) => {
 
   const document = { date, ...data, won: false, lost: true, completed: true };
 
-  const db = await client();
-
-  await db.collection('games').insertOne({ ...document });
+  await insertIntoDb(client, 'games', document);
 
   return { ...document };
 };
@@ -42,9 +38,7 @@ export const quitGame = async (_, __, { client, variables }) => {
 
   const document = { date, ...data, won: false, lost: false, completed: true };
 
-  const db = await client();
-
-  await db.collection('games').insertOne({ ...document });
+  await insertIntoDb(client, 'games', document);
 
   return { ...document };
 };

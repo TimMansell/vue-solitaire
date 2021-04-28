@@ -1,31 +1,30 @@
+import { countItemsInDb } from './helpers';
+
 export const won = async ({ uid }, __, { client }) => {
-  const db = await client();
+  const findFields = { uid, won: true };
+  const returnFields = { projection: { won: 1 } };
 
-  const wonQuery = await db
-    .collection('games')
-    .find({ uid, won: true }, { projection: { won: 1 } });
+  const itemCount = countItemsInDb(client, 'games', findFields, returnFields);
 
-  return wonQuery.count();
+  return itemCount;
 };
 
 export const lost = async ({ uid }, __, { client }) => {
-  const db = await client();
+  const findFields = { uid, lost: true };
+  const returnFields = { projection: { lost: 1 } };
 
-  const lostQuery = await db
-    .collection('games')
-    .find({ uid, lost: true }, { projection: { lost: 1 } });
+  const itemCount = countItemsInDb(client, 'games', findFields, returnFields);
 
-  return lostQuery.count();
+  return itemCount;
 };
 
 export const completed = async ({ uid }, __, { client }) => {
-  const db = await client();
+  const findFields = { uid, completed: true };
+  const returnFields = { projection: { completed: 1 } };
 
-  const completedQuery = await db
-    .collection('games')
-    .find({ uid, completed: true }, { projection: { completed: 1 } });
+  const itemCount = countItemsInDb(client, 'games', findFields, returnFields);
 
-  return completedQuery.count();
+  return itemCount;
 };
 
 export const userStats = {
