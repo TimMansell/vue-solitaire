@@ -16,7 +16,7 @@ const state = {
   ...defaultState(),
 };
 
-describe('Solitaire Store', () => {
+describe('App Store', () => {
   it('isGameLost', () => {
     const result = isGameLost(state);
 
