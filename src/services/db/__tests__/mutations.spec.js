@@ -4,13 +4,13 @@ jest.mock('../apollo');
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
-const params = {
+const gameParams = {
   luid: mockUid,
   time: 10,
   moves: 50,
 };
 
-const results = {
+const gameResults = {
   date: '2021',
   completed: true,
   time: 10,
@@ -26,33 +26,33 @@ describe('DB service mutations', () => {
   });
 
   it('gameWon', async () => {
-    const { response } = await gameWon(params);
+    const { response } = await gameWon(gameParams);
     const { wonGame } = response;
 
     expect(wonGame).toEqual({
-      ...results,
+      ...gameResults,
       won: true,
       lost: false,
     });
   });
 
   it('gameLost', async () => {
-    const { response } = await gameLost(params);
+    const { response } = await gameLost(gameParams);
     const { lostGame } = response;
 
     expect(lostGame).toEqual({
-      ...results,
+      ...gameResults,
       won: false,
       lost: true,
     });
   });
 
   it('gameQuit', async () => {
-    const { response } = await gameQuit(params);
+    const { response } = await gameQuit(gameParams);
     const { quitGame } = response;
 
     expect(quitGame).toEqual({
-      ...results,
+      ...gameResults,
       won: false,
       lost: false,
     });
