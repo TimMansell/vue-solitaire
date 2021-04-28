@@ -4,9 +4,7 @@ import { formatError, formatResponse } from './helpers';
 
 export const checkUserExists = async (uid) => {
   try {
-    const {
-      data: { findUser },
-    } = await apollo.query({
+    const response = await apollo.query({
       query: gql`
         query FindUser($uid: String!) {
           findUser(uid: $uid) {
@@ -20,7 +18,7 @@ export const checkUserExists = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse({ findUser });
+    return formatResponse(response);
   } catch (error) {
     return formatError();
   }
@@ -28,9 +26,7 @@ export const checkUserExists = async (uid) => {
 
 export const getStatsCount = async (uid) => {
   try {
-    const {
-      data: { userStats, globalStats },
-    } = await apollo.query({
+    const response = await apollo.query({
       query: gql`
         query GetStats($uid: String!) {
           userStats(uid: $uid) {
@@ -48,7 +44,7 @@ export const getStatsCount = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse({ userStats, globalStats });
+    return formatResponse(response);
   } catch (error) {
     return formatError();
   }
@@ -56,9 +52,7 @@ export const getStatsCount = async (uid) => {
 
 export const getUserStats = async (uid) => {
   try {
-    const {
-      data: { userStats },
-    } = await apollo.query({
+    const response = await apollo.query({
       query: gql`
         query GetUserStats($uid: String!) {
           userStats(uid: $uid) {
@@ -74,7 +68,7 @@ export const getUserStats = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse({ userStats });
+    return formatResponse(response);
   } catch (error) {
     return formatError();
   }
@@ -82,9 +76,7 @@ export const getUserStats = async (uid) => {
 
 export const getGlobalStats = async () => {
   try {
-    const {
-      data: { globalStats },
-    } = await apollo.query({
+    const response = await apollo.query({
       query: gql`
         query {
           globalStats {
@@ -98,7 +90,7 @@ export const getGlobalStats = async () => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse({ globalStats });
+    return formatResponse(response);
   } catch (error) {
     return formatError();
   }

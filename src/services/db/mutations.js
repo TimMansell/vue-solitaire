@@ -4,9 +4,7 @@ import { formatError, formatResponse } from './helpers';
 
 export const newUser = async (uid) => {
   try {
-    const {
-      data: { createUser },
-    } = await apollo.mutate({
+    const response = await apollo.mutate({
       mutation: gql`
         mutation CreateAUser($data: UserInput!) {
           createUser(data: $data) {
@@ -21,7 +19,7 @@ export const newUser = async (uid) => {
       },
     });
 
-    return formatResponse({ createUser });
+    return formatResponse(response);
   } catch (error) {
     return formatError();
   }
@@ -35,9 +33,7 @@ export const gameWon = async ({ luid: uid, moves, time }) => {
   };
 
   try {
-    const {
-      data: { wonGame },
-    } = await apollo.mutate({
+    const response = await apollo.mutate({
       mutation: gql`
         mutation WonAGame($data: GameInput!) {
           wonGame(data: $data) {
@@ -50,7 +46,7 @@ export const gameWon = async ({ luid: uid, moves, time }) => {
       },
     });
 
-    return formatResponse({ wonGame });
+    return formatResponse(response);
   } catch (error) {
     return formatError();
   }
@@ -64,9 +60,7 @@ export const gameLost = async ({ luid: uid, moves, time }) => {
   };
 
   try {
-    const {
-      data: { lostGame },
-    } = await apollo.mutate({
+    const response = await apollo.mutate({
       mutation: gql`
         mutation LostAGame($data: GameInput!) {
           lostGame(data: $data) {
@@ -79,7 +73,7 @@ export const gameLost = async ({ luid: uid, moves, time }) => {
       },
     });
 
-    return formatResponse({ lostGame });
+    return formatResponse(response);
   } catch (error) {
     return formatError();
   }
@@ -93,9 +87,7 @@ export const gameQuit = async ({ luid: uid, moves, time }) => {
   };
 
   try {
-    const {
-      data: { quitGame },
-    } = await apollo.mutate({
+    const response = await apollo.mutate({
       mutation: gql`
         mutation CompletedAGame($data: GameInput!) {
           quitGame(data: $data) {
@@ -108,7 +100,7 @@ export const gameQuit = async ({ luid: uid, moves, time }) => {
       },
     });
 
-    return formatResponse({ quitGame });
+    return formatResponse(response);
   } catch (error) {
     return formatError();
   }
