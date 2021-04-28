@@ -1,15 +1,13 @@
 import db from '@/services/db';
 
-export const checkUserSavedLocally = () =>
-  localStorage.getItem('userExistsOnServer') !== null;
+export const checkServerUserSavedLocally = () =>
+  localStorage.getItem('userExistsOnServer') === 'true';
 
-export const saveUserLocally = () =>
+export const saveServerUserLocally = () =>
   localStorage.setItem('userExistsOnServer', 'true');
 
 export const createServerUser = async (luid) => {
   const { error, response } = await db.newUser(luid);
-
-  console.log({ response });
 
   const {
     createUser: { uid },
@@ -24,6 +22,7 @@ export const createServerUser = async (luid) => {
 
 export const checkServerUserExists = async (luid) => {
   const { error, response } = await db.checkUserExists(luid);
+
   const {
     findUser: { exists },
   } = response;
