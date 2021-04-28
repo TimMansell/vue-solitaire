@@ -3,6 +3,7 @@ import defaultState from '../state';
 
 const {
   RESTART_GAME,
+  NEW_GAME,
   SET_BOARD,
   SET_FOUNDATIONS,
   SELECT_CARD,
@@ -25,6 +26,12 @@ describe('Solitaire Store', () => {
     RESTART_GAME(state);
 
     expect(state).toEqual(defaultState());
+  });
+
+  it('NEW_GAME', () => {
+    NEW_GAME(state, false);
+
+    expect(state.isNewGame).toEqual(false);
   });
 
   it('SET_BOARD', () => {
