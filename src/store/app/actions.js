@@ -3,6 +3,9 @@ import db from '@/services/db';
 const actions = {
   async initApp({ dispatch }) {
     dispatch('initGame');
+
+    await dispatch('initServerUser');
+
     dispatch('getStatsCount');
   },
   restartApp({ dispatch, commit }, isCompleted) {
@@ -24,23 +27,29 @@ const actions = {
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
-  setGameWon({ state, rootState }) {
+  setGameWon({ dispatch, state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
     db.gameWon({ luid, ...game });
+
+    dispatch('setUserHasPlayed');
   },
-  setGameLost({ state, rootState }) {
+  setGameLost({ dispatch, state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
     db.gameLost({ luid, ...game });
+
+    dispatch('setUserHasPlayed');
   },
-  setGameQuit({ state, rootState }) {
+  setGameQuit({ dispatch, state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
     db.gameQuit({ luid, ...game });
+
+    dispatch('setUserHasPlayed');
   },
   setGameInactive({ commit }) {
     const isGamePaused = {
