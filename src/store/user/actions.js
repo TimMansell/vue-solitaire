@@ -13,15 +13,18 @@ const actions = {
       await dispatch('checkUserExistsOnServer');
     }
   },
-  async checkUserExistsOnServer({ commit, state }) {
+  async checkUserExistsOnServer({ commit, dispatch, state }) {
     const { luid } = state;
     const userExistsOnServer = await user.checkUserExistsOnServer(luid);
 
     if (!userExistsOnServer) {
-      await user.createUserOnServer(luid);
+      await dispatch('createUserOnServer', luid);
     }
 
     commit('SET_USER_EXISTS', true);
+  },
+  async createUserOnServer(_, luid) {
+    await user.createUserOnServer(luid);
   },
   setUserHasPlayed({ commit }) {
     commit('SET_USER_HAS_PLAYED', true);
