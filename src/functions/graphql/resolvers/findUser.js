@@ -1,11 +1,12 @@
+import { countItemsInDb } from './helpers';
+
 export const exists = async ({ uid }, __, { client }) => {
-  const db = await client();
+  const findFields = { uid };
+  const returnFields = { projection: { uid: 1 } };
 
-  const existsQuery = await db
-    .collection('users')
-    .find({ uid }, { projection: { uid: 1 } });
+  const itemCount = countItemsInDb(client, 'users', findFields, returnFields);
 
-  return existsQuery.count() > 0;
+  return itemCount;
 };
 
 export const findUser = {
