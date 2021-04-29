@@ -2,15 +2,21 @@ import { formatResponse, formatError } from '../helpers';
 
 describe('DB service', () => {
   it('formatResponse', () => {
-    const responseObject = {
+    const value = {
       value: 5,
+    };
+
+    const responseObject = {
+      data: {
+        value,
+      },
     };
 
     const result = formatResponse(responseObject);
 
     expect(result).toEqual({
       error: false,
-      response: responseObject,
+      response: { value },
     });
   });
 

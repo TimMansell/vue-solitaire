@@ -7,7 +7,7 @@ const {
   SHOW_STATS,
 } = mutations;
 
-describe('Stats', () => {
+describe('Stats Store', () => {
   it('SET_GLOBAL_STATS', () => {
     const globalStats = { count: 1 };
     const state = { globalStats };

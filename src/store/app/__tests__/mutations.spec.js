@@ -2,8 +2,7 @@ import mutations from '../mutations';
 import defaultState from '../state';
 
 const {
-  RESTART,
-  SET_GAME,
+  RESTART_APP,
   SET_GAME_WON,
   SET_GAME_LOST,
   SET_GAME_PAUSED,
@@ -14,7 +13,7 @@ const {
   SHOW_NEW_GAME,
 } = mutations;
 
-describe('Solitaire Store', () => {
+describe('App Store', () => {
   let state = {};
 
   beforeEach(() => {
@@ -23,20 +22,10 @@ describe('Solitaire Store', () => {
     };
   });
 
-  it('RESTART', () => {
-    RESTART(state);
+  it('RESTART_APP', () => {
+    RESTART_APP(state);
 
     expect(state).toEqual(defaultState());
-  });
-
-  it('SET_GAME', () => {
-    SET_GAME(state, { id: 1 });
-
-    expect(state.game).toEqual({
-      id: 1,
-      moves: 0,
-      time: 0,
-    });
   });
 
   it('SET_GAME_WON', () => {

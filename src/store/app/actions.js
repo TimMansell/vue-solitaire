@@ -1,40 +1,18 @@
 import db from '@/services/db';
 
 const actions = {
-  async initApp({ dispatch, state }) {
-    const { isNewGame } = state;
-
-    dispatch('initGame', isNewGame);
-
-    if (isNewGame) {
-      await dispatch('createGame', true);
-    }
-
+  async initApp({ dispatch }) {
+    dispatch('initGame');
     dispatch('getStatsCount');
   },
-  restartApp({ dispatch, commit, state }, isCompleted) {
-    const { game } = state;
-
+  restartApp({ dispatch, commit }, isCompleted) {
     if (!isCompleted) {
-      db.gameAbandoned(game);
+      dispatch('setGameQuit');
     }
 
     dispatch('restartGame');
 
-    commit('RESTART');
-  },
-  async createGame({ commit, rootState }) {
-    const { suid } = rootState.user;
-    const { error, response } = await db.gameNew(suid);
-
-    if (!error) {
-      const {
-        newGame: { _id: id },
-      } = response;
-
-      commit('SET_GAME', { id });
-      commit('NEW_GAME', false);
-    }
+    commit('RESTART_APP');
   },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {
@@ -46,15 +24,23 @@ const actions = {
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
-  setGameWon({ state }) {
+  setGameWon({ state, rootState }) {
+    const { luid } = rootState.user;
     const { game } = state;
 
-    db.gameWon(game);
+    db.gameWon({ luid, ...game });
   },
-  setGameLost({ state }) {
+  setGameLost({ state, rootState }) {
+    const { luid } = rootState.user;
     const { game } = state;
 
-    db.gameLost(game);
+    db.gameLost({ luid, ...game });
+  },
+  setGameQuit({ state, rootState }) {
+    const { luid } = rootState.user;
+    const { game } = state;
+
+    db.gameQuit({ luid, ...game });
   },
   setGameInactive({ commit }) {
     const isGamePaused = {

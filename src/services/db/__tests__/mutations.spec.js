@@ -1,56 +1,60 @@
-import {
-  newUser,
-  gameNew,
-  gameWon,
-  gameLost,
-  gameAbandoned,
-} from '../mutations';
+import { newUser, gameWon, gameLost, gameQuit } from '../mutations';
 
 jest.mock('../apollo');
 
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+
+const gameParams = {
+  luid: mockUid,
+  time: 10,
+  moves: 50,
+};
+
+const gameResults = {
+  date: '2021',
+  completed: true,
+  time: 10,
+  moves: 50,
+};
+
 describe('DB service mutations', () => {
   it('newUser', async () => {
-    const result = await newUser(1);
+    const { response } = await newUser(mockUid);
+    const { createUser } = response;
 
-    expect(result).toEqual({
-      error: false,
-      response: { createUser: 1 },
-    });
-  });
-
-  it('gameNew', async () => {
-    const result = await gameNew(1);
-
-    expect(result).toEqual({
-      error: false,
-      response: { newGame: 1 },
-    });
+    expect(createUser).toEqual({ uid: mockUid });
   });
 
   it('gameWon', async () => {
-    const result = await gameWon(1);
+    const { response } = await gameWon(gameParams);
+    const { wonGame } = response;
 
-    expect(result).toEqual({
-      error: false,
-      response: { wonGame: 1 },
+    expect(wonGame).toEqual({
+      ...gameResults,
+      won: true,
+      lost: false,
     });
   });
 
   it('gameLost', async () => {
-    const result = await gameLost(1);
+    const { response } = await gameLost(gameParams);
+    const { lostGame } = response;
 
-    expect(result).toEqual({
-      error: false,
-      response: { lostGame: 1 },
+    expect(lostGame).toEqual({
+      ...gameResults,
+      won: false,
+      lost: true,
     });
   });
 
-  it('gameAbandoned', async () => {
-    const result = await gameAbandoned(1);
+  it('gameQuit', async () => {
+    const { response } = await gameQuit(gameParams);
+    const { quitGame } = response;
 
-    expect(result).toEqual({
-      error: false,
-      response: { completedGame: 1 },
+    expect(quitGame).toEqual({
+      ...gameResults,
+      won: false,
+      lost: false,
     });
   });
 });

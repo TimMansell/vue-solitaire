@@ -8,6 +8,7 @@ const mocks = {
   ID: () => 123,
   Int: () => 1,
   String: () => 'String',
+  Boolean: () => true,
 };
 
 const schema = makeExecutableSchema({ typeDefs });
@@ -16,11 +17,12 @@ const schemaWithMocks = addMocksToSchema({ schema, mocks });
 
 describe('Graphql Schema', () => {
   describe('Queries', () => {
-    it('findUserByLID', async () => {
+    it('findUser', async () => {
       const query = `
         query {
-          findUserByLID(uid: "1") {
+          findUser(uid: "1") {
             uid
+            exists
           }
         }
       `;
@@ -31,8 +33,9 @@ describe('Graphql Schema', () => {
 
       expect(result).toEqual({
         data: {
-          findUserByLID: {
+          findUser: {
             uid: 'String',
+            exists: true,
           },
         },
       });
@@ -42,7 +45,6 @@ describe('Graphql Schema', () => {
       const query = `
         query {
           userStats(uid: "1") {
-            count
             won
             lost
             completed
@@ -57,7 +59,6 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           userStats: {
-            count: 1,
             won: 1,
             lost: 1,
             completed: 1,
@@ -72,7 +73,6 @@ describe('Graphql Schema', () => {
           globalStats {
             won
             lost
-            count
             completed
             players
           }
@@ -88,7 +88,6 @@ describe('Graphql Schema', () => {
           globalStats: {
             won: 1,
             lost: 1,
-            count: 1,
             completed: 1,
             players: 1,
           },
@@ -101,8 +100,8 @@ describe('Graphql Schema', () => {
     it('createUser', async () => {
       const query = `
       mutation {
-        createUser(data: {}) {
-          _id
+        createUser(data: {uid: "1"}) {
+          uid
         }
       }
       `;
@@ -114,29 +113,7 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           createUser: {
-            _id: '123',
-          },
-        },
-      });
-    });
-
-    it('newGame', async () => {
-      const query = `
-        mutation {
-          newGame(uid: "1") {
-            _id
-          }
-        }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          newGame: {
-            _id: '123',
+            uid: 'String',
           },
         },
       });
@@ -145,8 +122,8 @@ describe('Graphql Schema', () => {
     it('wonGame', async () => {
       const query = `
         mutation {
-          wonGame(id: "1", data: {}) {
-            _id
+          wonGame(data: {uid: "1", moves:2, time: 10}) {
+            uid
           }
         }
       `;
@@ -158,7 +135,7 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           wonGame: {
-            _id: '123',
+            uid: 'String',
           },
         },
       });
@@ -167,8 +144,8 @@ describe('Graphql Schema', () => {
     it('lostGame', async () => {
       const query = `
         mutation {
-          lostGame(id: "1", data: {}) {
-            _id
+          lostGame(data: {uid: "1", moves:2, time: 10}) {
+            uid
           }
         }
       `;
@@ -180,17 +157,17 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           lostGame: {
-            _id: '123',
+            uid: 'String',
           },
         },
       });
     });
 
-    it('completedGame', async () => {
+    it('quitGame', async () => {
       const query = `
         mutation {
-          completedGame(id: "1", data: {}) {
-            _id
+          quitGame(data: {uid: "1", moves:2, time: 10}) {
+            uid
           }
         }
       `;
@@ -201,8 +178,8 @@ describe('Graphql Schema', () => {
 
       expect(result).toEqual({
         data: {
-          completedGame: {
-            _id: '123',
+          quitGame: {
+            uid: 'String',
           },
         },
       });

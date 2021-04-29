@@ -1,12 +1,11 @@
 import {
-  getServerUserID,
-  checkServerUser,
+  checkServerUserSavedLocally,
+  saveServerUserLocally,
   createServerUser,
-  setServerUserID,
+  checkServerUserExists,
 } from '../serverUser';
 
-const mockSuid = 123;
-const mockLID = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
 jest.mock('@/services/db');
 
@@ -15,37 +14,51 @@ describe('User - Server User', () => {
     localStorage.clear();
   });
 
-  it('should get user id', () => {
-    localStorage.setItem('suid', `${mockSuid}`);
+  describe('checkServerUserSavedLocally', () => {
+    it('should not be saved locally', () => {
+      const userIsSavedLocally = checkServerUserSavedLocally();
 
-    const id = getServerUserID();
+      expect(userIsSavedLocally).toEqual(false);
+    });
 
-    expect(id).toEqual(`${mockSuid}`);
+    it('should be saved locally', () => {
+      localStorage.setItem('userExistsOnServer', 'true');
+
+      const userIsSavedLocally = checkServerUserSavedLocally();
+
+      expect(userIsSavedLocally).toEqual(true);
+    });
   });
 
-  it('should set user id from response', async () => {
-    const id = await createServerUser();
+  describe('saveServerUserLocally', () => {
+    it('should save user locally', () => {
+      saveServerUserLocally();
 
-    expect(id).toEqual(mockSuid);
+      const userIsSavedLocally = localStorage.getItem('userExistsOnServer');
+
+      expect(userIsSavedLocally).toEqual('true');
+    });
   });
 
-  it('should check user id exists and return true', () => {
-    localStorage.setItem('suid', `${mockSuid}`);
+  describe('createServerUser', () => {
+    it('should get uid from response', async () => {
+      const uid = await createServerUser(mockUid);
 
-    const user = checkServerUser();
-
-    expect(user).toEqual(true);
+      expect(uid).toEqual(mockUid);
+    });
   });
 
-  it('should check user exists and return false', () => {
-    const user = checkServerUser();
+  describe('checkServerUserExists', () => {
+    it('should check user exists on server and return true', async () => {
+      const userExists = await checkServerUserExists(mockUid);
 
-    expect(user).toEqual(false);
-  });
+      expect(userExists).toEqual(true);
+    });
 
-  it('should get server user id from response', async () => {
-    const id = await setServerUserID(mockLID);
+    it('should check user exists on server and return false', async () => {
+      const userExists = await checkServerUserExists('123');
 
-    expect(id).toEqual(mockSuid);
+      expect(userExists).toEqual(false);
+    });
   });
 });

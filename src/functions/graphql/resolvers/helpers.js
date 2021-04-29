@@ -1,28 +1,25 @@
-import { ApolloError } from 'apollo-server-lambda';
+import { parseISO, isValid } from 'date-fns';
 
-export const runQuery = async ({ client, query, variables }) => {
-  try {
-    const body = await client.query({
-      query,
-      variables,
-      fetchPolicy: 'no-cache',
-    });
+export const createISODate = () => new Date().toISOString();
 
-    return body.data;
-  } catch (error) {
-    throw new ApolloError(error);
-  }
+export const parseAndValidDate = (date) => isValid(parseISO(date));
+
+export const insertIntoDb = async (client, collection, document) => {
+  const db = await client();
+
+  return db.collection(collection).insertOne({ ...document });
 };
 
-export const runMutation = async ({ client, query, variables }) => {
-  try {
-    const body = await client.mutate({
-      mutation: query,
-      variables,
-    });
+export const countItemsInDb = async (
+  client,
+  collection,
+  findFields,
+  returnFields
+) => {
+  const db = await client();
 
-    return body.data;
-  } catch (error) {
-    throw new ApolloError(error);
-  }
+  return db
+    .collection(collection)
+    .find(findFields, returnFields)
+    .count();
 };
