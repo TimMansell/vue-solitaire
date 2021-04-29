@@ -10,7 +10,7 @@ describe('Graphql FindUser Resolvers', () => {
 
       const result = await exists({ uid: mockUid }, '', mockContext);
 
-      expect(result).toEqual(true);
+      expect(result).toEqual(1);
     });
 
     it('should return exists = false', async () => {
@@ -18,7 +18,7 @@ describe('Graphql FindUser Resolvers', () => {
 
       const result = await exists({ uid: mockUid }, '', mockContext);
 
-      expect(result).toEqual(false);
+      expect(result).toEqual(0);
     });
   });
 });
