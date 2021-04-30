@@ -14,26 +14,6 @@ const {
 } = require('cypress-image-snapshot/plugin');
 
 module.exports = (on, config) => {
-  // on('file:preprocessor', webpack({
-  //  webpackOptions: require('@vue/cli-service/webpack.config'),
-  //  watchOptions: {}
-  // }))
-
-  on('before:browser:launch', (browser, launchOptions) => {
-    if (browser.name === 'electron' && browser.isHeadless) {
-      const width = {
-        width: 2560,
-      };
-
-      return {
-        ...launchOptions,
-        ...width,
-      };
-    }
-
-    return launchOptions;
-  });
-
   addMatchImageSnapshotPlugin(on, config);
 
   return {
