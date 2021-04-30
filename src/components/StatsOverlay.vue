@@ -5,10 +5,14 @@
     </template>
     <template #msg>
       <p>Showing stats for completed games:</p>
-      <div>Played: <Counter :number="played" /></div>
-      <div>Won: <Counter :number="won.count" /> ({{ won.percent }})</div>
-      <div>Lost: <Counter :number="lost.count" /> ({{ lost.percent }})</div>
-      <div>
+      <div data-test="stats-played">Played: <Counter :number="played" /></div>
+      <div data-test="stats-won">
+        Won: <Counter :number="won.count" /> ({{ won.percent }})
+      </div>
+      <div data-test="stats-lost">
+        Lost: <Counter :number="lost.count" /> ({{ lost.percent }})
+      </div>
+      <div data-test="stats-quit">
         Gave up: <Counter :number="abandoned.count" /> ({{ abandoned.percent }})
       </div>
     </template>

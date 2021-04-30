@@ -1,7 +1,5 @@
 <template>
-  <span data-test="counter">
-    {{ formattedCount }}
-  </span>
+  <span data-test="counter" :data-number="number">{{ formattedCount }}</span>
 </template>
 
 <script>
