@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.19.0'
+
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
 
@@ -35,19 +36,3 @@ jobs:
 
       - name: e2e Tests
         run: yarn test:e2e
-
-    © 2021 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Docs
-
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
-Loading complete
