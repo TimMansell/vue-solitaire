@@ -22,5 +22,8 @@ jobs:
         with:
           browser: chrome
           headless: true
-          start: yarn serve
+          command: yarn test:e2e
           wait-on: 'http://localhost:8080'
+          working-directory: tests
+          config: ignoreTestFiles="**/*snapshot*"
+          config-file: cypress.json
