@@ -1,23 +1,23 @@
 # This is a basic workflow to help you get started with Actions
 
-name:  CI
+name: CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the dev branch
-on: 
-  pull_request: 
-    branches:  [master, dev, v2]
+on:
+  pull_request:
+    branches: [master, dev, v2]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs: 
+jobs:
   # This workflow contains a single job called "build"
-  build: 
+  build:
     # The type of runner that the job will run on
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
 
-    environment:  staging
+    environment: staging
 
-    env:  
+    env:
       VUE_APP_ANALYTICS_UA: ${{ secrets.VUE_APP_ANALYTICS_UA }}
       VUE_APP_GRAPHQL_URL: ${{ secrets.VUE_APP_GRAPHQL_URL }}
       VUE_APP_ENABLE_STATS: ${{ secrets.VUE_APP_ENABLE_STATS }}
@@ -29,26 +29,26 @@ jobs:
       GQL_PLAYGROUND: ${{ secrets.GQL_PLAYGROUND }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps: 
+    steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses:  actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name:  Setup Node
-        uses:  actions/setup-node@v1
-        with: 
-          node-version:  '12.19.0'
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.19.0'
 
-      - name:  Setup Chrome
-        uses:  browser-actions/setup-chrome@latest
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
 
-      - name:  Install Dependencies
-        run:  yarn
+      - name: Install Dependencies
+        run: yarn
 
-      - name:  Linting
-        run:  yarn lint
+      - name: Linting
+        run: yarn lint
 
-      - name:  Unit Tests
-        run:  yarn test: unit
+      - name: Unit Tests
+        run: yarn test:unit
 
-      - name:  e2e Tests
-        run:  yarn test: e2e
+      - name: e2e Tests
+        run: yarn test:e2e
