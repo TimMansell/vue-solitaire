@@ -14,6 +14,7 @@
       :suit="card.suit"
       :revealed="card.revealed"
       :visible="card.visible"
+      :is-dragged="card.isDragged"
       :bottom-card="cards.length - 1 === index"
     />
 

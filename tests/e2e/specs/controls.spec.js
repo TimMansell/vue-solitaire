@@ -24,10 +24,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="foundation-0"]').shouldNotContain(['A♥']);
 
-      cy.get('[data-test="card-5♠"]').should(
-        'not.have.class',
-        'card--is-selected'
-      );
+      cy.get('[data-card-selected="true"]').should('not.exist');
     });
   });
 
@@ -62,12 +59,12 @@ describe('Controls', () => {
 
     cy.get('[data-test="close-rules-btn"]').click();
 
-    cy.get('[data-test="rules-overlay"]').should('not.be.visible');
+    cy.get('[data-test="rules-overlay"]').should('not.exist');
   });
 
   it('should move last cards foundation and then show win screen', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="game-won"]').should('not.be.visible');
+      cy.get('[data-test="game-won"]').should('not.exist');
 
       cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 
@@ -78,7 +75,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="game-overlay-btns"]').click();
 
-      cy.get('[data-test="game-won"]').should('not.be.visible');
+      cy.get('[data-test="game-won"]').should('not.exist');
 
       cy.get('[data-test="foundation-3"]').shouldNotContain(['K♠', 'Q♠']);
     });
@@ -94,7 +91,7 @@ describe('Controls', () => {
         cy.get('[data-test="pause-game-btn"]').click();
       });
 
-      cy.get('[data-test="game-paused"]').should('not.be.visible');
+      cy.get('[data-test="game-paused"]').should('not.exist');
     });
   });
 });

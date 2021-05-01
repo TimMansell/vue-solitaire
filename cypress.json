@@ -1,4 +1,6 @@
 {
+  "baseUrl": "http://localhost:8080",
   "pluginsFile": "tests/e2e/plugins/index.js",
-  "video": false
+  "video": false,
+  "retries": 3
 }

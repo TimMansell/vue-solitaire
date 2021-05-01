@@ -22,7 +22,7 @@ const server = new ApolloServer({
   playground: GQL_PLAYGROUND === 'true',
   introspection: GQL_INTROSPECTION === 'true',
   validationRules: [depthLimit(1)],
-  mocks: NODE_ENV !== 'production',
+  mocks: NODE_ENV === 'test',
 });
 
 exports.handler = server.createHandler();
