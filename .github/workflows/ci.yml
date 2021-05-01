@@ -17,15 +17,15 @@ jobs:
 
     environment: staging
 
-    env: VUE_APP_ANALYTICS_UA=${{ secrets.VUE_APP_ANALYTICS_UA }}
-      VUE_APP_GRAPHQL_URL=${{ secrets.VUE_APP_GRAPHQL_URL }}
-      VUE_APP_ENABLE_STATS=${{ secrets.VUE_APP_ENABLE_STATS }}
-      MONGOBD_URI=${{ secrets.MONGOBD_URI }}
-      MONGODB_DB=${{ secrets.MONGODB_DB }}
-      MONGODB_USER=${{ secrets.MONGODB_USER }}
-      MONGOBD_PASS=${{ secrets.MONGOBD_PASS }}
-      GQL_INTROSPECTION=${{ secrets.GQL_INTROSPECTION }}
-      GQL_PLAYGROUND=${{ secrets.GQL_PLAYGROUND }}
+    env: VUE_APP_ANALYTICS_UA:${{ secrets.VUE_APP_ANALYTICS_UA }}
+      VUE_APP_GRAPHQL_URL:${{ secrets.VUE_APP_GRAPHQL_URL }}
+      VUE_APP_ENABLE_STATS:${{ secrets.VUE_APP_ENABLE_STATS }}
+      MONGOBD_URI:${{ secrets.MONGOBD_URI }}
+      MONGODB_DB:${{ secrets.MONGODB_DB }}
+      MONGODB_USER:${{ secrets.MONGODB_USER }}
+      MONGOBD_PASS:${{ secrets.MONGOBD_PASS }}
+      GQL_INTROSPECTION:${{ secrets.GQL_INTROSPECTION }}
+      GQL_PLAYGROUND:${{ secrets.GQL_PLAYGROUND }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
