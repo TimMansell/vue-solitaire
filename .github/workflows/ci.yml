@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: '12.19.0'
 
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+
       - name: Install Dependencies
         run: yarn
 
