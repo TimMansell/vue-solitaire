@@ -5,7 +5,7 @@ describe('Columns.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(Columns, {
       computed: {
-        fomattedBoardCards: () => [[], [], [], [], [], [], [], []],
+        formattedBoardCards: () => [[], [], [], [], [], [], [], []],
       },
     });
 
