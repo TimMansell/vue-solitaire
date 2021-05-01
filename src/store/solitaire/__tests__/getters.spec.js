@@ -7,6 +7,7 @@ const {
   selectedCardId,
   hasMoves,
   draggedCards,
+  draggedCardsIDs,
 } = getters;
 
 const state = {
@@ -42,5 +43,15 @@ describe('Solitaire Store', () => {
     const result = draggedCards(state);
 
     expect(result).toEqual(state.draggedCards);
+  });
+
+  it('draggedCardsIDs', () => {
+    const newState = {
+      ...state,
+      draggedCards: [{ id: 5 }, { id: 10 }],
+    };
+    const result = draggedCardsIDs(newState);
+
+    expect(result).toEqual([5, 10]);
   });
 });

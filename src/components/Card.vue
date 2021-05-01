@@ -4,9 +4,10 @@
     :class="classes"
     @click="selectCard($event, id)"
     @dragstart="dragCard($event, id)"
-    @dragend="dropCard()"
+    @dragend.prevent
     :draggable="visible"
     :data-test="cardTestName"
+    :data-card-selected="cardIsSelected"
   >
     <DefaultCard :value="cardValue" v-show="visible && !bottomCard" />
 
@@ -62,22 +63,27 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  data() {
-    return {
-      isDragged: false,
-    };
+    isDragged: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
-    ...mapGetters(['selectedCardId']),
+    ...mapGetters(['selectedCardId', 'draggedCards', 'isCardDragged']),
     cardValue() {
       const { value, suit } = this;
 
       return `${value}${suit}`;
     },
     classes() {
-      const { selectedCardId } = this;
-      const { id, stacked, clickable, visible, isDragged } = this;
+      const {
+        selectedCardId,
+        id,
+        stacked,
+        clickable,
+        visible,
+        isDragged,
+      } = this;
 
       return {
         'card--is-selected': selectedCardId === id && !isDragged,
@@ -95,6 +101,11 @@ export default {
       }
 
       return 'card-hidden';
+    },
+    cardIsSelected() {
+      const { selectedCardId, id, isDragged } = this;
+
+      return selectedCardId === id && !isDragged;
     },
   },
   methods: {
@@ -115,13 +126,6 @@ export default {
 
       this.setDraggedCards(id);
       this.setCard(id);
-
-      setTimeout(() => {
-        this.isDragged = true;
-      }, 0);
-    },
-    dropCard() {
-      this.isDragged = false;
     },
   },
 };
