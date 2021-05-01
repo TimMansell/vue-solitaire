@@ -14,7 +14,7 @@ describe('No moves', () => {
 
       cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
-      cy.get('[data-test="game-lost"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.exist');
 
       cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
@@ -28,7 +28,7 @@ describe('No moves', () => {
 
       cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
 
-      cy.get('[data-test="game-lost"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.exist');
 
       cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
 
@@ -43,7 +43,7 @@ describe('No moves', () => {
       cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
       cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
 
-      cy.get('[data-test="game-lost"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.exist');
 
       cy.get('[data-test="card-2♠"]').clickTo('[data-test="foundation-0"]');
 
@@ -53,14 +53,14 @@ describe('No moves', () => {
 
   it('should not show lost game if game won', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="winner"]').should('not.be.visible');
+      cy.get('[data-test="winner"]').should('not.exist');
 
       cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 
       cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
       cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
 
-      cy.get('[data-test="game-lost"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.exist');
     });
   });
 
@@ -75,7 +75,7 @@ describe('No moves', () => {
 
       cy.get('[data-test="game-overlay-btns"]').click();
 
-      cy.get('[data-test="game-lost"]').should('not.be.visible');
+      cy.get('[data-test="game-lost"]').should('not.exist');
     });
   });
 });

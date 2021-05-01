@@ -12,7 +12,7 @@ describe('Invalid moves', () => {
         // Test card from middle.
         cy.get('[data-test="column-4"]').shouldContain(['6♠']);
 
-        cy.get('[data-test="card-6♠"]').dragTo('[data-test="card-4♦"]');
+        cy.dragFromTo('card-6♠', 'card-4♦');
 
         cy.get('[data-test="column-5"]').shouldNotContain(['6♠']);
       });
@@ -23,7 +23,7 @@ describe('Invalid moves', () => {
         // Test card from bottom.
         cy.get('[data-test="column-0"]').shouldContain(['5♠']);
 
-        cy.get('[data-test="card-5♠"]').dragTo('[data-test="card-10♦"]');
+        cy.dragFromTo('card-5♠', 'card-10♦');
 
         cy.get('[data-test="column-6"]').shouldNotContain(['5♠']);
       });
@@ -34,7 +34,7 @@ describe('Invalid moves', () => {
       cy.setBoard(invalidMove).then(() => {
         cy.get('[data-test="column-5"]').shouldContain(['4♦']);
 
-        cy.get('[data-test="card-4♦"]').dragTo('[data-test="card-5♠"]');
+        cy.dragFromTo('card-4♦', 'card-5♠');
 
         cy.get('[data-test="column-0"]').shouldNotContain(['4♦']);
       });
@@ -45,7 +45,7 @@ describe('Invalid moves', () => {
       cy.setBoard(invalidMove).then(() => {
         cy.get('[data-test="column-2"]').shouldContain(['7♦']);
 
-        cy.get('[data-test="card-7♦"]').dragTo('[data-test="card-9♦"]');
+        cy.dragFromTo('card-7♦', 'card-9♦');
 
         cy.get('[data-test="column-1"]').shouldNotContain(['7♦']);
       });

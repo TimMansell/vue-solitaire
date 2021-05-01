@@ -45,7 +45,7 @@ describe('Dragged Cards', () => {
       });
 
       cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="card-7♦"]').should('have.css', 'opacity', '0');
+        cy.get('[data-test="card-7♦"]').should('not.be.visible');
       });
     });
   });
@@ -66,8 +66,8 @@ describe('Dragged Cards', () => {
       });
 
       cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="card-6♦"]').should('have.css', 'opacity', '0');
-        cy.get('[data-test="card-2♥"]').should('have.css', 'opacity', '0');
+        cy.get('[data-test="card-6♦"]').should('not.be.visible');
+        cy.get('[data-test="card-2♥"]').should('not.be.visible');
       });
     });
   });
@@ -76,7 +76,7 @@ describe('Dragged Cards', () => {
     cy.setBoard(validMove).then(() => {
       cy.get('[data-test="column-3"]').shouldContain(['6♦']);
 
-      cy.get('[data-test="card-9♦"]').dragTo('[data-test="board"]');
+      cy.dragFromTo('card-9♦', 'board');
 
       cy.get('[data-test="columns"]').within(() => {
         cy.get('[data-test="card-6♦"]').should('be.visible');
