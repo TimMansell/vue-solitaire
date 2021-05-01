@@ -16,7 +16,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "run-p -r serve:graphql:test test:e2e:cli",
     "test:e2e:gui": "run-p -r serve:graphql:test test:e2e:visual",
-    "test:e2e:cli": "vue-cli-service test:e2e --headless --config ignoreTestFiles=\"**/*snapshot*\"",
+    "test:e2e:cli": "vue-cli-service test:e2e --headless --browser chrome --config ignoreTestFiles=\"**/*snapshot*\"",
     "test:e2e:snapshots": "run-p -r serve:graphql:test test:e2e:run:snapshots",
     "test:e2e:updatesnapshots": "run-p -r serve:graphql:test test:e2e:run:updatesnapshots",
     "test:e2e:visual": "vue-cli-service test:e2e --config ignoreTestFiles=\"**/*snapshot*\"",
