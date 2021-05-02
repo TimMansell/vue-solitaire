@@ -42,6 +42,7 @@
     "mongodb": "^3.6.6",
     "mongodb-client-encryption": "^1.2.3",
     "node-fetch": "^2.6.1",
+    "notyf": "^3.9.0",
     "numeral": "^2.0.6",
     "sanitize.css": "^11.0.1",
     "throttle-debounce": "^3.0.1",
