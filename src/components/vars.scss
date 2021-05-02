@@ -30,7 +30,6 @@ $bp-xl: 1366px;
   --bg-primary-light: #{lighten($col-primary, 5%)};
   --bg-secondary: var(--col-secondary);
   --bg-tertiary: var(--col-tertiary);
-  --bg-warning: var(--col-warning);
 
   // Text colours.
   --text-primary: var(--col-secondary);
@@ -43,7 +42,6 @@ $bp-xl: 1366px;
   --bdr-radius-lg: 7px;
 
   // Margins.
-  --mg-xs: calc(var(--vr) / 4);
   --mg-sm: calc(var(--vr) / 2);
   --mg-md: var(--vr);
   --mg-lg: calc(var(--vr) * 2);
