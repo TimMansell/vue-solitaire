@@ -95,3 +95,23 @@ export const getGlobalStats = async () => {
     return formatError();
   }
 };
+
+export const getAppVersion = async () => {
+  try {
+    const response = await apollo.query({
+      query: gql`
+        query {
+          version {
+            number
+          }
+        }
+      `,
+      variables: {},
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse(response);
+  } catch (error) {
+    return formatError();
+  }
+};
