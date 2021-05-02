@@ -110,6 +110,48 @@ Cypress.Commands.add(
   }
 );
 
+Cypress.Commands.add('checkPlayerCount', () => {
+  const query = `query {
+    globalStats {
+      players
+    }
+  }`;
+
+  cy.intercept({
+    method: 'POST',
+    url: '.netlify/functions/graphql',
+  }).as('apiCheck');
+
+  cy.request({
+    method: 'POST',
+    url: '/.netlify/functions/graphql',
+    body: { query },
+    failOnStatusCode: false,
+  }).should(({ status, body }) => {
+    const { players } = body.data.globalStats;
+
+    expect(status).to.equal(200);
+
+    cy.visit('/');
+
+    cy.wait('@apiCheck');
+
+    cy.get('[data-test="player-count"]').should('have.text', players);
+  });
+});
+
+Cypress.Commands.add('newGame', ({ wait }) => {
+  cy.get('[data-test="new-game-btn"]').click();
+
+  cy.get('[data-test="game-overlay-btns"]').within(() => {
+    cy.get('[data-test="new-game-btn"]').click();
+  });
+
+  if (wait) {
+    cy.wait('@apiCheck');
+  }
+});
+
 addMatchImageSnapshotCommand({
   failureThreshold: 0.05, // threshold for entire image
   failureThresholdType: 'percent', // percent of image or number of pixels
