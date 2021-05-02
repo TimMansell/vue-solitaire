@@ -8,6 +8,7 @@
     ]"
     btn-text="Update"
     :btn-click="refreshPage"
+    data-test="version"
   />
 </template>
 

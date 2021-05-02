@@ -2,7 +2,7 @@
   <div class="toast">
     <div class="toast__wrapper">
       <div class="toast__content">
-        <h2 class="toast__header" v-if="title">
+        <h2 class="toast__header" v-if="title" data-test="toast-header">
           {{ title }}
         </h2>
         <div class="toast__msg">
