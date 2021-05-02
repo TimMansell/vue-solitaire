@@ -1,8 +1,11 @@
 import db from '@/services/db';
+import notification from '@/services/notification';
 
 const actions = {
   async initApp({ dispatch }) {
     dispatch('initGame');
+
+    dispatch('checkAppVersion');
 
     await dispatch('initServerUser');
 
@@ -16,6 +19,32 @@ const actions = {
     dispatch('restartGame');
 
     commit('RESTART_APP');
+  },
+  async checkAppVersion({ state }) {
+    const { version } = state;
+
+    const {
+      error,
+      response: {
+        version: { number },
+      },
+    } = await db.getAppVersion();
+
+    if (!error) {
+      const versionMatch = version === number;
+
+      console.log({ version, number, versionMatch });
+
+      if (!versionMatch) {
+        notification.notify({
+          type: 'warning',
+          title: 'Update available',
+          msg:
+            'A new version of the website is available<br>Refresh your browser or click on update',
+          btn: 'Update',
+        });
+      }
+    }
   },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {
