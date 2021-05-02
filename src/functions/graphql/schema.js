@@ -6,6 +6,7 @@ export const typeDefs = gql`
     findUser(uid: String!): FindUser!
     userStats(uid: String!): UserStats!
     globalStats: GlobalStats!
+    version: Version!
   }
   type Mutation {
     createUser(data: UserInput!): User!
@@ -45,5 +46,8 @@ export const typeDefs = gql`
     won: Int
     lost: Int
     completed: Int
+  }
+  type Version {
+    number: String!
   }
 `;
