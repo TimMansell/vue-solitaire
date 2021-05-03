@@ -18,7 +18,7 @@ const state = {
   showStats: true,
 };
 
-describe('Stats', () => {
+describe('Stats Store', () => {
   it('globalStats', () => {
     const result = globalStats(state);
 

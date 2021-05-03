@@ -19,7 +19,7 @@ describe('Special column moves', () => {
       cy.setBoard(emptyColumn).then(() => {
         cy.get('[data-test="column-7"]').shouldContain(['K♣', '9♣']);
 
-        cy.get('[data-test="card-K♣"]').dragTo('[data-test="column-0"]');
+        cy.dragFromTo('card-K♣', 'column-0');
 
         cy.get('[data-test="column-0"]').shouldContain(['K♣', '9♣']);
 
@@ -31,7 +31,7 @@ describe('Special column moves', () => {
       cy.setBoard(emptyColumn).then(() => {
         cy.get('[data-test="column-1"]').shouldContain(['K♥']);
 
-        cy.get('[data-test="card-K♥"]').dragTo('[data-test="column-0"]');
+        cy.dragFromTo('card-K♥', 'column-0');
 
         cy.get('[data-test="column-0"]').shouldContain(['K♥', '9♦', '5♠']);
 
@@ -46,7 +46,7 @@ describe('Special column moves', () => {
       cy.setBoard(invalidMove).then(() => {
         cy.get('[data-test="column-7"]').shouldContain(['K♠']);
 
-        cy.get('[data-test="card-K♠"]').dragTo('[data-test="card-9♦"]');
+        cy.dragFromTo('card-K♠', 'card-9♦');
 
         cy.get('[data-test="column-1"]').shouldNotContain(['K♠']);
       });
@@ -56,7 +56,7 @@ describe('Special column moves', () => {
       cy.setBoard(emptyColumn).then(() => {
         cy.get('[data-test="column-2"]').shouldContain(['Q♥']);
 
-        cy.get('[data-test="card-Q♥"]').dragTo('[data-test="column-0"]');
+        cy.dragFromTo('card-Q♥', 'column-0');
 
         cy.get('[data-test="column-0"]').shouldNotContain(['Q♥']);
 
@@ -68,7 +68,7 @@ describe('Special column moves', () => {
       cy.setBoard(emptyColumn).then(() => {
         cy.get('[data-test="column-3"]').shouldContain(['J♦']);
 
-        cy.get('[data-test="card-J♦"]').dragTo('[data-test="column-0"]');
+        cy.dragFromTo('card-J♦', 'column-0');
 
         cy.get('[data-test="column-0"]').shouldNotContain(['J♦']);
 

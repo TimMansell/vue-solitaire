@@ -1,6 +1,6 @@
-export const formatResponse = (response) => ({
+export const formatResponse = ({ data }) => ({
   error: false,
-  response,
+  response: { ...data },
 });
 
 export const formatError = () => ({

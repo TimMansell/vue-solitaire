@@ -8,6 +8,8 @@ const mocks = {
   $store: { dispatch: jest.fn() },
 };
 
+jest.mock('@/services/db');
+
 describe('Solitaire.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(Solitaire, {

@@ -5,6 +5,7 @@
     <RulesOverlay v-if="showRules" />
     <StatsOverlay v-if="showStats" />
     <NewGameOverlay v-if="showNewGame" />
+    <CheckVersion />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import GameState from '@/components/GameState.vue';
 import RulesOverlay from '@/components/RulesOverlay.vue';
 import StatsOverlay from '@/components/StatsOverlay.vue';
 import NewGameOverlay from '@/components/NewGameOverlay.vue';
+import CheckVersion from '@/components/CheckVersion.vue';
 // import fixture from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
@@ -25,13 +27,13 @@ export default {
     RulesOverlay,
     StatsOverlay,
     NewGameOverlay,
+    CheckVersion,
   },
   computed: {
     ...mapGetters(['showStats', 'showRules', 'showNewGame']),
   },
   async created() {
-    await this.initUser();
-
+    this.initLocalUser();
     this.initApp();
 
     // Force cypress to wait until async functions have loaded.
@@ -44,7 +46,7 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(['initUser', 'initApp', 'setBoardAndFoundation']),
+    ...mapActions(['initLocalUser', 'initApp', 'setBoardAndFoundation']),
   },
 };
 </script>

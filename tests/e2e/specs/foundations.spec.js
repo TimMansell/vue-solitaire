@@ -14,7 +14,7 @@ describe('Foundation moves', () => {
       cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-0"]');
+        cy.dragFromTo('card-A♠', 'foundation-0');
 
         cy.get('[data-test="foundation-0"]').shouldContain(['A♠']);
 
@@ -26,7 +26,7 @@ describe('Foundation moves', () => {
       cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-1"]');
+        cy.dragFromTo('card-A♠', 'foundation-1');
 
         cy.get('[data-test="foundation-1"]').shouldContain(['A♠']);
 
@@ -38,7 +38,7 @@ describe('Foundation moves', () => {
       cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-2"]');
+        cy.dragFromTo('card-A♠', 'foundation-2');
 
         cy.get('[data-test="foundation-2"]').shouldContain(['A♠']);
 
@@ -50,7 +50,7 @@ describe('Foundation moves', () => {
       cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-7"]').shouldContain(['A♠']);
 
-        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-3"]');
+        cy.dragFromTo('card-A♠', 'foundation-3');
 
         cy.get('[data-test="foundation-3"]').shouldContain(['A♠']);
 
@@ -62,11 +62,11 @@ describe('Foundation moves', () => {
       cy.setBoard(moveAcetoAces).then(() => {
         cy.get('[data-test="column-3"]').shouldContain(['A♥', '3♥']);
 
-        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-0"]');
+        cy.dragFromTo('card-A♥', 'foundation-0');
 
-        cy.get('[data-test="card-2♥"]').dragTo('[data-test="foundation-0"]');
+        cy.dragFromTo('card-2♥', 'foundation-0');
 
-        cy.get('[data-test="card-3♥"]').dragTo('[data-test="foundation-0"]');
+        cy.dragFromTo('card-3♥', 'foundation-0');
 
         cy.get('[data-test="foundation-0"]').shouldContain(['A♥', '2♥', '3♥']);
 
@@ -79,18 +79,18 @@ describe('Foundation moves', () => {
         // Hearts
         cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-1"]');
+        cy.dragFromTo('card-A♥', 'foundation-1');
 
-        cy.get('[data-test="card-2♥"]').dragTo('[data-test="foundation-1"]');
+        cy.dragFromTo('card-2♥', 'foundation-1');
 
         cy.get('[data-test="foundation-1"]').shouldContain(['A♥', '2♥']);
 
         cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
 
         // Spades
-        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-3"]');
+        cy.dragFromTo('card-A♠', 'foundation-3');
 
-        cy.get('[data-test="card-2♠"]').dragTo('[data-test="foundation-3"]');
+        cy.dragFromTo('card-2♠', 'foundation-3');
 
         cy.get('[data-test="foundation-3"]').shouldContain(['A♠', '2♠']);
 
@@ -103,16 +103,15 @@ describe('Foundation moves', () => {
         // Hearts
         cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-1"]');
-        cy.get('[data-test="card-2♥"]').dragTo('[data-test="foundation-1"]');
+        cy.dragFromTo('card-A♥', 'foundation-1');
+        cy.dragFromTo('card-2♥', 'foundation-1');
 
         cy.get('[data-test="foundation-1"]').shouldContain(['A♥', '2♥']);
 
         cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
 
         // Spades
-        cy.get('[data-test="card-A♠"]').dragTo('[data-test="foundation-1"]');
-        // cy.get('[data-test="card-2♠"]').dragTo('[data-test="foundation-1"]');
+        cy.dragFromTo('card-A♠', 'foundation-1');
 
         cy.get('[data-test="foundation-1"]').shouldNotContain(['A♠']);
 
@@ -124,9 +123,8 @@ describe('Foundation moves', () => {
       cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-0"]');
-
-        cy.get('[data-test="card-2♥"]').dragTo('[data-test="foundation-0"]');
+        cy.dragFromTo('card-A♥', 'foundation-0');
+        cy.dragFromTo('card-2♥', 'foundation-0');
 
         cy.get('[data-test="foundation-0"]').shouldContain(['A♥']);
         cy.get('[data-test="foundation-0"]').shouldNotContain(['2♥']);
@@ -139,9 +137,9 @@ describe('Foundation moves', () => {
       cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-3"]').shouldContain(['A♥']);
 
-        cy.get('[data-test="card-A♥"]').dragTo('[data-test="foundation-0"]');
+        cy.dragFromTo('card-A♥', 'foundation-0');
 
-        cy.get('[data-test="card-2♣"]').dragTo('[data-test="foundation-0"]');
+        cy.dragFromTo('card-2♣', 'foundation-0');
 
         cy.get('[data-test="foundation-0"]').shouldContain(['A♥']);
         cy.get('[data-test="foundation-0"]').shouldNotContain(['2♣']);
@@ -154,7 +152,7 @@ describe('Foundation moves', () => {
       cy.setBoard(invalidMove2ToAces).then(() => {
         cy.get('[data-test="column-1"]').shouldContain(['A♦']);
 
-        cy.get('[data-test="card-A♦"]').dragTo('[data-test="foundation-0"]');
+        cy.dragFromTo('card-A♦', 'foundation-0');
 
         cy.get('[data-test="column-1"]').shouldContain(['A♦']);
 
@@ -164,12 +162,12 @@ describe('Foundation moves', () => {
 
     it('should move last cards foundation and then show win screen', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="game-won"]').should('not.be.visible');
+        cy.get('[data-test="game-won"]').should('not.exist');
 
         cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 
-        cy.get('[data-test="card-Q♠"]').dragTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-K♠"]').dragTo('[data-test="foundation-3"]');
+        cy.dragFromTo('card-Q♠', 'foundation-3');
+        cy.dragFromTo('card-K♠', 'foundation-3');
       });
 
       cy.get('[data-test="game-won"]').should('be.visible');
@@ -331,7 +329,7 @@ describe('Foundation moves', () => {
 
     it('should move last cards foundation and then show win screen', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="game-won"]').should('not.be.visible');
+        cy.get('[data-test="game-won"]').should('not.exist');
 
         cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 

@@ -1,22 +1,15 @@
-import { checkLocalUser, getLocalUserID, setLocalUserID } from './localUser';
 import {
-  checkServerUser,
-  getServerUserID,
-  setServerUserID,
-} from './serverUser';
+  checkLocalUserExists,
+  fetchLocalUser,
+  createLocalUser,
+} from './localUser';
+
+export { checkUserExistsOnServer, createUserOnServer } from './serverUser';
 
 export const getLocalUser = () => {
-  const userExists = checkLocalUser();
+  const userExists = checkLocalUserExists();
 
-  const uid = userExists ? getLocalUserID() : setLocalUserID();
+  const uid = userExists ? fetchLocalUser() : createLocalUser();
 
   return uid;
-};
-
-export const getServerUser = async (luid) => {
-  const isUserSaved = checkServerUser();
-
-  const suid = isUserSaved ? getServerUserID() : await setServerUserID(luid);
-
-  return suid;
 };

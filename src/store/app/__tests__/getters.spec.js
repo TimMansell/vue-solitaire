@@ -10,13 +10,18 @@ const {
   timer,
   showRules,
   showNewGame,
+  version,
+  versionMatch,
 } = getters;
+
+const mockVersionNumber = '0.0.0';
 
 const state = {
   ...defaultState(),
+  version: mockVersionNumber,
 };
 
-describe('Solitaire Store', () => {
+describe('App Store', () => {
   it('isGameLost', () => {
     const result = isGameLost(state);
 
@@ -63,5 +68,17 @@ describe('Solitaire Store', () => {
     const result = showNewGame(state);
 
     expect(result).toEqual(state.showNewGame);
+  });
+
+  it('version', () => {
+    const result = version(state);
+
+    expect(result).toEqual(state.version);
+  });
+
+  it('versionMatch', () => {
+    const result = versionMatch(state);
+
+    expect(result).toEqual(state.versionMatch);
   });
 });

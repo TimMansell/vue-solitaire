@@ -7,6 +7,7 @@ const state = () => ({
   selectedCardId: null,
   hasMoves: true,
   draggedCards: [],
+  isNewGame: true,
 });
 
 export default state;

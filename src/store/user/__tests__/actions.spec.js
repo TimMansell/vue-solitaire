@@ -1,19 +1,99 @@
 import actions from '../actions';
 
-const { initUser } = actions;
+const { initLocalUser, initServerUser, checkUserExistsOnServer } = actions;
 
-const mockLuid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-const mockSuid = 123;
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
-const commit = jest.fn();
+let commit;
+let dispatch;
 
 jest.mock('@/services/user');
 
-describe('User', () => {
-  it('initUser', async () => {
-    await initUser({ commit });
+describe('User Store', () => {
+  beforeEach(() => {
+    localStorage.clear();
 
-    expect(commit).toHaveBeenCalledWith('SET_USER_ID', mockLuid);
-    expect(commit).toHaveBeenCalledWith('SET_USER_SID', mockSuid);
+    commit = jest.fn();
+    dispatch = jest.fn();
+  });
+
+  describe('initLocalUser', () => {
+    it('should create a new user', async () => {
+      localStorage.setItem('luid', mockUid);
+
+      await initLocalUser({ commit });
+
+      expect(commit).toHaveBeenCalledWith('SET_USER_ID', mockUid);
+    });
+  });
+
+  describe('initServerUser', () => {
+    it('should not create a new server user when app loads', async () => {
+      const state = {
+        isUserSavedOnServer: false,
+        hasUserPlayedAGame: false,
+      };
+
+      await initServerUser({ dispatch, state });
+
+      expect(dispatch).not.toHaveBeenCalledWith('checkUserExistsOnServer');
+    });
+
+    it('should not create a new server user for an existing user when app loads', async () => {
+      const state = {
+        isUserSavedOnServer: true,
+        hasUserPlayedAGame: false,
+      };
+
+      await initServerUser({ dispatch, state });
+
+      expect(dispatch).not.toHaveBeenCalledWith('checkUserExistsOnServer');
+    });
+
+    it('should create a new server user after first game', async () => {
+      const state = {
+        isUserSavedOnServer: false,
+        hasUserPlayedAGame: true,
+      };
+
+      await initServerUser({ dispatch, state });
+
+      expect(dispatch).toHaveBeenCalledWith('checkUserExistsOnServer');
+    });
+
+    it('should not create a new server user (user already exists) after first game', async () => {
+      const state = {
+        isUserSavedOnServer: true,
+        hasUserPlayedAGame: true,
+      };
+
+      await initServerUser({ dispatch, state });
+
+      expect(dispatch).not.toHaveBeenCalledWith('checkUserExistsOnServer');
+    });
+  });
+
+  describe('checkUserExistsOnServer', () => {
+    it('should return an existing user', async () => {
+      const luid = '123';
+
+      const state = {
+        luid,
+      };
+
+      await checkUserExistsOnServer({ commit, dispatch, state });
+
+      expect(dispatch).toHaveBeenCalledWith('createUserOnServer', luid);
+    });
+
+    it('should return no existing user', async () => {
+      const state = {
+        luid: mockUid,
+      };
+
+      await checkUserExistsOnServer({ commit, dispatch, state });
+
+      expect(dispatch).not.toHaveBeenCalledWith('createUserOnServer');
+    });
   });
 });

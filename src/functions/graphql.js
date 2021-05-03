@@ -5,21 +5,24 @@ import { resolvers } from './graphql/resolvers';
 import { client } from './graphql/db';
 import { grabQuery, grabVariables } from './graphql/helpers';
 
-const { FAUNA_INTROSPECTION, FAUNA_PLAYGROUND, NODE_ENV } = process.env;
+const { GQL_INTROSPECTION, GQL_PLAYGROUND, NODE_ENV } = process.env;
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context({ event }) {
+  context({ event, context }) {
     const query = grabQuery(event);
     const variables = grabVariables(event);
 
+    // eslint-disable-next-line no-param-reassign
+    context.callbackWaitsForEmptyEventLoop = false;
+
     return { client, query, variables };
   },
-  playground: FAUNA_PLAYGROUND,
-  introspection: FAUNA_INTROSPECTION,
+  playground: GQL_PLAYGROUND === 'true',
+  introspection: GQL_INTROSPECTION === 'true',
   validationRules: [depthLimit(1)],
-  mocks: NODE_ENV !== 'production',
+  mocks: NODE_ENV === 'test',
 });
 
 exports.handler = server.createHandler();

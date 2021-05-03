@@ -1,35 +1,15 @@
-import { runQuery, runMutation } from '../helpers';
+import { createISODate, parseAndValidDate } from '../helpers';
 
-describe('Graphql Resolver helpers', () => {
-  it('runQuery', async () => {
-    const mockContext = {
-      client: {
-        query: () => ({
-          data: {
-            test: 1,
-          },
-        }),
-      },
-    };
+describe('Graphql Helpers', () => {
+  it('should be a valid date', () => {
+    const date = createISODate();
 
-    const result = await runQuery(mockContext);
-
-    expect(result).toEqual({ test: 1 });
+    expect(parseAndValidDate(date)).toEqual(true);
   });
 
-  it('runMutation', async () => {
-    const mockContext = {
-      client: {
-        mutate: () => ({
-          data: {
-            test: 1,
-          },
-        }),
-      },
-    };
+  it('should not be a valid date', () => {
+    const date = '2012-a';
 
-    const result = await runMutation(mockContext);
-
-    expect(result).toEqual({ test: 1 });
+    expect(parseAndValidDate(date)).toEqual(false);
   });
 });

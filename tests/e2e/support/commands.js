@@ -1,4 +1,5 @@
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
+// import '@4tw/cypress-drag-drop';
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -36,22 +37,27 @@ Cypress.Commands.add('setBoard', (board) => {
   );
 });
 
-Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, dragTo) => {
-  cy.get(subject).trigger('dragstart', {
-    dataTransfer: new DataTransfer(),
-    force: true,
-  });
+Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
+  cy.get(`[data-test="${dragFrom}"]`)
+    .trigger('dragstart', {
+      dataTransfer: new DataTransfer(),
+      eventConstructor: 'DragEvent',
+      force: true,
+    })
+    .trigger('mousemove', 0, 0, {
+      force: true,
+    });
 
-  cy.get('[data-test="columns"]').within(() => {
-    cy.get(subject).should('have.css', 'opacity', '0');
-  });
+  cy.get(`[data-test="dragged-cards"] [data-test="${dragFrom}"]`).should(
+    'be.visible'
+  );
 
-  cy.get('[data-test="dragged-cards"]').within(() => {
-    cy.get(subject).should('be.visible');
-  });
+  cy.get(`[data-test="columns"] [data-test="${dragFrom}"]`).should(
+    'not.be.visible'
+  );
 
-  cy.get(dragTo)
-    .trigger('drop')
+  cy.get(`[data-test="${dragTo}"]`)
+    .trigger('drop', { force: true })
     .trigger('dragend', { force: true });
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
@@ -98,11 +104,53 @@ Cypress.Commands.add(
   (subject, elements) => {
     cy.get(subject).within(() => {
       elements.forEach((element) => {
-        cy.get(`[data-test="card-${element}"]`).should('not.be.visible');
+        cy.get(`[data-test="card-${element}"]`).should('not.exist');
       });
     });
   }
 );
+
+Cypress.Commands.add('checkPlayerCount', () => {
+  const query = `query {
+    globalStats {
+      players
+    }
+  }`;
+
+  cy.intercept({
+    method: 'POST',
+    url: '.netlify/functions/graphql',
+  }).as('apiCheck');
+
+  cy.request({
+    method: 'POST',
+    url: '/.netlify/functions/graphql',
+    body: { query },
+    failOnStatusCode: false,
+  }).should(({ status, body }) => {
+    const { players } = body.data.globalStats;
+
+    expect(status).to.equal(200);
+
+    cy.visit('/');
+
+    cy.wait('@apiCheck');
+
+    cy.get('[data-test="player-count"]').should('have.text', players);
+  });
+});
+
+Cypress.Commands.add('newGame', ({ wait }) => {
+  cy.get('[data-test="new-game-btn"]').click();
+
+  cy.get('[data-test="game-overlay-btns"]').within(() => {
+    cy.get('[data-test="new-game-btn"]').click();
+  });
+
+  if (wait) {
+    cy.wait('@apiCheck');
+  }
+});
 
 addMatchImageSnapshotCommand({
   failureThreshold: 0.05, // threshold for entire image
