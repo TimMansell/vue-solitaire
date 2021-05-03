@@ -11,6 +11,7 @@ const {
   showRules,
   showNewGame,
   version,
+  versionMatch,
 } = getters;
 
 const state = {
@@ -71,5 +72,11 @@ describe('App Store', () => {
     const result = version(state);
 
     expect(result).toEqual(state.version);
+  });
+
+  it('versionMatch', () => {
+    const result = versionMatch(state);
+
+    expect(result).toEqual(state.versionMatch);
   });
 });

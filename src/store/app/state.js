@@ -16,6 +16,7 @@ const state = () => ({
   showRules: false,
   showNewGame: false,
   version,
+  versionMatch: true,
 });
 
 export default state;

@@ -8,6 +8,7 @@ const getters = {
   showRules: (state) => state.showRules,
   showNewGame: (state) => state.showNewGame,
   version: (state) => state.version,
+  versionMatch: (state) => state.versionMatch,
 };
 
 export default getters;
