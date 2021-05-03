@@ -7,5 +7,6 @@ exports[`Solitaire.vue matches snapshot 1`] = `
   <rulesoverlay-stub></rulesoverlay-stub>
   <statsoverlay-stub></statsoverlay-stub>
   <newgameoverlay-stub></newgameoverlay-stub>
+  <checkversion-stub></checkversion-stub>
 </div>
 `;

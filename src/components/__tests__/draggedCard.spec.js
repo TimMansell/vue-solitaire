@@ -58,7 +58,7 @@ describe('DraggedCards.vue', () => {
     expect(wrapper.vm.cardOffset).toBe(50);
   });
 
-  it.only('should calculate card position correctly', async () => {
+  it('should calculate card position correctly', async () => {
     const wrapper = shallowMount(DraggedCards, {
       propsData: {
         ...defaultProps,

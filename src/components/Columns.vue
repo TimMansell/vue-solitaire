@@ -2,7 +2,7 @@
   <div>
     <div class="columns" data-test="columns">
       <Column
-        v-for="(column, index) in boardCards"
+        v-for="(column, index) in formattedBoardCards"
         :key="index"
         :column-no="index"
         :cards="column"
@@ -35,7 +35,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['boardCards']),
+    ...mapGetters(['boardCards', 'draggedCardsIDs']),
+    formattedBoardCards() {
+      const { boardCards, draggedCardsIDs } = this;
+
+      const boardCardsWithDragged = boardCards.map((columnCards) =>
+        columnCards.map((cards) => {
+          const isDragged = draggedCardsIDs.includes(cards.id);
+
+          return { ...cards, isDragged };
+        })
+      );
+
+      return boardCardsWithDragged;
+    },
   },
   mounted() {
     const events = {

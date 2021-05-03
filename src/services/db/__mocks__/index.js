@@ -1,47 +1,42 @@
-const userStats = { count: 1 };
-const globalStats = { count: 1 };
-const findUserByLID = { uid: 123 };
-const mockID = { _id: 123 };
+import { formatResponse } from '../helpers';
 
-const getAUser = () => ({
-  response: { findUserByLID },
-});
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+const mockVersionNumber = '0.0.0';
+const mockStats = { won: 1, lost: 2, competed: 3 };
 
-const getStatsCount = () => ({
-  response: { userStats, globalStats },
-});
+const userStats = { ...mockStats };
+const globalStats = { ...mockStats };
+const mockUidResult = { uid: mockUid };
+const mockVersion = { number: mockVersionNumber };
 
-const getGlobalStats = () => ({
-  response: { globalStats },
-});
+const checkUserExists = (uid) => {
+  const exists = uid === mockUid;
+  const response = formatResponse({ data: { findUser: { exists } } });
 
-const getUserStats = () => ({
-  response: { userStats },
-});
+  return response;
+};
 
-const newUser = () => ({
-  error: false,
-  response: { createUser: mockID },
-});
+const getStatsCount = () =>
+  formatResponse({ data: { userStats, globalStats } });
 
-const gameNew = () => ({
-  response: { newGame: mockID },
-});
+const getGlobalStats = () => formatResponse({ data: { globalStats } });
 
-const gameWon = () => ({
-  response: { wonGame: mockID },
-});
+const getUserStats = () => formatResponse({ data: { userStats } });
 
-const gameLost = () => ({
-  response: { lostGame: mockID },
-});
+const newUser = () => formatResponse({ data: { createUser: mockUidResult } });
 
-const gameAbandoned = () => ({
-  response: { completedGame: mockID },
-});
+const gameNew = () => formatResponse({ data: { newGame: mockUidResult } });
+
+const gameWon = () => formatResponse({ data: { wonGame: mockUidResult } });
+
+const gameLost = () => formatResponse({ data: { lostGame: mockUidResult } });
+
+const gameQuit = () => formatResponse({ data: { quitGame: mockUidResult } });
+
+const getAppVersion = () => formatResponse({ data: { version: mockVersion } });
 
 const db = () => ({
-  getAUser,
+  checkUserExists,
   getUserStats,
   getGlobalStats,
   getStatsCount,
@@ -49,7 +44,8 @@ const db = () => ({
   gameNew,
   gameWon,
   gameLost,
-  gameAbandoned,
+  gameQuit,
+  getAppVersion,
 });
 
 export default db();

@@ -3,48 +3,51 @@ import { gql } from 'apollo-server-lambda';
 // eslint-disable-next-line import/prefer-default-export
 export const typeDefs = gql`
   type Query {
-    findUserByLID(uid: String!): userLID
+    findUser(uid: String!): FindUser!
     userStats(uid: String!): UserStats!
     globalStats: GlobalStats!
+    version: Version!
   }
   type Mutation {
     createUser(data: UserInput!): User!
-    newGame(uid: String!): Game!
-    wonGame(id: ID!, data: GameInput!): Game!
-    lostGame(id: ID!, data: GameInput!): Game!
-    completedGame(id: ID!, data: GameInput!): Game!
-  }
-  type userLID {
-    uid: String!
+    wonGame(data: GameInput!): Game!
+    lostGame(data: GameInput!): Game!
+    quitGame(data: GameInput!): Game!
   }
   type User {
-    _id: ID!
+    uid: String
+    exists: Boolean
+  }
+  input UserInput {
+    uid: String!
+  }
+  type FindUser {
+    uid: String
+    exists: Boolean
   }
   type Game {
-    _id: ID!
-    gameNumber: Int
+    uid: String
+  }
+  input GameInput {
+    uid: String!
+    won: Boolean
+    lost: Boolean
+    completed: Boolean
+    moves: Int!
+    time: Int!
   }
   type GlobalStats {
-    count: Int
     won: Int
     lost: Int
     completed: Int
     players: Int
   }
-  input GameInput {
-    won: Boolean
-    lost: Boolean
-    completed: Boolean
-    moves: Int
-    time: Int
-  }
-  input UserInput {
-    uid: String
-  }
   type UserStats {
-    count: Int
     won: Int
     lost: Int
     completed: Int
+  }
+  type Version {
+    number: String!
   }
 `;

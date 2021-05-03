@@ -32,10 +32,10 @@ export default {
     ...mapGetters(['userStats']),
     number() {
       const {
-        userStats: { count },
+        userStats: { completed },
       } = this;
 
-      return count;
+      return completed;
     },
   },
   methods: {

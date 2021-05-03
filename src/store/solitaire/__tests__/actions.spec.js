@@ -25,19 +25,22 @@ describe('Solitaire Store', () => {
       isNewGame: true,
     };
 
-    initGame({ dispatch, state }, true);
+    initGame({ dispatch, state });
 
     expect(dispatch).not.toHaveBeenCalledWith('setCard');
+    expect(dispatch).toHaveBeenCalledWith('newGame', false);
   });
 
   it('initGame - saved game', () => {
     const state = {
       selectedCardId: 1,
+      isNewGame: false,
     };
 
-    initGame({ dispatch, state }, false);
+    initGame({ dispatch, state });
 
     expect(dispatch).toHaveBeenCalledWith('setCard', 1);
+    expect(dispatch).not.toHaveBeenCalledWith('newGame');
   });
 
   it('checkGameState - no moves', () => {

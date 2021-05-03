@@ -1,29 +1,70 @@
+const mockVersion = '0.0.0';
+
 describe('App', () => {
-  beforeEach(() => {
-    cy.visit('/');
-  });
-
-  it('it successfullly loads', () => {
-    cy.get('[data-test="board"]').should('be.visible');
-
-    cy.get('[data-test="columns"]').within(() => {
-      cy.get('[data-test^="card-"]').should('have.length', 52);
+  describe('Version', () => {
+    beforeEach(() => {
+      cy.visit('/');
     });
 
-    cy.get('[data-test="foundations"]').within(() => {
-      cy.get('[data-test^="foundation-"]').should('have.length', 4);
+    it('it successfullly loads', () => {
+      cy.get('[data-test="board"]').should('be.visible');
+
+      cy.get('[data-test="columns"]').within(() => {
+        cy.get('[data-test^="card-"]').should('have.length', 52);
+      });
+
+      cy.get('[data-test="foundations"]').within(() => {
+        cy.get('[data-test^="foundation-"]').should('have.length', 4);
+      });
     });
-  });
 
-  it('it should hide scroll bar when overlay is open and show scrollbar when overlay is closed', () => {
-    cy.get('[data-test="pause-game-btn"]').click();
-
-    cy.get('[data-test="body"]').should('have.css', 'overflow', 'hidden');
-
-    cy.get('[data-test="game-overlay-btns"]').within(() => {
+    it('it should hide scroll bar when overlay is open and show scrollbar when overlay is closed', () => {
       cy.get('[data-test="pause-game-btn"]').click();
+
+      cy.get('[data-test="body"]').should('have.css', 'overflow', 'hidden');
+
+      cy.get('[data-test="game-overlay-btns"]').within(() => {
+        cy.get('[data-test="pause-game-btn"]').click();
+      });
+
+      cy.get('[data-test="body"]').should('have.css', 'overflow', 'auto');
+    });
+  });
+
+  describe('Version', () => {
+    it('it should not show version upgrade toast', () => {
+      cy.intercept({
+        method: 'POST',
+        url: '.netlify/functions/graphql',
+      }).as('apiCheck');
+
+      cy.visit('/');
+
+      cy.wait('@apiCheck');
+
+      cy.get('[data-test="version"]').should('not.exist');
     });
 
-    cy.get('[data-test="body"]').should('have.css', 'overflow', 'auto');
+    it('it should not show version upgrade toast', () => {
+      cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+        const { body } = req;
+
+        if (body?.query.includes('version')) {
+          // eslint-disable-next-line no-param-reassign
+          req.alias = 'version';
+
+          // eslint-disable-next-line no-param-reassign
+          req.reply({
+            data: { version: { number: mockVersion, __typename: 'Version' } },
+          });
+        }
+      });
+
+      cy.visit('/');
+
+      cy.wait('@version');
+
+      cy.get('[data-test="version"]').should('exist');
+    });
   });
 });

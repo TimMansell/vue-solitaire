@@ -10,7 +10,7 @@ describe('Valid moves', () => {
       cy.setBoard(validMove).then(() => {
         cy.get('[data-test="column-3"]').shouldContain(['6♦']);
 
-        cy.get('[data-test="card-6♦"]').dragTo('[data-test="card-7♦"]');
+        cy.dragFromTo('card-6♦', 'card-7♦');
 
         cy.get('[data-test="column-2"]').shouldContain(['6♦']);
       });
@@ -20,7 +20,7 @@ describe('Valid moves', () => {
       cy.setBoard(validMove).then(() => {
         cy.get('[data-test="column-1"]').shouldContain(['9♦']);
 
-        cy.get('[data-test="card-9♦"]').dragTo('[data-test="card-10♦"]');
+        cy.dragFromTo('card-9♦', 'card-10♦');
 
         cy.get('[data-test="column-6"]').shouldContain(['9♦']);
       });
@@ -30,7 +30,7 @@ describe('Valid moves', () => {
       cy.setBoard(validMove).then(() => {
         cy.get('[data-test="column-4"]').shouldContain(['A♣']);
 
-        cy.get('[data-test="card-A♣"]').dragTo('[data-test="card-2♣"]');
+        cy.dragFromTo('card-A♣', 'card-2♣');
 
         cy.get('[data-test="column-0"]').shouldContain(['A♣']);
       });

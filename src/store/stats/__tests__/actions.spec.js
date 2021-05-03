@@ -2,10 +2,12 @@ import actions from '../actions';
 
 const { getStatsCount, getGlobalStats, getUserStats, toggleStats } = actions;
 
-const mockStats = { count: 1 };
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+
+const mockStats = { won: 1, lost: 2, competed: 3 };
 const rootState = {
   user: {
-    suid: 123,
+    luid: mockUid,
   },
 };
 
@@ -13,7 +15,7 @@ const commit = jest.fn();
 
 jest.mock('@/services/db');
 
-describe('Stats', () => {
+describe('Stats Store', () => {
   it('getStatsCount', async () => {
     await getStatsCount({ commit, rootState });
 

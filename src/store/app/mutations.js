@@ -1,21 +1,15 @@
 import defaultState from './state';
 
 const mutations = {
-  RESTART(state) {
+  RESTART_APP(state) {
     const newState = {
       ...defaultState(),
     };
 
     Object.assign(state, newState);
   },
-  NEW_GAME(state, isNewGame) {
-    state.isNewGame = isNewGame;
-  },
-  SET_GAME(state, game) {
-    state.game = {
-      ...state.game,
-      ...game,
-    };
+  SET_VERSION_MATCH(state, versionMatch) {
+    state.versionMatch = versionMatch;
   },
   SET_GAME_WON(state, isGameWon) {
     state.isGameWon = isGameWon;

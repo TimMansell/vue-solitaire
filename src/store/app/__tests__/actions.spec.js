@@ -1,9 +1,8 @@
 import actions from '../actions';
 
 const {
-  initApp,
   restartApp,
-  createGame,
+  checkAppVersion,
   setGameState,
   setGameInactive,
   toggleGamePaused,
@@ -12,62 +11,38 @@ const {
   toggleNewGame,
 } = actions;
 
+const mockVersionNumber = '0.0.0';
+
 const commit = jest.fn();
 const dispatch = jest.fn();
 
 jest.mock('@/services/db');
 
-describe('Solitaire Store', () => {
-  it('initApp - new game', () => {
-    const state = {
-      isNewGame: true,
-    };
-
-    initApp({ commit, dispatch, state });
-
-    expect(dispatch).toHaveBeenCalledWith('initGame', true);
-    expect(dispatch).toHaveBeenCalledWith('createGame', true);
-  });
-
-  it('initApp - saved game', () => {
-    const state = {
-      isNewGame: false,
-    };
-
-    initApp({ commit, dispatch, state });
-
-    expect(dispatch).toHaveBeenCalledWith('initGame', false);
-    expect(dispatch).not.toHaveBeenCalledWith('createGame');
-  });
-
+describe('App Store', () => {
   it('restartApp', () => {
-    const state = {
-      game: {
-        id: 1,
-        moves: 10,
-      },
-    };
+    restartApp({ dispatch, commit }, false);
 
-    restartApp({ dispatch, commit, state }, false);
-
-    expect(commit).toHaveBeenCalledWith('RESTART');
+    expect(dispatch).toHaveBeenCalledWith('setGameQuit');
   });
 
-  it('createGame', async () => {
-    const rootState = {
-      user: {
-        suid: 123,
-      },
+  it('checkAppVersion - same version', async () => {
+    const state = {
+      version: mockVersionNumber,
     };
 
-    const mockResponse = {
-      _id: 123,
+    await checkAppVersion({ commit, state });
+
+    expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', true);
+  });
+
+  it('checkAppVersion - different versions', async () => {
+    const state = {
+      version: '0.0.1',
     };
 
-    await createGame({ commit, dispatch, rootState });
+    await checkAppVersion({ commit, state });
 
-    // eslint-disable-next-line no-underscore-dangle
-    expect(commit).toHaveBeenCalledWith('SET_GAME', { id: mockResponse._id });
+    expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', false);
   });
 
   it('setGameState - game won', () => {

@@ -213,13 +213,12 @@ describe('Card.vue', () => {
     const wrapper = shallowMount(Card, {
       propsData: {
         ...defaultProps,
+        isDragged: true,
       },
       computed: {
         selectedCardId: () => 2,
       },
     });
-
-    await wrapper.setData({ isDragged: true });
 
     expect(wrapper.classes()).toContain('card--is-dragged');
     expect(wrapper.classes()).not.toContain('card--is-selected');
