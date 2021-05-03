@@ -14,9 +14,11 @@ const {
   versionMatch,
 } = getters;
 
+const mockVersionNumber = '0.0.0';
+
 const state = {
   ...defaultState(),
-  version: 'x.x.x',
+  version: mockVersionNumber,
 };
 
 describe('App Store', () => {

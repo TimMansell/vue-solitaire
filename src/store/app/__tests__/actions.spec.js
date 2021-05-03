@@ -11,6 +11,8 @@ const {
   toggleNewGame,
 } = actions;
 
+const mockVersionNumber = '0.0.0';
+
 const commit = jest.fn();
 const dispatch = jest.fn();
 
@@ -25,7 +27,7 @@ describe('App Store', () => {
 
   it('checkAppVersion - same version', async () => {
     const state = {
-      version: 'x.x.x',
+      version: mockVersionNumber,
     };
 
     await checkAppVersion({ commit, state });
@@ -35,7 +37,7 @@ describe('App Store', () => {
 
   it('checkAppVersion - different versions', async () => {
     const state = {
-      version: 'a.b.c',
+      version: '0.0.1',
     };
 
     await checkAppVersion({ commit, state });
