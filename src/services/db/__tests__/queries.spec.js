@@ -3,7 +3,10 @@ import {
   getUserStats,
   getStatsCount,
   getGlobalStats,
+  getAppVersion,
 } from '../queries';
+
+import { version as appVersion } from '../../../../package.json';
 
 jest.mock('../apollo');
 
@@ -57,6 +60,15 @@ describe('DB service queries', () => {
       const { globalStats } = response;
 
       expect(globalStats).toEqual(stats);
+    });
+  });
+
+  describe('getAppVersion', () => {
+    it('should return valid object for getAppVersion', async () => {
+      const { response } = await getAppVersion();
+      const { version } = response;
+
+      expect(version).toEqual({ number: appVersion });
     });
   });
 });

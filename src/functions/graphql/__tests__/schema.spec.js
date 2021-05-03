@@ -94,6 +94,28 @@ describe('Graphql Schema', () => {
         },
       });
     });
+
+    it('version', async () => {
+      const query = `
+        query {
+          version {
+            number
+          }
+        }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
+
+      expect(result).toEqual({
+        data: {
+          version: {
+            number: 'String',
+          },
+        },
+      });
+    });
   });
 
   describe('Mutations', () => {

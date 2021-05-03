@@ -4,6 +4,7 @@ const actions = {
   async initApp({ dispatch }) {
     dispatch('initGame');
 
+    dispatch('checkAppVersion');
     await dispatch('initServerUser');
 
     dispatch('getStatsCount');
@@ -16,6 +17,22 @@ const actions = {
     dispatch('restartGame');
 
     commit('RESTART_APP');
+  },
+  async checkAppVersion({ commit, state }) {
+    const { version } = state;
+
+    const {
+      error,
+      response: {
+        version: { number },
+      },
+    } = await db.getAppVersion();
+
+    if (!error) {
+      const versionMatch = version === number;
+
+      commit('SET_VERSION_MATCH', versionMatch);
+    }
   },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {

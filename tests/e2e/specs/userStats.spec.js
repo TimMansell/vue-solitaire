@@ -9,10 +9,14 @@ describe('Stats', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
 
-    cy.intercept({
-      method: 'POST',
-      url: '.netlify/functions/graphql',
-    }).as('apiCheck');
+    cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+      const { body } = req;
+
+      if (body?.query.includes('userStats')) {
+        // eslint-disable-next-line no-param-reassign
+        req.alias = 'apiCheck';
+      }
+    });
   });
 
   describe('User Stats', () => {

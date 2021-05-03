@@ -2,6 +2,7 @@ import actions from '../actions';
 
 const {
   restartApp,
+  checkAppVersion,
   setGameState,
   setGameInactive,
   toggleGamePaused,
@@ -10,6 +11,8 @@ const {
   toggleNewGame,
 } = actions;
 
+const mockVersionNumber = '0.0.0';
+
 const commit = jest.fn();
 const dispatch = jest.fn();
 
@@ -17,16 +20,29 @@ jest.mock('@/services/db');
 
 describe('App Store', () => {
   it('restartApp', () => {
-    const state = {
-      game: {
-        moves: 10,
-        time: 60,
-      },
-    };
-
-    restartApp({ dispatch, commit, state }, false);
+    restartApp({ dispatch, commit }, false);
 
     expect(dispatch).toHaveBeenCalledWith('setGameQuit');
+  });
+
+  it('checkAppVersion - same version', async () => {
+    const state = {
+      version: mockVersionNumber,
+    };
+
+    await checkAppVersion({ commit, state });
+
+    expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', true);
+  });
+
+  it('checkAppVersion - different versions', async () => {
+    const state = {
+      version: '0.0.1',
+    };
+
+    await checkAppVersion({ commit, state });
+
+    expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', false);
   });
 
   it('setGameState - game won', () => {

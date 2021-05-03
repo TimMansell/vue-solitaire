@@ -8,6 +8,9 @@ const mutations = {
 
     Object.assign(state, newState);
   },
+  SET_VERSION_MATCH(state, versionMatch) {
+    state.versionMatch = versionMatch;
+  },
   SET_GAME_WON(state, isGameWon) {
     state.isGameWon = isGameWon;
   },

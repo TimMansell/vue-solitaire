@@ -11,6 +11,7 @@ const {
   UPDATE_GAME_TIME,
   SHOW_RULES,
   SHOW_NEW_GAME,
+  SET_VERSION_MATCH,
 } = mutations;
 
 describe('App Store', () => {
@@ -79,5 +80,11 @@ describe('App Store', () => {
     SHOW_NEW_GAME(state, true);
 
     expect(state.showNewGame).toEqual(true);
+  });
+
+  it('SET_VERSION_MATCH', () => {
+    SET_VERSION_MATCH(state, false);
+
+    expect(state.versionMatch).toEqual(false);
   });
 });

@@ -6,10 +6,14 @@ describe('User', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
 
-    cy.intercept({
-      method: 'POST',
-      url: '.netlify/functions/graphql',
-    }).as('apiCheck');
+    cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+      const { body } = req;
+
+      if (body?.query.includes('globalStats')) {
+        // eslint-disable-next-line no-param-reassign
+        req.alias = 'apiCheck';
+      }
+    });
   });
 
   describe('Server User on Initial Page Load', () => {

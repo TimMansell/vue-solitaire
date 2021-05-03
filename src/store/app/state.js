@@ -1,3 +1,5 @@
+import { version } from '../../../package.json';
+
 // Return state as function so we can reset it.
 const state = () => ({
   isGameWon: false,
@@ -13,6 +15,8 @@ const state = () => ({
   },
   showRules: false,
   showNewGame: false,
+  version,
+  versionMatch: true,
 });
 
 export default state;
