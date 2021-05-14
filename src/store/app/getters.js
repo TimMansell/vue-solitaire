@@ -7,7 +7,6 @@ const getters = {
   timer: (state) => state.game.time,
   showRules: (state) => state.showRules,
   showNewGame: (state) => state.showNewGame,
-  version: (state) => state.version,
   versionMatch: (state) => state.versionMatch,
 };
 

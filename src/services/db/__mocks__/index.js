@@ -1,7 +1,7 @@
 import { formatResponse } from '../helpers';
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-const mockVersionNumber = '0.0.0';
+const mockVersionNumber = '1.0.0';
 const mockStats = { won: 1, lost: 2, competed: 3 };
 
 const userStats = { ...mockStats };
