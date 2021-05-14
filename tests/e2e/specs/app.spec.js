@@ -1,4 +1,8 @@
-const mockVersion = '0.0.0';
+import { version } from '../../../package.json';
+
+const defaultAlias = 'version';
+const mockAlias = 'mockVersion';
+const mockVersion = '1.0.0';
 
 describe('App', () => {
   describe('Version', () => {
@@ -65,6 +69,24 @@ describe('App', () => {
       cy.wait('@version');
 
       cy.get('[data-test="version"]').should('exist');
+    });
+
+    it('it should show version upgrade toast and not show it after page reload', () => {
+      cy.interceptVersionCheck(mockAlias, mockVersion);
+
+      cy.visit('/');
+
+      cy.wait(`@${mockAlias}`);
+
+      cy.get('[data-test="version"]').should('exist');
+
+      cy.interceptVersionCheck(defaultAlias, version);
+
+      cy.reload();
+
+      cy.wait(`@${defaultAlias}`);
+
+      cy.get('[data-test="version"]').should('not.exist');
     });
   });
 });
