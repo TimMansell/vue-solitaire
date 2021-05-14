@@ -152,6 +152,26 @@ Cypress.Commands.add('newGame', ({ wait }) => {
   }
 });
 
+Cypress.Commands.add('interceptVersionCheck', (alias, version) => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('version')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = alias;
+
+      // eslint-disable-next-line no-param-reassign
+      console.log({ version });
+
+      if (version) {
+        req.reply({
+          data: { version: { number: version, __typename: 'Version' } },
+        });
+      }
+    }
+  });
+});
+
 addMatchImageSnapshotCommand({
   failureThreshold: 0.05, // threshold for entire image
   failureThresholdType: 'percent', // percent of image or number of pixels
