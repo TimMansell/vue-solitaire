@@ -1,7 +1,11 @@
-const mockVersion = '0.0.0';
+import { version } from '../../../package.json';
+
+const defaultAlias = 'version';
+const mockAlias = 'mockVersion';
+const mockVersion = '1.0.0';
 
 describe('App', () => {
-  describe('Version', () => {
+  describe('Default', () => {
     beforeEach(() => {
       cy.visit('/');
     });
@@ -33,38 +37,41 @@ describe('App', () => {
 
   describe('Version', () => {
     it('it should not show version upgrade toast', () => {
-      cy.intercept({
-        method: 'POST',
-        url: '.netlify/functions/graphql',
-      }).as('apiCheck');
+      cy.interceptVersionCheck(defaultAlias, version);
 
       cy.visit('/');
 
-      cy.wait('@apiCheck');
+      cy.wait(`@${defaultAlias}`);
 
       cy.get('[data-test="version"]').should('not.exist');
     });
 
-    it('it should not show version upgrade toast', () => {
-      cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-        const { body } = req;
-
-        if (body?.query.includes('version')) {
-          // eslint-disable-next-line no-param-reassign
-          req.alias = 'version';
-
-          // eslint-disable-next-line no-param-reassign
-          req.reply({
-            data: { version: { number: mockVersion, __typename: 'Version' } },
-          });
-        }
-      });
+    it('it should show version upgrade toast', () => {
+      cy.interceptVersionCheck(mockAlias, mockVersion);
 
       cy.visit('/');
 
-      cy.wait('@version');
+      cy.wait(`@${mockAlias}`);
 
       cy.get('[data-test="version"]').should('exist');
+    });
+
+    it('it should show version upgrade toast and not show it after page reload', () => {
+      cy.interceptVersionCheck(mockAlias, mockVersion);
+
+      cy.visit('/');
+
+      cy.wait(`@${mockAlias}`);
+
+      cy.get('[data-test="version"]').should('exist');
+
+      cy.interceptVersionCheck(defaultAlias, version);
+
+      cy.reload();
+
+      cy.wait(`@${defaultAlias}`);
+
+      cy.get('[data-test="version"]').should('not.exist');
     });
   });
 });

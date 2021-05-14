@@ -1,10 +1,12 @@
 import db from '@/services/db';
 
+import { version } from '../../../package.json';
+
 const actions = {
   async initApp({ dispatch }) {
     dispatch('initGame');
 
-    dispatch('checkAppVersion');
+    dispatch('checkAppVersion', version);
     await dispatch('initServerUser');
 
     dispatch('getStatsCount');
@@ -18,18 +20,16 @@ const actions = {
 
     commit('RESTART_APP');
   },
-  async checkAppVersion({ commit, state }) {
-    const { version } = state;
-
+  async checkAppVersion({ commit }, localVersion) {
     const {
       error,
       response: {
-        version: { number },
+        version: { number: serverVersion },
       },
     } = await db.getAppVersion();
 
     if (!error) {
-      const versionMatch = version === number;
+      const versionMatch = localVersion === serverVersion;
 
       commit('SET_VERSION_MATCH', versionMatch);
     }
