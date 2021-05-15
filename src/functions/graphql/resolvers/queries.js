@@ -8,9 +8,12 @@ export const findUser = (_, { uid }) => ({ uid });
 
 export const version = () => ({ number: appVersion });
 
+export const user = (_, { uid }) => ({ uid });
+
 export const queries = {
   userStats,
   globalStats,
   findUser,
   version,
+  user,
 };
