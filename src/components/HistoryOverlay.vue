@@ -30,13 +30,7 @@
         </tbody>
       </table>
 
-      <ul class="pagination">
-        <li v-for="index in pages" :key="index">
-          <button @click="displayPage(index)">
-            {{ index }}
-          </button>
-        </li>
-      </ul>
+      <Pagination :pages="pages" @page="displayPage" />
     </template>
     <template #buttons>
       <Button @click="toggleHistory" data-test="close-history-btn">
@@ -52,6 +46,7 @@ import numeral from 'numeral';
 import { mapGetters, mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import Button from '@/components/Button.vue';
+import Pagination from '@/components/Pagination.vue';
 
 const gameOutcome = ({ won, lost }) => {
   if (won) {
@@ -70,6 +65,7 @@ export default {
   components: {
     GameOverlay,
     Button,
+    Pagination,
   },
   data() {
     return {
@@ -149,11 +145,5 @@ export default {
     border: 1px solid var(--bdr-primary);
     padding: var(--pd-sm);
   }
-}
-
-.pagination {
-  display: flex;
-  flex-wrap: wrap;
-  list-style-type: none;
 }
 </style>
