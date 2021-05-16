@@ -27,15 +27,13 @@
         </tbody>
       </table>
 
-      <button @click="displayGames(1)">
-        1
-      </button>
-      <button @click="displayGames(2)">
-        2
-      </button>
-      <button @click="displayGames(3)">
-        3
-      </button>
+      <ul class="pagination">
+        <li v-for="index in pages" :key="index">
+          <button @click="displayGames(index)">
+            {{ index }}
+          </button>
+        </li>
+      </ul>
     </template>
     <template #buttons>
       <Button @click="toggleHistory" data-test="close-history-btn">
@@ -72,11 +70,11 @@ export default {
   },
   data() {
     return {
-      limit: 50,
+      limit: 25,
     };
   },
   computed: {
-    ...mapGetters(['gameHistory']),
+    ...mapGetters(['gameHistory', 'userStats']),
     games() {
       const { gameHistory } = this;
 
@@ -89,6 +87,16 @@ export default {
       }));
 
       return formattedGames;
+    },
+    pages() {
+      const {
+        limit,
+        userStats: { completed },
+      } = this;
+
+      const pages = Math.ceil(completed / limit);
+
+      return pages;
     },
   },
   async mounted() {
@@ -115,5 +123,11 @@ export default {
     border: 1px solid var(--bdr-primary);
     padding: var(--pd-sm);
   }
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
 }
 </style>
