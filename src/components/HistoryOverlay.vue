@@ -9,26 +9,10 @@
         played
       </p>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Outcome</th>
-            <th>Moves</th>
-            <th>Duration</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(game, index) in games" :key="index">
-            <td>{{ game.date }}</td>
-            <td>{{ game.timePlayed }}</td>
-            <td>{{ game.outcome }}</td>
-            <td>{{ game.moves }}</td>
-            <td>{{ game.time }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table
+        :headings="['Date', 'Time', 'Outcome', 'Moves', 'Duration']"
+        :items="games"
+      />
 
       <Pagination :pages="pages" @page="displayPage" />
     </template>
@@ -46,6 +30,7 @@ import numeral from 'numeral';
 import { mapGetters, mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import Button from '@/components/Button.vue';
+import Table from '@/components/Table.vue';
 import Pagination from '@/components/Pagination.vue';
 
 const gameOutcome = ({ won, lost }) => {
@@ -65,6 +50,7 @@ export default {
   components: {
     GameOverlay,
     Button,
+    Table,
     Pagination,
   },
   data() {
@@ -78,13 +64,15 @@ export default {
     games() {
       const { gameHistory } = this;
 
-      const formattedGames = gameHistory.map((game) => ({
-        ...game,
-        date: format(parseISO(game.date), 'dd-MM-yyyy'),
-        timePlayed: format(parseISO(game.date), 'HH:mm:ss'),
-        outcome: gameOutcome(game),
-        time: numeral(game.time).format('00:00:00'),
-      }));
+      const formattedGames = gameHistory.map(
+        ({ won, lost, date, moves, time }) => ({
+          date: format(parseISO(date), 'dd-MM-yyyy'),
+          timePlayed: format(parseISO(date), 'HH:mm:ss'),
+          outcome: gameOutcome({ won, lost }),
+          moves,
+          time: numeral(time).format('00:00:00'),
+        })
+      );
 
       return formattedGames;
     },
@@ -137,13 +125,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.table {
-  td,
-  th {
-    border: 1px solid var(--bdr-primary);
-    padding: var(--pd-sm);
-  }
-}
-</style>
