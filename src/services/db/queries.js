@@ -115,3 +115,29 @@ export const getAppVersion = async () => {
     return formatError();
   }
 };
+
+export const getUsersGames = async (uid) => {
+  try {
+    const response = await apollo.query({
+      query: gql`
+        query User($uid: String!) {
+          user(uid: $uid) {
+            history {
+              date
+              won
+              lost
+              moves
+              time
+            }
+          }
+        }
+      `,
+      variables: { uid },
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse(response);
+  } catch (error) {
+    return formatError();
+  }
+};
