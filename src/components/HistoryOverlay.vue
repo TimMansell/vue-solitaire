@@ -1,7 +1,7 @@
 <template>
-  <GameOverlay alt center-content show-logo data-test="game-new">
+  <GameOverlay alt center-content data-test="game-history">
     <template #title>
-      Game History
+      History
     </template>
     <template #msg>
       <p>
