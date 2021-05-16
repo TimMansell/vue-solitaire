@@ -13,6 +13,7 @@ const state = () => ({
   },
   showRules: false,
   showNewGame: false,
+  showHistory: false,
   versionMatch: true,
 });
 

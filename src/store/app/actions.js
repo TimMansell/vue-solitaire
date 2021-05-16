@@ -102,6 +102,9 @@ const actions = {
 
     commit('SHOW_NEW_GAME', showNewGame);
   },
+  toggleHistory({ commit }) {
+    commit('SHOW_HISTORY');
+  },
   incrementMoves({ commit }) {
     commit('INCREMENT_MOVES');
   },

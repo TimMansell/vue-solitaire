@@ -5,6 +5,7 @@
     <RulesOverlay v-if="showRules" />
     <StatsOverlay v-if="showStats" />
     <NewGameOverlay v-if="showNewGame" />
+    <HistoryOverlay v-if="showHistory" />
     <CheckVersion />
   </div>
 </template>
@@ -16,6 +17,7 @@ import GameState from '@/components/GameState.vue';
 import RulesOverlay from '@/components/RulesOverlay.vue';
 import StatsOverlay from '@/components/StatsOverlay.vue';
 import NewGameOverlay from '@/components/NewGameOverlay.vue';
+import HistoryOverlay from '@/components/HistoryOverlay.vue';
 import CheckVersion from '@/components/CheckVersion.vue';
 // import fixture from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
@@ -27,10 +29,11 @@ export default {
     RulesOverlay,
     StatsOverlay,
     NewGameOverlay,
+    HistoryOverlay,
     CheckVersion,
   },
   computed: {
-    ...mapGetters(['showStats', 'showRules', 'showNewGame']),
+    ...mapGetters(['showStats', 'showRules', 'showNewGame', 'showHistory']),
   },
   async created() {
     this.initLocalUser();
