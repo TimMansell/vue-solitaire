@@ -1,6 +1,6 @@
 const getters = {
   luid: (state) => state.luid,
-  games: (state) => state.games,
+  gameHistory: (state) => state.gameHistory,
 };
 
 export default getters;

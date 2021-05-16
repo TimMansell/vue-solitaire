@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(game, index) in allGames" :key="index">
+          <tr v-for="(game, index) in games" :key="index">
             <td>{{ game.date }}</td>
             <td>{{ game.timePlayed }}</td>
             <td>{{ game.outcome }}</td>
@@ -71,11 +71,11 @@ export default {
     Button,
   },
   computed: {
-    ...mapGetters(['games']),
-    allGames() {
-      const { games } = this;
+    ...mapGetters(['gameHistory']),
+    games() {
+      const { gameHistory } = this;
 
-      const formattedGames = games.map((game) => ({
+      const formattedGames = gameHistory.map((game) => ({
         ...game,
         date: format(parseISO(game.date), 'dd-MM-yyyy'),
         timePlayed: format(parseISO(game.date), 'HH:mm:ss'),
