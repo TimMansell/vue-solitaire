@@ -70,6 +70,11 @@ export default {
     GameOverlay,
     Button,
   },
+  data() {
+    return {
+      limit: 50,
+    };
+  },
   computed: {
     ...mapGetters(['gameHistory']),
     games() {
@@ -87,12 +92,14 @@ export default {
     },
   },
   async mounted() {
-    await this.getAllGames({ offset: 0, limit: 5 });
+    const { limit } = this;
+
+    await this.getAllGames({ offset: 0, limit });
   },
   methods: {
     ...mapActions(['toggleHistory', 'getAllGames']),
     async displayGames(page) {
-      const limit = 5;
+      const { limit } = this;
       const offset = (page - 1) * limit;
 
       await this.getAllGames({ offset, limit });
