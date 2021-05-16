@@ -4,7 +4,10 @@
       Game History
     </template>
     <template #msg>
-      <p>Here are your previous games played</p>
+      <p>
+        Showing {{ from }} - {{ to }} out of {{ userStats.completed }} games
+        played
+      </p>
 
       <table class="table">
         <thead>
@@ -29,7 +32,7 @@
 
       <ul class="pagination">
         <li v-for="index in pages" :key="index">
-          <button @click="displayGames(index)">
+          <button @click="displayPage(index)">
             {{ index }}
           </button>
         </li>
@@ -70,6 +73,7 @@ export default {
   },
   data() {
     return {
+      offset: 0,
       limit: 25,
     };
   },
@@ -88,6 +92,26 @@ export default {
 
       return formattedGames;
     },
+    from() {
+      const { offset } = this;
+      const from = offset + 1;
+
+      return from;
+    },
+    to() {
+      const {
+        offset,
+        limit,
+        userStats: { completed },
+      } = this;
+      const to = offset + limit;
+
+      if (to > completed) {
+        return completed;
+      }
+
+      return to;
+    },
     pages() {
       const {
         limit,
@@ -100,15 +124,17 @@ export default {
     },
   },
   async mounted() {
-    const { limit } = this;
+    const { offset, limit } = this;
 
-    await this.getAllGames({ offset: 0, limit });
+    await this.getAllGames({ offset, limit });
   },
   methods: {
     ...mapActions(['toggleHistory', 'getAllGames']),
-    async displayGames(page) {
+    async displayPage(page) {
       const { limit } = this;
       const offset = (page - 1) * limit;
+
+      this.offset = offset;
 
       await this.getAllGames({ offset, limit });
     },
