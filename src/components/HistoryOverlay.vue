@@ -9,15 +9,17 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Date Played</th>
+            <th>Date</th>
+            <th>Time</th>
             <th>Outcome</th>
             <th>Moves</th>
-            <th>Time</th>
+            <th>Duration</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(game, index) in allGames" :key="index">
             <td>{{ game.date }}</td>
+            <td>{{ game.timePlayed }}</td>
             <td>{{ game.outcome }}</td>
             <td>{{ game.moves }}</td>
             <td>{{ game.time }}</td>
@@ -34,6 +36,8 @@
 </template>
 
 <script>
+import { format, parseISO } from 'date-fns';
+import numeral from 'numeral';
 import { mapGetters, mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import Button from '@/components/Button.vue';
@@ -63,7 +67,10 @@ export default {
 
       const formattedGames = games.map((game) => ({
         ...game,
+        date: format(parseISO(game.date), 'dd-MM-yyyy'),
+        timePlayed: format(parseISO(game.date), 'HH:mm:ss'),
         outcome: gameOutcome(game),
+        time: numeral(game.time).format('00:00:00'),
       }));
 
       return formattedGames;
