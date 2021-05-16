@@ -18,7 +18,7 @@ export const typeDefs = gql`
   type User {
     uid: String
     exists: Boolean
-    history: [Game]!
+    history(offset: Int!, limit: Int!): [Game]!
   }
   input UserInput {
     uid: String!

@@ -116,13 +116,13 @@ export const getAppVersion = async () => {
   }
 };
 
-export const getUsersGames = async (uid) => {
+export const getUsersGames = async (uid, { offset, limit }) => {
   try {
     const response = await apollo.query({
       query: gql`
-        query User($uid: String!) {
+        query User($uid: String!, $offset: Int!, $limit: Int!) {
           user(uid: $uid) {
-            history {
+            history(offset: $offset, limit: $limit) {
               date
               won
               lost
@@ -132,7 +132,7 @@ export const getUsersGames = async (uid) => {
           }
         }
       `,
-      variables: { uid },
+      variables: { uid, offset, limit },
       fetchPolicy: 'no-cache',
     });
 

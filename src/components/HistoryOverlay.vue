@@ -26,6 +26,16 @@
           </tr>
         </tbody>
       </table>
+
+      <button @click="displayGames(1)">
+        1
+      </button>
+      <button @click="displayGames(2)">
+        2
+      </button>
+      <button @click="displayGames(3)">
+        3
+      </button>
     </template>
     <template #buttons>
       <Button @click="toggleHistory" data-test="close-history-btn">
@@ -77,10 +87,16 @@ export default {
     },
   },
   async mounted() {
-    await this.getAllGames();
+    await this.getAllGames({ offset: 0, limit: 5 });
   },
   methods: {
     ...mapActions(['toggleHistory', 'getAllGames']),
+    async displayGames(page) {
+      const limit = 5;
+      const offset = (page - 1) * limit;
+
+      await this.getAllGames({ offset, limit });
+    },
   },
 };
 </script>

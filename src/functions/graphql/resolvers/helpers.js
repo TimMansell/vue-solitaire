@@ -24,17 +24,16 @@ export const countItemsInDb = async (
     .count();
 };
 
-export const findItemsInDb = async (
-  client,
-  collection,
-  findFields,
-  returnFields
-) => {
+export const findItemsInDb = async (client, collection, params) => {
   const db = await client();
+
+  const { offset, limit, findFields, returnFields } = params;
 
   return db
     .collection(collection)
     .find(findFields, returnFields)
+    .skip(offset)
+    .limit(limit)
     .sort({ date: -1 })
     .toArray();
 };

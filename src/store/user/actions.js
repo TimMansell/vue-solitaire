@@ -29,11 +29,11 @@ const actions = {
   setUserHasPlayed({ commit }) {
     commit('SET_USER_HAS_PLAYED', true);
   },
-  async getAllGames({ commit, state }) {
+  async getAllGames({ commit, state }, params) {
     const { luid } = state;
-    const usersGames = await user.getUsersGames(luid);
+    const userHistory = await user.getUsersGames(luid, params);
 
-    commit('SET_USER_GAMES', usersGames);
+    commit('SET_USER_GAMES', userHistory);
   },
 };
 
