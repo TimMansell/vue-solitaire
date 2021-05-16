@@ -35,5 +35,6 @@ export const findItemsInDb = async (
   return db
     .collection(collection)
     .find(findFields, returnFields)
+    .sort({ date: -1 })
     .toArray();
 };
