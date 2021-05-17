@@ -4,9 +4,10 @@
       Show
       <Select
         v-model="limit"
-        :items="['10', '25', '50', '100']"
+        :items="['25', '50', '100', '500']"
         @select="formatLimit"
-      />results per page
+      />
+      games per page
     </div>
 
     <p id="msg">
@@ -132,7 +133,7 @@ export default {
 
       await this.getAllGames({ offset, limit });
 
-      VueScrollTo.scrollTo('#msg', { container: '#game-history', offset: -20 });
+      VueScrollTo.scrollTo('#msg', { container: '#game-history', offset: -10 });
     },
     formatLimit(limit) {
       this.limit = parseInt(limit, 10);
