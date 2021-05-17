@@ -1,11 +1,12 @@
 <template>
   <Paginate
     :page-count="pages"
-    :page-range="11"
+    :page-range="range"
     :force-page="startOn"
-    :margin-pages="2"
-    :prev-text="'🡠 Prev'"
-    :next-text="'Next 🡢'"
+    :margin-pages="0"
+    :prev-text="'🡠'"
+    :next-text="'🡢'"
+    :first-last-button="true"
     :click-handler="displayPage"
     :container-class="'pagination'"
     :page-class="'pagination__page'"
@@ -19,6 +20,11 @@
 
 <script>
 import Paginate from 'vuejs-paginate';
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
+import { debounce } from 'throttle-debounce';
 
 export default {
   name: 'Pagination',
@@ -34,12 +40,49 @@ export default {
       type: Number,
       default: 0,
     },
-    limit: {
-      type: Number,
-      default: 15,
-    },
+  },
+  data() {
+    return {
+      range: 1,
+    };
+  },
+  mounted() {
+    const events = {
+      resize: debounce(300, false, this.setRange),
+    };
+
+    this.events = addEventListener(events);
+
+    this.setRange();
+  },
+  destroyed() {
+    const { events } = this;
+
+    removeEventListener(events);
   },
   methods: {
+    getRange() {
+      const xs = window.matchMedia('(min-width: 360px)').matches;
+      const sm = window.matchMedia('(min-width: 480px)').matches;
+      const xl = window.matchMedia('(min-width: 1366px)').matches;
+
+      if (xl) {
+        return 9;
+      }
+
+      if (sm) {
+        return 7;
+      }
+
+      if (xs) {
+        return 3;
+      }
+
+      return 1;
+    },
+    setRange() {
+      this.range = this.getRange();
+    },
     displayPage(page) {
       this.$emit('changepage', page);
     },
@@ -84,7 +127,7 @@ export default {
     }
 
     &--is-break {
-      opacity: 1;
+      display: none;
     }
   }
 }
