@@ -1,5 +1,5 @@
 <template>
-  <div class="game-overlay" :class="classes" data-test="game-overlay">
+  <div class="game-overlay" :class="overlayClasses" data-test="game-overlay">
     <div class="game-overlay__container">
       <div class="game-overlay__content">
         <Logo class="game-overlay__logo" v-if="showLogo" />
@@ -9,7 +9,11 @@
         <div class="game-overlay__msg" v-if="hasMsgSlot">
           <slot name="msg" />
         </div>
-        <div class="game-overlay__btns" data-test="game-overlay-btns">
+        <div
+          class="game-overlay__btns"
+          :class="btnClasses"
+          data-test="game-overlay-btns"
+        >
           <slot name="buttons" />
         </div>
       </div>
@@ -39,14 +43,25 @@ export default {
       type: Boolean,
       default: false,
     },
+    showDivider: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
-    classes() {
+    overlayClasses() {
       const { alt, centerContent } = this;
 
       return {
         'game-overlay--alt': alt,
         'game-overlay--centered': centerContent,
+      };
+    },
+    btnClasses() {
+      const { showDivider } = this;
+
+      return {
+        'game-overlay__btns--divider': showDivider,
       };
     },
     hasMsgSlot() {
@@ -134,6 +149,12 @@ export default {
   &__btns {
     display: flex;
     justify-content: center;
+
+    &--divider {
+      border-top: 1px solid rgba($col-secondary, 0.05);
+      box-shadow: 0 -1px var(--bdr-secondary);
+      padding-top: 1rem;
+    }
 
     > * + * {
       margin-left: var(--vr);

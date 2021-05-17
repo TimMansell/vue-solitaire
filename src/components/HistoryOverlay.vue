@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt center-content data-test="game-history">
+  <GameOverlay alt center-content show-divider data-test="game-history">
     <template #title>
       History
     </template>
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       offset: 0,
-      limit: 25,
+      limit: 15,
     };
   },
   computed: {

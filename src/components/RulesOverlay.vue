@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt data-test="rules-overlay">
+  <GameOverlay alt show-divider data-test="rules-overlay">
     <template #title>
       How to play
     </template>
