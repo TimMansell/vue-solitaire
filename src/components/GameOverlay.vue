@@ -113,11 +113,16 @@ export default {
     justify-self: center;
 
     @media (min-width: $bp-md) {
-      width: 80%;
+      max-width: 90%;
+      min-width: 60%;
+    }
+
+    @media (min-width: $bp-lg) {
+      min-width: 50%;
     }
 
     @media (min-width: $bp-xl) {
-      width: 40%;
+      max-width: 40%;
     }
   }
 
@@ -141,9 +146,11 @@ export default {
   }
 
   &__msg {
+    display: flex;
+    flex-direction: column;
     color: var(--text-primary);
     text-shadow: -1px -1px rgba($col-tertiary, 0.3);
-    margin-bottom: var(--mg-lg);
+    margin-bottom: var(--mg-md);
   }
 
   &__btns {
