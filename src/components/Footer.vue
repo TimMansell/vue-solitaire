@@ -47,7 +47,7 @@ export default {
   background: var(--bg-primary);
   color: var(--text-primary);
   border-top: 1px solid rgba($col-secondary, 0.05);
-  box-shadow: 0 -1px rgba($col-tertiary, 0.2);
+  box-shadow: 0 -1px var(--bdr-secondary);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;

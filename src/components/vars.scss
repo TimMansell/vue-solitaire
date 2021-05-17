@@ -23,6 +23,7 @@ $bp-xl: 1366px;
   --col-primary: #{$col-primary};
   --col-primary-dark: #{darken($col-primary, 5%)};
   --col-secondary: #{$col-secondary};
+  --col-secondary-alt: #{rgba($col-tertiary, 0.25)};
   --col-tertiary: #{$col-tertiary};
 
   // Background colours.
@@ -36,7 +37,7 @@ $bp-xl: 1366px;
 
   // Borders
   --bdr-primary: var(--col-secondary);
-  --bdr-secondary: var(--col-tertiary);
+  --bdr-secondary: var(--col-secondary-alt);
   --bdr-radius-sm: 3px;
   --bdr-radius-md: 5px;
   --bdr-radius-lg: 7px;
