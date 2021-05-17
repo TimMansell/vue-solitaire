@@ -1,10 +1,16 @@
 <template>
-  <GameOverlay alt center-content show-divider data-test="game-history">
+  <GameOverlay
+    id="game-history"
+    alt
+    center-content
+    show-divider
+    data-test="game-history"
+  >
     <template #title>
       History
     </template>
     <template #msg>
-      <p>
+      <p id="msg">
         Showing {{ from }} - {{ to }} out of {{ userStats.completed }} games
         played
       </p>
@@ -27,6 +33,7 @@
 <script>
 import { format, parseISO } from 'date-fns';
 import numeral from 'numeral';
+import VueScrollTo from 'vue-scrollto';
 import { mapGetters, mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import Button from '@/components/Button.vue';
@@ -56,7 +63,7 @@ export default {
   data() {
     return {
       offset: 0,
-      limit: 15,
+      limit: 50,
     };
   },
   computed: {
@@ -121,6 +128,8 @@ export default {
       this.offset = offset;
 
       await this.getAllGames({ offset, limit });
+
+      VueScrollTo.scrollTo('#msg', { container: '#game-history', offset: -20 });
     },
   },
 };
