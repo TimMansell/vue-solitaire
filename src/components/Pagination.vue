@@ -2,6 +2,7 @@
   <Paginate
     :page-count="pages"
     :page-range="11"
+    :force-page="startOn"
     :margin-pages="2"
     :prev-text="'🡠 Prev'"
     :next-text="'Next 🡢'"
@@ -29,6 +30,10 @@ export default {
       type: Number,
       default: 0,
     },
+    startOn: {
+      type: Number,
+      default: 0,
+    },
     limit: {
       type: Number,
       default: 15,
@@ -36,7 +41,7 @@ export default {
   },
   methods: {
     displayPage(page) {
-      this.$emit('page', page);
+      this.$emit('changepage', page);
     },
   },
 };
@@ -79,7 +84,6 @@ export default {
     }
 
     &--is-break {
-      border: 0;
       opacity: 1;
     }
   }

@@ -29,7 +29,7 @@
         :items="games"
       />
 
-      <Pagination :pages="pages" :start-on="page" @page="displayPage" />
+      <Pagination :pages="pages" :start-on="page" @changepage="displayPage" />
     </template>
     <template #buttons>
       <Button @click="toggleHistory" data-test="close-history-btn">
