@@ -1,28 +1,30 @@
 <template>
-  <table class="table">
-    <thead>
-      <tr>
-        <th
-          class="table__cell"
-          v-for="(heading, index) in headings"
-          :key="index"
-        >
-          {{ heading }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(row, rowIndex) in items" :key="rowIndex">
-        <td
-          class="table__cell"
-          v-for="(cell, cellIndex) in row"
-          :key="cellIndex"
-        >
-          {{ cell }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th
+            class="table__cell"
+            v-for="(heading, index) in headings"
+            :key="index"
+          >
+            {{ heading }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row, rowIndex) in items" :key="rowIndex">
+          <td
+            class="table__cell"
+            v-for="(cell, cellIndex) in row"
+            :key="cellIndex"
+          >
+            {{ cell }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -49,6 +51,17 @@ export default {
   &__cell {
     border: 1px solid var(--bdr-secondary);
     padding: var(--pd-sm);
+    white-space: nowrap;
+  }
+
+  &-responsive {
+    display: block;
+    max-width: 90vw;
+    overflow-x: auto;
+
+    @media (min-width: $bp-sm) {
+      max-width: initial;
+    }
   }
 }
 </style>
