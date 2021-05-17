@@ -1,10 +1,5 @@
 <template>
   <div>
-    <p id="msg">
-      Showing {{ from }} - {{ to }} out of {{ userStats.completed }} games
-      played
-    </p>
-
     <div>
       Show
       <Select
@@ -13,6 +8,11 @@
         @select="formatLimit"
       />results per page
     </div>
+
+    <p id="msg">
+      Showing {{ from }} - {{ to }} out of {{ userStats.completed }} games
+      played
+    </p>
 
     <Table
       :headings="['#', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
