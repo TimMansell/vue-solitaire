@@ -43,6 +43,7 @@ export default {
 
 <style scoped lang="scss">
 .table {
+  width: 100%;
   margin-bottom: var(--mg-md);
 
   &__cell {
