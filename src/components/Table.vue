@@ -43,8 +43,10 @@ export default {
 
 <style scoped lang="scss">
 .table {
+  margin-bottom: var(--mg-md);
+
   &__cell {
-    border: 1px solid var(--bdr-primary);
+    border: 1px solid var(--bdr-secondary);
     padding: var(--pd-sm);
   }
 }
