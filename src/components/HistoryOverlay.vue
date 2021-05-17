@@ -15,12 +15,21 @@
         played
       </p>
 
+      <div>
+        Show
+        <Select
+          v-model="limit"
+          :items="['10', '25', '50', '100']"
+          @select="formatLimit"
+        />results per page
+      </div>
+
       <Table
         :headings="['Date', 'Time', 'Outcome', 'Moves', 'Duration']"
         :items="games"
       />
 
-      <Pagination :pages="pages" @page="displayPage" />
+      <Pagination :pages="pages" :start-on="page" @page="displayPage" />
     </template>
     <template #buttons>
       <Button @click="toggleHistory" data-test="close-history-btn">
@@ -37,6 +46,7 @@ import VueScrollTo from 'vue-scrollto';
 import { mapGetters, mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import Button from '@/components/Button.vue';
+import Select from '@/components/Select.vue';
 import Table from '@/components/Table.vue';
 import Pagination from '@/components/Pagination.vue';
 
@@ -57,14 +67,24 @@ export default {
   components: {
     GameOverlay,
     Button,
+    Select,
     Table,
     Pagination,
   },
   data() {
     return {
+      page: 1,
       offset: 0,
-      limit: 50,
+      limit: 25,
     };
+  },
+  watch: {
+    limit(newLimit) {
+      this.offset = 0;
+      this.page = 1;
+
+      this.getAllGames({ offset: 0, limit: newLimit });
+    },
   },
   computed: {
     ...mapGetters(['gameHistory', 'userStats']),
@@ -126,10 +146,14 @@ export default {
       const offset = (page - 1) * limit;
 
       this.offset = offset;
+      this.page = page;
 
       await this.getAllGames({ offset, limit });
 
       VueScrollTo.scrollTo('#msg', { container: '#game-history', offset: -20 });
+    },
+    formatLimit(limit) {
+      this.limit = parseInt(limit, 10);
     },
   },
 };
