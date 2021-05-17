@@ -1,29 +1,34 @@
 <template>
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th
-            class="table__cell"
-            v-for="(heading, index) in headings"
-            :key="index"
-          >
-            {{ heading }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, rowIndex) in items" :key="rowIndex">
-          <td
-            class="table__cell"
-            v-for="(cell, cellIndex) in row"
-            :key="cellIndex"
-          >
-            {{ cell }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div>
+    <p class="view-more">
+      Swipe table to see more info
+    </p>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th
+              class="table__cell"
+              v-for="(heading, index) in headings"
+              :key="index"
+            >
+              {{ heading }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, rowIndex) in items" :key="rowIndex">
+            <td
+              class="table__cell"
+              v-for="(cell, cellIndex) in row"
+              :key="cellIndex"
+            >
+              {{ cell }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -44,6 +49,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.view-more {
+  @media (min-width: $bp-sm) {
+    display: none;
+  }
+}
+
 .table {
   width: 100%;
   margin-bottom: var(--mg-md);
