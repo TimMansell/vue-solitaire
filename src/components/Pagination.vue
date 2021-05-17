@@ -3,12 +3,13 @@
     :page-count="pages"
     :page-range="11"
     :margin-pages="2"
-    :first-last-button="false"
+    :prev-text="'🡠 Prev'"
+    :next-text="'Next 🡢'"
     :click-handler="displayPage"
     :container-class="'pagination'"
     :page-class="'pagination__page'"
-    :prev-class="'pagination__page pagination__page--outline'"
-    :next-class="'pagination__page pagination__page--outline'"
+    :prev-class="'pagination__page'"
+    :next-class="'pagination__page'"
     :active-class="'pagination__page--is-active'"
     :disabled-class="'pagination__page--is-disabled'"
     :break-view-class="'pagination__page--is-break'"
@@ -52,11 +53,12 @@ export default {
   margin: 0;
 
   &__page {
+    border: 1px solid transparent;
     border-radius: var(--bdr-radius-sm);
     padding: var(--pd-sm);
     line-height: 1;
 
-    &--outline {
+    &:hover {
       border: 1px solid var(--bdr-secondary);
     }
 
@@ -65,6 +67,12 @@ export default {
     }
 
     &--is-disabled {
+      opacity: 0.5;
+
+      &:hover {
+        border: 1px solid transparent;
+      }
+
       a {
         cursor: not-allowed;
       }
@@ -72,6 +80,7 @@ export default {
 
     &--is-break {
       border: 0;
+      opacity: 1;
     }
   }
 }
