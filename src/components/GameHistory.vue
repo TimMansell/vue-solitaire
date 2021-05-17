@@ -15,7 +15,7 @@
     </div>
 
     <Table
-      :headings="['Date', 'Time', 'Outcome', 'Moves', 'Duration']"
+      :headings="['#', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
     />
 
@@ -69,10 +69,12 @@ export default {
   computed: {
     ...mapGetters(['gameHistory', 'userStats']),
     games() {
-      const { gameHistory } = this;
+      const { gameHistory, offset } = this;
+      const indexOffset = 1;
 
       const formattedGames = gameHistory.map(
-        ({ won, lost, date, moves, time }) => ({
+        ({ won, lost, date, moves, time }, index) => ({
+          number: offset + index + indexOffset,
           date: format(parseISO(date), 'dd-MM-yyyy'),
           timePlayed: format(parseISO(date), 'HH:mm:ss'),
           outcome: gameOutcome({ won, lost }),
