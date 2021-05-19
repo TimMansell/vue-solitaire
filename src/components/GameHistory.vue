@@ -8,7 +8,7 @@
       v-model="limit"
       label="Display games per page"
       :items="['25', '50', '100', '500']"
-      @select="formatLimit"
+      @select="displayLimit"
     />
 
     <ResponsiveTable
@@ -16,7 +16,11 @@
       :items="games"
     />
 
-    <Pagination :pages="pages" :start-on="page" @changepage="displayPage" />
+    <Pagination
+      :pages="totalPages"
+      :start-on="page"
+      @changepage="displayPage"
+    />
   </div>
 </template>
 
@@ -56,21 +60,35 @@ export default {
     };
   },
   watch: {
-    limit(newLimit) {
+    limit() {
       this.offset = 0;
       this.page = 1;
+    },
+    page(newPage) {
+      const { limit } = this;
+      const offset = (newPage - 1) * limit;
 
-      this.getAllGames({ offset: 0, limit: newLimit });
+      this.offset = offset;
+
+      this.displayGames();
+
+      VueScrollTo.scrollTo('#game-history', {
+        container: '#history-overlay',
+        offset: -10,
+      });
     },
   },
   computed: {
     ...mapGetters(['gameHistory', 'userStats']),
-    games() {
+    completed() {
       const {
-        gameHistory,
-        offset,
         userStats: { completed },
       } = this;
+
+      return completed;
+    },
+    games() {
+      const { gameHistory, offset, completed } = this;
 
       const formattedGames = gameHistory.map(
         ({ won, lost, date, moves, time }, index) => ({
@@ -85,40 +103,29 @@ export default {
 
       return formattedGames;
     },
-    pages() {
-      const {
-        limit,
-        userStats: { completed },
-      } = this;
+    totalPages() {
+      const { limit, completed } = this;
 
       const pages = Math.ceil(completed / limit);
 
       return pages;
     },
   },
-  async mounted() {
-    const { offset, limit } = this;
-
-    await this.getAllGames({ offset, limit });
+  mounted() {
+    this.displayGames();
   },
   methods: {
     ...mapActions(['getAllGames']),
-    async displayPage(page) {
-      const { limit } = this;
-      const offset = (page - 1) * limit;
-
-      this.offset = offset;
+    displayPage(page) {
       this.page = page;
-
-      await this.getAllGames({ offset, limit });
-
-      VueScrollTo.scrollTo('#game-history', {
-        container: '#history-overlay',
-        offset: -10,
-      });
     },
-    formatLimit(limit) {
+    displayLimit(limit) {
       this.limit = parseInt(limit, 10);
+    },
+    displayGames() {
+      const { offset, limit } = this;
+
+      this.getAllGames({ offset, limit });
     },
   },
 };
