@@ -48,7 +48,7 @@ export default {
 
   &__label {
     margin-right: var(--mg-sm);
-    font-size: 0.9rem;
+    font-size: var(--font-size-lg);
   }
 
   &__dropdown {
