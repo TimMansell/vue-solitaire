@@ -1,6 +1,6 @@
 <template>
   <div class="responsive-table">
-    <div class="responsive-table__overlay" v-if="swiper">
+    <div class="responsive-table__overlay">
       <img class="responsive-table__swipe" :src="swipeIcon" />
     </div>
     <Table :headings="headings" :items="items" />
@@ -19,7 +19,6 @@ export default {
   data() {
     return {
       swipeIcon,
-      swiper: true,
     };
   },
   props: {
@@ -30,14 +29,6 @@ export default {
     items: {
       type: Array,
       default: () => [],
-    },
-  },
-  mounted() {
-    setTimeout(this.hideSwiper, 3000);
-  },
-  methods: {
-    hideSwiper() {
-      this.swiper = false;
     },
   },
 };
@@ -59,6 +50,8 @@ export default {
     width: 100%;
     height: 100%;
     background: var(--col-secondary-alt);
+    opacity: 0;
+    animation: overlay-hide 3s ease-in-out normal 1s 1 forwards;
 
     @media (min-width: $bp-sm) {
       display: none;
@@ -70,11 +63,11 @@ export default {
     width: 3rem;
     height: 3rem;
     transform: translate(0%, 50%);
-    animation: slide-left-right 1.5s ease-in-out alternate infinite;
+    animation: swipe-left-right 1s ease-in-out alternate infinite;
   }
 }
 
-@keyframes slide-left-right {
+@keyframes swipe-left-right {
   0% {
     transform: translate(0%, 50%);
   }
@@ -89,6 +82,20 @@ export default {
 
   100% {
     transform: translate(100%, 50%);
+  }
+}
+
+@keyframes overlay-hide {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 </style>
