@@ -8,37 +8,33 @@
 export default {
   name: 'Button',
   props: {
-    alt: {
-      type: Boolean,
-      default: false,
-    },
-    link: {
-      type: Boolean,
-      default: false,
+    type: {
+      type: String,
+      validator(value) {
+        return ['alt', 'link', 'icon'].includes(value);
+      },
     },
     isStacked: {
       type: Boolean,
       default: false,
     },
-    hasIcon: {
-      type: Boolean,
-      default: false,
-    },
-    isLarge: {
-      type: Boolean,
-      default: false,
+    size: {
+      type: String,
+      validator(value) {
+        return ['lg'].includes(value);
+      },
     },
   },
   computed: {
     classes() {
-      const { alt, link, isStacked, hasIcon, isLarge } = this;
+      const { type, isStacked, size } = this;
 
       return {
-        'btn--alt': alt,
-        'btn--link': link,
+        'btn--alt': type === 'alt',
+        'btn--link': type === 'link',
         'btn--is-stacked': isStacked,
-        'btn--has-icon': hasIcon,
-        'btn--is-large': isLarge,
+        'btn--has-icon': type === 'icon',
+        'btn--is-large': size === 'lg',
       };
     },
   },

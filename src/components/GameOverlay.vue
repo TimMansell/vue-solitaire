@@ -1,7 +1,7 @@
 <template>
   <div class="game-overlay" :class="overlayClasses" data-test="game-overlay">
     <div class="game-overlay__close" v-if="btnClose" title="Close Overlay">
-      <Button :has-icon="true" is-large @click="btnClose">
+      <Button type="icon" size="lg" @click="btnClose">
         ✖
       </Button>
     </div>
