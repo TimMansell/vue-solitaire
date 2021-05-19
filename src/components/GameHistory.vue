@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="game-history">
     <div>
       Show
       <Select
@@ -9,11 +9,6 @@
       />
       games per page
     </div>
-
-    <p id="msg">
-      Showing {{ from }} - {{ to }} out of {{ userStats.completed }} games
-      played
-    </p>
 
     <Table
       :headings="['#', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
@@ -86,26 +81,6 @@ export default {
 
       return formattedGames;
     },
-    from() {
-      const { offset } = this;
-      const from = offset + 1;
-
-      return from;
-    },
-    to() {
-      const {
-        offset,
-        limit,
-        userStats: { completed },
-      } = this;
-      const to = offset + limit;
-
-      if (to > completed) {
-        return completed;
-      }
-
-      return to;
-    },
     pages() {
       const {
         limit,
@@ -133,7 +108,10 @@ export default {
 
       await this.getAllGames({ offset, limit });
 
-      VueScrollTo.scrollTo('#msg', { container: '#game-history', offset: -10 });
+      VueScrollTo.scrollTo('#game-history', {
+        container: '#history-overlay',
+        offset: -10,
+      });
     },
     formatLimit(limit) {
       this.limit = parseInt(limit, 10);
@@ -141,3 +119,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.game-history {
+  &__results {
+    font-size: 0.9rem;
+  }
+}
+</style>

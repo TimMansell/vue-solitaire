@@ -1,11 +1,5 @@
 <template>
-  <GameOverlay
-    id="game-history"
-    alt
-    center-content
-    show-divider
-    data-test="game-history"
-  >
+  <GameOverlay id="history-overlay" alt center-content data-test="game-history">
     <template #title>
       History
     </template>
