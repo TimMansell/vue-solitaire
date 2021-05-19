@@ -57,12 +57,15 @@ export default {
       page: 1,
       offset: 0,
       limit: 25,
+      games: [],
     };
   },
   watch: {
     limit() {
       this.offset = 0;
       this.page = 1;
+
+      this.displayGames();
     },
     page(newPage) {
       const { limit } = this;
@@ -71,23 +74,8 @@ export default {
       this.offset = offset;
 
       this.displayGames();
-
-      VueScrollTo.scrollTo('#game-history', {
-        container: '#history-overlay',
-        offset: -10,
-      });
     },
-  },
-  computed: {
-    ...mapGetters(['gameHistory', 'userStats']),
-    completed() {
-      const {
-        userStats: { completed },
-      } = this;
-
-      return completed;
-    },
-    games() {
+    gameHistory() {
       const { gameHistory, offset, completed } = this;
 
       const formattedGames = gameHistory.map(
@@ -101,7 +89,17 @@ export default {
         })
       );
 
-      return formattedGames;
+      this.games = formattedGames;
+    },
+  },
+  computed: {
+    ...mapGetters(['gameHistory', 'userStats']),
+    completed() {
+      const {
+        userStats: { completed },
+      } = this;
+
+      return completed;
     },
     totalPages() {
       const { limit, completed } = this;
@@ -126,6 +124,11 @@ export default {
       const { offset, limit } = this;
 
       this.getAllGames({ offset, limit });
+
+      VueScrollTo.scrollTo('#game-history', {
+        container: '#history-overlay',
+        offset: -10,
+      });
     },
   },
 };
