@@ -3,10 +3,7 @@
     <div class="responsive-table__overlay" v-if="swiper">
       <img class="responsive-table__swipe" :src="swipeIcon" />
     </div>
-    <Table
-      :headings="['#', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
-      :items="items"
-    />
+    <Table :headings="headings" :items="items" />
   </div>
 </template>
 
@@ -48,7 +45,6 @@ export default {
 
 <style scoped lang="scss">
 .responsive-table {
-  display: block;
   position: relative;
   max-width: calc(100vw - var(--vr));
   overflow-x: auto;
@@ -69,8 +65,8 @@ export default {
   }
 
   &__swipe {
-    width: 50px;
-    height: 50px;
+    width: 3rem;
+    height: 3rem;
     transform: translate(0%, 100%);
     animation: slide-left-right 1.5s ease-in-out alternate infinite;
   }
