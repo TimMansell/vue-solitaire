@@ -1,14 +1,15 @@
 <template>
   <div id="game-history">
-    <div>
-      Show
-      <Select
-        v-model="limit"
-        :items="['25', '50', '100', '500']"
-        @select="formatLimit"
-      />
-      games per page
-    </div>
+    <p class="game-history__message">
+      Showing results for all {{ userStats.completed }} games played
+    </p>
+
+    <Select
+      v-model="limit"
+      label="Display games per page"
+      :items="['25', '50', '100', '500']"
+      @select="formatLimit"
+    />
 
     <Table
       :headings="['#', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
@@ -123,10 +124,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .game-history {
-  &__results {
-    font-size: 0.9rem;
+  &__message {
+    padding-left: 10%;
+    padding-right: 10%;
   }
 }
 </style>
