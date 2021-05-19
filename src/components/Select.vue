@@ -1,15 +1,27 @@
 <template>
-  <span class="select">
-    <select :value="value" @change="$emit('select', $event.target.value)">
-      <option v-for="(item, index) in items" :key="index">{{ item }}</option>
+  <div class="select">
+    <label class="select__label" :for="id">{{ label }}:</label>
+    <select
+      class="select__dropdown"
+      :id="id"
+      :value="value"
+      @change="$emit('select', $event.target.value)"
+    >
+      <option v-for="(item, index) in items" :key="index">
+        {{ item }}
+      </option>
     </select>
-  </span>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Select',
   props: {
+    label: {
+      type: String,
+      default: '',
+    },
     value: {
       type: [String, Number],
       default: '',
@@ -19,12 +31,29 @@ export default {
       default: () => [],
     },
   },
+  computed: {
+    id() {
+      const { label } = this;
+
+      return label.split(' ').join('-');
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .select {
-  display: inline-block;
-  margin-bottom: var(--mg-md);
+  width: 100%;
+
+  &__label {
+    margin-right: var(--mg-sm);
+    font-size: 0.9rem;
+  }
+
+  &__dropdown {
+    padding: var(--pd-xs);
+    border: 1px solid var(--bdr-primary);
+    border-radius: var(--bdr-radius-md);
+  }
 }
 </style>
