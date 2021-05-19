@@ -48,6 +48,7 @@ export default {
   position: relative;
   max-width: calc(100vw - var(--vr));
   overflow-x: auto;
+  margin-bottom: var(--mg-md);
 
   @media (min-width: $bp-sm) {
     max-width: initial;
@@ -57,7 +58,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba($col-tertiary, 0.5);
+    background: var(--col-secondary-alt);
 
     @media (min-width: $bp-sm) {
       display: none;
@@ -65,28 +66,29 @@ export default {
   }
 
   &__swipe {
+    position: relative;
     width: 3rem;
     height: 3rem;
-    transform: translate(0%, 100%);
+    transform: translate(0%, 50%);
     animation: slide-left-right 1.5s ease-in-out alternate infinite;
   }
 }
 
 @keyframes slide-left-right {
   0% {
-    transform: translate(0%, 100%);
+    transform: translate(0%, 50%);
   }
 
   10% {
-    transform: translate(0%, 100%);
+    transform: translate(0%, 50%);
   }
 
   90% {
-    transform: translate(100%, 100%);
+    transform: translate(100%, 50%);
   }
 
   100% {
-    transform: translate(100%, 100%);
+    transform: translate(100%, 50%);
   }
 }
 </style>

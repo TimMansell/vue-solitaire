@@ -44,7 +44,6 @@ export default {
 <style scoped lang="scss">
 .table {
   width: 100%;
-  margin-bottom: var(--mg-md);
 
   &__cell {
     border: 1px solid var(--bdr-secondary);
