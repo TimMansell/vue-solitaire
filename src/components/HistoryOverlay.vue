@@ -10,13 +10,16 @@
       History
     </template>
     <template #msg>
-      <GameHistory />
+      <GameHistory v-if="userStats.completed" />
+      <p v-if="!userStats.completed">
+        You have played no games yet
+      </p>
     </template>
   </GameOverlay>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import GameHistory from '@/components/GameHistory.vue';
 
@@ -25,6 +28,9 @@ export default {
   components: {
     GameOverlay,
     GameHistory,
+  },
+  computed: {
+    ...mapGetters(['userStats']),
   },
   methods: {
     ...mapActions(['toggleHistory']),
