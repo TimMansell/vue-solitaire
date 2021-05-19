@@ -44,6 +44,7 @@ export default {
 <style scoped lang="scss">
 .select {
   width: 100%;
+  margin-bottom: var(--mg-md);
 
   &__label {
     margin-right: var(--mg-sm);
