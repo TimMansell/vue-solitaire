@@ -1,5 +1,10 @@
 <template>
   <div class="game-overlay" :class="overlayClasses" data-test="game-overlay">
+    <div class="game-overlay__close" v-if="btnClose" title="Close Overlay">
+      <Button :has-icon="true" is-large @click="btnClose">
+        ✖
+      </Button>
+    </div>
     <div class="game-overlay__container">
       <div class="game-overlay__content">
         <Logo class="game-overlay__logo" v-if="showLogo" />
@@ -11,7 +16,7 @@
         </div>
         <div
           class="game-overlay__btns"
-          :class="btnClasses"
+          v-if="hasBtnSlot"
           data-test="game-overlay-btns"
         >
           <slot name="buttons" />
@@ -23,11 +28,13 @@
 
 <script>
 import { mapActions } from 'vuex';
+import Button from './Button.vue';
 import Logo from './Logo.vue';
 
 export default {
   name: 'GameOverlay',
   components: {
+    Button,
     Logo,
   },
   props: {
@@ -43,9 +50,8 @@ export default {
       type: Boolean,
       default: false,
     },
-    showDivider: {
-      type: Boolean,
-      default: false,
+    btnClose: {
+      type: Function,
     },
   },
   computed: {
@@ -57,15 +63,11 @@ export default {
         'game-overlay--centered': centerContent,
       };
     },
-    btnClasses() {
-      const { showDivider } = this;
-
-      return {
-        'game-overlay__btns--divider': showDivider,
-      };
-    },
     hasMsgSlot() {
       return !!this.$slots.msg;
+    },
+    hasBtnSlot() {
+      return !!this.$slots.buttons;
     },
   },
   mounted() {
@@ -109,6 +111,13 @@ export default {
     text-align: center;
   }
 
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-10%, 10%);
+  }
+
   &__container {
     justify-self: center;
 
@@ -117,12 +126,9 @@ export default {
       min-width: 60%;
     }
 
-    @media (min-width: $bp-lg) {
-      min-width: 50%;
-    }
-
     @media (min-width: $bp-xl) {
-      max-width: 40%;
+      max-width: 60%;
+      min-width: 40%;
     }
   }
 
@@ -137,12 +143,17 @@ export default {
   }
 
   &__content {
-    padding: var(--pd-md);
+    padding: var(--pd-sm);
+
+    @media (min-width: $bp-md) {
+      padding: var(--pd-md);
+    }
   }
 
   &__title {
     color: var(--text-primary);
     text-shadow: -1px -1px rgba($col-tertiary, 0.3);
+    line-height: 1;
   }
 
   &__msg {
@@ -150,18 +161,12 @@ export default {
     flex-direction: column;
     color: var(--text-primary);
     text-shadow: -1px -1px rgba($col-tertiary, 0.3);
-    margin-bottom: var(--mg-md);
   }
 
   &__btns {
     display: flex;
     justify-content: center;
-
-    &--divider {
-      border-top: 1px solid rgba($col-secondary, 0.05);
-      box-shadow: 0 -1px var(--bdr-secondary);
-      padding-top: 1rem;
-    }
+    margin-top: var(--mg-md);
 
     > * + * {
       margin-left: var(--vr);

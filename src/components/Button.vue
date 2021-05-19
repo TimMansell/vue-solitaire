@@ -20,15 +20,25 @@ export default {
       type: Boolean,
       default: false,
     },
+    hasIcon: {
+      type: Boolean,
+      default: false,
+    },
+    isLarge: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
-      const { alt, link, isStacked } = this;
+      const { alt, link, isStacked, hasIcon, isLarge } = this;
 
       return {
         'btn--alt': alt,
         'btn--link': link,
         'btn--is-stacked': isStacked,
+        'btn--has-icon': hasIcon,
+        'btn--is-large': isLarge,
       };
     },
   },
@@ -51,6 +61,7 @@ export default {
   font-size: var(--font-size);
   text-decoration: none;
   font-family: var(--font-family);
+  line-height: 1;
 
   @media (min-width: $bp-md) {
     font-size: var(--font-size-lg);
@@ -61,6 +72,15 @@ export default {
   &:hover {
     background: var(--bg-primary);
     cursor: pointer;
+  }
+
+  &--has-icon {
+    border: 0;
+
+    &:hover {
+      background: transparent;
+      color: var(--col-primary-dark);
+    }
   }
 
   &--is-stacked {
@@ -100,6 +120,10 @@ export default {
       background: none;
       text-decoration: underline;
     }
+  }
+
+  &--is-large {
+    font-size: 1.5rem;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt show-divider data-test="rules-overlay">
+  <GameOverlay alt :btn-close="toggleRules" data-test="rules-overlay">
     <template #title>
       How to play
     </template>
@@ -60,30 +60,20 @@
         </li>
       </ul>
     </template>
-    <template #buttons>
-      <Button @click="closeRules" data-test="close-rules-btn">
-        Close
-      </Button>
-    </template>
   </GameOverlay>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
-import Button from '@/components/Button.vue';
 
 export default {
   name: 'RulesOverlay',
   components: {
     GameOverlay,
-    Button,
   },
   methods: {
     ...mapActions(['toggleRules']),
-    closeRules() {
-      this.toggleRules();
-    },
   },
 };
 </script>
