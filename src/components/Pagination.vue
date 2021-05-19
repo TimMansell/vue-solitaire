@@ -95,9 +95,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--pd-xs);
   list-style-type: none;
-  padding: 0;
+  padding-left: var(--pd-sm);
+  padding-right: var(--pd-sm);
   margin: 0;
 
   &__page {
@@ -121,9 +121,11 @@ export default {
         border: 1px solid transparent;
       }
 
+      /* stylelint-disable max-nesting-depth */
       a {
         cursor: not-allowed;
       }
+      /* stylelint-enable max-nesting-depth */
     }
 
     &--is-break {
