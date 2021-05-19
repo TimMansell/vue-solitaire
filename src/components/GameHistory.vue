@@ -65,12 +65,15 @@ export default {
   computed: {
     ...mapGetters(['gameHistory', 'userStats']),
     games() {
-      const { gameHistory, offset } = this;
-      const indexOffset = 1;
+      const {
+        gameHistory,
+        offset,
+        userStats: { completed },
+      } = this;
 
       const formattedGames = gameHistory.map(
         ({ won, lost, date, moves, time }, index) => ({
-          number: offset + index + indexOffset,
+          number: completed - offset - index,
           date: format(parseISO(date), 'dd-MM-yyyy'),
           timePlayed: format(parseISO(date), 'HH:mm:ss'),
           outcome: gameOutcome({ won, lost }),
