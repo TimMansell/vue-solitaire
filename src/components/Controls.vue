@@ -29,7 +29,7 @@ export default {
   display: flex;
   justify-content: center;
   padding-bottom: var(--pd-sm);
-  border-bottom: 1px solid rgba($col-tertiary, 0.2);
+  border-bottom: 1px solid var(--bdr-secondary);
   box-shadow: 0 1px rgba($col-secondary, 0.05);
   width: 100%;
 
