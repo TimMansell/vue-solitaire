@@ -11,7 +11,7 @@
       @select="formatLimit"
     />
 
-    <Table
+    <ResponsiveTable
       :headings="['#', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
     />
@@ -26,7 +26,7 @@ import numeral from 'numeral';
 import VueScrollTo from 'vue-scrollto';
 import { mapGetters, mapActions } from 'vuex';
 import Select from '@/components/Select.vue';
-import Table from '@/components/Table.vue';
+import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
 
 const gameOutcome = ({ won, lost }) => {
@@ -45,7 +45,7 @@ export default {
   name: 'GameHistory',
   components: {
     Select,
-    Table,
+    ResponsiveTable,
     Pagination,
   },
   data() {
