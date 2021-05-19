@@ -1,8 +1,5 @@
 <template>
   <div>
-    <p class="view-more">
-      Swipe table to see more info
-    </p>
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -49,12 +46,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.view-more {
-  @media (min-width: $bp-sm) {
-    display: none;
-  }
-}
-
 .table {
   width: 100%;
   margin-bottom: var(--mg-md);
@@ -67,7 +58,7 @@ export default {
 
   &-responsive {
     display: block;
-    max-width: 90vw;
+    max-width: calc(100vw - var(--vr));
     overflow-x: auto;
 
     @media (min-width: $bp-sm) {
