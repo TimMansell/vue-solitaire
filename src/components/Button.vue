@@ -33,8 +33,8 @@ export default {
         'btn--alt': type === 'alt',
         'btn--link': type === 'link',
         'btn--is-stacked': isStacked,
-        'btn--has-icon': type === 'icon',
-        'btn--is-large': size === 'lg',
+        'btn--icon': type === 'icon',
+        'btn--large': size === 'lg',
       };
     },
   },
@@ -70,7 +70,7 @@ export default {
     cursor: pointer;
   }
 
-  &--has-icon {
+  &--icon {
     border: 0;
 
     &:hover {
@@ -118,7 +118,7 @@ export default {
     }
   }
 
-  &--is-large {
+  &--large {
     font-size: var(--font-size-xl);
   }
 }
