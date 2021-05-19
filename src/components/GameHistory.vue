@@ -1,7 +1,7 @@
 <template>
   <div id="game-history">
     <p class="game-history__message">
-      Showing results for all {{ userStats.completed }} games played
+      Showing results for games played
     </p>
 
     <Select

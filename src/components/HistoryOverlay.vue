@@ -12,7 +12,7 @@
     <template #msg>
       <GameHistory v-if="userStats.completed" />
       <p v-if="!userStats.completed">
-        You have played no games yet
+        You have not played any games yet
       </p>
     </template>
   </GameOverlay>
