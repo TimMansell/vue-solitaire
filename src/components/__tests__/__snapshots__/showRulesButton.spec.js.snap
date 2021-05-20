@@ -2,6 +2,6 @@
 
 exports[`ShowRulesButton.vue matches snapshot 1`] = `
 <button-stub data-test="game-rules-btn">
-  How to play
+  Rules
 </button-stub>
 `;

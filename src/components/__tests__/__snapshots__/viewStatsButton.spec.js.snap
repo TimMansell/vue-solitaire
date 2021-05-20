@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ViewStatsButton.vue matches snapshot 1`] = `
-<button-stub link="true">
+<button-stub type="link">
   view stats
 </button-stub>
 `;
