@@ -13,7 +13,7 @@ import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
-  name: 'History',
+  name: 'HistoryButton',
   components: {
     Button,
   },
