@@ -1,6 +1,11 @@
 <template>
   <div class="game-overlay" :class="overlayClasses" data-test="game-overlay">
-    <div class="game-overlay__close" v-if="btnClose" title="Close Overlay">
+    <div
+      class="game-overlay__close"
+      v-if="btnClose"
+      title="Close Overlay"
+      data-test="game-overlay-close"
+    >
       <Button
         type="icon"
         size="lg"
@@ -12,7 +17,11 @@
     </div>
     <div class="game-overlay__container">
       <div class="game-overlay__content">
-        <Logo class="game-overlay__logo" v-if="showLogo" />
+        <Logo
+          class="game-overlay__logo"
+          v-if="showLogo"
+          data-test="game-overlay-logo"
+        />
         <h1 class="game-overlay__title">
           <slot name="title" />
         </h1>
