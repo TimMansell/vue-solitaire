@@ -1,6 +1,10 @@
 <template>
   <div class="responsive-table">
-    <div class="responsive-table__overlay" v-if="showTableHelper">
+    <div
+      class="responsive-table__overlay"
+      v-if="showTableHelper"
+      data-test="responsive-table-helper"
+    >
       <img class="responsive-table__swipe" :src="swipeIcon" />
     </div>
     <Table :headings="headings" :items="items" />
