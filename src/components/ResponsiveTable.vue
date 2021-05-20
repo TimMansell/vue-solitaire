@@ -2,7 +2,7 @@
   <div class="responsive-table">
     <div
       class="responsive-table__overlay"
-      v-if="showTableHelper"
+      v-if="showTableHelper && items.length"
       data-test="responsive-table-helper"
     >
       <img class="responsive-table__swipe" :src="swipeIcon" />
