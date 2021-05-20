@@ -38,6 +38,9 @@ const mutations = {
   SHOW_HISTORY(state) {
     state.showHistory = !state.showHistory;
   },
+  SHOW_TABLE_HELPER(state, showHelper) {
+    state.showTableHelper = showHelper;
+  },
 };
 
 export default mutations;

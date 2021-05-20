@@ -108,6 +108,9 @@ const actions = {
   incrementMoves({ commit }) {
     commit('INCREMENT_MOVES');
   },
+  setTableHelper({ commit }, showHelper) {
+    commit('SHOW_TABLE_HELPER', showHelper);
+  },
 };
 
 export default actions;

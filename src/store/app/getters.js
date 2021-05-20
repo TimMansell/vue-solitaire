@@ -9,6 +9,7 @@ const getters = {
   showNewGame: (state) => state.showNewGame,
   showHistory: (state) => state.showHistory,
   versionMatch: (state) => state.versionMatch,
+  showTableHelper: (state) => state.showTableHelper,
 };
 
 export default getters;

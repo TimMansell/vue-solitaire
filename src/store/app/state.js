@@ -15,6 +15,7 @@ const state = () => ({
   showNewGame: false,
   showHistory: false,
   versionMatch: true,
+  showTableHelper: true,
 });
 
 export default state;

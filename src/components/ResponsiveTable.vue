@@ -1,6 +1,6 @@
 <template>
   <div class="responsive-table">
-    <div class="responsive-table__overlay">
+    <div class="responsive-table__overlay" v-if="showTableHelper">
       <img class="responsive-table__swipe" :src="swipeIcon" />
     </div>
     <Table :headings="headings" :items="items" />
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import swipeIcon from '@/assets/swipe.svg';
 import Table from '@/components/Table.vue';
 
@@ -30,6 +31,19 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  computed: {
+    ...mapGetters(['showTableHelper']),
+  },
+  mounted() {
+    const { showTableHelper } = this;
+
+    if (showTableHelper) {
+      setTimeout(this.setTableHelper, 5000, false);
+    }
+  },
+  methods: {
+    ...mapActions(['setTableHelper']),
   },
 };
 </script>
