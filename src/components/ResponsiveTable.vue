@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
 import swipeIcon from '@/assets/swipe.svg';
 import Table from '@/components/Table.vue';
 
@@ -24,6 +23,7 @@ export default {
   data() {
     return {
       swipeIcon,
+      showTableHelper: !localStorage.getItem('showTableHelper'),
     };
   },
   props: {
@@ -36,14 +36,8 @@ export default {
       default: () => [],
     },
   },
-  computed: {
-    ...mapGetters(['showTableHelper']),
-  },
   destroyed() {
-    this.setTableHelper(false);
-  },
-  methods: {
-    ...mapActions(['setTableHelper']),
+    localStorage.setItem('showTableHelper', 'false');
   },
 };
 </script>
@@ -65,7 +59,7 @@ export default {
     height: 100%;
     background: var(--col-secondary-alt);
     opacity: 0;
-    animation: overlay-hide 3s ease-in-out normal 1s 1 forwards;
+    animation: overlay-hide 3s ease-in-out normal 1 forwards;
 
     @media (min-width: $bp-sm) {
       display: none;
