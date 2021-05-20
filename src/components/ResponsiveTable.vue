@@ -35,12 +35,8 @@ export default {
   computed: {
     ...mapGetters(['showTableHelper']),
   },
-  mounted() {
-    const { showTableHelper } = this;
-
-    if (showTableHelper) {
-      setTimeout(this.setTableHelper, 5000, false);
-    }
+  destroyed() {
+    this.setTableHelper(false);
   },
   methods: {
     ...mapActions(['setTableHelper']),
