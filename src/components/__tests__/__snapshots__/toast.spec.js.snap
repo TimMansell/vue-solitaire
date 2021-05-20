@@ -19,7 +19,7 @@ exports[`Toast.vue matches snapshot 1`] = `
         </div>
       </div>
     </div>
-    <button-stub alt="true">
+    <button-stub type="alt">
       btn text
     </button-stub>
   </div>
