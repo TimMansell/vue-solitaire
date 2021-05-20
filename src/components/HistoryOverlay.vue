@@ -24,7 +24,7 @@ import GameOverlay from '@/components/GameOverlay.vue';
 import GameHistory from '@/components/GameHistory.vue';
 
 export default {
-  name: 'NewGameOverlay',
+  name: 'HistoryOverlay',
   components: {
     GameOverlay,
     GameHistory,
