@@ -13,20 +13,16 @@ describe('ResponsiveTable.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(ResponsiveTable, {
       propsData,
-      computed: {
-        showTableHelper: () => true,
-      },
     });
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('does not show table helper', () => {
+    localStorage.setItem('showTableHelper', 'false');
+
     const wrapper = shallowMount(ResponsiveTable, {
       propsData,
-      computed: {
-        showTableHelper: () => false,
-      },
     });
 
     expect(wrapper.find('[data-test="responsive-table-helper"]').exists()).toBe(
