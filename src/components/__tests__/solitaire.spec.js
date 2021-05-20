@@ -3,12 +3,20 @@ import Solitaire from '@/components/Solitaire.vue';
 import RulesOverlay from '@/components/RulesOverlay.vue';
 import StatsOverlay from '@/components/StatsOverlay.vue';
 import NewGameOverlay from '@/components/NewGameOverlay.vue';
+import HistoryOverlay from '@/components/HistoryOverlay.vue';
 
 const mocks = {
   $store: { dispatch: jest.fn() },
 };
 
 jest.mock('@/services/db');
+
+const mockComputed = {
+  showStats: () => false,
+  showRules: () => false,
+  showNewGame: () => false,
+  showHistory: () => false,
+};
 
 describe('Solitaire.vue', () => {
   it('matches snapshot', () => {
@@ -18,6 +26,7 @@ describe('Solitaire.vue', () => {
         showStats: () => true,
         showRules: () => true,
         showNewGame: () => true,
+        showHistory: () => true,
       },
     });
 
@@ -28,9 +37,8 @@ describe('Solitaire.vue', () => {
     const wrapper = shallowMount(Solitaire, {
       mocks,
       computed: {
+        ...mockComputed,
         showStats: () => true,
-        showRules: () => false,
-        showNewGame: () => false,
       },
     });
 
@@ -41,9 +49,7 @@ describe('Solitaire.vue', () => {
     const wrapper = shallowMount(Solitaire, {
       mocks,
       computed: {
-        showStats: () => false,
-        showRules: () => false,
-        showNewGame: () => false,
+        ...mockComputed,
       },
     });
 
@@ -54,9 +60,8 @@ describe('Solitaire.vue', () => {
     const wrapper = shallowMount(Solitaire, {
       mocks,
       computed: {
-        showStats: () => false,
+        ...mockComputed,
         showRules: () => true,
-        showNewGame: () => false,
       },
     });
 
@@ -67,9 +72,7 @@ describe('Solitaire.vue', () => {
     const wrapper = shallowMount(Solitaire, {
       mocks,
       computed: {
-        showStats: () => false,
-        showRules: () => false,
-        showNewGame: () => false,
+        ...mockComputed,
       },
     });
 
@@ -80,8 +83,7 @@ describe('Solitaire.vue', () => {
     const wrapper = shallowMount(Solitaire, {
       mocks,
       computed: {
-        showStats: () => false,
-        showRules: () => false,
+        ...mockComputed,
         showNewGame: () => true,
       },
     });
@@ -93,12 +95,33 @@ describe('Solitaire.vue', () => {
     const wrapper = shallowMount(Solitaire, {
       mocks,
       computed: {
-        showStats: () => false,
-        showRules: () => false,
-        showNewGame: () => false,
+        ...mockComputed,
       },
     });
 
     expect(wrapper.findComponent(NewGameOverlay).exists()).toBe(false);
+  });
+
+  it('shows history overlay', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        ...mockComputed,
+        showHistory: () => true,
+      },
+    });
+
+    expect(wrapper.findComponent(HistoryOverlay).exists()).toBe(true);
+  });
+
+  it('does not show history overlay', () => {
+    const wrapper = shallowMount(Solitaire, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.findComponent(HistoryOverlay).exists()).toBe(false);
   });
 });
