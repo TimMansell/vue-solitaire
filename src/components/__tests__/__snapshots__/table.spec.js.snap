@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table.vue matches snapshot 1`] = `
+<table class="table">
+  <thead>
+    <tr>
+      <th class="table__cell">
+        Heading 1
+      </th>
+      <th class="table__cell">
+        Heading 2
+      </th>
+      <th class="table__cell">
+        Heading 3
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr data-test="table-row">
+      <td class="table__cell">
+        1
+      </td>
+      <td class="table__cell">
+        2
+      </td>
+      <td class="table__cell">
+        3
+      </td>
+    </tr>
+    <tr data-test="table-row">
+      <td class="table__cell">
+        4
+      </td>
+      <td class="table__cell">
+        5
+      </td>
+      <td class="table__cell">
+        6
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
