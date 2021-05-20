@@ -3,7 +3,7 @@
     id="history-overlay"
     alt
     center-content
-    data-test="game-history"
+    data-test="history-overlay"
     :btn-close="toggleHistory"
   >
     <template #title>
@@ -11,7 +11,7 @@
     </template>
     <template #msg>
       <GameHistory v-if="userStats.completed" />
-      <p v-if="!userStats.completed">
+      <p v-if="!userStats.completed" data-test="game-history-no-games-msg">
         You have not played any games yet
       </p>
     </template>

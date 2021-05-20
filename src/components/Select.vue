@@ -1,11 +1,12 @@
 <template>
   <div class="select">
-    <label class="select__label" :for="id">{{ label }}:</label>
+    <label class="select__label" :for="id">{{ label }}</label>
     <select
       class="select__dropdown"
       :id="id"
       :value="value"
       @change="$emit('select', $event.target.value)"
+      data-test="select"
     >
       <option v-for="(item, index) in items" :key="index">
         {{ item }}

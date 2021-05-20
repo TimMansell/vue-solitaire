@@ -12,7 +12,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(row, rowIndex) in items" :key="rowIndex">
+      <tr
+        v-for="(row, rowIndex) in items"
+        :key="rowIndex"
+        data-test="table-row"
+      >
         <td
           class="table__cell"
           v-for="(cell, cellIndex) in row"

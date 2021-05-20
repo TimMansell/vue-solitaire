@@ -1,5 +1,5 @@
 <template>
-  <div id="game-history">
+  <div id="game-history" data-test="game-history">
     <p class="game-history__message">
       Showing results for games played
     </p>

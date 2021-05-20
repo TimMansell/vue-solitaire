@@ -4,8 +4,8 @@
     :page-range="range"
     :force-page="startOn"
     :margin-pages="0"
-    :prev-text="'🡠'"
-    :next-text="'🡢'"
+    :prev-text="'<'"
+    :next-text="'>'"
     :first-last-button="true"
     :click-handler="displayPage"
     :container-class="'pagination'"
@@ -15,6 +15,7 @@
     :active-class="'pagination__page--is-active'"
     :disabled-class="'pagination__page--is-disabled'"
     :break-view-class="'pagination__page--is-break'"
+    data-test="pagination"
   />
 </template>
 
