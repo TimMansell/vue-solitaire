@@ -1,4 +1,4 @@
-import { userStats, globalStats, findUser, version } from '../queries';
+import { userStats, globalStats, findUser, version, user } from '../queries';
 import { version as appVersion } from '../../../../../package.json';
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
@@ -26,5 +26,11 @@ describe('Graphql Query Resolvers', () => {
     const result = version();
 
     expect(result).toEqual({ number: appVersion });
+  });
+
+  it('user', () => {
+    const result = user('', { uid: mockUid });
+
+    expect(result).toEqual({ uid: mockUid });
   });
 });
