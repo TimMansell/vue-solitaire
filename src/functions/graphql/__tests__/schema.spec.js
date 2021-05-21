@@ -116,6 +116,55 @@ describe('Graphql Schema', () => {
         },
       });
     });
+
+    it('history', async () => {
+      const query = `
+        query {
+          user(uid: "1") {
+            history(offset: 0, limit: 10) {
+              uid,
+              date,
+              won,
+              lost,
+              completed,
+              moves,
+              time
+            }
+          }
+        }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
+
+      expect(result).toEqual({
+        data: {
+          user: {
+            history: [
+              {
+                completed: true,
+                date: 'String',
+                lost: true,
+                moves: 1,
+                time: 1,
+                uid: 'String',
+                won: true,
+              },
+              {
+                completed: true,
+                date: 'String',
+                lost: true,
+                moves: 1,
+                time: 1,
+                uid: 'String',
+                won: true,
+              },
+            ],
+          },
+        },
+      });
+    });
   });
 
   describe('Mutations', () => {
