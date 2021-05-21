@@ -18,15 +18,17 @@ describe('ResponsiveTable.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('does not show table helper', () => {
-    localStorage.setItem('showTableHelper', 'false');
+  it('does not show table helper after first viewing of component', () => {
+    shallowMount(ResponsiveTable, {
+      propsData,
+    }).destroy();
 
-    const wrapper = shallowMount(ResponsiveTable, {
+    const wrapper2 = shallowMount(ResponsiveTable, {
       propsData,
     });
 
-    expect(wrapper.find('[data-test="responsive-table-helper"]').exists()).toBe(
-      false
-    );
+    expect(
+      wrapper2.find('[data-test="responsive-table-helper"]').exists()
+    ).toBe(false);
   });
 });
