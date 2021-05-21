@@ -1,6 +1,11 @@
 import actions from '../actions';
 
-const { initLocalUser, initServerUser, checkUserExistsOnServer } = actions;
+const {
+  initLocalUser,
+  initServerUser,
+  checkUserExistsOnServer,
+  getAllGames,
+} = actions;
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
@@ -94,6 +99,28 @@ describe('User Store', () => {
       await checkUserExistsOnServer({ commit, dispatch, state });
 
       expect(dispatch).not.toHaveBeenCalledWith('createUserOnServer');
+    });
+  });
+
+  describe('getAllGames', () => {
+    it('should games', async () => {
+      const state = {
+        luid: mockUid,
+      };
+
+      const params = { offset: 0, limit: 25 };
+
+      await getAllGames({ commit, state }, params);
+
+      expect(commit).toHaveBeenCalledWith('SET_USER_GAMES', [
+        {
+          date: '2021-05-20T23:34:49.564Z',
+          won: false,
+          lost: false,
+          moves: 0,
+          time: 12,
+        },
+      ]);
     });
   });
 });

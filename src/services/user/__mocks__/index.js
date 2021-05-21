@@ -8,12 +8,23 @@ const checkUserExistsOnServer = (uid) => {
   return exists;
 };
 
+const getUsersGames = () => [
+  {
+    date: '2021-05-20T23:34:49.564Z',
+    won: false,
+    lost: false,
+    moves: 0,
+    time: 12,
+  },
+];
+
 const createUserOnServer = () => true;
 
 const user = () => ({
   getLocalUser,
   checkUserExistsOnServer,
   createUserOnServer,
+  getUsersGames,
 });
 
 export default user();
