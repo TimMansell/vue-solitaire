@@ -19,26 +19,6 @@ describe('History', () => {
       cy.visit('/');
     });
 
-    it('should show history overlay and then close overlay', () => {
-      cy.get('[data-test="history-btn"]').click();
-
-      cy.get('[data-test="history-overlay"]').should('exist');
-
-      cy.get('[data-test="game-overlay-close-btn"]').click();
-
-      cy.get('[data-test="history-overlay"]').should('not.exist');
-    });
-
-    it('should show history overlay on page refresh', () => {
-      cy.get('[data-test="history-btn"]').click();
-
-      cy.get('[data-test="history-overlay"]').should('exist');
-
-      cy.reload();
-
-      cy.get('[data-test="history-overlay"]').should('exist');
-    });
-
     it('should not show game paused if history overlay is visible', () => {
       cy.document().then((doc) => {
         cy.stub(doc, 'visibilityState').value('hidden');
