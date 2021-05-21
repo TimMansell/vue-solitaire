@@ -27,6 +27,9 @@ import {
 } from '@/helpers/eventListeners';
 import { debounce } from 'throttle-debounce';
 
+const matchMedia = (media) =>
+  window.matchMedia(`(min-width: ${media}px)`).matches;
+
 export default {
   name: 'Pagination',
   components: {
@@ -35,11 +38,11 @@ export default {
   props: {
     pages: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     startOn: {
       type: Number,
-      default: 0,
+      default: 1,
     },
   },
   data() {
@@ -63,9 +66,9 @@ export default {
   },
   methods: {
     getRange() {
-      const xs = window.matchMedia('(min-width: 360px)').matches;
-      const sm = window.matchMedia('(min-width: 480px)').matches;
-      const xl = window.matchMedia('(min-width: 1366px)').matches;
+      const xs = matchMedia(360);
+      const sm = matchMedia(480);
+      const xl = matchMedia(1366);
 
       if (xl) {
         return 9;
