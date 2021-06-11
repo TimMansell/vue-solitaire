@@ -57,9 +57,11 @@ describe('History', () => {
 
       cy.get('[data-test="table-row"]').should('have.length', 1);
 
-      cy.checkCorrectHistoryPage(1, 25);
+      cy.checkCorrectHistoryPages(1, 25);
 
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryActivePage(1);
+
+      cy.checkCorrectHistoryShowingGames();
     });
   });
 
@@ -77,11 +79,6 @@ describe('History', () => {
 
       cy.get('[data-test="table-row"]').should('have.length', 25);
 
-      cy.get('[data-test="pagination"]')
-        .children()
-        .eq(2)
-        .should('have.class', 'pagination__page--is-active');
-
       cy.get('[data-test="table-row"]:first-child td:first-child').then(
         (cell) => {
           const gameNumber = parseInt(cell.text(), 10);
@@ -90,9 +87,11 @@ describe('History', () => {
         }
       );
 
-      cy.checkCorrectHistoryPage(1, 25);
+      cy.checkCorrectHistoryPages(1, 25);
 
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryActivePage(1);
+
+      cy.checkCorrectHistoryShowingGames();
     });
 
     it('it shows 2nd page results using > button', () => {
@@ -100,31 +99,13 @@ describe('History', () => {
 
       cy.wait('@apiCheck');
 
-      cy.get('[data-test="table-row"]:last-child td:first-child').then(
-        (cell) => {
-          const gameNumber = parseInt(cell.text(), 10);
+      cy.clickHistoryPageAndCheckGameNumber('>', -25);
 
-          cy.get('[data-test="pagination"]')
-            .contains('>')
-            .click();
+      cy.checkCorrectHistoryPages(2, 25);
 
-          cy.wait('@apiCheck');
+      cy.checkCorrectHistoryActivePage(2);
 
-          cy.get('[data-test="table-row"]:first-child td:first-child').should(
-            'contain',
-            gameNumber - 1
-          );
-
-          cy.get('[data-test="pagination"]')
-            .children()
-            .eq(3)
-            .should('have.class', 'pagination__page--is-active');
-        }
-      );
-
-      cy.checkCorrectHistoryPage(2, 25);
-
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryShowingGames();
     });
 
     it('it shows 2nd page results using page 2 number button', () => {
@@ -132,31 +113,13 @@ describe('History', () => {
 
       cy.wait('@apiCheck');
 
-      cy.get('[data-test="table-row"]:last-child td:first-child').then(
-        (cell) => {
-          const gameNumber = parseInt(cell.text(), 10);
+      cy.clickHistoryPageAndCheckGameNumber('2', -25);
 
-          cy.get('[data-test="pagination"]')
-            .contains('2')
-            .click();
+      cy.checkCorrectHistoryPages(2, 25);
 
-          cy.wait('@apiCheck');
+      cy.checkCorrectHistoryActivePage(2);
 
-          cy.get('[data-test="table-row"]:first-child td:first-child').should(
-            'contain',
-            gameNumber - 1
-          );
-
-          cy.get('[data-test="pagination"]')
-            .children()
-            .eq(3)
-            .should('have.class', 'pagination__page--is-active');
-        }
-      );
-
-      cy.checkCorrectHistoryPage(2, 25);
-
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryShowingGames();
     });
 
     it('it shows last page results using Last button', () => {
@@ -182,10 +145,12 @@ describe('History', () => {
         .then(($page) => {
           const pageNumber = $page.text();
 
-          cy.checkCorrectHistoryPage(pageNumber, 25);
+          cy.checkCorrectHistoryPages(pageNumber, 25);
+
+          cy.checkCorrectHistoryActivePage(pageNumber);
         });
 
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryShowingGames();
     });
 
     it('it shows 1st page results using First button', () => {
@@ -199,31 +164,13 @@ describe('History', () => {
 
       cy.wait('@apiCheck');
 
-      cy.get('[data-test="table-row"]:first-child td:first-child').then(
-        (cell) => {
-          const gameNumber = parseInt(cell.text(), 10);
+      cy.clickHistoryPageAndCheckGameNumber('First', +25);
 
-          cy.get('[data-test="pagination"]')
-            .contains('First')
-            .click();
+      cy.checkCorrectHistoryPages(1, 25);
 
-          cy.wait('@apiCheck');
+      cy.checkCorrectHistoryActivePage(1);
 
-          cy.get('[data-test="table-row"]:last-child td:first-child').should(
-            'contain',
-            gameNumber + 1
-          );
-
-          cy.get('[data-test="pagination"]')
-            .children()
-            .eq(2)
-            .should('have.class', 'pagination__page--is-active');
-        }
-      );
-
-      cy.checkCorrectHistoryPage(1, 25);
-
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryShowingGames();
     });
 
     it('it shows 1st page results using < button', () => {
@@ -237,30 +184,13 @@ describe('History', () => {
 
       cy.wait('@apiCheck');
 
-      cy.get('[data-test="table-row"]:first-child td:first-child').then(
-        (cell) => {
-          const gameNumber = parseInt(cell.text(), 10);
+      cy.clickHistoryPageAndCheckGameNumber('<', +25);
 
-          cy.get('[data-test="pagination"]')
-            .contains('<')
-            .click();
+      cy.checkCorrectHistoryPages(1, 25);
 
-          cy.wait('@apiCheck');
+      cy.checkCorrectHistoryActivePage(1);
 
-          cy.get('[data-test="table-row"]:last-child td:first-child').should(
-            'contain',
-            gameNumber + 1
-          );
-
-          cy.get('[data-test="pagination"]')
-            .find('.pagination__page--is-active')
-            .should('contain', 1);
-        }
-      );
-
-      cy.checkCorrectHistoryPage(1, 25);
-
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryShowingGames();
     });
 
     it('it shows 50 games per page and correct page numbers', () => {
@@ -276,9 +206,11 @@ describe('History', () => {
 
       cy.get('[data-test="table-row"]').should('have.length', 50);
 
-      cy.checkCorrectHistoryPage(1, 50);
+      cy.checkCorrectHistoryPages(1, 50);
 
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryActivePage(1);
+
+      cy.checkCorrectHistoryShowingGames();
     });
 
     it('it shows page one when games per page is changed', () => {
@@ -296,14 +228,11 @@ describe('History', () => {
 
       cy.wait('@apiCheck');
 
-      cy.get('[data-test="pagination"]')
-        .children()
-        .eq(2)
-        .should('have.class', 'pagination__page--is-active');
+      cy.checkCorrectHistoryPages(1, 50);
 
-      cy.checkCorrectHistoryPage(1, 50);
+      cy.checkCorrectHistoryActivePage(1);
 
-      cy.checkCorrectHistoryGames();
+      cy.checkCorrectHistoryShowingGames();
     });
 
     it('it should scroll to correct position on page after clicking on page', () => {
@@ -319,7 +248,9 @@ describe('History', () => {
 
       cy.get('[data-test="game-history-controls"]').should('be.visible');
 
-      cy.checkCorrectHistoryPage(2, 25);
+      cy.checkCorrectHistoryPages(2, 25);
+
+      cy.checkCorrectHistoryActivePage(2);
     });
   });
 });
