@@ -52,4 +52,30 @@ describe('GameHistory.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('should show correct completed games', () => {
+    const wrapper = shallowMount(GameHistory, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(
+      wrapper.find('[data-test="game-history-total-games"]').text()
+    ).toContain('4');
+  });
+
+  it('should show correct pages', () => {
+    const wrapper = shallowMount(GameHistory, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.find('[data-test="game-history-pages"]').text()).toContain(
+      'Page: 1 / 1'
+    );
+  });
 });
