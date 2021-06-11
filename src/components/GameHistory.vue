@@ -1,15 +1,17 @@
 <template>
   <div id="game-history" data-test="game-history">
-    <p class="game-history__message">
-      Showing results for games played
-    </p>
+    <p>You have played a total of {{ completed }} games</p>
 
-    <Select
-      v-model="limit"
-      label="Display games per page"
-      :items="['25', '50', '100', '500']"
-      @select="displayLimit"
-    />
+    <div class="game-history__controls">
+      <div>Page: {{ page }} / {{ totalPages }}</div>
+
+      <Select
+        v-model="limit"
+        label="Show games / page"
+        :items="['25', '50', '100', '500']"
+        @select="displayLimit"
+      />
+    </div>
 
     <ResponsiveTable
       :headings="['#', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
@@ -136,9 +138,14 @@ export default {
 
 <style scoped lang="scss">
 .game-history {
-  &__message {
-    padding-left: 10%;
-    padding-right: 10%;
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--font-size-lg);
+    padding: var(--pd-sm);
+    margin-bottom: var(--mg-sm);
+    border: 1px solid var(--bdr-secondary);
   }
 }
 </style>

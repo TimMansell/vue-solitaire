@@ -44,18 +44,15 @@ export default {
 
 <style scoped lang="scss">
 .select {
-  width: 100%;
-  margin-bottom: var(--mg-md);
-
   &__label {
     margin-right: var(--mg-sm);
-    font-size: var(--font-size-lg);
   }
 
   &__dropdown {
     padding: var(--pd-xs);
     border: 1px solid var(--bdr-primary);
     border-radius: var(--bdr-radius-md);
+    background: var(--bg-secondary);
   }
 }
 </style>
