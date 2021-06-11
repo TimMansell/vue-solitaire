@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      range: 1,
+      range: 3,
     };
   },
   mounted() {
@@ -79,10 +79,10 @@ export default {
       }
 
       if (xs) {
-        return 3;
+        return 5;
       }
 
-      return 1;
+      return 3;
     },
     setRange() {
       this.range = this.getRange();
