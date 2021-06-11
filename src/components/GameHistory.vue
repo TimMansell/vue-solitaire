@@ -1,8 +1,12 @@
 <template>
-  <div id="game-history" data-test="game-history">
+  <div data-test="game-history">
     <p>You have played a total of {{ completed }} games</p>
 
-    <div class="game-history__controls">
+    <div
+      id="game-history-controls"
+      class="game-history__controls"
+      data-test="game-history-controls"
+    >
       <div>Page: {{ page }} / {{ totalPages }}</div>
 
       <Select
@@ -128,7 +132,7 @@ export default {
       this.getAllGames({ offset, limit });
 
       if (scrollTo) {
-        VueScrollTo.scrollTo('#game-history', {
+        VueScrollTo.scrollTo('#game-history-controls', {
           container: '#history-overlay',
           offset: -10,
         });
