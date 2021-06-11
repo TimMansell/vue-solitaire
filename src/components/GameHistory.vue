@@ -14,7 +14,7 @@
     </div>
 
     <ResponsiveTable
-      :headings="['#', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
+      :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
     />
 
