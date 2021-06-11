@@ -1,21 +1,30 @@
 <template>
   <div data-test="game-history">
-    <p>You have played a total of {{ completed }} games</p>
+    <p>
+      You have played a total of
+      <span data-test="game-history-total-games">{{ completed }}</span> games
+    </p>
 
     <div
       id="game-history-controls"
       class="game-history__controls"
       data-test="game-history-controls"
     >
-      <div>Page: {{ page }} / {{ totalPages }}</div>
+      <div data-test="game-history-pages">
+        Page: {{ page }} / {{ totalPages }}
+      </div>
 
       <Select
         v-model="limit"
-        label="Show games / page"
+        label="Games per page"
         :items="['25', '50', '100', '500']"
         @select="displayLimit"
       />
     </div>
+
+    <p data-test="game-history-showing-games">
+      Showing games {{ showingGames.first }} to {{ showingGames.last }}
+    </p>
 
     <ResponsiveTable
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
@@ -114,6 +123,20 @@ export default {
 
       return pages;
     },
+    showingGames() {
+      const { games } = this;
+      const [firstGame, ...restGames] = games;
+      const [lastGame] = restGames.reverse();
+
+      if (firstGame && lastGame) {
+        return {
+          first: firstGame.number,
+          last: lastGame.number,
+        };
+      }
+
+      return {};
+    },
   },
   mounted() {
     this.displayGames({ scrollTo: false });
@@ -150,7 +173,7 @@ export default {
     justify-content: space-between;
     font-size: var(--font-size-lg);
     padding: var(--pd-sm);
-    margin-bottom: var(--mg-sm);
+    margin-bottom: var(--mg-md);
     border: 1px solid var(--bdr-secondary);
   }
 }
