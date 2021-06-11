@@ -266,5 +266,19 @@ describe('History', () => {
         .eq(2)
         .should('have.class', 'pagination__page--is-active');
     });
+
+    it('it should scroll to correct position on page after clicking on page', () => {
+      cy.get('[data-test="history-btn"]').click();
+
+      cy.wait('@apiCheck');
+
+      cy.get('[data-test="pagination"]')
+        .contains('2')
+        .click();
+
+      cy.wait('@apiCheck');
+
+      cy.get('[data-test="game-history-controls"]').should('be.visible');
+    });
   });
 });
