@@ -125,13 +125,12 @@ export default {
     },
     showingGames() {
       const { games } = this;
-      const [firstGame, ...restGames] = games;
-      const [lastGame] = restGames.reverse();
+      const [firstGame] = games;
 
-      if (firstGame && lastGame) {
+      if (firstGame) {
         return {
           first: firstGame.number,
-          last: lastGame.number,
+          last: firstGame.number - games.length + 1,
         };
       }
 
