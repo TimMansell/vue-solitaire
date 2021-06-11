@@ -23,7 +23,7 @@ describe('Pagination.vue', () => {
   it('returns correct default range', async () => {
     const wrapper = shallowMount(Pagination);
 
-    expect(wrapper.vm.range).toBe(1);
+    expect(wrapper.vm.range).toBe(3);
   });
 
   it('returns correct range for xs', async () => {
@@ -31,7 +31,7 @@ describe('Pagination.vue', () => {
 
     const wrapper = shallowMount(Pagination);
 
-    expect(wrapper.vm.range).toBe(3);
+    expect(wrapper.vm.range).toBe(5);
   });
 
   it('returns correct range for sm', async () => {
