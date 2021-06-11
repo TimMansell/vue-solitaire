@@ -44,6 +44,8 @@ $bp-xl: 1366px;
   --bdr-radius-lg: 7px;
 
   // Margins.
+  --mg-xxs: calc(var(--vr) / 8);
+  --mg-xs: calc(var(--vr) / 4);
   --mg-sm: calc(var(--vr) / 2);
   --mg-md: var(--vr);
   --mg-lg: calc(var(--vr) * 2);

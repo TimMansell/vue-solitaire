@@ -105,10 +105,12 @@ export default {
   margin: 0;
 
   &__page {
+    display: flex;
     border: 1px solid transparent;
     border-radius: var(--bdr-radius-sm);
-    padding: var(--pd-sm);
     line-height: 1;
+    margin-left: var(--mg-xxs);
+    margin-right: var(--mg-xxs);
 
     &:hover {
       border: 1px solid var(--bdr-secondary);
@@ -134,6 +136,10 @@ export default {
 
     &--is-break {
       display: none;
+    }
+
+    a {
+      padding: var(--pd-sm);
     }
   }
 }
