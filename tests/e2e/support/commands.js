@@ -172,6 +172,37 @@ Cypress.Commands.add('interceptVersionCheck', (alias, version) => {
   });
 });
 
+Cypress.Commands.add('checkCorrectHistoryPage', (page, display) => {
+  cy.get('[data-test="game-history-total-games"]').then(($games) => {
+    const games = $games.text();
+    const pages = Math.ceil(games / display);
+
+    cy.get('[data-test="game-history-pages"]').should(
+      'contain',
+      `${page} / ${pages}`
+    );
+  });
+});
+
+Cypress.Commands.add('checkCorrectHistoryGames', () => {
+  cy.get('[data-test="table-row"]:first-child td:first-child').then(
+    (cellFirst) => {
+      const firstGameNumber = parseInt(cellFirst.text(), 10);
+
+      cy.get('[data-test="table-row"]:last-child td:first-child').then(
+        (cellLast) => {
+          const lastGameNumber = parseInt(cellLast.text(), 10);
+
+          cy.get('[data-test="game-history-showing-games"]').should(
+            'contain',
+            `Showing games ${firstGameNumber} to ${lastGameNumber}`
+          );
+        }
+      );
+    }
+  );
+});
+
 addMatchImageSnapshotCommand({
   failureThreshold: 0.05, // threshold for entire image
   failureThresholdType: 'percent', // percent of image or number of pixels
