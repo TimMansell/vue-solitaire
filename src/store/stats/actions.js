@@ -36,6 +36,9 @@ const actions = {
 
     commit('SHOW_STATS', showStats);
   },
+  clearFullStats({ commit }) {
+    commit('CLEAR_FULL_STATS');
+  },
 };
 
 export default actions;
