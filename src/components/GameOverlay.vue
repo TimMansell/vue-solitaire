@@ -64,6 +64,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    // eslint-disable-next-line vue/require-default-prop
     btnClose: {
       type: Function,
     },

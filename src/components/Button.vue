@@ -11,8 +11,9 @@ export default {
     type: {
       type: String,
       validator(value) {
-        return ['alt', 'link', 'icon'].includes(value);
+        return ['default', 'alt', 'link', 'icon'].includes(value);
       },
+      default: 'default',
     },
     isStacked: {
       type: Boolean,
@@ -21,8 +22,9 @@ export default {
     size: {
       type: String,
       validator(value) {
-        return ['lg'].includes(value);
+        return ['md', 'lg'].includes(value);
       },
+      default: 'md',
     },
   },
   computed: {

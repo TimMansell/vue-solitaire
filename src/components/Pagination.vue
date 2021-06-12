@@ -94,6 +94,7 @@ export default {
 };
 </script>
 
+<!-- eslint-disable-next-line vue-scoped-css/require-scoped -->
 <style lang="scss">
 .pagination {
   display: flex;
