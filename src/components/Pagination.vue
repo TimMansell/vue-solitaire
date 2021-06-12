@@ -100,8 +100,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   list-style-type: none;
-  padding-left: var(--pd-sm);
-  padding-right: var(--pd-sm);
+  padding: 0;
   margin: 0;
 
   &__page {
@@ -139,7 +138,7 @@ export default {
     }
 
     a {
-      padding: var(--pd-sm);
+      padding: var(--pd-xs);
     }
   }
 }
