@@ -4,7 +4,7 @@ exports[`GameOverlay.vue matches snapshot 1`] = `
 <div data-test="game-overlay" class="game-overlay">
   <div title="Close Overlay" data-test="game-overlay-close" class="game-overlay__close">
     <button-stub type="icon" size="lg" data-test="game-overlay-close-btn">
-      ✖
+      x
     </button-stub>
   </div>
   <div class="game-overlay__container">

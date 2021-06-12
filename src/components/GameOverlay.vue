@@ -12,7 +12,7 @@
         @click="btnClose"
         data-test="game-overlay-close-btn"
       >
-        ✖
+        x
       </Button>
     </div>
     <div class="game-overlay__container">
