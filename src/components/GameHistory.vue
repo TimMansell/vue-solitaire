@@ -80,7 +80,7 @@ export default {
       this.offset = 0;
       this.page = 1;
 
-      this.displayGames({ scrollTo: true });
+      this.displayGames({ autoScroll: true });
     },
     page(newPage) {
       const { limit } = this;
@@ -88,7 +88,7 @@ export default {
 
       this.offset = offset;
 
-      this.displayGames({ scrollTo: true });
+      this.displayGames({ autoScroll: true });
     },
     gameHistory() {
       const { gameHistory, offset, completed } = this;
@@ -138,7 +138,7 @@ export default {
     },
   },
   mounted() {
-    this.displayGames({ scrollTo: false });
+    this.displayGames({ autoScroll: false });
   },
   methods: {
     ...mapActions(['getAllGames']),
@@ -148,17 +148,20 @@ export default {
     displayLimit(limit) {
       this.limit = parseInt(limit, 10);
     },
-    displayGames({ scrollTo }) {
+    async displayGames({ autoScroll }) {
       const { offset, limit } = this;
 
-      this.getAllGames({ offset, limit });
+      await this.getAllGames({ offset, limit });
 
-      if (scrollTo) {
-        VueScrollTo.scrollTo('#game-history-controls', {
-          container: '#history-overlay',
-          offset: -10,
-        });
+      if (autoScroll) {
+        this.scrollTo();
       }
+    },
+    scrollTo() {
+      VueScrollTo.scrollTo('#game-history-controls', {
+        container: '#history-overlay',
+        offset: -10,
+      });
     },
   },
 };
