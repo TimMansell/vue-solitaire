@@ -29,6 +29,7 @@
     <ResponsiveTable
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
+      :placeholder-rows="limit"
     />
 
     <Pagination
@@ -150,6 +151,8 @@ export default {
     },
     async displayGames({ autoScroll }) {
       const { offset, limit } = this;
+
+      this.games = [];
 
       await this.getAllGames({ offset, limit });
 
