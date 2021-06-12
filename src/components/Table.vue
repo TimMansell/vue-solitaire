@@ -11,16 +11,31 @@
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody v-if="!items.length">
       <tr
-        v-for="(row, rowIndex) in items"
+        v-for="(row, rowIndex) in placeholderRows"
         :key="rowIndex"
         data-test="table-row"
       >
         <td
           class="table__cell"
-          v-for="(cell, cellIndex) in row"
+          v-for="(cell, cellIndex) in headings"
           :key="cellIndex"
+        >
+          <Progress />
+        </td>
+      </tr>
+    </tbody>
+    <tbody v-if="items.length">
+      <tr
+        v-for="(row, rowIndex2) in items"
+        :key="rowIndex2"
+        data-test="table-row"
+      >
+        <td
+          class="table__cell"
+          v-for="(cell, cellIndex2) in row"
+          :key="cellIndex2"
         >
           {{ cell }}
         </td>
@@ -30,8 +45,13 @@
 </template>
 
 <script>
+import Progress from '@/components/Progress.vue';
+
 export default {
   name: 'Table',
+  components: {
+    Progress,
+  },
   props: {
     headings: {
       type: Array,
@@ -40,6 +60,10 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    placeholderRows: {
+      type: Number,
+      default: 1,
     },
   },
 };
@@ -53,6 +77,7 @@ export default {
     border: 1px solid var(--bdr-secondary);
     padding: var(--pd-sm);
     white-space: nowrap;
+    line-height: 1;
   }
 }
 </style>
