@@ -25,6 +25,7 @@ $bp-xl: 1366px;
   --col-primary-dark: #{darken($col-primary, 5%)};
   --col-secondary: #{$col-secondary};
   --col-secondary-alt: #{rgba($col-tertiary, 0.25)};
+  --col-secondary-alt-2: #{rgba($col-tertiary, 0.35)};
   --col-tertiary: #{$col-tertiary};
 
   // Background colours.
