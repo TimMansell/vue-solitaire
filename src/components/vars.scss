@@ -15,6 +15,7 @@ $bp-xl: 1366px;
   --font-family: 'Roboto', sans-serif;
   --font-size: 0.8rem;
   --font-size-lg: 0.9rem;
+  --font-size-xl: 1.5rem;
 
   // Vertical rythm.
   --vr: 1rem;
@@ -23,6 +24,7 @@ $bp-xl: 1366px;
   --col-primary: #{$col-primary};
   --col-primary-dark: #{darken($col-primary, 5%)};
   --col-secondary: #{$col-secondary};
+  --col-secondary-alt: #{rgba($col-tertiary, 0.25)};
   --col-tertiary: #{$col-tertiary};
 
   // Background colours.
@@ -36,12 +38,14 @@ $bp-xl: 1366px;
 
   // Borders
   --bdr-primary: var(--col-secondary);
-  --bdr-secondary: var(--col-tertiary);
+  --bdr-secondary: var(--col-secondary-alt);
   --bdr-radius-sm: 3px;
   --bdr-radius-md: 5px;
   --bdr-radius-lg: 7px;
 
   // Margins.
+  --mg-xxs: calc(var(--vr) / 8);
+  --mg-xs: calc(var(--vr) / 4);
   --mg-sm: calc(var(--vr) / 2);
   --mg-md: var(--vr);
   --mg-lg: calc(var(--vr) * 2);

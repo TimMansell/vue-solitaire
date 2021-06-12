@@ -178,4 +178,14 @@ describe('Game State', () => {
       cy.get('[data-test="game-new"]').should('be.visible');
     });
   });
+
+  it('refreshing page on history shows history state', () => {
+    cy.get('[data-test="history-btn"]').click();
+
+    cy.get('[data-test="history-overlay"]').should('exist');
+
+    cy.reload();
+
+    cy.get('[data-test="history-overlay"]').should('exist');
+  });
 });

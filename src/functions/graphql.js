@@ -21,7 +21,7 @@ const server = new ApolloServer({
   },
   playground: GQL_PLAYGROUND === 'true',
   introspection: GQL_INTROSPECTION === 'true',
-  validationRules: [depthLimit(1)],
+  validationRules: [depthLimit(2)],
   mocks: NODE_ENV === 'test',
 });
 

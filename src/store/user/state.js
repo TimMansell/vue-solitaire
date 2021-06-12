@@ -3,6 +3,7 @@ const state = () => ({
   luid: null,
   isUserSavedOnServer: false,
   hasUserPlayedAGame: false,
+  gameHistory: [],
 });
 
 export default state;

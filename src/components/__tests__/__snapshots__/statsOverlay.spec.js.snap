@@ -15,7 +15,7 @@ exports[`StatsOverlay.vue matches snapshot 1`] = `
   <div data-test="stats-quit">
     Gave up: <counter-stub number="3"></counter-stub> (33.33%)
   </div>
-  <button-stub data-test="close-stats-btn">
+  <button-stub type="default" size="md" data-test="close-stats-btn">
     Close
   </button-stub>
 </gameoverlay-stub>

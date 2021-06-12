@@ -11,7 +11,7 @@ describe('Button.vue', () => {
   it('renders an alternate button', () => {
     const wrapper = shallowMount(Button, {
       propsData: {
-        alt: true,
+        type: 'alt',
       },
     });
 
@@ -21,11 +21,21 @@ describe('Button.vue', () => {
   it('renders a link button', () => {
     const wrapper = shallowMount(Button, {
       propsData: {
-        link: true,
+        type: 'link',
       },
     });
 
     expect(wrapper.classes()).toContain('btn--link');
+  });
+
+  it('renders an icon button', () => {
+    const wrapper = shallowMount(Button, {
+      propsData: {
+        type: 'icon',
+      },
+    });
+
+    expect(wrapper.classes()).toContain('btn--icon');
   });
 
   it('renders a stacked button', () => {
@@ -36,6 +46,16 @@ describe('Button.vue', () => {
     });
 
     expect(wrapper.classes()).toContain('btn--is-stacked');
+  });
+
+  it('renders a large button', () => {
+    const wrapper = shallowMount(Button, {
+      propsData: {
+        size: 'lg',
+      },
+    });
+
+    expect(wrapper.classes()).toContain('btn--large');
   });
 
   it('should call click method', () => {

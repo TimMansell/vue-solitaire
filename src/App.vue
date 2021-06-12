@@ -49,7 +49,9 @@ p {
 }
 
 ul {
+  margin: 0;
   padding-left: var(--pd-md);
+  margin-bottom: var(--mg-md);
 
   @media (min-width: $bp-sm) {
     padding-left: var(--pd-lg);

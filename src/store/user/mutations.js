@@ -8,6 +8,9 @@ const mutations = {
   SET_USER_HAS_PLAYED(state, hasUserPlayedAGame) {
     state.hasUserPlayedAGame = hasUserPlayedAGame;
   },
+  SET_USER_GAMES(state, gameHistory) {
+    state.gameHistory = gameHistory;
+  },
 };
 
 export default mutations;

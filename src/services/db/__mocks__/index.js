@@ -9,6 +9,16 @@ const globalStats = { ...mockStats };
 const mockUidResult = { uid: mockUid };
 const mockVersion = { number: mockVersionNumber };
 
+const mockHistory = [
+  {
+    date: '2021-05-20T23:34:49.564Z',
+    won: false,
+    lost: false,
+    moves: 0,
+    time: 12,
+  },
+];
+
 const checkUserExists = (uid) => {
   const exists = uid === mockUid;
   const response = formatResponse({ data: { findUser: { exists } } });
@@ -35,6 +45,15 @@ const gameQuit = () => formatResponse({ data: { quitGame: mockUidResult } });
 
 const getAppVersion = () => formatResponse({ data: { version: mockVersion } });
 
+const getUsersGames = () =>
+  formatResponse({
+    data: {
+      user: {
+        history: mockHistory,
+      },
+    },
+  });
+
 const db = () => ({
   checkUserExists,
   getUserStats,
@@ -46,6 +65,7 @@ const db = () => ({
   gameLost,
   gameQuit,
   getAppVersion,
+  getUsersGames,
 });
 
 export default db();

@@ -1,6 +1,6 @@
 <template>
   <Button :is-stacked="isStacked" @click="showRules" data-test="game-rules-btn">
-    How to play
+    Rules
   </Button>
 </template>
 

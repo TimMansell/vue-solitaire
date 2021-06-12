@@ -55,11 +55,19 @@ describe('Controls', () => {
 
     cy.get('[data-test="rules-overlay"]').should('be.visible');
 
-    cy.get('[data-test="close-rules-btn"]').scrollIntoView();
-
-    cy.get('[data-test="close-rules-btn"]').click();
+    cy.get('[data-test="game-overlay-close-btn"]').click();
 
     cy.get('[data-test="rules-overlay"]').should('not.exist');
+  });
+
+  it('it should open and close history', () => {
+    cy.get('[data-test="history-btn"]').click();
+
+    cy.get('[data-test="history-overlay"]').should('exist');
+
+    cy.get('[data-test="game-overlay-close-btn"]').click();
+
+    cy.get('[data-test="history-overlay"]').should('not.exist');
   });
 
   it('should move last cards foundation and then show win screen', () => {
