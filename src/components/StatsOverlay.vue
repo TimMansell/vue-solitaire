@@ -6,7 +6,7 @@
     <template #msg>
       <p>Showing stats for completed games:</p>
 
-      <ResponsiveTable
+      <Table
         :headings="['Played', 'Won', 'Lost', 'Gave Up']"
         :items="stats"
         :placeholder-rows="2"
@@ -25,7 +25,7 @@ import numeral from 'numeral';
 import { mapActions, mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import Button from '@/components/Button.vue';
-import ResponsiveTable from '@/components/ResponsiveTable.vue';
+import Table from '@/components/Table.vue';
 
 const calcPercent = (value) => numeral(value).format('0.00%');
 
@@ -34,7 +34,7 @@ export default {
   components: {
     GameOverlay,
     Button,
-    ResponsiveTable,
+    Table,
   },
   computed: {
     ...mapGetters(['fullStats', 'isLoading']),
