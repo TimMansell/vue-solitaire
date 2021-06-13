@@ -27,7 +27,26 @@ import GameOverlay from '@/components/GameOverlay.vue';
 import Button from '@/components/Button.vue';
 import Table from '@/components/Table.vue';
 
-const calcPercent = (value) => numeral(value).format('0.00%');
+export const calcPercent = (value) => numeral(value).format('0.00%');
+
+export const calcStats = ({ completed, won, lost }) => {
+  const abandoned = completed - won - lost;
+
+  const wonPercent = calcPercent(won / completed);
+  const lostPercent = calcPercent(lost / completed);
+  const abandonedPercent = calcPercent(abandoned / completed);
+
+  const stats = [
+    [completed, won, lost, abandoned],
+    ['', wonPercent, lostPercent, abandonedPercent],
+  ];
+
+  if (completed) {
+    return stats;
+  }
+
+  return [];
+};
 
 export default {
   name: 'GameLost',
@@ -39,23 +58,10 @@ export default {
   computed: {
     ...mapGetters(['fullStats', 'isLoading']),
     stats() {
-      const {
-        fullStats: { completed, won, lost },
-      } = this;
-      const abandoned = completed - won - lost;
+      const { fullStats } = this;
+      const stats = calcStats(fullStats);
 
-      const wonPercent = calcPercent(won / completed);
-      const lostPercent = calcPercent(lost / completed);
-      const abandonedPercent = calcPercent(abandoned / completed);
-
-      if (completed) {
-        return [
-          [completed, won, lost, abandoned],
-          ['', wonPercent, lostPercent, abandonedPercent],
-        ];
-      }
-
-      return [];
+      return stats;
     },
   },
   methods: {
