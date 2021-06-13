@@ -1,5 +1,5 @@
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
-// import '@4tw/cypress-drag-drop';
+import 'cypress-commands';
 
 // ***********************************************
 // This example commands.js shows you how to
