@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Table.vue matches snapshot - placeholder rows 1`] = `
+<table class="table">
+  <thead>
+    <tr>
+      <th class="table__cell">
+        Heading 1
+      </th>
+      <th class="table__cell">
+        Heading 2
+      </th>
+      <th class="table__cell">
+        Heading 3
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr data-test="table-placeholder-row">
+      <td class="table__cell">
+        <progress-stub></progress-stub>
+      </td>
+      <td class="table__cell">
+        <progress-stub></progress-stub>
+      </td>
+      <td class="table__cell">
+        <progress-stub></progress-stub>
+      </td>
+    </tr>
+  </tbody>
+  <!---->
+</table>
+`;
+
 exports[`Table.vue matches snapshot 1`] = `
 <table class="table">
   <thead>
@@ -15,6 +47,7 @@ exports[`Table.vue matches snapshot 1`] = `
       </th>
     </tr>
   </thead>
+  <!---->
   <tbody>
     <tr data-test="table-row">
       <td class="table__cell">

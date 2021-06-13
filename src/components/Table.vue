@@ -15,7 +15,7 @@
       <tr
         v-for="(row, rowIndex) in placeholderRows"
         :key="rowIndex"
-        data-test="table-row"
+        data-test="table-placeholder-row"
       >
         <td
           class="table__cell"
