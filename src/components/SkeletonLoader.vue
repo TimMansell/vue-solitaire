@@ -1,17 +1,17 @@
 <template>
-  <span class="progress">
-    <span class="progress__bar" />
+  <span class="skeleteon">
+    <span class="skeleteon__bar" />
   </span>
 </template>
 
 <script>
 export default {
-  name: 'Progress',
+  name: 'Skeleteon',
 };
 </script>
 
 <style scoped lang="scss">
-.progress {
+.skeleteon {
   display: flex;
 
   &__bar {

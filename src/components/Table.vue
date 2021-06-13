@@ -22,7 +22,7 @@
           v-for="(cell, cellIndex) in headings"
           :key="cellIndex"
         >
-          <Progress />
+          <SkeletonLoader />
         </td>
       </tr>
     </tbody>
@@ -36,6 +36,7 @@
           class="table__cell"
           v-for="(cell, cellIndex2) in row"
           :key="cellIndex2"
+          data-test="table-cell"
         >
           {{ cell }}
         </td>
@@ -45,12 +46,12 @@
 </template>
 
 <script>
-import Progress from '@/components/Progress.vue';
+import SkeletonLoader from '@/components/SkeletonLoader.vue';
 
 export default {
   name: 'Table',
   components: {
-    Progress,
+    SkeletonLoader,
   },
   props: {
     headings: {

@@ -18,13 +18,13 @@ exports[`Table.vue matches snapshot - placeholder rows 1`] = `
   <tbody>
     <tr data-test="table-placeholder-row">
       <td class="table__cell">
-        <progress-stub></progress-stub>
+        <skeletonloader-stub></skeletonloader-stub>
       </td>
       <td class="table__cell">
-        <progress-stub></progress-stub>
+        <skeletonloader-stub></skeletonloader-stub>
       </td>
       <td class="table__cell">
-        <progress-stub></progress-stub>
+        <skeletonloader-stub></skeletonloader-stub>
       </td>
     </tr>
   </tbody>
@@ -50,24 +50,24 @@ exports[`Table.vue matches snapshot 1`] = `
   <!---->
   <tbody>
     <tr data-test="table-row">
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         1
       </td>
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         2
       </td>
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         3
       </td>
     </tr>
     <tr data-test="table-row">
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         4
       </td>
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         5
       </td>
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         6
       </td>
     </tr>
