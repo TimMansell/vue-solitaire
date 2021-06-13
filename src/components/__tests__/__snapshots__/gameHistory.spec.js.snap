@@ -2,9 +2,8 @@
 
 exports[`GameHistory.vue matches snapshot 1`] = `
 <div data-test="game-history" class="game-history">
-  <p>
-    You have played a total of
-    <span data-test="game-history-total-games">4</span> games
+  <p data-test="game-history-total-games">
+    You have played a total of 4 games
   </p>
   <div id="game-history-controls" data-test="game-history-controls" class="game-history__controls">
     <div data-test="game-history-pages">
@@ -13,9 +12,9 @@ exports[`GameHistory.vue matches snapshot 1`] = `
     <select-stub label="Games per page" value="25" items="25,50,100,500"></select-stub>
   </div>
   <p data-test="game-history-showing-games">
-    Showing games to
+    Showing games 1 to 10
   </p>
-  <responsivetable-stub headings="Game,Date,Time,Outcome,Moves,Duration" items=""></responsivetable-stub>
+  <responsivetable-stub headings="Game,Date,Time,Outcome,Moves,Duration" items="" placeholderrows="25"></responsivetable-stub>
   <pagination-stub pages="1" starton="1"></pagination-stub>
 </div>
 `;
