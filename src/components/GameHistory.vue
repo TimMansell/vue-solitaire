@@ -1,6 +1,6 @@
 <template>
   <div class="game-history" data-test="game-history">
-    <p data-test="game-history-total-games">
+    <p data-test="game-history-total-games" :data-games="completed">
       You have played a total of {{ completed }} games
     </p>
 

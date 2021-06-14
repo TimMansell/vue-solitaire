@@ -2,7 +2,7 @@
 
 exports[`GameHistory.vue matches snapshot 1`] = `
 <div data-test="game-history" class="game-history">
-  <p data-test="game-history-total-games">
+  <p data-test="game-history-total-games" data-games="4">
     You have played a total of 4 games
   </p>
   <div id="game-history-controls" data-test="game-history-controls" class="game-history__controls">

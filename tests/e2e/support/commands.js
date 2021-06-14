@@ -202,7 +202,7 @@ Cypress.Commands.add('checkCorrectHistoryActivePage', (activePage) => {
 
 Cypress.Commands.add('checkCorrectHistoryPages', (page, displayGames) => {
   cy.get('[data-test="game-history-total-games"]').then(($games) => {
-    const games = $games.text();
+    const games = $games.attr('data-games');
     const pages = Math.ceil(games / displayGames);
 
     cy.get('[data-test="game-history-pages"]').should(
