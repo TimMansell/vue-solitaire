@@ -4,8 +4,8 @@
       <tr>
         <th
           class="table__cell"
-          v-for="(heading, index) in headings"
-          :key="index"
+          v-for="(heading, headingIndex) in headings"
+          :key="headingIndex"
         >
           {{ heading }}
         </th>
@@ -13,14 +13,14 @@
     </thead>
     <tbody v-if="!items.length">
       <tr
-        v-for="(row, rowIndex) in placeholderRows"
-        :key="rowIndex"
+        v-for="(row, placeholderRowIndex) in placeholderRows"
+        :key="placeholderRowIndex"
         data-test="table-placeholder-row"
       >
         <td
           class="table__cell"
-          v-for="(cell, cellIndex) in headings"
-          :key="cellIndex"
+          v-for="(cell, placeholderCellIndex) in headings"
+          :key="placeholderCellIndex"
         >
           <SkeletonLoader />
         </td>
@@ -28,14 +28,14 @@
     </tbody>
     <tbody v-if="items.length">
       <tr
-        v-for="(row, rowIndex2) in items"
-        :key="rowIndex2"
+        v-for="(row, rowIndex) in items"
+        :key="rowIndex"
         data-test="table-row"
       >
         <td
           class="table__cell"
-          v-for="(cell, cellIndex2) in row"
-          :key="cellIndex2"
+          v-for="(cell, cellIndex) in row"
+          :key="cellIndex"
           data-test="table-cell"
         >
           {{ cell }}
