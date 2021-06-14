@@ -1,3 +1,4 @@
+import numeral from 'numeral';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import 'cypress-commands';
 
@@ -129,6 +130,7 @@ Cypress.Commands.add('checkPlayerCount', () => {
     failOnStatusCode: false,
   }).should(({ status, body }) => {
     const { players } = body.data.globalStats;
+    const playerCount = numeral(players).format('0,0');
 
     expect(status).to.equal(200);
 
@@ -136,7 +138,9 @@ Cypress.Commands.add('checkPlayerCount', () => {
 
     cy.wait('@apiCheck');
 
-    cy.get('[data-test="player-count"]').should('have.text', players);
+    cy.get('[data-test="player-count"]')
+      .text()
+      .should('equal', playerCount);
   });
 });
 

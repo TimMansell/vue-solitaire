@@ -47,16 +47,15 @@ describe('User', () => {
       cy.get('[data-test="player-count"]').as('playerCount');
 
       cy.get('@playerCount').then(($playerCount) => {
-        const intialPlayerCount = parseInt(
-          $playerCount.attr('data-number'),
-          10
-        );
+        const intialPlayerCount = numeral($playerCount.text()).value();
 
         cy.newGame({ wait: true });
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
-        cy.get('@playerCount').should('have.text', newPlayerCount);
+        cy.get('@playerCount')
+          .text()
+          .should('equal', newPlayerCount);
       });
     });
 
@@ -64,10 +63,7 @@ describe('User', () => {
       cy.get('[data-test="player-count"]').as('playerCount');
 
       cy.get('@playerCount').then(($playerCount) => {
-        const intialPlayerCount = parseInt(
-          $playerCount.attr('data-number'),
-          10
-        );
+        const intialPlayerCount = numeral($playerCount.text()).value();
 
         cy.newGame({ wait: true });
 
@@ -75,7 +71,9 @@ describe('User', () => {
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
-        cy.get('@playerCount').should('have.text', newPlayerCount);
+        cy.get('@playerCount')
+          .text()
+          .should('equal', newPlayerCount);
       });
     });
   });
@@ -99,14 +97,13 @@ describe('User', () => {
       cy.get('[data-test="player-count"]').as('playerCount');
 
       cy.get('@playerCount').then(($playerCount) => {
-        const intialPlayerCount = parseInt(
-          $playerCount.attr('data-number'),
-          10
-        );
+        const intialPlayerCount = $playerCount.text();
 
         cy.newGame({ wait: true });
 
-        cy.get('@playerCount').should('have.text', intialPlayerCount);
+        cy.get('@playerCount')
+          .text()
+          .should('equal', intialPlayerCount);
       });
     });
   });
