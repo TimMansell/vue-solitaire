@@ -40,7 +40,7 @@ describe('StatsOverlay.vue', () => {
     const result = calcStats(fullStats);
 
     expect(result).toStrictEqual([
-      [9, 2, 4, 3],
+      ['9', '2', '4', '3'],
       ['', '22.22%', '44.44%', '33.33%'],
     ]);
   });

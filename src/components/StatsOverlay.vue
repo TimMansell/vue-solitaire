@@ -29,19 +29,26 @@ import Table from '@/components/Table.vue';
 
 export const calcPercent = (value) => numeral(value).format('0.00%');
 
+export const calcNumber = (value) => numeral(value).format('0,0');
+
 export const calcStats = ({ completed, won, lost }) => {
   const abandoned = completed - won - lost;
+
+  const completedCount = calcNumber(completed);
+  const wonCount = calcNumber(won);
+  const lostCount = calcNumber(lost);
+  const abandonedCount = calcNumber(abandoned);
 
   const wonPercent = calcPercent(won / completed);
   const lostPercent = calcPercent(lost / completed);
   const abandonedPercent = calcPercent(abandoned / completed);
 
   const stats = [
-    [completed, won, lost, abandoned],
+    [completedCount, wonCount, lostCount, abandonedCount],
     ['', wonPercent, lostPercent, abandonedPercent],
   ];
 
-  if (completed) {
+  if (completed >= 0) {
     return stats;
   }
 
