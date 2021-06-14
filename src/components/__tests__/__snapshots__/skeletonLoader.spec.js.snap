@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkeletonLoader.vue matches snapshot 1`] = `<span class="skeleteon"><span class="skeleteon__bar"></span></span>`;

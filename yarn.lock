@@ -4593,6 +4593,10 @@ cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
 
+cypress-commands@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cypress-commands/-/cypress-commands-1.1.0.tgz#9248190168783deb8ab27ae7c722e3e01d172c97"
+
 cypress-image-snapshot@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/cypress-image-snapshot/-/cypress-image-snapshot-3.1.1.tgz#cb7242d8086e0d4cbb7f333f927f71cdb5ff9971"

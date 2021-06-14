@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Table.vue matches snapshot 1`] = `
+exports[`Table.vue matches snapshot - placeholder rows 1`] = `
 <table class="table">
   <thead>
     <tr>
@@ -16,25 +16,58 @@ exports[`Table.vue matches snapshot 1`] = `
     </tr>
   </thead>
   <tbody>
-    <tr data-test="table-row">
+    <tr data-test="table-placeholder-row">
       <td class="table__cell">
+        <skeletonloader-stub></skeletonloader-stub>
+      </td>
+      <td class="table__cell">
+        <skeletonloader-stub></skeletonloader-stub>
+      </td>
+      <td class="table__cell">
+        <skeletonloader-stub></skeletonloader-stub>
+      </td>
+    </tr>
+  </tbody>
+  <!---->
+</table>
+`;
+
+exports[`Table.vue matches snapshot 1`] = `
+<table class="table">
+  <thead>
+    <tr>
+      <th class="table__cell">
+        Heading 1
+      </th>
+      <th class="table__cell">
+        Heading 2
+      </th>
+      <th class="table__cell">
+        Heading 3
+      </th>
+    </tr>
+  </thead>
+  <!---->
+  <tbody>
+    <tr data-test="table-row">
+      <td data-test="table-cell" class="table__cell">
         1
       </td>
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         2
       </td>
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         3
       </td>
     </tr>
     <tr data-test="table-row">
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         4
       </td>
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         5
       </td>
-      <td class="table__cell">
+      <td data-test="table-cell" class="table__cell">
         6
       </td>
     </tr>

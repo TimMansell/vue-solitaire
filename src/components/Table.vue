@@ -4,14 +4,29 @@
       <tr>
         <th
           class="table__cell"
-          v-for="(heading, index) in headings"
-          :key="index"
+          v-for="(heading, headingIndex) in headings"
+          :key="headingIndex"
         >
           {{ heading }}
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody v-if="!items.length">
+      <tr
+        v-for="(row, placeholderRowIndex) in placeholderRows"
+        :key="placeholderRowIndex"
+        data-test="table-placeholder-row"
+      >
+        <td
+          class="table__cell"
+          v-for="(cell, placeholderCellIndex) in headings"
+          :key="placeholderCellIndex"
+        >
+          <SkeletonLoader />
+        </td>
+      </tr>
+    </tbody>
+    <tbody v-if="items.length">
       <tr
         v-for="(row, rowIndex) in items"
         :key="rowIndex"
@@ -21,6 +36,7 @@
           class="table__cell"
           v-for="(cell, cellIndex) in row"
           :key="cellIndex"
+          data-test="table-cell"
         >
           {{ cell }}
         </td>
@@ -30,8 +46,13 @@
 </template>
 
 <script>
+import SkeletonLoader from '@/components/SkeletonLoader.vue';
+
 export default {
   name: 'Table',
+  components: {
+    SkeletonLoader,
+  },
   props: {
     headings: {
       type: Array,
@@ -40,6 +61,10 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    placeholderRows: {
+      type: Number,
+      default: 1,
     },
   },
 };
@@ -53,6 +78,7 @@ export default {
     border: 1px solid var(--bdr-secondary);
     padding: var(--pd-sm);
     white-space: nowrap;
+    line-height: 1;
   }
 }
 </style>

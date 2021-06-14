@@ -7,7 +7,11 @@
     >
       <img class="responsive-table__swipe" :src="swipeIcon" />
     </div>
-    <Table :headings="headings" :items="items" />
+    <Table
+      :headings="headings"
+      :items="items"
+      :placeholder-rows="placeholderRows"
+    />
   </div>
 </template>
 
@@ -34,6 +38,10 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    placeholderRows: {
+      type: Number,
+      default: 1,
     },
   },
   destroyed() {

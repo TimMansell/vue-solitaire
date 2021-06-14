@@ -39,6 +39,10 @@ const mockComputed = {
   userStats: () => ({
     completed: 4,
   }),
+  showingGames: () => ({
+    first: 1,
+    last: 10,
+  }),
 };
 
 describe('GameHistory.vue', () => {
@@ -53,7 +57,7 @@ describe('GameHistory.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should show correct completed games', () => {
+  it('should show correct completed games message', () => {
     const wrapper = shallowMount(GameHistory, {
       mocks,
       computed: {
@@ -63,7 +67,7 @@ describe('GameHistory.vue', () => {
 
     expect(
       wrapper.find('[data-test="game-history-total-games"]').text()
-    ).toContain('4');
+    ).toContain('You have played a total of 4 games');
   });
 
   it('should show correct pages', () => {
@@ -77,5 +81,18 @@ describe('GameHistory.vue', () => {
     expect(wrapper.find('[data-test="game-history-pages"]').text()).toContain(
       'Page: 1 / 1'
     );
+  });
+
+  it('should show correct showing games message ', () => {
+    const wrapper = shallowMount(GameHistory, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(
+      wrapper.find('[data-test="game-history-showing-games"]').text()
+    ).toContain('Showing games 1 to 10');
   });
 });

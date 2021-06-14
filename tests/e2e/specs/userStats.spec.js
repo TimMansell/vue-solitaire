@@ -74,21 +74,25 @@ describe('Stats', () => {
 
         cy.wait('@apiCheck');
 
-        cy.get('[data-test="stats-played"]').within(() => {
-          cy.get('[data-test="counter"]').should('have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(0)
+          .text()
+          .should('equal', '0');
 
-        cy.get('[data-test="stats-won"]').within(() => {
-          cy.get('[data-test="counter"]').should('have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(1)
+          .text()
+          .should('equal', '0');
 
-        cy.get('[data-test="stats-lost"]').within(() => {
-          cy.get('[data-test="counter"]').should('have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(2)
+          .text()
+          .should('equal', '0');
 
-        cy.get('[data-test="stats-quit"]').within(() => {
-          cy.get('[data-test="counter"]').should('have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(3)
+          .text()
+          .should('equal', '0');
       });
 
       it('it successfully increments games played', () => {
@@ -108,21 +112,25 @@ describe('Stats', () => {
 
         cy.wait('@apiCheck');
 
-        cy.get('[data-test="stats-played"]').within(() => {
-          cy.get('[data-test="counter"]').should('have.text', '1');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(0)
+          .text()
+          .should('equal', '1');
 
-        cy.get('[data-test="stats-quit"]').within(() => {
-          cy.get('[data-test="counter"]').should('have.text', '1');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(1)
+          .text()
+          .should('equal', '0');
 
-        cy.get('[data-test="stats-won"]').within(() => {
-          cy.get('[data-test="counter"]').should('have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(2)
+          .text()
+          .should('equal', '0');
 
-        cy.get('[data-test="stats-lost"]').within(() => {
-          cy.get('[data-test="counter"]').should('have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(3)
+          .text()
+          .should('equal', '1');
       });
 
       it('it successfully increments games played after lost game', () => {
@@ -144,21 +152,25 @@ describe('Stats', () => {
 
           cy.wait('@apiCheck');
 
-          cy.get('[data-test="stats-played"]').within(() => {
-            cy.get('[data-test="counter"]').should('have.text', '1');
-          });
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(0)
+            .text()
+            .should('equal', '1');
 
-          cy.get('[data-test="stats-lost"]').within(() => {
-            cy.get('[data-test="counter"]').should('have.text', '1');
-          });
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(1)
+            .text()
+            .should('equal', '0');
 
-          cy.get('[data-test="stats-won"]').within(() => {
-            cy.get('[data-test="counter"]').should('have.text', '0');
-          });
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(2)
+            .text()
+            .should('equal', '1');
 
-          cy.get('[data-test="stats-quit"]').within(() => {
-            cy.get('[data-test="counter"]').should('have.text', '0');
-          });
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(3)
+            .text()
+            .should('equal', '0');
         });
       });
 
@@ -181,21 +193,25 @@ describe('Stats', () => {
 
           cy.wait('@apiCheck');
 
-          cy.get('[data-test="stats-played"]').within(() => {
-            cy.get('[data-test="counter"]').should('have.text', '1');
-          });
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(0)
+            .text()
+            .should('equal', '1');
 
-          cy.get('[data-test="stats-won"]').within(() => {
-            cy.get('[data-test="counter"]').should('have.text', '1');
-          });
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(1)
+            .text()
+            .should('equal', '1');
 
-          cy.get('[data-test="stats-lost"]').within(() => {
-            cy.get('[data-test="counter"]').should('have.text', '0');
-          });
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(2)
+            .text()
+            .should('equal', '0');
 
-          cy.get('[data-test="stats-quit"]').within(() => {
-            cy.get('[data-test="counter"]').should('have.text', '0');
-          });
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(3)
+            .text()
+            .should('equal', '0');
         });
       });
     });
@@ -216,21 +232,25 @@ describe('Stats', () => {
 
         cy.wait('@apiCheck');
 
-        cy.get('[data-test="stats-played"]').within(() => {
-          cy.get('[data-test="counter"]').should('not.have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(0)
+          .text()
+          .should('not.equal', '0');
 
-        cy.get('[data-test="stats-won"]').within(() => {
-          cy.get('[data-test="counter"]').should('not.have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(1)
+          .text()
+          .should('not.equal', '0');
 
-        cy.get('[data-test="stats-lost"]').within(() => {
-          cy.get('[data-test="counter"]').should('not.have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(2)
+          .text()
+          .should('not.equal', '0');
 
-        cy.get('[data-test="stats-quit"]').within(() => {
-          cy.get('[data-test="counter"]').should('not.have.text', '0');
-        });
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(3)
+          .text()
+          .should('not.equal', '0');
       });
 
       it('it successfully increments games played', () => {
@@ -238,24 +258,24 @@ describe('Stats', () => {
 
         cy.wait('@apiCheck');
 
-        cy.get(
-          '[data-test="stats-overlay"] [data-test="stats-played"] [data-test="counter"]'
-        ).as('gamesPlayed');
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(0)
+          .as('gamesPlayed');
 
-        cy.get(
-          '[data-test="stats-overlay"] [data-test="stats-quit"] [data-test="counter"]'
-        ).as('gamesQuit');
+        cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+          .eq(3)
+          .as('gamesQuit');
 
         cy.get('@gamesPlayed').then(($playedCount) => {
-          const gamesPlayed = parseInt($playedCount.attr('data-number'), 10);
+          const gamesPlayed = numeral($playedCount.text()).value();
 
           cy.get('@gamesQuit').then(($quitCount) => {
-            const gamesQuit = parseInt($quitCount.attr('data-number'), 10);
+            const gamesQuit = numeral($quitCount.text()).value();
 
             cy.get('[data-test="close-stats-btn"]').click();
 
             cy.get('[data-test="stats"]').then(($stats) => {
-              const number = parseInt($stats.attr('data-number'), 10);
+              const number = numeral($stats.text()).value();
 
               cy.get('[data-test="new-game-btn"]').click();
 
@@ -267,7 +287,9 @@ describe('Stats', () => {
 
               const newNumber = numeral(number + 1).format('0,0');
 
-              cy.get('[data-test="stats"]').should('have.text', newNumber);
+              cy.get('[data-test="stats"]')
+                .text()
+                .should('equal', newNumber);
             });
 
             cy.get('[data-test="user-stats-btn"]').click();
@@ -275,8 +297,13 @@ describe('Stats', () => {
             const newGamesPlayed = numeral(gamesPlayed + 1).format('0,0');
             const newGamesQuit = numeral(gamesQuit + 1).format('0,0');
 
-            cy.get('@gamesPlayed').should('have.text', newGamesPlayed);
-            cy.get('@gamesQuit').should('have.text', newGamesQuit);
+            cy.get('@gamesPlayed')
+              .text()
+              .should('equal', newGamesPlayed);
+
+            cy.get('@gamesQuit')
+              .text()
+              .should('equal', newGamesQuit);
           });
         });
       });
@@ -287,26 +314,24 @@ describe('Stats', () => {
 
           cy.wait('@apiCheck');
 
-          cy.get(
-            '[data-test="stats-overlay"] [data-test="stats-played"] [data-test="counter"]'
-          ).as('gamesPlayed');
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(0)
+            .as('gamesPlayed');
 
-          cy.get(
-            '[data-test="stats-overlay"] [data-test="stats-lost"] [data-test="counter"]'
-          ).as('gamesLost');
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(2)
+            .as('gamesLost');
 
           cy.get('@gamesPlayed').then(($playedCount) => {
-            const gamesPlayed = parseInt($playedCount.attr('data-number'), 10);
+            const gamesPlayed = numeral($playedCount.text()).value();
 
             cy.get('@gamesLost').then(($lostCount) => {
-              const gamesLost = parseInt($lostCount.attr('data-number'), 10);
+              const gamesLost = numeral($lostCount.text()).value();
 
               cy.get('[data-test="close-stats-btn"]').click();
 
               cy.get('[data-test="stats"]').then(($stats) => {
-                const number = parseInt($stats.attr('data-number'), 10);
-
-                console.log({ number });
+                const number = numeral($stats.text()).value();
 
                 cy.get('[data-test="card-Q♣"]').clickTo(
                   '[data-test="card-K♣"]'
@@ -323,7 +348,9 @@ describe('Stats', () => {
 
                 const newNumber = numeral(number + 1).format('0,0');
 
-                cy.get('[data-test="stats"]').should('have.text', newNumber);
+                cy.get('[data-test="stats"]')
+                  .text()
+                  .should('equal', newNumber);
               });
 
               cy.get('[data-test="user-stats-btn"]').click();
@@ -331,8 +358,13 @@ describe('Stats', () => {
               const newGamesPlayed = numeral(gamesPlayed + 1).format('0,0');
               const newGamesLost = numeral(gamesLost + 1).format('0,0');
 
-              cy.get('@gamesPlayed').should('have.text', newGamesPlayed);
-              cy.get('@gamesLost').should('have.text', newGamesLost);
+              cy.get('@gamesPlayed')
+                .text()
+                .should('equal', newGamesPlayed);
+
+              cy.get('@gamesLost')
+                .text()
+                .should('equal', newGamesLost);
             });
           });
         });
@@ -344,26 +376,24 @@ describe('Stats', () => {
 
           cy.wait('@apiCheck');
 
-          cy.get(
-            '[data-test="stats-overlay"] [data-test="stats-played"] [data-test="counter"]'
-          ).as('gamesPlayed');
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(0)
+            .as('gamesPlayed');
 
-          cy.get(
-            '[data-test="stats-overlay"] [data-test="stats-won"] [data-test="counter"]'
-          ).as('gamesWon');
+          cy.get('[data-test="stats-overlay"] [data-test="table-cell"]')
+            .eq(1)
+            .as('gamesWon');
 
           cy.get('@gamesPlayed').then(($playedCount) => {
-            const gamesPlayed = parseInt($playedCount.attr('data-number'), 10);
+            const gamesPlayed = numeral($playedCount.text()).value();
 
             cy.get('@gamesWon').then(($lostCount) => {
-              const gamesWon = parseInt($lostCount.attr('data-number'), 10);
+              const gamesWon = numeral($lostCount.text()).value();
 
               cy.get('[data-test="close-stats-btn"]').click();
 
               cy.get('[data-test="stats"]').then(($stats) => {
-                const number = parseInt($stats.attr('data-number'), 10);
-
-                console.log({ number });
+                const number = numeral($stats.text()).value();
 
                 cy.get('[data-test="card-Q♠"]').clickTo(
                   '[data-test="foundation-3"]'
@@ -380,7 +410,9 @@ describe('Stats', () => {
 
                 const newNumber = numeral(number + 1).format('0,0');
 
-                cy.get('[data-test="stats"]').should('have.text', newNumber);
+                cy.get('[data-test="stats"]')
+                  .text()
+                  .should('equal', newNumber);
               });
 
               cy.get('[data-test="user-stats-btn"]').click();
@@ -388,8 +420,13 @@ describe('Stats', () => {
               const newGamesPlayed = numeral(gamesPlayed + 1).format('0,0');
               const newGamesWon = numeral(gamesWon + 1).format('0,0');
 
-              cy.get('@gamesPlayed').should('have.text', newGamesPlayed);
-              cy.get('@gamesWon').should('have.text', newGamesWon);
+              cy.get('@gamesPlayed')
+                .text()
+                .should('equal', newGamesPlayed);
+
+              cy.get('@gamesWon')
+                .text()
+                .should('equal', newGamesWon);
             });
           });
         });

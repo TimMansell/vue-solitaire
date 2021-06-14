@@ -5,16 +5,12 @@
     </template>
     <template #msg>
       <p>Showing stats for completed games:</p>
-      <div data-test="stats-played">Played: <Counter :number="played" /></div>
-      <div data-test="stats-won">
-        Won: <Counter :number="won.count" /> ({{ won.percent }})
-      </div>
-      <div data-test="stats-lost">
-        Lost: <Counter :number="lost.count" /> ({{ lost.percent }})
-      </div>
-      <div data-test="stats-quit">
-        Gave up: <Counter :number="abandoned.count" /> ({{ abandoned.percent }})
-      </div>
+
+      <Table
+        :headings="['Played', 'Won', 'Lost', 'Gave Up']"
+        :items="stats"
+        :placeholder-rows="2"
+      />
     </template>
     <template #buttons>
       <Button @click="closeStats" data-test="close-stats-btn">
@@ -29,58 +25,60 @@ import numeral from 'numeral';
 import { mapActions, mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import Button from '@/components/Button.vue';
-import Counter from '@/components/Counter.vue';
+import Table from '@/components/Table.vue';
 
-const calcPercent = (value) => numeral(value).format('0.00%');
+export const calcPercent = (value) => numeral(value).format('0.00%');
+
+export const calcNumber = (value) => numeral(value).format('0,0');
+
+export const calcStats = ({ completed, won, lost }) => {
+  const abandoned = completed - won - lost;
+
+  const completedCount = calcNumber(completed);
+  const wonCount = calcNumber(won);
+  const lostCount = calcNumber(lost);
+  const abandonedCount = calcNumber(abandoned);
+
+  const wonPercent = calcPercent(won / completed);
+  const lostPercent = calcPercent(lost / completed);
+  const abandonedPercent = calcPercent(abandoned / completed);
+
+  const stats = [
+    [completedCount, wonCount, lostCount, abandonedCount],
+    ['', wonPercent, lostPercent, abandonedPercent],
+  ];
+
+  if (completed >= 0) {
+    return stats;
+  }
+
+  return [];
+};
 
 export default {
   name: 'GameLost',
   components: {
     GameOverlay,
     Button,
-    Counter,
+    Table,
   },
   computed: {
-    ...mapGetters(['fullStats']),
-    played() {
-      const { completed } = this.fullStats;
+    ...mapGetters(['fullStats', 'isLoading']),
+    stats() {
+      const { fullStats } = this;
+      const stats = calcStats(fullStats);
 
-      return completed;
-    },
-    won() {
-      const { completed, won } = this.fullStats;
-      const percent = calcPercent(won / completed);
-
-      return {
-        count: won,
-        percent,
-      };
-    },
-    lost() {
-      const { completed, lost } = this.fullStats;
-      const percent = calcPercent(lost / completed);
-
-      return {
-        count: lost,
-        percent,
-      };
-    },
-    abandoned() {
-      const { won, lost, completed } = this.fullStats;
-      const abandoned = completed - won - lost;
-      const percent = calcPercent(abandoned / completed);
-
-      return {
-        count: abandoned,
-        percent,
-      };
+      return stats;
     },
   },
   methods: {
-    ...mapActions(['toggleStats']),
+    ...mapActions(['toggleStats', 'clearFullStats']),
     closeStats() {
       this.toggleStats();
     },
+  },
+  destroyed() {
+    this.clearFullStats();
   },
 };
 </script>
