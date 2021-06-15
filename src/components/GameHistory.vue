@@ -29,7 +29,7 @@
     <ResponsiveTable
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
-      :placeholder-rows="limit"
+      :placeholder-rows="placeholderRows"
     />
 
     <Pagination
@@ -144,6 +144,15 @@ export default {
       const showingTo = completed - offset - gameHistory.length + 1;
 
       return showingTo;
+    },
+    placeholderRows() {
+      const { completed, limit } = this;
+
+      if (completed < limit) {
+        return completed;
+      }
+
+      return limit;
     },
   },
   mounted() {
