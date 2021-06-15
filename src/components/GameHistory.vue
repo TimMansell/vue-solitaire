@@ -146,13 +146,24 @@ export default {
       return showingTo;
     },
     placeholderRows() {
-      const { completed, limit } = this;
+      const { completed, limit, totalPages, page, lastPageGames } = this;
+
+      if (page === totalPages) {
+        return lastPageGames;
+      }
 
       if (completed < limit) {
         return completed;
       }
 
       return limit;
+    },
+    lastPageGames() {
+      const { limit, completed } = this;
+
+      const lastPageGames = completed % limit;
+
+      return lastPageGames;
     },
   },
   mounted() {
