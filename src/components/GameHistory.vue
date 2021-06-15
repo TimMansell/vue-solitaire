@@ -1,7 +1,7 @@
 <template>
   <div class="game-history" data-test="game-history">
     <p data-test="game-history-total-games" :data-games="completed">
-      You have played a total of {{ completed }} games
+      You have played a total of {{ completed | formatNumber }} games
     </p>
 
     <div
@@ -10,7 +10,7 @@
       data-test="game-history-controls"
     >
       <div data-test="game-history-pages">
-        Page: {{ page }} / {{ totalPages }}
+        Page: {{ page | formatNumber }} / {{ totalPages | formatNumber }}
       </div>
 
       <Select
@@ -22,7 +22,8 @@
     </div>
 
     <p data-test="game-history-showing-games">
-      Showing games {{ showingGames.first }} to {{ showingGames.last }}
+      Showing games {{ showingFrom | formatNumber }} to
+      {{ showingTo | formatNumber }}
     </p>
 
     <ResponsiveTable
@@ -48,7 +49,9 @@ import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
 
-const gameOutcome = ({ won, lost }) => {
+export const calcNumber = (value) => numeral(value).format('0,0');
+
+export const gameOutcome = ({ won, lost }) => {
   if (won) {
     return 'Won';
   }
@@ -75,6 +78,11 @@ export default {
       games: [],
     };
   },
+  filters: {
+    formatNumber(value) {
+      return calcNumber(value);
+    },
+  },
   watch: {
     limit() {
       this.offset = 0;
@@ -95,7 +103,7 @@ export default {
 
       const formattedGames = gameHistory.map(
         ({ won, lost, date, moves, time }, index) => ({
-          number: completed - offset - index,
+          number: calcNumber(completed - offset - index),
           date: format(parseISO(date), 'dd-MM-yyyy'),
           timePlayed: format(parseISO(date), 'HH:mm:ss'),
           outcome: gameOutcome({ won, lost }),
@@ -123,18 +131,19 @@ export default {
 
       return pages;
     },
-    showingGames() {
-      const { games } = this;
-      const [firstGame] = games;
+    showingFrom() {
+      const { offset, completed } = this;
 
-      if (firstGame) {
-        return {
-          first: firstGame.number,
-          last: firstGame.number - games.length + 1,
-        };
-      }
+      const showingFrom = completed - offset;
 
-      return {};
+      return showingFrom;
+    },
+    showingTo() {
+      const { gameHistory, offset, completed } = this;
+
+      const showingTo = completed - offset - gameHistory.length + 1;
+
+      return showingTo;
     },
   },
   mounted() {
