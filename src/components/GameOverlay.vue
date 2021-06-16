@@ -52,10 +52,6 @@ export default {
     Logo,
   },
   props: {
-    alt: {
-      type: Boolean,
-      default: false,
-    },
     centerContent: {
       type: Boolean,
       default: false,
@@ -71,10 +67,9 @@ export default {
   },
   computed: {
     overlayClasses() {
-      const { alt, centerContent } = this;
+      const { centerContent } = this;
 
       return {
-        'game-overlay--alt': alt,
         'game-overlay--centered': centerContent,
       };
     },
@@ -114,12 +109,15 @@ export default {
   bottom: 0;
   left: 0;
   min-height: 100%;
-  background: rgba($col-tertiary, 0.7);
+  background: var(--bg-primary);
   z-index: var(--z-overlay);
   overflow-y: auto;
 
-  &--alt {
-    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
+  @media (min-width: $bp-lg) {
+    @supports (backdrop-filter: blur(8px)) {
+      background: rgba($col-primary, 0.95);
+      backdrop-filter: blur(8px);
+    }
   }
 
   &--centered {
@@ -159,23 +157,23 @@ export default {
 
   &__content {
     padding: var(--pd-sm);
+    text-shadow: 0 1px var(--col-tertiary);
 
     @media (min-width: $bp-md) {
       padding: var(--pd-md);
+      text-shadow: 0 2px var(--col-tertiary);
     }
   }
 
   &__title {
     color: var(--text-primary);
-    text-shadow: -1px -1px rgba($col-tertiary, 0.3);
-    line-height: 1;
+    line-height: 1.15;
   }
 
   &__msg {
     display: flex;
     flex-direction: column;
     color: var(--text-primary);
-    text-shadow: -1px -1px rgba($col-tertiary, 0.3);
   }
 
   &__btns {
