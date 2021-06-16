@@ -27,8 +27,7 @@ export default {
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  background: var(--bg-primary);
-  text-shadow: -1px -1px var(--col-primary-dark);
+  text-shadow: 0 1px var(--col-tertiary);
   padding: var(--pd-sm);
 
   @media (min-width: $bp-sm) {
@@ -39,8 +38,8 @@ export default {
   }
 
   @media (min-width: $bp-md) {
-    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
     margin-bottom: var(--mg-md);
+    text-shadow: 0 2px var(--col-tertiary);
   }
 }
 </style>
