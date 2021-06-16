@@ -5,7 +5,7 @@
     </p>
 
     <div
-      id="game-history-controls"
+      ref="scrollTo"
       class="game-history__controls"
       data-test="game-history-controls"
     >
@@ -43,7 +43,6 @@
 <script>
 import { format, parseISO } from 'date-fns';
 import numeral from 'numeral';
-import VueScrollTo from 'vue-scrollto';
 import { mapGetters, mapActions } from 'vuex';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
@@ -174,21 +173,19 @@ export default {
       this.limit = parseInt(limit, 10);
     },
     async displayGames({ autoScroll }) {
-      const { offset, limit } = this;
+      const {
+        offset,
+        limit,
+        $refs: { scrollTo },
+      } = this;
 
       this.games = [];
 
       await this.getAllGames({ offset, limit });
 
       if (autoScroll) {
-        this.scrollTo();
+        this.$emit('scrollTo', scrollTo);
       }
-    },
-    scrollTo() {
-      VueScrollTo.scrollTo('#game-history-controls', {
-        container: '#history-overlay',
-        offset: -10,
-      });
     },
   },
 };
