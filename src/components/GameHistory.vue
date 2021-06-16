@@ -146,24 +146,20 @@ export default {
       return showingTo;
     },
     pageRows() {
-      const { completed, limit, totalPages, page, lastPageGames } = this;
+      const { limit, totalPages, page, pageGamesCount } = this;
 
       if (page === totalPages) {
-        return lastPageGames;
-      }
-
-      if (completed < limit) {
-        return completed;
+        return pageGamesCount;
       }
 
       return limit;
     },
-    lastPageGames() {
+    pageGamesCount() {
       const { limit, completed } = this;
 
-      const lastPageGames = completed % limit;
+      const pageGamesCount = completed % limit;
 
-      return lastPageGames;
+      return pageGamesCount;
     },
   },
   mounted() {
