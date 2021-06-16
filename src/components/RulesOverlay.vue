@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt :btn-close="toggleRules" data-test="rules-overlay">
+  <GameOverlay :btn-close="toggleRules" data-test="rules-overlay">
     <template #title>
       How to play
     </template>
