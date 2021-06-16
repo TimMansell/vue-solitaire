@@ -43,17 +43,6 @@ describe('GameOverlay.vue', () => {
     );
   });
 
-  it('renders an alternate overlay class', () => {
-    const wrapper = shallowMount(GameOverlay, {
-      mocks,
-      propsData: {
-        alt: true,
-      },
-    });
-
-    expect(wrapper.classes()).toContain('game-overlay--alt');
-  });
-
   it('renders an center content class', () => {
     const wrapper = shallowMount(GameOverlay, {
       mocks,
