@@ -29,7 +29,7 @@
     <ResponsiveTable
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
-      :placeholder-rows="placeholderRows"
+      :placeholder-rows="pageRows"
     />
 
     <Pagination
@@ -139,13 +139,13 @@ export default {
       return showingFrom;
     },
     showingTo() {
-      const { gameHistory, offset, completed } = this;
+      const { showingFrom, pageRows } = this;
 
-      const showingTo = completed - offset - gameHistory.length + 1;
+      const showingTo = showingFrom - pageRows + 1;
 
       return showingTo;
     },
-    placeholderRows() {
+    pageRows() {
       const { completed, limit, totalPages, page, lastPageGames } = this;
 
       if (page === totalPages) {
