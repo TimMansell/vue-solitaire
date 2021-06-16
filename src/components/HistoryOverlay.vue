@@ -1,7 +1,6 @@
 <template>
   <GameOverlay
     ref="historyOverlay"
-    alt
     center-content
     data-test="history-overlay"
     :btn-close="toggleHistory"

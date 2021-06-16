@@ -73,6 +73,7 @@ export default {
 <style scoped lang="scss">
 .table {
   width: 100%;
+  background: rgba($col-primary, 0.3);
 
   &__cell {
     border: 1px solid var(--bdr-secondary);

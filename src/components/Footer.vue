@@ -44,10 +44,10 @@ export default {
   padding-left: var(--pd-sm);
   padding-right: var(--pd-sm);
   font-size: var(--font-size-lg);
-  background: var(--bg-primary);
   color: var(--text-primary);
   border-top: 1px solid rgba($col-secondary, 0.05);
   box-shadow: 0 -1px var(--bdr-secondary);
+  text-shadow: 0 1px var(--col-tertiary);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;
@@ -55,8 +55,7 @@ export default {
 
   @media (min-width: $bp-md) {
     justify-content: right;
-    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
-    text-shadow: -1px -1px var(--col-primary-dark);
+    text-shadow: 0 2px var(--col-tertiary);
   }
 
   &__stats {
@@ -82,7 +81,7 @@ export default {
     color: var(--text-primary);
 
     &:hover {
-      text-decoration: none;
+      text-shadow: none;
     }
 
     &::after {

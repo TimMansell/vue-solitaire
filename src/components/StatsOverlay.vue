@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt center-content show-logo data-test="stats-overlay">
+  <GameOverlay center-content show-logo data-test="stats-overlay">
     <template #title>
       Stats
     </template>

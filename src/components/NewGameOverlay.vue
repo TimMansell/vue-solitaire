@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay alt center-content show-logo data-test="game-new">
+  <GameOverlay center-content show-logo data-test="game-new">
     <template #title>
       Are you sure?
     </template>
