@@ -1,16 +1,16 @@
 <template>
   <div class="game-history" data-test="game-history">
     <p data-test="game-history-total-games" :data-games="completed">
-      You have played a total of {{ completed }} games
+      You have played a total of {{ completed | formatNumber }} games
     </p>
 
     <div
-      id="game-history-controls"
+      ref="scrollTo"
       class="game-history__controls"
       data-test="game-history-controls"
     >
       <div data-test="game-history-pages">
-        Page: {{ page }} / {{ totalPages }}
+        Page: {{ page | formatNumber }} / {{ totalPages | formatNumber }}
       </div>
 
       <Select
@@ -22,13 +22,14 @@
     </div>
 
     <p data-test="game-history-showing-games">
-      Showing games {{ showingGames.first }} to {{ showingGames.last }}
+      Showing games {{ showingFrom | formatNumber }} to
+      {{ showingTo | formatNumber }}
     </p>
 
     <ResponsiveTable
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
-      :placeholder-rows="limit"
+      :placeholder-rows="pageRows"
     />
 
     <Pagination
@@ -42,13 +43,14 @@
 <script>
 import { format, parseISO } from 'date-fns';
 import numeral from 'numeral';
-import VueScrollTo from 'vue-scrollto';
 import { mapGetters, mapActions } from 'vuex';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
 
-const gameOutcome = ({ won, lost }) => {
+export const calcNumber = (value) => numeral(value).format('0,0');
+
+export const gameOutcome = ({ won, lost }) => {
   if (won) {
     return 'Won';
   }
@@ -75,6 +77,11 @@ export default {
       games: [],
     };
   },
+  filters: {
+    formatNumber(value) {
+      return calcNumber(value);
+    },
+  },
   watch: {
     limit() {
       this.offset = 0;
@@ -95,7 +102,7 @@ export default {
 
       const formattedGames = gameHistory.map(
         ({ won, lost, date, moves, time }, index) => ({
-          number: completed - offset - index,
+          number: calcNumber(completed - offset - index),
           date: format(parseISO(date), 'dd-MM-yyyy'),
           timePlayed: format(parseISO(date), 'HH:mm:ss'),
           outcome: gameOutcome({ won, lost }),
@@ -123,18 +130,35 @@ export default {
 
       return pages;
     },
-    showingGames() {
-      const { games } = this;
-      const [firstGame] = games;
+    showingFrom() {
+      const { offset, completed } = this;
 
-      if (firstGame) {
-        return {
-          first: firstGame.number,
-          last: firstGame.number - games.length + 1,
-        };
+      const showingFrom = completed - offset;
+
+      return showingFrom;
+    },
+    showingTo() {
+      const { showingFrom, pageRows } = this;
+
+      const showingTo = showingFrom - pageRows + 1;
+
+      return showingTo;
+    },
+    pageRows() {
+      const { limit, totalPages, page, pageGamesCount } = this;
+
+      if (page === totalPages) {
+        return pageGamesCount;
       }
 
-      return {};
+      return limit;
+    },
+    pageGamesCount() {
+      const { limit, completed } = this;
+
+      const pageGamesCount = completed % limit;
+
+      return pageGamesCount;
     },
   },
   mounted() {
@@ -149,21 +173,19 @@ export default {
       this.limit = parseInt(limit, 10);
     },
     async displayGames({ autoScroll }) {
-      const { offset, limit } = this;
+      const {
+        offset,
+        limit,
+        $refs: { scrollTo },
+      } = this;
 
       this.games = [];
 
       await this.getAllGames({ offset, limit });
 
       if (autoScroll) {
-        this.scrollTo();
+        this.$emit('scrollTo', scrollTo);
       }
-    },
-    scrollTo() {
-      VueScrollTo.scrollTo('#game-history-controls', {
-        container: '#history-overlay',
-        offset: -10,
-      });
     },
   },
 };
