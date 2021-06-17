@@ -11,7 +11,7 @@
           </div>
         </div>
       </div>
-      <Button alt @click="btnClick">
+      <Button type="alt" @click="btnClick">
         {{ btnText }}
       </Button>
     </div>

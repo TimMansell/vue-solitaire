@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GameHistory.vue matches snapshot 1`] = `
+<div data-test="game-history" class="game-history">
+  <p data-test="game-history-total-games" data-games="4">
+    You have played a total of 4 games
+  </p>
+  <div data-test="game-history-controls" class="game-history__controls">
+    <div data-test="game-history-pages">
+      Page: 1 / 1
+    </div>
+    <select-stub label="Games per page" value="25" items="25,50,100,500"></select-stub>
+  </div>
+  <p data-test="game-history-showing-games">
+    Showing games 4 to
+    1
+  </p>
+  <responsivetable-stub headings="Game,Date,Time,Outcome,Moves,Duration" items="" placeholderrows="4"></responsivetable-stub>
+  <pagination-stub pages="1" starton="1"></pagination-stub>
+</div>
+`;

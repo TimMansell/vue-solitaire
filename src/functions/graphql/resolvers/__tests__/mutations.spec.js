@@ -1,13 +1,8 @@
 import { createUser, wonGame, lostGame, quitGame } from '../mutations';
 import { parseAndValidDate } from '../helpers';
+import { createMockInsertOne } from './mockDb';
 
-const mockClient = {
-  client: () => ({
-    collection: () => ({
-      insertOne: () => ({}),
-    }),
-  }),
-};
+const mockClient = createMockInsertOne({});
 
 describe('Graphql Mutation Resolvers', () => {
   describe('Users', () => {

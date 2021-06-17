@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay center-content show-logo alt data-test="game-paused">
+  <GameOverlay center-content show-logo data-test="game-paused">
     <template #title>
       Game Paused
     </template>

@@ -1,5 +1,6 @@
+import numeral from 'numeral';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
-// import '@4tw/cypress-drag-drop';
+import 'cypress-commands';
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -129,6 +130,7 @@ Cypress.Commands.add('checkPlayerCount', () => {
     failOnStatusCode: false,
   }).should(({ status, body }) => {
     const { players } = body.data.globalStats;
+    const playerCount = numeral(players).format('0,0');
 
     expect(status).to.equal(200);
 
@@ -136,7 +138,9 @@ Cypress.Commands.add('checkPlayerCount', () => {
 
     cy.wait('@apiCheck');
 
-    cy.get('[data-test="player-count"]').should('have.text', players);
+    cy.get('[data-test="player-count"]')
+      .text()
+      .should('equal', playerCount);
   });
 });
 
@@ -150,6 +154,85 @@ Cypress.Commands.add('newGame', ({ wait }) => {
   if (wait) {
     cy.wait('@apiCheck');
   }
+});
+
+Cypress.Commands.add('interceptVersionCheck', (alias, version) => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('version')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = alias;
+
+      // eslint-disable-next-line no-param-reassign
+      console.log({ version });
+
+      if (version) {
+        req.reply({
+          data: { version: { number: version, __typename: 'Version' } },
+        });
+      }
+    }
+  });
+});
+
+Cypress.Commands.add(
+  'clickHistoryPageAndCheckGameNumber',
+  (pageText, displayGames) => {
+    cy.get('[data-test="table-row"]:first-child td:first-child').then(
+      (cell) => {
+        const gameNumber = parseInt(cell.text(), 10);
+
+        cy.get('[data-test="pagination"]')
+          .contains(pageText)
+          .click();
+
+        cy.wait('@apiCheck');
+
+        cy.get('[data-test="table-row"]:first-child td:first-child').should(
+          'contain',
+          gameNumber + displayGames
+        );
+      }
+    );
+  }
+);
+
+Cypress.Commands.add('checkCorrectHistoryActivePage', (activePage) => {
+  cy.get('[data-test="pagination"]')
+    .find('.pagination__page--is-active')
+    .should('contain', activePage);
+});
+
+Cypress.Commands.add('checkCorrectHistoryPages', (page, displayGames) => {
+  cy.get('[data-test="game-history-total-games"]').then(($games) => {
+    const games = $games.attr('data-games');
+    const pages = Math.ceil(games / displayGames);
+
+    cy.get('[data-test="game-history-pages"]').should(
+      'contain',
+      `${page} / ${pages}`
+    );
+  });
+});
+
+Cypress.Commands.add('checkCorrectHistoryShowingGames', () => {
+  cy.get('[data-test="table-row"]:first-child td:first-child').then(
+    (cellFirst) => {
+      const firstGameNumber = parseInt(cellFirst.text(), 10);
+
+      cy.get('[data-test="table-row"]:last-child td:first-child').then(
+        (cellLast) => {
+          const lastGameNumber = parseInt(cellLast.text(), 10);
+
+          cy.get('[data-test="game-history-showing-games"]').should(
+            'contain',
+            `Showing games ${firstGameNumber} to ${lastGameNumber}`
+          );
+        }
+      );
+    }
+  );
 });
 
 addMatchImageSnapshotCommand({

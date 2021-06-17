@@ -8,27 +8,35 @@
 export default {
   name: 'Button',
   props: {
-    alt: {
-      type: Boolean,
-      default: false,
-    },
-    link: {
-      type: Boolean,
-      default: false,
+    type: {
+      type: String,
+      validator(value) {
+        return ['default', 'alt', 'link', 'icon'].includes(value);
+      },
+      default: 'default',
     },
     isStacked: {
       type: Boolean,
       default: false,
     },
+    size: {
+      type: String,
+      validator(value) {
+        return ['md', 'lg'].includes(value);
+      },
+      default: 'md',
+    },
   },
   computed: {
     classes() {
-      const { alt, link, isStacked } = this;
+      const { type, isStacked, size } = this;
 
       return {
-        'btn--alt': alt,
-        'btn--link': link,
+        'btn--alt': type === 'alt',
+        'btn--link': type === 'link',
         'btn--is-stacked': isStacked,
+        'btn--icon': type === 'icon',
+        'btn--large': size === 'lg',
       };
     },
   },
@@ -51,16 +59,29 @@ export default {
   font-size: var(--font-size);
   text-decoration: none;
   font-family: var(--font-family);
+  line-height: 1;
+  text-shadow: 0 1px var(--col-primary-dark-2);
 
   @media (min-width: $bp-md) {
     font-size: var(--font-size-lg);
     font-weight: 700;
     border-width: 2px;
+    text-shadow: 0 2px var(--col-primary-dark-2);
   }
 
   &:hover {
     background: var(--bg-primary);
     cursor: pointer;
+  }
+
+  &--icon {
+    border: 0;
+    text-shadow: none;
+
+    &:hover {
+      background: transparent;
+      color: var(--col-primary-dark);
+    }
   }
 
   &--is-stacked {
@@ -98,8 +119,12 @@ export default {
 
     &:hover {
       background: none;
-      text-decoration: underline;
+      text-shadow: none;
     }
+  }
+
+  &--large {
+    font-size: var(--font-size-xl);
   }
 }
 </style>

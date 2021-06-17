@@ -6,6 +6,8 @@ import {
 
 export { checkUserExistsOnServer, createUserOnServer } from './serverUser';
 
+export { getUsersGames } from './history';
+
 export const getLocalUser = () => {
   const userExists = checkLocalUserExists();
 

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select.vue matches snapshot - number 1`] = `
+<div class="select"><label for="Label-1" class="select__label">Label 1:</label> <select id="Label-1" data-test="select" class="select__dropdown">
+    <option>
+      1
+    </option>
+    <option>
+      2
+    </option>
+    <option>
+      3
+    </option>
+  </select></div>
+`;
+
+exports[`Select.vue matches snapshot - string 1`] = `
+<div class="select"><label for="Label-1" class="select__label">Label 1:</label> <select id="Label-1" data-test="select" class="select__dropdown">
+    <option>
+      value 1
+    </option>
+    <option>
+      value 2
+    </option>
+    <option>
+      value 3
+    </option>
+  </select></div>
+`;

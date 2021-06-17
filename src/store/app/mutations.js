@@ -35,6 +35,9 @@ const mutations = {
   SHOW_NEW_GAME(state, showNewGame) {
     state.showNewGame = showNewGame;
   },
+  SHOW_HISTORY(state) {
+    state.showHistory = !state.showHistory;
+  },
 };
 
 export default mutations;

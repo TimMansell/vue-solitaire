@@ -1,5 +1,5 @@
 <template>
-  <Button link @click="viewStats">
+  <Button type="link" @click="viewStats">
     view stats
   </Button>
 </template>

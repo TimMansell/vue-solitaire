@@ -1,15 +1,38 @@
 <template>
-  <div class="game-overlay" :class="classes" data-test="game-overlay">
+  <div class="game-overlay" :class="overlayClasses" data-test="game-overlay">
+    <div
+      class="game-overlay__close"
+      v-if="btnClose"
+      title="Close Overlay"
+      data-test="game-overlay-close"
+    >
+      <Button
+        type="icon"
+        size="lg"
+        @click="btnClose"
+        data-test="game-overlay-close-btn"
+      >
+        x
+      </Button>
+    </div>
     <div class="game-overlay__container">
       <div class="game-overlay__content">
-        <Logo class="game-overlay__logo" v-if="showLogo" />
+        <Logo
+          class="game-overlay__logo"
+          v-if="showLogo"
+          data-test="game-overlay-logo"
+        />
         <h1 class="game-overlay__title">
           <slot name="title" />
         </h1>
         <div class="game-overlay__msg" v-if="hasMsgSlot">
           <slot name="msg" />
         </div>
-        <div class="game-overlay__btns" data-test="game-overlay-btns">
+        <div
+          class="game-overlay__btns"
+          v-if="hasBtnSlot"
+          data-test="game-overlay-btns"
+        >
           <slot name="buttons" />
         </div>
       </div>
@@ -19,18 +42,16 @@
 
 <script>
 import { mapActions } from 'vuex';
+import Button from './Button.vue';
 import Logo from './Logo.vue';
 
 export default {
   name: 'GameOverlay',
   components: {
+    Button,
     Logo,
   },
   props: {
-    alt: {
-      type: Boolean,
-      default: false,
-    },
     centerContent: {
       type: Boolean,
       default: false,
@@ -39,18 +60,24 @@ export default {
       type: Boolean,
       default: false,
     },
+    // eslint-disable-next-line vue/require-default-prop
+    btnClose: {
+      type: Function,
+    },
   },
   computed: {
-    classes() {
-      const { alt, centerContent } = this;
+    overlayClasses() {
+      const { centerContent } = this;
 
       return {
-        'game-overlay--alt': alt,
         'game-overlay--centered': centerContent,
       };
     },
     hasMsgSlot() {
       return !!this.$slots.msg;
+    },
+    hasBtnSlot() {
+      return !!this.$slots.buttons;
     },
   },
   mounted() {
@@ -82,27 +109,39 @@ export default {
   bottom: 0;
   left: 0;
   min-height: 100%;
-  background: rgba($col-tertiary, 0.7);
+  background: var(--bg-primary);
   z-index: var(--z-overlay);
   overflow-y: auto;
 
-  &--alt {
-    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
+  @media (min-width: $bp-lg) {
+    @supports (backdrop-filter: blur(8px)) {
+      background: rgba($col-primary, 0.95);
+      backdrop-filter: blur(8px);
+    }
   }
 
   &--centered {
     text-align: center;
   }
 
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-10%, 10%);
+  }
+
   &__container {
     justify-self: center;
 
     @media (min-width: $bp-md) {
-      width: 80%;
+      max-width: 90%;
+      min-width: 60%;
     }
 
     @media (min-width: $bp-xl) {
-      width: 40%;
+      max-width: 60%;
+      min-width: 40%;
     }
   }
 
@@ -117,23 +156,30 @@ export default {
   }
 
   &__content {
-    padding: var(--pd-md);
+    padding: var(--pd-sm);
+    text-shadow: 0 1px var(--col-primary-dark-2);
+
+    @media (min-width: $bp-md) {
+      padding: var(--pd-md);
+      text-shadow: 0 2px var(--col-primary-dark-2);
+    }
   }
 
   &__title {
     color: var(--text-primary);
-    text-shadow: -1px -1px rgba($col-tertiary, 0.3);
+    line-height: 1.15;
   }
 
   &__msg {
+    display: flex;
+    flex-direction: column;
     color: var(--text-primary);
-    text-shadow: -1px -1px rgba($col-tertiary, 0.3);
-    margin-bottom: var(--mg-lg);
   }
 
   &__btns {
     display: flex;
     justify-content: center;
+    margin-top: var(--mg-md);
 
     > * + * {
       margin-left: var(--vr);

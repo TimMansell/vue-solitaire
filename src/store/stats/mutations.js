@@ -23,6 +23,9 @@ const mutations = {
       ...stats,
     };
   },
+  CLEAR_FULL_STATS(state) {
+    state.fullStats = {};
+  },
   SHOW_STATS(state, showStats) {
     state.showStats = showStats;
   },

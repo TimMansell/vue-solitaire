@@ -37,22 +37,22 @@ body {
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+:is(h1, h2, h3, h4, h5, h6, p) {
   margin-top: 0;
   margin-bottom: var(--mg-md);
 }
 
 ul {
+  margin: 0;
   padding-left: var(--pd-md);
+  margin-bottom: var(--mg-md);
 
   @media (min-width: $bp-sm) {
     padding-left: var(--pd-lg);
   }
+}
+
+a {
+  text-decoration: none;
 }
 </style>

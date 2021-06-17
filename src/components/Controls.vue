@@ -2,6 +2,7 @@
   <div class="controls">
     <NewGameButton show-confirmation is-stacked />
     <PauseGameButton is-stacked />
+    <HistoryButton is-stacked />
     <ShowRulesButton is-stacked />
   </div>
 </template>
@@ -10,6 +11,7 @@
 import NewGameButton from './NewGameButton.vue';
 import PauseGameButton from './PauseGameButton.vue';
 import ShowRulesButton from './ShowRulesButton.vue';
+import HistoryButton from './HistoryButton.vue';
 
 export default {
   name: 'Controls',
@@ -17,6 +19,7 @@ export default {
     NewGameButton,
     PauseGameButton,
     ShowRulesButton,
+    HistoryButton,
   },
 };
 </script>
@@ -26,7 +29,7 @@ export default {
   display: flex;
   justify-content: center;
   padding-bottom: var(--pd-sm);
-  border-bottom: 1px solid rgba($col-tertiary, 0.2);
+  border-bottom: 1px solid var(--bdr-secondary);
   box-shadow: 0 1px rgba($col-secondary, 0.05);
   width: 100%;
 

@@ -1,21 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StatsOverlay.vue matches snapshot 1`] = `
-<gameoverlay-stub alt="true" centercontent="true" showlogo="true" data-test="stats-overlay">
+<gameoverlay-stub centercontent="true" showlogo="true" data-test="stats-overlay">
   Stats
   <p>Showing stats for completed games:</p>
-  <div data-test="stats-played">Played: <counter-stub number="9"></counter-stub>
-  </div>
-  <div data-test="stats-won">
-    Won: <counter-stub number="2"></counter-stub> (22.22%)
-  </div>
-  <div data-test="stats-lost">
-    Lost: <counter-stub number="4"></counter-stub> (44.44%)
-  </div>
-  <div data-test="stats-quit">
-    Gave up: <counter-stub number="3"></counter-stub> (33.33%)
-  </div>
-  <button-stub data-test="close-stats-btn">
+  <table-stub headings="Played,Won,Lost,Gave Up" items="9,2,4,3,,22.22%,44.44%,33.33%" placeholderrows="2"></table-stub>
+  <button-stub type="default" size="md" data-test="close-stats-btn">
     Close
   </button-stub>
 </gameoverlay-stub>

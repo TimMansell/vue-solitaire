@@ -4,5 +4,6 @@ exports[`UserStats.vue matches snapshot 1`] = `
 <div>
   Games:
   <counter-stub number="0" data-test="stats"></counter-stub> <span>
-    (<viewstatsbutton-stub loadstats="function () { [native code] }" data-test="user-stats-btn"></viewstatsbutton-stub>)</span></div>
+    (<viewstatsbutton-stub loadstats="[Function]" data-test="user-stats-btn"></viewstatsbutton-stub>)</span>
+</div>
 `;

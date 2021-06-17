@@ -9,6 +9,15 @@ describe('GameOverlay.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(GameOverlay, {
       mocks,
+      propsData: {
+        showLogo: true,
+        btnClose: () => {},
+      },
+      slots: {
+        title: 'Title',
+        msg: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+        buttons: 'Buttons',
+      },
     });
 
     expect(wrapper).toMatchSnapshot();
@@ -17,23 +26,21 @@ describe('GameOverlay.vue', () => {
   it('does not render logo', () => {
     const wrapper = shallowMount(GameOverlay, {
       mocks,
-      propsData: {
-        showLogo: false,
-      },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find('[data-test="game-overlay-logo"]').exists()).toBe(
+      false
+    );
   });
 
-  it('renders an alternate overlay class', () => {
+  it('does not render a close button', () => {
     const wrapper = shallowMount(GameOverlay, {
       mocks,
-      propsData: {
-        alt: true,
-      },
     });
 
-    expect(wrapper.classes()).toContain('game-overlay--alt');
+    expect(wrapper.find('[data-test="game-overlay-close"]').exists()).toBe(
+      false
+    );
   });
 
   it('renders an center content class', () => {
@@ -45,18 +52,5 @@ describe('GameOverlay.vue', () => {
     });
 
     expect(wrapper.classes()).toContain('game-overlay--centered');
-  });
-
-  it('renders text in slots', () => {
-    const wrapper = shallowMount(GameOverlay, {
-      mocks,
-      slots: {
-        title: 'title',
-        msg: 'msg',
-        buttons: 'buttons',
-      },
-    });
-
-    expect(wrapper).toMatchSnapshot();
   });
 });
