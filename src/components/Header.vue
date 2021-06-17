@@ -27,7 +27,7 @@ export default {
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  text-shadow: 0 1px var(--col-tertiary);
+  text-shadow: 0 1px var(--col-primary-dark-2);
   padding: var(--pd-sm);
 
   @media (min-width: $bp-sm) {
@@ -39,7 +39,7 @@ export default {
 
   @media (min-width: $bp-md) {
     margin-bottom: var(--mg-md);
-    text-shadow: 0 2px var(--col-tertiary);
+    text-shadow: 0 2px var(--col-primary-dark-2);
   }
 }
 </style>

@@ -22,7 +22,9 @@ $bp-xl: 1366px;
 
   // Colours.
   --col-primary: #{$col-primary};
+  --col-primary-light: #{lighten($col-primary, 5%)};
   --col-primary-dark: #{darken($col-primary, 5%)};
+  --col-primary-dark-2: #{darken($col-primary, 10%)};
   --col-secondary: #{$col-secondary};
   --col-secondary-alt: #{rgba($col-tertiary, 0.25)};
   --col-secondary-alt-2: #{rgba($col-tertiary, 0.35)};
@@ -30,7 +32,7 @@ $bp-xl: 1366px;
 
   // Background colours.
   --bg-primary: var(--col-primary);
-  --bg-primary-light: #{lighten($col-primary, 5%)};
+  --bg-primary-light: var(--col-primary-light);
   --bg-secondary: var(--col-secondary);
   --bg-tertiary: var(--col-tertiary);
 

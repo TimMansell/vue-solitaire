@@ -157,11 +157,11 @@ export default {
 
   &__content {
     padding: var(--pd-sm);
-    text-shadow: 0 1px var(--col-tertiary);
+    text-shadow: 0 1px var(--col-primary-dark-2);
 
     @media (min-width: $bp-md) {
       padding: var(--pd-md);
-      text-shadow: 0 2px var(--col-tertiary);
+      text-shadow: 0 2px var(--col-primary-dark-2);
     }
   }
 
