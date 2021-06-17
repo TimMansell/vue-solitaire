@@ -60,13 +60,13 @@ export default {
   text-decoration: none;
   font-family: var(--font-family);
   line-height: 1;
-  text-shadow: 0 1px var(--col-tertiary);
+  text-shadow: 0 1px var(--col-primary-dark-2);
 
   @media (min-width: $bp-md) {
     font-size: var(--font-size-lg);
     font-weight: 700;
     border-width: 2px;
-    text-shadow: 0 2px var(--col-tertiary);
+    text-shadow: 0 2px var(--col-primary-dark-2);
   }
 
   &:hover {
@@ -76,6 +76,7 @@ export default {
 
   &--icon {
     border: 0;
+    text-shadow: none;
 
     &:hover {
       background: transparent;
