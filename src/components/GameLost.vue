@@ -3,6 +3,12 @@
     <template #title>
       Sorry, no more Moves!
     </template>
+    <template #msg>
+      <Table
+        :headings="['Game', 'Duration', 'Moves']"
+        :items="[['3,806', '03:05:52', '12']]"
+      />
+    </template>
     <template #buttons>
       <NewGameButton is-completed />
     </template>
@@ -11,6 +17,7 @@
 
 <script>
 import GameOverlay from '@/components/GameOverlay.vue';
+import Table from '@/components/Table.vue';
 import NewGameButton from './NewGameButton.vue';
 
 export default {
@@ -18,6 +25,7 @@ export default {
   components: {
     GameOverlay,
     NewGameButton,
+    Table,
   },
 };
 </script>
