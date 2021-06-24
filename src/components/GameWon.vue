@@ -4,10 +4,7 @@
       Congratulations, you win!
     </template>
     <template #msg>
-      <Table
-        :headings="['Game', 'Duration', 'Moves']"
-        :items="[['3,806', '03:05:52', '12']]"
-      />
+      <GameSummary />
     </template>
     <template #buttons>
       <NewGameButton is-completed />
@@ -17,15 +14,15 @@
 
 <script>
 import GameOverlay from '@/components/GameOverlay.vue';
-import Table from '@/components/Table.vue';
-import NewGameButton from './NewGameButton.vue';
+import GameSummary from '@/components/GameSummary.vue';
+import NewGameButton from '@/components/NewGameButton.vue';
 
 export default {
   name: 'GameWon',
   components: {
     GameOverlay,
     NewGameButton,
-    Table,
+    GameSummary,
   },
 };
 </script>
