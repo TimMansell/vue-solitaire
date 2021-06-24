@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { faUserClock, faDice } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
@@ -28,11 +29,13 @@ export default {
   components: {
     FontAwesomeIcon,
   },
-  props: {
-    summary: {
-      type: Array,
-      default: () => [],
-    },
+  data() {
+    return {
+      summary: [
+        { icon: faUserClock, name: 'Time', value: '03:05:52' },
+        { icon: faDice, name: 'Moves', value: 45 },
+      ],
+    };
   },
 };
 </script>
