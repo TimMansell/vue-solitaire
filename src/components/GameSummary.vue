@@ -21,21 +21,32 @@
 </template>
 
 <script>
-import { faUserClock, faDice } from '@fortawesome/free-solid-svg-icons';
+import { faUserClock, faHistory } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { mapGetters } from 'vuex';
+import numeral from 'numeral';
 
 export default {
   name: 'GameSummary',
   components: {
     FontAwesomeIcon,
   },
-  data() {
-    return {
-      summary: [
-        { icon: faUserClock, name: 'Time', value: '03:05:52' },
-        { icon: faDice, name: 'Moves', value: 45 },
-      ],
-    };
+  computed: {
+    ...mapGetters(['timer', 'moves']),
+    summary() {
+      const { timer, moves } = this;
+
+      const summary = [
+        {
+          icon: faUserClock,
+          name: 'Time',
+          value: numeral(timer).format('00:00:00'),
+        },
+        { icon: faHistory, name: 'Moves', value: moves },
+      ];
+
+      return summary;
+    },
   },
 };
 </script>
