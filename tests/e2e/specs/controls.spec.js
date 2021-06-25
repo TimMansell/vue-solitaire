@@ -102,4 +102,25 @@ describe('Controls', () => {
       cy.get('[data-test="game-paused"]').should('not.exist');
     });
   });
+
+  it('it should show correct summary on game overlay', () => {
+    cy.setBoard(emptyColumn).then(() => {
+      cy.get('[data-test="card-A♥"]').clickTo('[data-test="foundation-0"]');
+
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(2000);
+
+      cy.get('[data-test="pause-game-btn"]').click();
+
+      cy.get('[data-test="game-summary-value"]')
+        .eq(0)
+        .text()
+        .should('equal', '0:00:02');
+
+      cy.get('[data-test="game-summary-value"]')
+        .eq(1)
+        .text()
+        .should('equal', '1');
+    });
+  });
 });

@@ -12,7 +12,7 @@
         <h2 class="game-summary__title">
           {{ name }}
         </h2>
-        <p class="game-summary__description">
+        <p class="game-summary__description" data-test="game-summary-value">
           {{ value }}
         </p>
       </div>

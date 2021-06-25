@@ -10,7 +10,7 @@ exports[`GameSummary.vue matches snapshot 1`] = `
       <h2 class="game-summary__title">
         Time
       </h2>
-      <p class="game-summary__description">
+      <p data-test="game-summary-value" class="game-summary__description">
         0:00:03
       </p>
     </div>
@@ -23,7 +23,7 @@ exports[`GameSummary.vue matches snapshot 1`] = `
       <h2 class="game-summary__title">
         Moves
       </h2>
-      <p class="game-summary__description">
+      <p data-test="game-summary-value" class="game-summary__description">
         10
       </p>
     </div>
