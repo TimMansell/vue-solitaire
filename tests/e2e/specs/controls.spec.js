@@ -112,15 +112,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="pause-game-btn"]').click();
 
-      cy.get('[data-test="game-summary-value"]')
-        .eq(0)
-        .text()
-        .should('equal', '0:00:02');
-
-      cy.get('[data-test="game-summary-value"]')
-        .eq(1)
-        .text()
-        .should('equal', '1');
+      cy.checkGameSummaryValues({ moves: 1 });
     });
   });
 });

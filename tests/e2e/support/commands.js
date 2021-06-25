@@ -235,6 +235,22 @@ Cypress.Commands.add('checkCorrectHistoryShowingGames', () => {
   );
 });
 
+Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
+  cy.get('[data-test="timer"]').then(($timerPaused) => {
+    const timer = $timerPaused.text();
+
+    cy.get('[data-test="game-summary-value"]')
+      .eq(0)
+      .text()
+      .should('equal', timer);
+  });
+
+  cy.get('[data-test="game-summary-value"]')
+    .eq(1)
+    .text()
+    .should('equal', `${moves}`);
+});
+
 addMatchImageSnapshotCommand({
   failureThreshold: 0.05, // threshold for entire image
   failureThresholdType: 'percent', // percent of image or number of pixels
