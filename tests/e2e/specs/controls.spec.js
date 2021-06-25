@@ -1,5 +1,4 @@
 import emptyColumn from '../../fixtures/boards/emptyColumn.json';
-import foundations from '../../fixtures/boards/fullFoundation.json';
 
 describe('Controls', () => {
   beforeEach(() => {
@@ -68,25 +67,6 @@ describe('Controls', () => {
     cy.get('[data-test="game-overlay-close-btn"]').click();
 
     cy.get('[data-test="history-overlay"]').should('not.exist');
-  });
-
-  it('should move last cards foundation and then show win screen', () => {
-    cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="game-won"]').should('not.exist');
-
-      cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
-
-      cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
-      cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
-
-      cy.get('[data-test="game-won"]').should('be.visible');
-
-      cy.get('[data-test="game-overlay-btns"]').click();
-
-      cy.get('[data-test="game-won"]').should('not.exist');
-
-      cy.get('[data-test="foundation-3"]').shouldNotContain(['K♠', 'Q♠']);
-    });
   });
 
   it('it should pause a game and show game paused overlay', () => {
