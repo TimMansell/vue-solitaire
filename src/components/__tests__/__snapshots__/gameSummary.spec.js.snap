@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GameSummary.vue matches snapshot 1`] = `
+<div class="game-summary">
+  <div class="game-summary__item">
+    <div class="game-summary__icon">
+      <fontawesomeicon-stub icon="[object Object]" size="2x"></fontawesomeicon-stub>
+    </div>
+    <div class="game-summary__content">
+      <h2 class="game-summary__title">
+        Time
+      </h2>
+      <p class="game-summary__description">
+        0:00:03
+      </p>
+    </div>
+  </div>
+  <div class="game-summary__item">
+    <div class="game-summary__icon">
+      <fontawesomeicon-stub icon="[object Object]" size="2x"></fontawesomeicon-stub>
+    </div>
+    <div class="game-summary__content">
+      <h2 class="game-summary__title">
+        Moves
+      </h2>
+      <p class="game-summary__description">
+        10
+      </p>
+    </div>
+  </div>
+</div>
+`;
