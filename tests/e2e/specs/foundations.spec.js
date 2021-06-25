@@ -168,9 +168,28 @@ describe('Foundation moves', () => {
 
         cy.dragFromTo('card-Q♠', 'foundation-3');
         cy.dragFromTo('card-K♠', 'foundation-3');
-      });
 
-      cy.get('[data-test="game-won"]').should('be.visible');
+        cy.get('[data-test="game-won"]').should('be.visible');
+
+        cy.checkGameSummaryValues({ moves: 2 });
+      });
+    });
+
+    it('it should start a new game and reset board', () => {
+      cy.setBoard(foundations).then(() => {
+        cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
+
+        cy.dragFromTo('card-Q♠', 'foundation-3');
+        cy.dragFromTo('card-K♠', 'foundation-3');
+
+        cy.get(
+          '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
+        ).click();
+
+        cy.get('[data-test="game-won"]').should('not.exist');
+
+        cy.get('[data-test="foundation-3"]').shouldNotContain(['K♠', 'Q♠']);
+      });
     });
   });
 
@@ -335,9 +354,34 @@ describe('Foundation moves', () => {
 
         cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
         cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+
+        cy.get('[data-test="game-won"]').should('be.visible');
+
+        cy.checkGameSummaryValues({ moves: 2 });
       });
 
-      cy.get('[data-test="game-won"]').should('be.visible');
+      cy.get('[data-test="game-overlay-btns"]').click();
+
+      cy.get('[data-test="game-won"]').should('not.exist');
+
+      cy.get('[data-test="foundation-3"]').shouldNotContain(['K♠', 'Q♠']);
+    });
+
+    it('it should start a new game and reset board', () => {
+      cy.setBoard(foundations).then(() => {
+        cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
+
+        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+
+        cy.get(
+          '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
+        ).click();
+
+        cy.get('[data-test="game-won"]').should('not.exist');
+
+        cy.get('[data-test="foundation-3"]').shouldNotContain(['K♠', 'Q♠']);
+      });
     });
   });
 
