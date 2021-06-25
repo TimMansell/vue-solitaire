@@ -5,6 +5,7 @@ const getters = {
   isGameActive: (state) => state.isGamePaused.isActive,
   isTimerPaused: (state) => state.isTimerPaused,
   timer: (state) => state.game.time,
+  moves: (state) => state.game.moves,
   showRules: (state) => state.showRules,
   showNewGame: (state) => state.showNewGame,
   showHistory: (state) => state.showHistory,

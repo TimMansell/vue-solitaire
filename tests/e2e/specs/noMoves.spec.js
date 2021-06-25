@@ -19,6 +19,8 @@ describe('No moves', () => {
       cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
+
+      cy.checkGameSummaryValues({ moves: 2 });
     });
   });
 
@@ -33,6 +35,8 @@ describe('No moves', () => {
       cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
+
+      cy.checkGameSummaryValues({ moves: 2 });
     });
   });
 
@@ -48,13 +52,13 @@ describe('No moves', () => {
       cy.get('[data-test="card-2♠"]').clickTo('[data-test="foundation-0"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
+
+      cy.checkGameSummaryValues({ moves: 3 });
     });
   });
 
   it('should not show lost game if game won', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="winner"]').should('not.exist');
-
       cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 
       cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');

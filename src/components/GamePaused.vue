@@ -3,8 +3,11 @@
     <template #title>
       Game Paused
     </template>
-    <template #msg v-if="!isGameActive">
-      Your game has been paused due to inactivity
+    <template #msg>
+      <p v-if="!isGameActive">
+        Your game has been paused due to inactivity
+      </p>
+      <GameSummary />
     </template>
     <template #buttons>
       <PauseGameButton />
@@ -15,6 +18,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
+import GameSummary from '@/components/GameSummary.vue';
 import PauseGameButton from './PauseGameButton.vue';
 
 export default {
@@ -22,6 +26,7 @@ export default {
   components: {
     GameOverlay,
     PauseGameButton,
+    GameSummary,
   },
   computed: {
     ...mapGetters(['isGameActive']),

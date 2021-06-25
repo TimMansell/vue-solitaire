@@ -8,6 +8,7 @@ const {
   isGameActive,
   isTimerPaused,
   timer,
+  moves,
   showRules,
   showNewGame,
   versionMatch,
@@ -52,6 +53,12 @@ describe('App Store', () => {
     const result = timer(state);
 
     expect(result).toEqual(state.game.time);
+  });
+
+  it('moves', () => {
+    const result = moves(state);
+
+    expect(result).toEqual(state.game.moves);
   });
 
   it('showRules', () => {
