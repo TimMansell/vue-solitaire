@@ -60,6 +60,7 @@ export default {
   border: 1px solid var(--bdr-secondary);
   border-radius: var(--bdr-radius-lg);
   padding: var(--pd-md);
+  background: rgba($col-primary, 0.3);
 
   &__item {
     display: flex;
