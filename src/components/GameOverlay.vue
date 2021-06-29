@@ -64,13 +64,18 @@ export default {
     btnClose: {
       type: Function,
     },
+    visible: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     overlayClasses() {
-      const { centerContent } = this;
+      const { centerContent, visible } = this;
 
       return {
         'game-overlay--centered': centerContent,
+        'game-overlay--see-through': !visible,
       };
     },
     hasMsgSlot() {
@@ -114,14 +119,23 @@ export default {
   overflow-y: auto;
 
   @media (min-width: $bp-lg) {
-    @supports (backdrop-filter: blur(8px)) {
-      background: rgba($col-primary, 0.95);
-      backdrop-filter: blur(8px);
+    background: rgba($col-primary, 0.85);
+
+    @supports (backdrop-filter: blur(1px)) {
+      animation: blur-animation-to 0.4s forwards;
     }
   }
 
   &--centered {
     text-align: center;
+  }
+
+  &--see-through {
+    background: rgba($col-primary, 0.85);
+
+    @supports (backdrop-filter: blur(1px)) {
+      animation: blur-animation-from 0.4s forwards;
+    }
   }
 
   &__close {
@@ -184,6 +198,26 @@ export default {
     > * + * {
       margin-left: var(--vr);
     }
+  }
+}
+
+@keyframes blur-animation-to {
+  0% {
+    backdrop-filter: blur(0);
+  }
+
+  100% {
+    backdrop-filter: blur(8px);
+  }
+}
+
+@keyframes blur-animation-from {
+  0% {
+    backdrop-filter: blur(8px);
+  }
+
+  100% {
+    backdrop-filter: blur(0);
   }
 }
 </style>
