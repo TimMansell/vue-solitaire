@@ -53,4 +53,15 @@ describe('GameOverlay.vue', () => {
 
     expect(wrapper.classes()).toContain('game-overlay--centered');
   });
+
+  it('renders a see-through class', () => {
+    const wrapper = shallowMount(GameOverlay, {
+      mocks,
+      propsData: {
+        visible: false,
+      },
+    });
+
+    expect(wrapper.classes()).toContain('game-overlay--see-through');
+  });
 });
