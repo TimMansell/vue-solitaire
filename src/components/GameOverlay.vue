@@ -119,9 +119,8 @@ export default {
   overflow-y: auto;
 
   @media (min-width: $bp-lg) {
-    background: rgba($col-primary, 0.85);
-
     @supports (backdrop-filter: blur(1px)) {
+      background: rgba($col-primary, 0.85);
       animation: blur-animation-to 0.4s forwards;
     }
   }
