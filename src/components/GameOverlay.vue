@@ -106,6 +106,8 @@ export default {
 
 <style lang="scss" scoped>
 .game-overlay {
+  --blur: 8px;
+
   display: grid;
   align-items: center;
   position: fixed;
@@ -119,7 +121,7 @@ export default {
   overflow-y: auto;
 
   @media (min-width: $bp-lg) {
-    @supports (backdrop-filter: blur(1px)) {
+    @supports (backdrop-filter: blur(var(--blur))) {
       background: rgba($col-primary, 0.85);
       animation: blur-animation-to 0.4s forwards;
     }
@@ -132,7 +134,7 @@ export default {
   &--see-through {
     background: rgba($col-primary, 0.85);
 
-    @supports (backdrop-filter: blur(1px)) {
+    @supports (backdrop-filter: blur(var(--blur))) {
       animation: blur-animation-from 0.4s forwards;
     }
   }
@@ -206,13 +208,13 @@ export default {
   }
 
   100% {
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(var(--blur));
   }
 }
 
 @keyframes blur-animation-from {
   0% {
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(var(--blur));
   }
 
   100% {
