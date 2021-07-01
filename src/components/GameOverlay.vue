@@ -106,7 +106,7 @@ export default {
 
 <style lang="scss" scoped>
 .game-overlay {
-  --blur: 8px;
+  --blur: 10px;
 
   display: grid;
   align-items: center;
