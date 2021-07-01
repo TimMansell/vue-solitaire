@@ -34,6 +34,7 @@ body {
 
   @media (min-width: $bp-md) {
     background: var(--bg-primary) url('~@/assets/felt.png') repeat;
+    background-attachment: scroll;
   }
 }
 
