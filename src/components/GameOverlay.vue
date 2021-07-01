@@ -98,9 +98,9 @@ export default {
   methods: {
     ...mapActions(['setTimerPaused']),
     setHideBody(value) {
-      const overflowY = value ? 'hidden' : 'auto';
+      const overflow = value ? 'hidden' : 'auto';
 
-      document.body.style.overflowY = overflowY;
+      document.body.style.overflow = overflow;
     },
   },
 };
