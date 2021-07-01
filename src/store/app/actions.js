@@ -102,6 +102,11 @@ const actions = {
 
     commit('SHOW_NEW_GAME', showNewGame);
   },
+  toggleOverlayVisibility({ commit, state }) {
+    const isOverlayVisible = !state.isOverlayVisible;
+
+    commit('SET_OVERLAY_VISIBLE', isOverlayVisible);
+  },
   toggleHistory({ commit }) {
     commit('SHOW_HISTORY');
   },

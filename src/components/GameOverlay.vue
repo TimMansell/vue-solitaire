@@ -64,13 +64,18 @@ export default {
     btnClose: {
       type: Function,
     },
+    visible: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     overlayClasses() {
-      const { centerContent } = this;
+      const { centerContent, visible } = this;
 
       return {
         'game-overlay--centered': centerContent,
+        'game-overlay--see-through': !visible,
       };
     },
     hasMsgSlot() {
@@ -101,6 +106,8 @@ export default {
 
 <style lang="scss" scoped>
 .game-overlay {
+  --blur: 10px;
+
   display: grid;
   align-items: center;
   position: fixed;
@@ -113,15 +120,23 @@ export default {
   z-index: var(--z-overlay);
   overflow-y: auto;
 
-  @media (min-width: $bp-lg) {
-    @supports (backdrop-filter: blur(8px)) {
-      background: rgba($col-primary, 0.95);
-      backdrop-filter: blur(8px);
+  @media (min-width: $bp-md) {
+    @supports (backdrop-filter: blur(var(--blur))) {
+      background: rgba($col-primary, 0.85);
+      animation: blur-animation-to 0.4s forwards;
     }
   }
 
   &--centered {
     text-align: center;
+  }
+
+  &--see-through {
+    background: rgba($col-primary, 0.85);
+
+    @supports (backdrop-filter: blur(var(--blur))) {
+      animation: blur-animation-from 0.4s forwards;
+    }
   }
 
   &__close {
@@ -184,6 +199,26 @@ export default {
     > * + * {
       margin-left: var(--vr);
     }
+  }
+}
+
+@keyframes blur-animation-to {
+  0% {
+    backdrop-filter: blur(0);
+  }
+
+  100% {
+    backdrop-filter: blur(var(--blur));
+  }
+}
+
+@keyframes blur-animation-from {
+  0% {
+    backdrop-filter: blur(var(--blur));
+  }
+
+  100% {
+    backdrop-filter: blur(0);
   }
 }
 </style>
