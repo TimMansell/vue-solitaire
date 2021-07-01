@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NewGameOverlay.vue matches snapshot 1`] = `
-<gameoverlay-stub centercontent="true" showlogo="true" data-test="game-new">
+<gameoverlay-stub centercontent="true" showlogo="true" visible="true" data-test="game-new">
   Are you sure?
 
   This game will still count towards your statistics
