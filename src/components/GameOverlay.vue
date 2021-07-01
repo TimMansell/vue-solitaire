@@ -120,7 +120,7 @@ export default {
   z-index: var(--z-overlay);
   overflow-y: auto;
 
-  @media (min-width: $bp-lg) {
+  @media (min-width: $bp-md) {
     @supports (backdrop-filter: blur(var(--blur))) {
       background: rgba($col-primary, 0.85);
       animation: blur-animation-to 0.4s forwards;
