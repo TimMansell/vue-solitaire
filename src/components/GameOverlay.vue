@@ -87,18 +87,20 @@ export default {
   },
   mounted() {
     // Stop body from scrolling when overlay is open.
-    this.setHideBody('hidden');
+    this.setHideBody(true);
     this.setTimerPaused(true);
   },
   destroyed() {
     // Enable body scrolling.
-    this.setHideBody('auto');
+    this.setHideBody(false);
     this.setTimerPaused(false);
   },
   methods: {
     ...mapActions(['setTimerPaused']),
     setHideBody(value) {
-      document.body.style.overflow = value;
+      const overflow = value ? 'hidden' : 'auto';
+
+      document.body.style.overflow = overflow;
     },
   },
 };

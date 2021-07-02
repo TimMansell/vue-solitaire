@@ -38,6 +38,7 @@ export default {
   }
 
   @media (min-width: $bp-md) {
+    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
     margin-bottom: var(--mg-md);
     text-shadow: 0 2px var(--col-primary-dark-2);
   }
