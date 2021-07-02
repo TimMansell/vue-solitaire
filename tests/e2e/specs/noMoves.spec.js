@@ -86,25 +86,27 @@ describe('No moves', () => {
   });
 
   it('it should hide and show board after lost game', () => {
-    cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
-    cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+    cy.setBoard(noMovesKingColumn).then(() => {
+      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
-    cy.get('[data-test="game-overlay-btns"] [data-test="show-board-btn"]').as(
-      'showBoardButton'
-    );
+      cy.get('[data-test="game-overlay-btns"] [data-test="show-board-btn"]').as(
+        'showBoardButton'
+      );
 
-    cy.get('@showBoardButton').click();
+      cy.get('@showBoardButton').click();
 
-    cy.get('[data-test="game-lost"]').should(
-      'have.class',
-      'game-overlay--see-through'
-    );
+      cy.get('[data-test="game-lost"]').should(
+        'have.class',
+        'game-overlay--see-through'
+      );
 
-    cy.get('@showBoardButton').click();
+      cy.get('@showBoardButton').click();
 
-    cy.get('[data-test="game-lost"]').should(
-      'not.have.class',
-      'game-overlay--see-through'
-    );
+      cy.get('[data-test="game-lost"]').should(
+        'not.have.class',
+        'game-overlay--see-through'
+      );
+    });
   });
 });
