@@ -1,5 +1,5 @@
 <template>
-  <Button :is-stacked="true" @click="toggleStats">
+  <Button :is-stacked="true" @click="toggleStats" data-test="stats-btn">
     Stats
   </Button>
 </template>

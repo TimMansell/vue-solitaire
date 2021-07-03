@@ -251,6 +251,90 @@ Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
     .should('equal', `${moves}`);
 });
 
+Cypress.Commands.add('cacheStatValues', () => {
+  cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('cellUser');
+
+  cy.get('@cellUser')
+    .eq(0)
+    .text()
+    .then(($count) => {
+      cy.wrap($count).as('gamesPlayed');
+    });
+
+  cy.get('@cellUser')
+    .eq(1)
+    .text()
+    .then(($count) => {
+      cy.wrap($count).as('gamesWon');
+    });
+
+  cy.get('@cellUser')
+    .eq(2)
+    .text()
+    .then(($count) => {
+      cy.wrap($count).as('gamesLost');
+    });
+
+  cy.get('@cellUser')
+    .eq(3)
+    .text()
+    .then(($count) => {
+      cy.wrap($count).as('gamesQuit');
+    });
+});
+
+Cypress.Commands.add('checkStatsValues', ({ stat, values }) => {
+  const [one, two, three, four] = values;
+
+  cy.get(`[data-test="${stat}-stats"] [data-test="table-cell"]`).as('stat');
+
+  cy.get('@stat')
+    .eq(0)
+    .text()
+    .should('equal', `${one}`);
+
+  cy.get('@stat')
+    .eq(1)
+    .text()
+    .should('equal', `${two}`);
+
+  cy.get('@stat')
+    .eq(2)
+    .text()
+    .should('equal', `${three}`);
+
+  cy.get('@stat')
+    .eq(3)
+    .text()
+    .should('equal', `${four}`);
+});
+
+Cypress.Commands.add('checkStatsValuesNot', ({ stat, values }) => {
+  const [one, two, three, four] = values;
+
+  cy.get(`[data-test="${stat}-stats"] [data-test="table-cell"]`).as('stat');
+
+  cy.get('@stat')
+    .eq(0)
+    .text()
+    .should('not.equal', `${one}`);
+
+  cy.get('@stat')
+    .eq(1)
+    .text()
+    .should('not.equal', `${two}`);
+
+  cy.get('@stat')
+    .eq(2)
+    .text()
+    .should('not.equal', `${three}`);
+
+  cy.get('@stat')
+    .eq(3)
+    .text()
+    .should('not.equal', `${four}`);
+});
+
 addMatchImageSnapshotCommand({
   failureThreshold: 0.05, // threshold for entire image
   failureThresholdType: 'percent', // percent of image or number of pixels

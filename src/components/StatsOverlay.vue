@@ -8,12 +8,14 @@
         :headings="['Played', 'Won', 'Lost', 'Gave Up']"
         :items="userStatstics"
         :placeholder-rows="2"
+        data-test="user-stats"
       />
       <h1>Global Stats</h1>
       <Table
         :headings="['Played', 'Won', 'Lost', 'Gave Up']"
         :items="globalStatstics"
         :placeholder-rows="2"
+        data-test="global-stats"
       />
     </template>
     <template #buttons>
@@ -36,7 +38,7 @@ export const calcPercent = (value) => numeral(value).format('0.00%');
 export const calcNumber = (value) => numeral(value).format('0,0');
 
 export const calcStats = ({ completed, won, lost }) => {
-  if (!completed) {
+  if (!completed && completed !== 0) {
     return [];
   }
 
