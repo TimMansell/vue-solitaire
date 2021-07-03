@@ -1,6 +1,6 @@
 <template>
   <Button @click="continueGame" data-test="continue-game-btn">
-    Continue Game
+    Continue
   </Button>
 </template>
 
