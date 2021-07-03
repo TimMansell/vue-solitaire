@@ -39,9 +39,7 @@ const mockComputed = {
       time: 0,
     },
   ],
-  userStats: () => ({
-    completed: 4,
-  }),
+  userGameCount: () => 4,
 };
 
 describe('GameHistory.vue', () => {
