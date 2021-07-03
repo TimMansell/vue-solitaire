@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex';
 import Counter from '@/components/Counter.vue';
 
 export default {
-  name: 'Stats',
+  name: 'UserStats',
   components: {
     Counter,
   },
