@@ -252,7 +252,14 @@ Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
 });
 
 Cypress.Commands.add('cacheStatValues', () => {
+  cy.get('[data-test="stats-btn"]').click();
+
+  cy.wait('@apiCheck');
+
   cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('cellUser');
+  cy.get('[data-test="global-stats"] [data-test="table-cell"]').as(
+    'cellGlobal'
+  );
 
   cy.get('@cellUser')
     .eq(0)
@@ -281,6 +288,36 @@ Cypress.Commands.add('cacheStatValues', () => {
     .then(($count) => {
       cy.wrap($count).as('gamesQuit');
     });
+
+  cy.get('@cellGlobal')
+    .eq(0)
+    .text()
+    .then(($count) => {
+      cy.wrap($count).as('globalGamesPlayed');
+    });
+
+  cy.get('@cellGlobal')
+    .eq(1)
+    .text()
+    .then(($count) => {
+      cy.wrap($count).as('globalGamesWon');
+    });
+
+  cy.get('@cellGlobal')
+    .eq(2)
+    .text()
+    .then(($count) => {
+      cy.wrap($count).as('globalGamesLost');
+    });
+
+  cy.get('@cellGlobal')
+    .eq(3)
+    .text()
+    .then(($count) => {
+      cy.wrap($count).as('globalGamesQuit');
+    });
+
+  cy.get('[data-test="close-stats-btn"]').click();
 });
 
 Cypress.Commands.add('checkStatsValues', ({ stat, values }) => {
@@ -333,6 +370,62 @@ Cypress.Commands.add('checkStatsValuesNot', ({ stat, values }) => {
     .eq(3)
     .text()
     .should('not.equal', `${four}`);
+});
+
+Cypress.Commands.add('checkGlobalStatsQuit', () => {
+  cy.get('@globalGamesPlayed').then(($played) => {
+    const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
+
+    cy.get('@globalGamesWon').then(($won) => {
+      cy.get('@globalGamesLost').then(($lost) => {
+        cy.get('@globalGamesQuit').then(($quit) => {
+          const $newQuit = numeral(numeral($quit).value() + 1).format('0,0');
+          cy.checkStatsValues({
+            stat: 'global',
+            values: [$newPlayed, $won, $lost, $newQuit],
+          });
+        });
+      });
+    });
+  });
+});
+
+Cypress.Commands.add('checkGlobalStatsWon', () => {
+  cy.get('@globalGamesPlayed').then(($played) => {
+    const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
+
+    cy.get('@globalGamesWon').then(($won) => {
+      const $newWon = numeral(numeral($won).value() + 1).format('0,0');
+
+      cy.get('@globalGamesLost').then(($lost) => {
+        cy.get('@globalGamesQuit').then(($quit) => {
+          cy.checkStatsValues({
+            stat: 'global',
+            values: [$newPlayed, $newWon, $lost, $quit],
+          });
+        });
+      });
+    });
+  });
+});
+
+Cypress.Commands.add('checkGlobalStatsLost', () => {
+  cy.get('@globalGamesPlayed').then(($played) => {
+    const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
+
+    cy.get('@globalGamesWon').then(($won) => {
+      cy.get('@globalGamesLost').then(($lost) => {
+        const $newLost = numeral(numeral($lost).value() + 1).format('0,0');
+
+        cy.get('@globalGamesQuit').then(($quit) => {
+          cy.checkStatsValues({
+            stat: 'global',
+            values: [$newPlayed, $won, $newLost, $quit],
+          });
+        });
+      });
+    });
+  });
 });
 
 addMatchImageSnapshotCommand({

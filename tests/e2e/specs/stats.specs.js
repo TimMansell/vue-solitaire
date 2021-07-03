@@ -84,12 +84,15 @@ describe('Stats', () => {
       cy.wait('@apiCheck');
 
       cy.checkStatsValues({ stat: 'user', values: [0, 0, 0, 0] });
+      cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });
     });
 
     it('it successfully increments games played', () => {
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
+
+      cy.cacheStatValues();
 
       cy.get('[data-test="new-game-btn"]').click();
 
@@ -108,12 +111,16 @@ describe('Stats', () => {
       cy.wait('@apiCheck');
 
       cy.checkStatsValues({ stat: 'user', values: [1, 0, 0, 1] });
+
+      cy.checkGlobalStatsQuit();
     });
 
     it('it successfully increments games played after lost game', () => {
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
+
+      cy.cacheStatValues();
 
       cy.setBoard(noMovesKingColumn).then(() => {
         cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
@@ -132,6 +139,8 @@ describe('Stats', () => {
         cy.wait('@apiCheck');
 
         cy.checkStatsValues({ stat: 'user', values: [1, 0, 1, 0] });
+
+        cy.checkGlobalStatsLost();
       });
     });
 
@@ -139,6 +148,8 @@ describe('Stats', () => {
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
+
+      cy.cacheStatValues();
 
       cy.setBoard(foundations).then(() => {
         cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
@@ -157,6 +168,8 @@ describe('Stats', () => {
         cy.wait('@apiCheck');
 
         cy.checkStatsValues({ stat: 'user', values: [1, 1, 0, 0] });
+
+        cy.checkGlobalStatsWon();
       });
     });
   });
@@ -170,7 +183,7 @@ describe('Stats', () => {
       cy.wait('@apiCheck');
     });
 
-    it.only('it successfully retrieves games played', () => {
+    it('it successfully retrieves games played', () => {
       cy.get('[data-test="stats"]').should('not.have.text', '0');
 
       cy.get('[data-test="stats-btn"]').click();
@@ -178,20 +191,13 @@ describe('Stats', () => {
       cy.wait('@apiCheck');
 
       cy.checkStatsValuesNot({ stat: 'user', values: [0, 0, 0, 0] });
+      cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });
     });
 
     it('it successfully increments games played', () => {
-      cy.get('[data-test="stats-btn"]').click();
-
-      cy.wait('@apiCheck');
-
-      cy.get('[data-test="stats"]').as('stats');
-
       cy.cacheStatValues();
 
-      cy.get('[data-test="close-stats-btn"]').click();
-
-      cy.get('@stats').then(($stats) => {
+      cy.get('[data-test="stats"]').then(($stats) => {
         const number = numeral($stats.text()).value();
 
         cy.get('[data-test="new-game-btn"]').click();
@@ -204,7 +210,7 @@ describe('Stats', () => {
 
         const newNumber = numeral(number + 1).format('0,0');
 
-        cy.get('@stats')
+        cy.get('[data-test="stats"]')
           .text()
           .should('equal', newNumber);
       });
@@ -229,19 +235,13 @@ describe('Stats', () => {
           });
         });
       });
+
+      cy.checkGlobalStatsQuit();
     });
 
     it('it successfully increments games played after lost game', () => {
       cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="stats-btn"]').click();
-
-        cy.wait('@apiCheck');
-
-        cy.get('[data-test="stats"]').as('stats');
-
         cy.cacheStatValues();
-
-        cy.get('[data-test="close-stats-btn"]').click();
 
         cy.get('[data-test="stats"]').then(($stats) => {
           const number = numeral($stats.text()).value();
@@ -283,22 +283,16 @@ describe('Stats', () => {
             });
           });
         });
+
+        cy.checkGlobalStatsLost();
       });
     });
 
     it('it successfully increments games played after won game', () => {
       cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="stats-btn"]').click();
-
-        cy.wait('@apiCheck');
-
-        cy.get('[data-test="stats"]').as('stats');
-
         cy.cacheStatValues();
 
-        cy.get('[data-test="close-stats-btn"]').click();
-
-        cy.get('@stats').then(($stats) => {
+        cy.get('[data-test="stats"]').then(($stats) => {
           const number = numeral($stats.text()).value();
 
           cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
@@ -312,7 +306,7 @@ describe('Stats', () => {
 
           const newNumber = numeral(number + 1).format('0,0');
 
-          cy.get('@stats')
+          cy.get('[data-test="stats"]')
             .text()
             .should('equal', newNumber);
         });
@@ -337,6 +331,8 @@ describe('Stats', () => {
             });
           });
         });
+
+        cy.checkGlobalStatsWon();
       });
     });
   });
