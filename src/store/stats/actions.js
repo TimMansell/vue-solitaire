@@ -21,7 +21,7 @@ const actions = {
     if (!error) {
       commit('SET_USER_STATS', userStats);
       commit('SET_GLOBAL_STATS', globalStats);
-      commit('SET_GLOBAL_COUNT', globalStats);
+      commit('SET_GLOBAL_GAME_COUNT', globalStats);
     }
   },
   toggleStats({ commit, state }) {

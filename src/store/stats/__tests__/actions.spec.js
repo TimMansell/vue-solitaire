@@ -29,7 +29,7 @@ describe('Stats Store', () => {
 
     expect(commit).toHaveBeenCalledWith('SET_USER_STATS', mockStats);
     expect(commit).toHaveBeenCalledWith('SET_GLOBAL_STATS', mockStats);
-    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_COUNT', mockStats);
+    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_GAME_COUNT', mockStats);
   });
 
   it('toggleStats', async () => {
