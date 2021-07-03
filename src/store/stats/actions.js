@@ -8,27 +8,20 @@ const actions = {
     const { userStats, globalStats } = response;
 
     if (!error) {
-      commit('SET_GLOBAL_STATS', globalStats);
-      commit('SET_USER_STATS', userStats);
+      commit('SET_USER_GAME_COUNT', userStats);
+      commit('SET_GLOBAL_GAME_COUNT', globalStats);
+      commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
     }
   },
-  async getGlobalStats({ commit }) {
-    const { error, response } = await db.getGlobalStats();
-    const { globalStats } = response;
-
-    if (!error) {
-      commit('SET_FULL_STATS', globalStats);
-      commit('SET_GLOBAL_STATS', globalStats);
-    }
-  },
-  async getUserStats({ commit, rootState }) {
+  async getStats({ commit, rootState }) {
     const { luid } = rootState.user;
-    const { error, response } = await db.getUserStats(luid);
-    const { userStats } = response;
+    const { error, response } = await db.getStats(luid);
+    const { userStats, globalStats } = response;
 
     if (!error) {
-      commit('SET_FULL_STATS', userStats);
       commit('SET_USER_STATS', userStats);
+      commit('SET_GLOBAL_STATS', globalStats);
+      commit('SET_GLOBAL_COUNT', globalStats);
     }
   },
   toggleStats({ commit, state }) {
@@ -36,8 +29,8 @@ const actions = {
 
     commit('SHOW_STATS', showStats);
   },
-  clearFullStats({ commit }) {
-    commit('CLEAR_FULL_STATS');
+  clearStats({ commit }) {
+    commit('CLEAR_STATS');
   },
 };
 

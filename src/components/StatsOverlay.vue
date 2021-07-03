@@ -1,19 +1,23 @@
 <template>
   <GameOverlay center-content show-logo data-test="stats-overlay">
     <template #title>
-      Stats
+      Your Stats
     </template>
     <template #msg>
-      <p>Showing stats for completed games:</p>
-
       <Table
         :headings="['Played', 'Won', 'Lost', 'Gave Up']"
-        :items="stats"
+        :items="userStatstics"
+        :placeholder-rows="2"
+      />
+      <h1>Global Stats</h1>
+      <Table
+        :headings="['Played', 'Won', 'Lost', 'Gave Up']"
+        :items="globalStatstics"
         :placeholder-rows="2"
       />
     </template>
     <template #buttons>
-      <Button @click="closeStats" data-test="close-stats-btn">
+      <Button @click="toggleStats" data-test="close-stats-btn">
         Close
       </Button>
     </template>
@@ -32,6 +36,10 @@ export const calcPercent = (value) => numeral(value).format('0.00%');
 export const calcNumber = (value) => numeral(value).format('0,0');
 
 export const calcStats = ({ completed, won, lost }) => {
+  if (!completed) {
+    return [];
+  }
+
   const abandoned = completed - won - lost;
 
   const completedCount = calcNumber(completed);
@@ -48,11 +56,7 @@ export const calcStats = ({ completed, won, lost }) => {
     ['', wonPercent, lostPercent, abandonedPercent],
   ];
 
-  if (completed >= 0) {
-    return stats;
-  }
-
-  return [];
+  return stats;
 };
 
 export default {
@@ -63,22 +67,28 @@ export default {
     Table,
   },
   computed: {
-    ...mapGetters(['fullStats', 'isLoading']),
-    stats() {
-      const { fullStats } = this;
-      const stats = calcStats(fullStats);
+    ...mapGetters(['userStats', 'globalStats']),
+    userStatstics() {
+      const { userStats } = this;
+      const stats = calcStats(userStats);
+
+      return stats;
+    },
+    globalStatstics() {
+      const { globalStats } = this;
+      const stats = calcStats(globalStats);
 
       return stats;
     },
   },
   methods: {
-    ...mapActions(['toggleStats', 'clearFullStats']),
-    closeStats() {
-      this.toggleStats();
-    },
+    ...mapActions(['toggleStats', 'getStats', 'clearStats']),
+  },
+  mounted() {
+    this.getStats();
   },
   destroyed() {
-    this.clearFullStats();
+    this.clearStats();
   },
 };
 </script>
