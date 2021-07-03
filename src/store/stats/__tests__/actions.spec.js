@@ -1,6 +1,6 @@
 import actions from '../actions';
 
-const { getStatsCount, getGlobalStats, getUserStats, toggleStats } = actions;
+const { getStatsCount, getStats, toggleStats } = actions;
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
@@ -19,22 +19,17 @@ describe('Stats Store', () => {
   it('getStatsCount', async () => {
     await getStatsCount({ commit, rootState });
 
-    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_STATS', mockStats);
-    expect(commit).toHaveBeenCalledWith('SET_USER_STATS', mockStats);
+    expect(commit).toHaveBeenCalledWith('SET_USER_GAME_COUNT', mockStats);
+    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_GAME_COUNT', mockStats);
+    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_PLAYER_COUNT', mockStats);
   });
 
-  it('getGlobalStats', async () => {
-    await getGlobalStats({ commit });
+  it('getStats', async () => {
+    await getStats({ commit, rootState });
 
-    expect(commit).toHaveBeenCalledWith('SET_FULL_STATS', mockStats);
-    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_STATS', mockStats);
-  });
-
-  it('getUserStats', async () => {
-    await getUserStats({ commit, rootState });
-
-    expect(commit).toHaveBeenCalledWith('SET_FULL_STATS', mockStats);
     expect(commit).toHaveBeenCalledWith('SET_USER_STATS', mockStats);
+    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_STATS', mockStats);
+    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_COUNT', mockStats);
   });
 
   it('toggleStats', async () => {

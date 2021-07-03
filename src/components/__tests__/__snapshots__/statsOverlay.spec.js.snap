@@ -2,8 +2,9 @@
 
 exports[`StatsOverlay.vue matches snapshot 1`] = `
 <gameoverlay-stub centercontent="true" showlogo="true" visible="true" data-test="stats-overlay">
-  Stats
-  <p>Showing stats for completed games:</p>
+  Your Stats
+  <table-stub headings="Played,Won,Lost,Gave Up" items="9,2,4,3,,22.22%,44.44%,33.33%" placeholderrows="2"></table-stub>
+  <h1>Global Stats</h1>
   <table-stub headings="Played,Won,Lost,Gave Up" items="9,2,4,3,,22.22%,44.44%,33.33%" placeholderrows="2"></table-stub>
   <button-stub type="default" size="md" data-test="close-stats-btn">
     Close

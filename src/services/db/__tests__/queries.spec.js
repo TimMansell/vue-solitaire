@@ -1,8 +1,7 @@
 import {
   checkUserExists,
-  getUserStats,
+  getStats,
   getStatsCount,
-  getGlobalStats,
   getAppVersion,
 } from '../queries';
 
@@ -35,12 +34,13 @@ describe('DB service queries', () => {
     });
   });
 
-  describe('getUserStats', () => {
-    it('should return valid object for getUserStats', async () => {
-      const { response } = await getUserStats(mockUid);
-      const { userStats } = response;
+  describe('getStats', () => {
+    it('should return valid object for getStats', async () => {
+      const { response } = await getStats();
+      const { globalStats, userStats } = response;
 
       expect(userStats).toEqual(stats);
+      expect(globalStats).toEqual(stats);
     });
   });
 
@@ -50,15 +50,6 @@ describe('DB service queries', () => {
       const { userStats, globalStats } = response;
 
       expect(userStats).toEqual(stats);
-      expect(globalStats).toEqual(stats);
-    });
-  });
-
-  describe('getGlobalStats', () => {
-    it('should return valid object for getGlobalStats', async () => {
-      const { response } = await getGlobalStats();
-      const { globalStats } = response;
-
       expect(globalStats).toEqual(stats);
     });
   });
