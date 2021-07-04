@@ -36,7 +36,7 @@ body {
 
 :is(h1, h2, h3, h4, h5, h6) {
   margin-top: 0;
-  margin-bottom: var(--mg-md);
+  margin-bottom: var(--mg-sm);
   font-size: var(--font-size-lg);
   letter-spacing: -1px;
   color: var(--text-primary);
