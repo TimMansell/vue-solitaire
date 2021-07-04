@@ -12,10 +12,15 @@ $bp-xl: 1366px;
 
 :root {
   // Fonts.
-  --font-family: 'Roboto', sans-serif;
-  --font-size: 0.8rem;
-  --font-size-lg: 0.9rem;
-  --font-size-xl: 1.5rem;
+  --font-family-primary: 'Open Sans', sans-serif;
+  --font-family-secondary: 'Contrail One', sans-serif;
+  --font-size: 1rem;
+  --font-size-sm: 0.85rem;
+  --font-size-md: 1.25rem;
+  --font-size-lg: 1.75rem;
+  --font-size-xl: 2.5rem;
+  --font-weight-normal: 400;
+  --font-weight-strong: 700;
 
   // Vertical rythm.
   --vr: 1rem;
@@ -34,6 +39,7 @@ $bp-xl: 1366px;
   --bg-primary: var(--col-primary);
   --bg-primary-light: var(--col-primary-light);
   --bg-secondary: var(--col-secondary);
+  --bg-secondary-alt: var(--col-secondary-alt);
   --bg-tertiary: var(--col-tertiary);
 
   // Text colours.
