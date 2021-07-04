@@ -12,7 +12,7 @@
         @click="btnClose"
         data-test="game-overlay-close-btn"
       >
-        x
+        <FontAwesomeIcon :icon="closeIcon" />
       </Button>
     </div>
     <div class="game-overlay__container">
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { mapActions } from 'vuex';
 import Button from './Button.vue';
 import Logo from './Logo.vue';
@@ -50,6 +52,7 @@ export default {
   components: {
     Button,
     Logo,
+    FontAwesomeIcon,
   },
   props: {
     centerContent: {
@@ -68,6 +71,11 @@ export default {
       type: Boolean,
       default: true,
     },
+  },
+  data() {
+    return {
+      closeIcon: faTimesCircle,
+    };
   },
   computed: {
     overlayClasses() {
