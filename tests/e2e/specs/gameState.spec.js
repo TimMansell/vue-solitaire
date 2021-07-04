@@ -1,9 +1,12 @@
 import foundations from '../../fixtures/boards/fullFoundation.json';
 import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
 
+const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+
 describe('Game State', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    localStorage.setItem('luid', mockUid);
+
     cy.visit('/');
   });
 
@@ -187,5 +190,65 @@ describe('Game State', () => {
     cy.reload();
 
     cy.get('[data-test="history-overlay"]').should('exist');
+  });
+
+  it('should show stats overlay on page refresh', () => {
+    cy.get('[data-test="stats-btn"]').click();
+
+    cy.get('[data-test="stats-overlay"]').should('exist');
+
+    cy.reload();
+
+    cy.get('[data-test="stats-overlay"]').should('exist');
+  });
+
+  it('should show correct games, time, and moves on page refresh', () => {
+    cy.setBoard(foundations).then(() => {
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(2000);
+
+      cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+
+      cy.get('[data-test="stats"]')
+        .as('stats')
+        .text()
+        .then(($value) => {
+          cy.wrap($value).as('cachedStats');
+        });
+
+      cy.get('[data-test="timer"]')
+        .as('timer')
+        .text()
+        .then(($value) => {
+          cy.wrap($value).as('cachedTimer');
+        });
+
+      cy.get('[data-test="moves"]')
+        .as('moves')
+        .text()
+        .then(($value) => {
+          cy.wrap($value).as('cachedMoves');
+        });
+
+      cy.reload();
+
+      cy.get('@cachedStats').then(($stats) => {
+        cy.get('@stats')
+          .text()
+          .should('equal', $stats);
+      });
+
+      cy.get('@cachedTimer').then(($timer) => {
+        cy.get('@timer')
+          .text()
+          .should('equal', $timer);
+      });
+
+      cy.get('@cachedMoves').then(($moves) => {
+        cy.get('@moves')
+          .text()
+          .should('equal', $moves);
+      });
+    });
   });
 });

@@ -35,6 +35,24 @@ describe('Valid moves', () => {
         cy.get('[data-test="column-0"]').shouldContain(['A♣']);
       });
     });
+
+    it('should increment moves', () => {
+      cy.setBoard(validMove).then(() => {
+        cy.get('[data-test="moves"]')
+          .text()
+          .should('equal', '0');
+
+        cy.get('[data-test="column-4"]').shouldContain(['A♣']);
+
+        cy.dragFromTo('card-A♣', 'card-2♣');
+
+        cy.get('[data-test="column-0"]').shouldContain(['A♣']);
+
+        cy.get('[data-test="moves"]')
+          .text()
+          .should('equal', '1');
+      });
+    });
   });
 
   describe('using clicks', () => {
@@ -65,6 +83,24 @@ describe('Valid moves', () => {
         cy.get('[data-test="card-A♣"]').clickTo('[data-test="card-2♣"]');
 
         cy.get('[data-test="column-0"]').shouldContain(['A♣']);
+      });
+    });
+
+    it('should increment moves', () => {
+      cy.setBoard(validMove).then(() => {
+        cy.get('[data-test="moves"]')
+          .text()
+          .should('equal', '0');
+
+        cy.get('[data-test="column-4"]').shouldContain(['A♣']);
+
+        cy.dragFromTo('card-A♣', 'card-2♣');
+
+        cy.get('[data-test="column-0"]').shouldContain(['A♣']);
+
+        cy.get('[data-test="moves"]')
+          .text()
+          .should('equal', '1');
       });
     });
   });
