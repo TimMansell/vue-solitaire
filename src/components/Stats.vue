@@ -22,9 +22,9 @@ export default {
 .stats {
   display: flex;
   color: var(--text-primary);
-  font-size: var(--font-size-lg);
   justify-content: space-between;
   width: 100%;
+  line-height: 1.25;
 
   @media (min-width: $bp-sm) {
     flex-direction: column;

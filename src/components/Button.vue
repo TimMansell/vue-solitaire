@@ -51,26 +51,23 @@ export default {
 <style scoped lang="scss">
 .btn {
   background: transparent;
-  border: 1px solid var(--bdr-primary);
+  border: 1px solid var(--bdr-secondary);
   border-radius: var(--bdr-radius-md);
   padding: var(--pd-sm);
   color: var(--text-primary);
   transition: all 0.2s;
-  font-size: var(--font-size);
+  font-size: var(--font-size-sm);
   text-decoration: none;
-  font-family: var(--font-family);
+  font-family: var(--font-family-primary);
   line-height: 1;
   text-shadow: 0 1px var(--col-primary-dark-2);
 
   @media (min-width: $bp-md) {
-    font-size: var(--font-size-lg);
-    font-weight: 700;
-    border-width: 2px;
-    text-shadow: 0 2px var(--col-primary-dark-2);
+    font-size: var(--font-size);
   }
 
   &:hover {
-    background: var(--bg-primary);
+    background: var(--bg-secondary-alt);
     cursor: pointer;
   }
 
@@ -80,11 +77,14 @@ export default {
 
     &:hover {
       background: transparent;
-      color: var(--col-primary-dark);
+      transform: scale(1.15);
     }
   }
 
   &--is-stacked {
+    flex: 1;
+    white-space: nowrap;
+
     & + & {
       border-left: 0;
 
@@ -114,7 +114,6 @@ export default {
 
   &--link {
     border: 0;
-    font-weight: 500;
     padding: 0;
 
     &:hover {
@@ -124,7 +123,7 @@ export default {
   }
 
   &--large {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
   }
 }
 </style>

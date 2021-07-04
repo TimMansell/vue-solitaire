@@ -34,7 +34,7 @@ describe('Stats', () => {
       cy.get('[data-test="stats-overlay"]')
         .should('be.visible')
         .within(() => {
-          cy.get('[data-test="close-stats-btn"]').click();
+          cy.get('[data-test="game-overlay-close-btn"]').click();
         });
 
       cy.get('[data-test="stats-overlay"]').should('not.exist');

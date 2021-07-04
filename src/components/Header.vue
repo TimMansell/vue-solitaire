@@ -30,6 +30,7 @@ export default {
   text-shadow: 0 1px var(--col-primary-dark-2);
   padding: var(--pd-sm);
   background: var(--bg-primary);
+  font-size: var(--font-size-sm);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;
@@ -39,9 +40,8 @@ export default {
   }
 
   @media (min-width: $bp-md) {
-    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
+    font-size: var(--font-size);
     margin-bottom: var(--mg-md);
-    text-shadow: 0 2px var(--col-primary-dark-2);
   }
 }
 </style>

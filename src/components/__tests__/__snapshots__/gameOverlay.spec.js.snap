@@ -4,13 +4,13 @@ exports[`GameOverlay.vue matches snapshot 1`] = `
 <div data-test="game-overlay" class="game-overlay">
   <div title="Close Overlay" data-test="game-overlay-close" class="game-overlay__close">
     <button-stub type="icon" size="lg" data-test="game-overlay-close-btn">
-      x
+      <fontawesomeicon-stub icon="[object Object]"></fontawesomeicon-stub>
     </button-stub>
   </div>
   <div class="game-overlay__container">
     <div class="game-overlay__content">
       <logo-stub data-test="game-overlay-logo" class="game-overlay__logo"></logo-stub>
-      <h1 class="game-overlay__title">Title</h1>
+      <h1>Title</h1>
       <div class="game-overlay__msg">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</div>
       <div data-test="game-overlay-btns" class="game-overlay__btns">Buttons</div>
     </div>

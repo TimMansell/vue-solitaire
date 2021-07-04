@@ -35,6 +35,7 @@ export default {
   border-bottom: 1px solid var(--bdr-secondary);
   box-shadow: 0 1px rgba($col-secondary, 0.05);
   width: 100%;
+  margin-bottom: var(--mg-xs);
 
   @media (min-width: $bp-sm) {
     width: auto;

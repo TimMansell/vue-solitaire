@@ -188,9 +188,7 @@ export default {
 .game-history {
   &__controls {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    font-size: var(--font-size-lg);
     padding: var(--pd-sm);
     margin-bottom: var(--mg-md);
     border: 1px solid var(--bdr-secondary);
