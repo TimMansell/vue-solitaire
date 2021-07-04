@@ -2,6 +2,6 @@
 
 exports[`NewGameButton.vue matches snapshot 1`] = `
 <button-stub type="default" size="md" data-test="new-game-btn">
-  New Game
+  New
 </button-stub>
 `;

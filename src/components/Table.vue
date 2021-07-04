@@ -74,6 +74,7 @@ export default {
 .table {
   width: 100%;
   background: rgba($col-primary, 0.3);
+  margin-bottom: var(--mg-md);
 
   &__cell {
     border: 1px solid var(--bdr-secondary);

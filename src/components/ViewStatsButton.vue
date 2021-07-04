@@ -1,6 +1,6 @@
 <template>
-  <Button type="link" @click="viewStats">
-    view stats
+  <Button :is-stacked="true" @click="toggleStats" data-test="stats-btn">
+    Stats
   </Button>
 </template>
 
@@ -9,22 +9,12 @@ import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
-  name: 'NewGame',
+  name: 'ViewStatsButton',
   components: {
     Button,
   },
-  props: {
-    loadStats: {
-      type: Function,
-      default: () => {},
-    },
-  },
   methods: {
     ...mapActions(['toggleStats']),
-    viewStats() {
-      this.loadStats();
-      this.toggleStats();
-    },
   },
 };
 </script>

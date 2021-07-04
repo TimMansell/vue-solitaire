@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HistoryOverlay.vue matches snapshot - no games 1`] = `
-<gameoverlay-stub centercontent="true" btnclose="[Function]" data-test="history-overlay">
+<gameoverlay-stub centercontent="true" btnclose="[Function]" visible="true" data-test="history-overlay">
   History
   <!---->
   <p data-test="game-history-no-games-msg">
@@ -11,7 +11,7 @@ exports[`HistoryOverlay.vue matches snapshot - no games 1`] = `
 `;
 
 exports[`HistoryOverlay.vue matches snapshot - with games 1`] = `
-<gameoverlay-stub centercontent="true" btnclose="[Function]" data-test="history-overlay">
+<gameoverlay-stub centercontent="true" btnclose="[Function]" visible="true" data-test="history-overlay">
   History
   <gamehistory-stub></gamehistory-stub>
   <!---->

@@ -63,7 +63,6 @@ export default {
 
   &__wrapper {
     display: flex;
-    align-items: center;
     position: relative;
     border: 1px solid var(--bdr-secondary);
     border-radius: 7px;
@@ -77,34 +76,22 @@ export default {
 
   &__content {
     flex: 1;
-    line-height: 1.2;
+    line-height: 1.3;
     width: 100%;
     text-align: left;
-
-    @media (min-width: $bp-sm) {
-      line-height: 1.3;
-    }
   }
 
   &__header {
-    font-size: 1rem;
     margin-bottom: 0;
     color: var(--col-primary);
 
     &:empty {
       margin-bottom: 0;
     }
-
-    @media (min-width: $bp-sm) {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0;
-    }
   }
 
   &__msg {
     display: none;
-    font-size: var(--font-size-lg);
     margin-bottom: 0;
     margin-right: var(--mg-md);
 

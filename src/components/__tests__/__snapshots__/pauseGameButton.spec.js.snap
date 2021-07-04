@@ -2,12 +2,12 @@
 
 exports[`PauseGameButton.vue matches pause snapshot 1`] = `
 <button-stub type="default" size="md" data-test="pause-game-btn"><span>Pause</span>
-  <!----> Game
+  <!---->
 </button-stub>
 `;
 
 exports[`PauseGameButton.vue matches resume snapshot 1`] = `
 <button-stub type="default" size="md" data-test="pause-game-btn">
-  <!----> <span>Resume</span> Game
+  <!----> <span>Resume</span>
 </button-stub>
 `;

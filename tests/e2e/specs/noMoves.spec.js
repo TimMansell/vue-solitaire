@@ -19,6 +19,8 @@ describe('No moves', () => {
       cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
+
+      cy.checkGameSummaryValues({ moves: 2 });
     });
   });
 
@@ -33,6 +35,8 @@ describe('No moves', () => {
       cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
+
+      cy.checkGameSummaryValues({ moves: 2 });
     });
   });
 
@@ -48,13 +52,13 @@ describe('No moves', () => {
       cy.get('[data-test="card-2♠"]').clickTo('[data-test="foundation-0"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
+
+      cy.checkGameSummaryValues({ moves: 3 });
     });
   });
 
   it('should not show lost game if game won', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="winner"]').should('not.exist');
-
       cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
 
       cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
@@ -73,9 +77,36 @@ describe('No moves', () => {
 
       cy.get('[data-test="game-lost"]').should('be.visible');
 
-      cy.get('[data-test="game-overlay-btns"]').click();
+      cy.get(
+        '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
+      ).click();
 
       cy.get('[data-test="game-lost"]').should('not.exist');
+    });
+  });
+
+  it('it should hide and show board after lost game', () => {
+    cy.setBoard(noMovesKingColumn).then(() => {
+      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+
+      cy.get('[data-test="game-overlay-btns"] [data-test="show-board-btn"]').as(
+        'showBoardButton'
+      );
+
+      cy.get('@showBoardButton').click();
+
+      cy.get('[data-test="game-lost"]').should(
+        'have.class',
+        'game-overlay--see-through'
+      );
+
+      cy.get('@showBoardButton').click();
+
+      cy.get('[data-test="game-lost"]').should(
+        'not.have.class',
+        'game-overlay--see-through'
+      );
     });
   });
 });

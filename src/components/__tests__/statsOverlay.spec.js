@@ -8,15 +8,18 @@ const mocks = {
   $store: { dispatch: jest.fn() },
 };
 
-const fullStats = {
+const stats = {
   completed: 9,
   won: 2,
   lost: 4,
 };
 
 const computed = {
-  fullStats: () => ({
-    ...fullStats,
+  userStats: () => ({
+    ...stats,
+  }),
+  globalStats: () => ({
+    ...stats,
   }),
 };
 
@@ -37,7 +40,7 @@ describe('StatsOverlay.vue', () => {
   });
 
   it('should calculate correct stats', () => {
-    const result = calcStats(fullStats);
+    const result = calcStats(stats);
 
     expect(result).toStrictEqual([
       ['9', '2', '4', '3'],

@@ -1,7 +1,6 @@
 import {
   checkUserExists,
-  getUserStats,
-  getGlobalStats,
+  getStats,
   getStatsCount,
   getAppVersion,
   getUsersGames,
@@ -11,9 +10,8 @@ import { newUser, gameLost, gameWon, gameQuit } from './mutations';
 const db = () => ({
   checkUserExists,
   newUser,
-  getUserStats,
-  getGlobalStats,
   getStatsCount,
+  getStats,
   gameWon,
   gameLost,
   gameQuit,

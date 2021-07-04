@@ -23,6 +23,9 @@ const mutations = {
   SET_TIMER_PAUSED(state, isTimerPaused) {
     state.isTimerPaused = isTimerPaused;
   },
+  SET_OVERLAY_VISIBLE(state, isOverlayVisible) {
+    state.isOverlayVisible = isOverlayVisible;
+  },
   INCREMENT_MOVES(state) {
     state.game.moves += 1;
   },

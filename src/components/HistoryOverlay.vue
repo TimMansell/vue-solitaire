@@ -9,8 +9,8 @@
       History
     </template>
     <template #msg>
-      <GameHistory v-if="userStats.completed" @scrollTo="scrollTo" />
-      <p v-if="!userStats.completed" data-test="game-history-no-games-msg">
+      <GameHistory v-if="userGameCount" @scrollTo="scrollTo" />
+      <p v-if="!userGameCount" data-test="game-history-no-games-msg">
         You have not played any games yet
       </p>
     </template>
@@ -30,7 +30,7 @@ export default {
     GameHistory,
   },
   computed: {
-    ...mapGetters(['userStats']),
+    ...mapGetters(['userGameCount']),
   },
   methods: {
     ...mapActions(['toggleHistory']),

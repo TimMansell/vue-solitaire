@@ -12,6 +12,7 @@ const {
   SHOW_RULES,
   SHOW_NEW_GAME,
   SET_VERSION_MATCH,
+  SET_OVERLAY_VISIBLE,
 } = mutations;
 
 describe('App Store', () => {
@@ -86,5 +87,11 @@ describe('App Store', () => {
     SET_VERSION_MATCH(state, false);
 
     expect(state.versionMatch).toEqual(false);
+  });
+
+  it('SET_OVERLAY_VISIBLE', () => {
+    SET_OVERLAY_VISIBLE(state, false);
+
+    expect(state.isOverlayVisible).toEqual(false);
   });
 });

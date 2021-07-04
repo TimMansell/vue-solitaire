@@ -26,26 +26,43 @@ export default {
 @import '~sanitize.css';
 
 html {
-  font-family: var(--font-family);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size);
 }
 
 body {
   background: var(--bg-primary);
-
-  @media (min-width: $bp-md) {
-    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
-  }
 }
 
-:is(h1, h2, h3, h4, h5, h6, p) {
+:is(h1, h2, h3, h4, h5, h6) {
   margin-top: 0;
-  margin-bottom: var(--mg-md);
+  margin-bottom: var(--mg-sm);
+  font-size: var(--font-size-lg);
+  letter-spacing: -1px;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-xl);
+}
+
+h2 {
+  font-family: var(--font-family-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+p {
+  margin-top: 0;
+  line-height: 1.65;
+  color: var(--text-primary);
 }
 
 ul {
   margin: 0;
   padding-left: var(--pd-md);
   margin-bottom: var(--mg-md);
+  color: var(--text-primary);
 
   @media (min-width: $bp-sm) {
     padding-left: var(--pd-lg);

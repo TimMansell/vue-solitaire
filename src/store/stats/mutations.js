@@ -1,30 +1,22 @@
 const mutations = {
   SET_GLOBAL_STATS(state, stats) {
-    const { globalStats } = state;
-
-    state.globalStats = {
-      ...globalStats,
-      ...stats,
-    };
+    state.globalStats = stats;
   },
   SET_USER_STATS(state, stats) {
-    const { userStats } = state;
-
-    state.userStats = {
-      ...userStats,
-      ...stats,
-    };
+    state.userStats = stats;
   },
-  SET_FULL_STATS(state, stats) {
-    const { fullStats } = state;
-
-    state.fullStats = {
-      ...fullStats,
-      ...stats,
-    };
+  SET_USER_GAME_COUNT(state, { completed }) {
+    state.userGameCount = completed;
   },
-  CLEAR_FULL_STATS(state) {
-    state.fullStats = {};
+  SET_GLOBAL_GAME_COUNT(state, { completed }) {
+    state.globalGameCount = completed;
+  },
+  SET_GLOBAL_PLAYER_COUNT(state, { players }) {
+    state.playerCount = players;
+  },
+  CLEAR_STATS(state) {
+    state.userStats = {};
+    state.globalStats = {};
   },
   SHOW_STATS(state, showStats) {
     state.showStats = showStats;

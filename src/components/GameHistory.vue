@@ -1,7 +1,7 @@
 <template>
   <div class="game-history" data-test="game-history">
-    <p data-test="game-history-total-games" :data-games="completed">
-      You have played a total of {{ completed | formatNumber }} games
+    <p data-test="game-history-total-games" :data-games="userGameCount">
+      You have played a total of {{ userGameCount | formatNumber }} games
     </p>
 
     <div
@@ -98,11 +98,11 @@ export default {
       this.displayGames({ autoScroll: true });
     },
     gameHistory() {
-      const { gameHistory, offset, completed } = this;
+      const { gameHistory, offset, userGameCount } = this;
 
       const formattedGames = gameHistory.map(
         ({ won, lost, date, moves, time }, index) => ({
-          number: calcNumber(completed - offset - index),
+          number: calcNumber(userGameCount - offset - index),
           date: format(parseISO(date), 'dd-MM-yyyy'),
           timePlayed: format(parseISO(date), 'HH:mm:ss'),
           outcome: gameOutcome({ won, lost }),
@@ -115,25 +115,18 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['gameHistory', 'userStats']),
-    completed() {
-      const {
-        userStats: { completed },
-      } = this;
-
-      return completed;
-    },
+    ...mapGetters(['gameHistory', 'userGameCount']),
     totalPages() {
-      const { limit, completed } = this;
+      const { limit, userGameCount } = this;
 
-      const pages = Math.ceil(completed / limit);
+      const pages = Math.ceil(userGameCount / limit);
 
       return pages;
     },
     showingFrom() {
-      const { offset, completed } = this;
+      const { offset, userGameCount } = this;
 
-      const showingFrom = completed - offset;
+      const showingFrom = userGameCount - offset;
 
       return showingFrom;
     },
@@ -154,9 +147,9 @@ export default {
       return limit;
     },
     pageGamesCount() {
-      const { limit, completed } = this;
+      const { limit, userGameCount } = this;
 
-      const pageGamesCount = completed % limit;
+      const pageGamesCount = userGameCount % limit;
 
       return pageGamesCount;
     },
@@ -195,9 +188,7 @@ export default {
 .game-history {
   &__controls {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    font-size: var(--font-size-lg);
     padding: var(--pd-sm);
     margin-bottom: var(--mg-md);
     border: 1px solid var(--bdr-secondary);

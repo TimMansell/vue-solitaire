@@ -10,9 +10,7 @@ describe('HistoryOverlay.vue', () => {
     const wrapper = shallowMount(HistoryOverlay, {
       mocks,
       computed: {
-        userStats: () => ({
-          completed: 0,
-        }),
+        userGameCount: () => 0,
       },
     });
 
@@ -23,9 +21,7 @@ describe('HistoryOverlay.vue', () => {
     const wrapper = shallowMount(HistoryOverlay, {
       mocks,
       computed: {
-        userStats: () => ({
-          completed: 4,
-        }),
+        userGameCount: () => 4,
       },
     });
 
@@ -36,9 +32,7 @@ describe('HistoryOverlay.vue', () => {
     const wrapper = shallowMount(HistoryOverlay, {
       mocks,
       computed: {
-        userStats: () => ({
-          completed: 4,
-        }),
+        userGameCount: () => 4,
       },
     });
 
@@ -51,9 +45,7 @@ describe('HistoryOverlay.vue', () => {
     const wrapper = shallowMount(HistoryOverlay, {
       mocks,
       computed: {
-        userStats: () => ({
-          completed: 0,
-        }),
+        userGameCount: () => 0,
       },
     });
 

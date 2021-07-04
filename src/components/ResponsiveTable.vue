@@ -55,7 +55,6 @@ export default {
   position: relative;
   max-width: calc(100vw - var(--vr));
   overflow-x: auto;
-  margin-bottom: var(--mg-md);
 
   @media (min-width: $bp-sm) {
     max-width: initial;

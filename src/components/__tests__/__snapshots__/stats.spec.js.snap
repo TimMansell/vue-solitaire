@@ -3,6 +3,7 @@
 exports[`Stats.vue matches snapshot 1`] = `
 <div class="stats">
   <userstats-stub></userstats-stub>
+  <moves-stub></moves-stub>
   <timer-stub></timer-stub>
 </div>
 `;

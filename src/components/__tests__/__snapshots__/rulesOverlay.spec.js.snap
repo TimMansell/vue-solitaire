@@ -1,14 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RulesOverlay.vue matches snapshot 1`] = `
-<gameoverlay-stub btnclose="[Function]" data-test="rules-overlay">
+<gameoverlay-stub btnclose="[Function]" visible="true" data-test="rules-overlay">
   How to play
   <p>
     The aim of the game is to successfully move all cards from the bottom 8
     board columns to the top 4 foundation columns.
   </p>
-  <h2>Rules</h2>
-  <h3>Face up cards</h3>
+  <h2>Face up cards</h2>
   <p>
     You can move any face up card to any other face up card providing:
   </p>
@@ -22,13 +21,13 @@ exports[`RulesOverlay.vue matches snapshot 1`] = `
   </ul>
   <p>For example, you can move 5♦ to 6♦ but <em>not</em> 8♦ to 7♦.</p>
   <p>Moving a card will also move all the cards below it.</p>
-  <h3>Kings</h3>
+  <h2>Kings</h2>
   <p>
     If you clear out a column you can only move a <strong>K</strong> to fill
     that column. All cards below the <strong>K</strong> will also be moved
     to that column.
   </p>
-  <h3>Foundation</h3>
+  <h2>Foundation</h2>
   <p>
     Cards can only be moved to the foundation columns in the following
     order: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K.

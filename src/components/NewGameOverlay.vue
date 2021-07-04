@@ -4,7 +4,7 @@
       Are you sure?
     </template>
     <template #msg>
-      This game will still count towards your statistics
+      <p>This game will still count towards your statistics</p>
     </template>
     <template #buttons>
       <NewGameButton />

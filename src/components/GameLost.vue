@@ -1,23 +1,40 @@
 <template>
-  <GameOverlay center-content show-logo data-test="game-lost">
+  <GameOverlay
+    center-content
+    show-logo
+    :visible="isOverlayVisible"
+    data-test="game-lost"
+  >
     <template #title>
       Sorry, no more Moves!
     </template>
+    <template #msg>
+      <GameSummary />
+    </template>
     <template #buttons>
       <NewGameButton is-completed />
+      <ShowBoardButton />
     </template>
   </GameOverlay>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
-import NewGameButton from './NewGameButton.vue';
+import GameSummary from '@/components/GameSummary.vue';
+import NewGameButton from '@/components/NewGameButton.vue';
+import ShowBoardButton from './ShowBoardButton.vue';
 
 export default {
   name: 'GameLost',
   components: {
     GameOverlay,
     NewGameButton,
+    GameSummary,
+    ShowBoardButton,
+  },
+  computed: {
+    ...mapGetters(['isOverlayVisible']),
   },
 };
 </script>
