@@ -1,5 +1,7 @@
 <template>
-  <div>Moves: {{ moves }}</div>
+  <div>
+    Moves: <span data-test="moves">{{ moves }}</span>
+  </div>
 </template>
 
 <script>

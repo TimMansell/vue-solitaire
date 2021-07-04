@@ -40,14 +40,6 @@ describe('Stats', () => {
       cy.get('[data-test="stats-overlay"]').should('not.exist');
     });
 
-    it('should show stats overlay on page refresh', () => {
-      cy.get('[data-test="stats-btn"]').click();
-
-      cy.reload();
-
-      cy.get('[data-test="stats-overlay"]').should('be.visible');
-    });
-
     it('should not show game paused if user stats overlay is visible', () => {
       cy.document().then((doc) => {
         cy.stub(doc, 'visibilityState').value('hidden');
