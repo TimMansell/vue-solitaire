@@ -1,53 +1,22 @@
 <template>
   <div>
-    <span v-if="isStatsEnabled">
-      Players:
-      <Counter data-test="player-count" :number="players" /> | Global Games:
-      <Counter data-test="global-stats" :number="games" />
-      (<ViewStatsButton
-        :load-stats="getGlobalStats"
-        data-test="global-stats-btn"
-      />)</span
-    >
+    Players:
+    <Counter data-test="player-count" :number="playerCount" /> | Global Games:
+    <Counter data-test="global-stats" :number="globalGameCount" />
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import Counter from '@/components/Counter.vue';
-import ViewStatsButton from '@/components/ViewStatsButton.vue';
-import { checkStatsFlag } from '@/helpers/stats';
 
 export default {
   name: 'GlobalStats',
   components: {
     Counter,
-    ViewStatsButton,
-  },
-  data() {
-    return {
-      isStatsEnabled: checkStatsFlag(),
-    };
   },
   computed: {
-    ...mapGetters(['globalStats']),
-    games() {
-      const {
-        globalStats: { completed },
-      } = this;
-
-      return completed;
-    },
-    players() {
-      const {
-        globalStats: { players },
-      } = this;
-
-      return players;
-    },
-  },
-  methods: {
-    ...mapActions(['getGlobalStats']),
+    ...mapGetters(['playerCount', 'globalGameCount']),
   },
 };
 </script>

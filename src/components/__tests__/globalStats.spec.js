@@ -5,10 +5,8 @@ describe('GlobalStats.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(GlobalStats, {
       computed: {
-        globalStats: () => ({
-          count: 1,
-          players: 1,
-        }),
+        playerCount: () => 1,
+        globalGameCount: () => 1,
       },
     });
 

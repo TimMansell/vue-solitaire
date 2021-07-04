@@ -1,6 +1,6 @@
 <template>
   <Button :is-stacked="isStacked" @click="newGame" data-test="new-game-btn">
-    New Game
+    New
   </Button>
 </template>
 

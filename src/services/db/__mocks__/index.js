@@ -29,9 +29,7 @@ const checkUserExists = (uid) => {
 const getStatsCount = () =>
   formatResponse({ data: { userStats, globalStats } });
 
-const getGlobalStats = () => formatResponse({ data: { globalStats } });
-
-const getUserStats = () => formatResponse({ data: { userStats } });
+const getStats = () => formatResponse({ data: { userStats, globalStats } });
 
 const newUser = () => formatResponse({ data: { createUser: mockUidResult } });
 
@@ -56,8 +54,7 @@ const getUsersGames = () =>
 
 const db = () => ({
   checkUserExists,
-  getUserStats,
-  getGlobalStats,
+  getStats,
   getStatsCount,
   newUser,
   gameNew,

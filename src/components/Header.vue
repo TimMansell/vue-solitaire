@@ -29,6 +29,7 @@ export default {
   z-index: var(--z-header);
   text-shadow: 0 1px var(--col-primary-dark-2);
   padding: var(--pd-sm);
+  background: var(--bg-primary);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;

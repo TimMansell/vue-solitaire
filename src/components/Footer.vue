@@ -48,13 +48,14 @@ export default {
   border-top: 1px solid rgba($col-secondary, 0.05);
   box-shadow: 0 -1px var(--bdr-secondary);
   text-shadow: 0 1px var(--col-primary-dark-2);
-  background: var(--bg-primary) url('~@/assets/felt.png') repeat;
+  background: var(--bg-primary);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;
   }
 
   @media (min-width: $bp-md) {
+    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
     justify-content: right;
     text-shadow: 0 2px var(--col-primary-dark-2);
   }

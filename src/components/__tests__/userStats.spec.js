@@ -5,9 +5,7 @@ describe('UserStats.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(UserStats, {
       computed: {
-        userStats: () => ({
-          count: 1,
-        }),
+        userGameCount: () => 1,
       },
     });
 
