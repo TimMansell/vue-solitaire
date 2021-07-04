@@ -43,7 +43,7 @@ export default {
   bottom: 0;
   padding-left: var(--pd-sm);
   padding-right: var(--pd-sm);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-sm);
   color: var(--text-primary);
   border-top: 1px solid rgba($col-secondary, 0.05);
   box-shadow: 0 -1px var(--bdr-secondary);
@@ -55,9 +55,8 @@ export default {
   }
 
   @media (min-width: $bp-md) {
-    background: var(--bg-primary) url('~@/assets/felt.png') repeat;
     justify-content: right;
-    text-shadow: 0 2px var(--col-primary-dark-2);
+    font-size: var(--font-size);
   }
 
   &__stats {

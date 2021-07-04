@@ -110,6 +110,6 @@ export default {
 .dragged-cards {
   position: absolute;
   pointer-events: none;
-  margin-top: calc(var(--vr) * -1);
+  margin-top: calc(var(--mg-md) * -1);
 }
 </style>

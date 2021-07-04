@@ -22,15 +22,14 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-bottom: var(--vr);
+  margin-bottom: var(--mg-md);
 
   &__image {
-    width: 100px;
-    height: 103px;
+    width: 150px;
+    height: auto;
 
     @media (min-width: $bp-sm) {
       width: 175px;
-      height: 180px;
     }
   }
 }

@@ -61,6 +61,7 @@ export default {
   border-radius: var(--bdr-radius-lg);
   padding: var(--pd-md);
   background: rgba($col-primary, 0.3);
+  margin-bottom: var(--mg-md);
 
   &__item {
     display: flex;
@@ -77,9 +78,10 @@ export default {
   }
 
   &__title {
-    font-size: 1.25rem;
+    font-size: var(--font-size-md);
     line-height: 0.8;
-    margin-bottom: var(--vr-xxs);
+    font-weight: var(--font-weight-normal);
+    margin-bottom: var(--mg-xxs);
   }
 
   &__content {
@@ -94,10 +96,11 @@ export default {
   &__icon {
     display: flex;
     justify-content: center;
+    color: var(--col-secondary);
   }
 
   &__description {
-    font-size: 1rem;
+    font-size: calc(var(--font-size) * 1.1);
     margin: 0;
     line-height: 1.2;
   }

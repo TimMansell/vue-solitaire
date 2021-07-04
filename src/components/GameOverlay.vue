@@ -22,7 +22,7 @@
           v-if="showLogo"
           data-test="game-overlay-logo"
         />
-        <h1 class="game-overlay__title">
+        <h1>
           <slot name="title" />
         </h1>
         <div class="game-overlay__msg" v-if="hasMsgSlot">
@@ -146,6 +146,7 @@ export default {
     top: 0;
     right: 0;
     transform: translate(-10%, 10%);
+    opacity: 0.8;
   }
 
   &__container {
@@ -178,13 +179,7 @@ export default {
 
     @media (min-width: $bp-md) {
       padding: var(--pd-md);
-      text-shadow: 0 2px var(--col-primary-dark-2);
     }
-  }
-
-  &__title {
-    color: var(--text-primary);
-    line-height: 1.15;
   }
 
   &__msg {
@@ -196,10 +191,10 @@ export default {
   &__btns {
     display: flex;
     justify-content: center;
-    margin-top: var(--mg-md);
+    margin-top: var(--mg-sm);
 
     > * + * {
-      margin-left: var(--vr);
+      margin-left: var(--mg-md);
     }
   }
 }
