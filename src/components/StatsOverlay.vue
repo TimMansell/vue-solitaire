@@ -1,5 +1,9 @@
 <template>
-  <GameOverlay center-content show-logo data-test="stats-overlay">
+  <GameOverlay
+    center-content
+    :btn-close="toggleStats"
+    data-test="stats-overlay"
+  >
     <template #title>
       Your Stats
     </template>
@@ -18,11 +22,6 @@
         data-test="global-stats"
       />
     </template>
-    <template #buttons>
-      <Button @click="toggleStats" data-test="close-stats-btn">
-        Close
-      </Button>
-    </template>
   </GameOverlay>
 </template>
 
@@ -30,7 +29,6 @@
 import numeral from 'numeral';
 import { mapActions, mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
-import Button from '@/components/Button.vue';
 import Table from '@/components/Table.vue';
 
 export const calcPercent = (value) => numeral(value).format('0.00%');
@@ -65,7 +63,6 @@ export default {
   name: 'GameLost',
   components: {
     GameOverlay,
-    Button,
     Table,
   },
   computed: {
