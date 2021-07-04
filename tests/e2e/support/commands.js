@@ -317,7 +317,7 @@ Cypress.Commands.add('cacheStatValues', () => {
       cy.wrap($count).as('globalGamesQuit');
     });
 
-  cy.get('[data-test="close-stats-btn"]').click();
+  cy.get('[data-test="game-overlay-close-btn"]').click();
 });
 
 Cypress.Commands.add('checkStatsValues', ({ stat, values }) => {
