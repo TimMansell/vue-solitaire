@@ -31,11 +31,8 @@ export default {
 .controls {
   display: flex;
   justify-content: center;
-  padding-bottom: var(--pd-sm);
-  border-bottom: 1px solid var(--bdr-secondary);
-  box-shadow: 0 1px rgba($col-secondary, 0.05);
+  padding-bottom: var(--pd-xs);
   width: 100%;
-  margin-bottom: var(--mg-xs);
 
   @media (min-width: $bp-sm) {
     width: auto;

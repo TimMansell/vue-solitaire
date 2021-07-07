@@ -51,7 +51,7 @@ export default {
       &::before {
         @media (min-width: $bp-sm) {
           content: '/';
-          margin-right: var(--mg-sm);
+          margin-right: var(--mg-xs);
         }
       }
 

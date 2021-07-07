@@ -41,7 +41,6 @@ export default {
 
   @media (min-width: $bp-md) {
     font-size: var(--font-size);
-    margin-bottom: var(--mg-md);
   }
 }
 </style>
