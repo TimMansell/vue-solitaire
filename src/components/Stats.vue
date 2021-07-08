@@ -34,7 +34,7 @@ export default {
   justify-content: space-between;
   width: 100%;
   font-size: var(--font-size-sm);
-  line-height: 1.25;
+  line-height: 1;
   color: var(--text-primary);
 
   @media (min-width: $bp-sm) {
@@ -43,6 +43,7 @@ export default {
     gap: 0 var(--mg-sm);
     order: -1;
     width: auto;
+    line-height: 1.25;
   }
 
   @media (min-width: $bp-md) {

@@ -31,7 +31,7 @@ export default {
 .controls {
   display: flex;
   justify-content: center;
-  padding-bottom: var(--pd-xs);
+  padding-bottom: var(--pd-sm);
   width: 100%;
 
   @media (min-width: $bp-sm) {

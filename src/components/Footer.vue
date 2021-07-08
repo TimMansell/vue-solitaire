@@ -26,8 +26,9 @@ export default {
   position: sticky;
   width: 100%;
   bottom: 0;
-  padding: var(--pd-xs) var(--pd-sm);
+  padding: var(--pd-sm);
   font-size: var(--font-size-sm);
+  line-height: 1;
   color: var(--text-primary);
   text-shadow: 0 1px var(--col-primary-dark-2);
   background: var(--bg-primary);
@@ -41,7 +42,6 @@ export default {
 
   @media (min-width: $bp-md) {
     font-size: var(--font-size);
-    padding: var(--pd-sm);
   }
 }
 </style>
