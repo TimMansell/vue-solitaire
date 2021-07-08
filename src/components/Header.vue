@@ -30,17 +30,12 @@ export default {
   text-shadow: 0 1px var(--col-primary-dark-2);
   padding: var(--pd-sm);
   background: var(--bg-primary);
-  font-size: var(--font-size-sm);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;
     border-bottom: 1px solid var(--bdr-secondary);
     box-shadow: 0 1px rgba($col-secondary, 0.05);
     margin-bottom: var(--mg-sm);
-  }
-
-  @media (min-width: $bp-md) {
-    font-size: var(--font-size);
   }
 }
 </style>
