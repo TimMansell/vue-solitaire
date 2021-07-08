@@ -1,8 +1,14 @@
 <template>
   <div class="stats">
-    <UserStats />
-    <Moves />
-    <Timer />
+    <div class="stats__item">
+      <UserStats />
+    </div>
+    <div class="stats__item">
+      <Moves />
+    </div>
+    <div class="stats__item">
+      <Timer />
+    </div>
   </div>
 </template>
 
@@ -27,6 +33,7 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
   width: 100%;
+  font-size: var(--font-size-sm);
   line-height: 1.25;
   color: var(--text-primary);
 
@@ -38,7 +45,11 @@ export default {
     width: auto;
   }
 
-  > * {
+  @media (min-width: $bp-md) {
+    font-size: var(--font-size);
+  }
+
+  &__item {
     &:nth-child(1) {
       @media (min-width: $bp-sm) {
         grid-area: 1 / 1 / 2 / 2;
@@ -47,13 +58,6 @@ export default {
 
     &:nth-child(2) {
       text-align: center;
-
-      &::before {
-        @media (min-width: $bp-sm) {
-          content: '/';
-          margin-right: var(--mg-xs);
-        }
-      }
 
       @media (min-width: $bp-sm) {
         grid-area: 2 / 2 / 3 / 3;
