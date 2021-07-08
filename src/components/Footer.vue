@@ -1,19 +1,22 @@
 <template>
   <footer class="footer">
-    <GlobalStats />
+    <GlobalGames />
     <FooterLinks />
+    <Players />
   </footer>
 </template>
 
 <script>
-import GlobalStats from '@/components/GlobalStats.vue';
+import GlobalGames from '@/components/GlobalGames.vue';
 import FooterLinks from '@/components/FooterLinks.vue';
+import Players from '@/components/Players.vue';
 
 export default {
   name: 'Footer',
   components: {
-    GlobalStats,
+    GlobalGames,
     FooterLinks,
+    Players,
   },
 };
 </script>
@@ -21,8 +24,8 @@ export default {
 <style scoped lang="scss">
 .footer {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
   position: sticky;
   width: 100%;
   bottom: 0;
