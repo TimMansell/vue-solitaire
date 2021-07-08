@@ -1,7 +1,7 @@
 <template>
   <div class="stats">
     <div class="stats__item">
-      <UserStats />
+      <UserGames />
     </div>
     <div class="stats__item">
       <Moves />
@@ -13,14 +13,14 @@
 </template>
 
 <script>
-import UserStats from '@/components/UserStats.vue';
+import UserGames from '@/components/UserGames.vue';
 import Timer from '@/components/Timer.vue';
 import Moves from '@/components/Moves.vue';
 
 export default {
   name: 'Stats',
   components: {
-    UserStats,
+    UserGames,
     Timer,
     Moves,
   },
