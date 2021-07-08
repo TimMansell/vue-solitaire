@@ -5,16 +5,9 @@
       href="https://timmansell.com"
       target="_blank"
       rel="noopener noreferrer"
+      title="View My Portfolio"
     >
       timmansell.com
-    </a>
-    <a
-      class="footer-links__link"
-      href="https://github.com/TimMansell/vue-solitaire"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      GitHub
     </a>
     <Version />
   </div>
@@ -33,16 +26,15 @@ export default {
 
 <style scoped lang="scss">
 .footer-links {
-  display: none;
-
-  @media (min-width: $bp-sm) {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-  }
+  display: flex;
 
   &__link {
+    display: none;
     color: var(--text-primary);
+
+    @media (min-width: $bp-sm) {
+      display: block;
+    }
 
     &:hover {
       text-shadow: none;
