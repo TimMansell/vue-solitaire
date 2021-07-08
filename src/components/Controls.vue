@@ -5,6 +5,7 @@
     <HistoryButton is-stacked />
     <ViewStatsButton is-stacked />
     <ShowRulesButton is-stacked />
+    <GithubButton is-stacked />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import PauseGameButton from './PauseGameButton.vue';
 import ShowRulesButton from './ShowRulesButton.vue';
 import HistoryButton from './HistoryButton.vue';
 import ViewStatsButton from './ViewStatsButton.vue';
+import GithubButton from './GithubButton.vue';
 
 export default {
   name: 'Controls',
@@ -23,6 +25,7 @@ export default {
     ShowRulesButton,
     HistoryButton,
     ViewStatsButton,
+    GithubButton,
   },
 };
 </script>
