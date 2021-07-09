@@ -51,6 +51,8 @@ export default {
   }
 
   &__item {
+    display: flex;
+
     &:nth-child(1) {
       @media (min-width: $bp-sm) {
         grid-area: 1 / 1 / 2 / 2;
@@ -58,20 +60,26 @@ export default {
     }
 
     &:nth-child(2) {
-      text-align: center;
+      justify-content: center;
 
       @media (min-width: $bp-sm) {
         grid-area: 2 / 2 / 3 / 3;
-        text-align: left;
+        justify-content: flex-start;
+      }
+
+      &::before {
+        @media (min-width: $bp-sm) {
+          content: '/';
+          margin-right: var(--mg-sm);
+        }
       }
     }
 
     &:nth-child(3) {
-      text-align: right;
+      justify-content: flex-end;
 
       @media (min-width: $bp-sm) {
         grid-area: 2 / 1 / 3 / 2;
-        text-align: left;
       }
     }
   }
