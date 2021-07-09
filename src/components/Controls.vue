@@ -1,19 +1,33 @@
 <template>
   <div class="controls">
-    <NewGameButton show-confirmation is-stacked />
-    <PauseGameButton is-stacked />
-    <HistoryButton is-stacked />
-    <ViewStatsButton is-stacked />
-    <ShowRulesButton is-stacked />
+    <div class="controls__actions">
+      <NewGameButton show-confirmation is-stacked />
+      <PauseGameButton is-stacked />
+      <HistoryButton is-stacked />
+      <ViewStatsButton is-stacked />
+      <ShowRulesButton is-stacked />
+    </div>
+    <div>
+      <PortfolioButton is-stacked />
+      <GithubButton is-stacked v-if="showGithubButton" />
+    </div>
   </div>
 </template>
 
 <script>
+import { debounce } from 'throttle-debounce';
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
+import { matchesMedia } from '@/helpers/matchMedia';
 import NewGameButton from './NewGameButton.vue';
 import PauseGameButton from './PauseGameButton.vue';
 import ShowRulesButton from './ShowRulesButton.vue';
 import HistoryButton from './HistoryButton.vue';
 import ViewStatsButton from './ViewStatsButton.vue';
+import GithubButton from './GithubButton.vue';
+import PortfolioButton from './PortfolioButton.vue';
 
 export default {
   name: 'Controls',
@@ -23,6 +37,34 @@ export default {
     ShowRulesButton,
     HistoryButton,
     ViewStatsButton,
+    GithubButton,
+    PortfolioButton,
+  },
+  data() {
+    return {
+      showGithubButton: false,
+    };
+  },
+  mounted() {
+    const events = {
+      resize: debounce(300, false, this.setGithubButton),
+    };
+
+    this.events = addEventListener(events);
+
+    this.setGithubButton();
+  },
+  destroyed() {
+    const { events } = this;
+
+    removeEventListener(events);
+  },
+  methods: {
+    setGithubButton() {
+      const showButton = matchesMedia('xs');
+
+      this.showGithubButton = showButton;
+    },
   },
 };
 </script>
@@ -30,18 +72,19 @@ export default {
 <style lang="scss" scoped>
 .controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   padding-bottom: var(--pd-sm);
-  border-bottom: 1px solid var(--bdr-secondary);
-  box-shadow: 0 1px rgba($col-secondary, 0.05);
   width: 100%;
-  margin-bottom: var(--mg-xs);
 
   @media (min-width: $bp-sm) {
     width: auto;
-    border-bottom: 0;
-    box-shadow: none;
     padding-bottom: 0;
+  }
+
+  &__actions {
+    display: flex;
+    flex: 1;
+    margin-right: var(--mg-sm);
   }
 }
 </style>

@@ -1,11 +1,11 @@
 import { shallowMount } from '@vue/test-utils';
-import UserStats from '@/components/UserStats.vue';
+import Players from '@/components/Players.vue';
 
-describe('UserStats.vue', () => {
+describe('Players.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(UserStats, {
+    const wrapper = shallowMount(Players, {
       computed: {
-        userGameCount: () => 1,
+        playerCount: () => 1,
       },
     });
 

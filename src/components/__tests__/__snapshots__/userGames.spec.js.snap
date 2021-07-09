@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UserStats.vue matches snapshot 1`] = `
+exports[`UserGames.vue matches snapshot 1`] = `
 <div>
   Games:
   <counter-stub number="1" data-test="stats"></counter-stub>
