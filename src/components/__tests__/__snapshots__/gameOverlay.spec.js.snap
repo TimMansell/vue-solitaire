@@ -9,9 +9,11 @@ exports[`GameOverlay.vue matches snapshot 1`] = `
   </div>
   <div class="game-overlay__container">
     <div class="game-overlay__content">
-      <logo-stub data-test="game-overlay-logo" class="game-overlay__logo"></logo-stub>
-      <h1>Title</h1>
-      <div class="game-overlay__msg">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</div>
+      <div class="is-visible">
+        <logo-stub data-test="game-overlay-logo" class="game-overlay__logo"></logo-stub>
+        <h1>Title</h1>
+        <div class="game-overlay__msg">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</div>
+      </div>
       <div data-test="game-overlay-btns" class="game-overlay__btns">Buttons</div>
     </div>
   </div>

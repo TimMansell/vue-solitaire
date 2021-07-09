@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RulesOverlay.vue matches snapshot 1`] = `
-<gameoverlay-stub btnclose="[Function]" visible="true" data-test="rules-overlay">
+<gameoverlay-stub btnclose="[Function]" data-test="rules-overlay">
   How to play
   <p>
     The aim of the game is to successfully move all cards from the bottom 8
