@@ -82,9 +82,9 @@ export default {
   }
 
   &__actions {
-    @media (min-width: $bp-sm) {
-      margin-right: var(--mg-md);
-    }
+    display: flex;
+    flex: 1;
+    margin-right: var(--mg-sm);
   }
 }
 </style>
