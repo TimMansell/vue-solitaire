@@ -1,6 +1,6 @@
 <template>
   <div>
-    Games:
+    Players:
     <Counter data-test="player-count" :number="playerCount" />
   </div>
 </template>
