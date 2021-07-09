@@ -1,10 +1,5 @@
 <template>
-  <GameOverlay
-    center-content
-    show-logo
-    :visible="isOverlayVisible"
-    data-test="game-lost"
-  >
+  <GameOverlay center-content show-logo data-test="game-lost">
     <template #title>
       Sorry, no more Moves!
     </template>
@@ -19,7 +14,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import GameSummary from '@/components/GameSummary.vue';
 import NewGameButton from '@/components/NewGameButton.vue';
@@ -32,9 +26,6 @@ export default {
     NewGameButton,
     GameSummary,
     ShowBoardButton,
-  },
-  computed: {
-    ...mapGetters(['isOverlayVisible']),
   },
 };
 </script>
