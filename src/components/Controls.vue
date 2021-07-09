@@ -1,12 +1,16 @@
 <template>
   <div class="controls">
-    <NewGameButton show-confirmation is-stacked />
-    <PauseGameButton is-stacked />
-    <HistoryButton is-stacked />
-    <ViewStatsButton is-stacked />
-    <ShowRulesButton is-stacked />
-    <PortfolioButton is-stacked />
-    <GithubButton is-stacked v-if="showGithubButton" />
+    <div class="controls__actions">
+      <NewGameButton show-confirmation is-stacked />
+      <PauseGameButton is-stacked />
+      <HistoryButton is-stacked />
+      <ViewStatsButton is-stacked />
+      <ShowRulesButton is-stacked />
+    </div>
+    <div>
+      <PortfolioButton is-stacked />
+      <GithubButton is-stacked v-if="showGithubButton" />
+    </div>
   </div>
 </template>
 
@@ -68,15 +72,19 @@ export default {
 <style lang="scss" scoped>
 .controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   padding-bottom: var(--pd-sm);
   width: 100%;
 
   @media (min-width: $bp-sm) {
     width: auto;
-    border-bottom: 0;
-    box-shadow: none;
     padding-bottom: 0;
+  }
+
+  &__actions {
+    @media (min-width: $bp-sm) {
+      margin-right: var(--mg-md);
+    }
   }
 }
 </style>
