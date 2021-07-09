@@ -46,7 +46,7 @@ export default {
     line-height: 1.25;
   }
 
-  @media (min-width: $bp-md) {
+  @media (min-width: $bp-lg) {
     font-size: var(--font-size);
   }
 

@@ -43,7 +43,7 @@ export default {
     box-shadow: 0 -1px var(--bdr-secondary);
   }
 
-  @media (min-width: $bp-md) {
+  @media (min-width: $bp-lg) {
     font-size: var(--font-size);
   }
 }
