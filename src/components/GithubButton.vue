@@ -1,5 +1,10 @@
 <template>
-  <Button :is-stacked="isStacked" @click="gotoUrl" data-test="github-btn">
+  <Button
+    :is-stacked="isStacked"
+    @click="gotoUrl"
+    data-test="github-btn"
+    title="Visit Github Repository"
+  >
     <FontAwesomeIcon :icon="githubIcon" />
   </Button>
 </template>
