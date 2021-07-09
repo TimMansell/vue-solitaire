@@ -5,17 +5,25 @@
     <HistoryButton is-stacked />
     <ViewStatsButton is-stacked />
     <ShowRulesButton is-stacked />
-    <GithubButton is-stacked />
+    <PortfolioButton is-stacked />
+    <GithubButton is-stacked v-if="showGithubButton" />
   </div>
 </template>
 
 <script>
+import { debounce } from 'throttle-debounce';
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
+import { matchesMedia } from '@/helpers/matchMedia';
 import NewGameButton from './NewGameButton.vue';
 import PauseGameButton from './PauseGameButton.vue';
 import ShowRulesButton from './ShowRulesButton.vue';
 import HistoryButton from './HistoryButton.vue';
 import ViewStatsButton from './ViewStatsButton.vue';
 import GithubButton from './GithubButton.vue';
+import PortfolioButton from './PortfolioButton.vue';
 
 export default {
   name: 'Controls',
@@ -26,6 +34,33 @@ export default {
     HistoryButton,
     ViewStatsButton,
     GithubButton,
+    PortfolioButton,
+  },
+  data() {
+    return {
+      showGithubButton: false,
+    };
+  },
+  mounted() {
+    const events = {
+      resize: debounce(300, false, this.setGithubButton),
+    };
+
+    this.events = addEventListener(events);
+
+    this.setGithubButton();
+  },
+  destroyed() {
+    const { events } = this;
+
+    removeEventListener(events);
+  },
+  methods: {
+    setGithubButton() {
+      const showButton = matchesMedia('xs');
+
+      this.showGithubButton = showButton;
+    },
   },
 };
 </script>
