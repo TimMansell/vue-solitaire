@@ -1,11 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
-import GlobalStats from '@/components/GlobalStats.vue';
+import GlobalGames from '@/components/GlobalGames.vue';
 
-describe('GlobalStats.vue', () => {
+describe('GlobalGames.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(GlobalStats, {
+    const wrapper = shallowMount(GlobalGames, {
       computed: {
-        playerCount: () => 1,
         globalGameCount: () => 1,
       },
     });
