@@ -23,10 +23,11 @@ export default {
   width: 100%;
   padding-left: var(--pd-sm);
   padding-right: var(--pd-sm);
-  margin-bottom: var(--mg-sm);
+  margin-bottom: var(--mg-lg);
 
   @media (min-width: $bp-md) {
     max-width: calc(#{$bp-lg} - (var(--vr) * 2));
+    margin-bottom: var(--mg-xl);
   }
 
   @media (min-width: $bp-lg) {
