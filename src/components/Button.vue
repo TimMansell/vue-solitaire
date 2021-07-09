@@ -50,7 +50,7 @@ export default {
 
 <style scoped lang="scss">
 .btn {
-  background: transparent;
+  background: var(--bg-primary);
   border: 1px solid var(--bdr-secondary);
   border-radius: var(--bdr-radius-md);
   padding: var(--pd-sm);
@@ -67,7 +67,7 @@ export default {
   }
 
   &:hover {
-    background: var(--bg-secondary-alt);
+    background: var(--col-primary-dark);
     cursor: pointer;
   }
 

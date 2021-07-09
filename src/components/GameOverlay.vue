@@ -17,19 +17,26 @@
     </div>
     <div class="game-overlay__container">
       <div class="game-overlay__content">
-        <Logo
-          class="game-overlay__logo"
-          v-if="showLogo"
-          data-test="game-overlay-logo"
-        />
-        <h1>
-          <slot name="title" />
-        </h1>
-        <div class="game-overlay__msg" v-if="hasMsgSlot">
-          <slot name="msg" />
+        <div :class="visibilityClasses">
+          <Logo
+            class="game-overlay__logo"
+            v-if="showLogo"
+            data-test="game-overlay-logo"
+          />
+          <h1 data-test="game-overlay-header">
+            <slot name="title" />
+          </h1>
+          <div
+            class="game-overlay__msg"
+            v-if="hasMsgSlot"
+            data-test="game-overlay-msg"
+          >
+            <slot name="msg" />
+          </div>
         </div>
         <div
           class="game-overlay__btns"
+          :class="buttonClasses"
           v-if="hasBtnSlot"
           data-test="game-overlay-btns"
         >
@@ -41,9 +48,10 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { mapActions } from 'vuex';
+
 import Button from './Button.vue';
 import Logo from './Logo.vue';
 
@@ -67,10 +75,6 @@ export default {
     btnClose: {
       type: Function,
     },
-    visible: {
-      type: Boolean,
-      default: true,
-    },
   },
   data() {
     return {
@@ -78,12 +82,28 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['isOverlayVisible']),
     overlayClasses() {
-      const { centerContent, visible } = this;
+      const { centerContent, isOverlayVisible } = this;
 
       return {
         'game-overlay--centered': centerContent,
-        'game-overlay--see-through': !visible,
+        'game-overlay--see-through': !isOverlayVisible,
+      };
+    },
+    buttonClasses() {
+      const { isOverlayVisible } = this;
+
+      return {
+        'game-overlay__btns--is-visible': !isOverlayVisible,
+      };
+    },
+    visibilityClasses() {
+      const { isOverlayVisible } = this;
+
+      return {
+        'is-visible': isOverlayVisible,
+        'is-not-visible': !isOverlayVisible,
       };
     },
     hasMsgSlot() {
@@ -117,6 +137,7 @@ export default {
 <style lang="scss" scoped>
 .game-overlay {
   --blur: 10px;
+  --animation-speed: 0.4s;
 
   display: grid;
   align-items: center;
@@ -133,7 +154,7 @@ export default {
   @media (min-width: $bp-md) {
     @supports (backdrop-filter: blur(var(--blur))) {
       background: rgba($col-primary, 0.85);
-      animation: blur-animation-to 0.4s forwards;
+      animation: blur-animation-to var(--animation-speed) forwards;
     }
   }
 
@@ -142,10 +163,10 @@ export default {
   }
 
   &--see-through {
-    background: rgba($col-primary, 0.85);
+    background: transparent;
 
     @supports (backdrop-filter: blur(var(--blur))) {
-      animation: blur-animation-from 0.4s forwards;
+      animation: blur-animation-from var(--animation-speed) forwards;
     }
   }
 
@@ -197,14 +218,38 @@ export default {
   }
 
   &__btns {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
-    margin-top: var(--mg-sm);
+    padding: var(--mg-sm);
+
+    &--is-visible {
+      @media (min-width: $bp-md) {
+        padding: var(--mg-md);
+        background: var(--bg-secondary);
+        border: 1px solid var(--col-primary-dark);
+        border-radius: var(--bdr-radius-lg);
+      }
+    }
 
     > * + * {
-      margin-left: var(--mg-md);
+      margin-left: var(--mg-sm);
     }
   }
+}
+
+.is-not-visible {
+  visibility: hidden;
+  opacity: 0;
+  /* stylelint-disable declaration-colon-newline-after */
+  transition: visibility 0s linear var(--animation-speed),
+    opacity var(--animation-speed);
+  /* stylelint-enable declaration-colon-newline-after */
+}
+
+.is-visible {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity var(--animation-speed);
 }
 
 @keyframes blur-animation-to {
