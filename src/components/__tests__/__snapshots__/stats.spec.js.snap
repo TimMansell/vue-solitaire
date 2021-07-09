@@ -2,8 +2,14 @@
 
 exports[`Stats.vue matches snapshot 1`] = `
 <div class="stats">
-  <userstats-stub></userstats-stub>
-  <moves-stub></moves-stub>
-  <timer-stub></timer-stub>
+  <div class="stats__item">
+    <usergames-stub></usergames-stub>
+  </div>
+  <div class="stats__item">
+    <moves-stub></moves-stub>
+  </div>
+  <div class="stats__item">
+    <timer-stub></timer-stub>
+  </div>
 </div>
 `;
