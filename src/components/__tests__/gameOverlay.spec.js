@@ -5,6 +5,10 @@ const mocks = {
   $store: { dispatch: jest.fn() },
 };
 
+const computed = {
+  isOverlayVisible: () => true,
+};
+
 describe('GameOverlay.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(GameOverlay, {
@@ -18,6 +22,7 @@ describe('GameOverlay.vue', () => {
         msg: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
         buttons: 'Buttons',
       },
+      computed,
     });
 
     expect(wrapper).toMatchSnapshot();
@@ -26,6 +31,7 @@ describe('GameOverlay.vue', () => {
   it('does not render logo', () => {
     const wrapper = shallowMount(GameOverlay, {
       mocks,
+      computed,
     });
 
     expect(wrapper.find('[data-test="game-overlay-logo"]').exists()).toBe(
@@ -36,6 +42,7 @@ describe('GameOverlay.vue', () => {
   it('does not render a close button', () => {
     const wrapper = shallowMount(GameOverlay, {
       mocks,
+      computed,
     });
 
     expect(wrapper.find('[data-test="game-overlay-close"]').exists()).toBe(
@@ -49,6 +56,7 @@ describe('GameOverlay.vue', () => {
       propsData: {
         centerContent: true,
       },
+      computed,
     });
 
     expect(wrapper.classes()).toContain('game-overlay--centered');
@@ -57,8 +65,8 @@ describe('GameOverlay.vue', () => {
   it('renders a see-through class', () => {
     const wrapper = shallowMount(GameOverlay, {
       mocks,
-      propsData: {
-        visible: false,
+      computed: {
+        isOverlayVisible: () => false,
       },
     });
 

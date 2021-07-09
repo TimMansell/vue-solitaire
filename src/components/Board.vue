@@ -27,6 +27,7 @@ export default {
 
   @media (min-width: $bp-md) {
     max-width: calc(#{$bp-lg} - (var(--vr) * 2));
+    margin-bottom: var(--mg-xl);
   }
 
   @media (min-width: $bp-lg) {

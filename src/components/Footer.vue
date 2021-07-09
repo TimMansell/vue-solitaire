@@ -1,34 +1,22 @@
 <template>
   <footer class="footer">
-    <GlobalStats class="footer__stats" />
-    <div class="footer__links">
-      <a class="footer__link" href="https://timmansell.com">
-        timmansell.com
-      </a>
-      <a
-        class="footer__link"
-        href="https://github.com/TimMansell/vue-solitaire"
-      >
-        GitHub
-      </a>
-      <span>v{{ version }}</span>
-    </div>
+    <GlobalGames />
+    <Version />
+    <Players />
   </footer>
 </template>
 
 <script>
-import GlobalStats from '@/components/GlobalStats.vue';
-import { version } from '../../package.json';
+import GlobalGames from '@/components/GlobalGames.vue';
+import Version from '@/components/Version.vue';
+import Players from '@/components/Players.vue';
 
 export default {
   name: 'Footer',
   components: {
-    GlobalStats,
-  },
-  data() {
-    return {
-      version,
-    };
+    GlobalGames,
+    Version,
+    Players,
   },
 };
 </script>
@@ -36,60 +24,27 @@ export default {
 <style scoped lang="scss">
 .footer {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
   position: fixed;
   width: 100%;
   bottom: 0;
-  padding-left: var(--pd-sm);
-  padding-right: var(--pd-sm);
+  padding: var(--pd-sm);
   font-size: var(--font-size-sm);
+  line-height: 1;
   color: var(--text-primary);
-  border-top: 1px solid rgba($col-secondary, 0.05);
-  box-shadow: 0 -1px var(--bdr-secondary);
   text-shadow: 0 1px var(--col-primary-dark-2);
   background: var(--bg-primary);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid rgba($col-secondary, 0.05);
+    box-shadow: 0 -1px var(--bdr-secondary);
   }
 
-  @media (min-width: $bp-md) {
-    justify-content: right;
+  @media (min-width: $bp-lg) {
     font-size: var(--font-size);
-  }
-
-  &__stats {
-    align-self: center;
-
-    @media (min-width: $bp-sm) {
-      align-self: inherit;
-    }
-  }
-
-  &__links {
-    display: flex;
-    flex: 1;
-    align-self: center;
-
-    @media (min-width: $bp-sm) {
-      justify-content: flex-end;
-      align-self: inherit;
-    }
-  }
-
-  &__link {
-    color: var(--text-primary);
-
-    &:hover {
-      text-shadow: none;
-    }
-
-    &::after {
-      content: '|';
-      margin-left: var(--mg-sm);
-      margin-right: var(--mg-sm);
-    }
   }
 }
 </style>

@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import Pagination from '@/components/Pagination.vue';
-import matchMedia from './__mocks__/matchMedia.mock';
+import matchMedia from '../../__tests__/__mocks__/matchMedia.mock';
 
 describe('Pagination.vue', () => {
   it('matches snapshot - 1 page', () => {

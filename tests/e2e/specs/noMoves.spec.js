@@ -101,12 +101,20 @@ describe('No moves', () => {
         'game-overlay--see-through'
       );
 
+      cy.get('[data-test="game-overlay-logo"]').should('not.be.visible');
+      cy.get('[data-test="game-overlay-header"]').should('not.be.visible');
+      cy.get('[data-test="game-overlay-msg"]').should('not.be.visible');
+
       cy.get('@showBoardButton').click();
 
       cy.get('[data-test="game-lost"]').should(
         'not.have.class',
         'game-overlay--see-through'
       );
+
+      cy.get('[data-test="game-overlay-logo"]').should('be.visible');
+      cy.get('[data-test="game-overlay-header"]').should('be.visible');
+      cy.get('[data-test="game-overlay-msg"]').should('be.visible');
     });
   });
 });

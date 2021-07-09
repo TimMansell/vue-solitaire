@@ -21,14 +21,12 @@
 
 <script>
 import Paginate from 'vuejs-paginate';
+import { debounce } from 'throttle-debounce';
 import {
   addEventListener,
   removeEventListener,
 } from '@/helpers/eventListeners';
-import { debounce } from 'throttle-debounce';
-
-const matchMedia = (media) =>
-  window.matchMedia(`(min-width: ${media}px)`).matches;
+import { matchesMedia } from '@/helpers/matchMedia';
 
 export default {
   name: 'Pagination',
@@ -66,9 +64,9 @@ export default {
   },
   methods: {
     getRange() {
-      const xs = matchMedia(360);
-      const sm = matchMedia(480);
-      const xl = matchMedia(1366);
+      const xs = matchesMedia('xs');
+      const sm = matchesMedia('sm');
+      const xl = matchesMedia('xl');
 
       if (xl) {
         return 9;
