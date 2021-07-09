@@ -1,5 +1,14 @@
 <template>
-  <div class="version"><span class="version__v">v</span>{{ version }}</div>
+  <div class="version">
+    <a
+      href="https://github.com/TimMansell/vue-solitaire"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="View Source Code"
+    >
+      <span class="version__v">v</span>{{ version }}
+    </a>
+  </div>
 </template>
 
 <script>
@@ -21,10 +30,6 @@ export default {
 
   @media (min-width: $bp-sm) {
     font-size: var(--font-size-sm);
-  }
-
-  @media (min-width: $bp-md) {
-    font-size: var(--font-size);
   }
 
   &__v {
