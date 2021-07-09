@@ -1,21 +1,21 @@
 <template>
   <footer class="footer">
     <GlobalGames />
-    <FooterLinks />
+    <Version />
     <Players />
   </footer>
 </template>
 
 <script>
 import GlobalGames from '@/components/GlobalGames.vue';
-import FooterLinks from '@/components/FooterLinks.vue';
+import Version from '@/components/Version.vue';
 import Players from '@/components/Players.vue';
 
 export default {
   name: 'Footer',
   components: {
     GlobalGames,
-    FooterLinks,
+    Version,
     Players,
   },
 };
