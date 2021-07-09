@@ -23,10 +23,14 @@
             v-if="showLogo"
             data-test="game-overlay-logo"
           />
-          <h1>
+          <h1 data-test="game-overlay-header">
             <slot name="title" />
           </h1>
-          <div class="game-overlay__msg" v-if="hasMsgSlot">
+          <div
+            class="game-overlay__msg"
+            v-if="hasMsgSlot"
+            data-test="game-overlay-msg"
+          >
             <slot name="msg" />
           </div>
         </div>
