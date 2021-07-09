@@ -26,7 +26,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  position: sticky;
+  position: fixed;
   width: 100%;
   bottom: 0;
   padding: var(--pd-sm);
