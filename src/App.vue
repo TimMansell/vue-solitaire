@@ -71,5 +71,10 @@ ul {
 
 a {
   text-decoration: none;
+  color: var(--text-primary);
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 </style>
