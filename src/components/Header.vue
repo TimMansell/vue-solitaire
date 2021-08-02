@@ -27,14 +27,14 @@ export default {
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  text-shadow: 0 1px var(--col-primary-dark-2);
+  text-shadow: 0 1px var(--col-primary-alt-3);
   padding: var(--pd-sm);
   background: var(--bg-primary);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;
     border-bottom: 1px solid var(--bdr-secondary);
-    box-shadow: 0 1px rgba($col-secondary, 0.05);
+    box-shadow: 0 1px var(--bg-secondary-alt);
     margin-bottom: var(--mg-sm);
   }
 }

@@ -60,14 +60,14 @@ export default {
   text-decoration: none;
   font-family: var(--font-family-primary);
   line-height: 1;
-  text-shadow: 0 1px var(--col-primary-dark-2);
+  text-shadow: 0 1px var(--col-primary-alt-3);
 
   @media (min-width: $bp-md) {
     font-size: var(--font-size);
   }
 
   &:hover {
-    background: var(--col-primary-dark);
+    background: var(--col-primary-alt-2);
     cursor: pointer;
   }
 
@@ -108,7 +108,7 @@ export default {
     background: var(--bg-primary);
 
     &:hover {
-      background: var(--bg-primary-light);
+      background: var(--bg-primary-alt);
     }
   }
 
