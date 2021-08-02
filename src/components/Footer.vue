@@ -39,7 +39,7 @@ export default {
   @media (min-width: $bp-sm) {
     flex-direction: row;
     justify-content: space-between;
-    border-top: var(--bg-secondary-alt);
+    border-top: 1px solid var(--bg-secondary-alt);
     box-shadow: 0 -1px var(--bdr-secondary);
   }
 
