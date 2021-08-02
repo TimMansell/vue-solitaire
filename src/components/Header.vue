@@ -34,7 +34,7 @@ export default {
   @media (min-width: $bp-sm) {
     flex-direction: row;
     border-bottom: 1px solid var(--bdr-secondary);
-    box-shadow: 0 1px rgba($col-secondary, 0.05);
+    box-shadow: var(--bg-secondary-alpha-1);
     margin-bottom: var(--mg-sm);
   }
 }

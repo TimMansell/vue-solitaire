@@ -153,7 +153,7 @@ export default {
 
   @media (min-width: $bp-md) {
     @supports (backdrop-filter: blur(var(--blur))) {
-      background: rgba($col-primary, 0.85);
+      background: var(--bg-primary-alpha-2);
       animation: blur-animation-to var(--animation-speed) forwards;
     }
   }

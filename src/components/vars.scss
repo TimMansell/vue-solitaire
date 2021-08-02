@@ -1,8 +1,3 @@
-// Colours.
-$col-primary: #027002;
-$col-secondary: #fff;
-$col-tertiary: #000;
-
 // Breakpoints
 $bp-xs: 360px;
 $bp-sm: 480px;
@@ -27,28 +22,35 @@ $bp-xl: 1366px;
   --vr: 1rem;
 
   // Colours.
-  --col-primary: #{$col-primary};
-  --col-primary-light: #{lighten($col-primary, 5%)};
-  --col-primary-dark: #{darken($col-primary, 5%)};
-  --col-primary-dark-2: #{darken($col-primary, 10%)};
-  --col-secondary: #{$col-secondary};
-  --col-secondary-alt: #{rgba($col-tertiary, 0.25)};
-  --col-secondary-alt-2: #{rgba($col-tertiary, 0.35)};
-  --col-tertiary: #{$col-tertiary};
+  --col-primary: hsl(120, 96%, 23%);
+  --col-primary-alpha-1: hsla(120, 96%, 23%, 0.3);
+  --col-primary-alpha-2: hsla(120, 96%, 23%, 0.85);
+  --col-primary-light: hsl(120, 96%, 28%);
+  --col-primary-dark: hsl(120, 96%, 18%);
+  --col-primary-dark-2: hsl(120, 96%, 11%);
+  --col-secondary: hsl(0, 0%, 100%);
+  --col-secondary-alpha-1: hsla(0, 0%, 100%, 0.05);
+  --col-tertiary: hsl(0, 0%, 0%);
+  --col-tertiary-alt: hsl(0, 0%, 0%, 0.25);
+  --col-tertiary-alt-2: hsl(0, 0%, 0%, 0.35);
 
   // Background colours.
   --bg-primary: var(--col-primary);
+  --bg-primary-alpha-1: var(--col-primary-alpha-1);
+  --bg-primary-alpha-2: var(--col-primary-alpha-2);
   --bg-primary-light: var(--col-primary-light);
   --bg-secondary: var(--col-secondary);
-  --bg-secondary-alt: var(--col-secondary-alt);
+  --bg-secondary-alpha-1: var(--col-secondary-alpha-1);
   --bg-tertiary: var(--col-tertiary);
+  --bg-tertiary-alt: var(--col-tertiary-alt);
+  --bg-tertiary-alt-2: var(--col-tertiary-alt-2);
 
   // Text colours.
   --text-primary: var(--col-secondary);
 
   // Borders
   --bdr-primary: var(--col-secondary);
-  --bdr-secondary: var(--col-secondary-alt);
+  --bdr-secondary: var(--col-tertiary-alt);
   --bdr-radius-sm: 3px;
   --bdr-radius-md: 5px;
   --bdr-radius-lg: 7px;
