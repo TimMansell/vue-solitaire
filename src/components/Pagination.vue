@@ -115,7 +115,7 @@ export default {
     }
 
     &--is-active {
-      background: var(--col-secondary-alt);
+      background: var(--bg-tertiary-alt);
     }
 
     &--is-disabled {

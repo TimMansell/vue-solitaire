@@ -33,13 +33,13 @@ export default {
   font-size: var(--font-size-sm);
   line-height: 1;
   color: var(--text-primary);
-  text-shadow: 0 1px var(--col-primary-dark-2);
+  text-shadow: 0 1px var(--col-primary-alt-3);
   background: var(--bg-primary);
 
   @media (min-width: $bp-sm) {
     flex-direction: row;
     justify-content: space-between;
-    border-top: 1px solid rgba($col-secondary, 0.05);
+    border-top: var(--bg-secondary-alt);
     box-shadow: 0 -1px var(--bdr-secondary);
   }
 

@@ -34,7 +34,12 @@ body {
   background: var(--bg-primary);
 }
 
-:is(h1, h2, h3, h4, h5, h6) {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
   margin-bottom: var(--mg-md);
   font-size: var(--font-size-lg);

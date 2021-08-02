@@ -23,9 +23,9 @@ export default {
 
     background-image: linear-gradient(
       90deg,
-      var(--col-secondary-alt) 0,
-      var(--col-secondary-alt-2) 40px,
-      var(--col-secondary-alt) 100px
+      var(--bg-tertiary-alt) 0,
+      var(--bg-tertiary-alt-2) 40px,
+      var(--bg-tertiary-alt) 100px
     );
 
     /* stylelint-enable */

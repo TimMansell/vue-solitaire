@@ -64,7 +64,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: var(--col-secondary-alt);
+    background: var(--bg-tertiary-alt);
     opacity: 0;
     animation: overlay-hide 3s ease-in-out normal 1 forwards;
 
