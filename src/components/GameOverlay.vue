@@ -153,7 +153,7 @@ export default {
 
   @media (min-width: $bp-md) {
     @supports (backdrop-filter: blur(var(--blur))) {
-      background: var(--bg-primary-alpha-2);
+      background: var(--bg-primary-alt-3);
       animation: blur-animation-to var(--animation-speed) forwards;
     }
   }
@@ -204,7 +204,7 @@ export default {
 
   &__content {
     padding: var(--pd-sm);
-    text-shadow: 0 1px var(--col-primary-dark-2);
+    text-shadow: 0 1px var(--col-primary-alt-3);
 
     @media (min-width: $bp-md) {
       padding: var(--pd-md);
@@ -226,7 +226,7 @@ export default {
       @media (min-width: $bp-md) {
         padding: var(--mg-md);
         background: var(--bg-secondary);
-        border: 1px solid var(--col-primary-dark);
+        border: 1px solid var(--col-primary-alt-2);
         border-radius: var(--bdr-radius-lg);
       }
     }

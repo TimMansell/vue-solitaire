@@ -73,7 +73,7 @@ export default {
 <style scoped lang="scss">
 .table {
   width: 100%;
-  background: var(--bg-primary-alpha-1);
+  background: var(--bg-primary-alt-2);
   margin-bottom: var(--mg-md);
 
   &__cell {
