@@ -20,7 +20,7 @@
     </p>
 
     <ResponsiveTable
-      :headings="['User', 'Moves']"
+      :headings="['Rank', 'User', 'Moves']"
       :items="games"
       :placeholder-rows="limit"
     />
@@ -51,7 +51,8 @@ export default {
     leaderboards() {
       const { leaderboards } = this;
 
-      const formattedGames = leaderboards.map(({ uid, moves }) => ({
+      const formattedGames = leaderboards.map(({ uid, moves }, index) => ({
+        rank: index + 1,
         uid,
         moves,
       }));
