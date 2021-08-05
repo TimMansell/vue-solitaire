@@ -16,13 +16,14 @@
     </div>
 
     <p data-test="game-history-showing-games">
-      Showing top {{ limit }} results
+      Your games are highlighted
     </p>
 
     <ResponsiveTable
       :headings="['Rank', 'User', 'Moves']"
       :items="games"
       :placeholder-rows="limit"
+      :to-highlight="{ key: 'uid', value: luid }"
     />
   </div>
 </template>
@@ -64,7 +65,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['leaderboards', 'userGameCount']),
+    ...mapGetters(['leaderboards', 'luid']),
   },
   mounted() {
     this.displayGames({ autoScroll: false });
