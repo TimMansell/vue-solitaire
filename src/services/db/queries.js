@@ -124,3 +124,26 @@ export const getUsersGames = async (uid, { offset, limit }) => {
     return formatError();
   }
 };
+
+export const getLeaderboards = async (limit) => {
+  try {
+    const response = await apollo.query({
+      query: gql`
+        query Leaderboards($offset: Int!, $limit: Int!) {
+          leaderboards(offset: $offset, limit: $limit) {
+            moves {
+              uid
+              moves
+            }
+          }
+        }
+      `,
+      variables: { limit, offset: 0 },
+      fetchPolicy: 'no-cache',
+    });
+
+    return formatResponse(response);
+  } catch (error) {
+    return formatError();
+  }
+};
