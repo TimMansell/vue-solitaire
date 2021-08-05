@@ -40,12 +40,10 @@ const actions = {
   async getLeaderboards({ commit }, params) {
     const { error, response } = await db.getLeaderboards(params);
 
-    const {
-      leaderboards: { moves },
-    } = response;
+    const { leaderboards } = response;
 
     if (!error) {
-      commit('SET_LEADERBOARDS', moves);
+      commit('SET_LEADERBOARDS', leaderboards[`${params.query}`]);
     }
   },
 };

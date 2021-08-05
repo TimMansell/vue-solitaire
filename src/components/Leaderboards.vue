@@ -42,6 +42,7 @@ export default {
     return {
       limit: 25,
       games: [],
+      query: 'moves',
     };
   },
   watch: {
@@ -49,13 +50,15 @@ export default {
       this.displayGames({ autoScroll: true });
     },
     leaderboards() {
-      const { leaderboards } = this;
+      const { leaderboards, query } = this;
 
-      const formattedGames = leaderboards.map(({ uid, moves }, index) => ({
-        rank: index + 1,
-        uid,
-        moves,
-      }));
+      const formattedGames = leaderboards.map(
+        ({ uid, [query]: value }, index) => ({
+          rank: index + 1,
+          uid,
+          value,
+        })
+      );
 
       this.games = formattedGames;
     },
@@ -74,12 +77,16 @@ export default {
     async displayGames({ autoScroll }) {
       const {
         limit,
+        query,
         $refs: { scrollTo },
       } = this;
 
       this.games = [];
 
-      await this.getLeaderboards(limit);
+      await this.getLeaderboards({
+        limit,
+        query,
+      });
 
       if (autoScroll) {
         this.$emit('scrollTo', scrollTo);
