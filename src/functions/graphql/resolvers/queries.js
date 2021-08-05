@@ -10,10 +10,13 @@ export const version = () => ({ number: appVersion });
 
 export const user = (_, { uid }) => ({ uid });
 
+export const leaderboards = (_, { offset, limit }) => ({ offset, limit });
+
 export const queries = {
   userStats,
   globalStats,
   findUser,
   version,
   user,
+  leaderboards,
 };
