@@ -5,6 +5,7 @@
       <PauseGameButton is-stacked />
       <HistoryButton is-stacked />
       <ViewStatsButton is-stacked />
+      <LeaderboardsButton is-stacked />
       <ShowRulesButton is-stacked />
     </div>
     <div>
@@ -26,6 +27,7 @@ import PauseGameButton from './PauseGameButton.vue';
 import ShowRulesButton from './ShowRulesButton.vue';
 import HistoryButton from './HistoryButton.vue';
 import ViewStatsButton from './ViewStatsButton.vue';
+import LeaderboardsButton from './LeaderboardsButton.vue';
 import GithubButton from './GithubButton.vue';
 import PortfolioButton from './PortfolioButton.vue';
 
@@ -37,6 +39,7 @@ export default {
     ShowRulesButton,
     HistoryButton,
     ViewStatsButton,
+    LeaderboardsButton,
     GithubButton,
     PortfolioButton,
   },
