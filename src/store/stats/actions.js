@@ -32,6 +32,22 @@ const actions = {
   clearStats({ commit }) {
     commit('CLEAR_STATS');
   },
+  toggleLeaderboards({ commit, state }) {
+    const showLeaderboards = !state.showLeaderboards;
+
+    commit('SHOW_LEADERBOARDS', showLeaderboards);
+  },
+  async getLeaderboards({ commit }, params) {
+    const { error, response } = await db.getLeaderboards(params);
+
+    const {
+      leaderboards: { moves },
+    } = response;
+
+    if (!error) {
+      commit('SET_LEADERBOARDS', moves);
+    }
+  },
 };
 
 export default actions;
