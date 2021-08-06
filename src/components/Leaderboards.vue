@@ -1,8 +1,6 @@
 <template>
   <div class="leaderboards" data-test="leaderboards">
-    <p data-test="game-history-showing-games">
-      Your games are highlighted
-    </p>
+    <p data-test="game-history-showing-games">Your username is: {{ luid }}</p>
 
     <div
       ref="scrollTo"
@@ -27,7 +25,7 @@
     <h2>Best {{ query }}</h2>
 
     <ResponsiveTable
-      :headings="['Rank', 'User', `${query}`]"
+      :headings="['Rank', 'Date', 'User', `${query}`]"
       :items="games"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'uid', value: luid }"
@@ -39,6 +37,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
+import { formatDate } from '@/helpers/dates';
 
 export default {
   name: 'Leaderboards',
@@ -64,8 +63,9 @@ export default {
       const { leaderboards, query } = this;
 
       const formattedGames = leaderboards.map(
-        ({ uid, [query]: value }, index) => ({
+        ({ date, uid, [query]: value }, index) => ({
           rank: index + 1,
+          date: formatDate(date),
           uid,
           value,
         })
