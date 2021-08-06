@@ -1,12 +1,21 @@
 <template>
   <div class="leaderboards" data-test="leaderboards">
-    <p>Are you the best of the best?</p>
+    <p data-test="game-history-showing-games">
+      Your games are highlighted
+    </p>
 
     <div
       ref="scrollTo"
       class="leaderboards__controls"
       data-test="leaderboards-controls"
     >
+      <Select
+        v-model="query"
+        label="Show Best"
+        :items="['moves', 'time']"
+        @select="setQuery"
+      />
+
       <Select
         v-model="limit"
         label="Show Top"
@@ -15,12 +24,10 @@
       />
     </div>
 
-    <p data-test="game-history-showing-games">
-      Your games are highlighted
-    </p>
+    <h2>Best {{ query }}</h2>
 
     <ResponsiveTable
-      :headings="['Rank', 'User', 'Moves']"
+      :headings="['Rank', 'User', `${query}`]"
       :items="games"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'uid', value: luid }"
@@ -50,6 +57,9 @@ export default {
     limit() {
       this.displayGames({ autoScroll: true });
     },
+    query() {
+      this.displayGames({ autoScroll: true });
+    },
     leaderboards() {
       const { leaderboards, query } = this;
 
@@ -74,6 +84,9 @@ export default {
     ...mapActions(['getLeaderboards']),
     displayLimit(limit) {
       this.limit = parseInt(limit, 10);
+    },
+    setQuery(query) {
+      this.query = query;
     },
     async displayGames({ autoScroll }) {
       const {
