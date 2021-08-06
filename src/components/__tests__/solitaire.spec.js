@@ -16,6 +16,7 @@ const mockComputed = {
   showRules: () => false,
   showNewGame: () => false,
   showHistory: () => false,
+  showLeaderboards: () => false,
 };
 
 describe('Solitaire.vue', () => {
@@ -27,6 +28,7 @@ describe('Solitaire.vue', () => {
         showRules: () => true,
         showNewGame: () => true,
         showHistory: () => true,
+        showLeaderboards: () => true,
       },
     });
 
