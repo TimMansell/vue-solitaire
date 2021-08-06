@@ -15,7 +15,7 @@
 
       <Select
         v-model="limit"
-        label="Games per page"
+        label="Games"
         :items="['25', '50', '100', '500']"
         @select="displayLimit"
       />
@@ -30,6 +30,7 @@
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
       :placeholder-rows="pageRows"
+      :to-highlight="{ key: 'outcome', value: 'Won' }"
     />
 
     <Pagination
