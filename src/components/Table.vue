@@ -105,7 +105,7 @@ export default {
 
   &__row {
     &--highlighted {
-      background: #443;
+      background: var(--bg-tertiary-alt);
     }
   }
 
