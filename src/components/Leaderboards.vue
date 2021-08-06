@@ -8,10 +8,10 @@
       data-test="leaderboards-controls"
     >
       <Select
-        v-model="query"
+        v-model="showBest"
         label="Show Best"
-        :items="['moves', 'time']"
-        @select="setQuery"
+        :items="['Moves', 'Times']"
+        @select="setBest"
       />
 
       <Select
@@ -22,10 +22,10 @@
       />
     </div>
 
-    <h2>Best {{ query }}</h2>
+    <h2>Top {{ limit }} Best {{ showBest }}</h2>
 
     <ResponsiveTable
-      :headings="['Rank', 'Date', 'User', `${query}`]"
+      :headings="['Rank', 'Date', 'User', `${showBest}`]"
       :items="games"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'uid', value: luid }"
@@ -49,27 +49,28 @@ export default {
     return {
       limit: 25,
       games: [],
-      query: 'moves',
+      showBest: 'Moves',
     };
   },
   watch: {
     limit() {
       this.displayGames({ autoScroll: true });
     },
-    query() {
+    showBest() {
       this.displayGames({ autoScroll: true });
     },
     leaderboards() {
-      const { leaderboards, query } = this;
+      const { leaderboards } = this;
 
-      const formattedGames = leaderboards.map(
-        ({ date, uid, [query]: value }, index) => ({
+      const formattedGames = leaderboards.map((item, index) => {
+        const { date } = item;
+
+        return {
           rank: index + 1,
+          ...item,
           date: formatDate(date),
-          uid,
-          value,
-        })
-      );
+        };
+      });
 
       this.games = formattedGames;
     },
@@ -85,13 +86,13 @@ export default {
     displayLimit(limit) {
       this.limit = parseInt(limit, 10);
     },
-    setQuery(query) {
-      this.query = query;
+    setBest(showBest) {
+      this.showBest = showBest;
     },
     async displayGames({ autoScroll }) {
       const {
         limit,
-        query,
+        showBest,
         $refs: { scrollTo },
       } = this;
 
@@ -99,7 +100,7 @@ export default {
 
       await this.getLeaderboards({
         limit,
-        query,
+        showBest,
       });
 
       if (autoScroll) {
