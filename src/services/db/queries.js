@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 import apollo from './apollo';
-import { formatError, formatResponse } from './helpers';
+import { formatError, formatResponse, formatLeaderboard } from './helpers';
 
 export const checkUserExists = async (uid) => {
   try {
@@ -126,7 +126,7 @@ export const getUsersGames = async (uid, { offset, limit }) => {
 };
 
 export const getLeaderboards = async ({ limit, showBest }) => {
-  const queries = {
+  const QUERIES = {
     Moves: `moves {
       date
       uid
@@ -139,7 +139,7 @@ export const getLeaderboards = async ({ limit, showBest }) => {
     }`,
   };
 
-  const query = queries[showBest];
+  const query = QUERIES[showBest];
 
   try {
     const response = await apollo.query({
@@ -154,7 +154,9 @@ export const getLeaderboards = async ({ limit, showBest }) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response);
+    const data = formatLeaderboard(response);
+
+    return formatResponse({ data });
   } catch (error) {
     return formatError();
   }

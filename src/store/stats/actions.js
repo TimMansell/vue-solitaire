@@ -42,9 +42,8 @@ const actions = {
 
     if (!error) {
       const { leaderboards } = response;
-      const [[, value]] = Object.entries(leaderboards);
 
-      commit('SET_LEADERBOARDS', value);
+      commit('SET_LEADERBOARDS', leaderboards);
     }
   },
 };

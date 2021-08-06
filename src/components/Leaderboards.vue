@@ -37,7 +37,6 @@
 import { mapGetters, mapActions } from 'vuex';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
-import { formatDate } from '@/helpers/dates';
 
 export default {
   name: 'Leaderboards',
@@ -62,17 +61,7 @@ export default {
     leaderboards() {
       const { leaderboards } = this;
 
-      const formattedGames = leaderboards.map((item, index) => {
-        const { date } = item;
-
-        return {
-          rank: index + 1,
-          ...item,
-          date: formatDate(date),
-        };
-      });
-
-      this.games = formattedGames;
+      this.games = leaderboards;
     },
   },
   computed: {
