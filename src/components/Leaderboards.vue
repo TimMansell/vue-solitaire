@@ -1,6 +1,8 @@
 <template>
   <div class="leaderboards" data-test="leaderboards">
-    <p data-test="game-history-showing-games">Your username is: {{ luid }}</p>
+    <p data-test="game-history-showing-games">
+      Your player name is: {{ luid }}
+    </p>
 
     <div
       ref="scrollTo"
@@ -25,7 +27,7 @@
     <h2>Top {{ limit }} Best {{ showBest }}</h2>
 
     <ResponsiveTable
-      :headings="['Rank', 'Date', 'User', `${showBest}`]"
+      :headings="['Rank', 'Date', 'Player', `${showBest}`]"
       :items="games"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'uid', value: luid }"
