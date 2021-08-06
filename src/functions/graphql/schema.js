@@ -52,8 +52,8 @@ export const typeDefs = gql`
     players: Int
   }
   type Leaderboards {
-    moves: [Game]
-    time: [Game]
+    moves: [Game]!
+    times: [Game]!
   }
   type UserStats {
     won: Int

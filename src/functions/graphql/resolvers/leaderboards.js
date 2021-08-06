@@ -17,7 +17,7 @@ export const moves = async (parent, _, context) => {
   return items;
 };
 
-export const time = async (parent, _, context) => {
+export const times = async (parent, _, context) => {
   const { client } = context;
   const collection = 'games';
   const params = {
@@ -36,5 +36,5 @@ export const time = async (parent, _, context) => {
 
 export const leaderboards = {
   moves,
-  time,
+  times,
 };
