@@ -6,9 +6,9 @@
       <HistoryButton is-stacked />
       <ViewStatsButton is-stacked />
       <LeaderboardsButton is-stacked />
-      <ShowRulesButton is-stacked />
     </div>
     <div>
+      <ShowRulesButton is-stacked />
       <PortfolioButton is-stacked />
       <GithubButton is-stacked v-if="showGithubButton" />
     </div>
@@ -87,7 +87,11 @@ export default {
   &__actions {
     display: flex;
     flex: 1;
-    margin-right: var(--mg-sm);
+    margin-right: var(--mg-xs);
+
+    @media (min-width: $bp-sm) {
+      margin-right: var(--mg-sm);
+    }
   }
 }
 </style>
