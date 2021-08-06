@@ -40,10 +40,11 @@ const actions = {
   async getLeaderboards({ commit }, params) {
     const { error, response } = await db.getLeaderboards(params);
 
-    const { leaderboards } = response;
-
     if (!error) {
-      commit('SET_LEADERBOARDS', leaderboards[`${params.query}`]);
+      const { leaderboards } = response;
+      const [[, value]] = Object.entries(leaderboards);
+
+      commit('SET_LEADERBOARDS', value);
     }
   },
 };

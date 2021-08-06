@@ -125,17 +125,28 @@ export const getUsersGames = async (uid, { offset, limit }) => {
   }
 };
 
-export const getLeaderboards = async ({ limit, query }) => {
+export const getLeaderboards = async ({ limit, showBest }) => {
+  const queries = {
+    Moves: `moves {
+      date
+      uid
+      moves
+    }`,
+    Times: `times {
+      date
+      uid
+      time
+    }`,
+  };
+
+  const query = queries[showBest];
+
   try {
     const response = await apollo.query({
       query: gql`
         query Leaderboards($offset: Int!, $limit: Int!) {
           leaderboards(offset: $offset, limit: $limit) {
-            ${query} {
-              date
-              uid
-              ${query}
-            }
+            ${query}
           }
         }
       `,
