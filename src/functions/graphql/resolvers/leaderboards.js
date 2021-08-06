@@ -9,7 +9,7 @@ export const moves = async (parent, _, context) => {
     returnFields: {
       projection: { uid: 1, moves: 1 },
     },
-    sortBy: { date: -1, moves: 1 },
+    sortBy: { moves: 1, date: 1 },
   };
 
   const items = findItemsInDb(client, collection, params);
@@ -26,7 +26,7 @@ export const time = async (parent, _, context) => {
     returnFields: {
       projection: { uid: 1, time: 1 },
     },
-    sortBy: { date: -1, time: 1 },
+    sortBy: { time: 1, date: 1 },
   };
 
   const items = findItemsInDb(client, collection, params);
