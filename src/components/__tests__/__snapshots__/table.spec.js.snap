@@ -49,7 +49,7 @@ exports[`Table.vue matches snapshot 1`] = `
   </thead>
   <!---->
   <tbody>
-    <tr data-test="table-row">
+    <tr data-test="table-row" class="">
       <td data-test="table-cell" class="table__cell">
         1
       </td>
@@ -60,7 +60,7 @@ exports[`Table.vue matches snapshot 1`] = `
         3
       </td>
     </tr>
-    <tr data-test="table-row">
+    <tr data-test="table-row" class="">
       <td data-test="table-cell" class="table__cell">
         4
       </td>
