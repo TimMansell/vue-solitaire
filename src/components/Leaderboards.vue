@@ -11,20 +11,20 @@
     >
       <Select
         v-model="showBest"
-        label="Show Best"
+        label="Best"
         :items="['Moves', 'Times']"
         @select="setBest"
       />
 
       <Select
         v-model="limit"
-        label="Show Top"
+        label="Top"
         :items="['25', '50', '100', '500']"
         @select="displayLimit"
       />
     </div>
 
-    <h2>Top {{ limit }} Best {{ showBest }}</h2>
+    <p>Top {{ limit }} Best {{ showBest }}</p>
 
     <ResponsiveTable
       :headings="['Rank', 'Date', 'Player', `${showBest}`]"
