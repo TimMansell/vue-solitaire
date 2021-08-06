@@ -132,6 +132,7 @@ export const getLeaderboards = async ({ limit, query }) => {
         query Leaderboards($offset: Int!, $limit: Int!) {
           leaderboards(offset: $offset, limit: $limit) {
             ${query} {
+              date
               uid
               ${query}
             }
