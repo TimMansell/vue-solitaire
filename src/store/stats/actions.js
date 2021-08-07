@@ -38,6 +38,8 @@ const actions = {
     commit('SHOW_LEADERBOARDS', showLeaderboards);
   },
   async getLeaderboards({ commit }, params) {
+    commit('SET_LEADERBOARDS', []);
+
     const { error, response } = await db.getLeaderboards(params);
 
     if (!error) {

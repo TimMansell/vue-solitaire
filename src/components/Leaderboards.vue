@@ -4,31 +4,29 @@
       Your player name is: {{ luid }}
     </p>
 
-    <div
-      ref="scrollTo"
-      class="leaderboards__controls"
-      data-test="leaderboards-controls"
-    >
-      <Select
-        v-model="showBest"
-        label="Best"
-        :items="['Moves', 'Times']"
-        @select="setBest"
-      />
+    <div ref="scrollTo">
+      <Filters>
+        <Select
+          v-model="showBest"
+          label="Best"
+          :items="['Moves', 'Times']"
+          @select="setBest"
+        />
 
-      <Select
-        v-model="limit"
-        label="Top"
-        :items="['25', '50', '100', '500']"
-        @select="displayLimit"
-      />
+        <Select
+          v-model="limit"
+          label="Top"
+          :items="['25', '50', '100', '500']"
+          @select="displayLimit"
+        />
+      </Filters>
     </div>
 
     <p>Top {{ limit }} Best {{ showBest }}</p>
 
     <ResponsiveTable
       :headings="['Rank', 'Date', 'Player', `${showBest}`]"
-      :items="games"
+      :items="leaderboards"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'uid', value: luid }"
     />
@@ -37,40 +35,40 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 
 export default {
   name: 'Leaderboards',
   components: {
+    Filters,
     Select,
     ResponsiveTable,
   },
   data() {
     return {
       limit: 25,
-      games: [],
       showBest: 'Moves',
     };
   },
   watch: {
-    limit() {
-      this.displayGames({ autoScroll: true });
-    },
-    showBest() {
-      this.displayGames({ autoScroll: true });
-    },
-    leaderboards() {
-      const { leaderboards } = this;
+    async limit() {
+      await this.displayGames();
 
-      this.games = leaderboards;
+      this.scrollTo();
+    },
+    async showBest() {
+      await this.displayGames();
+
+      this.scrollTo();
     },
   },
   computed: {
     ...mapGetters(['leaderboards', 'luid']),
   },
   mounted() {
-    this.displayGames({ autoScroll: false });
+    this.displayGames();
   },
   methods: {
     ...mapActions(['getLeaderboards']),
@@ -80,36 +78,17 @@ export default {
     setBest(showBest) {
       this.showBest = showBest;
     },
-    async displayGames({ autoScroll }) {
-      const {
-        limit,
-        showBest,
-        $refs: { scrollTo },
-      } = this;
-
-      this.games = [];
+    async displayGames() {
+      const { limit, showBest } = this;
 
       await this.getLeaderboards({
         limit,
         showBest,
       });
-
-      if (autoScroll) {
-        this.$emit('scrollTo', scrollTo);
-      }
+    },
+    scrollTo() {
+      this.$emit('scrollTo', this.$refs.scrollTo);
     },
   },
 };
 </script>
-
-<style scoped lang="scss">
-.leaderboards {
-  &__controls {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--pd-sm);
-    margin-bottom: var(--mg-md);
-    border: 1px solid var(--bdr-secondary);
-  }
-}
-</style>
