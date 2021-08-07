@@ -29,6 +29,7 @@ export const typeDefs = gql`
     exists: Boolean
   }
   type Game {
+    rank: Int
     uid: String
     date: String
     won: Boolean

@@ -128,11 +128,13 @@ export const getUsersGames = async (uid, { offset, limit }) => {
 export const getLeaderboards = async ({ limit, showBest }) => {
   const QUERIES = {
     Moves: `moves {
+      rank
       date
       uid
       moves
     }`,
     Times: `times {
+      rank
       date
       uid
       time
