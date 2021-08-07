@@ -4,7 +4,7 @@
     @click="toggleLeaderboards"
     data-test="leaderboards-btn"
   >
-    Rank
+    Ranks
   </Button>
 </template>
 
