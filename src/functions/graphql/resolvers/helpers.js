@@ -1,8 +1,5 @@
-import { parseISO, isValid, format } from 'date-fns';
-
-export const createISODate = () => new Date().toISOString();
-
-export const parseAndValidDate = (date) => isValid(parseISO(date));
+import { formatDate } from '../../../helpers/dates';
+import { formatTime } from '../../../helpers/times';
 
 export const insertIntoDb = async (client, collection, document) => {
   const db = await client();
@@ -45,7 +42,20 @@ export const formatLeaderboardItems = (items) => {
     return {
       ...item,
       rank: index + 1,
-      date: format(parseISO(date), 'dd-MM-yyyy'),
+      date: formatDate(date),
+    };
+  });
+
+  return formattedItems;
+};
+
+export const formatLeaderboardTimes = (items) => {
+  const formattedItems = items.map((item) => {
+    const { time } = item;
+
+    return {
+      ...item,
+      time: formatTime(time),
     };
   });
 

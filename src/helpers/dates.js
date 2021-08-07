@@ -1,4 +1,7 @@
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, isValid } from 'date-fns';
 
-// eslint-disable-next-line import/prefer-default-export
+export const createISODate = () => new Date().toISOString();
+
 export const formatDate = (date) => format(parseISO(date), 'dd-MM-yyyy');
+
+export const parseAndValidDate = (date) => isValid(parseISO(date));

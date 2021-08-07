@@ -1,4 +1,8 @@
-import { findItemsInDb, formatLeaderboardItems } from './helpers';
+import {
+  findItemsInDb,
+  formatLeaderboardItems,
+  formatLeaderboardTimes,
+} from './helpers';
 
 export const moves = async (parent, _, context) => {
   const { client } = context;
@@ -35,7 +39,7 @@ export const times = async (parent, _, context) => {
   const items = await findItemsInDb(client, collection, params);
 
   // Massage data.
-  const formattedItems = formatLeaderboardItems(items);
+  const formattedItems = formatLeaderboardTimes(formatLeaderboardItems(items));
 
   return formattedItems;
 };
