@@ -50,9 +50,13 @@
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
 
 export const isRowHighlighted = (cells, toHighlight) => {
-  const { key, value } = toHighlight;
+  if (toHighlight) {
+    const { key, value } = toHighlight;
 
-  return cells[key] === value;
+    return cells[key] === value;
+  }
+
+  return false;
 };
 
 export default {
@@ -85,9 +89,7 @@ export default {
       const formatteditems = items.map((cells) => {
         return {
           row: { ...cells },
-          isHighlighted: toHighlight
-            ? isRowHighlighted(cells, toHighlight)
-            : false,
+          isHighlighted: isRowHighlighted(cells, toHighlight),
         };
       });
 
@@ -104,6 +106,8 @@ export default {
   margin-bottom: var(--mg-md);
 
   &__row {
+    background: transparent;
+
     &--highlighted {
       background: var(--bg-tertiary-alt);
     }
