@@ -1,4 +1,4 @@
-import { findItemsInDb } from './helpers';
+import { findItemsInDb, formatLeaderboardItems } from './helpers';
 
 export const moves = async (parent, _, context) => {
   const { client } = context;
@@ -12,9 +12,12 @@ export const moves = async (parent, _, context) => {
     sortBy: { moves: 1, date: 1 },
   };
 
-  const items = findItemsInDb(client, collection, params);
+  const items = await findItemsInDb(client, collection, params);
 
-  return items;
+  // Massage data.
+  const formattedItems = formatLeaderboardItems(items);
+
+  return formattedItems;
 };
 
 export const times = async (parent, _, context) => {
@@ -29,9 +32,12 @@ export const times = async (parent, _, context) => {
     sortBy: { time: 1, date: 1 },
   };
 
-  const items = findItemsInDb(client, collection, params);
+  const items = await findItemsInDb(client, collection, params);
 
-  return items;
+  // Massage data.
+  const formattedItems = formatLeaderboardItems(items);
+
+  return formattedItems;
 };
 
 export const leaderboards = {

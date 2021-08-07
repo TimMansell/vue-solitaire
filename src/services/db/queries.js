@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 import apollo from './apollo';
-import { formatError, formatResponse, formatLeaderboard } from './helpers';
+import { formatError, formatResponse, formatData } from './helpers';
 
 export const checkUserExists = async (uid) => {
   try {
@@ -154,7 +154,7 @@ export const getLeaderboards = async ({ limit, showBest }) => {
       fetchPolicy: 'no-cache',
     });
 
-    const data = formatLeaderboard(response);
+    const data = formatData(response);
 
     return formatResponse({ data });
   } catch (error) {

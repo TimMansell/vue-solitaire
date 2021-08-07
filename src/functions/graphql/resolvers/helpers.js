@@ -1,4 +1,4 @@
-import { parseISO, isValid } from 'date-fns';
+import { parseISO, isValid, format } from 'date-fns';
 
 export const createISODate = () => new Date().toISOString();
 
@@ -36,4 +36,18 @@ export const findItemsInDb = async (client, collection, params) => {
     .limit(limit)
     .sort(sortBy)
     .toArray();
+};
+
+export const formatLeaderboardItems = (items) => {
+  const formattedItems = items.map((item, index) => {
+    const { date } = item;
+
+    return {
+      ...item,
+      rank: index + 1,
+      date: format(parseISO(date), 'dd-MM-yyyy'),
+    };
+  });
+
+  return formattedItems;
 };
