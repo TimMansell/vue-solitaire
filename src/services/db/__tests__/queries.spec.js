@@ -3,6 +3,8 @@ import {
   getStats,
   getStatsCount,
   getAppVersion,
+  getUsersGames,
+  getLeaderboards,
 } from '../queries';
 
 import { version as appVersion } from '../../../../package.json';
@@ -10,6 +12,16 @@ import { version as appVersion } from '../../../../package.json';
 jest.mock('../apollo');
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+
+const mockHistory = [
+  {
+    date: '2021-05-20T23:34:49.564Z',
+    won: false,
+    lost: false,
+    moves: 0,
+    time: 12,
+  },
+];
 
 const stats = {
   won: 1,
@@ -60,6 +72,45 @@ describe('DB service queries', () => {
       const { version } = response;
 
       expect(version).toEqual({ number: appVersion });
+    });
+  });
+
+  describe('getUsersGames', () => {
+    it('should return valid object for getUsersGames', async () => {
+      const { response } = await getUsersGames(mockUid, {
+        offset: 0,
+        limit: 2,
+      });
+      const { user } = response;
+
+      expect(user).toEqual({
+        history: mockHistory,
+      });
+    });
+  });
+
+  describe('getLeaderboards', () => {
+    it('should return valid object for getLeaderboards', async () => {
+      const { response } = await getLeaderboards({
+        limit: 2,
+        showBest: 'moves',
+      });
+      const { leaderboards } = response;
+
+      expect(leaderboards).toEqual([
+        {
+          rank: 1,
+          date: '29-04-2021',
+          uid: '7dac9d78-353f-409b-8a7f-2192409c44a2',
+          moves: 2,
+        },
+        {
+          rank: 2,
+          date: '29-04-2021',
+          uid: '2cbf658a-3102-4e9d-b749-bac853efed0d',
+          moves: 2,
+        },
+      ]);
     });
   });
 });
