@@ -29,7 +29,6 @@ export const typeDefs = gql`
     exists: Boolean
   }
   type Game {
-    rank: Int
     uid: String
     date: String
     won: Boolean
@@ -52,9 +51,17 @@ export const typeDefs = gql`
     completed: Int
     players: Int
   }
+  type LeaderboardGame {
+    rank: Int
+    uid: String
+    date: String
+    won: Boolean
+    moves: Int
+    time: String
+  }
   type Leaderboards {
-    moves: [Game]!
-    times: [Game]!
+    moves: [LeaderboardGame]!
+    times: [LeaderboardGame]!
   }
   type UserStats {
     won: Int
