@@ -5,7 +5,7 @@ const { getStatsCount, getStats, getLeaderboards } = actions;
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
 const mockStats = { won: 1, lost: 2, competed: 3 };
-const mockLeaderboards = [
+const mockLeaderboardsMoves = [
   {
     rank: 1,
     date: '2021-04-29T12:25:47.907Z',
@@ -49,6 +49,9 @@ describe('Stats Store', () => {
   it('getLeaderboards', async () => {
     await getLeaderboards({ commit });
 
-    expect(commit).toHaveBeenCalledWith('SET_LEADERBOARDS', mockLeaderboards);
+    expect(commit).toHaveBeenCalledWith(
+      'SET_LEADERBOARDS',
+      mockLeaderboardsMoves
+    );
   });
 });

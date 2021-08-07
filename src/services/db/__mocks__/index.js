@@ -19,7 +19,7 @@ const mockHistory = [
   },
 ];
 
-const mockLeaderboards = [
+const mockLeaderboardsMoves = [
   {
     rank: 1,
     date: '2021-04-29T12:25:47.907Z',
@@ -70,7 +70,7 @@ const getUsersGames = () =>
 const getLeaderboards = () =>
   formatResponse({
     data: {
-      leaderboards: mockLeaderboards,
+      leaderboards: mockLeaderboardsMoves,
     },
   });
 

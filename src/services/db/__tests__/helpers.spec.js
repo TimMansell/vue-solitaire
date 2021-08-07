@@ -1,6 +1,6 @@
-import { formatResponse, formatError, formatLeaderboard } from '../helpers';
+import { formatResponse, formatError, formatData } from '../helpers';
 
-const mockLeaderboards = [
+const mockLeaderboardsMoves = [
   {
     rank: 1,
     date: '2021-04-29T12:25:47.907Z',
@@ -43,30 +43,17 @@ describe('DB service', () => {
     });
   });
 
-  it('formatLeaderboard', () => {
+  it('formatData', () => {
     const leaderboards = {
       data: {
-        leaderboards: { moves: mockLeaderboards },
+        leaderboards: { moves: mockLeaderboardsMoves },
       },
     };
 
-    const result = formatLeaderboard(leaderboards);
+    const result = formatData(leaderboards);
 
     expect(result).toEqual({
-      leaderboards: [
-        {
-          date: '29-04-2021',
-          moves: 2,
-          rank: 1,
-          uid: '7dac9d78-353f-409b-8a7f-2192409c44a2',
-        },
-        {
-          date: '29-04-2021',
-          moves: 2,
-          rank: 2,
-          uid: '2cbf658a-3102-4e9d-b749-bac853efed0d',
-        },
-      ],
+      leaderboards: mockLeaderboardsMoves,
     });
   });
 });
