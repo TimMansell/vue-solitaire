@@ -1,5 +1,18 @@
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  colors,
+  animals,
+} from 'unique-names-generator';
 import { formatDate } from '../../../helpers/dates';
 import { formatTime } from '../../../helpers/times';
+
+export const createPlayerName = () =>
+  uniqueNamesGenerator({
+    dictionaries: [adjectives, colors, animals],
+    separator: '',
+    style: 'capital',
+  });
 
 export const insertIntoDb = async (client, collection, document) => {
   const db = await client();
