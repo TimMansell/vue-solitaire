@@ -1,5 +1,5 @@
 <template>
-  <div class="leaderboards" data-test="leaderboards">
+  <div data-test="leaderboards">
     <p data-test="leaderboard-name">Your player name is: {{ luid }}</p>
 
     <div ref="scrollTo">
