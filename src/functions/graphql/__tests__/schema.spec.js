@@ -165,6 +165,86 @@ describe('Graphql Schema', () => {
         },
       });
     });
+
+    it('leaderboards - moves', async () => {
+      const query = `
+        query {
+          leaderboards(offset: 0, limit: 10) {
+            moves {
+              rank
+              date
+              uid
+              moves
+            }
+          }
+        }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
+
+      expect(result).toEqual({
+        data: {
+          leaderboards: {
+            moves: [
+              {
+                rank: 1,
+                date: 'String',
+                uid: 'String',
+                moves: 1,
+              },
+              {
+                rank: 1,
+                date: 'String',
+                uid: 'String',
+                moves: 1,
+              },
+            ],
+          },
+        },
+      });
+    });
+
+    it('leaderboards - times', async () => {
+      const query = `
+        query {
+          leaderboards(offset: 0, limit: 10) {
+            times {
+              rank
+              date
+              uid
+              time
+            }
+          }
+        }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
+
+      expect(result).toEqual({
+        data: {
+          leaderboards: {
+            times: [
+              {
+                rank: 1,
+                date: 'String',
+                uid: 'String',
+                time: 'String',
+              },
+              {
+                rank: 1,
+                date: 'String',
+                uid: 'String',
+                time: 'String',
+              },
+            ],
+          },
+        },
+      });
+    });
   });
 
   describe('Mutations', () => {

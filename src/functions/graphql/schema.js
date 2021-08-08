@@ -8,6 +8,7 @@ export const typeDefs = gql`
     globalStats: GlobalStats!
     version: Version!
     user(uid: String!): User!
+    leaderboards(offset: Int!, limit: Int!): Leaderboards!
   }
   type Mutation {
     createUser(data: UserInput!): User!
@@ -49,6 +50,18 @@ export const typeDefs = gql`
     lost: Int
     completed: Int
     players: Int
+  }
+  type LeaderboardGame {
+    rank: Int
+    uid: String
+    date: String
+    won: Boolean
+    moves: Int
+    time: String
+  }
+  type Leaderboards {
+    moves: [LeaderboardGame]!
+    times: [LeaderboardGame]!
   }
   type UserStats {
     won: Int

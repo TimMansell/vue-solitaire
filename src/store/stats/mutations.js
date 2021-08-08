@@ -21,6 +21,12 @@ const mutations = {
   SHOW_STATS(state, showStats) {
     state.showStats = showStats;
   },
+  SHOW_LEADERBOARDS(state, showLeaderboards) {
+    state.showLeaderboards = showLeaderboards;
+  },
+  SET_LEADERBOARDS(state, leaderboards) {
+    state.leaderboards = leaderboards;
+  },
 };
 
 export default mutations;

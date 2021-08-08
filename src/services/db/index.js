@@ -4,6 +4,7 @@ import {
   getStatsCount,
   getAppVersion,
   getUsersGames,
+  getLeaderboards,
 } from './queries';
 import { newUser, gameLost, gameWon, gameQuit } from './mutations';
 
@@ -17,6 +18,7 @@ const db = () => ({
   gameQuit,
   getAppVersion,
   getUsersGames,
+  getLeaderboards,
 });
 
 export default db();

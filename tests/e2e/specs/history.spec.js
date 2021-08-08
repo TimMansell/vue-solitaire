@@ -246,7 +246,7 @@ describe('History', () => {
 
       cy.wait('@apiCheck');
 
-      cy.get('[data-test="game-history-controls"]').should('be.visible');
+      cy.get('[data-test="filters"]').should('be.visible');
 
       cy.checkCorrectHistoryPages(2, 25);
 

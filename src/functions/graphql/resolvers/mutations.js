@@ -1,4 +1,5 @@
-import { createISODate, insertIntoDb } from './helpers';
+import { insertIntoDb } from './helpers';
+import { createISODate } from '../../../helpers/dates';
 
 export const createUser = async (_, __, { client, variables }) => {
   const { data } = variables;

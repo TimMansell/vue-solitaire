@@ -3,7 +3,7 @@
 exports[`Table.vue matches snapshot - placeholder rows 1`] = `
 <table class="table">
   <thead>
-    <tr>
+    <tr data-test="table-header-row">
       <th class="table__cell">
         Heading 1
       </th>
@@ -35,7 +35,7 @@ exports[`Table.vue matches snapshot - placeholder rows 1`] = `
 exports[`Table.vue matches snapshot 1`] = `
 <table class="table">
   <thead>
-    <tr>
+    <tr data-test="table-header-row">
       <th class="table__cell">
         Heading 1
       </th>
@@ -49,7 +49,7 @@ exports[`Table.vue matches snapshot 1`] = `
   </thead>
   <!---->
   <tbody>
-    <tr data-test="table-row">
+    <tr data-test="table-row" class="table__row">
       <td data-test="table-cell" class="table__cell">
         1
       </td>
@@ -60,7 +60,7 @@ exports[`Table.vue matches snapshot 1`] = `
         3
       </td>
     </tr>
-    <tr data-test="table-row">
+    <tr data-test="table-row" class="table__row">
       <td data-test="table-cell" class="table__cell">
         4
       </td>

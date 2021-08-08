@@ -1,7 +1,7 @@
 <template>
   <table class="table">
     <thead>
-      <tr>
+      <tr data-test="table-header-row">
         <th
           class="table__cell"
           v-for="(heading, headingIndex) in headings"
@@ -11,7 +11,7 @@
         </th>
       </tr>
     </thead>
-    <tbody v-if="!items.length">
+    <tbody v-if="!rows.length">
       <tr
         v-for="(row, placeholderRowIndex) in placeholderRows"
         :key="placeholderRowIndex"
@@ -26,9 +26,11 @@
         </td>
       </tr>
     </tbody>
-    <tbody v-if="items.length">
+    <tbody v-if="rows.length">
       <tr
-        v-for="(row, rowIndex) in items"
+        class="table__row"
+        :class="{ 'table__row--highlighted': isHighlighted }"
+        v-for="({ row, isHighlighted }, rowIndex) in rows"
         :key="rowIndex"
         data-test="table-row"
       >
@@ -48,6 +50,16 @@
 <script>
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
 
+export const isRowHighlighted = (cells, toHighlight) => {
+  if (toHighlight) {
+    const { key, value } = toHighlight;
+
+    return cells[key] === value;
+  }
+
+  return false;
+};
+
 export default {
   name: 'Table',
   components: {
@@ -66,6 +78,22 @@ export default {
       type: Number,
       default: 1,
     },
+    toHighlight: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+    rows() {
+      const { items, toHighlight } = this;
+
+      const formatteditems = items.map((cells) => ({
+        row: { ...cells },
+        isHighlighted: isRowHighlighted(cells, toHighlight),
+      }));
+
+      return formatteditems;
+    },
   },
 };
 </script>
@@ -75,6 +103,14 @@ export default {
   width: 100%;
   background: var(--bg-primary-alt-2);
   margin-bottom: var(--mg-md);
+
+  &__row {
+    background: transparent;
+
+    &--highlighted {
+      background: var(--bg-tertiary-alt);
+    }
+  }
 
   &__cell {
     border: 1px solid var(--bdr-secondary);

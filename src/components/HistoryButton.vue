@@ -4,7 +4,7 @@
     @click="toggleHistory"
     data-test="history-btn"
   >
-    History
+    Games
   </Button>
 </template>
 
