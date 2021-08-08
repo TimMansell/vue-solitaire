@@ -2,7 +2,7 @@
   <GameOverlay
     ref="leaderboardOverlay"
     center-content
-    data-test="history-overlay"
+    data-test="leaderboards-overlay"
     :btn-close="toggleLeaderboards"
   >
     <template #title>

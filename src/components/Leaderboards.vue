@@ -1,8 +1,6 @@
 <template>
   <div class="leaderboards" data-test="leaderboards">
-    <p data-test="game-history-showing-games">
-      Your player name is: {{ luid }}
-    </p>
+    <p data-test="leaderboard-name">Your player name is: {{ luid }}</p>
 
     <div ref="scrollTo">
       <Filters>
@@ -11,6 +9,7 @@
           label="Best"
           :items="['Moves', 'Times']"
           @select="setBest"
+          data-test="leaderboard-set-best"
         />
 
         <Select
@@ -18,11 +17,12 @@
           label="Top"
           :items="['25', '50', '100', '500']"
           @select="displayLimit"
+          data-test="leaderboard-set-top"
         />
       </Filters>
     </div>
 
-    <p>Top {{ limit }} Best {{ showBest }}</p>
+    <p data-test="leaderboards-heading">Top {{ limit }} Best {{ showBest }}</p>
 
     <ResponsiveTable
       :headings="['Rank', 'Date', 'Player', `${showBest}`]"
