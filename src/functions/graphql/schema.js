@@ -53,7 +53,7 @@ export const typeDefs = gql`
   }
   type LeaderboardGame {
     rank: Int
-    uid: String
+    player: String
     date: String
     won: Boolean
     moves: Int

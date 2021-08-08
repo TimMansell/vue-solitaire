@@ -130,13 +130,13 @@ export const getLeaderboards = async ({ limit, showBest }) => {
     Moves: `moves {
       rank
       date
-      uid
+      player
       moves
     }`,
     Times: `times {
       rank
       date
-      uid
+      player
       time
     }`,
   };
