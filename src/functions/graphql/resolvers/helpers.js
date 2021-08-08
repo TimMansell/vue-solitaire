@@ -21,6 +21,18 @@ export const countItemsInDb = async (
     .count();
 };
 
+export const findAllItems = async (client, collection, params) => {
+  const db = await client();
+
+  const { findFields, returnFields, sortBy } = params;
+
+  return db
+    .collection(collection)
+    .find(findFields, returnFields)
+    .sort(sortBy)
+    .toArray();
+};
+
 export const findItemsInDb = async (client, collection, params) => {
   const db = await client();
 
@@ -35,28 +47,44 @@ export const findItemsInDb = async (client, collection, params) => {
     .toArray();
 };
 
-export const formatLeaderboardItems = (items) => {
-  const formattedItems = items.map((item, index) => {
-    const { date } = item;
+export const findLeaderboardItems = async (client, parent, find) => {
+  const findItems = findItemsInDb(client, 'games', {
+    ...parent,
+    findFields: { won: true },
+    returnFields: {
+      projection: { date: 1, uid: 1, [find]: 1 },
+    },
+    sortBy: { [find]: 1, date: 1 },
+  });
 
-    return {
+  const findPlayers = findAllItems(client, 'users', {
+    findFields: {},
+    returnFields: {
+      projection: { uid: 1, name: 1 },
+    },
+  });
+
+  const [items, players] = await Promise.all([findItems, findPlayers]);
+
+  const formattedItems = items.map((item, index) => {
+    const { date, uid, time } = item;
+    const { name } = players.find(({ uid: id }) => id === uid);
+
+    const defaultItems = {
       ...item,
       rank: index + 1,
       date: formatDate(date),
+      player: name,
     };
-  });
 
-  return formattedItems;
-};
+    if (time) {
+      return {
+        ...defaultItems,
+        time: formatTime(time),
+      };
+    }
 
-export const formatLeaderboardTimes = (items) => {
-  const formattedItems = items.map((item) => {
-    const { time } = item;
-
-    return {
-      ...item,
-      time: formatTime(time),
-    };
+    return defaultItems;
   });
 
   return formattedItems;
