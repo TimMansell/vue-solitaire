@@ -142,6 +142,16 @@ describe('Game State', () => {
     });
   });
 
+  it('refreshing page on leaderboards shows leaderboards', () => {
+    cy.get('[data-test="leaderboards-btn"]').click();
+
+    cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
+
+    cy.reload();
+
+    cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
+  });
+
   it('refreshing page on how to play shows how to play', () => {
     cy.get('[data-test="game-rules-btn"]').click();
 

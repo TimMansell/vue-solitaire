@@ -1,7 +1,7 @@
 <template>
   <table class="table">
     <thead>
-      <tr>
+      <tr data-test="table-header-row">
         <th
           class="table__cell"
           v-for="(heading, headingIndex) in headings"
@@ -28,6 +28,7 @@
     </tbody>
     <tbody v-if="rows.length">
       <tr
+        class="table__row"
         :class="{ 'table__row--highlighted': isHighlighted }"
         v-for="({ row, isHighlighted }, rowIndex) in rows"
         :key="rowIndex"
@@ -86,12 +87,10 @@ export default {
     rows() {
       const { items, toHighlight } = this;
 
-      const formatteditems = items.map((cells) => {
-        return {
-          row: { ...cells },
-          isHighlighted: isRowHighlighted(cells, toHighlight),
-        };
-      });
+      const formatteditems = items.map((cells) => ({
+        row: { ...cells },
+        isHighlighted: isRowHighlighted(cells, toHighlight),
+      }));
 
       return formatteditems;
     },
