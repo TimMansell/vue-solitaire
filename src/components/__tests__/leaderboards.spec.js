@@ -1,6 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import Leaderboards from '@/components/Leaderboards.vue';
 
+const mocks = {
+  $store: { dispatch: jest.fn() },
+};
+
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
 const mockLeaderboardsMoves = [
@@ -26,6 +30,7 @@ const mockComputed = {
 describe('Leaderboards.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(Leaderboards, {
+      mocks,
       computed: {
         ...mockComputed,
       },
