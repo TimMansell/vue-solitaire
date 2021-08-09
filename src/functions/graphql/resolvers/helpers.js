@@ -20,13 +20,10 @@ export const insertIntoDb = async (client, collection, document) => {
   return db.collection(collection).insertOne({ ...document });
 };
 
-export const countItemsInDb = async (
-  client,
-  collection,
-  findFields,
-  returnFields
-) => {
+export const countItemsInDb = async (client, collection, params) => {
   const db = await client();
+
+  const { findFields, returnFields } = params;
 
   return db
     .collection(collection)
@@ -58,6 +55,16 @@ export const findItemsInDb = async (client, collection, params) => {
     .limit(limit)
     .sort(sortBy)
     .toArray();
+};
+
+export const findItemInDb = async (client, collection, params) => {
+  const db = await client();
+
+  const { findFields, returnFields } = params;
+
+  console.log({ findFields, returnFields });
+
+  return db.collection(collection).findOne(findFields, returnFields);
 };
 
 export const findLeaderboardItems = async (client, parent, find) => {
