@@ -4,10 +4,11 @@ import { version } from '../../../package.json';
 
 const actions = {
   async initApp({ dispatch }) {
-    dispatch('initGame');
-
-    dispatch('checkAppVersion', version);
-    await dispatch('initServerUser');
+    await Promise.all([
+      dispatch('initGame'),
+      dispatch('initUser'),
+      dispatch('checkAppVersion', version),
+    ]);
 
     dispatch('getStatsCount');
   },
@@ -44,29 +45,23 @@ const actions = {
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
-  setGameWon({ dispatch, state, rootState }) {
+  setGameWon({ state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
     db.gameWon({ luid, ...game });
-
-    dispatch('setUserHasPlayed');
   },
-  setGameLost({ dispatch, state, rootState }) {
+  setGameLost({ state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
     db.gameLost({ luid, ...game });
-
-    dispatch('setUserHasPlayed');
   },
-  setGameQuit({ dispatch, state, rootState }) {
+  setGameQuit({ state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
     db.gameQuit({ luid, ...game });
-
-    dispatch('setUserHasPlayed');
   },
   setGameInactive({ commit }) {
     const isGamePaused = {

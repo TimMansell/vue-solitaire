@@ -45,7 +45,6 @@ export default {
     ]),
   },
   async created() {
-    this.initLocalUser();
     this.initApp();
 
     // Force cypress to wait until async functions have loaded.
@@ -58,7 +57,7 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(['initLocalUser', 'initApp', 'setBoardAndFoundation']),
+    ...mapActions(['initApp', 'setBoardAndFoundation']),
   },
 };
 </script>
