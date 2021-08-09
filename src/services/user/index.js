@@ -1,13 +1,13 @@
 import {
   getLocalUser,
-  checkUserExistsOnServer,
+  getUser,
   createUserOnServer,
   getUsersGames,
 } from './user';
 
 const user = () => ({
   getLocalUser,
-  checkUserExistsOnServer,
+  getUser,
   createUserOnServer,
   getUsersGames,
 });

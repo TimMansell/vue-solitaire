@@ -3,27 +3,27 @@ import db from '@/services/db';
 export const createUserOnServer = async (luid) => {
   const { error, response } = await db.newUser(luid);
 
-  const {
-    createUser: { uid },
-  } = response;
-
   if (!error) {
-    return uid;
+    const {
+      createUser: { name, exists },
+    } = response;
+
+    return { name, exists };
   }
 
-  return null;
+  return { name: '', exists: false };
 };
 
-export const checkUserExistsOnServer = async (luid) => {
-  const { error, response } = await db.checkUserExists(luid);
-
-  const {
-    findUser: { exists },
-  } = response;
+export const getUser = async (luid) => {
+  const { error, response } = await db.getUser(luid);
 
   if (!error) {
-    return exists;
+    const {
+      user: { name, exists, played },
+    } = response;
+
+    return { name, exists, played };
   }
 
-  return null;
+  return { name: '', exists: false, played: false };
 };

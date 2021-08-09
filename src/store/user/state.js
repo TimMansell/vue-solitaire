@@ -1,8 +1,9 @@
 // Return state as function so we can reset it.
 const state = () => ({
-  luid: null,
-  isUserSavedOnServer: false,
-  hasUserPlayedAGame: false,
+  luid: '',
+  name: '',
+  existsOnServer: false,
+  hasPlayedAGame: false,
   gameHistory: [],
 });
 
