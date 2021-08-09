@@ -8,7 +8,8 @@ export const newUser = async (uid) => {
       mutation: gql`
         mutation CreateAUser($data: UserInput!) {
           createUser(data: $data) {
-            uid
+            name
+            exists
           }
         }
       `,
