@@ -4,13 +4,10 @@ import { version } from '../../../package.json';
 
 const actions = {
   async initApp({ dispatch }) {
-    await Promise.all([
-      dispatch('initGame'),
-      dispatch('initUser'),
-      dispatch('checkAppVersion', version),
-    ]);
+    await Promise.all([dispatch('initGame'), dispatch('initUser')]);
 
     dispatch('getStatsCount');
+    dispatch('checkAppVersion', version);
   },
   restartApp({ dispatch, commit }, isCompleted) {
     if (!isCompleted) {
