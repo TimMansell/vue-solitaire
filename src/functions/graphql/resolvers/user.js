@@ -7,7 +7,7 @@ export const exists = async (parent, __, { client }) => {
     returnFields: { projection: { uid: 1 } },
   };
 
-  const itemCount = countItemsInDb(client, collection, params);
+  const itemCount = await countItemsInDb(client, collection, params);
 
   return itemCount;
 };
@@ -28,7 +28,7 @@ export const history = async (parent, args, context) => {
     sortBy: { date: -1 },
   };
 
-  const items = findItemsInDb(client, collection, params);
+  const items = await findItemsInDb(client, collection, params);
 
   return items;
 };
@@ -64,7 +64,7 @@ export const played = async (parent, args, context) => {
     },
   };
 
-  const itemCount = countItemsInDb(client, collection, params);
+  const itemCount = await countItemsInDb(client, collection, params);
 
   return itemCount;
 };
