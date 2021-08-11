@@ -9,12 +9,13 @@ const actions = {
     dispatch('getStatsCount');
     dispatch('checkAppVersion', version);
   },
-  restartApp({ dispatch, commit }, isCompleted) {
+  async restartApp({ dispatch, commit }, isCompleted) {
     if (!isCompleted) {
-      dispatch('setGameQuit');
+      await dispatch('setGameQuit');
     }
 
     dispatch('restartGame');
+    dispatch('initApp');
 
     commit('RESTART_APP');
   },
@@ -32,33 +33,34 @@ const actions = {
       commit('SET_VERSION_MATCH', versionMatch);
     }
   },
-  setGameState({ commit, dispatch }, hasWon) {
+  setGameState({ dispatch }, hasWon) {
     if (hasWon) {
       dispatch('setGameWon');
     } else {
       dispatch('setGameLost');
     }
-
-    commit('SET_GAME_WON', hasWon);
-    commit('SET_GAME_LOST', !hasWon);
   },
-  setGameWon({ state, rootState }) {
+  async setGameWon({ commit, state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
-    db.gameWon({ luid, ...game });
+    await db.gameWon({ luid, ...game });
+
+    commit('SET_GAME_WON', true);
   },
-  setGameLost({ state, rootState }) {
+  async setGameLost({ commit, state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
-    db.gameLost({ luid, ...game });
+    await db.gameLost({ luid, ...game });
+
+    commit('SET_GAME_LOST', true);
   },
-  setGameQuit({ state, rootState }) {
+  async setGameQuit({ state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
-    db.gameQuit({ luid, ...game });
+    await db.gameQuit({ luid, ...game });
   },
   setGameInactive({ commit }) {
     const isGamePaused = {
