@@ -5,13 +5,13 @@ export const createUserOnServer = async (luid) => {
 
   if (!error) {
     const {
-      createUser: { name, exists },
+      createUser: { name },
     } = response;
 
-    return { name, exists };
+    return { name };
   }
 
-  return { name: '', exists: false };
+  return { name: '' };
 };
 
 export const getUser = async (luid) => {
@@ -21,7 +21,6 @@ export const getUser = async (luid) => {
     const {
       user: { name, exists, played },
     } = response;
-
     return { name, exists, played };
   }
 
