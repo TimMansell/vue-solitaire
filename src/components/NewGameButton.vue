@@ -28,7 +28,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['restartApp', 'initApp', 'toggleNewGame']),
+    ...mapActions(['restartApp', 'toggleNewGame']),
     newGame() {
       const { isCompleted, showConfirmation } = this;
 
@@ -39,7 +39,6 @@ export default {
       }
 
       this.restartApp(isCompleted);
-      this.initApp();
     },
   },
 };
