@@ -62,8 +62,6 @@ export const findItemInDb = async (client, collection, params) => {
 
   const { findFields, returnFields } = params;
 
-  console.log({ findFields, returnFields });
-
   return db.collection(collection).findOne(findFields, returnFields);
 };
 
@@ -88,13 +86,13 @@ export const findLeaderboardItems = async (client, parent, find) => {
 
   const formattedItems = items.map((item, index) => {
     const { date, uid, time } = item;
-    const { name } = players.find(({ uid: id }) => id === uid);
+    const player = players.find(({ uid: id }) => id === uid);
 
     const defaultItems = {
       ...item,
       rank: index + 1,
       date: formatDate(date),
-      player: name,
+      player: player?.name,
     };
 
     if (time) {
