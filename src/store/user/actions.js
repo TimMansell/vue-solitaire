@@ -1,35 +1,31 @@
 import user from '@/services/user';
 
 const actions = {
-  initLocalUser({ commit }) {
-    const luid = user.getLocalUser();
-
-    console.log({ luid });
-
-    commit('SET_USER_ID', luid);
-  },
-  async initServerUser({ dispatch, state }) {
-    const { isUserSavedOnServer, hasUserPlayedAGame } = state;
-
-    if (!isUserSavedOnServer && hasUserPlayedAGame) {
-      await dispatch('checkUserExistsOnServer');
-    }
-  },
-  async checkUserExistsOnServer({ commit, dispatch, state }) {
+  initLocalUser({ commit, state }) {
     const { luid } = state;
-    const { exists } = await user.getUser(luid);
 
-    if (!exists) {
-      await dispatch('createUserOnServer', luid);
+    const uid = luid || user.getLocalUser();
+
+    commit('SET_USER_ID', uid);
+  },
+  async initServerUser({ commit, state }) {
+    const { luid } = state;
+    const { exists, name } = await user.getUser(luid);
+
+    console.log({ exists, name });
+
+    commit('SET_USER_NAME', name);
+    commit('SET_USER_EXISTS', exists);
+  },
+  async createUser({ commit, state }) {
+    const { luid, existsOnServer } = state;
+
+    if (!existsOnServer) {
+      const { name } = await user.createUserOnServer(luid);
+
+      commit('SET_USER_NAME', name);
+      commit('SET_USER_EXISTS', true);
     }
-
-    commit('SET_USER_EXISTS', true);
-  },
-  async createUserOnServer(_, luid) {
-    await user.createUserOnServer(luid);
-  },
-  setUserHasPlayed({ commit }) {
-    commit('SET_USER_HAS_PLAYED', true);
   },
   async getAllGames({ commit, state }, params) {
     const { luid } = state;
