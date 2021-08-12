@@ -2,14 +2,17 @@ import { createPlayerName, insertIntoDb } from './helpers';
 import { createISODate } from '../../../helpers/dates';
 
 export const createUser = async (_, __, { client, variables }) => {
-  const { data } = variables;
+  const {
+    data: { uid },
+  } = variables;
+
   const name = createPlayerName();
 
-  const document = { ...data, name };
+  const document = { uid, name };
 
   await insertIntoDb(client, 'users', document);
 
-  return { ...document };
+  return { name };
 };
 
 export const wonGame = async (_, __, { client, variables }) => {
