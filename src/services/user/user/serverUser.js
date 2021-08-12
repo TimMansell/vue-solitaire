@@ -1,6 +1,6 @@
 import db from '@/services/db';
 
-export const createUserOnServer = async (luid) => {
+export const createUser = async (luid) => {
   const { error, response } = await db.newUser(luid);
 
   if (!error) {

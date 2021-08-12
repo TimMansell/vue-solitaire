@@ -3,7 +3,6 @@ import user from '@/services/user';
 const actions = {
   initLocalUser({ commit, state }) {
     const { luid } = state;
-
     const uid = luid || user.getLocalUser();
 
     commit('SET_USER_ID', uid);
@@ -12,8 +11,6 @@ const actions = {
     const { luid } = state;
     const { exists, name } = await user.getUser(luid);
 
-    console.log({ exists, name });
-
     commit('SET_USER_NAME', name);
     commit('SET_USER_EXISTS', exists);
   },
@@ -21,7 +18,7 @@ const actions = {
     const { luid, existsOnServer } = state;
 
     if (!existsOnServer) {
-      const { name } = await user.createUserOnServer(luid);
+      const { name } = await user.createUser(luid);
 
       commit('SET_USER_NAME', name);
       commit('SET_USER_EXISTS', true);

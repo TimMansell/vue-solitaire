@@ -4,7 +4,7 @@ import {
   createLocalUser,
 } from './localUser';
 
-export { createUserOnServer, getUser } from './serverUser';
+export { createUser, getUser } from './serverUser';
 
 export { getUsersGames } from './history';
 
