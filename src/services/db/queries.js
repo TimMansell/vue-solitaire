@@ -10,7 +10,6 @@ export const getUser = async (uid) => {
           user(uid: $uid) {
             exists
             name
-            played
           }
         }
       `,

@@ -53,25 +53,8 @@ export const name = async (parent, args, context) => {
   return user.name;
 };
 
-export const played = async (parent, args, context) => {
-  const { client } = context;
-  const collection = 'games';
-  const params = {
-    ...args,
-    findFields: parent,
-    returnFields: {
-      projection: { name: 1 },
-    },
-  };
-
-  const itemCount = await countItemsInDb(client, collection, params);
-
-  return itemCount;
-};
-
 export const user = {
   exists,
   history,
   name,
-  played,
 };

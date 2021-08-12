@@ -19,10 +19,11 @@ export const getUser = async (luid) => {
 
   if (!error) {
     const {
-      user: { name, exists, played },
+      user: { name, exists },
     } = response;
-    return { name, exists, played };
+
+    return { name, exists };
   }
 
-  return { name: '', exists: false, played: false };
+  return { name: '', exists: false };
 };
