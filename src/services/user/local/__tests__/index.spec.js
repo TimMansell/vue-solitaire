@@ -1,4 +1,4 @@
-import { getLocalUser } from '../index';
+import { initUser } from '../index';
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
@@ -13,21 +13,21 @@ describe('User', () => {
     localStorage.clear();
   });
 
-  describe('getLocalUser', () => {
+  describe('initUser', () => {
     it('should get user id from localStorage', () => {
       localStorage.setItem('luid', mockUid);
 
-      const luid = getLocalUser();
+      const luid = initUser();
 
-      expect(luid).toEqual(mockUid);
+      expect(luid).toBe(mockUid);
     });
 
     it('should set user id in localStorage', () => {
-      const luid = getLocalUser();
+      const luid = initUser();
       const luidStorage = localStorage.getItem('luid');
 
-      expect(luid).toEqual(mockUid);
-      expect(luidStorage).toEqual(mockUid);
+      expect(luid).toBe(mockUid);
+      expect(luidStorage).toBe(mockUid);
     });
   });
 });
