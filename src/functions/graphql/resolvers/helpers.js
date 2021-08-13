@@ -85,11 +85,13 @@ export const findLeaderboardItems = async (client, parent, find) => {
   const [items, players] = await Promise.all([findItems, findPlayers]);
 
   const formattedItems = items.map((item, index) => {
-    const { date, uid, time } = item;
+    const { uid, ...fields } = item;
+    const { date, time } = fields;
+
     const player = players.find(({ uid: id }) => id === uid);
 
     const defaultItems = {
-      ...item,
+      ...fields,
       rank: index + 1,
       date: formatDate(date),
       player: player?.name,
