@@ -1,13 +1,13 @@
 import user from '@/services/user';
 
 const actions = {
-  initLocalUser({ commit, state }) {
+  initUser({ commit, state }) {
     const { luid } = state;
-    const uid = luid || user.getLocalUser();
+    const uid = luid || user.initUser();
 
     commit('SET_USER_ID', uid);
   },
-  async initServerUser({ commit, state }) {
+  async getUser({ commit, state }) {
     const { luid } = state;
     const { exists, name } = await user.getUser(luid);
 

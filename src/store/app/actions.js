@@ -6,8 +6,8 @@ const actions = {
   async initApp({ dispatch }) {
     await Promise.all([
       dispatch('initGame'),
-      dispatch('initLocalUser'),
-      dispatch('initServerUser'),
+      dispatch('initUser'),
+      dispatch('getUser'),
       dispatch('checkAppVersion', version),
     ]);
 
