@@ -8,16 +8,19 @@ export const createMockCount = (count) => ({
   }),
 });
 
-export const createMockFind = (value) => ({
+export const createMockFind = (value1, value2) => ({
   client: () => ({
     collection: () => ({
       find: () => ({
         skip: () => ({
           limit: () => ({
             sort: () => ({
-              toArray: () => value,
+              toArray: () => value1,
             }),
           }),
+        }),
+        sort: () => ({
+          toArray: () => value2,
         }),
       }),
     }),

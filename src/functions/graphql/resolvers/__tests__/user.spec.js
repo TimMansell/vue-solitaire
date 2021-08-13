@@ -1,5 +1,5 @@
-import { history } from '../user';
-import { createMockFind } from './mockDb';
+import { history, exists } from '../user';
+import { createMockFind, createMockCount } from './mockDb';
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 const mockHistory = [
@@ -13,6 +13,32 @@ const mockHistory = [
 ];
 
 describe('Graphql User Resolvers', () => {
+  describe('exists', () => {
+    it('should return exists = true', async () => {
+      const mockClient = createMockCount(1);
+
+      const mockContext = {
+        ...mockClient,
+      };
+
+      const result = await exists({ uid: mockUid }, '', mockContext);
+
+      expect(result).toEqual(1);
+    });
+
+    it('should return exists = false', async () => {
+      const mockClient = createMockCount(0);
+
+      const mockContext = {
+        ...mockClient,
+      };
+
+      const result = await exists({ uid: mockUid }, '', mockContext);
+
+      expect(result).toEqual(0);
+    });
+  });
+
   describe('history', () => {
     it('should return users game history', async () => {
       const mockClient = createMockFind(mockHistory);

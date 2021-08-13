@@ -18,9 +18,9 @@ describe('Graphql Mutation Resolvers', () => {
         },
       };
 
-      const { uid } = await createUser('', {}, mockContext);
+      const { name } = await createUser('', {}, mockContext);
 
-      expect(uid).toEqual(mockUid);
+      expect(name).toBeDefined();
     });
   });
 
