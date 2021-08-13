@@ -1,5 +1,5 @@
 import {
-  checkUserExists,
+  getUser,
   getStats,
   getStatsCount,
   getAppVersion,
@@ -45,19 +45,23 @@ const stats = {
 };
 
 describe('DB service queries', () => {
-  describe('checkUserExists', () => {
+  describe('getUser', () => {
     it('should return an existing user', async () => {
-      const { response } = await checkUserExists(mockUid);
-      const { findUser } = response;
+      const { response } = await getUser(mockUid);
+      const {
+        user: { exists },
+      } = response;
 
-      expect(findUser).toEqual({ exists: true });
+      expect(exists).toEqual(true);
     });
 
     it('should not return an existing user', async () => {
-      const { response } = await checkUserExists('123');
-      const { findUser } = response;
+      const { response } = await getUser('123');
+      const {
+        user: { exists },
+      } = response;
 
-      expect(findUser).toEqual({ exists: false });
+      expect(exists).toEqual(false);
     });
   });
 
@@ -96,11 +100,11 @@ describe('DB service queries', () => {
         offset: 0,
         limit: 2,
       });
-      const { user } = response;
+      const {
+        user: { history },
+      } = response;
 
-      expect(user).toEqual({
-        history: mockHistory,
-      });
+      expect(history).toEqual(mockHistory);
     });
   });
 

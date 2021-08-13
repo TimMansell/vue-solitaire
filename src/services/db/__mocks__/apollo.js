@@ -27,6 +27,8 @@ const mockLeaderboardsMoves = [
   },
 ];
 
+const mockPlayerName = 'Player Name';
+
 const checkUserExistsOnServer = ({ uid }) => {
   const exists = uid === mockUid;
 
@@ -41,11 +43,14 @@ const query = ({ variables }) => {
   };
   return {
     data: {
-      findUser: { exists: checkUserExistsOnServer(variables) },
       userStats: { ...stats },
       globalStats: { ...stats },
       version: { number: version },
-      user: { history: mockHistory },
+      user: {
+        history: mockHistory,
+        exists: checkUserExistsOnServer(variables),
+        name: mockPlayerName,
+      },
       leaderboards: { moves: mockLeaderboardsMoves },
     },
   };

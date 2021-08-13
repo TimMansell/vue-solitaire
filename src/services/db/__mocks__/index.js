@@ -34,9 +34,13 @@ const mockLeaderboardsMoves = [
   },
 ];
 
-const checkUserExists = (uid) => {
+const mockPlayerName = 'Player Name';
+
+const getUser = (uid) => {
   const exists = uid === mockUid;
-  const response = formatResponse({ data: { findUser: { exists } } });
+  const name = uid === mockUid ? mockPlayerName : '';
+
+  const response = formatResponse({ data: { user: { exists, name } } });
 
   return response;
 };
@@ -46,7 +50,8 @@ const getStatsCount = () =>
 
 const getStats = () => formatResponse({ data: { userStats, globalStats } });
 
-const newUser = () => formatResponse({ data: { createUser: mockUidResult } });
+const newUser = () =>
+  formatResponse({ data: { createUser: { name: mockPlayerName } } });
 
 const gameNew = () => formatResponse({ data: { newGame: mockUidResult } });
 
@@ -75,7 +80,7 @@ const getLeaderboards = () =>
   });
 
 const db = () => ({
-  checkUserExists,
+  getUser,
   getStats,
   getStatsCount,
   newUser,
