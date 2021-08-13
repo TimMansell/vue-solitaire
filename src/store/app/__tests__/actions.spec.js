@@ -1,7 +1,6 @@
 import actions from '../actions';
 
 const {
-  restartApp,
   checkAppVersion,
   setGameState,
   setGameInactive,
@@ -19,12 +18,6 @@ const dispatch = jest.fn();
 jest.mock('@/services/db');
 
 describe('App Store', () => {
-  it('restartApp', () => {
-    restartApp({ dispatch, commit }, false);
-
-    expect(dispatch).toHaveBeenCalledWith('setGameQuit');
-  });
-
   it('checkAppVersion - same version', async () => {
     await checkAppVersion({ commit }, mockVersionNumber);
 
