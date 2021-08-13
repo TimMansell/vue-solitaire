@@ -22,9 +22,12 @@ const mockLeaderboardsMoves = [
   },
 ];
 
+const mockPlayerName = 'Player Name';
+
 const mockComputed = {
   leaderboards: () => mockLeaderboardsMoves,
   luid: () => mockUid,
+  name: () => mockPlayerName,
 };
 
 describe('Leaderboards.vue', () => {
