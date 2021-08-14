@@ -2,7 +2,9 @@ import actions from '../actions';
 
 const {
   checkAppVersion,
+  setNewGame,
   setGameState,
+  setGameResult,
   setGameInactive,
   toggleGamePaused,
   setTimerPaused,
@@ -32,12 +34,28 @@ describe('App Store', () => {
     expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', false);
   });
 
+  it('setNewGame - should run quit game', () => {
+    const isCompleted = false;
+
+    setNewGame({ dispatch }, isCompleted);
+
+    expect(dispatch).toHaveBeenCalledWith('setGameResult', { quit: true });
+  });
+
+  it('setNewGame - show not run quit game', () => {
+    const isCompleted = true;
+
+    setNewGame({ dispatch }, isCompleted);
+
+    expect(dispatch).not.toHaveBeenCalledWith('setGameResult');
+  });
+
   it('setGameState - game won', () => {
     const hasWon = true;
 
     setGameState({ commit, dispatch }, hasWon);
 
-    expect(dispatch).toHaveBeenCalledWith('setGameWon');
+    expect(dispatch).toHaveBeenCalledWith('setGameResult', { won: true });
     expect(commit).toHaveBeenCalledWith('SET_GAME_WON', hasWon);
     expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', !hasWon);
   });
@@ -47,9 +65,17 @@ describe('App Store', () => {
 
     setGameState({ commit, dispatch }, hasWon);
 
-    expect(dispatch).toHaveBeenCalledWith('setGameLost');
+    expect(dispatch).toHaveBeenCalledWith('setGameResult', { lost: true });
     expect(commit).toHaveBeenCalledWith('SET_GAME_WON', hasWon);
     expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', !hasWon);
+  });
+
+  it('setGameResult', async () => {
+    const gameState = { won: true };
+
+    await setGameResult({ dispatch }, gameState);
+
+    expect(dispatch).toHaveBeenCalledWith('getStatsCount');
   });
 
   it('setGameInactive', () => {
