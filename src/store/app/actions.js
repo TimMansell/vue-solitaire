@@ -35,53 +35,43 @@ const actions = {
   },
   setNewGame({ dispatch }, isCompleted) {
     if (!isCompleted) {
-      dispatch('setGameQuit');
+      dispatch('setGameResult', { quit: true });
     }
 
     dispatch('restartApp');
   },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {
-      dispatch('setGameWon');
+      dispatch('setGameResult', { won: true });
     } else {
-      dispatch('setGameLost');
+      dispatch('setGameResult', { lost: true });
     }
 
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
-  async setGameWon({ dispatch, state, rootState }) {
-    const { luid } = rootState.user;
-    const { game } = state;
+  async setGameResult({ dispatch }, gameStatus) {
+    const newGame = dispatch('saveGame', gameStatus);
+    const newUser = dispatch('createUser');
 
-    const newGame = db.gameWon({ luid, ...game });
-    const user = dispatch('createUser');
-
-    await Promise.all([newGame, user]);
+    await Promise.all([newGame, newUser]);
 
     dispatch('getStatsCount');
   },
-  async setGameLost({ dispatch, state, rootState }) {
+  async saveGame({ state, rootState }, gameStatus) {
     const { luid } = rootState.user;
     const { game } = state;
+    const { won, lost } = gameStatus;
 
-    const newGame = db.gameLost({ luid, ...game });
-    const user = dispatch('createUser');
+    if (won) {
+      return db.gameWon({ luid, ...game });
+    }
 
-    await Promise.all([newGame, user]);
+    if (lost) {
+      return db.gameLost({ luid, ...game });
+    }
 
-    dispatch('getStatsCount');
-  },
-  async setGameQuit({ dispatch, state, rootState }) {
-    const { luid } = rootState.user;
-    const { game } = state;
-
-    const newGame = db.gameQuit({ luid, ...game });
-    const user = dispatch('createUser');
-
-    await Promise.all([newGame, user]);
-
-    dispatch('getStatsCount');
+    return db.gameQuit({ luid, ...game });
   },
   setGameInactive({ commit }) {
     const isGamePaused = {
