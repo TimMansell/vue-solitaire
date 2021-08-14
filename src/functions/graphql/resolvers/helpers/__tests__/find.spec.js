@@ -1,5 +1,5 @@
-import { findLeaderboardItems } from '../helpers';
-import { createMockFind } from './mockDb';
+import { findLeaderboardItems } from '../find';
+import { createMockFind } from '../../__mocks__/mockDb';
 
 const mockPlayers = [
   { uid: '7dac9d78-353f-409b-8a7f-2192409c44a2', name: 'Player 1' },
