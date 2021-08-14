@@ -1,5 +1,5 @@
 import { won, lost, completed, players } from '../globalStats';
-import { createMockCount } from './mockDb';
+import { createMockCount } from '../__mocks__/mockDb';
 
 describe('Graphql GlobalStats Resolvers', () => {
   describe('won', () => {

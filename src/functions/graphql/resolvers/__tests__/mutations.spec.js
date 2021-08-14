@@ -1,6 +1,6 @@
 import { createUser, wonGame, lostGame, quitGame } from '../mutations';
 import { parseAndValidDate } from '../../../../helpers/dates';
-import { createMockInsertOne } from './mockDb';
+import { createMockInsertOne } from '../__mocks__/mockDb';
 
 const mockClient = createMockInsertOne({});
 

@@ -1,5 +1,5 @@
 import { history, exists } from '../user';
-import { createMockFind, createMockCount } from './mockDb';
+import { createMockFind, createMockCount } from '../__mocks__/mockDb';
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 const mockHistory = [
