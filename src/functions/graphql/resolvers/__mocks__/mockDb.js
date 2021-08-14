@@ -1,36 +1,51 @@
-export const createMockCount = (count) => ({
+export const wrapClient = (content) => ({
+  client: () => ({
+    collection: () => ({
+      ...content,
+    }),
+  }),
+});
+
+export const wrapClientFind = (content) => ({
   client: () => ({
     collection: () => ({
       find: () => ({
-        count: () => count,
+        ...content,
       }),
     }),
   }),
 });
 
-export const createMockFind = (value1, value2) => ({
-  client: () => ({
-    collection: () => ({
-      find: () => ({
-        skip: () => ({
-          limit: () => ({
-            sort: () => ({
-              toArray: () => value1,
-            }),
-          }),
-        }),
-        sort: () => ({
-          toArray: () => value2,
-        }),
+export const createMockFind = (content) => ({
+  find: () => ({
+    ...content,
+  }),
+});
+
+export const createMockCount = (count) => ({
+  count: () => count,
+});
+
+export const createMockSort = (value) => ({
+  sort: () => ({
+    toArray: () => value,
+  }),
+});
+
+export const createMockFiltered = (value) => ({
+  skip: () => ({
+    limit: () => ({
+      sort: () => ({
+        toArray: () => value,
       }),
     }),
   }),
+});
+
+export const createMockFindOne = (value) => ({
+  findOne: () => value,
 });
 
 export const createMockInsertOne = (value) => ({
-  client: () => ({
-    collection: () => ({
-      insertOne: () => value,
-    }),
-  }),
+  insertOne: () => value,
 });

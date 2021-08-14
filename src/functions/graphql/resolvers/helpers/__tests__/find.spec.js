@@ -1,5 +1,10 @@
 import { findLeaderboardItems } from '../find';
-import { createMockFind } from '../../__mocks__/mockDb';
+import {
+  wrapClient,
+  createMockFind,
+  createMockSort,
+  createMockFiltered,
+} from '../../__mocks__/mockDb';
 
 const mockPlayers = [
   { uid: '7dac9d78-353f-409b-8a7f-2192409c44a2', name: 'Player 1' },
@@ -38,7 +43,12 @@ const mockLeaderboardsTimes = [
 
 describe('Graphql Resolver Helpers', () => {
   it('should return formatted leaderboard moves', async () => {
-    const { client } = createMockFind(mockLeaderboardsMoves, mockPlayers);
+    const { client } = wrapClient(
+      createMockFind({
+        ...createMockFiltered(mockLeaderboardsMoves),
+        ...createMockSort(mockPlayers),
+      })
+    );
 
     const result = await findLeaderboardItems(client, '', 'moves');
 
@@ -59,7 +69,12 @@ describe('Graphql Resolver Helpers', () => {
   });
 
   it('should return formatted leaderboard times', async () => {
-    const { client } = createMockFind(mockLeaderboardsTimes, mockPlayers);
+    const { client } = wrapClient(
+      createMockFind({
+        ...createMockFiltered(mockLeaderboardsTimes),
+        ...createMockSort(mockPlayers),
+      })
+    );
 
     const result = await findLeaderboardItems(client, '', 'time');
 
