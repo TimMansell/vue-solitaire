@@ -1,9 +1,10 @@
-import { history, exists } from '../user';
+import { history, exists, name } from '../user';
 import {
   wrapClient,
   createMockFind,
   createMockFiltered,
   createMockCount,
+  createMockFindOne,
 } from '../__mocks__/mockDb';
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
@@ -16,6 +17,7 @@ const mockHistory = [
     time: 12,
   },
 ];
+const mockPlayerName = 'Player Name';
 
 describe('Graphql User Resolvers', () => {
   describe('exists', () => {
@@ -55,6 +57,18 @@ describe('Graphql User Resolvers', () => {
       const result = await history({ uid: mockUid }, '', mockContext);
 
       expect(result).toEqual(mockHistory);
+    });
+  });
+
+  describe('name', () => {
+    it('should return users name', async () => {
+      const mockContext = wrapClient({
+        ...createMockFindOne({ name: mockPlayerName }),
+      });
+
+      const result = await name({ uid: mockUid }, '', mockContext);
+
+      expect(result).toBe(mockPlayerName);
     });
   });
 });

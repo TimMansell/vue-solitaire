@@ -49,7 +49,9 @@ const query = ({ variables }) => {
       user: {
         history: mockHistory,
         exists: checkUserExistsOnServer(variables),
-        name: mockPlayerName,
+        name: checkUserExistsOnServer(variables)
+          ? mockPlayerName
+          : 'New Player Name',
       },
       leaderboards: { moves: mockLeaderboardsMoves },
     },

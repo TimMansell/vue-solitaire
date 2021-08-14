@@ -49,19 +49,21 @@ describe('DB service queries', () => {
     it('should return an existing user', async () => {
       const { response } = await getUser(mockUid);
       const {
-        user: { exists },
+        user: { exists, name },
       } = response;
 
-      expect(exists).toEqual(true);
+      expect(exists).toBe(true);
+      expect(name).toBe('Player Name');
     });
 
     it('should not return an existing user', async () => {
       const { response } = await getUser('123');
       const {
-        user: { exists },
+        user: { exists, name },
       } = response;
 
-      expect(exists).toEqual(false);
+      expect(exists).toBe(false);
+      expect(name).toBe('New Player Name');
     });
   });
 
