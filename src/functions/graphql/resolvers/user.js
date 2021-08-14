@@ -12,10 +12,6 @@ export const exists = async (parent, __, { client }) => {
   return itemCount;
 };
 
-export const findUser = {
-  exists,
-};
-
 export const history = async (parent, args, context) => {
   const { client } = context;
   const collection = 'games';
@@ -46,11 +42,7 @@ export const name = async (parent, args, context) => {
 
   const user = await findItemInDb(client, collection, params);
 
-  if (!user) {
-    return '';
-  }
-
-  return user.name;
+  return user?.name;
 };
 
 export const user = {
