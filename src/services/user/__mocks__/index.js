@@ -14,24 +14,18 @@ const initUser = () => localStorage.getItem('luid');
 
 const getUser = (uid) => {
   const exists = uid === mockUid;
+  const name = exists ? mockPlayerName : '';
 
-  if (exists) {
-    return { name: mockPlayerName, exists };
-  }
-
-  return { name: '', exists };
+  return { name, exists };
 };
 
 const getUsersGames = () => mockHistory;
 
 const createUser = (uid) => {
   const exists = uid === mockUid;
+  const name = exists ? mockPlayerName : 'New Player Name';
 
-  if (exists) {
-    return { name: mockPlayerName };
-  }
-
-  return { name: 'New Player Name' };
+  return { name };
 };
 
 const user = () => ({
