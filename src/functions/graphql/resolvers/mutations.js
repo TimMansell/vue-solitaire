@@ -1,4 +1,4 @@
-import { createPlayerName, insertIntoDb } from './helpers';
+import { createPlayerName, insertIntoDb, findAllItems } from './helpers';
 import { createISODate } from '../../../helpers/dates';
 
 export const createUser = async (_, __, { client, variables }) => {
@@ -6,7 +6,14 @@ export const createUser = async (_, __, { client, variables }) => {
     data: { uid },
   } = variables;
 
-  const name = createPlayerName();
+  const playerNamesInUse = await findAllItems(client, 'users', {
+    findFields: {},
+    returnFields: {
+      projection: { name: 1 },
+    },
+  });
+
+  const name = createPlayerName(playerNamesInUse);
 
   const document = { uid, name };
 

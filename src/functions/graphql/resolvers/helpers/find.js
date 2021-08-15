@@ -1,20 +1,8 @@
-import {
-  uniqueNamesGenerator,
-  adjectives,
-  colors,
-  animals,
-} from 'unique-names-generator';
 import { formatDate } from '../../../../helpers/dates';
 import { formatTime } from '../../../../helpers/times';
 import { findItemsInDb, findAllItems } from './db';
 
-export const createPlayerName = () =>
-  uniqueNamesGenerator({
-    dictionaries: [adjectives, colors, animals],
-    separator: '',
-    style: 'capital',
-  });
-
+// eslint-disable-next-line import/prefer-default-export
 export const findLeaderboardItems = async (client, parent, find) => {
   const findItems = findItemsInDb(client, 'games', {
     ...parent,
