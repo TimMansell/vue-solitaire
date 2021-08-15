@@ -3,7 +3,7 @@ import db from '@/services/db';
 import { version } from '../../../package.json';
 
 const actions = {
-  async initApp({ dispatch }) {
+  async initApp({ dispatch }, hasAppRestarted = false) {
     await Promise.all([
       dispatch('initGame'),
       dispatch('initUser'),
@@ -11,13 +11,17 @@ const actions = {
       dispatch('checkAppVersion', version),
     ]);
 
-    dispatch('getStatsCount');
+    if (!hasAppRestarted) {
+      dispatch('getStatsCount');
+    }
   },
   restartApp({ dispatch, commit }) {
+    const hasAppRestarted = true;
+
     commit('RESTART_APP');
 
     dispatch('restartGame');
-    dispatch('initApp');
+    dispatch('initApp', hasAppRestarted);
   },
   async checkAppVersion({ commit }, localVersion) {
     const {
