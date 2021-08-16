@@ -3,22 +3,25 @@ import db from '@/services/db';
 import { version } from '../../../package.json';
 
 const actions = {
-  async initApp({ dispatch }) {
-    dispatch('initGame');
+  async initApp({ dispatch }, hasAppRestarted = false) {
+    await Promise.all([
+      dispatch('initGame'),
+      dispatch('initUser'),
+      dispatch('getUser'),
+      dispatch('checkAppVersion', version),
+    ]);
 
-    dispatch('checkAppVersion', version);
-    await dispatch('initServerUser');
-
-    dispatch('getStatsCount');
-  },
-  restartApp({ dispatch, commit }, isCompleted) {
-    if (!isCompleted) {
-      dispatch('setGameQuit');
+    if (!hasAppRestarted) {
+      dispatch('getStatsCount');
     }
-
-    dispatch('restartGame');
+  },
+  restartApp({ dispatch, commit }) {
+    const hasAppRestarted = true;
 
     commit('RESTART_APP');
+
+    dispatch('restartGame');
+    dispatch('initApp', hasAppRestarted);
   },
   async checkAppVersion({ commit }, localVersion) {
     const {
@@ -34,39 +37,45 @@ const actions = {
       commit('SET_VERSION_MATCH', versionMatch);
     }
   },
+  setNewGame({ dispatch }, isCompleted) {
+    if (!isCompleted) {
+      dispatch('setGameResult', { quit: true });
+    }
+
+    dispatch('restartApp');
+  },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {
-      dispatch('setGameWon');
+      dispatch('setGameResult', { won: true });
     } else {
-      dispatch('setGameLost');
+      dispatch('setGameResult', { lost: true });
     }
 
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
-  setGameWon({ dispatch, state, rootState }) {
-    const { luid } = rootState.user;
-    const { game } = state;
+  async setGameResult({ dispatch }, gameStatus) {
+    const newGame = dispatch('saveGame', gameStatus);
+    const newUser = dispatch('createUser');
 
-    db.gameWon({ luid, ...game });
+    await Promise.all([newGame, newUser]);
 
-    dispatch('setUserHasPlayed');
+    dispatch('getStatsCount');
   },
-  setGameLost({ dispatch, state, rootState }) {
+  async saveGame({ state, rootState }, gameStatus) {
     const { luid } = rootState.user;
     const { game } = state;
+    const { won, lost } = gameStatus;
 
-    db.gameLost({ luid, ...game });
+    if (won) {
+      return db.gameWon({ luid, ...game });
+    }
 
-    dispatch('setUserHasPlayed');
-  },
-  setGameQuit({ dispatch, state, rootState }) {
-    const { luid } = rootState.user;
-    const { game } = state;
+    if (lost) {
+      return db.gameLost({ luid, ...game });
+    }
 
-    db.gameQuit({ luid, ...game });
-
-    dispatch('setUserHasPlayed');
+    return db.gameQuit({ luid, ...game });
   },
   setGameInactive({ commit }) {
     const isGamePaused = {

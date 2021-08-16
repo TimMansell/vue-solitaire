@@ -2,13 +2,14 @@ import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { formatError, formatResponse, formatData } from './helpers';
 
-export const checkUserExists = async (uid) => {
+export const getUser = async (uid) => {
   try {
     const response = await apollo.query({
       query: gql`
-        query FindUser($uid: String!) {
-          findUser(uid: $uid) {
+        query User($uid: String!) {
+          user(uid: $uid) {
             exists
+            name
           }
         }
       `,
@@ -130,13 +131,13 @@ export const getLeaderboards = async ({ limit, showBest }) => {
     Moves: `moves {
       rank
       date
-      uid
+      player
       moves
     }`,
     Times: `times {
       rank
       date
-      uid
+      player
       time
     }`,
   };

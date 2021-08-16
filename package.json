@@ -49,6 +49,7 @@
     "numeral": "2.0.6",
     "sanitize.css": "11.0.1",
     "throttle-debounce": "3.0.1",
+    "unique-names-generator": "^4.6.0",
     "uuid": "8.3.2",
     "vue": "2.6.12",
     "vue-scrollto": "2.20.0",

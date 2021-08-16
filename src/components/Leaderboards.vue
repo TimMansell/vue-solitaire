@@ -1,6 +1,8 @@
 <template>
   <div data-test="leaderboards">
-    <p data-test="leaderboard-name">Your player name is: {{ luid }}</p>
+    <p v-if="name" data-test="leaderboard-name">
+      Your player name is: {{ name }}
+    </p>
 
     <div ref="scrollTo">
       <Filters>
@@ -28,7 +30,7 @@
       :headings="['Rank', 'Date', 'Player', `${showBest}`]"
       :items="leaderboards"
       :placeholder-rows="limit"
-      :to-highlight="{ key: 'uid', value: luid }"
+      :to-highlight="{ key: 'player', value: name }"
     />
   </div>
 </template>
@@ -65,7 +67,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['leaderboards', 'luid']),
+    ...mapGetters(['leaderboards', 'name']),
   },
   mounted() {
     this.displayGames();

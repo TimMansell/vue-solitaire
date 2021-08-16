@@ -2,7 +2,9 @@
 
 exports[`Leaderboards.vue matches snapshot 1`] = `
 <div data-test="leaderboards">
-  <p data-test="leaderboard-name">Your player name is: f5c6a829-f0da-4dfc-81a0-e6419f0163c7</p>
+  <p data-test="leaderboard-name">
+    Your player name is: Player Name
+  </p>
   <div>
     <filters-stub>
       <select-stub label="Best" value="Moves" items="Moves,Times" data-test="leaderboard-set-best"></select-stub>

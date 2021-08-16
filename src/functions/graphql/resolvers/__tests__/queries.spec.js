@@ -1,7 +1,6 @@
 import {
   userStats,
   globalStats,
-  findUser,
   version,
   user,
   leaderboards,
@@ -21,12 +20,6 @@ describe('Graphql Query Resolvers', () => {
     const result = globalStats();
 
     expect(result).toEqual({});
-  });
-
-  it('findUser', () => {
-    const result = findUser('', { uid: mockUid });
-
-    expect(result).toEqual({ uid: mockUid });
   });
 
   it('version', () => {

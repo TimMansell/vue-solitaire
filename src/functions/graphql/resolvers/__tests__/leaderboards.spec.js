@@ -1,5 +1,15 @@
 import { moves, times } from '../leaderboards';
-import { createMockFind } from './mockDb';
+import {
+  wrapClient,
+  createMockFind,
+  createMockSort,
+  createMockFiltered,
+} from '../__mocks__/mockDb';
+
+const mockPlayers = [
+  { uid: '7dac9d78-353f-409b-8a7f-2192409c44a2', name: 'Player 1' },
+  { uid: '2cbf658a-3102-4e9d-b749-bac853efed0d', name: 'Player 2' },
+];
 
 const mockLeaderboardsMoves = [
   {
@@ -34,11 +44,12 @@ const mockLeaderboardsTimes = [
 describe('Graphql Leaderboards Resolvers', () => {
   describe('moves', () => {
     it('should return top moves', async () => {
-      const mockClient = createMockFind(mockLeaderboardsMoves);
-
-      const mockContext = {
-        ...mockClient,
-      };
+      const mockContext = wrapClient(
+        createMockFind({
+          ...createMockFiltered(mockLeaderboardsMoves),
+          ...createMockSort(mockPlayers),
+        })
+      );
 
       const result = await moves('', '', mockContext);
 
@@ -46,13 +57,13 @@ describe('Graphql Leaderboards Resolvers', () => {
         {
           rank: 1,
           date: '29-04-2021',
-          uid: '7dac9d78-353f-409b-8a7f-2192409c44a2',
+          player: 'Player 1',
           moves: 2,
         },
         {
           rank: 2,
           date: '29-04-2021',
-          uid: '2cbf658a-3102-4e9d-b749-bac853efed0d',
+          player: 'Player 2',
           moves: 2,
         },
       ]);
@@ -61,11 +72,12 @@ describe('Graphql Leaderboards Resolvers', () => {
 
   describe('times', () => {
     it('should return top times', async () => {
-      const mockClient = createMockFind(mockLeaderboardsTimes);
-
-      const mockContext = {
-        ...mockClient,
-      };
+      const mockContext = wrapClient(
+        createMockFind({
+          ...createMockFiltered(mockLeaderboardsTimes),
+          ...createMockSort(mockPlayers),
+        })
+      );
 
       const result = await times('', '', mockContext);
 
@@ -73,13 +85,13 @@ describe('Graphql Leaderboards Resolvers', () => {
         {
           rank: 1,
           date: '29-04-2021',
-          uid: '7dac9d78-353f-409b-8a7f-2192409c44a2',
+          player: 'Player 1',
           time: '0:00:20',
         },
         {
           rank: 2,
           date: '29-04-2021',
-          uid: '2cbf658a-3102-4e9d-b749-bac853efed0d',
+          player: 'Player 2',
           time: '0:03:20',
         },
       ]);

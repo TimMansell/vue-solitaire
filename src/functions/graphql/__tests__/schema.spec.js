@@ -17,30 +17,6 @@ const schemaWithMocks = addMocksToSchema({ schema, mocks });
 
 describe('Graphql Schema', () => {
   describe('Queries', () => {
-    it('findUser', async () => {
-      const query = `
-        query {
-          findUser(uid: "1") {
-            uid
-            exists
-          }
-        }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          findUser: {
-            uid: 'String',
-            exists: true,
-          },
-        },
-      });
-    });
-
     it('userStats', async () => {
       const query = `
         query {
@@ -173,7 +149,7 @@ describe('Graphql Schema', () => {
             moves {
               rank
               date
-              uid
+              player
               moves
             }
           }
@@ -191,13 +167,13 @@ describe('Graphql Schema', () => {
               {
                 rank: 1,
                 date: 'String',
-                uid: 'String',
+                player: 'String',
                 moves: 1,
               },
               {
                 rank: 1,
                 date: 'String',
-                uid: 'String',
+                player: 'String',
                 moves: 1,
               },
             ],
@@ -213,7 +189,7 @@ describe('Graphql Schema', () => {
             times {
               rank
               date
-              uid
+              player
               time
             }
           }
@@ -231,13 +207,13 @@ describe('Graphql Schema', () => {
               {
                 rank: 1,
                 date: 'String',
-                uid: 'String',
+                player: 'String',
                 time: 'String',
               },
               {
                 rank: 1,
                 date: 'String',
-                uid: 'String',
+                player: 'String',
                 time: 'String',
               },
             ],
@@ -252,7 +228,7 @@ describe('Graphql Schema', () => {
       const query = `
       mutation {
         createUser(data: {uid: "1"}) {
-          uid
+          name
         }
       }
       `;
@@ -264,7 +240,7 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           createUser: {
-            uid: 'String',
+            name: 'String',
           },
         },
       });

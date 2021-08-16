@@ -111,39 +111,6 @@ Cypress.Commands.add(
   }
 );
 
-Cypress.Commands.add('checkPlayerCount', () => {
-  const query = `query {
-    globalStats {
-      players
-    }
-  }`;
-
-  cy.intercept({
-    method: 'POST',
-    url: '.netlify/functions/graphql',
-  }).as('apiCheck');
-
-  cy.request({
-    method: 'POST',
-    url: '/.netlify/functions/graphql',
-    body: { query },
-    failOnStatusCode: false,
-  }).should(({ status, body }) => {
-    const { players } = body.data.globalStats;
-    const playerCount = numeral(players).format('0,0');
-
-    expect(status).to.equal(200);
-
-    cy.visit('/');
-
-    cy.wait('@apiCheck');
-
-    cy.get('[data-test="player-count"]')
-      .text()
-      .should('equal', playerCount);
-  });
-});
-
 Cypress.Commands.add('newGame', ({ wait }) => {
   cy.get('[data-test="new-game-btn"]').click();
 
