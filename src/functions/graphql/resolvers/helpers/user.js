@@ -5,21 +5,23 @@ import {
   animals,
 } from 'unique-names-generator';
 
-// eslint-disable-next-line import/prefer-default-export
-export const createPlayerName = (playerNamesInUse) => {
-  const name = uniqueNamesGenerator({
+export const getPlayerName = () =>
+  uniqueNamesGenerator({
     dictionaries: [adjectives, colors, animals],
     separator: '',
     style: 'capital',
   });
 
-  const doesPlayerNameExist = playerNamesInUse.find(
-    ({ name: playerName }) => playerName === name
+export const createPlayerName = (namesInUse, createName = getPlayerName) => {
+  const playerName = createName();
+
+  const doesPlayerNameExist = namesInUse.find(
+    ({ name }) => playerName === name
   );
 
   if (doesPlayerNameExist) {
-    return createPlayerName(playerNamesInUse);
+    return createPlayerName(namesInUse, getPlayerName);
   }
 
-  return name;
+  return playerName;
 };
