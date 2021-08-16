@@ -6,16 +6,6 @@ export const wrapClient = (content) => ({
   }),
 });
 
-export const wrapClientFind = (content) => ({
-  client: () => ({
-    collection: () => ({
-      find: () => ({
-        ...content,
-      }),
-    }),
-  }),
-});
-
 export const createMockFind = (content) => ({
   find: () => ({
     ...content,
