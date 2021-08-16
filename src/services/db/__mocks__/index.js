@@ -19,9 +19,28 @@ const mockHistory = [
   },
 ];
 
-const checkUserExists = (uid) => {
+const mockLeaderboardsMoves = [
+  {
+    rank: 1,
+    date: '2021-04-29T12:25:47.907Z',
+    uid: '7dac9d78-353f-409b-8a7f-2192409c44a2',
+    moves: 2,
+  },
+  {
+    rank: 2,
+    date: '2021-04-29T12:26:20.825Z',
+    uid: '2cbf658a-3102-4e9d-b749-bac853efed0d',
+    moves: 2,
+  },
+];
+
+const mockPlayerName = 'Player Name';
+
+const getUser = (uid) => {
   const exists = uid === mockUid;
-  const response = formatResponse({ data: { findUser: { exists } } });
+  const name = uid === mockUid ? mockPlayerName : '';
+
+  const response = formatResponse({ data: { user: { exists, name } } });
 
   return response;
 };
@@ -31,7 +50,8 @@ const getStatsCount = () =>
 
 const getStats = () => formatResponse({ data: { userStats, globalStats } });
 
-const newUser = () => formatResponse({ data: { createUser: mockUidResult } });
+const newUser = () =>
+  formatResponse({ data: { createUser: { name: mockPlayerName } } });
 
 const gameNew = () => formatResponse({ data: { newGame: mockUidResult } });
 
@@ -52,8 +72,15 @@ const getUsersGames = () =>
     },
   });
 
+const getLeaderboards = () =>
+  formatResponse({
+    data: {
+      leaderboards: mockLeaderboardsMoves,
+    },
+  });
+
 const db = () => ({
-  checkUserExists,
+  getUser,
   getStats,
   getStatsCount,
   newUser,
@@ -63,6 +90,7 @@ const db = () => ({
   gameQuit,
   getAppVersion,
   getUsersGames,
+  getLeaderboards,
 });
 
 export default db();

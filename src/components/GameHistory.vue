@@ -1,24 +1,22 @@
 <template>
-  <div class="game-history" data-test="game-history">
+  <div data-test="game-history">
     <p data-test="game-history-total-games" :data-games="userGameCount">
       You have played a total of {{ userGameCount | formatNumber }} games
     </p>
 
-    <div
-      ref="scrollTo"
-      class="game-history__controls"
-      data-test="game-history-controls"
-    >
-      <div data-test="game-history-pages">
-        Page: {{ page | formatNumber }} / {{ totalPages | formatNumber }}
-      </div>
+    <div ref="scrollTo">
+      <Filters>
+        <div data-test="game-history-pages">
+          Page: {{ page | formatNumber }} / {{ totalPages | formatNumber }}
+        </div>
 
-      <Select
-        v-model="limit"
-        label="Games per page"
-        :items="['25', '50', '100', '500']"
-        @select="displayLimit"
-      />
+        <Select
+          v-model="limit"
+          label="Games"
+          :items="['25', '50', '100', '500']"
+          @select="displayLimit"
+        />
+      </Filters>
     </div>
 
     <p data-test="game-history-showing-games">
@@ -30,6 +28,7 @@
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
       :items="games"
       :placeholder-rows="pageRows"
+      :to-highlight="{ key: 'outcome', value: 'Won' }"
     />
 
     <Pagination
@@ -44,6 +43,7 @@
 import { format, parseISO } from 'date-fns';
 import numeral from 'numeral';
 import { mapGetters, mapActions } from 'vuex';
+import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
@@ -65,6 +65,7 @@ export const gameOutcome = ({ won, lost }) => {
 export default {
   name: 'GameHistory',
   components: {
+    Filters,
     Select,
     ResponsiveTable,
     Pagination,
@@ -83,19 +84,23 @@ export default {
     },
   },
   watch: {
-    limit() {
+    async limit() {
       this.offset = 0;
       this.page = 1;
 
-      this.displayGames({ autoScroll: true });
+      await this.displayGames();
+
+      this.scrollTo();
     },
-    page(newPage) {
+    async page(newPage) {
       const { limit } = this;
       const offset = (newPage - 1) * limit;
 
       this.offset = offset;
 
-      this.displayGames({ autoScroll: true });
+      await this.displayGames();
+
+      this.scrollTo();
     },
     gameHistory() {
       const { gameHistory, offset, userGameCount } = this;
@@ -155,7 +160,7 @@ export default {
     },
   },
   mounted() {
-    this.displayGames({ autoScroll: false });
+    this.displayGames();
   },
   methods: {
     ...mapActions(['getAllGames']),
@@ -165,33 +170,16 @@ export default {
     displayLimit(limit) {
       this.limit = parseInt(limit, 10);
     },
-    async displayGames({ autoScroll }) {
-      const {
-        offset,
-        limit,
-        $refs: { scrollTo },
-      } = this;
+    async displayGames() {
+      const { offset, limit } = this;
 
       this.games = [];
 
       await this.getAllGames({ offset, limit });
-
-      if (autoScroll) {
-        this.$emit('scrollTo', scrollTo);
-      }
+    },
+    scrollTo() {
+      this.$emit('scrollTo', this.$refs.scrollTo);
     },
   },
 };
 </script>
-
-<style scoped lang="scss">
-.game-history {
-  &__controls {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--pd-sm);
-    margin-bottom: var(--mg-md);
-    border: 1px solid var(--bdr-secondary);
-  }
-}
-</style>

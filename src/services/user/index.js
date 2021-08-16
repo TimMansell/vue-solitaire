@@ -1,14 +1,11 @@
-import {
-  getLocalUser,
-  checkUserExistsOnServer,
-  createUserOnServer,
-  getUsersGames,
-} from './user';
+import { initUser } from './local';
+import { getUser, createUser } from './server';
+import { getUsersGames } from './history';
 
 const user = () => ({
-  getLocalUser,
-  checkUserExistsOnServer,
-  createUserOnServer,
+  initUser,
+  getUser,
+  createUser,
   getUsersGames,
 });
 

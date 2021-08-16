@@ -1,14 +1,18 @@
 import { won, lost, completed, players } from '../globalStats';
-import { createMockCount } from './mockDb';
+import {
+  wrapClient,
+  createMockFind,
+  createMockCount,
+} from '../__mocks__/mockDb';
 
 describe('Graphql GlobalStats Resolvers', () => {
   describe('won', () => {
     it('should correct count', async () => {
-      const mockClient = createMockCount(100);
-
-      const mockContext = {
-        ...mockClient,
-      };
+      const mockContext = wrapClient(
+        createMockFind({
+          ...createMockCount(100),
+        })
+      );
 
       const result = await won('', '', mockContext);
 
@@ -18,11 +22,11 @@ describe('Graphql GlobalStats Resolvers', () => {
 
   describe('lost', () => {
     it('should correct count', async () => {
-      const mockClient = createMockCount(333);
-
-      const mockContext = {
-        ...mockClient,
-      };
+      const mockContext = wrapClient(
+        createMockFind({
+          ...createMockCount(333),
+        })
+      );
 
       const result = await lost('', '', mockContext);
 
@@ -32,11 +36,11 @@ describe('Graphql GlobalStats Resolvers', () => {
 
   describe('completed', () => {
     it('should correct count', async () => {
-      const mockClient = createMockCount(400);
-
-      const mockContext = {
-        ...mockClient,
-      };
+      const mockContext = wrapClient(
+        createMockFind({
+          ...createMockCount(400),
+        })
+      );
 
       const result = await completed('', '', mockContext);
 
@@ -46,11 +50,11 @@ describe('Graphql GlobalStats Resolvers', () => {
 
   describe('players', () => {
     it('should correct count', async () => {
-      const mockClient = createMockCount(500);
-
-      const mockContext = {
-        ...mockClient,
-      };
+      const mockContext = wrapClient(
+        createMockFind({
+          ...createMockCount(500),
+        })
+      );
 
       const result = await players('', '', mockContext);
 

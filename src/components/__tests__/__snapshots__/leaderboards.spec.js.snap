@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Leaderboards.vue matches snapshot 1`] = `
+<div data-test="leaderboards">
+  <p data-test="leaderboard-name">
+    Your player name is: Player Name
+  </p>
+  <div>
+    <filters-stub>
+      <select-stub label="Best" value="Moves" items="Moves,Times" data-test="leaderboard-set-best"></select-stub>
+      <select-stub label="Top" value="25" items="25,50,100,500" data-test="leaderboard-set-top"></select-stub>
+    </filters-stub>
+  </div>
+  <p data-test="leaderboards-heading">Top 25 Best Moves</p>
+  <responsivetable-stub headings="Rank,Date,Player,Moves" items="[object Object],[object Object]" placeholderrows="25" tohighlight="[object Object]"></responsivetable-stub>
+</div>
+`;

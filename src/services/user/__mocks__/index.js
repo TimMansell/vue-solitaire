@@ -8,23 +8,30 @@ const mockHistory = [
     time: 12,
   },
 ];
+const mockPlayerName = 'Player Name';
 
-const getLocalUser = () => localStorage.getItem('luid');
+const initUser = () => localStorage.getItem('luid');
 
-const checkUserExistsOnServer = (uid) => {
+const getUser = (uid) => {
   const exists = uid === mockUid;
+  const name = exists ? mockPlayerName : '';
 
-  return exists;
+  return { name, exists };
 };
 
 const getUsersGames = () => mockHistory;
 
-const createUserOnServer = () => true;
+const createUser = (uid) => {
+  const exists = uid === mockUid;
+  const name = exists ? mockPlayerName : 'New Player Name';
+
+  return { name };
+};
 
 const user = () => ({
-  getLocalUser,
-  checkUserExistsOnServer,
-  createUserOnServer,
+  initUser,
+  getUser,
+  createUser,
   getUsersGames,
 });
 

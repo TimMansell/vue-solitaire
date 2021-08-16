@@ -5,9 +5,10 @@
       <PauseGameButton is-stacked />
       <HistoryButton is-stacked />
       <ViewStatsButton is-stacked />
-      <ShowRulesButton is-stacked />
+      <LeaderboardsButton is-stacked />
     </div>
     <div>
+      <ShowRulesButton is-stacked />
       <PortfolioButton is-stacked />
       <GithubButton is-stacked v-if="showGithubButton" />
     </div>
@@ -26,6 +27,7 @@ import PauseGameButton from './PauseGameButton.vue';
 import ShowRulesButton from './ShowRulesButton.vue';
 import HistoryButton from './HistoryButton.vue';
 import ViewStatsButton from './ViewStatsButton.vue';
+import LeaderboardsButton from './LeaderboardsButton.vue';
 import GithubButton from './GithubButton.vue';
 import PortfolioButton from './PortfolioButton.vue';
 
@@ -37,6 +39,7 @@ export default {
     ShowRulesButton,
     HistoryButton,
     ViewStatsButton,
+    LeaderboardsButton,
     GithubButton,
     PortfolioButton,
   },
@@ -84,7 +87,11 @@ export default {
   &__actions {
     display: flex;
     flex: 1;
-    margin-right: var(--mg-sm);
+    margin-right: var(--mg-xs);
+
+    @media (min-width: $bp-sm) {
+      margin-right: var(--mg-sm);
+    }
   }
 }
 </style>

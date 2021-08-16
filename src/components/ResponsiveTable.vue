@@ -11,6 +11,7 @@
       :headings="headings"
       :items="items"
       :placeholder-rows="placeholderRows"
+      :to-highlight="toHighlight"
     />
   </div>
 </template>
@@ -42,6 +43,10 @@ export default {
     placeholderRows: {
       type: Number,
       default: 1,
+    },
+    toHighlight: {
+      type: Object,
+      default: () => {},
     },
   },
   destroyed() {

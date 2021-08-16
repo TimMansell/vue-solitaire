@@ -3,11 +3,11 @@ import { gql } from 'apollo-server-lambda';
 // eslint-disable-next-line import/prefer-default-export
 export const typeDefs = gql`
   type Query {
-    findUser(uid: String!): FindUser!
     userStats(uid: String!): UserStats!
     globalStats: GlobalStats!
     version: Version!
     user(uid: String!): User!
+    leaderboards(offset: Int!, limit: Int!): Leaderboards!
   }
   type Mutation {
     createUser(data: UserInput!): User!
@@ -16,16 +16,12 @@ export const typeDefs = gql`
     quitGame(data: GameInput!): Game!
   }
   type User {
-    uid: String
+    name: String
     exists: Boolean
     history(offset: Int!, limit: Int!): [Game]!
   }
   input UserInput {
     uid: String!
-  }
-  type FindUser {
-    uid: String
-    exists: Boolean
   }
   type Game {
     uid: String
@@ -49,6 +45,18 @@ export const typeDefs = gql`
     lost: Int
     completed: Int
     players: Int
+  }
+  type LeaderboardGame {
+    rank: Int
+    player: String
+    date: String
+    won: Boolean
+    moves: Int
+    time: String
+  }
+  type Leaderboards {
+    moves: [LeaderboardGame]!
+    times: [LeaderboardGame]!
   }
   type UserStats {
     won: Int

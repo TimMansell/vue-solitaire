@@ -2,6 +2,6 @@
 
 exports[`HistoryButton.vue matches snapshot 1`] = `
 <button-stub type="default" size="md" data-test="history-btn">
-  History
+  Games
 </button-stub>
 `;

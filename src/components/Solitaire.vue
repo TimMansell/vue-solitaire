@@ -4,6 +4,7 @@
     <GameState />
     <RulesOverlay v-if="showRules" />
     <StatsOverlay v-if="showStats" />
+    <LeaderboardsOverlay v-if="showLeaderboards" />
     <NewGameOverlay v-if="showNewGame" />
     <HistoryOverlay v-if="showHistory" />
     <CheckVersion />
@@ -16,6 +17,7 @@ import Board from '@/components/Board.vue';
 import GameState from '@/components/GameState.vue';
 import RulesOverlay from '@/components/RulesOverlay.vue';
 import StatsOverlay from '@/components/StatsOverlay.vue';
+import LeaderboardsOverlay from '@/components/LeaderboardsOverlay.vue';
 import NewGameOverlay from '@/components/NewGameOverlay.vue';
 import HistoryOverlay from '@/components/HistoryOverlay.vue';
 import CheckVersion from '@/components/CheckVersion.vue';
@@ -28,15 +30,21 @@ export default {
     GameState,
     RulesOverlay,
     StatsOverlay,
+    LeaderboardsOverlay,
     NewGameOverlay,
     HistoryOverlay,
     CheckVersion,
   },
   computed: {
-    ...mapGetters(['showStats', 'showRules', 'showNewGame', 'showHistory']),
+    ...mapGetters([
+      'showStats',
+      'showRules',
+      'showNewGame',
+      'showHistory',
+      'showLeaderboards',
+    ]),
   },
   async created() {
-    this.initLocalUser();
     this.initApp();
 
     // Force cypress to wait until async functions have loaded.
@@ -49,7 +57,7 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(['initLocalUser', 'initApp', 'setBoardAndFoundation']),
+    ...mapActions(['initApp', 'setBoardAndFoundation']),
   },
 };
 </script>

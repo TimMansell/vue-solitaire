@@ -1,4 +1,5 @@
 import getters from '../getters';
+import defaultState from '../state';
 
 const {
   globalStats,
@@ -6,24 +7,13 @@ const {
   playerCount,
   userGameCount,
   globalGameCount,
+  leaderboards,
   showStats,
+  showLeaderboards,
 } = getters;
 
 const state = {
-  globalStats: {
-    won: 1,
-    lost: 1,
-    completed: 2,
-  },
-  userStats: {
-    won: 1,
-    lost: 1,
-    completed: 2,
-  },
-  playerCount: 1,
-  userGameCount: 2,
-  globalGameCount: 3,
-  showStats: true,
+  ...defaultState(),
 };
 
 describe('Stats Store', () => {
@@ -57,9 +47,21 @@ describe('Stats Store', () => {
     expect(result).toEqual(state.globalGameCount);
   });
 
+  it('leaderboards', () => {
+    const result = leaderboards(state);
+
+    expect(result).toEqual(state.leaderboards);
+  });
+
   it('showStats', () => {
     const result = showStats(state);
 
     expect(result).toEqual(state.showStats);
+  });
+
+  it('showLeaderboards', () => {
+    const result = showLeaderboards(state);
+
+    expect(result).toEqual(state.showLeaderboards);
   });
 });

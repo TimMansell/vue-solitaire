@@ -17,30 +17,6 @@ const schemaWithMocks = addMocksToSchema({ schema, mocks });
 
 describe('Graphql Schema', () => {
   describe('Queries', () => {
-    it('findUser', async () => {
-      const query = `
-        query {
-          findUser(uid: "1") {
-            uid
-            exists
-          }
-        }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          findUser: {
-            uid: 'String',
-            exists: true,
-          },
-        },
-      });
-    });
-
     it('userStats', async () => {
       const query = `
         query {
@@ -165,6 +141,86 @@ describe('Graphql Schema', () => {
         },
       });
     });
+
+    it('leaderboards - moves', async () => {
+      const query = `
+        query {
+          leaderboards(offset: 0, limit: 10) {
+            moves {
+              rank
+              date
+              player
+              moves
+            }
+          }
+        }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
+
+      expect(result).toEqual({
+        data: {
+          leaderboards: {
+            moves: [
+              {
+                rank: 1,
+                date: 'String',
+                player: 'String',
+                moves: 1,
+              },
+              {
+                rank: 1,
+                date: 'String',
+                player: 'String',
+                moves: 1,
+              },
+            ],
+          },
+        },
+      });
+    });
+
+    it('leaderboards - times', async () => {
+      const query = `
+        query {
+          leaderboards(offset: 0, limit: 10) {
+            times {
+              rank
+              date
+              player
+              time
+            }
+          }
+        }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
+
+      expect(result).toEqual({
+        data: {
+          leaderboards: {
+            times: [
+              {
+                rank: 1,
+                date: 'String',
+                player: 'String',
+                time: 'String',
+              },
+              {
+                rank: 1,
+                date: 'String',
+                player: 'String',
+                time: 'String',
+              },
+            ],
+          },
+        },
+      });
+    });
   });
 
   describe('Mutations', () => {
@@ -172,7 +228,7 @@ describe('Graphql Schema', () => {
       const query = `
       mutation {
         createUser(data: {uid: "1"}) {
-          uid
+          name
         }
       }
       `;
@@ -184,7 +240,7 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           createUser: {
-            uid: 'String',
+            name: 'String',
           },
         },
       });

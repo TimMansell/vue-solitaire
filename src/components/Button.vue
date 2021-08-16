@@ -53,7 +53,7 @@ export default {
   background: var(--bg-primary);
   border: 1px solid var(--bdr-secondary);
   border-radius: var(--bdr-radius-md);
-  padding: var(--pd-sm);
+  padding: var(--pd-sm) var(--pd-xs);
   color: var(--text-primary);
   transition: all 0.2s;
   font-size: var(--font-size-sm);
@@ -61,6 +61,10 @@ export default {
   font-family: var(--font-family-primary);
   line-height: 1;
   text-shadow: 0 1px var(--col-primary-alt-3);
+
+  @media (min-width: $bp-xs) {
+    padding: var(--pd-sm);
+  }
 
   @media (min-width: $bp-md) {
     font-size: var(--font-size);

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const fetchLocalUser = () => localStorage.getItem('luid');
+export const getLocalUser = () => localStorage.getItem('luid');
 
 export const createLocalUser = () => {
   const luid = uuidv4();
@@ -9,5 +9,3 @@ export const createLocalUser = () => {
 
   return luid;
 };
-
-export const checkLocalUserExists = () => fetchLocalUser() !== null;

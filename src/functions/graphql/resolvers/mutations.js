@@ -1,13 +1,25 @@
-import { createISODate, insertIntoDb } from './helpers';
+import { createPlayerName, insertIntoDb, findAllItems } from './helpers';
+import { createISODate } from '../../../helpers/dates';
 
 export const createUser = async (_, __, { client, variables }) => {
-  const { data } = variables;
+  const {
+    data: { uid },
+  } = variables;
 
-  const document = { ...data };
+  const playerNamesInUse = await findAllItems(client, 'users', {
+    findFields: {},
+    returnFields: {
+      projection: { name: 1 },
+    },
+  });
+
+  const name = createPlayerName(playerNamesInUse);
+
+  const document = { uid, name };
 
   await insertIntoDb(client, 'users', document);
 
-  return { ...document };
+  return { name };
 };
 
 export const wonGame = async (_, __, { client, variables }) => {

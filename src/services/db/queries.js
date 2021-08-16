@@ -1,14 +1,15 @@
 import { gql } from 'apollo-boost';
 import apollo from './apollo';
-import { formatError, formatResponse } from './helpers';
+import { formatError, formatResponse, formatData } from './helpers';
 
-export const checkUserExists = async (uid) => {
+export const getUser = async (uid) => {
   try {
     const response = await apollo.query({
       query: gql`
-        query FindUser($uid: String!) {
-          findUser(uid: $uid) {
+        query User($uid: String!) {
+          user(uid: $uid) {
             exists
+            name
           }
         }
       `,
@@ -120,6 +121,45 @@ export const getUsersGames = async (uid, { offset, limit }) => {
     });
 
     return formatResponse(response);
+  } catch (error) {
+    return formatError();
+  }
+};
+
+export const getLeaderboards = async ({ limit, showBest }) => {
+  const QUERIES = {
+    Moves: `moves {
+      rank
+      date
+      player
+      moves
+    }`,
+    Times: `times {
+      rank
+      date
+      player
+      time
+    }`,
+  };
+
+  const query = QUERIES[showBest];
+
+  try {
+    const response = await apollo.query({
+      query: gql`
+        query Leaderboards($offset: Int!, $limit: Int!) {
+          leaderboards(offset: $offset, limit: $limit) {
+            ${query}
+          }
+        }
+      `,
+      variables: { limit, offset: 0 },
+      fetchPolicy: 'no-cache',
+    });
+
+    const data = formatData(response);
+
+    return formatResponse({ data });
   } catch (error) {
     return formatError();
   }

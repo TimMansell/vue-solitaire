@@ -16,18 +16,6 @@ describe('User', () => {
     });
   });
 
-  describe('Server User on Initial Page Load', () => {
-    it('it does not create a new server user with a new user', () => {
-      cy.checkPlayerCount();
-    });
-
-    it('it does not create a new server user with an existing user', () => {
-      localStorage.setItem('luid', mockUid);
-
-      cy.checkPlayerCount();
-    });
-  });
-
   describe('New User', () => {
     beforeEach(() => {
       cy.visit('/');

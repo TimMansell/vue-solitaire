@@ -1,6 +1,6 @@
-import { createISODate, parseAndValidDate } from '../helpers';
+import { createISODate, parseAndValidDate, formatDate } from '../dates';
 
-describe('Graphql Helpers', () => {
+describe('Date Helpers', () => {
   it('should be a valid date', () => {
     const date = createISODate();
 
@@ -11,5 +11,11 @@ describe('Graphql Helpers', () => {
     const date = '2012-a';
 
     expect(parseAndValidDate(date)).toEqual(false);
+  });
+
+  it('should correctly format date', () => {
+    const result = formatDate('2021-04-29T12:25:47.907Z');
+
+    expect(result).toEqual('29-04-2021');
   });
 });
