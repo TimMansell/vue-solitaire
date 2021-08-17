@@ -1,5 +1,6 @@
 import { formatDate } from '../../../../helpers/dates';
 import { formatTime, formatTimeFromDate } from '../../../../helpers/times';
+import { formatNumber } from '../../../../helpers/numbers';
 import { findItemsInDb, findAllItems, countItemsInDb } from './db';
 
 export const findLeaderboardItems = async (client, parent, find) => {
@@ -69,7 +70,7 @@ export const findHistoryItems = async (client, collection, params) => {
 
   const formattedItems = games.map(
     ({ date, won, lost, time, moves }, index) => ({
-      number: gamesPlayed - offset - index,
+      number: formatNumber(gamesPlayed - offset - index),
       date: formatDate(date),
       time: formatTimeFromDate(date),
       outcome: gameOutcome({ won, lost }),
