@@ -4,11 +4,11 @@ import db from '@/services/db';
 export const getUsersGames = async (luid, params) => {
   const { error, response } = await db.getUsersGames(luid, params);
 
-  const {
-    user: { history },
-  } = response;
-
   if (!error) {
+    const {
+      user: { history },
+    } = response;
+
     return history;
   }
 

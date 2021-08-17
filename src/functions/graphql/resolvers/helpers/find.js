@@ -1,8 +1,7 @@
 import { formatDate } from '../../../../helpers/dates';
-import { formatTime } from '../../../../helpers/times';
-import { findItemsInDb, findAllItems } from './db';
+import { formatTime, formatTimeFromDate } from '../../../../helpers/times';
+import { findItemsInDb, findAllItems, countItemsInDb } from './db';
 
-// eslint-disable-next-line import/prefer-default-export
 export const findLeaderboardItems = async (client, parent, find) => {
   const findItems = findItemsInDb(client, 'games', {
     ...parent,
@@ -44,6 +43,40 @@ export const findLeaderboardItems = async (client, parent, find) => {
 
     return defaultItems;
   });
+
+  return formattedItems;
+};
+
+export const findHistoryItems = async (client, collection, params) => {
+  const { offset } = params;
+
+  const findGames = findItemsInDb(client, collection, params);
+  const findGamesPlayed = countItemsInDb(client, collection, params);
+
+  const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
+
+  const gameOutcome = ({ won, lost }) => {
+    if (won) {
+      return 'Won';
+    }
+
+    if (lost) {
+      return 'Lost';
+    }
+
+    return 'Gave Up';
+  };
+
+  const formattedItems = games.map(
+    ({ date, won, lost, time, moves }, index) => ({
+      number: gamesPlayed - offset - index,
+      date: formatDate(date),
+      time: formatTimeFromDate(date),
+      outcome: gameOutcome({ won, lost }),
+      moves,
+      duration: formatTime(time),
+    })
+  );
 
   return formattedItems;
 };

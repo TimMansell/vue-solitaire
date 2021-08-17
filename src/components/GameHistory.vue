@@ -26,7 +26,7 @@
 
     <ResponsiveTable
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
-      :items="games"
+      :items="gameHistory"
       :placeholder-rows="pageRows"
       :to-highlight="{ key: 'outcome', value: 'Won' }"
     />
@@ -40,27 +40,12 @@
 </template>
 
 <script>
-import { format, parseISO } from 'date-fns';
-import numeral from 'numeral';
 import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
-
-export const calcNumber = (value) => numeral(value).format('0,0');
-
-export const gameOutcome = ({ won, lost }) => {
-  if (won) {
-    return 'Won';
-  }
-
-  if (lost) {
-    return 'Lost';
-  }
-
-  return 'Gave Up';
-};
+import { formatNumber } from '@/helpers/numbers';
 
 export default {
   name: 'GameHistory',
@@ -75,12 +60,11 @@ export default {
       page: 1,
       offset: 0,
       limit: 25,
-      games: [],
     };
   },
   filters: {
     formatNumber(value) {
-      return calcNumber(value);
+      return formatNumber(value);
     },
   },
   watch: {
@@ -101,22 +85,6 @@ export default {
       await this.displayGames();
 
       this.scrollTo();
-    },
-    gameHistory() {
-      const { gameHistory, offset, userGameCount } = this;
-
-      const formattedGames = gameHistory.map(
-        ({ won, lost, date, moves, time }, index) => ({
-          number: calcNumber(userGameCount - offset - index),
-          date: format(parseISO(date), 'dd-MM-yyyy'),
-          timePlayed: format(parseISO(date), 'HH:mm:ss'),
-          outcome: gameOutcome({ won, lost }),
-          moves,
-          time: numeral(time).format('00:00:00'),
-        })
-      );
-
-      this.games = formattedGames;
     },
   },
   computed: {
@@ -172,8 +140,6 @@ export default {
     },
     async displayGames() {
       const { offset, limit } = this;
-
-      this.games = [];
 
       await this.getAllGames({ offset, limit });
     },
