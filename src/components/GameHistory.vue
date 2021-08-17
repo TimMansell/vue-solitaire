@@ -58,7 +58,6 @@ export default {
   data() {
     return {
       page: 1,
-      offset: 0,
       limit: 25,
     };
   },
@@ -69,19 +68,13 @@ export default {
   },
   watch: {
     async limit() {
-      this.offset = 0;
       this.page = 1;
 
       await this.displayGames();
 
       this.scrollTo();
     },
-    async page(newPage) {
-      const { limit } = this;
-      const offset = (newPage - 1) * limit;
-
-      this.offset = offset;
-
+    async page() {
       await this.displayGames();
 
       this.scrollTo();
@@ -89,6 +82,11 @@ export default {
   },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
+    offset() {
+      const { page, limit } = this;
+
+      return (page - 1) * limit;
+    },
     totalPages() {
       const { limit, userGameCount } = this;
 
