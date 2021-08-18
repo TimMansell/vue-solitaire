@@ -1,4 +1,7 @@
+import tzMock from 'timezone-mock';
 import { createISODate, parseAndValidDate, formatDate } from '../dates';
+
+tzMock.register('UTC');
 
 describe('Date Helpers', () => {
   it('should be a valid date', () => {
