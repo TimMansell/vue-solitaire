@@ -66,20 +66,6 @@ export default {
       return formatNumber(value);
     },
   },
-  watch: {
-    async limit() {
-      this.page = 1;
-
-      await this.displayGames();
-
-      this.scrollTo();
-    },
-    async page() {
-      await this.displayGames();
-
-      this.scrollTo();
-    },
-  },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
     offset() {
@@ -136,14 +122,21 @@ export default {
     ...mapActions(['getAllGames']),
     displayPage(page) {
       this.page = page;
+
+      this.displayGames();
     },
     displayLimit(limit) {
+      this.page = 1;
       this.limit = parseInt(limit, 10);
+
+      this.displayGames();
     },
     async displayGames() {
       const { offset, limit } = this;
 
       await this.getAllGames({ offset, limit });
+
+      this.scrollTo();
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);
