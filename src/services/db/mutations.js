@@ -37,7 +37,7 @@ export const gameWon = async ({ luid: uid, moves, time }) => {
       mutation: gql`
         mutation WonAGame($data: GameInput!) {
           wonGame(data: $data) {
-            uid
+            outcome
           }
         }
       `,
@@ -64,7 +64,7 @@ export const gameLost = async ({ luid: uid, moves, time }) => {
       mutation: gql`
         mutation LostAGame($data: GameInput!) {
           lostGame(data: $data) {
-            uid
+            outcome
           }
         }
       `,
@@ -91,7 +91,7 @@ export const gameQuit = async ({ luid: uid, moves, time }) => {
       mutation: gql`
         mutation CompletedAGame($data: GameInput!) {
           quitGame(data: $data) {
-            uid
+            outcome
           }
         }
       `,

@@ -11,9 +11,9 @@ export const typeDefs = gql`
   }
   type Mutation {
     createUser(data: UserInput!): User!
-    wonGame(data: GameInput!): Game!
-    lostGame(data: GameInput!): Game!
-    quitGame(data: GameInput!): Game!
+    wonGame(data: GameInput!): GameState!
+    lostGame(data: GameInput!): GameState!
+    quitGame(data: GameInput!): GameState!
   }
   type User {
     name: String
@@ -24,13 +24,15 @@ export const typeDefs = gql`
     uid: String!
   }
   type Game {
-    uid: String
+    number: Int
     date: String
-    won: Boolean
-    lost: Boolean
-    completed: Boolean
+    time: String
+    outcome: String
     moves: Int
-    time: Int
+    duration: String
+  }
+  type GameState {
+    outcome: String
   }
   input GameInput {
     uid: String!
@@ -52,7 +54,7 @@ export const typeDefs = gql`
     date: String
     won: Boolean
     moves: Int
-    time: String
+    duration: String
   }
   type Leaderboards {
     moves: [LeaderboardGame]!

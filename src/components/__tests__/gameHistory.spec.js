@@ -1,45 +1,48 @@
 import { shallowMount } from '@vue/test-utils';
-import GameHistory, {
-  calcNumber,
-  gameOutcome,
-} from '@/components/GameHistory.vue';
+import GameHistory from '@/components/GameHistory.vue';
+
+const mockHistory = [
+  {
+    date: '20-05-2021',
+    time: '23:34:49',
+    duration: '0:00:12',
+    moves: '1',
+    number: '1',
+    outcome: 'Gave Up',
+  },
+  {
+    date: '19-05-2021',
+    time: '23:34:49',
+    duration: '0:00:12',
+    moves: '2',
+    number: '2',
+    outcome: 'Won',
+  },
+  {
+    date: '19-05-2021',
+    time: '23:34:49',
+    duration: '0:00:12',
+    moves: '2',
+    number: '3',
+    outcome: 'Lost',
+  },
+  {
+    date: '19-05-2021',
+    time: '23:34:49',
+    duration: '0:00:12',
+    moves: '2',
+    number: '4',
+    outcome: 'Won',
+  },
+];
 
 const mocks = {
   $store: { dispatch: jest.fn() },
 };
 
 const mockComputed = {
-  gameHistory: () => [
-    {
-      date: '2021-05-20T02:24:30.233Z',
-      won: false,
-      lost: false,
-      moves: 0,
-      time: 0,
-    },
-    {
-      date: '2021-05-20T02:24:14.157Z',
-      won: false,
-      lost: false,
-      moves: 0,
-      time: 0,
-    },
-    {
-      date: '2021-05-20T02:24:08.397Z',
-      won: false,
-      lost: false,
-      moves: 0,
-      time: 0,
-    },
-    {
-      date: '2021-05-14T12:16:17.268Z',
-      won: true,
-      lost: false,
-      moves: 2,
-      time: 0,
-    },
-  ],
-  userGameCount: () => 4,
+  gameHistory: () => mockHistory,
+  userGameCount: () => mockHistory.length,
 };
 
 describe('GameHistory.vue', () => {
@@ -52,30 +55,6 @@ describe('GameHistory.vue', () => {
     });
 
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('should format number correctly', () => {
-    const result = calcNumber(1000);
-
-    expect(result).toBe('1,000');
-  });
-
-  it('should return Won in gameOutcome', () => {
-    const result = gameOutcome({ won: true, lost: false });
-
-    expect(result).toBe('Won');
-  });
-
-  it('should return Lost in gameOutcome', () => {
-    const result = gameOutcome({ won: false, lost: true });
-
-    expect(result).toBe('Lost');
-  });
-
-  it('should return Gave Up in gameOutcome', () => {
-    const result = gameOutcome({ won: false, lost: false });
-
-    expect(result).toBe('Gave Up');
   });
 
   it('should show correct completed games message', () => {
@@ -121,7 +100,25 @@ describe('GameHistory.vue', () => {
         .find('[data-test="game-history-showing-games"]')
         .text()
         .replace(/\s+/g, ' ')
-    ).toContain('Showing games 4 to 2');
+    ).toContain(`Showing games ${mockHistory.length} to 2`);
+  });
+
+  it('should show correct showing games message if on last page', async () => {
+    const wrapper = shallowMount(GameHistory, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    await wrapper.setData({ limit: mockHistory.length });
+
+    expect(
+      wrapper
+        .find('[data-test="game-history-showing-games"]')
+        .text()
+        .replace(/\s+/g, ' ')
+    ).toContain(`Showing games ${mockHistory.length} to 1`);
   });
 
   it('should show correct placeholder rows', async () => {
@@ -135,6 +132,19 @@ describe('GameHistory.vue', () => {
     await wrapper.setData({ limit: 2 });
 
     expect(wrapper.vm.pageRows).toBe(2);
+  });
+
+  it('should show correct placeholder rows if rows are the same as limit', async () => {
+    const wrapper = shallowMount(GameHistory, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    await wrapper.setData({ limit: mockHistory.length });
+
+    expect(wrapper.vm.pageRows).toBe(mockHistory.length);
   });
 
   it('should show correct placeholder rows for last page', async () => {

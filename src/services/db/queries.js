@@ -107,11 +107,12 @@ export const getUsersGames = async (uid, { offset, limit }) => {
         query User($uid: String!, $offset: Int!, $limit: Int!) {
           user(uid: $uid) {
             history(offset: $offset, limit: $limit) {
+              number
               date
-              won
-              lost
-              moves
               time
+              outcome
+              moves
+              duration
             }
           }
         }
@@ -138,7 +139,7 @@ export const getLeaderboards = async ({ limit, showBest }) => {
       rank
       date
       player
-      time
+      duration
     }`,
   };
 

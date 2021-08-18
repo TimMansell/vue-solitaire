@@ -1,5 +1,4 @@
 import { createUser, wonGame, lostGame, quitGame } from '../mutations';
-import { parseAndValidDate } from '../../../../helpers/dates';
 import {
   wrapClient,
   createMockFind,
@@ -63,48 +62,21 @@ describe('Graphql Mutation Resolvers', () => {
     });
 
     it('wonGame', async () => {
-      const { completed, date, lost, won, moves, time } = await wonGame(
-        '',
-        '',
-        mockContext
-      );
+      const { outcome } = await wonGame('', '', mockContext);
 
-      expect(completed).toEqual(true);
-      expect(parseAndValidDate(date)).toEqual(true);
-      expect(lost).toEqual(false);
-      expect(won).toEqual(true);
-      expect(moves).toEqual(50);
-      expect(time).toEqual(15);
+      expect(outcome).toBe('Won');
     });
 
     it('lostGame', async () => {
-      const { completed, date, lost, won, moves, time } = await lostGame(
-        '',
-        '',
-        mockContext
-      );
+      const { outcome } = await lostGame('', '', mockContext);
 
-      expect(completed).toEqual(true);
-      expect(parseAndValidDate(date)).toEqual(true);
-      expect(lost).toEqual(true);
-      expect(won).toEqual(false);
-      expect(moves).toEqual(50);
-      expect(time).toEqual(15);
+      expect(outcome).toBe('Lost');
     });
 
     it('quitGame', async () => {
-      const { completed, date, lost, won, moves, time } = await quitGame(
-        '',
-        '',
-        mockContext
-      );
+      const { outcome } = await quitGame('', '', mockContext);
 
-      expect(completed).toEqual(true);
-      expect(parseAndValidDate(date)).toEqual(true);
-      expect(lost).toEqual(false);
-      expect(won).toEqual(false);
-      expect(moves).toEqual(50);
-      expect(time).toEqual(15);
+      expect(outcome).toBe('Gave Up');
     });
   });
 });

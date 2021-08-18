@@ -1,4 +1,4 @@
-import { findItemsInDb, countItemsInDb, findItemInDb } from './helpers';
+import { countItemsInDb, findItemInDb, findHistoryItems } from './helpers';
 
 export const exists = async (parent, __, { client }) => {
   const collection = 'users';
@@ -24,7 +24,7 @@ export const history = async (parent, args, context) => {
     sortBy: { date: -1 },
   };
 
-  const items = await findItemsInDb(client, collection, params);
+  const items = await findHistoryItems(client, collection, params);
 
   return items;
 };

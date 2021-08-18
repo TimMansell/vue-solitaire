@@ -1,10 +1,8 @@
-import { formatDate } from '../../../../helpers/dates';
-import { formatTime } from '../../../../helpers/times';
-import { findItemsInDb, findAllItems } from './db';
+import { formatLeaderboardGames, formatHistoryGames } from './find/find';
+import { findItemsInDb, findAllItems, countItemsInDb } from './db';
 
-// eslint-disable-next-line import/prefer-default-export
 export const findLeaderboardItems = async (client, parent, find) => {
-  const findItems = findItemsInDb(client, 'games', {
+  const findGames = findItemsInDb(client, 'games', {
     ...parent,
     findFields: { won: true },
     returnFields: {
@@ -20,30 +18,22 @@ export const findLeaderboardItems = async (client, parent, find) => {
     },
   });
 
-  const [items, players] = await Promise.all([findItems, findPlayers]);
+  const [games, players] = await Promise.all([findGames, findPlayers]);
 
-  const formattedItems = items.map((item, index) => {
-    const { uid, ...fields } = item;
-    const { date, time } = fields;
+  const formattedGames = formatLeaderboardGames(games, players);
 
-    const player = players.find(({ uid: id }) => id === uid);
+  return formattedGames;
+};
 
-    const defaultItems = {
-      ...fields,
-      rank: index + 1,
-      date: formatDate(date),
-      player: player?.name,
-    };
+export const findHistoryItems = async (client, collection, params) => {
+  const { offset } = params;
 
-    if (time) {
-      return {
-        ...defaultItems,
-        time: formatTime(time),
-      };
-    }
+  const findGames = findItemsInDb(client, collection, params);
+  const findGamesPlayed = countItemsInDb(client, collection, params);
 
-    return defaultItems;
-  });
+  const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
 
-  return formattedItems;
+  const formattedGames = formatHistoryGames(games, offset, gamesPlayed);
+
+  return formattedGames;
 };

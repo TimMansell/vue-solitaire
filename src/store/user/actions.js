@@ -26,6 +26,9 @@ const actions = {
   },
   async getAllGames({ commit, state }, params) {
     const { luid } = state;
+
+    commit('SET_USER_GAMES', []);
+
     const userHistory = await user.getUsersGames(luid, params);
 
     commit('SET_USER_GAMES', userHistory);

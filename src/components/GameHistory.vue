@@ -26,7 +26,7 @@
 
     <ResponsiveTable
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
-      :items="games"
+      :items="gameHistory"
       :placeholder-rows="pageRows"
       :to-highlight="{ key: 'outcome', value: 'Won' }"
     />
@@ -40,27 +40,12 @@
 </template>
 
 <script>
-import { format, parseISO } from 'date-fns';
-import numeral from 'numeral';
 import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
-
-export const calcNumber = (value) => numeral(value).format('0,0');
-
-export const gameOutcome = ({ won, lost }) => {
-  if (won) {
-    return 'Won';
-  }
-
-  if (lost) {
-    return 'Lost';
-  }
-
-  return 'Gave Up';
-};
+import { formatNumber } from '@/helpers/numbers';
 
 export default {
   name: 'GameHistory',
@@ -73,54 +58,21 @@ export default {
   data() {
     return {
       page: 1,
-      offset: 0,
       limit: 25,
-      games: [],
     };
   },
   filters: {
     formatNumber(value) {
-      return calcNumber(value);
-    },
-  },
-  watch: {
-    async limit() {
-      this.offset = 0;
-      this.page = 1;
-
-      await this.displayGames();
-
-      this.scrollTo();
-    },
-    async page(newPage) {
-      const { limit } = this;
-      const offset = (newPage - 1) * limit;
-
-      this.offset = offset;
-
-      await this.displayGames();
-
-      this.scrollTo();
-    },
-    gameHistory() {
-      const { gameHistory, offset, userGameCount } = this;
-
-      const formattedGames = gameHistory.map(
-        ({ won, lost, date, moves, time }, index) => ({
-          number: calcNumber(userGameCount - offset - index),
-          date: format(parseISO(date), 'dd-MM-yyyy'),
-          timePlayed: format(parseISO(date), 'HH:mm:ss'),
-          outcome: gameOutcome({ won, lost }),
-          moves,
-          time: numeral(time).format('00:00:00'),
-        })
-      );
-
-      this.games = formattedGames;
+      return formatNumber(value);
     },
   },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
+    offset() {
+      const { page, limit } = this;
+
+      return (page - 1) * limit;
+    },
     totalPages() {
       const { limit, userGameCount } = this;
 
@@ -143,20 +95,24 @@ export default {
       return showingTo;
     },
     pageRows() {
-      const { limit, totalPages, page, pageGamesCount } = this;
+      const { limit, totalPages, page, lastPageRows } = this;
 
       if (page === totalPages) {
-        return pageGamesCount;
+        return lastPageRows;
       }
 
       return limit;
     },
-    pageGamesCount() {
+    lastPageRows() {
       const { limit, userGameCount } = this;
 
-      const pageGamesCount = userGameCount % limit;
+      const lastPageRows = userGameCount % limit;
 
-      return pageGamesCount;
+      if (lastPageRows === 0) {
+        return limit;
+      }
+
+      return lastPageRows;
     },
   },
   mounted() {
@@ -164,16 +120,23 @@ export default {
   },
   methods: {
     ...mapActions(['getAllGames']),
-    displayPage(page) {
+    async displayPage(page) {
       this.page = page;
+
+      await this.displayGames();
+
+      this.scrollTo();
     },
-    displayLimit(limit) {
+    async displayLimit(limit) {
+      this.page = 1;
       this.limit = parseInt(limit, 10);
+
+      await this.displayGames();
+
+      this.scrollTo();
     },
     async displayGames() {
       const { offset, limit } = this;
-
-      this.games = [];
 
       await this.getAllGames({ offset, limit });
     },
