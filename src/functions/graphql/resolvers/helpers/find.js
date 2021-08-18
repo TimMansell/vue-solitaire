@@ -39,7 +39,7 @@ export const findLeaderboardItems = async (client, parent, find) => {
     if (time) {
       return {
         ...defaultItems,
-        time: formatTime(time),
+        duration: formatTime(time),
       };
     }
 

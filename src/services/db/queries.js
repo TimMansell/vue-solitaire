@@ -139,7 +139,7 @@ export const getLeaderboards = async ({ limit, showBest }) => {
       rank
       date
       player
-      time
+      duration
     }`,
   };
 

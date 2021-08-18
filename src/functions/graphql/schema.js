@@ -54,7 +54,7 @@ export const typeDefs = gql`
     date: String
     won: Boolean
     moves: Int
-    time: String
+    duration: String
   }
   type Leaderboards {
     moves: [LeaderboardGame]!
