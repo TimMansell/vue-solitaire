@@ -8,15 +8,73 @@ import {
 } from '../__mocks__/mockDb';
 
 const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-const mockHistory = [
+
+const mockHistoryApi = [
   {
     date: '2021-05-20T23:34:49.564Z',
     won: false,
     lost: false,
-    moves: 0,
+    moves: 1,
+    time: 12,
+  },
+  {
+    date: '2021-05-19T23:34:49.564Z',
+    won: true,
+    lost: false,
+    moves: 2,
+    time: 12,
+  },
+  {
+    date: '2021-05-19T23:34:49.564Z',
+    won: false,
+    lost: true,
+    moves: 2,
+    time: 12,
+  },
+  {
+    date: '2021-05-19T23:34:49.564Z',
+    won: true,
+    lost: false,
+    moves: 2,
     time: 12,
   },
 ];
+
+const mockHistory = [
+  {
+    date: '21-05-2021',
+    time: '09:34:49',
+    duration: '0:00:12',
+    moves: 1,
+    number: '4',
+    outcome: 'Gave Up',
+  },
+  {
+    date: '20-05-2021',
+    time: '09:34:49',
+    duration: '0:00:12',
+    moves: 2,
+    number: '3',
+    outcome: 'Won',
+  },
+  {
+    date: '20-05-2021',
+    time: '09:34:49',
+    duration: '0:00:12',
+    moves: 2,
+    number: '2',
+    outcome: 'Lost',
+  },
+  {
+    date: '20-05-2021',
+    time: '09:34:49',
+    duration: '0:00:12',
+    moves: 2,
+    number: '1',
+    outcome: 'Won',
+  },
+];
+
 const mockPlayerName = 'Player Name';
 
 describe('Graphql User Resolvers', () => {
@@ -50,11 +108,16 @@ describe('Graphql User Resolvers', () => {
     it('should return users game history', async () => {
       const mockContext = wrapClient(
         createMockFind({
-          ...createMockFiltered(mockHistory),
+          ...createMockFiltered(mockHistoryApi),
+          ...createMockCount(mockHistoryApi.length),
         })
       );
 
-      const result = await history({ uid: mockUid }, '', mockContext);
+      const result = await history(
+        { uid: mockUid },
+        { offset: 0 },
+        mockContext
+      );
 
       expect(result).toEqual(mockHistory);
     });
@@ -64,6 +127,7 @@ describe('Graphql User Resolvers', () => {
     it('should return users name', async () => {
       const mockContext = wrapClient({
         ...createMockFindOne({ name: mockPlayerName }),
+        ...createMockCount(0),
       });
 
       const result = await name({ uid: mockUid }, '', mockContext);

@@ -98,13 +98,12 @@ describe('Graphql Schema', () => {
         query {
           user(uid: "1") {
             history(offset: 0, limit: 10) {
-              uid,
-              date,
-              won,
-              lost,
-              completed,
-              moves,
+              number
+              date
               time
+              outcome
+              moves
+              duration
             }
           }
         }
@@ -119,22 +118,20 @@ describe('Graphql Schema', () => {
           user: {
             history: [
               {
-                completed: true,
+                number: 1,
                 date: 'String',
-                lost: true,
+                time: 'String',
+                outcome: 'String',
                 moves: 1,
-                time: 1,
-                uid: 'String',
-                won: true,
+                duration: 'String',
               },
               {
-                completed: true,
+                number: 1,
                 date: 'String',
-                lost: true,
+                time: 'String',
+                outcome: 'String',
                 moves: 1,
-                time: 1,
-                uid: 'String',
-                won: true,
+                duration: 'String',
               },
             ],
           },
@@ -190,7 +187,7 @@ describe('Graphql Schema', () => {
               rank
               date
               player
-              time
+              duration
             }
           }
         }
@@ -208,13 +205,13 @@ describe('Graphql Schema', () => {
                 rank: 1,
                 date: 'String',
                 player: 'String',
-                time: 'String',
+                duration: 'String',
               },
               {
                 rank: 1,
                 date: 'String',
                 player: 'String',
-                time: 'String',
+                duration: 'String',
               },
             ],
           },
@@ -250,7 +247,7 @@ describe('Graphql Schema', () => {
       const query = `
         mutation {
           wonGame(data: {uid: "1", moves:2, time: 10}) {
-            uid
+            outcome
           }
         }
       `;
@@ -262,7 +259,7 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           wonGame: {
-            uid: 'String',
+            outcome: 'String',
           },
         },
       });
@@ -272,7 +269,7 @@ describe('Graphql Schema', () => {
       const query = `
         mutation {
           lostGame(data: {uid: "1", moves:2, time: 10}) {
-            uid
+            outcome
           }
         }
       `;
@@ -284,7 +281,7 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           lostGame: {
-            uid: 'String',
+            outcome: 'String',
           },
         },
       });
@@ -294,7 +291,7 @@ describe('Graphql Schema', () => {
       const query = `
         mutation {
           quitGame(data: {uid: "1", moves:2, time: 10}) {
-            uid
+            outcome
           }
         }
       `;
@@ -306,7 +303,7 @@ describe('Graphql Schema', () => {
       expect(result).toEqual({
         data: {
           quitGame: {
-            uid: 'String',
+            outcome: 'String',
           },
         },
       });
