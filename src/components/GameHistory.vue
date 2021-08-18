@@ -120,23 +120,25 @@ export default {
   },
   methods: {
     ...mapActions(['getAllGames']),
-    displayPage(page) {
+    async displayPage(page) {
       this.page = page;
 
-      this.displayGames();
+      await this.displayGames();
+
+      this.scrollTo();
     },
-    displayLimit(limit) {
+    async displayLimit(limit) {
       this.page = 1;
       this.limit = parseInt(limit, 10);
 
-      this.displayGames();
+      await this.displayGames();
+
+      this.scrollTo();
     },
     async displayGames() {
       const { offset, limit } = this;
 
       await this.getAllGames({ offset, limit });
-
-      this.scrollTo();
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);
