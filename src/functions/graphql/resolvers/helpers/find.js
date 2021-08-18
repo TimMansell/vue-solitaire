@@ -1,6 +1,7 @@
 import { formatDate } from '../../../../helpers/dates';
 import { formatTime, formatTimeFromDate } from '../../../../helpers/times';
 import { formatNumber } from '../../../../helpers/numbers';
+import { gameOutcome } from '../../../../helpers/game';
 import { findItemsInDb, findAllItems, countItemsInDb } from './db';
 
 export const findLeaderboardItems = async (client, parent, find) => {
@@ -55,18 +56,6 @@ export const findHistoryItems = async (client, collection, params) => {
   const findGamesPlayed = countItemsInDb(client, collection, params);
 
   const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
-
-  const gameOutcome = ({ won, lost }) => {
-    if (won) {
-      return 'Won';
-    }
-
-    if (lost) {
-      return 'Lost';
-    }
-
-    return 'Gave Up';
-  };
 
   const formattedItems = games.map(
     ({ date, won, lost, time, moves }, index) => ({
