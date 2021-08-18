@@ -1,11 +1,8 @@
-import { formatDate } from '../../../../helpers/dates';
-import { formatTime, formatTimeFromDate } from '../../../../helpers/times';
-import { formatNumber } from '../../../../helpers/numbers';
-import { gameOutcome } from '../../../../helpers/game';
+import { formatLeaderboardGames, formatHistoryGames } from './find/find';
 import { findItemsInDb, findAllItems, countItemsInDb } from './db';
 
 export const findLeaderboardItems = async (client, parent, find) => {
-  const findItems = findItemsInDb(client, 'games', {
+  const findGames = findItemsInDb(client, 'games', {
     ...parent,
     findFields: { won: true },
     returnFields: {
@@ -21,32 +18,11 @@ export const findLeaderboardItems = async (client, parent, find) => {
     },
   });
 
-  const [items, players] = await Promise.all([findItems, findPlayers]);
+  const [games, players] = await Promise.all([findGames, findPlayers]);
 
-  const formattedItems = items.map((item, index) => {
-    const { uid, ...fields } = item;
-    const { date, time } = fields;
+  const formattedGames = formatLeaderboardGames(games, players);
 
-    const player = players.find(({ uid: id }) => id === uid);
-
-    const defaultItems = {
-      ...fields,
-      rank: index + 1,
-      date: formatDate(date),
-      player: player?.name,
-    };
-
-    if (time) {
-      return {
-        ...defaultItems,
-        duration: formatTime(time),
-      };
-    }
-
-    return defaultItems;
-  });
-
-  return formattedItems;
+  return formattedGames;
 };
 
 export const findHistoryItems = async (client, collection, params) => {
@@ -57,16 +33,7 @@ export const findHistoryItems = async (client, collection, params) => {
 
   const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
 
-  const formattedItems = games.map(
-    ({ date, won, lost, time, moves }, index) => ({
-      number: formatNumber(gamesPlayed - offset - index),
-      date: formatDate(date),
-      time: formatTimeFromDate(date),
-      outcome: gameOutcome({ won, lost }),
-      moves,
-      duration: formatTime(time),
-    })
-  );
+  const formattedGames = formatHistoryGames(games, offset, gamesPlayed);
 
-  return formattedItems;
+  return formattedGames;
 };
