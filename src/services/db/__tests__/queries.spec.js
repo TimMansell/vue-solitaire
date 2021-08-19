@@ -1,4 +1,10 @@
 import {
+  mockUid,
+  mockHistory,
+  mockLeaderboardsMoves,
+  mockStats,
+} from '@/mockData';
+import {
   getUser,
   getStats,
   getStatsCount,
@@ -10,64 +16,6 @@ import {
 import { version as appVersion } from '../../../../package.json';
 
 jest.mock('../apollo');
-
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-
-const mockHistory = [
-  {
-    date: '20-05-2021',
-    time: '23:34:49',
-    duration: '0:00:12',
-    moves: 1,
-    number: '4',
-    outcome: 'Gave Up',
-  },
-  {
-    date: '19-05-2021',
-    time: '23:34:49',
-    duration: '0:00:12',
-    moves: 2,
-    number: '3',
-    outcome: 'Won',
-  },
-  {
-    date: '19-05-2021',
-    time: '23:34:49',
-    duration: '0:00:12',
-    moves: 2,
-    number: '2',
-    outcome: 'Lost',
-  },
-  {
-    date: '19-05-2021',
-    time: '23:34:49',
-    duration: '0:00:12',
-    moves: 2,
-    number: '1',
-    outcome: 'Won',
-  },
-];
-
-const mockLeaderboardsMoves = [
-  {
-    rank: 1,
-    date: '29-04-2021',
-    player: 'Player 1',
-    moves: 2,
-  },
-  {
-    rank: 2,
-    date: '29-04-2021',
-    player: 'Player 2',
-    moves: 2,
-  },
-];
-
-const stats = {
-  won: 1,
-  lost: 2,
-  completed: 3,
-};
 
 describe('DB service queries', () => {
   describe('getUser', () => {
@@ -97,8 +45,8 @@ describe('DB service queries', () => {
       const { response } = await getStats();
       const { globalStats, userStats } = response;
 
-      expect(userStats).toEqual(stats);
-      expect(globalStats).toEqual(stats);
+      expect(userStats).toEqual(mockStats);
+      expect(globalStats).toEqual(mockStats);
     });
   });
 
@@ -107,8 +55,8 @@ describe('DB service queries', () => {
       const { response } = await getStatsCount(mockUid);
       const { userStats, globalStats } = response;
 
-      expect(userStats).toEqual(stats);
-      expect(globalStats).toEqual(stats);
+      expect(userStats).toEqual(mockStats);
+      expect(globalStats).toEqual(mockStats);
     });
   });
 

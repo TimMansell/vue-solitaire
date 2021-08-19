@@ -4,22 +4,18 @@ import StatsOverlay, {
   calcStats,
 } from '@/components/StatsOverlay.vue';
 
+import { mockStats } from '@/mockData';
+
 const mocks = {
   $store: { dispatch: jest.fn() },
 };
 
-const stats = {
-  completed: 9,
-  won: 2,
-  lost: 4,
-};
-
 const computed = {
   userStats: () => ({
-    ...stats,
+    ...mockStats,
   }),
   globalStats: () => ({
-    ...stats,
+    ...mockStats,
   }),
 };
 
@@ -40,7 +36,7 @@ describe('StatsOverlay.vue', () => {
   });
 
   it('should calculate correct stats', () => {
-    const result = calcStats(stats);
+    const result = calcStats(mockStats);
 
     expect(result).toStrictEqual([
       ['9', '2', '4', '3'],

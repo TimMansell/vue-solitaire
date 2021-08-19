@@ -1,3 +1,4 @@
+import { mockUid } from '@/mockData';
 import {
   userStats,
   globalStats,
@@ -6,8 +7,6 @@ import {
   leaderboards,
 } from '../queries';
 import { version as appVersion } from '../../../../../package.json';
-
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
 describe('Graphql Query Resolvers', () => {
   it('userStats', () => {

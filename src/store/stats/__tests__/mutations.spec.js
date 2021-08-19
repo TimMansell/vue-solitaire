@@ -1,3 +1,4 @@
+import { mockStats, mockLeaderboardsMoves } from '@/mockData';
 import mutations from '../mutations';
 import defaultState from '../state';
 
@@ -12,8 +13,6 @@ const {
   SHOW_LEADERBOARDS,
   SET_LEADERBOARDS,
 } = mutations;
-
-const mockStats = { won: 1, lost: 1, completed: 2, players: 4 };
 
 describe('Stats Store', () => {
   let state = {};
@@ -39,19 +38,19 @@ describe('Stats Store', () => {
   it('SET_USER_GAME_COUNT', () => {
     SET_USER_GAME_COUNT(state, mockStats);
 
-    expect(state.userGameCount).toEqual(2);
+    expect(state.userGameCount).toEqual(mockStats.completed);
   });
 
   it('SET_GLOBAL_GAME_COUNT', () => {
     SET_GLOBAL_GAME_COUNT(state, mockStats);
 
-    expect(state.globalGameCount).toEqual(2);
+    expect(state.globalGameCount).toEqual(mockStats.completed);
   });
 
   it('SET_GLOBAL_PLAYER_COUNT', () => {
     SET_GLOBAL_PLAYER_COUNT(state, mockStats);
 
-    expect(state.playerCount).toEqual(4);
+    expect(state.playerCount).toEqual(mockStats.players);
   });
 
   it('CLEAR_STATS', () => {
@@ -74,10 +73,8 @@ describe('Stats Store', () => {
   });
 
   it('SET_LEADERBOARDS', () => {
-    const leaderboards = [1, 2, 3];
+    SET_LEADERBOARDS(state, mockLeaderboardsMoves);
 
-    SET_LEADERBOARDS(state, leaderboards);
-
-    expect(state.leaderboards).toEqual(leaderboards);
+    expect(state.leaderboards).toEqual(mockLeaderboardsMoves);
   });
 });
