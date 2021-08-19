@@ -8,11 +8,6 @@ import {
 } from '@/mockData';
 import { formatResponse } from '../helpers';
 
-const userStats = { ...mockStats };
-const globalStats = { ...mockStats };
-const mockUidResult = { uid: mockUid };
-const mockVersion = { number: mockVersionNumber };
-
 const getUser = (uid) => {
   const exists = uid === mockUid;
   const name = uid === mockUid ? mockPlayerName : '';
@@ -23,22 +18,28 @@ const getUser = (uid) => {
 };
 
 const getStatsCount = () =>
-  formatResponse({ data: { userStats, globalStats } });
+  formatResponse({
+    data: { userStats: { ...mockStats }, globalStats: { ...mockStats } },
+  });
 
-const getStats = () => formatResponse({ data: { userStats, globalStats } });
+const getStats = () =>
+  formatResponse({
+    data: { userStats: { ...mockStats }, globalStats: { ...mockStats } },
+  });
 
 const newUser = () =>
   formatResponse({ data: { createUser: { name: mockPlayerName } } });
 
-const gameNew = () => formatResponse({ data: { newGame: mockUidResult } });
+const gameNew = () => formatResponse({ data: { newGame: { uid: mockUid } } });
 
-const gameWon = () => formatResponse({ data: { wonGame: mockUidResult } });
+const gameWon = () => formatResponse({ data: { wonGame: { uid: mockUid } } });
 
-const gameLost = () => formatResponse({ data: { lostGame: mockUidResult } });
+const gameLost = () => formatResponse({ data: { lostGame: { uid: mockUid } } });
 
-const gameQuit = () => formatResponse({ data: { quitGame: mockUidResult } });
+const gameQuit = () => formatResponse({ data: { quitGame: { uid: mockUid } } });
 
-const getAppVersion = () => formatResponse({ data: { version: mockVersion } });
+const getAppVersion = () =>
+  formatResponse({ data: { version: { number: mockVersionNumber } } });
 
 const getUsersGames = () =>
   formatResponse({
