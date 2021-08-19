@@ -1,4 +1,4 @@
-const mockUid = '7dac9d78-353f-409b-8a7f-2192409c44a2';
+import { mockUid } from '../../../src/mockData';
 
 describe('History', () => {
   beforeEach(() => {
