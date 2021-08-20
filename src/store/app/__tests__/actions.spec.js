@@ -1,3 +1,4 @@
+import { mockVersionNumber } from '@/mockData';
 import actions from '../actions';
 
 const {
@@ -11,8 +12,6 @@ const {
   toggleRules,
   toggleNewGame,
 } = actions;
-
-const mockVersionNumber = '1.0.0';
 
 const commit = jest.fn();
 const dispatch = jest.fn();

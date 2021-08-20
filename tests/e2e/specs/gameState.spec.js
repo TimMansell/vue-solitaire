@@ -1,7 +1,6 @@
+import { mockUid } from '../../../src/mockData';
 import foundations from '../../fixtures/boards/fullFoundation.json';
 import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
-
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
 describe('Game State', () => {
   beforeEach(() => {

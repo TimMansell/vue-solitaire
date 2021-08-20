@@ -1,8 +1,8 @@
+import { mockVersionNumber } from '../../../src/mockData';
 import { version } from '../../../package.json';
 
 const defaultAlias = 'version';
 const mockAlias = 'mockVersion';
-const mockVersion = '1.0.0';
 
 describe('App', () => {
   describe('Default', () => {
@@ -47,7 +47,7 @@ describe('App', () => {
     });
 
     it('it should show version upgrade toast', () => {
-      cy.interceptVersionCheck(mockAlias, mockVersion);
+      cy.interceptVersionCheck(mockAlias, mockVersionNumber);
 
       cy.visit('/');
 
@@ -57,7 +57,7 @@ describe('App', () => {
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
-      cy.interceptVersionCheck(mockAlias, mockVersion);
+      cy.interceptVersionCheck(mockAlias, mockVersionNumber);
 
       cy.visit('/');
 

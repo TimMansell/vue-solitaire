@@ -1,40 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import GameHistory from '@/components/GameHistory.vue';
-
-const mockHistory = [
-  {
-    date: '20-05-2021',
-    time: '23:34:49',
-    duration: '0:00:12',
-    moves: '1',
-    number: '1',
-    outcome: 'Gave Up',
-  },
-  {
-    date: '19-05-2021',
-    time: '23:34:49',
-    duration: '0:00:12',
-    moves: '2',
-    number: '2',
-    outcome: 'Won',
-  },
-  {
-    date: '19-05-2021',
-    time: '23:34:49',
-    duration: '0:00:12',
-    moves: '2',
-    number: '3',
-    outcome: 'Lost',
-  },
-  {
-    date: '19-05-2021',
-    time: '23:34:49',
-    duration: '0:00:12',
-    moves: '2',
-    number: '4',
-    outcome: 'Won',
-  },
-];
+import { mockHistory } from '@/mockData';
 
 const mocks = {
   $store: { dispatch: jest.fn() },

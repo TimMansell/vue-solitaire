@@ -1,4 +1,4 @@
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
   describe('Default', () => {

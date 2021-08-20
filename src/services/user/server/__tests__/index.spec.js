@@ -1,7 +1,5 @@
+import { mockUid, mockPlayerName } from '@/mockData';
 import { createUser, getUser } from '../index';
-
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-const mockPlayerName = 'Player Name';
 
 jest.mock('@/services/db');
 

@@ -1,9 +1,7 @@
 import numeral from 'numeral';
-
+import { mockUid } from '../../../src/mockData';
 import foundations from '../../fixtures/boards/fullFoundation.json';
 import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
-
-const mockUid = '7dac9d78-353f-409b-8a7f-2192409c44a2';
 
 describe('Stats', () => {
   beforeEach(() => {
@@ -11,8 +9,6 @@ describe('Stats', () => {
 
     cy.intercept('POST', '.netlify/functions/graphql', (req) => {
       const { body } = req;
-      const { query } = body;
-      console.log({ query });
 
       if (body?.query.includes('GetStats')) {
         // eslint-disable-next-line no-param-reassign

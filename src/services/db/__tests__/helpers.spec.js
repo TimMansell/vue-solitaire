@@ -1,19 +1,5 @@
+import { mockLeaderboardsMoves } from '@/mockData';
 import { formatResponse, formatError, formatData } from '../helpers';
-
-const mockLeaderboardsMoves = [
-  {
-    rank: 1,
-    date: '29-04-2021',
-    player: 'Player 1',
-    moves: 2,
-  },
-  {
-    rank: 2,
-    date: '29-04-2021',
-    player: 'Player 2',
-    moves: 2,
-  },
-];
 
 describe('DB service', () => {
   it('formatResponse', () => {
