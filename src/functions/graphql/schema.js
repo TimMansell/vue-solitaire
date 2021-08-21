@@ -11,6 +11,7 @@ export const typeDefs = gql`
   }
   type Mutation {
     createUser(data: UserInput!): User!
+    newGame(data: UserInput!): Deck!
     wonGame(data: GameInput!): GameState!
     lostGame(data: GameInput!): GameState!
     quitGame(data: GameInput!): GameState!
@@ -22,6 +23,16 @@ export const typeDefs = gql`
   }
   input UserInput {
     uid: String!
+  }
+  type Deck {
+    deck: [Card]
+  }
+  type Card {
+    id: Int
+    value: String
+    order: Int
+    suit: String
+    visible: Boolean
   }
   type Game {
     number: Int

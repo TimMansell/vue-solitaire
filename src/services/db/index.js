@@ -6,13 +6,14 @@ import {
   getUsersGames,
   getLeaderboards,
 } from './queries';
-import { newUser, gameLost, gameWon, gameQuit } from './mutations';
+import { newUser, newGame, gameLost, gameWon, gameQuit } from './mutations';
 
 const db = () => ({
   getUser,
   newUser,
   getStatsCount,
   getStats,
+  newGame,
   gameWon,
   gameLost,
   gameQuit,
