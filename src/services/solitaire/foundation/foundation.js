@@ -1,6 +1,3 @@
-export const initFoundations = ({ rules }) =>
-  rules.foundationColumns.map(() => []);
-
 export const checkEmptyFoundationColumn = (foundationColumn) =>
   !foundationColumn.length;
 

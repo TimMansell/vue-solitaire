@@ -6,6 +6,7 @@ import {
   moveCardsToBoard,
   moveCardsToFoundation,
 } from './moves';
+import { initFoundation } from '../foundation';
 import { getSelectedCard, getLastCard, getCardPosition } from '../cards';
 import {
   validateCardMove,
@@ -44,6 +45,19 @@ export const checkHasMoves = ({ cards, foundation }) => {
   }
 
   return moves.length > 0;
+};
+
+export const checkInitialBoardMoves = (cards) => {
+  const foundation = initFoundation();
+
+  const board = {
+    foundation,
+    cards,
+  };
+
+  const hasBoardMoves = checkHasMoves(board);
+
+  return hasBoardMoves;
 };
 
 export const moveBoardCards = (state, selectedColumn) => {
@@ -85,7 +99,7 @@ export const moveFoundationCards = (state, selectedColumn) => {
   };
 };
 
-export const getCardsToDrag = ({ cards }, selectedCardId) => {
+export const getDraggedCards = ({ cards }, selectedCardId) => {
   const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
   const draggedCards = cards[columnNo].slice(cardPosition);

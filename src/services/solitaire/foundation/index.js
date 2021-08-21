@@ -1,13 +1,12 @@
 import { getSelectedCard, checkCardValue } from '../cards';
 import {
-  initFoundations,
   checkEmptyFoundationColumn,
   checkFoundationColumnSuit,
   getFoundationColumn,
 } from './foundation';
-import settings from '../settings.json';
+import { rules } from '../settings.json';
 
-export const initFoundation = () => initFoundations(settings);
+export const initFoundation = () => rules.foundationColumns.map(() => []);
 
 export const updateFoundation = ({ foundation }, { foundationCardsTo }) =>
   foundation.map((columnCards, index) => {

@@ -1,9 +1,9 @@
-import { getBoardCards, initBoardCards } from './board';
+import { getBoardCards, dealBoardCards } from './board';
 import settings from '../settings.json';
 
 export const initBoard = () => {
   const cards = getBoardCards(settings);
-  const boardCards = initBoardCards(settings, cards);
+  const boardCards = dealBoardCards(settings, cards);
 
   return boardCards;
 };
@@ -20,3 +20,5 @@ export const updateBoard = ({ cards }, { cardsFrom, cardsTo }) =>
 
     return columnCards;
   });
+
+export const isBoardEmpty = ({ cards }) => !cards.flat().length;
