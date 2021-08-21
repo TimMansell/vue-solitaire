@@ -8,77 +8,51 @@ import {
 } from './moves';
 import {
   initFoundation,
-  loadFoundation,
   updateFoundation,
   getEmptyFoundationColumn,
 } from './foundation';
-import { initBoard, loadBoard, updateBoard } from './board';
-import setState from './state';
+import { initBoard, updateBoard } from './board';
 
 const solitaire = () => {
-  let state = setState({});
+  const moveCards = (state, selectedColumn) => {
+    const cardsToMove = moveBoardCards(state, selectedColumn);
 
-  const setGameState = (newState) => {
-    state = setState(state, newState);
+    const cards = updateBoard(state, cardsToMove);
+
+    return { cards };
   };
 
-  const init = (board) => {
-    const cards = {
-      foundationCards: board ? loadFoundation(board) : initFoundation(),
-      boardCards: board ? loadBoard(board) : initBoard(),
-    };
-
-    setGameState(cards);
-  };
-
-  const setSelectedCard = (selectedCardId) => setGameState({ selectedCardId });
-
-  const removeSelectedCard = () => setGameState({ selectedCardId: null });
-
-  const moveCards = (selectedColumn) => {
-    const cards = moveBoardCards(state, selectedColumn);
-    const boardCards = updateBoard(state, cards);
-
-    setGameState({ boardCards });
-  };
-
-  const isValidCardMove = (selectedColumn) =>
+  const isValidCardMove = (state, selectedColumn) =>
     checkValidCardMove(state, selectedColumn);
 
-  const findEmptyFoundationColumn = () => getEmptyFoundationColumn(state);
+  const findEmptyFoundationColumn = (state) => getEmptyFoundationColumn(state);
 
-  const moveCardsToFoundation = (selectedColumn) => {
-    const cards = moveFoundationCards(state, selectedColumn);
-    const boardCards = updateBoard(state, cards);
-    const foundationCards = updateFoundation(state, cards);
+  const moveCardsToFoundation = (state, selectedColumn) => {
+    const cardsToMove = moveFoundationCards(state, selectedColumn);
 
-    setGameState({
-      foundationCards,
-      boardCards,
-    });
+    const cards = updateBoard(state, cardsToMove);
+    const foundation = updateFoundation(state, cardsToMove);
+
+    return {
+      foundation,
+      cards,
+    };
   };
 
-  const isValidFoundationMove = (selectedColumn) =>
+  const isValidFoundationMove = (state, selectedColumn) =>
     checkValidFoundationMove(state, selectedColumn);
 
-  const isEmptyBoard = () => !state.boardCards.flat().length;
+  const isEmptyBoard = ({ cards }) => !cards.flat().length;
 
-  const hasMoves = () => checkHasMoves(state);
+  const hasMoves = (state) => checkHasMoves(state);
 
-  const getBoardCards = () => state.boardCards;
-
-  const getFoundationCards = () => state.foundationCards;
-
-  const getDraggedCards = (selectedCardId) =>
+  const getDraggedCards = (state, selectedCardId) =>
     getCardsToDrag(state, selectedCardId);
 
   return {
-    init,
+    initBoard,
+    initFoundation,
     isEmptyBoard,
-    getFoundationCards,
-    getBoardCards,
-    setSelectedCard,
-    removeSelectedCard,
     hasMoves,
     isValidCardMove,
     isValidFoundationMove,

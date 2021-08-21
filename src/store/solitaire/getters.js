@@ -1,6 +1,6 @@
 const getters = {
-  boardCards: (state) => state.board.cards,
-  foundationCards: (state) => state.board.foundation,
+  boardCards: (state) => state.cards,
+  foundationCards: (state) => state.foundation,
   selectedCardId: (state) => state.selectedCardId,
   hasMoves: (state) => state.hasMoves,
   draggedCards: (state) => state.draggedCards,

@@ -63,63 +63,51 @@ export const checkFoundationMoves = (boardCards, foundationCards) => {
   return hasMoves;
 };
 
-export const moveCardsFromBoard = ({ selectedCardId, boardCards }) => {
-  const { columnNo, cardPosition } = getCardPosition(
-    boardCards,
-    selectedCardId
-  );
+export const moveCardsFromBoard = ({ selectedCardId, cards }) => {
+  const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const remainingCards = boardCards[columnNo].slice(0, cardPosition);
-  const cards = showLastCard(remainingCards);
+  const remainingCards = cards[columnNo].slice(0, cardPosition);
+  const columnCards = showLastCard(remainingCards);
 
   return {
-    cards,
+    columnCards,
     columnNo,
   };
 };
 
-export const moveCardsToBoard = (
-  { selectedCardId, boardCards },
-  selectedColumn
-) => {
-  const { columnNo, cardPosition } = getCardPosition(
-    boardCards,
-    selectedCardId
-  );
+export const moveCardsToBoard = ({ selectedCardId, cards }, selectedColumn) => {
+  const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const cards = getColumnCards({
-    toCards: boardCards,
-    fromCards: boardCards,
+  const columnCards = getColumnCards({
+    toCards: cards,
+    fromCards: cards,
     selectedColumn,
     columnNo,
     cardPosition,
   });
 
   return {
-    cards,
+    columnCards,
     columnNo: selectedColumn,
   };
 };
 
 export const moveCardsToFoundation = (
-  { selectedCardId, boardCards, foundationCards },
+  { selectedCardId, cards, foundation },
   selectedColumn
 ) => {
-  const { columnNo, cardPosition } = getCardPosition(
-    boardCards,
-    selectedCardId
-  );
+  const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const cards = getColumnCards({
-    toCards: foundationCards,
-    fromCards: boardCards,
+  const columnCards = getColumnCards({
+    toCards: foundation,
+    fromCards: cards,
     selectedColumn,
     columnNo,
     cardPosition,
   });
 
   return {
-    cards,
+    columnCards,
     columnNo: selectedColumn,
   };
 };

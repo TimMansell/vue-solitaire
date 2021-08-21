@@ -16,12 +16,12 @@ import {
 import { displayMoves } from './helpers';
 
 export const checkValidCardMove = (
-  { boardCards, selectedCardId },
+  { cards, selectedCardId },
   selectedColumn
 ) => {
-  const selectedCard = getSelectedCard(boardCards, selectedCardId);
-  const lastColumnCard = getLastCard(boardCards, selectedColumn);
-  const selectedColumnCards = boardCards[selectedColumn];
+  const selectedCard = getSelectedCard(cards, selectedCardId);
+  const lastColumnCard = getLastCard(cards, selectedColumn);
+  const selectedColumnCards = cards[selectedColumn];
 
   const isValidCard = validateCardMove(selectedCard, lastColumnCard);
   const isValidColumn = validateCardMoveColumn(
@@ -32,10 +32,10 @@ export const checkValidCardMove = (
   return isValidCard && isValidColumn;
 };
 
-export const checkHasMoves = ({ boardCards, foundationCards }) => {
-  const hasVisibleMoves = checkVisibleMoves(boardCards);
-  const hasKingMoves = checkKingMoves(boardCards);
-  const hasFoundationMoves = checkFoundationMoves(boardCards, foundationCards);
+export const checkHasMoves = ({ cards, foundation }) => {
+  const hasVisibleMoves = checkVisibleMoves(cards);
+  const hasKingMoves = checkKingMoves(cards);
+  const hasFoundationMoves = checkFoundationMoves(cards, foundation);
 
   const moves = [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves];
 
@@ -57,11 +57,11 @@ export const moveBoardCards = (state, selectedColumn) => {
 };
 
 export const checkValidFoundationMove = (
-  { boardCards, selectedCardId, foundationCards },
+  { cards, selectedCardId, foundation },
   selectedColumn
 ) => {
-  const selectedCard = getSelectedCard(boardCards, selectedCardId);
-  const selectedFoundationCards = foundationCards[selectedColumn];
+  const selectedCard = getSelectedCard(cards, selectedCardId);
+  const selectedFoundationCards = foundation[selectedColumn];
 
   const isValidFoundationMove = validateFoundationMove(
     selectedCard,
@@ -69,7 +69,7 @@ export const checkValidFoundationMove = (
   );
   const isValidCardPosition = validateFoundationMovePosition(
     selectedCard,
-    boardCards
+    cards
   );
 
   return isValidFoundationMove && isValidCardPosition;
@@ -85,13 +85,10 @@ export const moveFoundationCards = (state, selectedColumn) => {
   };
 };
 
-export const getCardsToDrag = ({ boardCards }, selectedCardId) => {
-  const { columnNo, cardPosition } = getCardPosition(
-    boardCards,
-    selectedCardId
-  );
+export const getCardsToDrag = ({ cards }, selectedCardId) => {
+  const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const cards = boardCards[columnNo].slice(cardPosition);
+  const draggedCards = cards[columnNo].slice(cardPosition);
 
-  return cards;
+  return draggedCards;
 };

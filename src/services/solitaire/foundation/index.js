@@ -9,25 +9,23 @@ import settings from '../settings.json';
 
 export const initFoundation = () => initFoundations(settings);
 
-export const loadFoundation = ({ foundation }) => foundation;
-
-export const updateFoundation = ({ foundationCards }, { foundationCardsTo }) =>
-  foundationCards.map((columnCards, index) => {
+export const updateFoundation = ({ foundation }, { foundationCardsTo }) =>
+  foundation.map((columnCards, index) => {
     if (index === foundationCardsTo.columnNo) {
-      return foundationCardsTo.cards;
+      return foundationCardsTo.columnCards;
     }
 
     return columnCards;
   });
 
 export const getEmptyFoundationColumn = ({
-  foundationCards,
-  boardCards,
+  foundation,
+  cards,
   selectedCardId,
 }) => {
-  const selectedCard = getSelectedCard(boardCards, selectedCardId);
+  const selectedCard = getSelectedCard(cards, selectedCardId);
 
-  const foundationColumnNo = foundationCards.findIndex((foundationColumn) => {
+  const foundationColumnNo = foundation.findIndex((foundationColumn) => {
     const isColumnEmpty = checkEmptyFoundationColumn(foundationColumn);
     const isCorrectFoundationSuit = checkFoundationColumnSuit(
       foundationColumn,

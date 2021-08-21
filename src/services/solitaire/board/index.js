@@ -8,16 +8,14 @@ export const initBoard = () => {
   return boardCards;
 };
 
-export const loadBoard = ({ cards }) => cards;
-
-export const updateBoard = ({ boardCards }, { cardsFrom, cardsTo }) =>
-  boardCards.map((columnCards, index) => {
+export const updateBoard = ({ cards }, { cardsFrom, cardsTo }) =>
+  cards.map((columnCards, index) => {
     if (index === cardsFrom.columnNo) {
-      return cardsFrom.cards;
+      return cardsFrom.columnCards;
     }
 
     if (index === cardsTo?.columnNo) {
-      return cardsTo.cards;
+      return cardsTo.columnCards;
     }
 
     return columnCards;

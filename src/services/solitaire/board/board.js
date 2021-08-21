@@ -2,12 +2,12 @@ import { buildCards, dealCards, shuffleCards } from '../cards';
 import { checkHasMoves } from '../moves';
 import { initFoundation } from '../foundation';
 
-export const checkInitialBoardMoves = (boardCards) => {
-  const foundationCards = initFoundation();
+export const checkInitialBoardMoves = (cards) => {
+  const foundation = initFoundation();
 
   const board = {
-    foundationCards,
-    boardCards,
+    foundation,
+    cards,
   };
 
   const hasBoardMoves = checkHasMoves(board);
