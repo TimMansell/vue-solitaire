@@ -2,7 +2,7 @@ import shuffle from 'lodash.shuffle';
 import {
   setVisibleCards,
   getColumnCardIndexes,
-  getColumnCards,
+  getColumnCardsFromDeck,
 } from './helpers';
 
 export const findCardPosition = (columnCards, selectedCardId) =>
@@ -30,7 +30,7 @@ export const buildCards = ({ ranks, suits }) =>
 
 export const dealCards = (deck, columns) => {
   const columnCardsIndexes = getColumnCardIndexes(columns);
-  const columnCards = getColumnCards(deck, columnCardsIndexes);
+  const columnCards = getColumnCardsFromDeck(deck, columnCardsIndexes);
   const dealtCards = setVisibleCards(columnCards);
 
   return dealtCards;

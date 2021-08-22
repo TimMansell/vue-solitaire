@@ -31,7 +31,7 @@ export const getColumnCardIndexes = (columns) =>
     };
   });
 
-export const getColumnCards = (deck, columnCardsIndexes) =>
+export const getColumnCardsFromDeck = (deck, columnCardsIndexes) =>
   columnCardsIndexes.map(({ startIndex, endIndex }) =>
     deck.slice(startIndex, endIndex)
   );
