@@ -1,23 +1,20 @@
-/* eslint-disable no-undef */
+export const initBoard = () => [['card 1'], ['card 2']];
 
-const solitaire = () => ({
-  init: () => jest.fn(),
-  isEmptyBoard: () => true,
-  getFoundationCards: () => [],
-  getBoardCards: () => [],
-  hasMoves: () => false,
-  setSelectedCard: () => 1,
-  removeSelectedCard: () => jest.fn(),
-  findEmptyFoundationColumn: () => 0,
-  isValidCardMove: () => true,
-  moveCards: () => jest.fn(),
-  isValidFoundationMove: () => true,
-  moveCardsToFoundation: () => jest.fn(),
-  setBoard: () => jest.fn(),
-  setFoundation: () => jest.fn(),
-  getDraggedCards: () => [],
-});
+export const initFoundation = () => [
+  ['foundation card 1'],
+  ['foundation card 2'],
+];
 
-export default solitaire();
+export const checkHasMoves = ({ hasMoves }) => hasMoves;
 
-/* eslint-enable no-undef */
+export const isBoardEmpty = () => true;
+
+export const checkValidCardMove = ({ validMove }) => validMove;
+
+export const moveCards = () => ({ cards: [] });
+
+export const checkValidFoundationMove = ({ validMove }) => validMove;
+
+export const moveCardsToFoundation = () => ({ cards: [], foundation: [] });
+
+export const getDraggedCards = () => [['card 1'], ['card 2']];

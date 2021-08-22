@@ -2,8 +2,8 @@ import getters from '../getters';
 import defaultState from '../state';
 
 const {
-  boardCards,
-  foundationCards,
+  cards,
+  foundation,
   selectedCardId,
   hasMoves,
   draggedCards,
@@ -15,16 +15,16 @@ const state = {
 };
 
 describe('Solitaire Store', () => {
-  it('boardCards', () => {
-    const result = boardCards(state);
+  it('cards', () => {
+    const result = cards(state);
 
-    expect(result).toEqual(state.board.cards);
+    expect(result).toEqual(state.cards);
   });
 
-  it('foundationCards', () => {
-    const result = foundationCards(state);
+  it('foundation', () => {
+    const result = foundation(state);
 
-    expect(result).toEqual(state.board.foundation);
+    expect(result).toEqual(state.foundation);
   });
 
   it('selectedCardId', () => {

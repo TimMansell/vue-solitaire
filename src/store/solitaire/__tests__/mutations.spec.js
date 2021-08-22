@@ -39,7 +39,7 @@ describe('Solitaire Store', () => {
 
     SET_BOARD(state, deck);
 
-    expect(state.board.cards).toEqual(deck);
+    expect(state.cards).toEqual(deck);
   });
 
   it('SET_FOUNDATIONS', () => {
@@ -47,7 +47,7 @@ describe('Solitaire Store', () => {
 
     SET_FOUNDATIONS(state, foundation);
 
-    expect(state.board.foundation).toEqual(foundation);
+    expect(state.foundation).toEqual(foundation);
   });
 
   it('SELECT_CARD', () => {
