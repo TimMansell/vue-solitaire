@@ -41,9 +41,7 @@ export const checkHasMoves = ({ cards, foundation }) => {
 
   const moves = [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves];
 
-  if (process.env.NODE_ENV === 'development') {
-    displayMoves(moves);
-  }
+  displayMoves(moves);
 
   return moves.length > 0;
 };
