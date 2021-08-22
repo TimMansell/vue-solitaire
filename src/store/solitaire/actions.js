@@ -12,7 +12,7 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
-  async initGame({ commit, dispatch, state }) {
+  initGame({ commit, dispatch, state }) {
     const { isNewGame } = state;
 
     dispatch('setBoard', isNewGame);
