@@ -76,7 +76,7 @@ describe('Dragged Cards', () => {
     cy.setBoard(validMove).then(() => {
       cy.get('[data-test="column-3"]').shouldContain(['6♦']);
 
-      cy.dragFromTo('card-9♦', 'board');
+      cy.dragFromTo('card-6♦', 'board');
 
       cy.get('[data-test="columns"]').within(() => {
         cy.get('[data-test="card-6♦"]').should('be.visible');
