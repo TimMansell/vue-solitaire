@@ -1,37 +1,20 @@
-import shuffle from 'lodash.shuffle';
 import {
-  setVisibleCards,
-  getColumnCardIndexes,
-  getColumnCards,
+  buildCards,
+  shuffleCards,
+  dealCards,
   findCardColumn,
   findCardPosition,
 } from './cards';
 
-export const buildCards = ({ values, suits }) =>
-  values.flatMap((value, valueOrder) => {
-    const order = valueOrder + 1;
+import { ranks, suits, columns } from '../settings.json';
 
-    const cards = suits.map((suit, suitOrder) => ({
-      id: order + values.length * suitOrder,
-      value,
-      order,
-      suit,
-      visible: false,
-    }));
+export const initCards = () => {
+  const deck = buildCards({ ranks, suits });
+  const shuffledDeck = shuffleCards(deck);
+  const cards = dealCards(shuffledDeck, columns);
 
-    return cards;
-  });
-
-export const dealCards = (deck, { columns }) => {
-  const columnCardsIndexes = getColumnCardIndexes(columns);
-  const columnCards = getColumnCards(deck, columnCardsIndexes);
-  const dealtCards = setVisibleCards(columnCards);
-
-  return dealtCards;
+  return cards;
 };
-
-export const shuffleCards = (cards, toShuffle) =>
-  toShuffle ? shuffle(cards) : cards;
 
 export const getSelectedCard = (cards, selectedCardId) => {
   const [selectedCard] = cards
@@ -85,4 +68,17 @@ export const checkCardTopPosition = (cards, selectedCardId) => {
   const { cardPosition } = getCardPosition(cards, selectedCardId);
 
   return cardPosition === 0;
+};
+
+export const getColumnCards = ({
+  toCards,
+  fromCards,
+  selectedColumn,
+  columnNo,
+  cardPosition,
+}) => {
+  const columnCards = toCards[selectedColumn];
+  const moveCards = fromCards[columnNo].slice(cardPosition);
+
+  return [...columnCards, ...moveCards];
 };

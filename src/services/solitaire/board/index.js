@@ -1,11 +1,15 @@
-import { getBoardCards, dealBoardCards } from './board';
-import settings from '../settings.json';
+import { initCards } from '../cards';
+import { checkInitialBoardMoves } from '../moves';
 
 export const initBoard = () => {
-  const cards = getBoardCards(settings);
-  const boardCards = dealBoardCards(settings, cards);
+  const cards = initCards();
+  const hasBoardMoves = checkInitialBoardMoves(cards);
 
-  return boardCards;
+  if (!hasBoardMoves) {
+    return initBoard();
+  }
+
+  return cards;
 };
 
 export const updateBoard = ({ cards }, { cardsFrom, cardsTo }) =>

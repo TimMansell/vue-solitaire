@@ -5,9 +5,13 @@ import {
   getLastCards,
   getVisibleCards,
   showLastCard,
+  getColumnCards,
 } from '../cards';
-import { validateCardMove, validateCardMoveColumn } from '../validation';
-import { getColumnCards, checkEmptyColumns } from './helpers';
+import {
+  validateCardMove,
+  validateCardMoveColumn,
+  validateEmptyColumn,
+} from '../validation';
 
 export const checkVisibleMoves = (boardCards) => {
   const lastCards = getLastCards(boardCards);
@@ -39,7 +43,7 @@ export const checkKingMoves = (boardCards) => {
   const hasMoves = visibleCards.filter((visibleCard) => {
     const isCardTopPosition = checkCardTopPosition(boardCards, visibleCard.id);
     const isCardKing = checkCardValue(visibleCard, 'K');
-    const hasEmptyColumns = checkEmptyColumns(lastCards);
+    const hasEmptyColumns = validateEmptyColumn(lastCards);
 
     return isCardKing && hasEmptyColumns && !isCardTopPosition;
   });

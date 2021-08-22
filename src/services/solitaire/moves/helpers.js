@@ -1,5 +1,4 @@
-import settings from '../settings.json';
-
+// eslint-disable-next-line import/prefer-default-export
 export const displayMoves = (moves) => {
   if (moves.length) {
     console.log('---------------');
@@ -11,19 +10,3 @@ export const displayMoves = (moves) => {
     console.log('No Moves');
   }
 };
-
-export const getColumnCards = ({
-  toCards,
-  fromCards,
-  selectedColumn,
-  columnNo,
-  cardPosition,
-}) => {
-  const columnCards = toCards[selectedColumn];
-  const moveCards = fromCards[columnNo].slice(cardPosition);
-
-  return [...columnCards, ...moveCards];
-};
-
-export const checkEmptyColumns = (cards) =>
-  cards.length < settings.rules.columns.length;

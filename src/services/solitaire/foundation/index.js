@@ -4,9 +4,9 @@ import {
   checkFoundationColumnSuit,
   getFoundationColumn,
 } from './foundation';
-import { rules } from '../settings.json';
+import { foundationColumns } from '../settings.json';
 
-export const initFoundation = () => rules.foundationColumns.map(() => []);
+export const initFoundation = () => foundationColumns.map(() => []);
 
 export const updateFoundation = ({ foundation }, { foundationCardsTo }) =>
   foundation.map((columnCards, index) => {
