@@ -2,11 +2,12 @@ import {
   checkVisibleMoves,
   checkKingMoves,
   checkFoundationMoves,
-  moveCardsFromBoard,
-  moveCardsToBoard,
-  moveCardsToFoundation,
+  getMoveCardsFromBoard,
+  getMoveCardsToBoard,
+  getMoveCardsToFoundation,
 } from './moves';
-import { initFoundation } from '../foundation';
+import { initFoundation, updateFoundation } from '../foundation';
+import { updateBoard } from '../board';
 import { getSelectedCard, getLastCard, getCardPosition } from '../cards';
 import {
   validateCardMove,
@@ -60,14 +61,13 @@ export const checkInitialBoardMoves = (cards) => {
   return hasBoardMoves;
 };
 
-export const moveBoardCards = (state, selectedColumn) => {
-  const cardsFrom = moveCardsFromBoard(state);
-  const cardsTo = moveCardsToBoard(state, selectedColumn);
+export const moveCards = (state, selectedColumn) => {
+  const cardsFrom = getMoveCardsFromBoard(state);
+  const cardsTo = getMoveCardsToBoard(state, selectedColumn);
 
-  return {
-    cardsFrom,
-    cardsTo,
-  };
+  const cards = updateBoard(state, { cardsFrom, cardsTo });
+
+  return { cards };
 };
 
 export const checkValidFoundationMove = (
@@ -89,13 +89,16 @@ export const checkValidFoundationMove = (
   return isValidFoundationMove && isValidCardPosition;
 };
 
-export const moveFoundationCards = (state, selectedColumn) => {
-  const cardsFrom = moveCardsFromBoard(state);
-  const foundationCardsTo = moveCardsToFoundation(state, selectedColumn);
+export const moveCardsToFoundation = (state, selectedColumn) => {
+  const cardsFrom = getMoveCardsFromBoard(state);
+  const cardsTo = getMoveCardsToFoundation(state, selectedColumn);
+
+  const cards = updateBoard(state, { cardsFrom });
+  const foundation = updateFoundation(state, { cardsFrom, cardsTo });
 
   return {
-    cardsFrom,
-    foundationCardsTo,
+    cards,
+    foundation,
   };
 };
 

@@ -67,7 +67,7 @@ export const checkFoundationMoves = (boardCards, foundationCards) => {
   return hasMoves;
 };
 
-export const moveCardsFromBoard = ({ selectedCardId, cards }) => {
+export const getMoveCardsFromBoard = ({ selectedCardId, cards }) => {
   const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
   const remainingCards = cards[columnNo].slice(0, cardPosition);
@@ -79,7 +79,10 @@ export const moveCardsFromBoard = ({ selectedCardId, cards }) => {
   };
 };
 
-export const moveCardsToBoard = ({ selectedCardId, cards }, selectedColumn) => {
+export const getMoveCardsToBoard = (
+  { selectedCardId, cards },
+  selectedColumn
+) => {
   const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
   const columnCards = getColumnCards({
@@ -96,7 +99,7 @@ export const moveCardsToBoard = ({ selectedCardId, cards }, selectedColumn) => {
   };
 };
 
-export const moveCardsToFoundation = (
+export const getMoveCardsToFoundation = (
   { selectedCardId, cards, foundation },
   selectedColumn
 ) => {

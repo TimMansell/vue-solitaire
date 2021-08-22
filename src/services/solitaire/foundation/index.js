@@ -8,10 +8,10 @@ import { foundationColumns } from '../settings.json';
 
 export const initFoundation = () => foundationColumns.map(() => []);
 
-export const updateFoundation = ({ foundation }, { foundationCardsTo }) =>
+export const updateFoundation = ({ foundation }, { cardsTo }) =>
   foundation.map((columnCards, index) => {
-    if (index === foundationCardsTo.columnNo) {
-      return foundationCardsTo.columnCards;
+    if (index === cardsTo.columnNo) {
+      return cardsTo.columnCards;
     }
 
     return columnCards;
