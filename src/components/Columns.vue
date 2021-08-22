@@ -40,10 +40,10 @@ export default {
       const { cards, draggedCardsIDs } = this;
 
       const cardsWithDragged = cards.map((columnCards) =>
-        columnCards.map(({ id }) => {
-          const isDragged = draggedCardsIDs.includes(id);
+        columnCards.map((card) => {
+          const isDragged = draggedCardsIDs.includes(card.id);
 
-          return { ...cards, isDragged };
+          return { ...card, isDragged };
         })
       );
 
