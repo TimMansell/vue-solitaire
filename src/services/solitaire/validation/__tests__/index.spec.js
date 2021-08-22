@@ -3,6 +3,7 @@ import {
   validateCardMoveColumn,
   validateFoundationMove,
   validateFoundationMovePosition,
+  validateEmptyColumn,
 } from '../index';
 
 describe('validation moves', () => {
@@ -281,6 +282,24 @@ describe('validation moves', () => {
       const result = validateFoundationMovePosition(card, cards);
 
       expect(result).toBe(false);
+    });
+  });
+
+  describe('validateEmptyColumn', () => {
+    it('should have no empty columns out of 8', () => {
+      const cards = [[], [], [], [], [], [], [], []];
+
+      const result = validateEmptyColumn(cards);
+
+      expect(result).toBe(false);
+    });
+
+    it('should have one empty column out of 8', () => {
+      const cards = [[], [], [], [], [], [], []];
+
+      const result = validateEmptyColumn(cards);
+
+      expect(result).toBe(true);
     });
   });
 });
