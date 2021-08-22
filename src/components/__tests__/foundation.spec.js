@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import Foundation from '@/components/Foundation.vue';
 
 const computed = {
-  foundationCards: () => [
+  foundation: () => [
     [
       {
         id: 0,

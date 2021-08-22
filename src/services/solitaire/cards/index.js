@@ -24,9 +24,9 @@ export const getSelectedCard = (cards, selectedCardId) => {
   return selectedCard;
 };
 
-export const getCardPosition = (boardCards, selectedCardId) => {
-  const columnNo = findCardColumn(boardCards, selectedCardId);
-  const cardPosition = findCardPosition(boardCards[columnNo], selectedCardId);
+export const getCardPosition = (cards, selectedCardId) => {
+  const columnNo = findCardColumn(cards, selectedCardId);
+  const cardPosition = findCardPosition(cards[columnNo], selectedCardId);
 
   return {
     columnNo,

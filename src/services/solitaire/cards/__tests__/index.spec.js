@@ -26,7 +26,7 @@ describe('cards', () => {
   });
 
   it('should return selected card', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -54,7 +54,7 @@ describe('cards', () => {
     ];
     const selectedCardId = 2;
 
-    const result = getSelectedCard(boardCards, selectedCardId);
+    const result = getSelectedCard(cards, selectedCardId);
 
     expect(result).toStrictEqual({
       id: 2,
@@ -64,7 +64,7 @@ describe('cards', () => {
   });
 
   it('should return selected card position', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -92,7 +92,7 @@ describe('cards', () => {
     ];
     const selectedCardId = 2;
 
-    const result = getCardPosition(boardCards, selectedCardId);
+    const result = getCardPosition(cards, selectedCardId);
 
     expect(result).toStrictEqual({
       cardPosition: 0,
@@ -101,7 +101,7 @@ describe('cards', () => {
   });
 
   it('should return all visible cards', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -130,7 +130,7 @@ describe('cards', () => {
       ],
     ];
 
-    const result = getVisibleCards(boardCards);
+    const result = getVisibleCards(cards);
 
     expect(result).toStrictEqual([
       { id: 1, suit: '♠', value: 'A', visible: true },
@@ -139,7 +139,7 @@ describe('cards', () => {
   });
 
   it('should return last card in second column', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -178,7 +178,7 @@ describe('cards', () => {
 
     const selectedColumn = 1;
 
-    const result = getLastCard(boardCards, selectedColumn);
+    const result = getLastCard(cards, selectedColumn);
 
     expect(result).toStrictEqual({
       id: 4,
@@ -189,7 +189,7 @@ describe('cards', () => {
   });
 
   it('should emtpy last card object for a selected empty column', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -221,13 +221,13 @@ describe('cards', () => {
 
     const selectedColumn = 2;
 
-    const result = getLastCard(boardCards, selectedColumn);
+    const result = getLastCard(cards, selectedColumn);
 
     expect(result).toStrictEqual({});
   });
 
   it('should return last cards from all columns', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -265,7 +265,7 @@ describe('cards', () => {
       [],
     ];
 
-    const result = getLastCards(boardCards);
+    const result = getLastCards(cards);
 
     expect(result).toStrictEqual([
       { id: 1, suit: '♠', value: 'A', visble: true },
@@ -336,7 +336,7 @@ describe('cards', () => {
   });
 
   it('should be a top position card', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -361,13 +361,13 @@ describe('cards', () => {
 
     const selectedCardId = 1;
 
-    const result = checkCardTopPosition(boardCards, selectedCardId);
+    const result = checkCardTopPosition(cards, selectedCardId);
 
     expect(result).toBe(true);
   });
 
   it('should not be a top position card', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -392,7 +392,7 @@ describe('cards', () => {
 
     const selectedCardId = 3;
 
-    const result = checkCardTopPosition(boardCards, selectedCardId);
+    const result = checkCardTopPosition(cards, selectedCardId);
 
     expect(result).toBe(false);
   });

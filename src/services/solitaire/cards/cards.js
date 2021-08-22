@@ -6,11 +6,11 @@ import {
 } from './helpers';
 
 export const findCardPosition = (columnCards, selectedCardId) =>
-  columnCards.findIndex((card) => card.id === selectedCardId);
+  columnCards.findIndex(({ id }) => id === selectedCardId);
 
-export const findCardColumn = (boardCards, selectedCardId) =>
-  boardCards.findIndex((cards) =>
-    cards.find((card) => card.id === selectedCardId)
+export const findCardColumn = (cards, selectedCardId) =>
+  cards.findIndex((columnCards) =>
+    columnCards.find(({ id }) => id === selectedCardId)
   );
 
 export const buildCards = ({ ranks, suits }) =>

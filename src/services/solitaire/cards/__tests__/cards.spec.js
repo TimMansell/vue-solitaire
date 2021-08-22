@@ -39,7 +39,7 @@ describe('cards', () => {
   });
 
   it('should find card in column 1', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -67,7 +67,7 @@ describe('cards', () => {
     ];
     const selectedCardId = 2;
 
-    const result = findCardColumn(boardCards, selectedCardId);
+    const result = findCardColumn(cards, selectedCardId);
 
     expect(result).toBe(1);
   });
