@@ -1,7 +1,5 @@
 import {
-  buildCards,
-  dealCards,
-  shuffleCards,
+  initCards,
   getSelectedCard,
   getCardPosition,
   getVisibleCards,
@@ -10,210 +8,25 @@ import {
   showLastCard,
   checkCardValue,
   checkCardTopPosition,
+  getColumnCards,
 } from '../index';
-import settings from '../../settings.json';
 
 describe('cards', () => {
-  it('should build deck from settings', () => {
-    const result = buildCards(settings.cards);
-
-    expect(result).toStrictEqual([
-      { id: 1, order: 1, suit: '♣', value: 'A', visible: false },
-      { id: 14, order: 1, suit: '♠', value: 'A', visible: false },
-      { id: 27, order: 1, suit: '♥', value: 'A', visible: false },
-      { id: 40, order: 1, suit: '♦', value: 'A', visible: false },
-      { id: 2, order: 2, suit: '♣', value: '2', visible: false },
-      { id: 15, order: 2, suit: '♠', value: '2', visible: false },
-      { id: 28, order: 2, suit: '♥', value: '2', visible: false },
-      { id: 41, order: 2, suit: '♦', value: '2', visible: false },
-      { id: 3, order: 3, suit: '♣', value: '3', visible: false },
-      { id: 16, order: 3, suit: '♠', value: '3', visible: false },
-      { id: 29, order: 3, suit: '♥', value: '3', visible: false },
-      { id: 42, order: 3, suit: '♦', value: '3', visible: false },
-      { id: 4, order: 4, suit: '♣', value: '4', visible: false },
-      { id: 17, order: 4, suit: '♠', value: '4', visible: false },
-      { id: 30, order: 4, suit: '♥', value: '4', visible: false },
-      { id: 43, order: 4, suit: '♦', value: '4', visible: false },
-      { id: 5, order: 5, suit: '♣', value: '5', visible: false },
-      { id: 18, order: 5, suit: '♠', value: '5', visible: false },
-      { id: 31, order: 5, suit: '♥', value: '5', visible: false },
-      { id: 44, order: 5, suit: '♦', value: '5', visible: false },
-      { id: 6, order: 6, suit: '♣', value: '6', visible: false },
-      { id: 19, order: 6, suit: '♠', value: '6', visible: false },
-      { id: 32, order: 6, suit: '♥', value: '6', visible: false },
-      { id: 45, order: 6, suit: '♦', value: '6', visible: false },
-      { id: 7, order: 7, suit: '♣', value: '7', visible: false },
-      { id: 20, order: 7, suit: '♠', value: '7', visible: false },
-      { id: 33, order: 7, suit: '♥', value: '7', visible: false },
-      { id: 46, order: 7, suit: '♦', value: '7', visible: false },
-      { id: 8, order: 8, suit: '♣', value: '8', visible: false },
-      { id: 21, order: 8, suit: '♠', value: '8', visible: false },
-      { id: 34, order: 8, suit: '♥', value: '8', visible: false },
-      { id: 47, order: 8, suit: '♦', value: '8', visible: false },
-      { id: 9, order: 9, suit: '♣', value: '9', visible: false },
-      { id: 22, order: 9, suit: '♠', value: '9', visible: false },
-      { id: 35, order: 9, suit: '♥', value: '9', visible: false },
-      { id: 48, order: 9, suit: '♦', value: '9', visible: false },
-      { id: 10, order: 10, suit: '♣', value: '10', visible: false },
-      { id: 23, order: 10, suit: '♠', value: '10', visible: false },
-      { id: 36, order: 10, suit: '♥', value: '10', visible: false },
-      { id: 49, order: 10, suit: '♦', value: '10', visible: false },
-      { id: 11, order: 11, suit: '♣', value: 'J', visible: false },
-      { id: 24, order: 11, suit: '♠', value: 'J', visible: false },
-      { id: 37, order: 11, suit: '♥', value: 'J', visible: false },
-      { id: 50, order: 11, suit: '♦', value: 'J', visible: false },
-      { id: 12, order: 12, suit: '♣', value: 'Q', visible: false },
-      { id: 25, order: 12, suit: '♠', value: 'Q', visible: false },
-      { id: 38, order: 12, suit: '♥', value: 'Q', visible: false },
-      { id: 51, order: 12, suit: '♦', value: 'Q', visible: false },
-      { id: 13, order: 13, suit: '♣', value: 'K', visible: false },
-      { id: 26, order: 13, suit: '♠', value: 'K', visible: false },
-      { id: 39, order: 13, suit: '♥', value: 'K', visible: false },
-      { id: 52, order: 13, suit: '♦', value: 'K', visible: false },
-    ]);
-  });
-
   it('should deal cards into columns', () => {
-    const deck = buildCards(settings.cards);
-    const shuffledDeck = shuffleCards(deck, false);
+    const [col1, col2, col3, col4, col5, col6, col7, col8] = initCards();
 
-    const result = dealCards(shuffledDeck, settings.rules);
-
-    expect(result).toStrictEqual([
-      [
-        { id: 1, order: 1, suit: '♣', value: 'A', visible: true },
-        { id: 14, order: 1, suit: '♠', value: 'A', visible: false },
-        { id: 27, order: 1, suit: '♥', value: 'A', visible: true },
-        { id: 40, order: 1, suit: '♦', value: 'A', visible: false },
-        { id: 2, order: 2, suit: '♣', value: '2', visible: true },
-        { id: 15, order: 2, suit: '♠', value: '2', visible: false },
-        { id: 28, order: 2, suit: '♥', value: '2', visible: true },
-      ],
-      [
-        { id: 41, order: 2, suit: '♦', value: '2', visible: true },
-        { id: 3, order: 3, suit: '♣', value: '3', visible: false },
-        { id: 16, order: 3, suit: '♠', value: '3', visible: true },
-        { id: 29, order: 3, suit: '♥', value: '3', visible: false },
-        { id: 42, order: 3, suit: '♦', value: '3', visible: true },
-        { id: 4, order: 4, suit: '♣', value: '4', visible: false },
-        { id: 17, order: 4, suit: '♠', value: '4', visible: true },
-      ],
-      [
-        { id: 30, order: 4, suit: '♥', value: '4', visible: true },
-        { id: 43, order: 4, suit: '♦', value: '4', visible: false },
-        { id: 5, order: 5, suit: '♣', value: '5', visible: true },
-        { id: 18, order: 5, suit: '♠', value: '5', visible: false },
-        { id: 31, order: 5, suit: '♥', value: '5', visible: true },
-        { id: 44, order: 5, suit: '♦', value: '5', visible: false },
-        { id: 6, order: 6, suit: '♣', value: '6', visible: true },
-      ],
-      [
-        { id: 19, order: 6, suit: '♠', value: '6', visible: true },
-        { id: 32, order: 6, suit: '♥', value: '6', visible: false },
-        { id: 45, order: 6, suit: '♦', value: '6', visible: true },
-        { id: 7, order: 7, suit: '♣', value: '7', visible: false },
-        { id: 20, order: 7, suit: '♠', value: '7', visible: true },
-        { id: 33, order: 7, suit: '♥', value: '7', visible: false },
-        { id: 46, order: 7, suit: '♦', value: '7', visible: true },
-      ],
-      [
-        { id: 8, order: 8, suit: '♣', value: '8', visible: false },
-        { id: 21, order: 8, suit: '♠', value: '8', visible: true },
-        { id: 34, order: 8, suit: '♥', value: '8', visible: false },
-        { id: 47, order: 8, suit: '♦', value: '8', visible: true },
-        { id: 9, order: 9, suit: '♣', value: '9', visible: false },
-        { id: 22, order: 9, suit: '♠', value: '9', visible: true },
-      ],
-      [
-        { id: 35, order: 9, suit: '♥', value: '9', visible: false },
-        { id: 48, order: 9, suit: '♦', value: '9', visible: true },
-        { id: 10, order: 10, suit: '♣', value: '10', visible: false },
-        { id: 23, order: 10, suit: '♠', value: '10', visible: true },
-        { id: 36, order: 10, suit: '♥', value: '10', visible: false },
-        { id: 49, order: 10, suit: '♦', value: '10', visible: true },
-      ],
-      [
-        { id: 11, order: 11, suit: '♣', value: 'J', visible: false },
-        { id: 24, order: 11, suit: '♠', value: 'J', visible: true },
-        { id: 37, order: 11, suit: '♥', value: 'J', visible: false },
-        { id: 50, order: 11, suit: '♦', value: 'J', visible: true },
-        { id: 12, order: 12, suit: '♣', value: 'Q', visible: false },
-        { id: 25, order: 12, suit: '♠', value: 'Q', visible: true },
-      ],
-      [
-        { id: 38, order: 12, suit: '♥', value: 'Q', visible: false },
-        { id: 51, order: 12, suit: '♦', value: 'Q', visible: true },
-        { id: 13, order: 13, suit: '♣', value: 'K', visible: false },
-        { id: 26, order: 13, suit: '♠', value: 'K', visible: true },
-        { id: 39, order: 13, suit: '♥', value: 'K', visible: false },
-        { id: 52, order: 13, suit: '♦', value: 'K', visible: true },
-      ],
-    ]);
-  });
-
-  it('should not shuffle cards', () => {
-    const deck = buildCards(settings.cards);
-
-    const result = shuffleCards(deck, false);
-
-    expect(result).toStrictEqual([
-      { id: 1, order: 1, suit: '♣', value: 'A', visible: false },
-      { id: 14, order: 1, suit: '♠', value: 'A', visible: false },
-      { id: 27, order: 1, suit: '♥', value: 'A', visible: false },
-      { id: 40, order: 1, suit: '♦', value: 'A', visible: false },
-      { id: 2, order: 2, suit: '♣', value: '2', visible: false },
-      { id: 15, order: 2, suit: '♠', value: '2', visible: false },
-      { id: 28, order: 2, suit: '♥', value: '2', visible: false },
-      { id: 41, order: 2, suit: '♦', value: '2', visible: false },
-      { id: 3, order: 3, suit: '♣', value: '3', visible: false },
-      { id: 16, order: 3, suit: '♠', value: '3', visible: false },
-      { id: 29, order: 3, suit: '♥', value: '3', visible: false },
-      { id: 42, order: 3, suit: '♦', value: '3', visible: false },
-      { id: 4, order: 4, suit: '♣', value: '4', visible: false },
-      { id: 17, order: 4, suit: '♠', value: '4', visible: false },
-      { id: 30, order: 4, suit: '♥', value: '4', visible: false },
-      { id: 43, order: 4, suit: '♦', value: '4', visible: false },
-      { id: 5, order: 5, suit: '♣', value: '5', visible: false },
-      { id: 18, order: 5, suit: '♠', value: '5', visible: false },
-      { id: 31, order: 5, suit: '♥', value: '5', visible: false },
-      { id: 44, order: 5, suit: '♦', value: '5', visible: false },
-      { id: 6, order: 6, suit: '♣', value: '6', visible: false },
-      { id: 19, order: 6, suit: '♠', value: '6', visible: false },
-      { id: 32, order: 6, suit: '♥', value: '6', visible: false },
-      { id: 45, order: 6, suit: '♦', value: '6', visible: false },
-      { id: 7, order: 7, suit: '♣', value: '7', visible: false },
-      { id: 20, order: 7, suit: '♠', value: '7', visible: false },
-      { id: 33, order: 7, suit: '♥', value: '7', visible: false },
-      { id: 46, order: 7, suit: '♦', value: '7', visible: false },
-      { id: 8, order: 8, suit: '♣', value: '8', visible: false },
-      { id: 21, order: 8, suit: '♠', value: '8', visible: false },
-      { id: 34, order: 8, suit: '♥', value: '8', visible: false },
-      { id: 47, order: 8, suit: '♦', value: '8', visible: false },
-      { id: 9, order: 9, suit: '♣', value: '9', visible: false },
-      { id: 22, order: 9, suit: '♠', value: '9', visible: false },
-      { id: 35, order: 9, suit: '♥', value: '9', visible: false },
-      { id: 48, order: 9, suit: '♦', value: '9', visible: false },
-      { id: 10, order: 10, suit: '♣', value: '10', visible: false },
-      { id: 23, order: 10, suit: '♠', value: '10', visible: false },
-      { id: 36, order: 10, suit: '♥', value: '10', visible: false },
-      { id: 49, order: 10, suit: '♦', value: '10', visible: false },
-      { id: 11, order: 11, suit: '♣', value: 'J', visible: false },
-      { id: 24, order: 11, suit: '♠', value: 'J', visible: false },
-      { id: 37, order: 11, suit: '♥', value: 'J', visible: false },
-      { id: 50, order: 11, suit: '♦', value: 'J', visible: false },
-      { id: 12, order: 12, suit: '♣', value: 'Q', visible: false },
-      { id: 25, order: 12, suit: '♠', value: 'Q', visible: false },
-      { id: 38, order: 12, suit: '♥', value: 'Q', visible: false },
-      { id: 51, order: 12, suit: '♦', value: 'Q', visible: false },
-      { id: 13, order: 13, suit: '♣', value: 'K', visible: false },
-      { id: 26, order: 13, suit: '♠', value: 'K', visible: false },
-      { id: 39, order: 13, suit: '♥', value: 'K', visible: false },
-      { id: 52, order: 13, suit: '♦', value: 'K', visible: false },
-    ]);
+    expect(col1).toHaveLength(7);
+    expect(col2).toHaveLength(7);
+    expect(col3).toHaveLength(7);
+    expect(col4).toHaveLength(7);
+    expect(col5).toHaveLength(6);
+    expect(col6).toHaveLength(6);
+    expect(col7).toHaveLength(6);
+    expect(col8).toHaveLength(6);
   });
 
   it('should return selected card', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -241,7 +54,7 @@ describe('cards', () => {
     ];
     const selectedCardId = 2;
 
-    const result = getSelectedCard(boardCards, selectedCardId);
+    const result = getSelectedCard(cards, selectedCardId);
 
     expect(result).toStrictEqual({
       id: 2,
@@ -251,7 +64,7 @@ describe('cards', () => {
   });
 
   it('should return selected card position', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -279,7 +92,7 @@ describe('cards', () => {
     ];
     const selectedCardId = 2;
 
-    const result = getCardPosition(boardCards, selectedCardId);
+    const result = getCardPosition(cards, selectedCardId);
 
     expect(result).toStrictEqual({
       cardPosition: 0,
@@ -288,7 +101,7 @@ describe('cards', () => {
   });
 
   it('should return all visible cards', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -317,7 +130,7 @@ describe('cards', () => {
       ],
     ];
 
-    const result = getVisibleCards(boardCards);
+    const result = getVisibleCards(cards);
 
     expect(result).toStrictEqual([
       { id: 1, suit: '♠', value: 'A', visible: true },
@@ -326,7 +139,7 @@ describe('cards', () => {
   });
 
   it('should return last card in second column', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -365,7 +178,7 @@ describe('cards', () => {
 
     const selectedColumn = 1;
 
-    const result = getLastCard(boardCards, selectedColumn);
+    const result = getLastCard(cards, selectedColumn);
 
     expect(result).toStrictEqual({
       id: 4,
@@ -376,7 +189,7 @@ describe('cards', () => {
   });
 
   it('should emtpy last card object for a selected empty column', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -408,13 +221,13 @@ describe('cards', () => {
 
     const selectedColumn = 2;
 
-    const result = getLastCard(boardCards, selectedColumn);
+    const result = getLastCard(cards, selectedColumn);
 
     expect(result).toStrictEqual({});
   });
 
   it('should return last cards from all columns', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -452,7 +265,7 @@ describe('cards', () => {
       [],
     ];
 
-    const result = getLastCards(boardCards);
+    const result = getLastCards(cards);
 
     expect(result).toStrictEqual([
       { id: 1, suit: '♠', value: 'A', visble: true },
@@ -523,7 +336,7 @@ describe('cards', () => {
   });
 
   it('should be a top position card', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -548,13 +361,13 @@ describe('cards', () => {
 
     const selectedCardId = 1;
 
-    const result = checkCardTopPosition(boardCards, selectedCardId);
+    const result = checkCardTopPosition(cards, selectedCardId);
 
     expect(result).toBe(true);
   });
 
   it('should not be a top position card', () => {
-    const boardCards = [
+    const cards = [
       [
         {
           id: 1,
@@ -579,8 +392,48 @@ describe('cards', () => {
 
     const selectedCardId = 3;
 
-    const result = checkCardTopPosition(boardCards, selectedCardId);
+    const result = checkCardTopPosition(cards, selectedCardId);
 
     expect(result).toBe(false);
+  });
+
+  it('should return column cards', () => {
+    const obj = {
+      toCards: [
+        [],
+        [
+          {
+            id: 52,
+            order: 8,
+            suit: '♠',
+            value: '8',
+            visible: true,
+          },
+        ],
+        [],
+        [],
+      ],
+      fromCards: [
+        [
+          {
+            id: 1,
+            order: 7,
+            suit: '♠',
+            value: '7',
+            visible: true,
+          },
+        ],
+      ],
+      selectedColumn: 1,
+      columnNo: 0,
+      cardPosition: 0,
+    };
+
+    const result = getColumnCards(obj);
+
+    expect(result).toStrictEqual([
+      { id: 52, order: 8, suit: '♠', value: '8', visible: true },
+      { id: 1, order: 7, suit: '♠', value: '7', visible: true },
+    ]);
   });
 });

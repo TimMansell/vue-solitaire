@@ -10,6 +10,7 @@ import {
   isFoundationMoveValidOrder,
   isFoundationMoveValidAce,
 } from './validation';
+import { columns } from '../settings.json';
 
 export const validateCardMove = (card, compareTo) => {
   const validate = setupValidation(card, compareTo);
@@ -39,3 +40,5 @@ export const validateFoundationMove = (card, compareTo) => {
 
 export const validateFoundationMovePosition = (card, compareTo) =>
   setupValidation(card, compareTo)(isFoundationMoveValidPosition);
+
+export const validateEmptyColumn = (cards) => cards.length < columns.length;

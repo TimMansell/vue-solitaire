@@ -1,18 +1,10 @@
 import {
-  initFoundations,
   checkEmptyFoundationColumn,
   checkFoundationColumnSuit,
   getFoundationColumn,
 } from '../foundation';
-import settings from '../../settings.json';
 
 describe('foundation', () => {
-  it('should init foundation', () => {
-    const result = initFoundations(settings);
-
-    expect(result).toStrictEqual([[], [], [], []]);
-  });
-
   it('should return empty column', () => {
     const foundationColumn = [];
 

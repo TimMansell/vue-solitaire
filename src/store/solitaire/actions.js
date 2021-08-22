@@ -1,112 +1,100 @@
-import solitaire from '@/services/solitaire';
-import { getBoardState } from './helpers';
+import {
+  initBoard,
+  initFoundation,
+  checkHasMoves,
+  isBoardEmpty,
+  checkValidCardMove,
+  moveCards,
+  checkValidFoundationMove,
+  moveCardsToFoundation,
+  getEmptyFoundationColumn,
+  getDraggedCards,
+} from '@/services/solitaire';
 
 const actions = {
-  async initGame({ dispatch, state }) {
-    const { selectedCardId, isNewGame } = state;
-    const boardToUse = getBoardState(isNewGame);
+  initGame({ commit, dispatch, state }) {
+    const { isNewGame } = state;
 
-    solitaire.init(boardToUse);
+    dispatch('setBoard', isNewGame);
+    dispatch('setFoundations', isNewGame);
 
-    dispatch('setBoard');
-    dispatch('setFoundations');
-
-    if (selectedCardId) {
-      dispatch('setCard', selectedCardId);
-    }
-
-    if (isNewGame) {
-      dispatch('newGame', false);
-    }
-  },
-  newGame({ commit }, isNewGame) {
-    commit('NEW_GAME', isNewGame);
+    commit('NEW_GAME', false);
   },
   restartGame({ commit }) {
     commit('RESTART_GAME');
   },
-  checkGameState({ commit, dispatch }) {
-    const hasMoves = solitaire.hasMoves();
-    const isBoardEmpty = solitaire.isEmptyBoard();
+  checkGameState({ commit, dispatch, state }) {
+    const hasMoves = checkHasMoves(state);
+
+    commit('SET_HAS_MOVES', hasMoves);
 
     if (!hasMoves) {
-      commit('SET_HAS_MOVES', false);
+      const isEmptyBoard = isBoardEmpty(state);
 
-      dispatch('setGameState', isBoardEmpty);
+      dispatch('setGameState', isEmptyBoard);
     }
   },
-  setFoundations({ commit }) {
-    const foundationCards = solitaire.getFoundationCards();
+  setFoundations({ commit, state }, isNewGame) {
+    const { foundation } = state;
+    const foundationCards = !isNewGame ? foundation : initFoundation();
 
     commit('SET_FOUNDATIONS', foundationCards);
   },
-  setBoard({ commit }) {
-    const board = solitaire.getBoardCards();
+  setBoard({ commit, state }, isNewGame) {
+    const { cards } = state;
+    const board = !isNewGame ? cards : initBoard();
 
     commit('SET_BOARD', board);
   },
-  setCard({ state, dispatch }, id) {
-    const { selectedCard } = state;
-
-    if (selectedCard === id) {
-      dispatch('unselectCard');
-    } else {
-      dispatch('selectCard', id);
-    }
-  },
-  selectCard({ commit }, id) {
-    solitaire.setSelectedCard(id);
-
+  setCard({ commit }, id) {
     commit('SELECT_CARD', id);
   },
-  unselectCard({ commit }) {
-    solitaire.removeSelectedCard();
-
-    commit('UNSELECT_CARD');
-  },
-  moveCardsToColumn({ dispatch }, selectedColumn) {
-    const isValidMove = solitaire.isValidCardMove(selectedColumn);
+  moveCardsToColumn({ commit, dispatch, state }, selectedColumn) {
+    const isValidMove = checkValidCardMove(state, selectedColumn);
 
     if (isValidMove) {
-      solitaire.moveCards(selectedColumn);
+      const { cards } = moveCards(state, selectedColumn);
+
+      commit('SET_BOARD', cards);
 
       dispatch('incrementMoves');
-      dispatch('setBoard');
       dispatch('checkGameState');
     }
 
-    dispatch('unselectCard');
+    dispatch('setCard', null);
   },
-  moveCardToFoundation({ dispatch }, selectedColumn) {
-    const isValidMove = solitaire.isValidFoundationMove(selectedColumn);
+  moveCardToFoundation({ commit, dispatch, state }, selectedColumn) {
+    const isValidMove = checkValidFoundationMove(state, selectedColumn);
 
     if (isValidMove) {
-      solitaire.moveCardsToFoundation(selectedColumn);
+      const { cards, foundation } = moveCardsToFoundation(
+        state,
+        selectedColumn
+      );
+
+      commit('SET_FOUNDATIONS', foundation);
+      commit('SET_BOARD', cards);
 
       dispatch('incrementMoves');
-      dispatch('setBoard');
-      dispatch('setFoundations');
       dispatch('checkGameState');
     }
 
-    dispatch('unselectCard');
+    dispatch('setCard', null);
   },
-  autoMoveCardToFoundation({ dispatch }, id) {
-    solitaire.setSelectedCard(id);
+  autoMoveCardToFoundation({ dispatch, state }, id) {
+    dispatch('setCard', id);
 
     // Find suit in array to determine column to move to.
-    const foundationColumn = solitaire.findEmptyFoundationColumn(id);
+    const foundationColumn = getEmptyFoundationColumn(state);
 
     dispatch('moveCardToFoundation', foundationColumn);
   },
-  setBoardAndFoundation({ dispatch }, board) {
-    solitaire.init(board);
-
-    dispatch('setBoard');
-    dispatch('setFoundations');
+  setBoardAndFoundation({ commit }, { cards, foundation }) {
+    commit('SET_FOUNDATIONS', foundation);
+    commit('SET_BOARD', cards);
   },
-  setDraggedCards({ commit }, id) {
-    const cards = solitaire.getDraggedCards(id);
+  setDraggedCards({ commit, state }, id) {
+    const cards = getDraggedCards(state, id);
 
     commit('DRAG_CARDS', cards);
   },

@@ -19,14 +19,14 @@ export const isMoveValidKing = (selectedCard, compareToCard) =>
   selectedCard.value === 'K' && !compareToCard.value;
 
 // Foundation validation.
-export const isFoundationMoveValidPosition = (selectedCard, boardCards) =>
-  boardCards.some((cards) => {
-    const cardPosition = cards.findIndex(
-      (card) => card.id === selectedCard?.id
+export const isFoundationMoveValidPosition = (selectedCard, cards) =>
+  cards.some((columnCards) => {
+    const cardPosition = columnCards.findIndex(
+      ({ id }) => id === selectedCard?.id
     );
     const emptyColumn = cardPosition !== -1;
 
-    return cardPosition === cards.length - 1 && emptyColumn;
+    return cardPosition === columnCards.length - 1 && emptyColumn;
   });
 
 export const isFoundationMoveValidAce = (selectedCard, compareToCard) =>

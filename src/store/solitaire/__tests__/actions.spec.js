@@ -1,114 +1,130 @@
 import actions from '../actions';
 
 const {
-  initGame,
   checkGameState,
   setFoundations,
   setBoard,
-  setCard,
   moveCardsToColumn,
   moveCardToFoundation,
-  autoMoveCardToFoundation,
   setDraggedCards,
 } = actions;
 
-const commit = jest.fn();
-const dispatch = jest.fn();
+let commit;
+let dispatch;
 
 jest.mock('@/services/solitaire');
 jest.mock('@/services/db');
-jest.mock('../helpers');
 
 describe('Solitaire Store', () => {
-  it('initGame - new game', () => {
-    const state = {
-      isNewGame: true,
-    };
-
-    initGame({ dispatch, state });
-
-    expect(dispatch).not.toHaveBeenCalledWith('setCard');
-    expect(dispatch).toHaveBeenCalledWith('newGame', false);
+  beforeEach(() => {
+    commit = jest.fn();
+    dispatch = jest.fn();
   });
 
-  it('initGame - saved game', () => {
-    const state = {
-      selectedCardId: 1,
-      isNewGame: false,
-    };
+  it('should have no moves for game state', () => {
+    const state = { hasMoves: false };
 
-    initGame({ dispatch, state });
-
-    expect(dispatch).toHaveBeenCalledWith('setCard', 1);
-    expect(dispatch).not.toHaveBeenCalledWith('newGame');
-  });
-
-  it('checkGameState - no moves', () => {
-    checkGameState({ commit, dispatch });
+    checkGameState({ commit, dispatch, state });
 
     expect(dispatch).toHaveBeenCalledWith('setGameState', true);
   });
 
-  it('setFoundations', () => {
-    setFoundations({ commit });
+  it('should have moves for game state', () => {
+    const state = { hasMoves: true };
 
-    expect(commit).toHaveBeenCalledWith('SET_FOUNDATIONS', []);
+    checkGameState({ commit, dispatch, state });
+
+    expect(dispatch).not.toHaveBeenCalledWith('setGameState');
   });
 
-  it('setBoard', () => {
-    setBoard({ commit });
+  it('should clear foundations for new game', () => {
+    const state = {
+      foundation: [],
+    };
+
+    setFoundations({ commit, state }, true);
+
+    expect(commit).toHaveBeenCalledWith('SET_FOUNDATIONS', [
+      ['foundation card 1'],
+      ['foundation card 2'],
+    ]);
+  });
+
+  it('should load foundations from state', () => {
+    const state = {
+      foundation: [['state card 1'], ['state card 2']],
+    };
+
+    setFoundations({ commit, state }, false);
+
+    expect(commit).toHaveBeenCalledWith('SET_FOUNDATIONS', state.foundation);
+  });
+
+  it('should set a new board for new game', () => {
+    const state = {
+      cards: [],
+    };
+
+    setBoard({ commit, state }, true);
+
+    expect(commit).toHaveBeenCalledWith('SET_BOARD', [['card 1'], ['card 2']]);
+  });
+
+  it('should load board from state', () => {
+    const state = {
+      cards: [['state card 1'], ['state card 2']],
+    };
+
+    setBoard({ commit, state }, false);
+
+    expect(commit).toHaveBeenCalledWith('SET_BOARD', state.cards);
+  });
+
+  it('should move cards to column', () => {
+    const state = { validMove: true };
+
+    moveCardsToColumn({ commit, dispatch, state });
 
     expect(commit).toHaveBeenCalledWith('SET_BOARD', []);
+    expect(dispatch).toHaveBeenCalledWith('incrementMoves');
+    expect(dispatch).toHaveBeenCalledWith('checkGameState');
   });
 
-  it('setCard - select', () => {
-    const state = {
-      selectedCard: 2,
-    };
+  it('should not move cards to column', () => {
+    const state = { validMove: false };
 
-    setCard({ dispatch, state }, 1);
+    moveCardsToColumn({ commit, dispatch, state });
 
-    expect(dispatch).toHaveBeenCalledWith('selectCard', 1);
+    expect(commit).not.toHaveBeenCalledWith('SET_BOARD');
+    expect(dispatch).toHaveBeenCalledWith('setCard', null);
   });
 
-  it('setCard - unselect', () => {
-    const state = {
-      selectedCard: 1,
-    };
+  it('should move cards to foundation', () => {
+    const state = { validMove: true };
 
-    setCard({ dispatch, state }, 1);
+    moveCardToFoundation({ commit, dispatch, state });
 
-    expect(dispatch).toHaveBeenCalledWith('unselectCard');
-  });
-
-  it('moveCardsToColumn', () => {
-    moveCardsToColumn({ dispatch });
+    expect(commit).toHaveBeenCalledWith('SET_FOUNDATIONS', []);
+    expect(commit).toHaveBeenCalledWith('SET_BOARD', []);
 
     expect(dispatch).toHaveBeenCalledWith('incrementMoves');
-    expect(dispatch).toHaveBeenCalledWith('setBoard');
     expect(dispatch).toHaveBeenCalledWith('checkGameState');
-    expect(dispatch).toHaveBeenCalledWith('unselectCard');
   });
 
-  it('moveCardToFoundation', () => {
-    moveCardToFoundation({ dispatch });
+  it('should not move cards to foundation', () => {
+    const state = { validMove: false };
 
-    expect(dispatch).toHaveBeenCalledWith('incrementMoves');
-    expect(dispatch).toHaveBeenCalledWith('setBoard');
-    expect(dispatch).toHaveBeenCalledWith('setFoundations');
-    expect(dispatch).toHaveBeenCalledWith('checkGameState');
-    expect(dispatch).toHaveBeenCalledWith('unselectCard');
-  });
+    moveCardToFoundation({ commit, dispatch, state });
 
-  it('autoMoveCardToFoundation', () => {
-    autoMoveCardToFoundation({ dispatch });
-
-    expect(dispatch).toHaveBeenCalledWith('moveCardToFoundation', 0);
+    expect(commit).not.toHaveBeenCalledWith('SET_FOUNDATIONS');
+    expect(commit).not.toHaveBeenCalledWith('SET_BOARD');
   });
 
   it('setDraggedCards', () => {
-    setDraggedCards({ commit }, 1);
+    const state = {};
 
-    expect(commit).toHaveBeenCalledWith('DRAG_CARDS', []);
+    setDraggedCards({ commit, state }, 1);
+
+    expect(commit).toHaveBeenCalledWith('DRAG_CARDS', [['card 1'], ['card 2']]);
   });
 });

@@ -1,31 +1,24 @@
 import {
-  loadFoundation,
+  initFoundation,
   updateFoundation,
   getEmptyFoundationColumn,
 } from '../index';
 
 describe('foundation', () => {
-  describe('load foundation', () => {
-    it('should return foundations', () => {
-      const board = {
-        foundation: [[], []],
-        cards: [[], []],
-      };
+  it('should init foundation', () => {
+    const result = initFoundation();
 
-      const result = loadFoundation(board);
-
-      expect(result).toStrictEqual([[], []]);
-    });
+    expect(result).toStrictEqual([[], [], [], []]);
   });
 
   it('should update foundation', () => {
     const state = {
-      foundationCards: [[], [], [], []],
+      foundation: [[], [], [], []],
     };
 
     const cards = {
-      foundationCardsTo: {
-        cards: [
+      cardsTo: {
+        columnCards: [
           {
             id: 2,
             suit: '♠',
@@ -48,7 +41,7 @@ describe('foundation', () => {
 
   it('should return first empty Ace column', () => {
     const state = {
-      boardCards: [
+      cards: [
         [
           {
             id: 1,
@@ -64,7 +57,7 @@ describe('foundation', () => {
         [],
         [],
       ],
-      foundationCards: [[], [], [], []],
+      foundation: [[], [], [], []],
       selectedCardId: 1,
     };
 
@@ -75,7 +68,7 @@ describe('foundation', () => {
 
   it('should return second column', () => {
     const state = {
-      boardCards: [
+      cards: [
         [
           {
             id: 1,
@@ -91,7 +84,7 @@ describe('foundation', () => {
         [],
         [],
       ],
-      foundationCards: [
+      foundation: [
         [
           {
             id: 2,
@@ -113,7 +106,7 @@ describe('foundation', () => {
 
   it('should return correct column for suit', () => {
     const state = {
-      boardCards: [
+      cards: [
         [
           {
             id: 1,
@@ -130,7 +123,7 @@ describe('foundation', () => {
         [],
         [],
       ],
-      foundationCards: [
+      foundation: [
         [
           {
             id: 2,

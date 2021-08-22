@@ -11,11 +11,11 @@ const mutations = {
   NEW_GAME(state, isNewGame) {
     state.isNewGame = isNewGame;
   },
-  SET_BOARD(state, deck) {
-    state.board.cards = deck;
+  SET_BOARD(state, cards) {
+    state.cards = cards;
   },
-  SET_FOUNDATIONS(state, foundationColumns) {
-    state.board.foundation = foundationColumns;
+  SET_FOUNDATIONS(state, foundation) {
+    state.foundation = foundation;
   },
   SELECT_CARD(state, id) {
     state.selectedCardId = id;

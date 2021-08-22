@@ -1,7 +1,7 @@
 <template>
   <div class="foundation" data-test="foundations">
     <div
-      v-for="(foundation, foundationsIndex) in foundationCards"
+      v-for="(foundation, foundationsIndex) in foundation"
       :key="`f-${foundationsIndex}`"
       @click="setFoundationColumn(foundationsIndex)"
       :data-test="`foundation-${foundationsIndex}`"
@@ -37,7 +37,7 @@ export default {
     CardPlaceholder,
   },
   computed: {
-    ...mapGetters(['foundationCards']),
+    ...mapGetters(['foundation']),
   },
   methods: {
     ...mapActions(['moveCardToFoundation']),
