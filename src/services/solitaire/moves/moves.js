@@ -13,18 +13,18 @@ import {
   validateEmptyColumn,
 } from '../validation';
 
-export const checkVisibleMoves = (boardCards) => {
-  const lastCards = getLastCards(boardCards);
-  const visibleCards = getVisibleCards(boardCards);
+export const checkVisibleMoves = (cards) => {
+  const lastCards = getLastCards(cards);
+  const visibleCards = getVisibleCards(cards);
 
   const hasMoves = visibleCards.filter((visibleCard) => {
     const cardHasMove = lastCards.filter((lastCard) => {
-      const { columnNo } = getCardPosition(boardCards, lastCard.id);
+      const { columnNo } = getCardPosition(cards, lastCard.id);
 
       const isValidCard = validateCardMove(visibleCard, lastCard);
       const isValidColumn = validateCardMoveColumn(
         visibleCard,
-        boardCards[columnNo]
+        cards[columnNo]
       );
 
       return isValidCard && isValidColumn;
@@ -36,12 +36,12 @@ export const checkVisibleMoves = (boardCards) => {
   return hasMoves;
 };
 
-export const checkKingMoves = (boardCards) => {
-  const lastCards = getLastCards(boardCards);
-  const visibleCards = getVisibleCards(boardCards);
+export const checkKingMoves = (cards) => {
+  const lastCards = getLastCards(cards);
+  const visibleCards = getVisibleCards(cards);
 
   const hasMoves = visibleCards.filter((visibleCard) => {
-    const isCardTopPosition = checkCardTopPosition(boardCards, visibleCard.id);
+    const isCardTopPosition = checkCardTopPosition(cards, visibleCard.id);
     const isCardKing = checkCardValue(visibleCard, 'K');
     const hasEmptyColumns = validateEmptyColumn(lastCards);
 
@@ -51,9 +51,9 @@ export const checkKingMoves = (boardCards) => {
   return hasMoves;
 };
 
-export const checkFoundationMoves = (boardCards, foundationCards) => {
-  const lastFoundationCards = getLastCards(foundationCards);
-  const lastCards = getLastCards(boardCards);
+export const checkFoundationMoves = (cards, foundation) => {
+  const lastFoundationCards = getLastCards(foundation);
+  const lastCards = getLastCards(cards);
 
   const hasMoves = lastCards.filter((lastCard) => {
     const isCardAce = checkCardValue(lastCard, 'A');
