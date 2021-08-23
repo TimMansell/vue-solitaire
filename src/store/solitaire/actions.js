@@ -10,6 +10,7 @@ import {
   getEmptyFoundationColumn,
   getDraggedCards,
 } from '@/services/solitaire';
+import db from '@/services/db';
 
 const actions = {
   initGame({ commit, dispatch, state }) {
@@ -40,11 +41,21 @@ const actions = {
 
     commit('SET_FOUNDATIONS', foundationCards);
   },
-  setBoard({ commit, state }, isNewGame) {
+  async setBoard({ commit, state, rootState }, isNewGame) {
     const { cards } = state;
-    const board = !isNewGame ? cards : initBoard();
 
-    commit('SET_BOARD', board);
+    if (isNewGame) {
+      const { luid } = rootState.user;
+      const { error, response } = await db.newGame(luid);
+
+      if (!error) {
+        const board = initBoard(response.newGame.cards);
+
+        commit('SET_BOARD', board);
+      }
+    } else {
+      commit('SET_BOARD', cards);
+    }
   },
   setCard({ commit }, id) {
     commit('SELECT_CARD', id);
