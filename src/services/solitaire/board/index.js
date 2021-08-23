@@ -1,15 +1,13 @@
-import { initCards } from '../cards';
-import { checkInitialBoardMoves } from '../moves';
+import { setVisibleCards, getColumnIndexes, getColumnCards } from './board';
 
-export const initBoard = () => {
-  const cards = initCards();
-  const hasBoardMoves = checkInitialBoardMoves(cards);
+import { columns } from '../settings.json';
 
-  if (!hasBoardMoves) {
-    return initBoard();
-  }
+export const initBoard = (deck) => {
+  const columnCardsIndexes = getColumnIndexes(columns);
+  const columnCards = getColumnCards(deck, columnCardsIndexes);
+  const dealtCards = setVisibleCards(columnCards);
 
-  return cards;
+  return dealtCards;
 };
 
 export const updateBoard = ({ cards }, { cardsFrom, cardsTo }) =>

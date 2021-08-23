@@ -15,7 +15,12 @@ export const setVisibleCards = (columnCards) =>
       .reverse()
   );
 
-export const getColumnCardIndexes = (columns) =>
+export const getColumnCards = (deck, columnCardsIndexes) =>
+  columnCardsIndexes.map(({ startIndex, endIndex }) =>
+    deck.slice(startIndex, endIndex)
+  );
+
+export const getColumnIndexes = (columns) =>
   columns.map((column, columnIndex, array) => {
     const startArray = array.slice(0, columnIndex);
     const endArray = array.slice(0, columnIndex + 1);
@@ -30,8 +35,3 @@ export const getColumnCardIndexes = (columns) =>
       endIndex,
     };
   });
-
-export const getColumnCardsFromDeck = (deck, columnCardsIndexes) =>
-  columnCardsIndexes.map(({ startIndex, endIndex }) =>
-    deck.slice(startIndex, endIndex)
-  );

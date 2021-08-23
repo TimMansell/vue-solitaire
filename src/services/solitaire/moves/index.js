@@ -7,7 +7,7 @@ import {
   getMoveCardsToFoundation,
 } from './moves';
 import { initFoundation, updateFoundation } from '../foundation';
-import { updateBoard } from '../board';
+import { initBoard, updateBoard } from '../board';
 import { getSelectedCard, getLastCard, getCardPosition } from '../cards';
 import {
   validateCardMove,
@@ -46,8 +46,9 @@ export const checkHasMoves = ({ cards, foundation }) => {
   return moves.length > 0;
 };
 
-export const checkInitialBoardMoves = (cards) => {
+export const checkInitialBoardMoves = (deck) => {
   const foundation = initFoundation();
+  const cards = initBoard(deck);
 
   const board = {
     foundation,
