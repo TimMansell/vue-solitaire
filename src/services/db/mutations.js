@@ -33,7 +33,7 @@ export const newGame = async (uid) => {
       mutation: gql`
         mutation NewGame($data: UserInput!) {
           newGame(data: $data) {
-            deck {
+            cards {
               id
               value
               order
