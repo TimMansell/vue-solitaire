@@ -1,5 +1,4 @@
-import { buildCards, shuffleCards } from '../../../services/solitaire/cards';
-import { cards } from '../../../services/solitaire/settings.json';
+import { initCards } from '../../../services/solitaire';
 import { createPlayerName, insertIntoDb, findAllItems } from './helpers';
 import { createISODate } from '../../../helpers/dates';
 import { gameOutcome } from '../../../helpers/game';
@@ -26,18 +25,17 @@ export const createUser = async (_, __, { client, variables }) => {
 };
 
 export const newGame = async (_, __, { client, variables }) => {
-  const {
-    data: { uid },
-  } = variables;
+  // const {
+  //   data: { uid },
+  // } = variables;
 
-  const cardz = buildCards(cards);
-  const deck = shuffleCards(cardz, true);
+  console.log({ client, variables });
 
-  console.log({ deck, uid, client });
+  const cards = initCards();
 
   // await insertIntoDb(client, 'users', document);
 
-  return { deck };
+  return { cards };
 };
 
 export const wonGame = async (_, __, { client, variables }) => {

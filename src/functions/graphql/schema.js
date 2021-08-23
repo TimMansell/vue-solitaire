@@ -25,7 +25,7 @@ export const typeDefs = gql`
     uid: String!
   }
   type Deck {
-    deck: [Card]
+    cards: [Card]
   }
   type Card {
     id: Int
