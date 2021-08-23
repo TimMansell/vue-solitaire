@@ -32,7 +32,6 @@ export const typeDefs = gql`
     value: String
     order: Int
     suit: String
-    visible: Boolean
   }
   type Game {
     number: Int

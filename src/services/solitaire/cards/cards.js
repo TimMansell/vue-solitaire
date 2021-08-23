@@ -17,7 +17,6 @@ export const buildCards = ({ ranks, suits }) =>
       value,
       order,
       suit,
-      visible: false,
     }));
 
     return cards;

@@ -26,8 +26,6 @@ export const newUser = async (uid) => {
 };
 
 export const newGame = async (uid) => {
-  console.log({ uid });
-
   try {
     const response = await apollo.mutate({
       mutation: gql`
@@ -38,7 +36,6 @@ export const newGame = async (uid) => {
               value
               order
               suit
-              visible
             }
           }
         }

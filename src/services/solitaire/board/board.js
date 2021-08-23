@@ -2,16 +2,10 @@ export const setVisibleCards = (columnCards) =>
   columnCards.map((cards) =>
     cards
       .reverse()
-      .map((card, index) => {
-        if (index % 2 === 0) {
-          return {
-            ...card,
-            visible: true,
-          };
-        }
-
-        return card;
-      })
+      .map((card, index) => ({
+        ...card,
+        visible: index % 2 === 0,
+      }))
       .reverse()
   );
 
