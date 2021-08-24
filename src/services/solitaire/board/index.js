@@ -1,13 +1,13 @@
-import { setVisibleCards, getColumnIndexes, getColumnCards } from './board';
+import { setBoard, getColumnIndexes, getColumnCards } from './board';
 
 import { columns } from '../settings.json';
 
 export const initBoard = (deck) => {
   const columnCardsIndexes = getColumnIndexes(columns);
   const columnCards = getColumnCards(deck, columnCardsIndexes);
-  const dealtCards = setVisibleCards(columnCards);
+  const cards = setBoard(columnCards);
 
-  return dealtCards;
+  return cards;
 };
 
 export const updateBoard = ({ cards }, { cardsFrom, cardsTo }) =>

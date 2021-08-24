@@ -1,6 +1,6 @@
-export const setVisibleCards = (columnCards) =>
-  columnCards.map((cards) =>
-    cards
+export const setBoard = (cards) =>
+  cards.map((column) =>
+    column
       .reverse()
       .map((card, index) => ({
         ...card,
