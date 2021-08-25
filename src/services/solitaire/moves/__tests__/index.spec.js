@@ -8,9 +8,9 @@ import {
   getDraggedCards,
 } from '../index';
 
-import noMovesBoard from '../../../../../tests/fixtures/boards/noMoves.json';
-import oneMoveBoard from '../../../../../tests/fixtures/boards/aceOnlyMove.json';
-import validMoveBoard from '../../../../../tests/fixtures/boards/validMove.json';
+import noMovesDeck from '../../../../../tests/fixtures/decks/initialNoMoves.json';
+import aceMoveDeck from '../../../../../tests/fixtures/decks/initialAceMove.json';
+import moveDeck from '../../../../../tests/fixtures/decks/initialMove.json';
 
 describe('moves', () => {
   describe('valid moves', () => {
@@ -303,25 +303,19 @@ describe('moves', () => {
 
   describe('Initial board moves', () => {
     it('should have board moves', () => {
-      const { cards } = validMoveBoard;
-
-      const result = checkInitialBoardMoves(cards);
+      const result = checkInitialBoardMoves(moveDeck);
 
       expect(result).toEqual(true);
     });
 
     it('should have Ace board move', () => {
-      const { cards } = oneMoveBoard;
-
-      const result = checkInitialBoardMoves(cards);
+      const result = checkInitialBoardMoves(aceMoveDeck);
 
       expect(result).toBe(true);
     });
 
     it('should have no board moves', () => {
-      const { cards } = noMovesBoard;
-
-      const result = checkInitialBoardMoves(cards);
+      const result = checkInitialBoardMoves(noMovesDeck);
 
       expect(result).toBe(false);
     });

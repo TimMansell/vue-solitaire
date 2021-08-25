@@ -12,17 +12,10 @@ import {
 } from '../index';
 
 describe('cards', () => {
-  it('should deal cards into columns', () => {
-    const [col1, col2, col3, col4, col5, col6, col7, col8] = initCards();
+  it('should return shuffled deck', () => {
+    const deck = initCards();
 
-    expect(col1).toHaveLength(7);
-    expect(col2).toHaveLength(7);
-    expect(col3).toHaveLength(7);
-    expect(col4).toHaveLength(7);
-    expect(col5).toHaveLength(6);
-    expect(col6).toHaveLength(6);
-    expect(col7).toHaveLength(6);
-    expect(col8).toHaveLength(6);
+    expect(deck).toHaveLength(52);
   });
 
   it('should return selected card', () => {
@@ -310,7 +303,6 @@ describe('cards', () => {
       id: 1,
       suit: '♠',
       value: 2,
-      visible: false,
     };
 
     const value = 2;
