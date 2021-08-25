@@ -1,5 +1,6 @@
 import {
   mockUid,
+  mockDeck,
   mockHistory,
   mockPlayerName,
   mockLeaderboardsMoves,
@@ -30,7 +31,8 @@ const getStats = () =>
 const newUser = () =>
   formatResponse({ data: { createUser: { name: mockPlayerName } } });
 
-const gameNew = () => formatResponse({ data: { newGame: { uid: mockUid } } });
+const newGame = () =>
+  formatResponse({ data: { newGame: { cards: mockDeck } } });
 
 const gameWon = () => formatResponse({ data: { wonGame: { uid: mockUid } } });
 
@@ -62,7 +64,7 @@ const db = () => ({
   getStats,
   getStatsCount,
   newUser,
-  gameNew,
+  newGame,
   gameWon,
   gameLost,
   gameQuit,

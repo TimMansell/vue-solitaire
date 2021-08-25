@@ -1,5 +1,5 @@
-import { mockUid, mockPlayerName } from '@/mockData';
-import { newUser, gameWon, gameLost, gameQuit } from '../mutations';
+import { mockUid, mockPlayerName, mockDeck } from '@/mockData';
+import { newUser, newGame, gameWon, gameLost, gameQuit } from '../mutations';
 
 jest.mock('../apollo');
 
@@ -15,6 +15,13 @@ describe('DB service mutations', () => {
     const { createUser } = response;
 
     expect(createUser).toEqual({ name: mockPlayerName });
+  });
+
+  it('newGame', async () => {
+    const { response } = await newGame(mockUid);
+    const { newGame: game } = response;
+
+    expect(game).toEqual({ cards: mockDeck });
   });
 
   it('gameWon', async () => {
