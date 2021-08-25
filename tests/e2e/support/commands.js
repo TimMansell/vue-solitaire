@@ -2,40 +2,26 @@ import numeral from 'numeral';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import 'cypress-commands';
 
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
 
-Cypress.Commands.add('setBoard', (board) => {
-  cy.window().should('have.property', 'appReady', true);
+    if (body?.query.includes('GetStats')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = 'waitForGame';
+    }
+  });
+
+  cy.visit('/');
+
+  cy.wait('@waitForGame');
 
   const getStore = () => cy.window().its('app.$store');
 
-  return getStore().then((store) =>
-    store.dispatch('setBoardAndFoundation', board)
-  );
+  return getStore().then((store) => {
+    store.dispatch('setBoard', cards);
+    store.dispatch('setFoundation', foundation);
+  });
 });
 
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {

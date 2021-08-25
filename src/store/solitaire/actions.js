@@ -16,8 +16,8 @@ const actions = {
   initGame({ commit, dispatch, state }) {
     const { isNewGame } = state;
 
-    dispatch('setBoard', isNewGame);
-    dispatch('setFoundations', isNewGame);
+    dispatch('initBoard', isNewGame);
+    dispatch('initFoundation', isNewGame);
 
     commit('NEW_GAME', false);
   },
@@ -35,15 +35,13 @@ const actions = {
       dispatch('setGameState', isEmptyBoard);
     }
   },
-  setFoundations({ commit, state }, isNewGame) {
+  initFoundation({ dispatch, state }, isNewGame) {
     const { foundation } = state;
     const foundationCards = !isNewGame ? foundation : initFoundation();
 
-    commit('SET_FOUNDATIONS', foundationCards);
+    dispatch('setFoundation', foundationCards);
   },
-  async setBoard({ commit, state, rootState }, isNewGame) {
-    const { cards } = state;
-
+  async initBoard({ dispatch, state, rootState }, isNewGame) {
     if (isNewGame) {
       const { luid } = rootState.user;
       const { error, response } = await db.newGame(luid);
@@ -51,30 +49,37 @@ const actions = {
       if (!error) {
         const board = initBoard(response.newGame.cards);
 
-        commit('SET_BOARD', board);
+        dispatch('setBoard', board);
       }
     } else {
-      commit('SET_BOARD', cards);
+      const { cards } = state;
+
+      dispatch('setBoard', cards);
     }
+  },
+  setFoundation({ commit }, foundation) {
+    commit('SET_FOUNDATIONS', foundation);
+  },
+  setBoard({ commit }, board) {
+    commit('SET_BOARD', board);
   },
   setCard({ commit }, id) {
     commit('SELECT_CARD', id);
   },
-  moveCardsToColumn({ commit, dispatch, state }, selectedColumn) {
+  moveCardsToColumn({ dispatch, state }, selectedColumn) {
     const isValidMove = checkValidCardMove(state, selectedColumn);
 
     if (isValidMove) {
       const { cards } = moveCards(state, selectedColumn);
 
-      commit('SET_BOARD', cards);
-
+      dispatch('setBoard', cards);
       dispatch('incrementMoves');
       dispatch('checkGameState');
     }
 
     dispatch('setCard', null);
   },
-  moveCardToFoundation({ commit, dispatch, state }, selectedColumn) {
+  moveCardToFoundation({ dispatch, state }, selectedColumn) {
     const isValidMove = checkValidFoundationMove(state, selectedColumn);
 
     if (isValidMove) {
@@ -83,9 +88,8 @@ const actions = {
         selectedColumn
       );
 
-      commit('SET_FOUNDATIONS', foundation);
-      commit('SET_BOARD', cards);
-
+      dispatch('setFoundation', foundation);
+      dispatch('setBoard', cards);
       dispatch('incrementMoves');
       dispatch('checkGameState');
     }
@@ -99,10 +103,6 @@ const actions = {
     const foundationColumn = getEmptyFoundationColumn(state);
 
     dispatch('moveCardToFoundation', foundationColumn);
-  },
-  setBoardAndFoundation({ commit }, { cards, foundation }) {
-    commit('SET_FOUNDATIONS', foundation);
-    commit('SET_BOARD', cards);
   },
   setDraggedCards({ commit, state }, id) {
     const cards = getDraggedCards(state, id);
