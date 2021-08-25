@@ -243,6 +243,46 @@ describe('Graphql Schema', () => {
       });
     });
 
+    it('newGame', async () => {
+      const query = `
+      mutation {
+        newGame(data: {uid: "1"}) {
+          cards {
+            id
+            value
+            order
+            suit
+          }
+        }
+      }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
+
+      expect(result).toEqual({
+        data: {
+          newGame: {
+            cards: [
+              {
+                id: 1,
+                value: 'String',
+                order: 1,
+                suit: 'String',
+              },
+              {
+                id: 1,
+                value: 'String',
+                order: 1,
+                suit: 'String',
+              },
+            ],
+          },
+        },
+      });
+    });
+
     it('wonGame', async () => {
       const query = `
         mutation {

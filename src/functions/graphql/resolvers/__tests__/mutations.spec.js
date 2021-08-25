@@ -1,5 +1,5 @@
 import { mockUid, mockPlayers, mockPlayerName } from '@/mockData';
-import { createUser, wonGame, lostGame, quitGame } from '../mutations';
+import { createUser, newGame, wonGame, lostGame, quitGame } from '../mutations';
 import {
   wrapClient,
   createMockFind,
@@ -33,6 +33,25 @@ describe('Graphql Mutation Resolvers', () => {
       const { name } = await createUser('', {}, mockContext);
 
       expect(name).toBe(mockPlayerName);
+    });
+  });
+
+  describe('New Game', () => {
+    it('newGame', async () => {
+      const mockClient = wrapClient({});
+
+      const mockContext = {
+        ...mockClient,
+        variables: {
+          data: {
+            uid: mockUid,
+          },
+        },
+      };
+
+      const { cards } = await newGame('', {}, mockContext);
+
+      expect(cards).toHaveLength(52);
     });
   });
 

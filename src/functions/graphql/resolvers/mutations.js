@@ -25,15 +25,9 @@ export const createUser = async (_, __, { client, variables }) => {
 };
 
 export const newGame = async (_, __, { client, variables }) => {
-  // const {
-  //   data: { uid },
-  // } = variables;
-
   console.log({ client, variables });
 
   const cards = initCards();
-
-  // await insertIntoDb(client, 'users', document);
 
   return { cards };
 };
