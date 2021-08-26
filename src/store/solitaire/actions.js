@@ -42,6 +42,8 @@ const actions = {
     dispatch('setFoundation', foundationCards);
   },
   async initBoard({ dispatch, state, rootState }, isNewGame) {
+    dispatch('setGameLoading', true);
+
     if (isNewGame) {
       const { luid } = rootState.user;
       const { error, response } = await db.newGame(luid);
@@ -56,6 +58,8 @@ const actions = {
 
       dispatch('setBoard', cards);
     }
+
+    dispatch('setGameLoading', false);
   },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);
