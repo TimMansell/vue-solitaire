@@ -2,6 +2,8 @@ import invalidMove from '../../fixtures/boards/invalidMove.json';
 
 describe('Invalid moves', () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+
     cy.visit('/');
   });
 

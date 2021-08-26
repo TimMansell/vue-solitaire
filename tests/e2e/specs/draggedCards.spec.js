@@ -6,6 +6,7 @@ const moveTop = -200;
 describe('Dragged Cards', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
+
     cy.visit('/');
   });
 

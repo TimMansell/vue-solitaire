@@ -3,6 +3,8 @@ import invalidMove from '../../fixtures/boards/invalidMove.json';
 
 describe('Special column moves', () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+
     cy.visit('/');
   });
 

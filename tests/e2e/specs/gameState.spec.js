@@ -4,6 +4,8 @@ import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
 
 describe('Game State', () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+
     localStorage.setItem('luid', mockUid);
 
     cy.visit('/');

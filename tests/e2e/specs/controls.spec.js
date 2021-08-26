@@ -2,6 +2,8 @@ import emptyColumn from '../../fixtures/boards/emptyColumn.json';
 
 describe('Controls', () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+
     cy.visit('/');
   });
 
@@ -70,25 +72,20 @@ describe('Controls', () => {
   });
 
   it('it should pause a game and show game paused overlay', () => {
-    cy.setBoard(emptyColumn).then(() => {
+    cy.get('[data-test="pause-game-btn"]').click();
+
+    cy.get('[data-test="game-paused"]').should('be.visible');
+
+    cy.get('[data-test="game-overlay-btns"]').within(() => {
       cy.get('[data-test="pause-game-btn"]').click();
-
-      cy.get('[data-test="game-paused"]').should('be.visible');
-
-      cy.get('[data-test="game-overlay-btns"]').within(() => {
-        cy.get('[data-test="pause-game-btn"]').click();
-      });
-
-      cy.get('[data-test="game-paused"]').should('not.exist');
     });
+
+    cy.get('[data-test="game-paused"]').should('not.exist');
   });
 
   it('it should show correct summary on game overlay', () => {
     cy.setBoard(emptyColumn).then(() => {
       cy.get('[data-test="card-A♥"]').clickTo('[data-test="foundation-0"]');
-
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(2000);
 
       cy.get('[data-test="pause-game-btn"]').click();
 

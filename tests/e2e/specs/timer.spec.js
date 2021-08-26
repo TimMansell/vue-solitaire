@@ -6,6 +6,8 @@ const isStatsEnabled = checkStatsFlag();
 
 describe('Timer', () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+
     cy.visit('/');
 
     // eslint-disable-next-line cypress/no-unnecessary-waiting

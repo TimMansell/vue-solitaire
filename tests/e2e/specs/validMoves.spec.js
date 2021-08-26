@@ -2,6 +2,8 @@ import validMove from '../../fixtures/boards/validMove.json';
 
 describe('Valid moves', () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+
     cy.visit('/');
   });
 
