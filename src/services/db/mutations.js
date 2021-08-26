@@ -25,6 +25,34 @@ export const newUser = async (uid) => {
   }
 };
 
+export const newGame = async (uid) => {
+  try {
+    const response = await apollo.mutate({
+      mutation: gql`
+        mutation NewGame($data: UserInput!) {
+          newGame(data: $data) {
+            cards {
+              id
+              value
+              order
+              suit
+            }
+          }
+        }
+      `,
+      variables: {
+        data: {
+          uid,
+        },
+      },
+    });
+
+    return formatResponse(response);
+  } catch (error) {
+    return formatError();
+  }
+};
+
 export const gameWon = async ({ luid: uid, moves, time }) => {
   const data = {
     uid,

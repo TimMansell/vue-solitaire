@@ -1,5 +1,6 @@
 import {
   mockUid,
+  mockDeck,
   mockHistory,
   mockPlayerName,
   mockLeaderboardsMoves,
@@ -24,7 +25,7 @@ const query = ({ variables }) => {
         exists: checkUserExistsOnServer(variables),
         name: checkUserExistsOnServer(variables)
           ? mockPlayerName
-          : 'New Player Name',
+          : `New ${mockPlayerName}`,
       },
       leaderboards: { moves: mockLeaderboardsMoves },
     },
@@ -34,6 +35,9 @@ const query = ({ variables }) => {
 const mutate = () => ({
   data: {
     createUser: { name: mockPlayerName },
+    newGame: {
+      cards: mockDeck,
+    },
     wonGame: {
       outcome: 'Won',
     },

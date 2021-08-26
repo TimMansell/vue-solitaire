@@ -47,17 +47,12 @@ export default {
   async created() {
     this.initApp();
 
-    // Force cypress to wait until async functions have loaded.
-    if (window.Cypress) {
-      window.appReady = true;
-    }
-
     // if (process.env.NODE_ENV === 'development') {
     //   this.setBoardAndFoundation(fixture);
     // }
   },
   methods: {
-    ...mapActions(['initApp', 'setBoardAndFoundation']),
+    ...mapActions(['initApp']),
   },
 };
 </script>

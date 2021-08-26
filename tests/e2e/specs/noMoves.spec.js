@@ -5,6 +5,8 @@ import foundations from '../../fixtures/boards/fullFoundation.json';
 
 describe('No moves', () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+
     cy.visit('/');
   });
 

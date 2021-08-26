@@ -4,14 +4,7 @@ describe('History', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
 
-    cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-      const { body } = req;
-
-      if (body?.query.includes('history')) {
-        // eslint-disable-next-line no-param-reassign
-        req.alias = 'apiCheck';
-      }
-    });
+    cy.interceptHistoryAPI();
   });
 
   describe('Default', () => {
@@ -53,7 +46,7 @@ describe('History', () => {
 
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="table-row"]').should('have.length', 1);
 
@@ -75,7 +68,7 @@ describe('History', () => {
     it('it shows 1st page results', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="table-row"]').should('have.length', 25);
 
@@ -97,7 +90,7 @@ describe('History', () => {
     it('it shows 2nd page results using > button', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.clickHistoryPageAndCheckGameNumber('>', -25);
 
@@ -111,7 +104,7 @@ describe('History', () => {
     it('it shows 2nd page results using page 2 number button', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.clickHistoryPageAndCheckGameNumber('2', -25);
 
@@ -125,13 +118,13 @@ describe('History', () => {
     it('it shows last page results using Last button', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('Last')
         .click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="table-row"]:last-child td:first-child').should(
         'contain',
@@ -156,13 +149,13 @@ describe('History', () => {
     it('it shows 1st page results using First button', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('2')
         .click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.clickHistoryPageAndCheckGameNumber('First', +25);
 
@@ -176,13 +169,13 @@ describe('History', () => {
     it('it shows 1st page results using < button', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('2')
         .click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.clickHistoryPageAndCheckGameNumber('<', +25);
 
@@ -196,13 +189,13 @@ describe('History', () => {
     it('it shows 50 games per page and correct page numbers', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="table-row"]').should('have.length', 25);
 
       cy.get('[data-test="game-history"] [data-test="select"]').select('50');
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="table-row"]').should('have.length', 50);
 
@@ -216,17 +209,17 @@ describe('History', () => {
     it('it shows page one when games per page is changed', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('Last')
         .click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="game-history"] [data-test="select"]').select('50');
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.checkCorrectHistoryPages(1, 50);
 
@@ -238,13 +231,13 @@ describe('History', () => {
     it('it should scroll to correct position on page after clicking on page', () => {
       cy.get('[data-test="history-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('2')
         .click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="filters"]').should('be.visible');
 

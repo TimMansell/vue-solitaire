@@ -1,19 +1,23 @@
 import {
   buildCards,
   shuffleCards,
-  dealCards,
   findCardColumn,
   findCardPosition,
 } from './cards';
+import { checkInitialBoardMoves } from '../moves';
 
-import { ranks, suits, columns } from '../settings.json';
+import { ranks, suits } from '../settings.json';
 
 export const initCards = () => {
   const deck = buildCards({ ranks, suits });
   const shuffledDeck = shuffleCards(deck);
-  const cards = dealCards(shuffledDeck, columns);
+  const hasBoardMoves = checkInitialBoardMoves(shuffledDeck);
 
-  return cards;
+  if (!hasBoardMoves) {
+    return initCards();
+  }
+
+  return shuffledDeck;
 };
 
 export const getSelectedCard = (cards, selectedCardId) => {

@@ -1,9 +1,4 @@
 import shuffle from 'lodash.shuffle';
-import {
-  setVisibleCards,
-  getColumnCardIndexes,
-  getColumnCardsFromDeck,
-} from './helpers';
 
 export const findCardPosition = (columnCards, selectedCardId) =>
   columnCards.findIndex(({ id }) => id === selectedCardId);
@@ -22,18 +17,9 @@ export const buildCards = ({ ranks, suits }) =>
       value,
       order,
       suit,
-      visible: false,
     }));
 
     return cards;
   });
-
-export const dealCards = (deck, columns) => {
-  const columnCardsIndexes = getColumnCardIndexes(columns);
-  const columnCards = getColumnCardsFromDeck(deck, columnCardsIndexes);
-  const dealtCards = setVisibleCards(columnCards);
-
-  return dealtCards;
-};
 
 export const shuffleCards = (cards) => shuffle(cards);

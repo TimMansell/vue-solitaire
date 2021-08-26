@@ -1,9 +1,11 @@
 import { initBoard, updateBoard } from '../index';
+import { initCards } from '../../cards';
 
 describe('board', () => {
   describe('init board', () => {
     it('should return shuffled cards in columns', () => {
-      const [col1, col2, col3, col4, col5, col6, col7, col8] = initBoard();
+      const cards = initCards();
+      const [col1, col2, col3, col4, col5, col6, col7, col8] = initBoard(cards);
 
       expect(col1).toHaveLength(7);
       expect(col2).toHaveLength(7);

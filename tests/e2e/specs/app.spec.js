@@ -7,11 +7,17 @@ const mockAlias = 'mockVersion';
 describe('App', () => {
   describe('Default', () => {
     beforeEach(() => {
+      cy.clearLocalStorage();
+
       cy.visit('/');
     });
 
     it('it successfullly loads', () => {
       cy.get('[data-test="board"]').should('be.visible');
+
+      cy.interceptStatsAPI();
+
+      cy.wait('@waitForStatsAPI');
 
       cy.get('[data-test="columns"]').within(() => {
         cy.get('[data-test^="card-"]').should('have.length', 52);

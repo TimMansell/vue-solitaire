@@ -1,9 +1,10 @@
-export const initBoard = () => [['card 1'], ['card 2']];
+import { mockBoard, mockFoundation, mockDeck } from '@/mockData';
 
-export const initFoundation = () => [
-  ['foundation card 1'],
-  ['foundation card 2'],
-];
+export const initCards = () => mockDeck;
+
+export const initBoard = () => mockBoard;
+
+export const initFoundation = () => mockFoundation;
 
 export const checkHasMoves = ({ hasMoves }) => hasMoves;
 
@@ -17,4 +18,4 @@ export const checkValidFoundationMove = ({ validMove }) => validMove;
 
 export const moveCardsToFoundation = () => ({ cards: [], foundation: [] });
 
-export const getDraggedCards = () => [['card 1'], ['card 2']];
+export const getDraggedCards = () => mockBoard;

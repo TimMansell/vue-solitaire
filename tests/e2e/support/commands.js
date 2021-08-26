@@ -2,40 +2,19 @@ import numeral from 'numeral';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import 'cypress-commands';
 
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
+  cy.interceptStatsAPI();
 
-Cypress.Commands.add('setBoard', (board) => {
-  cy.window().should('have.property', 'appReady', true);
+  cy.visit('/');
+
+  cy.wait('@waitForStatsAPI');
 
   const getStore = () => cy.window().its('app.$store');
 
-  return getStore().then((store) =>
-    store.dispatch('setBoardAndFoundation', board)
-  );
+  return getStore().then((store) => {
+    store.dispatch('setBoard', cards);
+    store.dispatch('setFoundation', foundation);
+  });
 });
 
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
@@ -111,16 +90,12 @@ Cypress.Commands.add(
   }
 );
 
-Cypress.Commands.add('newGame', ({ wait }) => {
+Cypress.Commands.add('newGame', () => {
   cy.get('[data-test="new-game-btn"]').click();
 
   cy.get('[data-test="game-overlay-btns"]').within(() => {
     cy.get('[data-test="new-game-btn"]').click();
   });
-
-  if (wait) {
-    cy.wait('@apiCheck');
-  }
 });
 
 Cypress.Commands.add('interceptVersionCheck', (alias, version) => {
@@ -131,12 +106,9 @@ Cypress.Commands.add('interceptVersionCheck', (alias, version) => {
       // eslint-disable-next-line no-param-reassign
       req.alias = alias;
 
-      // eslint-disable-next-line no-param-reassign
-      console.log({ version });
-
       if (version) {
         req.reply({
-          data: { version: { number: version, __typename: 'Version' } },
+          data: { version: { number: version } },
         });
       }
     }
@@ -154,7 +126,7 @@ Cypress.Commands.add(
           .contains(pageText)
           .click();
 
-        cy.wait('@apiCheck');
+        cy.wait('@waitForHistoryAPI');
 
         cy.get('[data-test="table-row"]:first-child td:first-child').should(
           'contain',
@@ -220,8 +192,6 @@ Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
 
 Cypress.Commands.add('cacheStatValues', () => {
   cy.get('[data-test="stats-btn"]').click();
-
-  cy.wait('@apiCheck');
 
   cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('cellUser');
   cy.get('[data-test="global-stats"] [data-test="table-cell"]').as(
@@ -392,6 +362,52 @@ Cypress.Commands.add('checkGlobalStatsLost', () => {
         });
       });
     });
+  });
+});
+
+Cypress.Commands.add('interceptLeaderboardAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('query Leaderboards')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = 'waitForLeaderboardAPI';
+    }
+  });
+});
+
+Cypress.Commands.add('interceptStatsAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    console.log('wait');
+
+    if (body?.query.includes('query GetStats')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = 'waitForStatsAPI';
+    }
+  });
+});
+
+Cypress.Commands.add('interceptUserAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('query User')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = 'waitForUserAPI';
+    }
+  });
+});
+
+Cypress.Commands.add('interceptHistoryAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('history')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = 'waitForHistoryAPI';
+    }
   });
 });
 
