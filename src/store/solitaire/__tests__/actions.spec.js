@@ -3,8 +3,8 @@ import actions from '../actions';
 
 const {
   checkGameState,
-  setFoundations,
-  setBoard,
+  initFoundation,
+  initBoard,
   moveCardsToColumn,
   moveCardToFoundation,
   setDraggedCards,
@@ -43,9 +43,9 @@ describe('Solitaire Store', () => {
       foundation: [],
     };
 
-    setFoundations({ commit, state }, true);
+    initFoundation({ dispatch, state }, true);
 
-    expect(commit).toHaveBeenCalledWith('SET_FOUNDATIONS', mockFoundation);
+    expect(dispatch).toHaveBeenCalledWith('setFoundation', mockFoundation);
   });
 
   it('should load foundations from state', () => {
@@ -53,9 +53,9 @@ describe('Solitaire Store', () => {
       foundation: mockFoundation,
     };
 
-    setFoundations({ commit, state }, false);
+    initFoundation({ dispatch, state }, false);
 
-    expect(commit).toHaveBeenCalledWith('SET_FOUNDATIONS', mockFoundation);
+    expect(dispatch).toHaveBeenCalledWith('setFoundation', mockFoundation);
   });
 
   it('should set a new board for new game', async () => {
@@ -65,9 +65,9 @@ describe('Solitaire Store', () => {
 
     const rootState = { user: { luid: mockUid } };
 
-    await setBoard({ commit, state, rootState }, true);
+    await initBoard({ dispatch, state, rootState }, true);
 
-    expect(commit).toHaveBeenCalledWith('SET_BOARD', mockBoard);
+    expect(dispatch).toHaveBeenCalledWith('setBoard', mockBoard);
   });
 
   it('should load board from state', () => {
@@ -77,17 +77,17 @@ describe('Solitaire Store', () => {
 
     const rootState = { user: { luid: mockUid } };
 
-    setBoard({ commit, state, rootState }, false);
+    initBoard({ dispatch, state, rootState }, false);
 
-    expect(commit).toHaveBeenCalledWith('SET_BOARD', mockBoard);
+    expect(dispatch).toHaveBeenCalledWith('setBoard', mockBoard);
   });
 
   it('should move cards to column', () => {
     const state = { validMove: true };
 
-    moveCardsToColumn({ commit, dispatch, state });
+    moveCardsToColumn({ dispatch, state });
 
-    expect(commit).toHaveBeenCalledWith('SET_BOARD', []);
+    expect(dispatch).toHaveBeenCalledWith('setBoard', []);
     expect(dispatch).toHaveBeenCalledWith('incrementMoves');
     expect(dispatch).toHaveBeenCalledWith('checkGameState');
   });
@@ -95,20 +95,19 @@ describe('Solitaire Store', () => {
   it('should not move cards to column', () => {
     const state = { validMove: false };
 
-    moveCardsToColumn({ commit, dispatch, state });
+    moveCardsToColumn({ dispatch, state });
 
-    expect(commit).not.toHaveBeenCalledWith('SET_BOARD');
+    expect(dispatch).not.toHaveBeenCalledWith('setBoard');
     expect(dispatch).toHaveBeenCalledWith('setCard', null);
   });
 
   it('should move cards to foundation', () => {
     const state = { validMove: true };
 
-    moveCardToFoundation({ commit, dispatch, state });
+    moveCardToFoundation({ dispatch, state });
 
-    expect(commit).toHaveBeenCalledWith('SET_FOUNDATIONS', []);
-    expect(commit).toHaveBeenCalledWith('SET_BOARD', []);
-
+    expect(dispatch).toHaveBeenCalledWith('setFoundation', []);
+    expect(dispatch).toHaveBeenCalledWith('setBoard', []);
     expect(dispatch).toHaveBeenCalledWith('incrementMoves');
     expect(dispatch).toHaveBeenCalledWith('checkGameState');
   });
@@ -116,10 +115,10 @@ describe('Solitaire Store', () => {
   it('should not move cards to foundation', () => {
     const state = { validMove: false };
 
-    moveCardToFoundation({ commit, dispatch, state });
+    moveCardToFoundation({ dispatch, state });
 
-    expect(commit).not.toHaveBeenCalledWith('SET_FOUNDATIONS');
-    expect(commit).not.toHaveBeenCalledWith('SET_BOARD');
+    expect(dispatch).not.toHaveBeenCalledWith('setFoundation');
+    expect(dispatch).not.toHaveBeenCalledWith('setBoard');
   });
 
   it('setDraggedCards', () => {
