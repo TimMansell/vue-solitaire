@@ -1,3 +1,4 @@
+import { columns } from '@/config/settings.json';
 import {
   setupValidation,
   isMoveValidCard,
@@ -10,7 +11,6 @@ import {
   isFoundationMoveValidOrder,
   isFoundationMoveValidAce,
 } from './validation';
-import { columns } from '../settings.json';
 
 export const validateCardMove = (card, compareTo) => {
   const validate = setupValidation(card, compareTo);

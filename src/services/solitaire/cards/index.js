@@ -1,3 +1,4 @@
+import { ranks, suits } from '@/config/settings.json';
 import {
   buildCards,
   shuffleCards,
@@ -5,8 +6,6 @@ import {
   findCardPosition,
 } from './cards';
 import { checkInitialBoardMoves } from '../moves';
-
-import { ranks, suits } from '../settings.json';
 
 export const initCards = () => {
   const deck = buildCards({ ranks, suits });

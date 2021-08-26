@@ -1,10 +1,10 @@
+import { foundationColumns } from '@/config/settings.json';
 import { getSelectedCard, checkCardValue } from '../cards';
 import {
   checkEmptyFoundationColumn,
   checkFoundationColumnSuit,
   getFoundationColumn,
 } from './foundation';
-import { foundationColumns } from '../settings.json';
 
 export const initFoundation = () => foundationColumns.map(() => []);
 
