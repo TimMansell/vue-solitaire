@@ -1,10 +1,15 @@
 import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
+  beforeEach(() => {
+    cy.clearLocalStorage();
+  });
+
   describe('Default', () => {
     beforeEach(() => {
       cy.visit('/');
     });
+
     it('should not show game paused if leaderboards overlay is visible', () => {
       cy.document().then((doc) => {
         cy.stub(doc, 'visibilityState').value('hidden');
@@ -38,13 +43,19 @@ describe('Leaderboards', () => {
     });
 
     it('it should display correct amount of table rows', () => {
+      cy.interceptLeaderboardAPI();
+
       cy.get('[data-test="leaderboards-btn"]').click();
+
+      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="table-row"]').should('have.length', 25);
 
       cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
         '50'
       );
+
+      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="table-row"]').should('have.length', 50);
     });
@@ -71,6 +82,8 @@ describe('Leaderboards', () => {
     });
 
     it('it should display player name after first game', () => {
+      cy.interceptUserAPI();
+
       cy.get('[data-test="leaderboards-btn"]').click();
 
       cy.get('[data-test="leaderboard-name"]').should('not.exist');
@@ -82,6 +95,8 @@ describe('Leaderboards', () => {
       cy.get('[data-test="game-new"]').within(() => {
         cy.get('[data-test="new-game-btn"]').click();
       });
+
+      cy.wait('@waitForUserAPI');
 
       cy.get('[data-test="leaderboards-btn"]').click();
 

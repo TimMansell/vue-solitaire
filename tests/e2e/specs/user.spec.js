@@ -5,21 +5,14 @@ describe('User', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
 
-    cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-      const { body } = req;
-
-      if (body?.query.includes('globalStats')) {
-        // eslint-disable-next-line no-param-reassign
-        req.alias = 'apiCheck';
-      }
-    });
+    cy.interceptStatsAPI();
   });
 
   describe('New User', () => {
     beforeEach(() => {
       cy.visit('/');
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
     });
 
     it('it creates a new local user on initial page load', () => {
@@ -36,7 +29,9 @@ describe('User', () => {
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = numeral($playerCount.text()).value();
 
-        cy.newGame({ wait: true });
+        cy.newGame();
+
+        cy.wait('@waitForStatsAPI');
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
@@ -52,9 +47,11 @@ describe('User', () => {
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = numeral($playerCount.text()).value();
 
-        cy.newGame({ wait: true });
+        cy.newGame();
 
-        cy.newGame({ wait: true });
+        cy.newGame();
+
+        cy.wait('@waitForStatsAPI');
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
@@ -71,7 +68,7 @@ describe('User', () => {
 
       cy.visit('/');
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
     });
 
     it('it does not create a new local user on initial page load', () => {
@@ -86,7 +83,9 @@ describe('User', () => {
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = $playerCount.text();
 
-        cy.newGame({ wait: true });
+        cy.newGame();
+
+        cy.wait('@waitForStatsAPI');
 
         cy.get('@playerCount')
           .text()

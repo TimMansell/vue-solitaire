@@ -7,21 +7,14 @@ describe('Stats', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
 
-    cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-      const { body } = req;
-
-      if (body?.query.includes('GetStats')) {
-        // eslint-disable-next-line no-param-reassign
-        req.alias = 'apiCheck';
-      }
-    });
+    cy.interceptStatsAPI();
   });
 
   describe('Default', () => {
     beforeEach(() => {
       cy.visit('/');
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
     });
 
     it('should show stats overlay and then close overlay', () => {
@@ -59,7 +52,7 @@ describe('Stats', () => {
     beforeEach(() => {
       cy.visit('/');
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
     });
 
     it('it successfully retrieves 0 games played', () => {
@@ -69,7 +62,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
 
       cy.checkStatsValues({ stat: 'user', values: [0, 0, 0, 0] });
       cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });
@@ -82,13 +75,11 @@ describe('Stats', () => {
 
       cy.cacheStatValues();
 
-      cy.get('[data-test="new-game-btn"]').click();
+      cy.wait('@waitForStatsAPI');
 
-      cy.get('[data-test="game-new"]').within(() => {
-        cy.get('[data-test="new-game-btn"]').click();
-      });
+      cy.newGame();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
 
       cy.get('[data-test="stats"]')
         .text()
@@ -96,7 +87,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
 
       cy.checkStatsValues({ stat: 'user', values: [1, 0, 0, 1] });
 
@@ -118,13 +109,13 @@ describe('Stats', () => {
           cy.get('[data-test="new-game-btn"]').click();
         });
 
-        cy.wait('@apiCheck');
+        cy.wait('@waitForStatsAPI');
 
         cy.get('[data-test="stats"]').should('have.text', 1);
 
         cy.get('[data-test="stats-btn"]').click();
 
-        cy.wait('@apiCheck');
+        cy.wait('@waitForStatsAPI');
 
         cy.checkStatsValues({ stat: 'user', values: [1, 0, 1, 0] });
 
@@ -147,13 +138,13 @@ describe('Stats', () => {
           cy.get('[data-test="new-game-btn"]').click();
         });
 
-        cy.wait('@apiCheck');
+        cy.wait('@waitForStatsAPI');
 
         cy.get('[data-test="stats"]').should('have.text', 1);
 
         cy.get('[data-test="stats-btn"]').click();
 
-        cy.wait('@apiCheck');
+        cy.wait('@waitForStatsAPI');
 
         cy.checkStatsValues({ stat: 'user', values: [1, 1, 0, 0] });
 
@@ -168,7 +159,7 @@ describe('Stats', () => {
 
       cy.visit('/');
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
     });
 
     it('it successfully retrieves games played', () => {
@@ -176,7 +167,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats-btn"]').click();
 
-      cy.wait('@apiCheck');
+      cy.wait('@waitForStatsAPI');
 
       cy.checkStatsValuesNot({ stat: 'user', values: [0, 0, 0, 0] });
       cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });
@@ -194,7 +185,7 @@ describe('Stats', () => {
           cy.get('[data-test="new-game-btn"]').click();
         });
 
-        cy.wait('@apiCheck');
+        cy.wait('@waitForStatsAPI');
 
         const newNumber = numeral(number + 1).format('0,0');
 
@@ -241,7 +232,7 @@ describe('Stats', () => {
             cy.get('[data-test="new-game-btn"]').click();
           });
 
-          cy.wait('@apiCheck');
+          cy.wait('@waitForStatsAPI');
 
           const newNumber = numeral(number + 1).format('0,0');
 
@@ -290,7 +281,7 @@ describe('Stats', () => {
             cy.get('[data-test="new-game-btn"]').click();
           });
 
-          cy.wait('@apiCheck');
+          cy.wait('@waitForStatsAPI');
 
           const newNumber = numeral(number + 1).format('0,0');
 
