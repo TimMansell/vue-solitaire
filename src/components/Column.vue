@@ -7,13 +7,13 @@
     :data-test="`column-${columnNo}`"
   >
     <Card
-      v-for="(card, index) in cards"
+      v-for="({ id, value, suit, visible, isDragged }, index) in cards"
       :key="index"
-      :id="card.id"
-      :value="card.value"
-      :suit="card.suit"
-      :visible="card.visible"
-      :is-dragged="card.isDragged"
+      :id="id"
+      :value="value"
+      :suit="suit"
+      :visible="visible"
+      :is-dragged="isDragged"
       :bottom-card="cards.length - 1 === index"
     />
 

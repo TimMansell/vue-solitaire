@@ -6,12 +6,12 @@
   >
     <div :style="cardStyles" data-test="dragged-cards">
       <Card
-        v-for="(card, index) in draggedCards"
+        v-for="({ value, suit, visible }, index) in draggedCards"
         :id="`dragged-${index}`"
         :key="index"
-        :value="card.value"
-        :suit="card.suit"
-        :visible="card.visible"
+        :value="value"
+        :suit="suit"
+        :visible="visible"
         :clickable="false"
       />
     </div>
