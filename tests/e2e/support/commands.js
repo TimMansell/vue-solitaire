@@ -5,7 +5,7 @@ import 'cypress-commands';
 Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
   cy.interceptStatsAPI();
 
-  cy.visit('/');
+  cy.reload();
 
   cy.wait('@waitForStatsAPI');
 
@@ -380,8 +380,6 @@ Cypress.Commands.add('interceptStatsAPI', () => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;
 
-    console.log('wait');
-
     if (body?.query.includes('query GetStats')) {
       // eslint-disable-next-line no-param-reassign
       req.alias = 'waitForStatsAPI';
@@ -389,13 +387,13 @@ Cypress.Commands.add('interceptStatsAPI', () => {
   });
 });
 
-Cypress.Commands.add('interceptUserAPI', () => {
+Cypress.Commands.add('interceptCreateUserAPI', () => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;
 
-    if (body?.query.includes('query User')) {
+    if (body?.query.includes('mutation CreateAUser')) {
       // eslint-disable-next-line no-param-reassign
-      req.alias = 'waitForUserAPI';
+      req.alias = 'waitForCreateUserAPI';
     }
   });
 });

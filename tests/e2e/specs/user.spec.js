@@ -49,6 +49,8 @@ describe('User', () => {
 
         cy.newGame();
 
+        cy.wait('@waitForStatsAPI');
+
         cy.newGame();
 
         cy.wait('@waitForStatsAPI');
