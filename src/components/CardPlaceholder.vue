@@ -4,6 +4,7 @@
       class="card-placeholder__card"
       v-for="(_, index) in cards"
       :key="index"
+      data-test="card-placeholder"
     >
       <SvgIcon name="Card_back_17" />
     </div>
