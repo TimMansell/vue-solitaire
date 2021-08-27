@@ -7,14 +7,14 @@ exports[`Foundation.vue matches snapshot 1`] = `
     <!---->
   </div>
   <div data-test="foundation-1">
-    <cardplaceholder-stub seethrough="true"></cardplaceholder-stub>
+    <cardplaceholder-stub seethrough="true" cards="1"></cardplaceholder-stub>
   </div>
   <div data-test="foundation-2">
     <card-stub id="1" value="A" suit="♦" visible="true" stacked="true"></card-stub>
     <!---->
   </div>
   <div data-test="foundation-3">
-    <cardplaceholder-stub seethrough="true"></cardplaceholder-stub>
+    <cardplaceholder-stub seethrough="true" cards="1"></cardplaceholder-stub>
   </div>
 </div>
 `;
