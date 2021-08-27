@@ -20,7 +20,8 @@
 
     <CardPlaceholder
       v-if="!cards.length"
-      see-through
+      :cards="placeholderCards"
+      :see-through="!isGameLoading"
       data-test="column-card-placeholder"
     />
   </div>
@@ -48,7 +49,17 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['selectedCardId']),
+    ...mapGetters(['selectedCardId', 'isGameLoading', 'placeholders']),
+    placeholderCards() {
+      const { columnNo, isGameLoading, placeholders } = this;
+      const DEFAULT_CARDS = 1;
+
+      const numberOfCards = isGameLoading
+        ? placeholders[columnNo]
+        : DEFAULT_CARDS;
+
+      return numberOfCards;
+    },
   },
   methods: {
     ...mapActions(['moveCardsToColumn']),
