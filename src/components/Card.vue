@@ -47,10 +47,6 @@ export default {
       type: Boolean,
       default: true,
     },
-    revealed: {
-      type: Boolean,
-      default: false,
-    },
     clickable: {
       type: Boolean,
       default: true,

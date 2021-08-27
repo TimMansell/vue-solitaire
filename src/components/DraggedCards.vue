@@ -11,7 +11,6 @@
         :key="index"
         :value="card.value"
         :suit="card.suit"
-        :revealed="card.revealed"
         :visible="card.visible"
         :clickable="false"
       />
