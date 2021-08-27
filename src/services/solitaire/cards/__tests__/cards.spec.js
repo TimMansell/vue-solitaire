@@ -1,10 +1,10 @@
+import { ranks, suits } from '@/config/settings.json';
 import {
   buildCards,
   shuffleCards,
   findCardPosition,
   findCardColumn,
 } from '../cards';
-import { ranks, suits } from '../../settings.json';
 
 describe('cards', () => {
   it('should find card in position 1', () => {
