@@ -35,7 +35,7 @@ describe('CardPlaceholder.vue', () => {
       },
     });
 
-    expect(wrapper.findAll('[data-test="card-placeholder"]')).toHaveLength(1);
+    expect(wrapper.findAll('[data-test="placeholder-card"]')).toHaveLength(1);
   });
 
   it('should show multiple column placeholder cards', () => {
@@ -45,6 +45,6 @@ describe('CardPlaceholder.vue', () => {
       },
     });
 
-    expect(wrapper.findAll('[data-test="card-placeholder"]')).toHaveLength(5);
+    expect(wrapper.findAll('[data-test="placeholder-card"]')).toHaveLength(5);
   });
 });

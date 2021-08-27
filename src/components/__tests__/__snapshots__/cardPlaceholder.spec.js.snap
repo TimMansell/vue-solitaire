@@ -2,7 +2,7 @@
 
 exports[`CardPlaceholder.vue matches snapshot 1`] = `
 <div class="">
-  <div data-test="card-placeholder" class="card-placeholder__card">
+  <div data-test="placeholder-card" class="card-placeholder__card">
     <svgicon-stub name="Card_back_17"></svgicon-stub>
   </div>
 </div>
