@@ -9,11 +9,11 @@
     :data-test="cardTestName"
     :data-card-selected="cardIsSelected"
   >
-    <DefaultCard :value="cardValue" v-show="visible && !bottomCard" />
+    <DefaultCard :value="cardValue" v-if="visible && !bottomCard" />
 
-    <BottomCard :id="id" :value="cardValue" v-show="visible && bottomCard" />
+    <BottomCard :id="id" :value="cardValue" v-if="visible && bottomCard" />
 
-    <CardPlaceholder v-show="!visible" />
+    <CardPlaceholder v-if="!visible" />
   </div>
 </template>
 
@@ -46,10 +46,6 @@ export default {
     visible: {
       type: Boolean,
       default: true,
-    },
-    revealed: {
-      type: Boolean,
-      default: false,
     },
     clickable: {
       type: Boolean,

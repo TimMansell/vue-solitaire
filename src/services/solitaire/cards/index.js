@@ -6,10 +6,8 @@ import {
 } from './cards';
 import { checkInitialBoardMoves } from '../moves';
 
-import { ranks, suits } from '../settings.json';
-
 export const initCards = () => {
-  const deck = buildCards({ ranks, suits });
+  const deck = buildCards();
   const shuffledDeck = shuffleCards(deck);
   const hasBoardMoves = checkInitialBoardMoves(shuffledDeck);
 

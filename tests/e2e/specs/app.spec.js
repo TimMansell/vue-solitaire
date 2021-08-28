@@ -9,13 +9,13 @@ describe('App', () => {
     beforeEach(() => {
       cy.clearLocalStorage();
 
+      cy.interceptStatsAPI();
+
       cy.visit('/');
     });
 
     it('it successfullly loads', () => {
       cy.get('[data-test="board"]').should('be.visible');
-
-      cy.interceptStatsAPI();
 
       cy.wait('@waitForStatsAPI');
 

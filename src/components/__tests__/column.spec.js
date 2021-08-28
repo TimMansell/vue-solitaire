@@ -56,6 +56,10 @@ describe('Column.vue', () => {
 
     const wrapper = shallowMount(Column, {
       propsData,
+      computed: {
+        isGameLoading: () => false,
+        placeholders: () => 1,
+      },
     });
 
     expect(wrapper.findComponent(Card).exists()).toBe(false);

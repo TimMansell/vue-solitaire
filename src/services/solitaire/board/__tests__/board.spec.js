@@ -1,5 +1,5 @@
+import { columns } from '../../../../config/settings.json';
 import { setBoard, getColumnIndexes, getColumnCards } from '../board';
-import { columns } from '../../settings.json';
 
 describe('cards', () => {
   it('should set every 2 card visible', () => {

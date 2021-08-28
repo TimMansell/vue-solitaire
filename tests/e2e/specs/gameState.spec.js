@@ -87,13 +87,12 @@ describe('Game State', () => {
         cy.get('[data-test="new-game-btn"]').click();
       });
 
+      cy.wait('@waitForStatsAPI');
+
       cy.reload();
 
       cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="column-card-placeholder"]').should(
-          'have.length',
-          0
-        );
+        cy.get('[data-test="column-card-placeholder"]').should('not.exist');
       });
     });
   });

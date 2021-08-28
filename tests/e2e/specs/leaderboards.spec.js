@@ -82,7 +82,7 @@ describe('Leaderboards', () => {
     });
 
     it('it should display player name after first game', () => {
-      cy.interceptUserAPI();
+      cy.interceptCreateUserAPI();
 
       cy.get('[data-test="leaderboards-btn"]').click();
 
@@ -96,7 +96,7 @@ describe('Leaderboards', () => {
         cy.get('[data-test="new-game-btn"]').click();
       });
 
-      cy.wait('@waitForUserAPI');
+      cy.wait('@waitForCreateUserAPI');
 
       cy.get('[data-test="leaderboards-btn"]').click();
 

@@ -54,7 +54,6 @@ describe('Card.vue', () => {
     const propsData = {
       ...defaultProps,
       visible: true,
-      revealed: true,
       clickable: false,
       bottomCard: true,
       stacked: true,
@@ -69,7 +68,6 @@ describe('Card.vue', () => {
     expect(wrapper.props().value).toBe(propsData.value);
     expect(wrapper.props().suit).toBe(propsData.suit);
     expect(wrapper.props().visible).toBe(true);
-    expect(wrapper.props().revealed).toBe(true);
     expect(wrapper.props().clickable).toBe(false);
     expect(wrapper.props().bottomCard).toBe(true);
     expect(wrapper.props().stacked).toBe(true);

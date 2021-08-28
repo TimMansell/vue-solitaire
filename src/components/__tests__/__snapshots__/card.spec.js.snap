@@ -2,24 +2,24 @@
 
 exports[`Card.vue matches bottom card snapshot 1`] = `
 <div draggable="true" data-test="card-K♦" class="card card--is-draggable">
-  <defaultcard-stub value="K♦" style="display: none;"></defaultcard-stub>
+  <!---->
   <bottomcard-stub id="2" value="K♦"></bottomcard-stub>
-  <cardplaceholder-stub style="display: none;"></cardplaceholder-stub>
+  <!---->
 </div>
 `;
 
 exports[`Card.vue matches hidden snapshot 1`] = `
 <div draggable="false" data-test="card-hidden" class="card">
-  <defaultcard-stub value="K♦" style="display: none;"></defaultcard-stub>
-  <bottomcard-stub id="2" value="K♦" style="display: none;"></bottomcard-stub>
-  <cardplaceholder-stub></cardplaceholder-stub>
+  <!---->
+  <!---->
+  <cardplaceholder-stub cards="1"></cardplaceholder-stub>
 </div>
 `;
 
 exports[`Card.vue matches visible snapshot 1`] = `
 <div draggable="true" data-test="card-K♦" class="card card--is-draggable">
   <defaultcard-stub value="K♦"></defaultcard-stub>
-  <bottomcard-stub id="2" value="K♦" style="display: none;"></bottomcard-stub>
-  <cardplaceholder-stub style="display: none;"></cardplaceholder-stub>
+  <!---->
+  <!---->
 </div>
 `;

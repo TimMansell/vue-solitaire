@@ -37,6 +37,9 @@ const actions = {
       commit('SET_VERSION_MATCH', versionMatch);
     }
   },
+  setGameLoading({ commit }, isGameLoading) {
+    commit('SET_GAME_LOADING', isGameLoading);
+  },
   setNewGame({ dispatch }, isCompleted) {
     if (!isCompleted) {
       dispatch('setGameResult', { quit: true });

@@ -7,20 +7,20 @@
     :data-test="`column-${columnNo}`"
   >
     <Card
-      v-for="(card, index) in cards"
+      v-for="({ id, value, suit, visible, isDragged }, index) in cards"
       :key="index"
-      :id="card.id"
-      :value="card.value"
-      :suit="card.suit"
-      :revealed="card.revealed"
-      :visible="card.visible"
-      :is-dragged="card.isDragged"
+      :id="id"
+      :value="value"
+      :suit="suit"
+      :visible="visible"
+      :is-dragged="isDragged"
       :bottom-card="cards.length - 1 === index"
     />
 
     <CardPlaceholder
       v-if="!cards.length"
-      see-through
+      :cards="placeholderCards"
+      :see-through="!isGameLoading"
       data-test="column-card-placeholder"
     />
   </div>
@@ -48,7 +48,17 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['selectedCardId']),
+    ...mapGetters(['selectedCardId', 'isGameLoading', 'placeholders']),
+    placeholderCards() {
+      const { columnNo, isGameLoading, placeholders } = this;
+      const DEFAULT_CARDS = 1;
+
+      const numberOfCards = isGameLoading
+        ? placeholders[columnNo]
+        : DEFAULT_CARDS;
+
+      return numberOfCards;
+    },
   },
   methods: {
     ...mapActions(['moveCardsToColumn']),

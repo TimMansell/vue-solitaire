@@ -21,7 +21,10 @@ import LeaderboardsOverlay from '@/components/LeaderboardsOverlay.vue';
 import NewGameOverlay from '@/components/NewGameOverlay.vue';
 import HistoryOverlay from '@/components/HistoryOverlay.vue';
 import CheckVersion from '@/components/CheckVersion.vue';
-// import fixture from '../../tests/fixtures/boards/noMovesKingColumn.json';
+// import {
+//   foundation,
+//   cards,
+// } from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
@@ -48,11 +51,14 @@ export default {
     this.initApp();
 
     // if (process.env.NODE_ENV === 'development') {
-    //   this.setBoardAndFoundation(fixture);
+    //   setTimeout(() => {
+    //     this.setFoundation(foundation);
+    //     this.setBoard(cards);
+    //   }, 1000);
     // }
   },
   methods: {
-    ...mapActions(['initApp']),
+    ...mapActions(['initApp', 'setFoundation', 'setBoard']),
   },
 };
 </script>
