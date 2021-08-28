@@ -1,4 +1,4 @@
-import { getAppVersion, gameWon, gameLost, gameQuit } from '@/services/db';
+import { getAppVersion, saveGame } from '@/services/app';
 
 import { version } from '../../../package.json';
 
@@ -24,18 +24,11 @@ const actions = {
     dispatch('initApp', hasAppRestarted);
   },
   async checkAppVersion({ commit }, localVersion) {
-    const {
-      error,
-      response: {
-        version: { number: serverVersion },
-      },
-    } = await getAppVersion();
+    const serverVersion = await getAppVersion();
 
-    if (!error) {
-      const versionMatch = localVersion === serverVersion;
+    const versionMatch = localVersion === serverVersion;
 
-      commit('SET_VERSION_MATCH', versionMatch);
-    }
+    commit('SET_VERSION_MATCH', versionMatch);
   },
   setGameLoading({ commit }, isGameLoading) {
     commit('SET_GAME_LOADING', isGameLoading);
@@ -68,17 +61,8 @@ const actions = {
   async saveGame({ state, rootState }, gameStatus) {
     const { luid } = rootState.user;
     const { game } = state;
-    const { won, lost } = gameStatus;
 
-    if (won) {
-      return gameWon({ luid, ...game });
-    }
-
-    if (lost) {
-      return gameLost({ luid, ...game });
-    }
-
-    return gameQuit({ luid, ...game });
+    return saveGame(luid, game, gameStatus);
   },
   setGameInactive({ commit }) {
     const isGamePaused = {

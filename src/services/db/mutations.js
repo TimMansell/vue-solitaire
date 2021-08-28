@@ -19,7 +19,7 @@ export const newUser = async (uid) => {
       },
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data.createUser);
   } catch (error) {
     return formatError();
   }
@@ -47,7 +47,7 @@ export const newGame = async (uid) => {
       },
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data.newGame);
   } catch (error) {
     return formatError();
   }
@@ -74,7 +74,7 @@ export const gameWon = async ({ luid: uid, moves, time }) => {
       },
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data.wonGame);
   } catch (error) {
     return formatError();
   }
@@ -101,7 +101,7 @@ export const gameLost = async ({ luid: uid, moves, time }) => {
       },
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data.lostGame);
   } catch (error) {
     return formatError();
   }
@@ -128,7 +128,7 @@ export const gameQuit = async ({ luid: uid, moves, time }) => {
       },
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data.quitGame);
   } catch (error) {
     return formatError();
   }

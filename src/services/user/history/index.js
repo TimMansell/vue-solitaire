@@ -5,11 +5,7 @@ export const getUserHistory = async (luid, params) => {
   const { error, response } = await getUsersGames(luid, params);
 
   if (!error) {
-    const {
-      user: { history },
-    } = response;
-
-    return history;
+    return response;
   }
 
   return [];

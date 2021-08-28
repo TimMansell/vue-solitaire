@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 import apollo from './apollo';
-import { formatError, formatResponse, formatData } from './helpers';
+import { formatError, formatResponse } from './helpers';
 
 export const getUserByID = async (uid) => {
   try {
@@ -19,13 +19,13 @@ export const getUserByID = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data.user);
   } catch (error) {
     return formatError();
   }
 };
 
-export const getStatsCount = async (uid) => {
+export const getStatsticsCount = async (uid) => {
   try {
     const response = await apollo.query({
       query: gql`
@@ -45,13 +45,13 @@ export const getStatsCount = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data);
   } catch (error) {
     return formatError();
   }
 };
 
-export const getStats = async (uid) => {
+export const getStatistics = async (uid) => {
   try {
     const response = await apollo.query({
       query: gql`
@@ -74,13 +74,13 @@ export const getStats = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data);
   } catch (error) {
     return formatError();
   }
 };
 
-export const getAppVersion = async () => {
+export const checkAppVersion = async () => {
   try {
     const response = await apollo.query({
       query: gql`
@@ -94,7 +94,7 @@ export const getAppVersion = async () => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data.version.number);
   } catch (error) {
     return formatError();
   }
@@ -121,21 +121,26 @@ export const getUsersGames = async (uid, { offset, limit }) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response);
+    return formatResponse(response.data.user.history);
   } catch (error) {
     return formatError();
   }
 };
 
 export const getLeaderboards = async ({ limit, showBest }) => {
+  const QUERY_STRING = {
+    Moves: 'moves',
+    Times: 'times',
+  };
+
   const QUERIES = {
-    Moves: `moves {
+    Moves: `${QUERY_STRING.Moves} {
       rank
       date
       player
       moves
     }`,
-    Times: `times {
+    Times: `${QUERY_STRING.Times} {
       rank
       date
       player
@@ -158,9 +163,7 @@ export const getLeaderboards = async ({ limit, showBest }) => {
       fetchPolicy: 'no-cache',
     });
 
-    const data = formatData(response);
-
-    return formatResponse({ data });
+    return formatResponse(response.data.leaderboards[QUERY_STRING[showBest]]);
   } catch (error) {
     return formatError();
   }
