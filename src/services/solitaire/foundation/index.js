@@ -1,4 +1,4 @@
-import { foundationColumns } from '@/config/settings.json';
+import { foundationColumns } from '../../../config/settings.json';
 import { getSelectedCard, checkCardValue } from '../cards';
 import {
   checkEmptyFoundationColumn,

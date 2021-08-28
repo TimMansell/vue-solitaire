@@ -1,4 +1,5 @@
 import shuffle from 'lodash.shuffle';
+import { ranks, suits } from '../../../config/settings.json';
 
 export const findCardPosition = (columnCards, selectedCardId) =>
   columnCards.findIndex(({ id }) => id === selectedCardId);
@@ -8,7 +9,7 @@ export const findCardColumn = (cards, selectedCardId) =>
     columnCards.find(({ id }) => id === selectedCardId)
   );
 
-export const buildCards = ({ ranks, suits }) =>
+export const buildCards = () =>
   ranks.flatMap((value, valueOrder) => {
     const order = valueOrder + 1;
 

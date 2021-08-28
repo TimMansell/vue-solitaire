@@ -1,4 +1,3 @@
-import { ranks, suits } from '@/config/settings.json';
 import {
   buildCards,
   shuffleCards,
@@ -72,7 +71,7 @@ describe('cards', () => {
   });
 
   it('should build deck from settings', () => {
-    const result = buildCards({ ranks, suits });
+    const result = buildCards();
 
     expect(result).toStrictEqual([
       { id: 1, order: 1, suit: '♣', value: 'A' },
@@ -131,7 +130,7 @@ describe('cards', () => {
   });
 
   it('should shuffle cards', () => {
-    const deck = buildCards({ ranks, suits });
+    const deck = buildCards();
     const result = shuffleCards(deck);
 
     expect(result).not.toStrictEqual([
