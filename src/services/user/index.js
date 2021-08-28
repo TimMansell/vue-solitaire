@@ -1,12 +1,3 @@
-import { initUser } from './local';
-import { getUser, createUser } from './server';
-import { getUsersGames } from './history';
-
-const user = () => ({
-  initUser,
-  getUser,
-  createUser,
-  getUsersGames,
-});
-
-export default user();
+export { initUser } from './local';
+export { getUser, createUser } from './server';
+export { getUserHistory } from './history';

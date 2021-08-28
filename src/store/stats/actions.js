@@ -1,10 +1,10 @@
-import db from '@/services/db';
+import { getStatsCount, getStats, getLeaderboards } from '@/services/db';
 
 const actions = {
   async getStatsCount({ commit, rootState }) {
     const { luid } = rootState.user;
 
-    const { error, response } = await db.getStatsCount(luid);
+    const { error, response } = await getStatsCount(luid);
     const { userStats, globalStats } = response;
 
     if (!error) {
@@ -15,7 +15,7 @@ const actions = {
   },
   async getStats({ commit, rootState }) {
     const { luid } = rootState.user;
-    const { error, response } = await db.getStats(luid);
+    const { error, response } = await getStats(luid);
     const { userStats, globalStats } = response;
 
     if (!error) {
@@ -40,7 +40,7 @@ const actions = {
   async getLeaderboards({ commit }, params) {
     commit('SET_LEADERBOARDS', []);
 
-    const { error, response } = await db.getLeaderboards(params);
+    const { error, response } = await getLeaderboards(params);
 
     if (!error) {
       const { leaderboards } = response;

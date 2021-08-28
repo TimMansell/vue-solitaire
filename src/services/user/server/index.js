@@ -1,7 +1,7 @@
-import db from '@/services/db';
+import { newUser, getUserByID } from '@/services/db';
 
 export const createUser = async (luid) => {
-  const { error, response } = await db.newUser(luid);
+  const { error, response } = await newUser(luid);
 
   if (!error) {
     const {
@@ -15,7 +15,7 @@ export const createUser = async (luid) => {
 };
 
 export const getUser = async (luid) => {
-  const { error, response } = await db.getUser(luid);
+  const { error, response } = await getUserByID(luid);
 
   if (!error) {
     const {

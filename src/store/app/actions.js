@@ -1,4 +1,4 @@
-import db from '@/services/db';
+import { getAppVersion, gameWon, gameLost, gameQuit } from '@/services/db';
 
 import { version } from '../../../package.json';
 
@@ -29,7 +29,7 @@ const actions = {
       response: {
         version: { number: serverVersion },
       },
-    } = await db.getAppVersion();
+    } = await getAppVersion();
 
     if (!error) {
       const versionMatch = localVersion === serverVersion;
@@ -71,14 +71,14 @@ const actions = {
     const { won, lost } = gameStatus;
 
     if (won) {
-      return db.gameWon({ luid, ...game });
+      return gameWon({ luid, ...game });
     }
 
     if (lost) {
-      return db.gameLost({ luid, ...game });
+      return gameLost({ luid, ...game });
     }
 
-    return db.gameQuit({ luid, ...game });
+    return gameQuit({ luid, ...game });
   },
   setGameInactive({ commit }) {
     const isGamePaused = {

@@ -2,7 +2,7 @@ import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { formatError, formatResponse, formatData } from './helpers';
 
-export const getUser = async (uid) => {
+export const getUserByID = async (uid) => {
   try {
     const response = await apollo.query({
       query: gql`
