@@ -107,8 +107,5 @@
       "stylelint --fix",
       "git add"
     ]
-  },
-  "browser": {
-    "@/config/settings.json": "./src/config/settings.json"
   }
 }
