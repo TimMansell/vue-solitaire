@@ -6,6 +6,8 @@ describe('Game State', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
 
+    cy.interceptLeaderboardAPI();
+
     localStorage.setItem('luid', mockUid);
 
     cy.visit('/');
@@ -150,6 +152,8 @@ describe('Game State', () => {
     cy.reload();
 
     cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
+
+    cy.wait('@waitForLeaderboardAPI');
   });
 
   it('refreshing page on how to play shows how to play', () => {

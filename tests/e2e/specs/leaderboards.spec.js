@@ -3,6 +3,8 @@ import { mockUid } from '../../../src/mockData';
 describe('Leaderboards', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
+
+    cy.interceptLeaderboardAPI();
   });
 
   describe('Default', () => {
@@ -17,6 +19,8 @@ describe('Leaderboards', () => {
 
       cy.get('[data-test="leaderboards-btn"]').click();
 
+      cy.wait('@waitForLeaderboardAPI');
+
       cy.document().trigger('visibilitychange');
 
       cy.get('[data-test="game-paused"]').should('not.exist');
@@ -24,6 +28,8 @@ describe('Leaderboards', () => {
 
     it('it should display correct heading', () => {
       cy.get('[data-test="leaderboards-btn"]').click();
+
+      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="leaderboards-heading"]')
         .as('heading')
@@ -33,18 +39,20 @@ describe('Leaderboards', () => {
         'Times'
       );
 
+      cy.wait('@waitForLeaderboardAPI');
+
       cy.get('@heading').should('contain', 'Top 25 Best Times');
 
       cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
         '50'
       );
 
+      cy.wait('@waitForLeaderboardAPI');
+
       cy.get('@heading').should('contain', 'Top 50 Best Times');
     });
 
     it('it should display correct amount of table rows', () => {
-      cy.interceptLeaderboardAPI();
-
       cy.get('[data-test="leaderboards-btn"]').click();
 
       cy.wait('@waitForLeaderboardAPI');
@@ -63,6 +71,8 @@ describe('Leaderboards', () => {
     it('it should display correct table heading', () => {
       cy.get('[data-test="leaderboards-btn"]').click();
 
+      cy.wait('@waitForLeaderboardAPI');
+
       cy.get('[data-test="table-header-row"] th')
         .eq(3)
         .as('row')
@@ -71,6 +81,7 @@ describe('Leaderboards', () => {
       cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
         'Times'
       );
+      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('@row').should('contain', 'Times');
     });
@@ -78,13 +89,15 @@ describe('Leaderboards', () => {
 
   describe('New User', () => {
     beforeEach(() => {
+      cy.interceptCreateUserAPI();
+
       cy.visit('/');
     });
 
     it('it should display player name after first game', () => {
-      cy.interceptCreateUserAPI();
-
       cy.get('[data-test="leaderboards-btn"]').click();
+
+      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="leaderboard-name"]').should('not.exist');
 
@@ -100,6 +113,8 @@ describe('Leaderboards', () => {
 
       cy.get('[data-test="leaderboards-btn"]').click();
 
+      cy.wait('@waitForLeaderboardAPI');
+
       cy.get('[data-test="leaderboard-name"]').should('exist');
     });
   });
@@ -113,6 +128,8 @@ describe('Leaderboards', () => {
 
     it('it should display player name after first game', () => {
       cy.get('[data-test="leaderboards-btn"]').click();
+
+      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="leaderboard-name"]').should('exist');
     });
