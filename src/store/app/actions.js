@@ -1,6 +1,4 @@
-import { getAppVersion, saveGame } from '@/services/app';
-
-import { version } from '../../../package.json';
+import { checkAppVersion, saveGame } from '@/services/db';
 
 const actions = {
   async initApp({ dispatch }, hasAppRestarted = false) {
@@ -8,7 +6,7 @@ const actions = {
       dispatch('initGame'),
       dispatch('initUser'),
       dispatch('getUser'),
-      dispatch('checkAppVersion', version),
+      dispatch('checkAppVersion'),
     ]);
 
     if (!hasAppRestarted) {
@@ -23,10 +21,8 @@ const actions = {
     dispatch('restartGame');
     dispatch('initApp', hasAppRestarted);
   },
-  async checkAppVersion({ commit }, localVersion) {
-    const serverVersion = await getAppVersion();
-
-    const versionMatch = localVersion === serverVersion;
+  async checkAppVersion({ commit }) {
+    const versionMatch = await checkAppVersion();
 
     commit('SET_VERSION_MATCH', versionMatch);
   },

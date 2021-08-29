@@ -1,4 +1,5 @@
-import { initUser, getUser, createUser, getUserHistory } from '@/services/user';
+import { initUser } from '@/services/user';
+import { getUser, createUser, getUsersGames } from '@/services/db';
 
 const actions = {
   initUser({ commit, state }) {
@@ -29,9 +30,9 @@ const actions = {
 
     commit('SET_USER_GAMES', []);
 
-    const userHistory = await getUserHistory(luid, params);
+    const { history } = await getUsersGames(luid, params);
 
-    commit('SET_USER_GAMES', userHistory);
+    commit('SET_USER_GAMES', history);
   },
 };
 

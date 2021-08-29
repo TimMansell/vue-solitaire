@@ -1,4 +1,4 @@
-import { getStatsCount, getStats, getLeaderboard } from '@/services/stats';
+import { getStatsCount, getStats, getLeaderboards } from '@/services/db';
 
 const actions = {
   async getStatsCount({ commit, rootState }) {
@@ -33,7 +33,7 @@ const actions = {
   async getLeaderboards({ commit }, params) {
     commit('SET_LEADERBOARDS', []);
 
-    const leaderboards = await getLeaderboard(params);
+    const leaderboards = await getLeaderboards(params);
 
     commit('SET_LEADERBOARDS', leaderboards);
   },
