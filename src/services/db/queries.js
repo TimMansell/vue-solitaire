@@ -1,8 +1,9 @@
 import { gql } from 'apollo-boost';
 import apollo from './apollo';
-import { formatError, formatResponse } from './helpers';
+import { leaderboardsQuery } from './helpers';
+import { version } from '../../../package.json';
 
-export const getUserByID = async (uid) => {
+export const getUser = async (uid) => {
   try {
     const response = await apollo.query({
       query: gql`
@@ -19,13 +20,13 @@ export const getUserByID = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response.data.user);
+    return response.data.user;
   } catch (error) {
-    return formatError();
+    return { name: '', exists: false };
   }
 };
 
-export const getStatsticsCount = async (uid) => {
+export const getStatsCount = async (uid) => {
   try {
     const response = await apollo.query({
       query: gql`
@@ -45,13 +46,16 @@ export const getStatsticsCount = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response.data);
+    return response.data;
   } catch (error) {
-    return formatError();
+    return {
+      userStats: {},
+      globalStats: {},
+    };
   }
 };
 
-export const getStatistics = async (uid) => {
+export const getStats = async (uid) => {
   try {
     const response = await apollo.query({
       query: gql`
@@ -74,9 +78,12 @@ export const getStatistics = async (uid) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response.data);
+    return response.data;
   } catch (error) {
-    return formatError();
+    return {
+      userStats: {},
+      globalStats: {},
+    };
   }
 };
 
@@ -94,9 +101,9 @@ export const checkAppVersion = async () => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response.data.version.number);
+    return version === response.data.version.number;
   } catch (error) {
-    return formatError();
+    return true;
   }
 };
 
@@ -121,41 +128,26 @@ export const getUsersGames = async (uid, { offset, limit }) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response.data.user.history);
+    return response.data.user;
   } catch (error) {
-    return formatError();
+    return { history: [] };
   }
 };
 
 export const getLeaderboards = async ({ limit, showBest }) => {
-  const QUERY_STRING = {
-    Moves: 'moves',
-    Times: 'times',
-  };
-
-  const QUERIES = {
-    Moves: `${QUERY_STRING.Moves} {
-      rank
-      date
-      player
-      moves
-    }`,
-    Times: `${QUERY_STRING.Times} {
-      rank
-      date
-      player
-      duration
-    }`,
-  };
-
-  const query = QUERIES[showBest];
+  const { key, query } = leaderboardsQuery(showBest);
 
   try {
     const response = await apollo.query({
       query: gql`
         query Leaderboards($offset: Int!, $limit: Int!) {
           leaderboards(offset: $offset, limit: $limit) {
-            ${query}
+            ${key} {
+              rank
+              date
+              player
+              ${query}
+            }
           }
         }
       `,
@@ -163,8 +155,8 @@ export const getLeaderboards = async ({ limit, showBest }) => {
       fetchPolicy: 'no-cache',
     });
 
-    return formatResponse(response.data.leaderboards[QUERY_STRING[showBest]]);
+    return response.data.leaderboards[key];
   } catch (error) {
-    return formatError();
+    return [];
   }
 };

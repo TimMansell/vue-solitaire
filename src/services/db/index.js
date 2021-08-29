@@ -1,9 +1,9 @@
 export {
-  getUserByID,
-  getStatistics,
-  getStatsticsCount,
+  getUser,
+  getStats,
+  getStatsCount,
   checkAppVersion,
   getUsersGames,
   getLeaderboards,
 } from './queries';
-export { newUser, newGame, gameLost, gameWon, gameQuit } from './mutations';
+export { createUser, newGame, saveGame } from './mutations';

@@ -1,8 +1,25 @@
-export const formatResponse = (data) => ({
-  error: false,
-  response: data,
-});
+export const saveGameQuery = ({ won, lost }) => {
+  if (won) {
+    return 'wonGame';
+  }
 
-export const formatError = () => ({
-  error: true,
-});
+  if (lost) {
+    return 'lostGame';
+  }
+
+  return 'quitGame';
+};
+
+export const leaderboardsQuery = (showBest) => {
+  if (showBest === 'Times') {
+    return {
+      key: 'times',
+      query: 'duration',
+    };
+  }
+
+  return {
+    key: 'moves',
+    query: 'moves',
+  };
+};
