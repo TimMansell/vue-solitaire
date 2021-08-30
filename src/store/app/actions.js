@@ -1,4 +1,5 @@
 import { checkAppVersion, saveGame } from '@/services/db';
+import { version } from '../../../package.json';
 
 const actions = {
   async initApp({ dispatch }, hasAppRestarted = false) {
@@ -22,7 +23,7 @@ const actions = {
     dispatch('initApp', hasAppRestarted);
   },
   async checkAppVersion({ commit }) {
-    const versionMatch = await checkAppVersion();
+    const versionMatch = await checkAppVersion(version);
 
     commit('SET_VERSION_MATCH', versionMatch);
   },

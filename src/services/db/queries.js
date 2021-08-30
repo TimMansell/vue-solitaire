@@ -1,7 +1,6 @@
 import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { leaderboardsQuery } from './helpers';
-import { version } from '../../../package.json';
 
 export const getUser = async (uid) => {
   try {
@@ -87,21 +86,21 @@ export const getStats = async (uid) => {
   }
 };
 
-export const checkAppVersion = async () => {
+export const checkAppVersion = async (localVersion) => {
   try {
     const response = await apollo.query({
       query: gql`
-        query {
-          version {
-            number
+        query CheckVersion($localVersion: String!) {
+          version(localVersion: $localVersion) {
+            matches
           }
         }
       `,
-      variables: {},
+      variables: { localVersion },
       fetchPolicy: 'no-cache',
     });
 
-    return version === response.data.version.number;
+    return response.data.version.matches;
   } catch (error) {
     return true;
   }
