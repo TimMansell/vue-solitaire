@@ -9,11 +9,15 @@ const rootState = {
   },
 };
 
-const commit = jest.fn();
-
 jest.mock('@/services/db');
 
 describe('Stats Store', () => {
+  let commit;
+
+  beforeEach(() => {
+    commit = jest.fn();
+  });
+
   it('getStatsCount', async () => {
     await getStatsCount({ commit, rootState });
 

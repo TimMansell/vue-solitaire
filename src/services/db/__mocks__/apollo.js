@@ -19,7 +19,7 @@ const query = ({ variables }) => {
     data: {
       userStats: { ...mockStats },
       globalStats: { ...mockStats },
-      version: { number: version },
+      version: { number: version, matches: true },
       user: {
         history: mockHistory,
         exists: checkUserExistsOnServer(variables),

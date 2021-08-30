@@ -1,45 +1,39 @@
-import { mockLeaderboardsMoves } from '@/mockData';
-import { formatResponse, formatError, formatData } from '../helpers';
+import { saveGameQuery, leaderboardsQuery } from '../helpers';
 
-describe('DB service', () => {
-  it('formatResponse', () => {
-    const value = {
-      value: 5,
-    };
+describe('DB service - helpers', () => {
+  it('returns won game', () => {
+    const result = saveGameQuery({ won: true });
 
-    const responseObject = {
-      data: {
-        value,
-      },
-    };
+    expect(result).toBe('wonGame');
+  });
 
-    const result = formatResponse(responseObject);
+  it('returns lost game', () => {
+    const result = saveGameQuery({ lost: true });
+
+    expect(result).toBe('lostGame');
+  });
+
+  it('returns quit game', () => {
+    const result = saveGameQuery({ quit: true });
+
+    expect(result).toBe('quitGame');
+  });
+
+  it('returns moves object', () => {
+    const result = leaderboardsQuery('Times');
 
     expect(result).toEqual({
-      error: false,
-      response: { value },
+      key: 'times',
+      query: 'duration',
     });
   });
 
-  it('formatError', () => {
-    const result = formatError();
+  it('returns times object', () => {
+    const result = leaderboardsQuery('Moves');
 
     expect(result).toEqual({
-      error: true,
-    });
-  });
-
-  it('formatData', () => {
-    const leaderboards = {
-      data: {
-        leaderboards: { moves: mockLeaderboardsMoves },
-      },
-    };
-
-    const result = formatData(leaderboards);
-
-    expect(result).toEqual({
-      leaderboards: mockLeaderboardsMoves,
+      key: 'moves',
+      query: 'moves',
     });
   });
 });

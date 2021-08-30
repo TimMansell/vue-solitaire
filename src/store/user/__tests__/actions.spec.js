@@ -3,11 +3,11 @@ import actions from '../actions';
 
 const { initUser, getUser, createUser, getAllGames } = actions;
 
-let commit;
-
-jest.mock('@/services/user');
+jest.mock('@/services/db');
 
 describe('User Store', () => {
+  let commit;
+
   beforeEach(() => {
     localStorage.clear();
 
