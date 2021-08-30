@@ -100,7 +100,7 @@ export const checkAppVersion = async (localVersion) => {
       fetchPolicy: 'no-cache',
     });
 
-    return response.data.version.matches;
+    return response.data.version;
   } catch (error) {
     return true;
   }

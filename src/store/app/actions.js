@@ -7,7 +7,7 @@ const actions = {
       dispatch('initGame'),
       dispatch('initUser'),
       dispatch('getUser'),
-      dispatch('checkAppVersion'),
+      dispatch('checkAppVersion', version),
     ]);
 
     if (!hasAppRestarted) {
@@ -22,10 +22,10 @@ const actions = {
     dispatch('restartGame');
     dispatch('initApp', hasAppRestarted);
   },
-  async checkAppVersion({ commit }) {
-    const versionMatch = await checkAppVersion(version);
+  async checkAppVersion({ commit }, localVersionNumber) {
+    const { matches } = await checkAppVersion(localVersionNumber);
 
-    commit('SET_VERSION_MATCH', versionMatch);
+    commit('SET_VERSION_MATCH', matches);
   },
   setGameLoading({ commit }, isGameLoading) {
     commit('SET_GAME_LOADING', isGameLoading);
