@@ -233,13 +233,7 @@ describe('Game State', () => {
           cy.wrap($value).as('cachedMoves');
         });
 
-      // cy.window()
-      //   .its('app.$store')
-      //   .then((store) => {
-      //     store.dispatch('setTimerPaused', true);
-      //   });
-
-      cy.pauseTimer();
+      cy.setTimerPaused(true);
 
       cy.reloadAndWait();
 

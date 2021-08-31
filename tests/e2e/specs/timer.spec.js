@@ -41,9 +41,9 @@ describe('Timer', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(3000);
 
-      cy.pauseTimer();
+      cy.setTimerPaused(true);
 
-      cy.get('[data-test="timer"]').should('contain', '0:00:04');
+      cy.get('[data-test="timer"]').should('contain', '0:00:03');
     });
 
     it('it should increment timer correctly after pausing', () => {
@@ -70,7 +70,7 @@ describe('Timer', () => {
       cy.document().trigger('visibilitychange');
 
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(4000);
+      cy.wait(2000);
 
       cy.get('[data-test="game-overlay-btns"]').within(() => {
         cy.get('[data-test="pause-game-btn"]').click();
@@ -262,7 +262,7 @@ describe('Timer', () => {
     it('it should reset timer when new game is pressed', () => {
       cy.newGame();
 
-      cy.pauseTimer();
+      cy.setTimerPaused(true);
 
       cy.get('[data-test="timer"]').should('contain', '0:00:00');
     });
@@ -285,7 +285,7 @@ describe('Timer', () => {
             cy.get('[data-test="new-game-btn"]').click();
           });
 
-          cy.pauseTimer();
+          cy.setTimerPaused(true);
 
           cy.get('[data-test="timer"]').should('contain', '0:00:00');
         });
@@ -310,7 +310,7 @@ describe('Timer', () => {
             cy.get('[data-test="new-game-btn"]').click();
           });
 
-          cy.pauseTimer();
+          cy.setTimerPaused(true);
 
           cy.get('[data-test="timer"]').should('contain', '0:00:00');
         });
