@@ -7,17 +7,15 @@ const mockAlias = 'mockVersion';
 describe('App', () => {
   describe('Default', () => {
     beforeEach(() => {
+      cy.visitApp();
+    });
+
+    afterEach(() => {
       cy.clearLocalStorage();
-
-      cy.interceptStatsAPI();
-
-      cy.visit('/');
     });
 
     it('it successfullly loads', () => {
       cy.get('[data-test="board"]').should('be.visible');
-
-      cy.wait('@waitForStatsAPI');
 
       cy.get('[data-test="columns"]').within(() => {
         cy.get('[data-test^="card-"]').should('have.length', 52);
@@ -73,7 +71,7 @@ describe('App', () => {
 
       cy.interceptVersionCheck(defaultAlias, version);
 
-      cy.reload();
+      cy.reloadAndWait();
 
       cy.wait(`@${defaultAlias}`);
 

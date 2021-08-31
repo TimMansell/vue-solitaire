@@ -2,19 +2,42 @@ import numeral from 'numeral';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import 'cypress-commands';
 
-Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
+Cypress.Commands.add('visitApp', () => {
   cy.interceptStatsAPI();
+  cy.interceptCreateUserAPI();
+  cy.interceptHistoryAPI();
+  cy.interceptLeaderboardAPI();
 
-  cy.reload();
+  cy.visit('/');
+
+  cy.setTimerPaused(true);
 
   cy.wait('@waitForStatsAPI');
 
+  cy.setTimerPaused(false);
+});
+
+Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
   const getStore = () => cy.window().its('app.$store');
 
   return getStore().then((store) => {
     store.dispatch('setBoard', cards);
     store.dispatch('setFoundation', foundation);
   });
+});
+
+Cypress.Commands.add('reloadAndWait', () => {
+  cy.interceptStatsAPI();
+
+  cy.reload();
+
+  cy.wait('@waitForStatsAPI');
+});
+
+Cypress.Commands.add('clearTest', () => {
+  cy.clearLocalStorage();
+
+  cy.setTimerPaused(true);
 });
 
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
@@ -407,6 +430,14 @@ Cypress.Commands.add('interceptHistoryAPI', () => {
       req.alias = 'waitForHistoryAPI';
     }
   });
+});
+
+Cypress.Commands.add('setTimerPaused', (shouldPause) => {
+  cy.window()
+    .its('app.$store')
+    .then((store) => {
+      store.dispatch('setTimerPaused', shouldPause);
+    });
 });
 
 addMatchImageSnapshotCommand({

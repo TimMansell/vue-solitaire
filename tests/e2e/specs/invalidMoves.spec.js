@@ -2,9 +2,11 @@ import invalidMove from '../../fixtures/boards/invalidMove.json';
 
 describe('Invalid moves', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.visitApp();
+  });
 
-    cy.visit('/');
+  afterEach(() => {
+    cy.clearTest();
   });
 
   describe('using drag and drop', () => {

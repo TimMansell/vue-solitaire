@@ -2,17 +2,13 @@ import numeral from 'numeral';
 import { mockUid } from '../../../src/mockData';
 
 describe('User', () => {
-  beforeEach(() => {
-    cy.clearLocalStorage();
-
-    cy.interceptStatsAPI();
+  afterEach(() => {
+    cy.clearTest();
   });
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.visit('/');
-
-      cy.wait('@waitForStatsAPI');
+      cy.visitApp();
     });
 
     it('it creates a new local user on initial page load', () => {
@@ -49,6 +45,7 @@ describe('User', () => {
 
         cy.newGame();
 
+        cy.wait('@waitForCreateUserAPI');
         cy.wait('@waitForStatsAPI');
 
         cy.newGame();
@@ -68,9 +65,7 @@ describe('User', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visit('/');
-
-      cy.wait('@waitForStatsAPI');
+      cy.visitApp();
     });
 
     it('it does not create a new local user on initial page load', () => {

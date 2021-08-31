@@ -5,9 +5,11 @@ const moveTop = -200;
 
 describe('Dragged Cards', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.visitApp();
+  });
 
-    cy.visit('/');
+  afterEach(() => {
+    cy.clearTest();
   });
 
   it('should move dragged cards to correct position', () => {

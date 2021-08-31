@@ -3,9 +3,11 @@ import invalidMove from '../../fixtures/boards/invalidMove.json';
 
 describe('Special column moves', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.visitApp();
+  });
 
-    cy.visit('/');
+  afterEach(() => {
+    cy.clearTest();
   });
 
   it('should show empty column card placeholder', () => {
