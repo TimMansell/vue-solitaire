@@ -9,7 +9,7 @@ describe('No moves', () => {
   });
 
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   it('should have K♣ as an available move then no moves after that', () => {

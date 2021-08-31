@@ -9,7 +9,7 @@ describe('Dragged Cards', () => {
   });
 
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   it('should move dragged cards to correct position', () => {

@@ -3,7 +3,7 @@ import { mockUid } from '../../../src/mockData';
 
 describe('User', () => {
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   describe('New User', () => {

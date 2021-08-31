@@ -30,6 +30,12 @@ Cypress.Commands.add('reloadAndWait', () => {
   cy.wait('@waitForStatsAPI');
 });
 
+Cypress.Commands.add('clearTest', () => {
+  cy.clearLocalStorage();
+
+  cy.pauseTimer();
+});
+
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
   cy.get(`[data-test="${dragFrom}"]`)
     .trigger('dragstart', {
@@ -420,6 +426,14 @@ Cypress.Commands.add('interceptHistoryAPI', () => {
       req.alias = 'waitForHistoryAPI';
     }
   });
+});
+
+Cypress.Commands.add('pauseTimer', () => {
+  cy.window()
+    .its('app.$store')
+    .then((store) => {
+      store.dispatch('setTimerPaused', true);
+    });
 });
 
 addMatchImageSnapshotCommand({

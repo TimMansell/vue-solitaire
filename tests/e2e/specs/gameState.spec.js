@@ -12,7 +12,7 @@ describe('Game State', () => {
   });
 
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   it('refreshing page shows same board state', () => {
@@ -233,11 +233,13 @@ describe('Game State', () => {
           cy.wrap($value).as('cachedMoves');
         });
 
-      cy.window()
-        .its('app.$store')
-        .then((store) => {
-          store.dispatch('setTimerPaused', true);
-        });
+      // cy.window()
+      //   .its('app.$store')
+      //   .then((store) => {
+      //     store.dispatch('setTimerPaused', true);
+      //   });
+
+      cy.pauseTimer();
 
       cy.reloadAndWait();
 

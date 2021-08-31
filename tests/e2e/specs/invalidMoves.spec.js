@@ -6,7 +6,7 @@ describe('Invalid moves', () => {
   });
 
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   describe('using drag and drop', () => {
