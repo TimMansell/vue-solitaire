@@ -5,7 +5,7 @@ import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
 
 describe('Stats', () => {
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   describe('Default', () => {

@@ -2,7 +2,7 @@ import { mockUid } from '../../../src/mockData';
 
 describe('History', () => {
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   describe('Default', () => {

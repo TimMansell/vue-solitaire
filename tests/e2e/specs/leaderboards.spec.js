@@ -2,7 +2,7 @@ import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   describe('Default', () => {

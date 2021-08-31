@@ -7,7 +7,7 @@ describe('Timer', () => {
   });
 
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   describe('Default Functionality', () => {
@@ -40,6 +40,8 @@ describe('Timer', () => {
     it('it should increment timer correctly', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(3000);
+
+      cy.pauseTimer();
 
       cy.get('[data-test="timer"]').should('contain', '0:00:04');
     });
@@ -260,6 +262,8 @@ describe('Timer', () => {
     it('it should reset timer when new game is pressed', () => {
       cy.newGame();
 
+      cy.pauseTimer();
+
       cy.get('[data-test="timer"]').should('contain', '0:00:00');
     });
 
@@ -280,6 +284,8 @@ describe('Timer', () => {
           cy.get('[data-test="game-lost"]').within(() => {
             cy.get('[data-test="new-game-btn"]').click();
           });
+
+          cy.pauseTimer();
 
           cy.get('[data-test="timer"]').should('contain', '0:00:00');
         });
@@ -303,6 +309,8 @@ describe('Timer', () => {
           cy.get('[data-test="game-won"]').within(() => {
             cy.get('[data-test="new-game-btn"]').click();
           });
+
+          cy.pauseTimer();
 
           cy.get('[data-test="timer"]').should('contain', '0:00:00');
         });

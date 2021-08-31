@@ -7,7 +7,7 @@ describe('Special column moves', () => {
   });
 
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   it('should show empty column card placeholder', () => {

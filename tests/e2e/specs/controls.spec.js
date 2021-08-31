@@ -6,7 +6,7 @@ describe('Controls', () => {
   });
 
   afterEach(() => {
-    cy.clearLocalStorage();
+    cy.clearTest();
   });
 
   it('it should start a new game and reset board', () => {
