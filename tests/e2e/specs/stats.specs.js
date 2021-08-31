@@ -4,17 +4,13 @@ import foundations from '../../fixtures/boards/fullFoundation.json';
 import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
 
 describe('Stats', () => {
-  beforeEach(() => {
+  afterEach(() => {
     cy.clearLocalStorage();
-
-    cy.interceptStatsAPI();
   });
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visit('/');
-
-      cy.wait('@waitForStatsAPI');
+      cy.visitApp();
     });
 
     it('should show stats overlay and then close overlay', () => {
@@ -50,9 +46,7 @@ describe('Stats', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.visit('/');
-
-      cy.wait('@waitForStatsAPI');
+      cy.visitApp();
     });
 
     it('it successfully retrieves 0 games played', () => {
@@ -95,15 +89,17 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played after lost game', () => {
-      cy.get('[data-test="stats"]')
-        .text()
-        .should('equal', '0');
-
-      cy.cacheStatValues();
-
       cy.setBoard(noMovesKingColumn).then(() => {
+        cy.get('[data-test="stats"]')
+          .text()
+          .should('equal', '0');
+
+        cy.cacheStatValues();
+
         cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
         cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+
+        cy.wait('@waitForCreateUserAPI');
 
         cy.get('[data-test="game-lost"]').within(() => {
           cy.get('[data-test="new-game-btn"]').click();
@@ -124,15 +120,17 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played after won game', () => {
-      cy.get('[data-test="stats"]')
-        .text()
-        .should('equal', '0');
-
-      cy.cacheStatValues();
-
       cy.setBoard(foundations).then(() => {
+        cy.get('[data-test="stats"]')
+          .text()
+          .should('equal', '0');
+
+        cy.cacheStatValues();
+
         cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
         cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+
+        cy.wait('@waitForCreateUserAPI');
 
         cy.get('[data-test="game-won"]').within(() => {
           cy.get('[data-test="new-game-btn"]').click();
@@ -157,9 +155,7 @@ describe('Stats', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visit('/');
-
-      cy.wait('@waitForStatsAPI');
+      cy.visitApp();
     });
 
     it('it successfully retrieves games played', () => {
@@ -179,11 +175,7 @@ describe('Stats', () => {
       cy.get('[data-test="stats"]').then(($stats) => {
         const number = numeral($stats.text()).value();
 
-        cy.get('[data-test="new-game-btn"]').click();
-
-        cy.get('[data-test="game-new"]').within(() => {
-          cy.get('[data-test="new-game-btn"]').click();
-        });
+        cy.newGame();
 
         cy.wait('@waitForStatsAPI');
 

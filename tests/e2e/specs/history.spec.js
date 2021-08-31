@@ -1,15 +1,13 @@
 import { mockUid } from '../../../src/mockData';
 
 describe('History', () => {
-  beforeEach(() => {
+  afterEach(() => {
     cy.clearLocalStorage();
-
-    cy.interceptHistoryAPI();
   });
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visit('/');
+      cy.visitApp();
     });
 
     it('should not show game paused if history overlay is visible', () => {
@@ -27,7 +25,7 @@ describe('History', () => {
 
   describe('New user', () => {
     beforeEach(() => {
-      cy.visit('/');
+      cy.visitApp();
     });
 
     it('it shows no game message', () => {
@@ -38,11 +36,9 @@ describe('History', () => {
     });
 
     it('it shows game history after first game played', () => {
-      cy.get('[data-test="new-game-btn"]').click();
+      cy.newGame();
 
-      cy.get('[data-test="game-new"]').within(() => {
-        cy.get('[data-test="new-game-btn"]').click();
-      });
+      cy.wait('@waitForStatsAPI');
 
       cy.get('[data-test="history-btn"]').click();
 
@@ -62,7 +58,7 @@ describe('History', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visit('/');
+      cy.visitApp();
     });
 
     it('it shows 1st page results', () => {
