@@ -265,6 +265,8 @@ describe('Timer', () => {
       cy.setTimerPaused(true);
 
       cy.get('[data-test="timer"]').should('contain', '0:00:00');
+
+      cy.wait('@waitForStatsAPI');
     });
 
     it('it stops timer when game is lost and resets when new game is started', () => {
