@@ -2,9 +2,11 @@ import validMove from '../../fixtures/boards/validMove.json';
 
 describe('Valid moves', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.visitApp();
+  });
 
-    cy.visit('/');
+  afterEach(() => {
+    cy.clearLocalStorage();
   });
 
   describe('using drag and drop', () => {
@@ -40,10 +42,6 @@ describe('Valid moves', () => {
 
     it('should increment moves', () => {
       cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="moves"]')
-          .text()
-          .should('equal', '0');
-
         cy.get('[data-test="column-4"]').shouldContain(['A♣']);
 
         cy.dragFromTo('card-A♣', 'card-2♣');
@@ -90,10 +88,6 @@ describe('Valid moves', () => {
 
     it('should increment moves', () => {
       cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="moves"]')
-          .text()
-          .should('equal', '0');
-
         cy.get('[data-test="column-4"]').shouldContain(['A♣']);
 
         cy.dragFromTo('card-A♣', 'card-2♣');

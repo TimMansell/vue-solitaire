@@ -2,9 +2,11 @@ import emptyColumn from '../../fixtures/boards/emptyColumn.json';
 
 describe('Controls', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.visitApp();
+  });
 
-    cy.visit('/');
+  afterEach(() => {
+    cy.clearLocalStorage();
   });
 
   it('it should start a new game and reset board', () => {
@@ -17,11 +19,7 @@ describe('Controls', () => {
 
       cy.get('[data-test="card-5♠"]').click();
 
-      cy.get('[data-test="new-game-btn"]').click();
-
-      cy.get('[data-test="game-overlay-btns"]').within(() => {
-        cy.get('[data-test="new-game-btn"]').click();
-      });
+      cy.newGame();
 
       cy.get('[data-test="foundation-0"]').shouldNotContain(['A♥']);
 

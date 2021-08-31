@@ -6,9 +6,11 @@ import doubleClickAce2 from '../../fixtures/boards/doubleClickAce2.json';
 
 describe('Foundation moves', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.visitApp();
+  });
 
-    cy.visit('/');
+  afterEach(() => {
+    cy.clearLocalStorage();
   });
 
   describe('using drag and drop', () => {

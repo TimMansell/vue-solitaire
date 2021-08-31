@@ -4,22 +4,21 @@ import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
 
 describe('Game State', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
-
     cy.interceptLeaderboardAPI();
 
     localStorage.setItem('luid', mockUid);
 
-    cy.visit('/');
+    cy.visitApp();
+  });
+
+  afterEach(() => {
+    cy.clearLocalStorage();
   });
 
   it('refreshing page shows same board state', () => {
     let initalCard1;
     let initialCard2;
     let initialCard3;
-    let finalCard1;
-    let finalCard2;
-    let finalCard3;
 
     cy.get('[data-test="column-0"]').within(() => {
       cy.get('[data-test^="card"]')
@@ -45,16 +44,13 @@ describe('Game State', () => {
         });
     });
 
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000);
-
-    cy.reload();
+    cy.reloadAndWait();
 
     cy.get('[data-test="column-0"]').within(() => {
       cy.get('[data-test^="card"]')
         .eq(6)
         .then(($card) => {
-          finalCard1 = $card.attr('data-test');
+          const finalCard1 = $card.attr('data-test');
 
           expect(initalCard1).to.equal(finalCard1);
         });
@@ -64,7 +60,7 @@ describe('Game State', () => {
       cy.get('[data-test^="card"]')
         .eq(4)
         .then(($card) => {
-          finalCard2 = $card.attr('data-test');
+          const finalCard2 = $card.attr('data-test');
 
           expect(initialCard2).to.equal(finalCard2);
         });
@@ -74,7 +70,7 @@ describe('Game State', () => {
       cy.get('[data-test^="card"]')
         .eq(1)
         .then(($card) => {
-          finalCard3 = $card.attr('data-test');
+          const finalCard3 = $card.attr('data-test');
 
           expect(initialCard3).to.equal(finalCard3);
         });
@@ -83,15 +79,11 @@ describe('Game State', () => {
 
   it('clicking on new game sets new board state', () => {
     cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="new-game-btn"]').click();
-
-      cy.get('[data-test="game-overlay-btns"]').within(() => {
-        cy.get('[data-test="new-game-btn"]').click();
-      });
+      cy.newGame();
 
       cy.wait('@waitForStatsAPI');
 
-      cy.reload();
+      cy.reloadAndWait();
 
       cy.get('[data-test="columns"]').within(() => {
         cy.get('[data-test="column-card-placeholder"]').should('not.exist');
@@ -107,7 +99,7 @@ describe('Game State', () => {
         .should('have.class', 'card--is-selected');
     });
 
-    cy.reload();
+    cy.reloadAndWait();
 
     cy.get('[data-test="column-0"]').within(() => {
       cy.get('[data-test^="card"]')
@@ -125,7 +117,7 @@ describe('Game State', () => {
 
       cy.get('[data-test="game-won"]').should('be.visible');
 
-      cy.reload();
+      cy.reloadAndWait();
 
       cy.get('[data-test="game-won"]').should('be.visible');
     });
@@ -138,7 +130,7 @@ describe('Game State', () => {
 
       cy.get('[data-test="game-lost"]').should('be.visible');
 
-      cy.reload();
+      cy.reloadAndWait();
 
       cy.get('[data-test="game-lost"]').should('be.visible');
     });
@@ -149,7 +141,7 @@ describe('Game State', () => {
 
     cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
 
-    cy.reload();
+    cy.reloadAndWait();
 
     cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
 
@@ -161,7 +153,7 @@ describe('Game State', () => {
 
     cy.get('[data-test="rules-overlay"]').should('be.visible');
 
-    cy.reload();
+    cy.reloadAndWait();
 
     cy.get('[data-test="rules-overlay"]').should('be.visible');
   });
@@ -181,7 +173,7 @@ describe('Game State', () => {
 
     cy.get('[data-test="game-paused"]').should('be.visible');
 
-    cy.reload();
+    cy.reloadAndWait();
 
     cy.get('[data-test="game-paused"]').should('be.visible');
   });
@@ -190,7 +182,7 @@ describe('Game State', () => {
     cy.setBoard(foundations).then(() => {
       cy.get('[data-test="new-game-btn"]').click();
 
-      cy.reload();
+      cy.reloadAndWait();
 
       cy.get('[data-test="game-new"]').should('be.visible');
     });
@@ -201,7 +193,7 @@ describe('Game State', () => {
 
     cy.get('[data-test="history-overlay"]').should('exist');
 
-    cy.reload();
+    cy.reloadAndWait();
 
     cy.get('[data-test="history-overlay"]').should('exist');
   });
@@ -211,16 +203,13 @@ describe('Game State', () => {
 
     cy.get('[data-test="stats-overlay"]').should('exist');
 
-    cy.reload();
+    cy.reloadAndWait();
 
     cy.get('[data-test="stats-overlay"]').should('exist');
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
     cy.setBoard(foundations).then(() => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(2000);
-
       cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
 
       cy.get('[data-test="stats"]')
@@ -244,7 +233,13 @@ describe('Game State', () => {
           cy.wrap($value).as('cachedMoves');
         });
 
-      cy.reload();
+      cy.window()
+        .its('app.$store')
+        .then((store) => {
+          store.dispatch('setTimerPaused', true);
+        });
+
+      cy.reloadAndWait();
 
       cy.get('@cachedStats').then(($stats) => {
         cy.get('@stats')

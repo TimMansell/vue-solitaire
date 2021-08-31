@@ -5,9 +5,11 @@ import foundations from '../../fixtures/boards/fullFoundation.json';
 
 describe('No moves', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.visitApp();
+  });
 
-    cy.visit('/');
+  afterEach(() => {
+    cy.clearLocalStorage();
   });
 
   it('should have K♣ as an available move then no moves after that', () => {
@@ -21,6 +23,8 @@ describe('No moves', () => {
       cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
+
+      cy.wait('@waitForCreateUserAPI');
 
       cy.checkGameSummaryValues({ moves: 2 });
     });
@@ -37,6 +41,8 @@ describe('No moves', () => {
       cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
+
+      cy.wait('@waitForCreateUserAPI');
 
       cy.checkGameSummaryValues({ moves: 2 });
     });
@@ -55,6 +61,8 @@ describe('No moves', () => {
 
       cy.get('[data-test="game-lost"]').should('be.visible');
 
+      cy.wait('@waitForCreateUserAPI');
+
       cy.checkGameSummaryValues({ moves: 3 });
     });
   });
@@ -65,6 +73,8 @@ describe('No moves', () => {
 
       cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
       cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+
+      cy.wait('@waitForCreateUserAPI');
 
       cy.get('[data-test="game-lost"]').should('not.exist');
     });
@@ -77,11 +87,15 @@ describe('No moves', () => {
       cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
       cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
 
+      cy.wait('@waitForCreateUserAPI');
+
       cy.get('[data-test="game-lost"]').should('be.visible');
 
       cy.get(
         '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
       ).click();
+
+      cy.wait('@waitForStatsAPI');
 
       cy.get('[data-test="game-lost"]').should('not.exist');
     });

@@ -1,7 +1,7 @@
 import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
-  beforeEach(() => {
+  afterEach(() => {
     cy.clearLocalStorage();
 
     cy.interceptLeaderboardAPI();
@@ -9,7 +9,7 @@ describe('Leaderboards', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visit('/');
+      cy.visitApp();
     });
 
     it('should not show game paused if leaderboards overlay is visible', () => {
@@ -89,9 +89,8 @@ describe('Leaderboards', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.interceptCreateUserAPI();
+      cy.visitApp();
 
-      cy.visit('/');
     });
 
     it('it should display player name after first game', () => {
@@ -103,11 +102,7 @@ describe('Leaderboards', () => {
 
       cy.get('[data-test="game-overlay-close"]').click();
 
-      cy.get('[data-test="new-game-btn"]').click();
-
-      cy.get('[data-test="game-new"]').within(() => {
-        cy.get('[data-test="new-game-btn"]').click();
-      });
+      cy.newGame();
 
       cy.wait('@waitForCreateUserAPI');
 
@@ -123,7 +118,7 @@ describe('Leaderboards', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visit('/');
+      cy.visitApp();
     });
 
     it('it should display player name after first game', () => {

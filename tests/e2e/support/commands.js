@@ -2,19 +2,32 @@ import numeral from 'numeral';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import 'cypress-commands';
 
-Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
+Cypress.Commands.add('visitApp', () => {
   cy.interceptStatsAPI();
+  cy.interceptCreateUserAPI();
+  cy.interceptHistoryAPI();
+  cy.interceptLeaderboardAPI();
 
-  cy.reload();
+  cy.visit('/');
 
   cy.wait('@waitForStatsAPI');
+});
 
+Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
   const getStore = () => cy.window().its('app.$store');
 
   return getStore().then((store) => {
     store.dispatch('setBoard', cards);
     store.dispatch('setFoundation', foundation);
   });
+});
+
+Cypress.Commands.add('reloadAndWait', () => {
+  cy.interceptStatsAPI();
+
+  cy.reload();
+
+  cy.wait('@waitForStatsAPI');
 });
 
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
