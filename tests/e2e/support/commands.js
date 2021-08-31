@@ -10,7 +10,11 @@ Cypress.Commands.add('visitApp', () => {
 
   cy.visit('/');
 
+  cy.setTimerPaused(true);
+
   cy.wait('@waitForStatsAPI');
+
+  cy.setTimerPaused(false);
 });
 
 Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
@@ -33,7 +37,7 @@ Cypress.Commands.add('reloadAndWait', () => {
 Cypress.Commands.add('clearTest', () => {
   cy.clearLocalStorage();
 
-  cy.pauseTimer();
+  cy.setTimerPaused(true);
 });
 
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
@@ -428,11 +432,11 @@ Cypress.Commands.add('interceptHistoryAPI', () => {
   });
 });
 
-Cypress.Commands.add('pauseTimer', () => {
+Cypress.Commands.add('setTimerPaused', (shouldPause) => {
   cy.window()
     .its('app.$store')
     .then((store) => {
-      store.dispatch('setTimerPaused', true);
+      store.dispatch('setTimerPaused', shouldPause);
     });
 });
 
