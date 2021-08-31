@@ -1,53 +1,41 @@
 import { mockUid, mockPlayerName, mockDeck } from '@/mockData';
-import { newUser, newGame, gameWon, gameLost, gameQuit } from '../mutations';
+import { createUser, newGame, saveGame } from '../mutations';
 
 jest.mock('../apollo');
 
 const gameParams = {
-  luid: mockUid,
   time: 10,
   moves: 50,
 };
 
 describe('DB service mutations', () => {
-  it('newUser', async () => {
-    const { response } = await newUser(mockUid);
-    const { createUser } = response;
+  it('createUser', async () => {
+    const { name } = await createUser(mockUid);
 
-    expect(createUser).toEqual({ name: mockPlayerName });
+    expect(name).toEqual(mockPlayerName);
   });
 
   it('newGame', async () => {
-    const { response } = await newGame(mockUid);
-    const { newGame: game } = response;
+    const { cards } = await newGame(mockUid);
 
-    expect(game).toEqual({ cards: mockDeck });
+    expect(cards).toEqual(mockDeck);
   });
 
-  it('gameWon', async () => {
-    const { response } = await gameWon(gameParams);
-    const { wonGame } = response;
+  it('saveGame - game won', async () => {
+    const { outcome } = await saveGame(mockUid, gameParams, { won: true });
 
-    expect(wonGame).toEqual({
-      outcome: 'Won',
-    });
+    expect(outcome).toEqual('Won');
   });
 
-  it('gameLost', async () => {
-    const { response } = await gameLost(gameParams);
-    const { lostGame } = response;
+  it('saveGame - game lost', async () => {
+    const { outcome } = await saveGame(mockUid, gameParams, { lost: true });
 
-    expect(lostGame).toEqual({
-      outcome: 'Lost',
-    });
+    expect(outcome).toEqual('Lost');
   });
 
-  it('gameQuit', async () => {
-    const { response } = await gameQuit(gameParams);
-    const { quitGame } = response;
+  it('saveGame - game quit', async () => {
+    const { outcome } = await saveGame(mockUid, gameParams, { quit: true });
 
-    expect(quitGame).toEqual({
-      outcome: 'Gave Up',
-    });
+    expect(outcome).toEqual('Gave Up');
   });
 });

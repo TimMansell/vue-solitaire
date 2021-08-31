@@ -5,7 +5,7 @@ export const typeDefs = gql`
   type Query {
     userStats(uid: String!): UserStats!
     globalStats: GlobalStats!
-    version: Version!
+    version(localVersion: String!): Version!
     user(uid: String!): User!
     leaderboards(offset: Int!, limit: Int!): Leaderboards!
   }
@@ -76,6 +76,7 @@ export const typeDefs = gql`
     completed: Int
   }
   type Version {
-    number: String!
+    number: String
+    matches: Boolean
   }
 `;

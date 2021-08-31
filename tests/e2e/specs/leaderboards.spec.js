@@ -3,6 +3,8 @@ import { mockUid } from '../../../src/mockData';
 describe('Leaderboards', () => {
   afterEach(() => {
     cy.clearTest();
+
+    cy.interceptLeaderboardAPI();
   });
 
   describe('Default', () => {
@@ -37,11 +39,15 @@ describe('Leaderboards', () => {
         'Times'
       );
 
+      cy.wait('@waitForLeaderboardAPI');
+
       cy.get('@heading').should('contain', 'Top 25 Best Times');
 
       cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
         '50'
       );
+
+      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('@heading').should('contain', 'Top 50 Best Times');
     });
@@ -75,6 +81,7 @@ describe('Leaderboards', () => {
       cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
         'Times'
       );
+      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('@row').should('contain', 'Times');
     });

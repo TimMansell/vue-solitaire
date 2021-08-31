@@ -13,12 +13,17 @@ const {
   toggleNewGame,
 } = actions;
 
-const commit = jest.fn();
-const dispatch = jest.fn();
-
 jest.mock('@/services/db');
 
 describe('App Store', () => {
+  let commit;
+  let dispatch;
+
+  beforeEach(() => {
+    commit = jest.fn();
+    dispatch = jest.fn();
+  });
+
   it('checkAppVersion - same version', async () => {
     await checkAppVersion({ commit }, mockVersionNumber);
 

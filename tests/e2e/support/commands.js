@@ -121,23 +121,6 @@ Cypress.Commands.add('newGame', () => {
   });
 });
 
-Cypress.Commands.add('interceptVersionCheck', (alias, version) => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('version')) {
-      // eslint-disable-next-line no-param-reassign
-      req.alias = alias;
-
-      if (version) {
-        req.reply({
-          data: { version: { number: version } },
-        });
-      }
-    }
-  });
-});
-
 Cypress.Commands.add(
   'clickHistoryPageAndCheckGameNumber',
   (pageText, displayGames) => {
@@ -385,6 +368,21 @@ Cypress.Commands.add('checkGlobalStatsLost', () => {
         });
       });
     });
+  });
+});
+
+Cypress.Commands.add('interceptVersionAPI', ({ matches }) => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('version')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = 'waitForVersionAPI';
+
+      req.reply({
+        data: { version: { matches } },
+      });
+    }
   });
 });
 

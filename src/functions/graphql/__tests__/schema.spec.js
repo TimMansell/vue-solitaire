@@ -74,8 +74,9 @@ describe('Graphql Schema', () => {
     it('version', async () => {
       const query = `
         query {
-          version {
+          version(localVersion:"1.0.0") {
             number
+            matches
           }
         }
       `;
@@ -88,6 +89,7 @@ describe('Graphql Schema', () => {
         data: {
           version: {
             number: 'String',
+            matches: true,
           },
         },
       });

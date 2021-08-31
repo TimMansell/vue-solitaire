@@ -1,25 +1,9 @@
-import {
+export {
   getUser,
   getStats,
   getStatsCount,
-  getAppVersion,
+  checkAppVersion,
   getUsersGames,
   getLeaderboards,
 } from './queries';
-import { newUser, newGame, gameLost, gameWon, gameQuit } from './mutations';
-
-const db = () => ({
-  getUser,
-  newUser,
-  getStatsCount,
-  getStats,
-  newGame,
-  gameWon,
-  gameLost,
-  gameQuit,
-  getAppVersion,
-  getUsersGames,
-  getLeaderboards,
-});
-
-export default db();
+export { createUser, newGame, saveGame } from './mutations';

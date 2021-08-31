@@ -6,7 +6,7 @@ import {
   user,
   leaderboards,
 } from '../queries';
-import { version as appVersion } from '../../../../../package.json';
+import { version as localVersion } from '../../../../../package.json';
 
 describe('Graphql Query Resolvers', () => {
   it('userStats', () => {
@@ -22,9 +22,9 @@ describe('Graphql Query Resolvers', () => {
   });
 
   it('version', () => {
-    const result = version();
+    const result = version('', { localVersion });
 
-    expect(result).toEqual({ number: appVersion });
+    expect(result).toEqual({ number: localVersion, matches: true });
   });
 
   it('user', () => {

@@ -142,6 +142,8 @@ describe('Game State', () => {
     cy.reloadAndWait();
 
     cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
+
+    cy.wait('@waitForLeaderboardAPI');
   });
 
   it('refreshing page on how to play shows how to play', () => {

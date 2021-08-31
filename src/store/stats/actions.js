@@ -1,28 +1,21 @@
-import db from '@/services/db';
+import { getStatsCount, getStats, getLeaderboards } from '@/services/db';
 
 const actions = {
   async getStatsCount({ commit, rootState }) {
     const { luid } = rootState.user;
+    const { userStats, globalStats } = await getStatsCount(luid);
 
-    const { error, response } = await db.getStatsCount(luid);
-    const { userStats, globalStats } = response;
-
-    if (!error) {
-      commit('SET_USER_GAME_COUNT', userStats);
-      commit('SET_GLOBAL_GAME_COUNT', globalStats);
-      commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
-    }
+    commit('SET_USER_GAME_COUNT', userStats);
+    commit('SET_GLOBAL_GAME_COUNT', globalStats);
+    commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
   },
   async getStats({ commit, rootState }) {
     const { luid } = rootState.user;
-    const { error, response } = await db.getStats(luid);
-    const { userStats, globalStats } = response;
+    const { userStats, globalStats } = await getStats(luid);
 
-    if (!error) {
-      commit('SET_USER_STATS', userStats);
-      commit('SET_GLOBAL_STATS', globalStats);
-      commit('SET_GLOBAL_GAME_COUNT', globalStats);
-    }
+    commit('SET_USER_STATS', userStats);
+    commit('SET_GLOBAL_STATS', globalStats);
+    commit('SET_GLOBAL_GAME_COUNT', globalStats);
   },
   toggleStats({ commit, state }) {
     const showStats = !state.showStats;
@@ -40,13 +33,9 @@ const actions = {
   async getLeaderboards({ commit }, params) {
     commit('SET_LEADERBOARDS', []);
 
-    const { error, response } = await db.getLeaderboards(params);
+    const leaderboards = await getLeaderboards(params);
 
-    if (!error) {
-      const { leaderboards } = response;
-
-      commit('SET_LEADERBOARDS', leaderboards);
-    }
+    commit('SET_LEADERBOARDS', leaderboards);
   },
 };
 

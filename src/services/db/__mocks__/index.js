@@ -7,70 +7,41 @@ import {
   mockStats,
   mockVersionNumber,
 } from '@/mockData';
-import { formatResponse } from '../helpers';
 
-const getUser = (uid) => {
+export const getUser = (uid) => {
   const exists = uid === mockUid;
-  const name = uid === mockUid ? mockPlayerName : '';
+  const name = exists ? mockPlayerName : '';
 
-  const response = formatResponse({ data: { user: { exists, name } } });
+  const response = { exists, name };
 
   return response;
 };
 
-const getStatsCount = () =>
-  formatResponse({
-    data: { userStats: { ...mockStats }, globalStats: { ...mockStats } },
-  });
-
-const getStats = () =>
-  formatResponse({
-    data: { userStats: { ...mockStats }, globalStats: { ...mockStats } },
-  });
-
-const newUser = () =>
-  formatResponse({ data: { createUser: { name: mockPlayerName } } });
-
-const newGame = () =>
-  formatResponse({ data: { newGame: { cards: mockDeck } } });
-
-const gameWon = () => formatResponse({ data: { wonGame: { uid: mockUid } } });
-
-const gameLost = () => formatResponse({ data: { lostGame: { uid: mockUid } } });
-
-const gameQuit = () => formatResponse({ data: { quitGame: { uid: mockUid } } });
-
-const getAppVersion = () =>
-  formatResponse({ data: { version: { number: mockVersionNumber } } });
-
-const getUsersGames = () =>
-  formatResponse({
-    data: {
-      user: {
-        history: mockHistory,
-      },
-    },
-  });
-
-const getLeaderboards = () =>
-  formatResponse({
-    data: {
-      leaderboards: mockLeaderboardsMoves,
-    },
-  });
-
-const db = () => ({
-  getUser,
-  getStats,
-  getStatsCount,
-  newUser,
-  newGame,
-  gameWon,
-  gameLost,
-  gameQuit,
-  getAppVersion,
-  getUsersGames,
-  getLeaderboards,
+export const getStatsCount = () => ({
+  userStats: { ...mockStats },
+  globalStats: { ...mockStats },
 });
 
-export default db();
+export const getStats = () => ({
+  userStats: { ...mockStats },
+  globalStats: { ...mockStats },
+});
+
+export const createUser = (uid) => {
+  const exists = uid === mockUid;
+  const name = exists ? mockPlayerName : `New ${mockPlayerName}`;
+
+  return { name };
+};
+
+export const newGame = () => ({ cards: mockDeck });
+
+export const checkAppVersion = (localVersion) => ({
+  matches: mockVersionNumber === localVersion,
+});
+
+export const getUsersGames = () => ({
+  history: mockHistory,
+});
+
+export const getLeaderboards = () => mockLeaderboardsMoves;

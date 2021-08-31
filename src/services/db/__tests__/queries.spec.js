@@ -3,37 +3,30 @@ import {
   mockHistory,
   mockLeaderboardsMoves,
   mockStats,
+  mockVersionNumber,
 } from '@/mockData';
 import {
   getUser,
   getStats,
   getStatsCount,
-  getAppVersion,
+  checkAppVersion,
   getUsersGames,
   getLeaderboards,
 } from '../queries';
-
-import { version as appVersion } from '../../../../package.json';
 
 jest.mock('../apollo');
 
 describe('DB service queries', () => {
   describe('getUser', () => {
     it('should return an existing user', async () => {
-      const { response } = await getUser(mockUid);
-      const {
-        user: { exists, name },
-      } = response;
+      const { exists, name } = await getUser(mockUid);
 
       expect(exists).toBe(true);
       expect(name).toBe('Player Name');
     });
 
     it('should not return an existing user', async () => {
-      const { response } = await getUser('123');
-      const {
-        user: { exists, name },
-      } = response;
+      const { exists, name } = await getUser('123');
 
       expect(exists).toBe(false);
       expect(name).toBe('New Player Name');
@@ -42,8 +35,7 @@ describe('DB service queries', () => {
 
   describe('getStats', () => {
     it('should return valid object for getStats', async () => {
-      const { response } = await getStats();
-      const { globalStats, userStats } = response;
+      const { globalStats, userStats } = await getStats();
 
       expect(userStats).toEqual(mockStats);
       expect(globalStats).toEqual(mockStats);
@@ -52,32 +44,27 @@ describe('DB service queries', () => {
 
   describe('getStatsCount', () => {
     it('should return valid object for getStatsCount', async () => {
-      const { response } = await getStatsCount(mockUid);
-      const { userStats, globalStats } = response;
+      const { globalStats, userStats } = await getStatsCount(mockUid);
 
       expect(userStats).toEqual(mockStats);
       expect(globalStats).toEqual(mockStats);
     });
   });
 
-  describe('getAppVersion', () => {
-    it('should return valid object for getAppVersion', async () => {
-      const { response } = await getAppVersion();
-      const { version } = response;
+  describe('checkAppVersion', () => {
+    it('should return valid object for checkAppVersion', async () => {
+      const { matches } = await checkAppVersion(mockVersionNumber);
 
-      expect(version).toEqual({ number: appVersion });
+      expect(matches).toEqual(true);
     });
   });
 
   describe('getUsersGames', () => {
     it('should return valid object for getUsersGames', async () => {
-      const { response } = await getUsersGames(mockUid, {
+      const { history } = await getUsersGames(mockUid, {
         offset: 0,
         limit: 2,
       });
-      const {
-        user: { history },
-      } = response;
 
       expect(history).toEqual(mockHistory);
     });
@@ -85,11 +72,10 @@ describe('DB service queries', () => {
 
   describe('getLeaderboards', () => {
     it('should return valid object for getLeaderboards', async () => {
-      const { response } = await getLeaderboards({
+      const leaderboards = await getLeaderboards({
         limit: 2,
         showBest: 'moves',
       });
-      const { leaderboards } = response;
 
       expect(leaderboards).toEqual(mockLeaderboardsMoves);
     });
