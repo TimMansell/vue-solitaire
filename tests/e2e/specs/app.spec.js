@@ -1,5 +1,5 @@
 describe('App', () => {
-  afterEach(() => {
+   afterEach(() => {
     cy.clearTest();
   });
 

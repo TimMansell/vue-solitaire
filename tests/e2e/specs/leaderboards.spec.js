@@ -90,7 +90,6 @@ describe('Leaderboards', () => {
   describe('New User', () => {
     beforeEach(() => {
       cy.visitApp();
-
     });
 
     it('it should display player name after first game', () => {
