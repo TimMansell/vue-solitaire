@@ -1,17 +1,11 @@
-import { mockVersionNumber } from '../../../src/mockData';
-import { version } from '../../../package.json';
-
-const defaultAlias = 'version';
-const mockAlias = 'mockVersion';
-
 describe('App', () => {
+  afterEach(() => {
+    cy.clearTest();
+  });
+
   describe('Default', () => {
     beforeEach(() => {
       cy.visitApp();
-    });
-
-    afterEach(() => {
-      cy.clearLocalStorage();
     });
 
     it('it successfullly loads', () => {
@@ -41,39 +35,39 @@ describe('App', () => {
 
   describe('Version', () => {
     it('it should not show version upgrade toast', () => {
-      cy.interceptVersionCheck(defaultAlias, version);
+      cy.interceptVersionAPI({ matches: true });
 
       cy.visit('/');
 
-      cy.wait(`@${defaultAlias}`);
+      cy.wait('@waitForVersionAPI');
 
       cy.get('[data-test="version"]').should('not.exist');
     });
 
     it('it should show version upgrade toast', () => {
-      cy.interceptVersionCheck(mockAlias, mockVersionNumber);
+      cy.interceptVersionAPI({ matches: false });
 
       cy.visit('/');
 
-      cy.wait(`@${mockAlias}`);
+      cy.wait('@waitForVersionAPI');
 
       cy.get('[data-test="version"]').should('exist');
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
-      cy.interceptVersionCheck(mockAlias, mockVersionNumber);
+      cy.interceptVersionAPI({ matches: false });
 
       cy.visit('/');
 
-      cy.wait(`@${mockAlias}`);
+      cy.wait('@waitForVersionAPI');
 
       cy.get('[data-test="version"]').should('exist');
 
-      cy.interceptVersionCheck(defaultAlias, version);
+      cy.interceptVersionAPI({ matches: true });
 
       cy.reloadAndWait();
 
-      cy.wait(`@${defaultAlias}`);
+      cy.wait('@waitForVersionAPI');
 
       cy.get('[data-test="version"]').should('not.exist');
     });
