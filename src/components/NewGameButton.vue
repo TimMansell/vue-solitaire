@@ -1,11 +1,16 @@
 <template>
-  <Button :is-stacked="isStacked" @click="newGame" data-test="new-game-btn">
+  <Button
+    :is-stacked="isStacked"
+    @click="newGame"
+    :disabled="isGameLoading"
+    data-test="new-game-btn"
+  >
     New
   </Button>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -26,6 +31,9 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    ...mapGetters(['isGameLoading']),
   },
   methods: {
     ...mapActions(['setNewGame', 'toggleNewGame']),
