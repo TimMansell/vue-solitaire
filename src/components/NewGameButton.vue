@@ -1,7 +1,7 @@
 <template>
   <Button
     :is-stacked="isStacked"
-    @click="newGame"
+    @click="playNewGame"
     :disabled="isGameLoading"
     data-test="new-game-btn"
   >
@@ -36,8 +36,8 @@ export default {
     ...mapGetters(['isGameLoading']),
   },
   methods: {
-    ...mapActions(['setNewGame', 'toggleNewGame']),
-    newGame() {
+    ...mapActions(['newGame', 'toggleNewGame']),
+    playNewGame() {
       const { isCompleted, showConfirmation } = this;
 
       if (showConfirmation) {
@@ -46,7 +46,7 @@ export default {
         return;
       }
 
-      this.setNewGame(isCompleted);
+      this.newGame(isCompleted);
     },
   },
 };
