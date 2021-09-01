@@ -231,8 +231,6 @@ describe('Game State', () => {
           cy.wrap($value).as('cachedMoves');
         });
 
-      cy.setTimerPaused(true);
-
       cy.reloadAndWait();
 
       cy.get('@cachedStats').then(($stats) => {
