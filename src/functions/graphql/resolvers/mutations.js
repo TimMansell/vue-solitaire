@@ -25,9 +25,14 @@ export const createUser = async (_, __, { client, variables }) => {
 };
 
 export const newGame = async (_, __, { client, variables }) => {
-  console.log({ client, variables });
+  const {
+    data: { uid },
+  } = variables;
 
+  const date = createISODate();
   const cards = initCards();
+
+  insertIntoDb(client, 'deck', { uid, date, cards });
 
   return { cards };
 };
