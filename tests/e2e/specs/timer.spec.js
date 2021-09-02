@@ -44,6 +44,17 @@ describe('Timer', () => {
       cy.get('[data-test="timer"]').should('contain', '0:00:03');
     });
 
+    it('it should pause timer after new game then pause game', () => {
+      cy.newGame();
+
+      cy.get('[data-test="pause-game-btn"]').click();
+
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(2000);
+
+      cy.get('[data-test="timer"]').should('contain', '0:00:00');
+    });
+
     it('it should increment timer correctly after pausing', () => {
       cy.get('[data-test="pause-game-btn"]').click();
 
