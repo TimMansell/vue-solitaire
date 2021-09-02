@@ -1,4 +1,5 @@
 import { checkAppVersion, saveGame } from '@/services/db';
+import { getSelectedCard } from '@/services/solitaire';
 import { version } from '../../../package.json';
 
 const actions = {
@@ -101,8 +102,12 @@ const actions = {
   toggleHistory({ commit }) {
     commit('SHOW_HISTORY');
   },
-  incrementMoves({ commit }) {
-    commit('INCREMENT_MOVES');
+  saveMove({ commit, rootState }, { selectedColumn, type }) {
+    const { cards, selectedCardId } = rootState.solitaire;
+
+    const card = getSelectedCard(cards, selectedCardId);
+
+    commit('SET_MOVES', { card, selectedColumn, type });
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
