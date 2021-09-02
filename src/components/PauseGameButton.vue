@@ -2,6 +2,7 @@
   <Button
     :is-stacked="isStacked"
     @click="toggleGamePaused"
+    :disabled="isGameLoading"
     data-test="pause-game-btn"
   >
     <span v-if="!isGamePaused">Pause</span>
@@ -25,7 +26,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isGamePaused']),
+    ...mapGetters(['isGamePaused', 'isGameLoading']),
   },
   methods: {
     ...mapActions(['toggleGamePaused']),

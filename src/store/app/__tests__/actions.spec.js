@@ -3,7 +3,7 @@ import actions from '../actions';
 
 const {
   checkAppVersion,
-  setNewGame,
+  newGame,
   setGameState,
   setGameResult,
   setGameInactive,
@@ -38,18 +38,18 @@ describe('App Store', () => {
     expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', false);
   });
 
-  it('setNewGame - should run quit game', () => {
+  it('newGame - should run quit game', async () => {
     const isCompleted = false;
 
-    setNewGame({ dispatch }, isCompleted);
+    await newGame({ dispatch }, isCompleted);
 
     expect(dispatch).toHaveBeenCalledWith('setGameResult', { quit: true });
   });
 
-  it('setNewGame - show not run quit game', () => {
+  it('newGame - show not run quit game', async () => {
     const isCompleted = true;
 
-    setNewGame({ dispatch }, isCompleted);
+    await newGame({ dispatch }, isCompleted);
 
     expect(dispatch).not.toHaveBeenCalledWith('setGameResult');
   });

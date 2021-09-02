@@ -2,6 +2,7 @@
   <Button
     :is-stacked="isStacked"
     @click="toggleHistory"
+    :disabled="isGameLoading"
     data-test="history-btn"
   >
     Games
@@ -9,7 +10,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -22,6 +23,9 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    ...mapGetters(['isGameLoading']),
   },
   methods: {
     ...mapActions(['toggleHistory']),

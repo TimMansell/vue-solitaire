@@ -7,7 +7,7 @@ const state = () => ({
     isPaused: false,
     isActive: false,
   },
-  isTimerPaused: false,
+  isTimerPaused: true,
   isOverlayVisible: true,
   game: {
     moves: 0,

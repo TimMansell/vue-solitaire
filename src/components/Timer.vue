@@ -20,33 +20,25 @@ export default {
     },
   },
   mounted() {
-    this.setGameTimer();
+    const { isTimerPaused } = this;
+
+    this.setTimer(isTimerPaused);
   },
   watch: {
     isTimerPaused(val, oldVal) {
       if (val === oldVal) return;
 
-      if (val) {
-        this.clearTimer();
-      } else {
-        this.setGameTimer();
-      }
+      this.setTimer(val);
     },
   },
   methods: {
     ...mapActions(['updateTimer']),
-    initGameTimer() {
-      return window.setInterval(() => this.updateTimer(), 1000);
-    },
-    setGameTimer() {
-      const { isTimerPaused } = this;
-
-      if (!isTimerPaused) {
-        this.gameTimer = this.initGameTimer();
+    setTimer(isPaused) {
+      if (!isPaused) {
+        this.gameTimer = window.setInterval(() => this.updateTimer(), 1000);
+      } else {
+        clearInterval(this.gameTimer);
       }
-    },
-    clearTimer() {
-      clearInterval(this.gameTimer);
     },
   },
 };

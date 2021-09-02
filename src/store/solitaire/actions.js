@@ -42,21 +42,20 @@ const actions = {
     dispatch('setFoundation', foundationCards);
   },
   async initBoard({ dispatch, state, rootState }, isNewGame) {
-    dispatch('setGameLoading', true);
-
     if (isNewGame) {
+      dispatch('setGameLoading', true);
+
       const { luid } = rootState.user;
       const { cards } = await newGame(luid);
       const board = initBoard(cards);
 
       dispatch('setBoard', board);
+      dispatch('setGameLoading', false);
     } else {
       const { cards } = state;
 
       dispatch('setBoard', cards);
     }
-
-    dispatch('setGameLoading', false);
   },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);

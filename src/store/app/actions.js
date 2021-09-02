@@ -2,7 +2,7 @@ import { checkAppVersion, saveGame } from '@/services/db';
 import { version } from '../../../package.json';
 
 const actions = {
-  async initApp({ dispatch }, hasAppRestarted = false) {
+  async initApp({ dispatch }, { getStats }) {
     await Promise.all([
       dispatch('initGame'),
       dispatch('initUser'),
@@ -10,17 +10,12 @@ const actions = {
       dispatch('checkAppVersion', version),
     ]);
 
-    if (!hasAppRestarted) {
+    if (getStats) {
       dispatch('getStatsCount');
     }
   },
-  restartApp({ dispatch, commit }) {
-    const hasAppRestarted = true;
-
+  restartApp({ commit }) {
     commit('RESTART_APP');
-
-    dispatch('restartGame');
-    dispatch('initApp', hasAppRestarted);
   },
   async checkAppVersion({ commit }, localVersionNumber) {
     const { matches } = await checkAppVersion(localVersionNumber);
@@ -29,13 +24,16 @@ const actions = {
   },
   setGameLoading({ commit }, isGameLoading) {
     commit('SET_GAME_LOADING', isGameLoading);
+    commit('SET_TIMER_PAUSED', isGameLoading);
   },
-  setNewGame({ dispatch }, isCompleted) {
+  async newGame({ dispatch }, isCompleted) {
+    await Promise.all([dispatch('restartApp'), dispatch('restartGame')]);
+
+    dispatch('initApp', { getStats: false });
+
     if (!isCompleted) {
       dispatch('setGameResult', { quit: true });
     }
-
-    dispatch('restartApp');
   },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {

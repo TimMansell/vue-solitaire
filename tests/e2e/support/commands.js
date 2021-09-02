@@ -10,11 +10,7 @@ Cypress.Commands.add('visitApp', () => {
 
   cy.visit('/');
 
-  cy.setTimerPaused(true);
-
   cy.wait('@waitForStatsAPI');
-
-  cy.setTimerPaused(false);
 });
 
 Cypress.Commands.add('setBoard', ({ cards, foundation }) => {

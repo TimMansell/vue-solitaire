@@ -3,7 +3,11 @@ import HistoryButton from '@/components/HistoryButton.vue';
 
 describe('HistoryButton.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(HistoryButton);
+    const wrapper = shallowMount(HistoryButton, {
+      computed: {
+        isGameLoading: () => false,
+      },
+    });
 
     expect(wrapper).toMatchSnapshot();
   });
