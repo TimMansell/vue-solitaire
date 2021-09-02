@@ -28,13 +28,13 @@ const actions = {
     commit('SET_TIMER_PAUSED', isGameLoading);
   },
   async newGame({ dispatch }, isCompleted) {
-    await Promise.all([dispatch('restartApp'), dispatch('restartGame')]);
-
-    dispatch('initApp', { getStats: false });
-
     if (!isCompleted) {
       dispatch('setGameResult', { quit: true });
     }
+
+    await Promise.all([dispatch('restartApp'), dispatch('restartGame')]);
+
+    dispatch('initApp', { getStats: false });
   },
   setGameState({ commit, dispatch }, hasWon) {
     if (hasWon) {
