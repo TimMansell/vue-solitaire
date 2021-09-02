@@ -55,10 +55,11 @@ export const newGame = async (uid) => {
 
 export const saveGame = async (uid, game, gameStatus) => {
   const { moves, time } = game;
+  const numberOfMoves = moves.length;
 
   const data = {
     uid,
-    moves,
+    moves: numberOfMoves,
     time,
   };
 
