@@ -48,3 +48,15 @@ export const findItemInDb = async (client, collection, params) => {
 
   return db.collection(collection).findOne(findFields, returnFields);
 };
+
+export const deleteFromDb = async (client, collection, document) => {
+  const db = await client();
+
+  return db.collection(collection).deleteOne({ ...document });
+};
+
+export const deleteAllFromDb = async (client, collection, document) => {
+  const db = await client();
+
+  return db.collection(collection).deleteMany({ ...document });
+};

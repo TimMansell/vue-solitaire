@@ -1,5 +1,11 @@
 import { initCards } from '../../../services/solitaire';
-import { createPlayerName, insertIntoDb, findAllItems } from './helpers';
+import {
+  createPlayerName,
+  insertIntoDb,
+  findAllItems,
+  deleteFromDb,
+  deleteAllFromDb,
+} from './helpers';
 import { createISODate } from '../../../helpers/dates';
 import { gameOutcome } from '../../../helpers/game';
 
@@ -29,6 +35,11 @@ export const newGame = async (_, __, { client, variables }) => {
 
   const date = createISODate();
   const cards = initCards();
+
+  await Promise.all([
+    deleteFromDb(client, 'decks', data),
+    deleteAllFromDb(client, 'moves', data),
+  ]);
 
   insertIntoDb(client, 'decks', { ...data, date, cards });
 
