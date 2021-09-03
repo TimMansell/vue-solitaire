@@ -83,9 +83,10 @@ export const quitGame = async (_, __, { client, variables }) => {
 };
 
 export const moveCard = async (_, __, { client, variables }) => {
+  const { uid, move } = variables;
   const date = createISODate();
 
-  const document = { date, ...variables };
+  const document = { date, uid, ...move };
 
   await insertIntoDb(client, 'moves', document);
 
