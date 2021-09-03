@@ -25,14 +25,12 @@ export const createUser = async (_, __, { client, variables }) => {
 };
 
 export const newGame = async (_, __, { client, variables }) => {
-  const {
-    data: { uid },
-  } = variables;
+  const { data } = variables;
 
   const date = createISODate();
   const cards = initCards();
 
-  insertIntoDb(client, 'deck', { uid, date, cards });
+  insertIntoDb(client, 'decks', { ...data, date, cards });
 
   return { cards };
 };
@@ -73,10 +71,21 @@ export const quitGame = async (_, __, { client, variables }) => {
   return { outcome };
 };
 
+export const moveCard = async (_, __, { client, variables }) => {
+  const date = createISODate();
+
+  const document = { date, ...variables };
+
+  await insertIntoDb(client, 'moves', document);
+
+  return { ...variables.move };
+};
+
 export const mutations = {
   createUser,
   newGame,
   wonGame,
   lostGame,
   quitGame,
+  moveCard,
 };

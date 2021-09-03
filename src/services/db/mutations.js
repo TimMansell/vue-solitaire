@@ -84,3 +84,34 @@ export const saveGame = async (uid, game, gameStatus) => {
     return { outcome: '' };
   }
 };
+
+export const moveCard = async (uid, card, move) => {
+  const { value, suit } = card;
+
+  try {
+    const response = await apollo.mutate({
+      mutation: gql`
+        mutation MoveCard($uid: String!, $move: moveInput!) {
+          moveCard(uid: $uid, move: $move) {
+            selectedColumn
+            type
+            value
+            suit
+          }
+        }
+      `,
+      variables: {
+        uid,
+        move: {
+          ...move,
+          value,
+          suit,
+        },
+      },
+    });
+
+    return response.data.moveCard;
+  } catch (error) {
+    return {};
+  }
+};

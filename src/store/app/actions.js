@@ -1,4 +1,4 @@
-import { checkAppVersion, saveGame } from '@/services/db';
+import { checkAppVersion, saveGame, moveCard } from '@/services/db';
 import { getSelectedCard } from '@/services/solitaire';
 import { version } from '../../../package.json';
 
@@ -102,12 +102,15 @@ const actions = {
   toggleHistory({ commit }) {
     commit('SHOW_HISTORY');
   },
-  saveMove({ commit, rootState }, { selectedColumn, type }) {
+  async saveMove({ commit, rootState }, { selectedColumn, type }) {
     const { cards, selectedCardId } = rootState.solitaire;
+    const { luid } = rootState.user;
 
     const card = getSelectedCard(cards, selectedCardId);
 
-    commit('SET_MOVES', { card, selectedColumn, type });
+    const movedCard = await moveCard(luid, card, { selectedColumn, type });
+
+    commit('SET_MOVES', movedCard);
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);

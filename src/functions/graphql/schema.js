@@ -15,6 +15,19 @@ export const typeDefs = gql`
     wonGame(data: GameInput!): GameState!
     lostGame(data: GameInput!): GameState!
     quitGame(data: GameInput!): GameState!
+    moveCard(uid: String!, move: moveInput!): Move!
+  }
+  type Move {
+    value: String
+    suit: String
+    selectedColumn: Int
+    type: String
+  }
+  input moveInput {
+    value: String!
+    suit: String!
+    selectedColumn: Int!
+    type: String!
   }
   type User {
     name: String
