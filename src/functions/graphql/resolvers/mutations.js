@@ -92,6 +92,16 @@ export const moveCard = async (_, __, { client, variables }) => {
   return { ...variables.move };
 };
 
+export const pauseGame = async (_, __, { client, variables }) => {
+  const date = createISODate();
+
+  const document = { date, type: 'pause', ...variables };
+
+  await insertIntoDb(client, 'moves', document);
+
+  return { type: 'pause' };
+};
+
 export const mutations = {
   createUser,
   newGame,
@@ -99,4 +109,5 @@ export const mutations = {
   lostGame,
   quitGame,
   moveCard,
+  pauseGame,
 };

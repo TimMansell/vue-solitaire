@@ -1,4 +1,4 @@
-import { checkAppVersion, saveGame, moveCard } from '@/services/db';
+import { checkAppVersion, saveGame, moveCard, pauseGame } from '@/services/db';
 import { getSelectedCard } from '@/services/solitaire';
 import { version } from '../../../package.json';
 
@@ -78,7 +78,11 @@ const actions = {
 
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  setTimerPaused({ commit }, isPaused) {
+  async setTimerPaused({ commit, rootState }, isPaused) {
+    const { luid } = rootState.user;
+
+    pauseGame(luid);
+
     commit('SET_TIMER_PAUSED', isPaused);
   },
   updateTimer({ commit }) {

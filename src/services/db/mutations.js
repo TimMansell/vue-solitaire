@@ -115,3 +115,24 @@ export const moveCard = async (uid, card, move) => {
     return {};
   }
 };
+
+export const pauseGame = async (uid) => {
+  try {
+    const response = await apollo.mutate({
+      mutation: gql`
+        mutation PauseGame($uid: String!) {
+          pauseGame(uid: $uid) {
+            type
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+    });
+
+    return response.data.pauseGame;
+  } catch (error) {
+    return {};
+  }
+};

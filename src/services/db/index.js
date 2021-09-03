@@ -6,4 +6,10 @@ export {
   getUsersGames,
   getLeaderboards,
 } from './queries';
-export { createUser, newGame, saveGame, moveCard } from './mutations';
+export {
+  createUser,
+  newGame,
+  saveGame,
+  moveCard,
+  pauseGame,
+} from './mutations';
