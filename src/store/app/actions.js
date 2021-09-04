@@ -112,7 +112,11 @@ const actions = {
 
     const card = getSelectedCard(cards, selectedCardId);
 
-    const movedCard = await moveCard(luid, card, { selectedColumn, type });
+    const movedCard = await moveCard(luid, card, {
+      selectedCardId,
+      selectedColumn,
+      type,
+    });
 
     commit('SET_MOVES', movedCard);
   },
