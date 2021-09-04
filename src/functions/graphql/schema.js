@@ -30,6 +30,7 @@ export const typeDefs = gql`
   input moveInput {
     value: String!
     suit: String!
+    selectedCardId: Int!
     selectedColumn: Int!
     type: String!
   }
