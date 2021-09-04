@@ -6,11 +6,14 @@ import {
   checkValidFoundationMove,
   moveCardsToFoundation,
   getDraggedCards,
+  validateGame,
 } from '../index';
 
 import noMovesDeck from '../../../../../tests/fixtures/decks/initialNoMoves.json';
 import aceMoveDeck from '../../../../../tests/fixtures/decks/initialAceMove.json';
 import moveDeck from '../../../../../tests/fixtures/decks/initialMove.json';
+import fullGameDeck from '../../../../../tests/fixtures/decks/fullGame.json';
+import fullGameMoves from '../../../../../tests/fixtures/moves/fullGame.json';
 
 describe('moves', () => {
   describe('valid moves', () => {
@@ -415,43 +418,53 @@ describe('moves', () => {
     });
   });
 
-  it('should get dragged cards from position', () => {
-    const state = {
-      cards: [
-        [
-          {
-            id: 1,
-            suit: '♠',
-            value: 'A',
-          },
+  describe('dragged cards', () => {
+    it('should get dragged cards from position', () => {
+      const state = {
+        cards: [
+          [
+            {
+              id: 1,
+              suit: '♠',
+              value: 'A',
+            },
+          ],
+          [
+            {
+              id: 2,
+              suit: '♠',
+              value: 2,
+            },
+            {
+              id: 3,
+              suit: '♠',
+              value: 3,
+            },
+            {
+              id: 4,
+              suit: '♠',
+              value: 4,
+            },
+          ],
         ],
-        [
-          {
-            id: 2,
-            suit: '♠',
-            value: 2,
-          },
-          {
-            id: 3,
-            suit: '♠',
-            value: 3,
-          },
-          {
-            id: 4,
-            suit: '♠',
-            value: 4,
-          },
-        ],
-      ],
-    };
+      };
 
-    const selectedCardId = 3;
+      const selectedCardId = 3;
 
-    const result = getDraggedCards(state, selectedCardId);
+      const result = getDraggedCards(state, selectedCardId);
 
-    expect(result).toStrictEqual([
-      { id: 3, suit: '♠', value: 3 },
-      { id: 4, suit: '♠', value: 4 },
-    ]);
+      expect(result).toStrictEqual([
+        { id: 3, suit: '♠', value: 3 },
+        { id: 4, suit: '♠', value: 4 },
+      ]);
+    });
+  });
+
+  describe('validate game', () => {
+    it('should validate game as won', () => {
+      const result = validateGame(fullGameDeck, fullGameMoves);
+
+      expect(result).toBe(true);
+    });
   });
 });

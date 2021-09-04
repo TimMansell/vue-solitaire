@@ -8,4 +8,5 @@ export {
   moveCards,
   moveCardsToFoundation,
   getDraggedCards,
+  validateGame,
 } from './moves';

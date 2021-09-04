@@ -7,7 +7,7 @@ import {
   getMoveCardsToFoundation,
 } from './moves';
 import { initFoundation, updateFoundation } from '../foundation';
-import { initBoard, updateBoard } from '../board';
+import { initBoard, updateBoard, isBoardEmpty } from '../board';
 import { getSelectedCard, getLastCard, getCardPosition } from '../cards';
 import {
   validateCardMove,
@@ -107,4 +107,50 @@ export const getDraggedCards = ({ cards }, selectedCardId) => {
   const draggedCards = cards[columnNo].slice(cardPosition);
 
   return draggedCards;
+};
+
+export const validateGame = (deck, moves) => {
+  let foundationCards = initFoundation();
+  let board = initBoard(deck);
+
+  const isEmptyBoard = moves.reduce(
+    (_, { selectedCardId, selectedColumn, type }) => {
+      if (type === 'board') {
+        const isValidMove = checkValidCardMove(
+          { cards: board, selectedCardId },
+          selectedColumn
+        );
+
+        if (isValidMove) {
+          const { cards } = moveCards(
+            { cards: board, selectedCardId },
+            selectedColumn
+          );
+
+          board = cards;
+        }
+      }
+
+      if (type === 'foundation') {
+        const isValidFoundationMove = checkValidFoundationMove(
+          { cards: board, selectedCardId, foundation: foundationCards },
+          selectedColumn
+        );
+
+        if (isValidFoundationMove) {
+          const { cards, foundation } = moveCardsToFoundation(
+            { cards: board, selectedCardId, foundation: foundationCards },
+            selectedColumn
+          );
+          board = cards;
+          foundationCards = foundation;
+        }
+      }
+
+      return isBoardEmpty({ cards: board });
+    },
+    false
+  );
+
+  return isEmptyBoard;
 };
