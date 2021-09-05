@@ -77,10 +77,13 @@ const actions = {
 
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  async setTimerPaused({ commit, rootState }, isPaused) {
+  async setTimerPaused({ commit, state, rootState }, isPaused) {
+    const { isTimerPaused } = state;
     const { luid } = rootState.user;
 
-    pauseGame(luid, isPaused);
+    if (isTimerPaused !== isPaused) {
+      pauseGame(luid, isPaused);
+    }
 
     commit('SET_TIMER_PAUSED', isPaused);
   },
