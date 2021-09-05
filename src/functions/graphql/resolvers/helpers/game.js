@@ -1,33 +1,31 @@
 import { differenceInSeconds, parseISO } from 'date-fns';
-import { findAllItems, findItemInDb } from './db';
-import { validateGame } from '../../../../services/solitaire';
 
-export const calculateTime = (moves) => {
+export const calculateTime = (deck, moves) => {
+  const startTime = deck;
+  const [endTime] = moves.slice(-1);
+
+  console.log({ startTime, endTime });
+
   const pauseMoves = moves
-    .filter(({ paused }) => paused)
+    .filter(({ isPaused }) => isPaused)
     .map(({ date }) => date);
 
   const resumeMoves = moves
-    .filter(({ resumed }) => resumed)
+    .filter(({ isResumed }) => isResumed)
     .map(({ date }) => date);
 
-  const cardMoves = moves
-    .filter(({ board, foundation }) => board || foundation)
-    .map(({ date }) => date);
-
-  const pauseResumeMoves = pauseMoves.map((date, index) => ({
-    pause: date,
-    resume: resumeMoves[index],
-  }));
+  const pauseResumeMoves = pauseMoves
+    .map((date, index) => ({
+      pause: date,
+      resume: resumeMoves[index],
+    }))
+    .filter(({ resume }) => resume);
 
   console.log({ pauseResumeMoves });
 
-  const [firstMove] = cardMoves;
-  const lastMove = cardMoves[cardMoves.length - 1];
-
-  const cardMoveTimes = differenceInSeconds(
-    parseISO(lastMove),
-    parseISO(firstMove)
+  const startStopTimes = differenceInSeconds(
+    parseISO(endTime.date),
+    parseISO(startTime.date)
   );
 
   const pauseMoveTimes = pauseResumeMoves.reduce(
@@ -36,43 +34,17 @@ export const calculateTime = (moves) => {
     0
   );
 
-  const gameTime = cardMoveTimes - pauseMoveTimes;
+  const gameTime = startStopTimes - pauseMoveTimes;
 
-  console.log({ gameTime, cardMoveTimes, pauseMoveTimes });
+  console.log({ gameTime, startStopTimes, pauseMoveTimes });
 
   return gameTime;
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const validateMoves = async (client, uid) => {
-  const findGame = findItemInDb(client, 'decks', {
-    findFields: { uid },
-    returnFields: {
-      projection: { cards: 1 },
-    },
-  });
-
-  const findMoves = findAllItems(client, 'moves', {
-    findFields: { uid },
-    returnFields: {
-      projection: {
-        date: 1,
-        selectedCardId: 1,
-        selectedColumn: 1,
-        type: 1,
-        value: 1,
-        suit: 1,
-      },
-    },
-  });
-
-  const [deck, moves] = await Promise.all([findGame, findMoves]);
-
+export const calculateMoves = (moves) => {
   const cardMoves = moves.filter(
-    ({ type }) => type === 'board' || type === 'foundation'
+    ({ isBoard, isFoundation }) => isBoard || isFoundation
   );
 
-  const isValidGame = validateGame(deck.cards, cardMoves);
-
-  console.log({ isValidGame });
+  return cardMoves.length;
 };

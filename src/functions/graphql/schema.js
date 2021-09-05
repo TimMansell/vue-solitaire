@@ -30,8 +30,8 @@ export const typeDefs = gql`
   input moveInput {
     selectedCardId: Int!
     selectedColumn: Int!
-    board: Boolean
-    foundation: Boolean
+    isBoard: Boolean
+    isFoundation: Boolean
   }
   type User {
     name: String
