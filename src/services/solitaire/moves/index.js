@@ -109,11 +109,11 @@ export const getDraggedCards = ({ cards }, selectedCardId) => {
   return draggedCards;
 };
 
-export const validateGame = (deck, moves) => {
+export const validateGame = (deck, cardMoves) => {
   let foundationCards = initFoundation();
   let board = initBoard(deck);
 
-  const isEmptyBoard = moves.reduce(
+  const isEmptyBoard = cardMoves.reduce(
     (_, { selectedCardId, selectedColumn, type }) => {
       if (type === 'board') {
         const isValidMove = checkValidCardMove(
