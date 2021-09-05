@@ -19,10 +19,6 @@ export default {
     Button,
   },
   props: {
-    isCompleted: {
-      type: Boolean,
-      default: false,
-    },
     showConfirmation: {
       type: Boolean,
       default: false,
@@ -38,7 +34,7 @@ export default {
   methods: {
     ...mapActions(['newGame', 'toggleNewGame']),
     playNewGame() {
-      const { isCompleted, showConfirmation } = this;
+      const { showConfirmation } = this;
 
       if (showConfirmation) {
         this.toggleNewGame();
@@ -46,7 +42,7 @@ export default {
         return;
       }
 
-      this.newGame(isCompleted);
+      this.newGame();
     },
   },
 };
