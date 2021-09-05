@@ -4,15 +4,15 @@ import { validateGame } from '../../../../services/solitaire';
 
 export const calculateTime = (moves) => {
   const pauseMoves = moves
-    .filter(({ type }) => type === 'pause')
+    .filter(({ paused }) => paused)
     .map(({ date }) => date);
 
   const resumeMoves = moves
-    .filter(({ type }) => type === 'resume')
+    .filter(({ resumed }) => resumed)
     .map(({ date }) => date);
 
   const cardMoves = moves
-    .filter(({ type }) => type === 'board' || type === 'foundation')
+    .filter(({ board, foundation }) => board || foundation)
     .map(({ date }) => date);
 
   const pauseResumeMoves = pauseMoves.map((date, index) => ({

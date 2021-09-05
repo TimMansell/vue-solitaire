@@ -4,63 +4,51 @@
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 33,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "7",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:11:40.575Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 44,
     "selectedColumn": 1,
-    "type": "board",
-    "value": "5",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:11:43.241Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 21,
     "selectedColumn": 0,
-    "type": "board",
-    "value": "8",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:11:44.686Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 20,
     "selectedColumn": 0,
-    "type": "board",
-    "value": "7",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:11:45.767Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 32,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "6",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:11:52.139Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 29,
     "selectedColumn": 3,
-    "type": "board",
-    "value": "3",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:11:53.139Z",
-    "type": "pause",
+    "paused": true,
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7"
   },
   {
     "date": "2021-09-04T07:11:56.139Z",
-    "type": "resume",
+    "resumed": true,
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7"
   },
   {
@@ -68,450 +56,352 @@
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 40,
     "selectedColumn": 6,
-    "type": "board",
-    "value": "A",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:01.948Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 35,
     "selectedColumn": 0,
-    "type": "board",
-    "value": "9",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:06.226Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 8,
     "selectedColumn": 1,
-    "type": "board",
-    "value": "8",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:07.951Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 10,
     "selectedColumn": 5,
-    "type": "board",
-    "value": "10",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:10.225Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 31,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "5",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:11.168Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 30,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "4",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:18.644Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 36,
     "selectedColumn": 3,
-    "type": "board",
-    "value": "10",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:20.988Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 9,
     "selectedColumn": 5,
-    "type": "board",
-    "value": "9",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:31.749Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 50,
     "selectedColumn": 5,
-    "type": "board",
-    "value": "J",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:33.335Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 45,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "6",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:35.245Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 14,
     "selectedColumn": 1,
-    "type": "board",
-    "value": "A",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:37.027Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 22,
     "selectedColumn": 7,
-    "type": "board",
-    "value": "9",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:38.317Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 19,
     "selectedColumn": 7,
-    "type": "board",
-    "value": "6",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:39.099Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 40,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "A",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:12:39.957Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 41,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "2",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:12:46.453Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 18,
     "selectedColumn": 7,
-    "type": "board",
-    "value": "5",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:46.959Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 14,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "A",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:12:47.527Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 15,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "2",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:12:50.258Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 17,
     "selectedColumn": 7,
-    "type": "board",
-    "value": "4",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:54.792Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 24,
     "selectedColumn": 1,
-    "type": "board",
-    "value": "J",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:57.390Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 43,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "4",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:58.564Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 48,
     "selectedColumn": 4,
-    "type": "board",
-    "value": "9",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:12:59.870Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 34,
     "selectedColumn": 3,
-    "type": "board",
-    "value": "8",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:02.255Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 6,
     "selectedColumn": 0,
-    "type": "board",
-    "value": "6",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:04.288Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 49,
     "selectedColumn": 5,
-    "type": "board",
-    "value": "10",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:12.324Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 42,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "3",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:15.615Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 26,
     "selectedColumn": 1,
-    "type": "board",
-    "value": "K",
-    "suit": "♠"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:16.826Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 16,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "3",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:18.128Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 37,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "J",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:19.116Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 38,
     "selectedColumn": 3,
-    "type": "board",
-    "value": "Q",
-    "suit": "♥"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:20.334Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 52,
     "selectedColumn": 6,
-    "type": "board",
-    "value": "K",
-    "suit": "♦"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:25.156Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 17,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "4",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:25.642Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 18,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "5",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:26.082Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 19,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "6",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:26.499Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 20,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "7",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:26.920Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 21,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "8",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:27.347Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 22,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "9",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:28.180Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 23,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "10",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:29.702Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 13,
     "selectedColumn": 2,
-    "type": "board",
-    "value": "K",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:32.826Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 5,
     "selectedColumn": 0,
-    "type": "board",
-    "value": "5",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:34.306Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 4,
     "selectedColumn": 0,
-    "type": "board",
-    "value": "4",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:34.987Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 24,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "J",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:35.461Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 25,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "Q",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:36.865Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 27,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "A",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:37.668Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 28,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "2",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:38.475Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 42,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "3",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:38.886Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 43,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "4",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:39.295Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 44,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "5",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:39.702Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 45,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "6",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:40.702Z",
-    "type": "pause",
+    "paused": true,
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7"
   },
   {
     "date": "2021-09-04T07:13:42.702Z",
-    "type": "resume",
+    "resumed": true,
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7"
   },
   {
@@ -519,306 +409,240 @@
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 46,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "7",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:55.141Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 3,
     "selectedColumn": 0,
-    "type": "board",
-    "value": "3",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:55.861Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 2,
     "selectedColumn": 0,
-    "type": "board",
-    "value": "2",
-    "suit": "♣"
+    "board": true
   },
   {
     "date": "2021-09-04T07:13:56.463Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 1,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "A",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:57.440Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 2,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "2",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:57.863Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 3,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "3",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:58.302Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 4,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "4",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:58.738Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 5,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "5",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:59.162Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 6,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "6",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:13:59.881Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 47,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "8",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:00.469Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 48,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "9",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:00.925Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 49,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "10",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:01.367Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 50,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "J",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:02.337Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 7,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "7",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:02.927Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 51,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "Q",
-    "suit": "♦"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:03.572Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 8,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "8",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:04.642Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 9,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "9",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:05.298Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 10,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "10",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:06.713Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 11,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "J",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:09.664Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 12,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "Q",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:11.075Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 29,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "3",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:11.579Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 30,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "4",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:12.083Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 31,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "5",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:12.581Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 32,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "6",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:13.108Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 33,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "7",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:13.610Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 34,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "8",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:14.540Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 35,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "9",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:15.382Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 36,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "10",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:16.213Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 37,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "J",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:17.367Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 38,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "Q",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:18.247Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 39,
     "selectedColumn": 2,
-    "type": "foundation",
-    "value": "K",
-    "suit": "♥"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:19.698Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 13,
     "selectedColumn": 3,
-    "type": "foundation",
-    "value": "K",
-    "suit": "♣"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:21.855Z",
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 26,
     "selectedColumn": 1,
-    "type": "foundation",
-    "value": "K",
-    "suit": "♠"
+    "foundation": true
   },
   {
     "date": "2021-09-04T07:14:25.074Z",
-    "type": "pause",
+    "paused": true,
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7"
   },
   {
     "date": "2021-09-04T07:14:41.074Z",
-    "type": "resume",
+    "resumed": true,
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7"
   },
   {
@@ -826,8 +650,6 @@
     "uid": "f5c6a829-f0da-4dfc-81a0-e6419f0163c7",
     "selectedCardId": 52,
     "selectedColumn": 0,
-    "type": "foundation",
-    "value": "K",
-    "suit": "♦"
+    "foundation": true
   }
 ]

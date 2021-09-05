@@ -15,7 +15,7 @@ export const typeDefs = gql`
     wonGame(data: GameInput!): GameState!
     lostGame(data: GameInput!): GameState!
     quitGame(data: GameInput!): GameState!
-    pauseGame(uid: String!): Pause!
+    pauseGame(uid: String!, isPaused: Boolean!): Pause!
     moveCard(uid: String!, move: moveInput!): Move!
   }
   type Pause {
@@ -28,11 +28,10 @@ export const typeDefs = gql`
     type: String
   }
   input moveInput {
-    value: String!
-    suit: String!
     selectedCardId: Int!
     selectedColumn: Int!
-    type: String!
+    board: Boolean
+    foundation: Boolean
   }
   type User {
     name: String

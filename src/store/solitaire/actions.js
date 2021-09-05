@@ -72,7 +72,7 @@ const actions = {
     if (isValidMove) {
       const { cards } = moveCards(state, selectedColumn);
 
-      dispatch('saveMove', { selectedColumn, type: 'board' });
+      dispatch('saveMove', { selectedColumn, board: true });
       dispatch('setBoard', cards);
       dispatch('checkGameState');
     }
@@ -88,7 +88,7 @@ const actions = {
         selectedColumn
       );
 
-      dispatch('saveMove', { selectedColumn, type: 'foundation' });
+      dispatch('saveMove', { selectedColumn, foundation: true });
       dispatch('setFoundation', foundation);
       dispatch('setBoard', cards);
       dispatch('checkGameState');

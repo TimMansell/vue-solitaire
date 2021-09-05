@@ -5,6 +5,7 @@ import {
   findAllItems,
   deleteFromDb,
   deleteAllFromDb,
+  // validateMoves,
 } from './helpers';
 import { createISODate } from '../../../helpers/dates';
 import { gameOutcome } from '../../../helpers/game';
@@ -90,13 +91,20 @@ export const moveCard = async (_, __, { client, variables }) => {
 
   await insertIntoDb(client, 'moves', document);
 
+  // validateMoves(client, uid);
+
   return { ...variables.move };
 };
 
 export const pauseGame = async (_, __, { client, variables }) => {
+  const { uid, isPaused } = variables;
   const date = createISODate();
+  const pausedState = {
+    paused: isPaused,
+    resumed: !isPaused,
+  };
 
-  const document = { date, type: 'pause', ...variables };
+  const document = { date, uid, ...pausedState };
 
   await insertIntoDb(client, 'moves', document);
 
