@@ -15,17 +15,7 @@ export const typeDefs = gql`
     wonGame(data: GameInput!): GameState!
     lostGame(data: GameInput!): GameState!
     quitGame(data: GameInput!): GameState!
-    pauseGame(uid: String!, isPaused: Boolean!): Pause!
-    moveCard(uid: String!, move: moveInput!): Move!
-  }
-  type Pause {
-    type: String
-  }
-  type Move {
-    value: String
-    suit: String
-    selectedColumn: Int
-    type: String
+    saveGame(uid: String!, moves: [moveInput!]!, time: Int!): GameState!
   }
   input moveInput {
     selectedCardId: Int!

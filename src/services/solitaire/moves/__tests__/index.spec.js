@@ -6,7 +6,7 @@ import {
   checkValidFoundationMove,
   moveCardsToFoundation,
   getDraggedCards,
-  validateGame,
+  checkGameState,
 } from '../index';
 
 import noMovesDeck from '../../../../../tests/fixtures/decks/initialNoMoves.json';
@@ -462,9 +462,13 @@ describe('moves', () => {
 
   describe('validate game', () => {
     it('should validate game as won', () => {
-      const result = validateGame(fullGameDeck, fullGameMoves);
+      const { isGameFinished, hasMoves } = checkGameState(
+        fullGameMoves,
+        fullGameDeck
+      );
 
-      expect(result).toBe(true);
+      expect(isGameFinished).toBe(true);
+      expect(hasMoves).toBe(false);
     });
   });
 });

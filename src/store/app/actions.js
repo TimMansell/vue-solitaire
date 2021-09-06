@@ -1,4 +1,4 @@
-import { checkAppVersion, saveGame, moveCard, pauseGame } from '@/services/db';
+import { checkAppVersion, saveGame } from '@/services/db';
 import { version } from '../../../package.json';
 
 const actions = {
@@ -26,38 +26,31 @@ const actions = {
     commit('SET_GAME_LOADING', isGameLoading);
     commit('SET_TIMER_PAUSED', isGameLoading);
   },
-  async newGame({ dispatch }, isCompleted) {
-    if (!isCompleted) {
-      dispatch('setGameResult', { quit: true });
-    }
-
-    await Promise.all([dispatch('restartApp'), dispatch('restartGame')]);
+  async newGame({ dispatch }) {
+    await Promise.all([
+      dispatch('saveGame'),
+      dispatch('restartApp'),
+      dispatch('restartGame'),
+    ]);
 
     dispatch('initApp', { getStats: false });
   },
   setGameState({ commit, dispatch }, hasWon) {
-    if (hasWon) {
-      dispatch('setGameResult', { won: true });
-    } else {
-      dispatch('setGameResult', { lost: true });
-    }
+    dispatch('saveGame');
 
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
-  async setGameResult({ dispatch }, gameStatus) {
-    const newGame = dispatch('saveGame', gameStatus);
+  async saveGame({ dispatch, state, rootState }) {
+    const { luid } = rootState.user;
+    const { game } = state;
+
+    const newGame = saveGame(luid, game);
     const newUser = dispatch('createUser');
 
     await Promise.all([newGame, newUser]);
 
     dispatch('getStatsCount');
-  },
-  async saveGame({ state, rootState }, gameStatus) {
-    const { luid } = rootState.user;
-    const { game } = state;
-
-    return saveGame(luid, game, gameStatus);
   },
   setGameInactive({ commit }) {
     const isGamePaused = {
@@ -77,14 +70,7 @@ const actions = {
 
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  async setTimerPaused({ commit, state, rootState }, isPaused) {
-    const { isTimerPaused } = state;
-    const { luid } = rootState.user;
-
-    if (isTimerPaused !== isPaused) {
-      pauseGame(luid, isPaused);
-    }
-
+  async setTimerPaused({ commit }, isPaused) {
     commit('SET_TIMER_PAUSED', isPaused);
   },
   updateTimer({ commit }) {
@@ -110,14 +96,11 @@ const actions = {
   },
   async saveMove({ commit, rootState }, move) {
     const { selectedCardId } = rootState.solitaire;
-    const { luid } = rootState.user;
 
-    const movedCard = await moveCard(luid, {
+    commit('SET_MOVES', {
       selectedCardId,
       ...move,
     });
-
-    commit('SET_MOVES', movedCard);
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);

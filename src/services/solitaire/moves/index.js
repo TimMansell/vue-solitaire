@@ -109,48 +109,59 @@ export const getDraggedCards = ({ cards }, selectedCardId) => {
   return draggedCards;
 };
 
-export const validateGame = (deck, cardMoves) => {
-  let foundationCards = initFoundation();
-  let board = initBoard(deck);
+export const checkGameState = (moves, deck) => {
+  const { cards: cardsInDeck } = deck;
 
-  const isEmptyBoard = cardMoves.reduce(
-    (_, { selectedCardId, selectedColumn, type }) => {
-      if (type === 'board') {
+  let foundationCards = initFoundation();
+  let boardCards = initBoard(cardsInDeck);
+
+  const cardMoves = moves.filter(
+    ({ isBoard, isFoundation }) => isBoard || isFoundation
+  );
+
+  const isGameFinished = cardMoves.reduce(
+    (_, { selectedCardId, selectedColumn, isBoard, isFoundation }) => {
+      if (isBoard) {
         const isValidMove = checkValidCardMove(
-          { cards: board, selectedCardId },
+          { cards: boardCards, selectedCardId },
           selectedColumn
         );
 
         if (isValidMove) {
           const { cards } = moveCards(
-            { cards: board, selectedCardId },
+            { cards: boardCards, selectedCardId },
             selectedColumn
           );
 
-          board = cards;
+          boardCards = cards;
         }
       }
 
-      if (type === 'foundation') {
+      if (isFoundation) {
         const isValidFoundationMove = checkValidFoundationMove(
-          { cards: board, selectedCardId, foundation: foundationCards },
+          { cards: boardCards, selectedCardId, foundation: foundationCards },
           selectedColumn
         );
 
         if (isValidFoundationMove) {
           const { cards, foundation } = moveCardsToFoundation(
-            { cards: board, selectedCardId, foundation: foundationCards },
+            { cards: boardCards, selectedCardId, foundation: foundationCards },
             selectedColumn
           );
-          board = cards;
+          boardCards = cards;
           foundationCards = foundation;
         }
       }
 
-      return isBoardEmpty({ cards: board });
+      return isBoardEmpty({ cards: boardCards });
     },
     false
   );
 
-  return isEmptyBoard;
+  const hasMoves = checkHasMoves({
+    cards: boardCards,
+    foundation: foundationCards,
+  });
+
+  return { isGameFinished, hasMoves };
 };

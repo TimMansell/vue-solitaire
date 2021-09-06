@@ -1,11 +1,11 @@
-import { initCards } from '../../../services/solitaire';
+import { initCards, checkGameState } from '@/services/solitaire';
 import {
   createPlayerName,
   insertIntoDb,
   findAllItems,
+  findItemInDb,
   deleteFromDb,
   deleteAllFromDb,
-  // validateMoves,
 } from './helpers';
 import { createISODate } from '../../../helpers/dates';
 import { gameOutcome } from '../../../helpers/game';
@@ -47,6 +47,38 @@ export const newGame = async (_, __, { client, variables }) => {
   return { cards };
 };
 
+export const saveGame = async (_, __, { client, variables }) => {
+  const { uid, moves } = variables;
+  const date = createISODate();
+
+  const deck = await findItemInDb(client, 'decks', {
+    findFields: { uid },
+    returnFields: {
+      projection: { cards: 1 },
+    },
+  });
+
+  const { isGameWon, hasMoves } = checkGameState(moves, deck);
+
+  const game = {
+    ...variables,
+    moves: moves.length,
+    won: isGameWon && !hasMoves,
+    lost: !isGameWon && !hasMoves,
+    completed: true,
+  };
+
+  const outcome = gameOutcome(game);
+
+  const document = { date, ...game };
+
+  console.log({ document });
+
+  insertIntoDb(client, 'games', document);
+
+  return { outcome };
+};
+
 export const wonGame = async (_, __, { client, variables }) => {
   const { data } = variables;
   const date = createISODate();
@@ -83,40 +115,11 @@ export const quitGame = async (_, __, { client, variables }) => {
   return { outcome };
 };
 
-export const moveCard = async (_, __, { client, variables }) => {
-  const { uid, move } = variables;
-  const date = createISODate();
-
-  const document = { date, uid, ...move };
-
-  await insertIntoDb(client, 'moves', document);
-
-  // validateMoves(client, uid);
-
-  return { ...variables.move };
-};
-
-export const pauseGame = async (_, __, { client, variables }) => {
-  const { uid, isPaused } = variables;
-  const date = createISODate();
-  const pausedState = {
-    paused: isPaused,
-    resumed: !isPaused,
-  };
-
-  const document = { date, uid, ...pausedState };
-
-  await insertIntoDb(client, 'moves', document);
-
-  return { type: 'pause' };
-};
-
 export const mutations = {
   createUser,
   newGame,
+  saveGame,
   wonGame,
   lostGame,
   quitGame,
-  moveCard,
-  pauseGame,
 };
