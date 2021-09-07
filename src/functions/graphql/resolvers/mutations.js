@@ -46,14 +46,14 @@ export const saveGame = async (_, __, { client, variables }) => {
   const { uid, moves } = variables;
   const date = createISODate();
 
-  const deck = await findItemInDb(client, 'decks', {
+  const { cards } = await findItemInDb(client, 'decks', {
     findFields: { uid },
     returnFields: {
       projection: { cards: 1 },
     },
   });
 
-  const { isGameFinished, hasMoves } = checkGameState(moves, deck);
+  const { isGameFinished, hasMoves } = checkGameState(moves, cards);
 
   const game = {
     ...variables,

@@ -9,9 +9,8 @@ import {
 
 // eslint-disable-next-line import/prefer-default-export
 export const runGameMoves = (moves, deck) => {
-  const { cards: cardsInDeck } = deck;
   const initialFoundation = initFoundation();
-  const initialBoard = initBoard(cardsInDeck);
+  const initialBoard = initBoard(deck);
 
   const [boardCards, foundationCards] = moves.reduce(
     (
