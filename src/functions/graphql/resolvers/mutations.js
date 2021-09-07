@@ -36,7 +36,7 @@ export const newGame = async (_, __, { client, variables }) => {
   const date = createISODate();
   const cards = initCards();
 
-  deleteFromDb(client, 'decks', uid);
+  deleteFromDb(client, 'decks', { uid });
   insertIntoDb(client, 'decks', { uid, date, cards });
 
   return { cards };
