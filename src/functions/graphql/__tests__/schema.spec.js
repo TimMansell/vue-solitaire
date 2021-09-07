@@ -248,7 +248,7 @@ describe('Graphql Schema', () => {
     it('newGame', async () => {
       const query = `
       mutation {
-        newGame(data: {uid: "1"}) {
+        newGame(uid: "1") {
           cards {
             id
             value

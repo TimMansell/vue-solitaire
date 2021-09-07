@@ -5,7 +5,6 @@ import {
   findAllItems,
   findItemInDb,
   deleteFromDb,
-  deleteAllFromDb,
 } from './helpers';
 import { createISODate } from '../../../helpers/dates';
 import { gameOutcome } from '../../../helpers/game';
@@ -32,17 +31,13 @@ export const createUser = async (_, __, { client, variables }) => {
 };
 
 export const newGame = async (_, __, { client, variables }) => {
-  const { data } = variables;
+  const { uid } = variables;
 
   const date = createISODate();
   const cards = initCards();
 
-  await Promise.all([
-    deleteFromDb(client, 'decks', data),
-    deleteAllFromDb(client, 'moves', data),
-  ]);
-
-  insertIntoDb(client, 'decks', { ...data, date, cards });
+  deleteFromDb(client, 'decks', uid);
+  insertIntoDb(client, 'decks', { uid, date, cards });
 
   return { cards };
 };

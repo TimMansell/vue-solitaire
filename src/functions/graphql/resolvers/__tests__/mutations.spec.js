@@ -5,6 +5,7 @@ import {
   createMockFind,
   createMockSort,
   createMockInsertOne,
+  createMockDeleteOne,
 } from '../__mocks__/mockDb';
 
 jest.mock('unique-names-generator', () => ({
@@ -38,14 +39,12 @@ describe('Graphql Mutation Resolvers', () => {
 
   describe('New Game', () => {
     it('newGame', async () => {
-      const mockClient = wrapClient({});
+      const mockClient = wrapClient({ ...createMockDeleteOne(mockUid) });
 
       const mockContext = {
         ...mockClient,
         variables: {
-          data: {
-            uid: mockUid,
-          },
+          uid: mockUid,
         },
       };
 
@@ -58,7 +57,7 @@ describe('Graphql Mutation Resolvers', () => {
   describe('Games', () => {
     let mockContext;
 
-    const mockClient = wrapClient(createMockInsertOne({}));
+    const mockClient = wrapClient({ ...createMockInsertOne({}) });
 
     beforeAll(() => {
       mockContext = {

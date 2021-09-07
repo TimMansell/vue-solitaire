@@ -11,7 +11,7 @@ export const typeDefs = gql`
   }
   type Mutation {
     createUser(data: UserInput!): User!
-    newGame(data: UserInput!): Deck!
+    newGame(uid: String!): Deck!
     wonGame(data: GameInput!): GameState!
     lostGame(data: GameInput!): GameState!
     quitGame(data: GameInput!): GameState!

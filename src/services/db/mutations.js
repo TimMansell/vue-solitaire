@@ -28,8 +28,8 @@ export const newGame = async (uid) => {
   try {
     const response = await apollo.mutate({
       mutation: gql`
-        mutation NewGame($data: UserInput!) {
-          newGame(data: $data) {
+        mutation NewGame($uid: String!) {
+          newGame(uid: $uid) {
             cards {
               id
               value
@@ -40,9 +40,7 @@ export const newGame = async (uid) => {
         }
       `,
       variables: {
-        data: {
-          uid,
-        },
+        uid,
       },
     });
 
