@@ -74,25 +74,3 @@ export const saveGame = async (uid, { moves, time }) => {
     return { outcome: '' };
   }
 };
-
-export const pauseGame = async (uid, isPaused) => {
-  try {
-    const response = await apollo.mutate({
-      mutation: gql`
-        mutation PauseGame($uid: String!, $isPaused: Boolean!) {
-          pauseGame(uid: $uid, isPaused: $isPaused) {
-            type
-          }
-        }
-      `,
-      variables: {
-        uid,
-        isPaused,
-      },
-    });
-
-    return response.data.pauseGame;
-  } catch (error) {
-    return {};
-  }
-};
