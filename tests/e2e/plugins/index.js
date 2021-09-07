@@ -1,13 +1,8 @@
-/* eslint-disable arrow-body-style */
-// https://docs.cypress.io/guides/guides/plugins-guide.html
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-// if you need a custom webpack configuration you can uncomment the following import
-// and then use the `file:preprocessor` event
-// as explained in the cypress docs
-// https://docs.cypress.io/api/plugins/preprocessors-api.html#Examples
-
-// /* eslint-disable import/no-extraneous-dependencies, global-require */
-// const webpack = require('@cypress/webpack-preprocessor')
+const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB } = process.env;
+const uri = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
 
 const {
   addMatchImageSnapshotPlugin,
@@ -15,6 +10,53 @@ const {
 
 module.exports = (on, config) => {
   addMatchImageSnapshotPlugin(on, config);
+
+  on('task', {
+    populateDeck(deck) {
+      const [cards, uid] = deck;
+
+      return new Promise((resolve) => {
+        MongoClient.connect(uri, async (err, client) => {
+          if (err) {
+            console.log(`MONGO CONNECTION ERROR: ${err}`);
+
+            throw err;
+          } else {
+            const db = client.db(MONGODB_DB);
+
+            await db.collection('decks').deleteMany({ uid });
+            await db.collection('decks').insertOne({ uid, cards });
+
+            client.close();
+
+            resolve({});
+          }
+        });
+      });
+    },
+    clearUser(uid) {
+      return new Promise((resolve) => {
+        MongoClient.connect(uri, async (err, client) => {
+          if (err) {
+            console.log(`MONGO CONNECTION ERROR: ${err}`);
+
+            throw err;
+          } else {
+            const db = client.db(MONGODB_DB);
+
+            const user = db.collection('users').deleteMany({ uid });
+            const games = db.collection('games').deleteMany({ uid });
+
+            await Promise.all([user, games]);
+
+            client.close();
+
+            resolve({});
+          }
+        });
+      });
+    },
+  });
 
   return {
     ...config,
