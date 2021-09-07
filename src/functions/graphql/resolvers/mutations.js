@@ -1,4 +1,4 @@
-import { initCards, checkGameState } from '@/services/solitaire';
+import { initCards, checkGameState } from '../../../services/solitaire';
 import {
   createPlayerName,
   insertIntoDb,
@@ -58,13 +58,13 @@ export const saveGame = async (_, __, { client, variables }) => {
     },
   });
 
-  const { isGameWon, hasMoves } = checkGameState(moves, deck);
+  const { isGameFinished, hasMoves } = checkGameState(moves, deck);
 
   const game = {
     ...variables,
     moves: moves.length,
-    won: isGameWon && !hasMoves,
-    lost: !isGameWon && !hasMoves,
+    won: isGameFinished && !hasMoves,
+    lost: !isGameFinished && !hasMoves,
     completed: true,
   };
 

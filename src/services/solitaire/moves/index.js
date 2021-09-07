@@ -7,7 +7,7 @@ import {
   getMoveCardsToFoundation,
 } from './moves';
 import { initFoundation, updateFoundation } from '../foundation';
-import { initBoard, updateBoard, isBoardEmpty } from '../board';
+import { initBoard, updateBoard } from '../board';
 import { getSelectedCard, getLastCard, getCardPosition } from '../cards';
 import {
   validateCardMove,
@@ -107,61 +107,4 @@ export const getDraggedCards = ({ cards }, selectedCardId) => {
   const draggedCards = cards[columnNo].slice(cardPosition);
 
   return draggedCards;
-};
-
-export const checkGameState = (moves, deck) => {
-  const { cards: cardsInDeck } = deck;
-
-  let foundationCards = initFoundation();
-  let boardCards = initBoard(cardsInDeck);
-
-  const cardMoves = moves.filter(
-    ({ isBoard, isFoundation }) => isBoard || isFoundation
-  );
-
-  const isGameFinished = cardMoves.reduce(
-    (_, { selectedCardId, selectedColumn, isBoard, isFoundation }) => {
-      if (isBoard) {
-        const isValidMove = checkValidCardMove(
-          { cards: boardCards, selectedCardId },
-          selectedColumn
-        );
-
-        if (isValidMove) {
-          const { cards } = moveCards(
-            { cards: boardCards, selectedCardId },
-            selectedColumn
-          );
-
-          boardCards = cards;
-        }
-      }
-
-      if (isFoundation) {
-        const isValidFoundationMove = checkValidFoundationMove(
-          { cards: boardCards, selectedCardId, foundation: foundationCards },
-          selectedColumn
-        );
-
-        if (isValidFoundationMove) {
-          const { cards, foundation } = moveCardsToFoundation(
-            { cards: boardCards, selectedCardId, foundation: foundationCards },
-            selectedColumn
-          );
-          boardCards = cards;
-          foundationCards = foundation;
-        }
-      }
-
-      return isBoardEmpty({ cards: boardCards });
-    },
-    false
-  );
-
-  const hasMoves = checkHasMoves({
-    cards: boardCards,
-    foundation: foundationCards,
-  });
-
-  return { isGameFinished, hasMoves };
 };
