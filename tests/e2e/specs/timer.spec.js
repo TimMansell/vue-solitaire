@@ -1,16 +1,18 @@
-import foundations from '../../fixtures/boards/fullFoundation.json';
-import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
+import fullGameMoves from '../../fixtures/moves/fullGame.json';
+import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
+import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
 
 describe('Timer', () => {
-  beforeEach(() => {
-    cy.visitApp();
-  });
-
   afterEach(() => {
     cy.clearTest();
   });
 
   describe('Default Functionality', () => {
+    beforeEach(() => {
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
+    });
+
     it('timer stops when game is paused and starts when resumed', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
@@ -49,10 +51,18 @@ describe('Timer', () => {
 
       cy.get('[data-test="pause-game-btn"]').click();
 
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(2000);
+      cy.get('[data-test="timer"]').then(($timerStart) => {
+        const startNumber = $timerStart.text();
 
-      cy.get('[data-test="timer"]').should('contain', '0:00:00');
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000);
+
+        cy.get('[data-test="timer"]').then(($timerPaused) => {
+          const pausedNumber = $timerPaused.text();
+
+          expect(startNumber).to.equal(pausedNumber);
+        });
+      });
     });
 
     it('it should increment timer correctly after pausing', () => {
@@ -91,12 +101,14 @@ describe('Timer', () => {
 
   describe('Refreshing page', () => {
     it('timer should start paused when game is paused and page is refreshed', () => {
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
+
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
         cy.get('[data-test="pause-game-btn"]').click();
 
-        cy.reloadAndWait();
+        cy.reload();
 
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000);
@@ -110,12 +122,14 @@ describe('Timer', () => {
     });
 
     it('timer should start paused when stats overlay is open and page is refreshed', () => {
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
+
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
         cy.get('[data-test="stats-btn"]').click();
 
-        cy.reloadAndWait();
+        cy.reload();
 
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000);
@@ -129,12 +143,14 @@ describe('Timer', () => {
     });
 
     it('timer should start paused when how to play overlay is open and page is refreshed', () => {
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
+
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
         cy.get('[data-test="game-rules-btn"]').click();
 
-        cy.reloadAndWait();
+        cy.reload();
 
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000);
@@ -148,66 +164,64 @@ describe('Timer', () => {
     });
 
     it('timer should start paused when game lost overlay is open and page is refreshed', () => {
-      cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
-        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+      cy.visitApp({ mockDeck: incompleteGameDeck, mockApi: true });
 
-        cy.get('[data-test="timer"]').then(($timerStart) => {
-          const startNumber = $timerStart.text();
+      cy.runGameWithClicks(incompleteGameMoves);
 
-          cy.reloadAndWait();
+      cy.get('[data-test="timer"]').then(($timerStart) => {
+        const startNumber = $timerStart.text();
 
-          // eslint-disable-next-line cypress/no-unnecessary-waiting
-          cy.wait(1000);
+        cy.reload();
 
-          cy.get('[data-test="timer"]').then(($timerEnd) => {
-            const endNumber = $timerEnd.text();
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000);
 
-            expect(startNumber).to.equal(endNumber);
-          });
+        cy.get('[data-test="timer"]').then(($timerEnd) => {
+          const endNumber = $timerEnd.text();
+
+          expect(startNumber).to.equal(endNumber);
         });
       });
     });
 
     it('timer should start paused when game won overlay is open and page is refreshed', () => {
-      cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
 
-        cy.get('[data-test="timer"]').then(($timerStart) => {
-          const startNumber = $timerStart.text();
+      cy.runGameWithClicks(fullGameMoves);
 
-          cy.reloadAndWait();
+      cy.get('[data-test="timer"]').then(($timerStart) => {
+        const startNumber = $timerStart.text();
 
-          // eslint-disable-next-line cypress/no-unnecessary-waiting
-          cy.wait(1000);
+        cy.reload();
 
-          cy.get('[data-test="timer"]').then(($timerEnd) => {
-            const endNumber = $timerEnd.text();
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000);
 
-            expect(startNumber).to.equal(endNumber);
-          });
+        cy.get('[data-test="timer"]').then(($timerEnd) => {
+          const endNumber = $timerEnd.text();
+
+          expect(startNumber).to.equal(endNumber);
         });
       });
     });
 
     it('timer should start paused when new game overlay is open and page is refreshed', () => {
-      cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="timer"]').then(($timerStart) => {
-          const startNumber = $timerStart.text();
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
 
-          cy.get('[data-test="new-game-btn"]').click();
+      cy.get('[data-test="timer"]').then(($timerStart) => {
+        const startNumber = $timerStart.text();
 
-          cy.reloadAndWait();
+        cy.get('[data-test="new-game-btn"]').click();
 
-          // eslint-disable-next-line cypress/no-unnecessary-waiting
-          cy.wait(1000);
+        cy.reload();
 
-          cy.get('[data-test="timer"]').then(($timerEnd) => {
-            const endNumber = $timerEnd.text();
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000);
 
-            expect(startNumber).to.equal(endNumber);
-          });
+        cy.get('[data-test="timer"]').then(($timerEnd) => {
+          const endNumber = $timerEnd.text();
+
+          expect(startNumber).to.equal(endNumber);
         });
       });
     });
@@ -215,12 +229,12 @@ describe('Timer', () => {
 
   describe('Resuming Timer', () => {
     it('timer stops when stats overlay is open and starts when resumed', () => {
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
+
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
         cy.get('[data-test="stats-btn"]').click();
-
-        cy.wait('@waitForStatsAPI');
 
         cy.get('[data-test="timer"]').then(($timerPaused) => {
           const pausedNumber = $timerPaused.text();
@@ -241,6 +255,8 @@ describe('Timer', () => {
     });
 
     it('timer stops when new game overlay is open and starts when resumed', () => {
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
+
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -269,56 +285,57 @@ describe('Timer', () => {
 
   describe('Resetting timer', () => {
     it('it should reset timer when new game is pressed', () => {
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
+
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000);
+
       cy.newGame();
 
       cy.get('[data-test="timer"]').should('contain', '0:00:00');
-
-      cy.wait('@waitForStatsAPI');
     });
 
     it('it stops timer when game is lost and resets when new game is started', () => {
-      cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
-        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+      cy.visitApp({ mockDeck: incompleteGameDeck, mockApi: true });
 
-        cy.get('[data-test="timer"]').then(($timerStart) => {
-          const startNumber = $timerStart.text();
+      cy.runGameWithClicks(incompleteGameMoves);
 
-          cy.get('[data-test="timer"]').then(($timerPaused) => {
-            const pausedNumber = $timerPaused.text();
+      cy.get('[data-test="timer"]').then(($timerStart) => {
+        const startNumber = $timerStart.text();
 
-            expect(startNumber).to.equal(pausedNumber);
-          });
+        cy.get('[data-test="timer"]').then(($timerPaused) => {
+          const pausedNumber = $timerPaused.text();
 
-          cy.get('[data-test="game-lost"]').within(() => {
-            cy.get('[data-test="new-game-btn"]').click();
-          });
-
-          cy.get('[data-test="timer"]').should('contain', '0:00:00');
+          expect(startNumber).to.equal(pausedNumber);
         });
+
+        cy.get('[data-test="game-lost"]').within(() => {
+          cy.get('[data-test="new-game-btn"]').click();
+        });
+
+        cy.get('[data-test="timer"]').should('contain', '0:00:00');
       });
     });
 
     it('it stops timer when game is won and resets when new game is started', () => {
-      cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+      cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
 
-        cy.get('[data-test="timer"]').then(($timerStart) => {
-          const startNumber = $timerStart.text();
+      cy.runGameWithClicks(fullGameMoves);
 
-          cy.get('[data-test="timer"]').then(($timerPaused) => {
-            const pausedNumber = $timerPaused.text();
+      cy.get('[data-test="timer"]').then(($timerStart) => {
+        const startNumber = $timerStart.text();
 
-            expect(startNumber).to.equal(pausedNumber);
-          });
+        cy.get('[data-test="timer"]').then(($timerPaused) => {
+          const pausedNumber = $timerPaused.text();
 
-          cy.get('[data-test="game-won"]').within(() => {
-            cy.get('[data-test="new-game-btn"]').click();
-          });
-
-          cy.get('[data-test="timer"]').should('contain', '0:00:00');
+          expect(startNumber).to.equal(pausedNumber);
         });
+
+        cy.get('[data-test="game-won"]').within(() => {
+          cy.get('[data-test="new-game-btn"]').click();
+        });
+
+        cy.get('[data-test="timer"]').should('contain', '0:00:00');
       });
     });
   });

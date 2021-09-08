@@ -38,14 +38,8 @@ const mutate = () => ({
     newGame: {
       cards: mockDeck,
     },
-    wonGame: {
+    saveGame: {
       outcome: 'Won',
-    },
-    lostGame: {
-      outcome: 'Lost',
-    },
-    quitGame: {
-      outcome: 'Gave Up',
     },
   },
 });

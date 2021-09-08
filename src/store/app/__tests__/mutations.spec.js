@@ -7,7 +7,7 @@ const {
   SET_GAME_LOST,
   SET_GAME_PAUSED,
   SET_TIMER_PAUSED,
-  INCREMENT_MOVES,
+  SET_MOVES,
   UPDATE_GAME_TIME,
   SHOW_RULES,
   SHOW_NEW_GAME,
@@ -59,10 +59,23 @@ describe('App Store', () => {
     expect(state.isTimerPaused).toEqual(true);
   });
 
-  it('INCREMENT_MOVES', () => {
-    INCREMENT_MOVES(state);
+  it('SET_MOVES', () => {
+    SET_MOVES(state, {
+      selectedCardId: 1,
+      selectedColumn: 0,
+      isBoard: true,
+    });
 
-    expect(state.game.moves).toEqual(1);
+    SET_MOVES(state, {
+      selectedCardId: 10,
+      selectedColumn: 2,
+      isFoundation: true,
+    });
+
+    expect(state.game.moves).toEqual([
+      { isBoard: true, selectedCardId: 1, selectedColumn: 0 },
+      { isFoundation: true, selectedCardId: 10, selectedColumn: 2 },
+    ]);
   });
 
   it('UPDATE_GAME_TIME', () => {

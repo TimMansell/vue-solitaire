@@ -1,6 +1,5 @@
 import { gql } from 'apollo-boost';
 import apollo from './apollo';
-import { saveGameQuery } from './helpers';
 
 export const createUser = async (uid) => {
   try {
@@ -29,8 +28,8 @@ export const newGame = async (uid) => {
   try {
     const response = await apollo.mutate({
       mutation: gql`
-        mutation NewGame($data: UserInput!) {
-          newGame(data: $data) {
+        mutation NewGame($uid: String!) {
+          newGame(uid: $uid) {
             cards {
               id
               value
@@ -41,9 +40,7 @@ export const newGame = async (uid) => {
         }
       `,
       variables: {
-        data: {
-          uid,
-        },
+        uid,
       },
     });
 
@@ -53,32 +50,24 @@ export const newGame = async (uid) => {
   }
 };
 
-export const saveGame = async (uid, game, gameStatus) => {
-  const { moves, time } = game;
-
-  const data = {
-    uid,
-    moves,
-    time,
-  };
-
-  const query = saveGameQuery(gameStatus);
-
+export const saveGame = async (uid, { moves, time }) => {
   try {
     const response = await apollo.mutate({
       mutation: gql`
-        mutation WonAGame($data: GameInput!) {
-          ${query}(data: $data) {
+        mutation SaveGame($uid: String!, $moves: [moveInput!]!, $time: Int!) {
+          saveGame(uid: $uid, moves: $moves, time: $time) {
             outcome
           }
         }
       `,
       variables: {
-        data,
+        uid,
+        moves,
+        time,
       },
     });
 
-    return response.data[query];
+    return response.data.saveGame;
   } catch (error) {
     return { outcome: '' };
   }

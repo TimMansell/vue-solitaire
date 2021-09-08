@@ -7,7 +7,7 @@
       <GameSummary />
     </template>
     <template #buttons>
-      <NewGameButton is-completed />
+      <NewGameButton />
       <ShowBoardButton />
     </template>
   </GameOverlay>

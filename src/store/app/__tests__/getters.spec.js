@@ -58,7 +58,7 @@ describe('App Store', () => {
   it('moves', () => {
     const result = moves(state);
 
-    expect(result).toEqual(state.game.moves);
+    expect(result).toEqual(0);
   });
 
   it('showRules', () => {

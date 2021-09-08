@@ -2,15 +2,30 @@ import numeral from 'numeral';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import 'cypress-commands';
 
-Cypress.Commands.add('visitApp', () => {
+Cypress.Commands.add('visitApp', (obj) => {
   cy.interceptStatsAPI();
   cy.interceptCreateUserAPI();
   cy.interceptHistoryAPI();
   cy.interceptLeaderboardAPI();
+  cy.interceptNewGameAPI();
+
+  if (obj?.mockDeck) {
+    cy.mockNewGameAPI(obj.mockDeck);
+  }
+
+  if (obj?.mockApi) {
+    cy.mockStatsAPI();
+    cy.mockSaveGameAPI();
+    cy.mockCreateUserAPI();
+    cy.mockGetUserAPI();
+    cy.mockVersionAPI();
+  }
 
   cy.visit('/');
 
-  cy.wait('@waitForStatsAPI');
+  if (!obj?.mockApi) {
+    cy.wait('@waitForStatsAPI');
+  }
 });
 
 Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
@@ -34,6 +49,9 @@ Cypress.Commands.add('clearTest', () => {
   cy.clearLocalStorage();
 
   cy.setTimerPaused(true);
+
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(1500);
 });
 
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
@@ -367,61 +385,18 @@ Cypress.Commands.add('checkGlobalStatsLost', () => {
   });
 });
 
-Cypress.Commands.add('interceptVersionAPI', ({ matches }) => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('version')) {
-      // eslint-disable-next-line no-param-reassign
-      req.alias = 'waitForVersionAPI';
-
-      req.reply({
-        data: { version: { matches } },
-      });
+Cypress.Commands.add('runGameWithClicks', (moves) => {
+  moves.forEach(({ value, suit, selectedColumn, isBoard, isFoundation }) => {
+    if (isBoard) {
+      cy.get(`[data-test="card-${value}${suit}"]`).clickTo(
+        `[data-test="column-${selectedColumn}"]`
+      );
     }
-  });
-});
 
-Cypress.Commands.add('interceptLeaderboardAPI', () => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('query Leaderboards')) {
-      // eslint-disable-next-line no-param-reassign
-      req.alias = 'waitForLeaderboardAPI';
-    }
-  });
-});
-
-Cypress.Commands.add('interceptStatsAPI', () => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('query GetStats')) {
-      // eslint-disable-next-line no-param-reassign
-      req.alias = 'waitForStatsAPI';
-    }
-  });
-});
-
-Cypress.Commands.add('interceptCreateUserAPI', () => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('mutation CreateAUser')) {
-      // eslint-disable-next-line no-param-reassign
-      req.alias = 'waitForCreateUserAPI';
-    }
-  });
-});
-
-Cypress.Commands.add('interceptHistoryAPI', () => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('history')) {
-      // eslint-disable-next-line no-param-reassign
-      req.alias = 'waitForHistoryAPI';
+    if (isFoundation) {
+      cy.get(`[data-test="card-${value}${suit}"]`).clickTo(
+        `[data-test="foundation-${selectedColumn}"]`
+      );
     }
   });
 });

@@ -248,7 +248,7 @@ describe('Graphql Schema', () => {
     it('newGame', async () => {
       const query = `
       mutation {
-        newGame(data: {uid: "1"}) {
+        newGame(uid: "1") {
           cards {
             id
             value
@@ -285,10 +285,10 @@ describe('Graphql Schema', () => {
       });
     });
 
-    it('wonGame', async () => {
+    it('saveGame', async () => {
       const query = `
         mutation {
-          wonGame(data: {uid: "1", moves:2, time: 10}) {
+          saveGame(uid: "1", moves:[{selectedCardId: 1, selectedColumn: 0,isBoard: true}], time: 10) {
             outcome
           }
         }
@@ -300,51 +300,7 @@ describe('Graphql Schema', () => {
 
       expect(result).toEqual({
         data: {
-          wonGame: {
-            outcome: 'String',
-          },
-        },
-      });
-    });
-
-    it('lostGame', async () => {
-      const query = `
-        mutation {
-          lostGame(data: {uid: "1", moves:2, time: 10}) {
-            outcome
-          }
-        }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          lostGame: {
-            outcome: 'String',
-          },
-        },
-      });
-    });
-
-    it('quitGame', async () => {
-      const query = `
-        mutation {
-          quitGame(data: {uid: "1", moves:2, time: 10}) {
-            outcome
-          }
-        }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          quitGame: {
+          saveGame: {
             outcome: 'String',
           },
         },

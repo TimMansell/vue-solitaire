@@ -1,15 +1,4 @@
-export const saveGameQuery = ({ won, lost }) => {
-  if (won) {
-    return 'wonGame';
-  }
-
-  if (lost) {
-    return 'lostGame';
-  }
-
-  return 'quitGame';
-};
-
+// eslint-disable-next-line import/prefer-default-export
 export const leaderboardsQuery = (showBest) => {
   if (showBest === 'Times') {
     return {

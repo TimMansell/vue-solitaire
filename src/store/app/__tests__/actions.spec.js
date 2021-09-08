@@ -3,9 +3,6 @@ import actions from '../actions';
 
 const {
   checkAppVersion,
-  newGame,
-  setGameState,
-  setGameResult,
   setGameInactive,
   toggleGamePaused,
   setTimerPaused,
@@ -17,11 +14,9 @@ jest.mock('@/services/db');
 
 describe('App Store', () => {
   let commit;
-  let dispatch;
 
   beforeEach(() => {
     commit = jest.fn();
-    dispatch = jest.fn();
   });
 
   it('checkAppVersion - same version', async () => {
@@ -36,50 +31,6 @@ describe('App Store', () => {
     await checkAppVersion({ commit }, version);
 
     expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', false);
-  });
-
-  it('newGame - should run quit game', async () => {
-    const isCompleted = false;
-
-    await newGame({ dispatch }, isCompleted);
-
-    expect(dispatch).toHaveBeenCalledWith('setGameResult', { quit: true });
-  });
-
-  it('newGame - show not run quit game', async () => {
-    const isCompleted = true;
-
-    await newGame({ dispatch }, isCompleted);
-
-    expect(dispatch).not.toHaveBeenCalledWith('setGameResult');
-  });
-
-  it('setGameState - game won', () => {
-    const hasWon = true;
-
-    setGameState({ commit, dispatch }, hasWon);
-
-    expect(dispatch).toHaveBeenCalledWith('setGameResult', { won: true });
-    expect(commit).toHaveBeenCalledWith('SET_GAME_WON', hasWon);
-    expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', !hasWon);
-  });
-
-  it('setGameState - game lost', () => {
-    const hasWon = false;
-
-    setGameState({ commit, dispatch }, hasWon);
-
-    expect(dispatch).toHaveBeenCalledWith('setGameResult', { lost: true });
-    expect(commit).toHaveBeenCalledWith('SET_GAME_WON', hasWon);
-    expect(commit).toHaveBeenCalledWith('SET_GAME_LOST', !hasWon);
-  });
-
-  it('setGameResult', async () => {
-    const gameState = { won: true };
-
-    await setGameResult({ dispatch }, gameState);
-
-    expect(dispatch).toHaveBeenCalledWith('getStatsCount');
   });
 
   it('setGameInactive', () => {

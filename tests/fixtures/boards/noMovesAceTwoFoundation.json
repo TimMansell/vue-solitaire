@@ -3,56 +3,56 @@
   "cards": [
     [
       {
-        "id": "12h",
+        "id": 1,
         "value": "K",
         "order": 13,
         "suit": "♥",
         "visible": true
       },
       {
-        "id": "12s",
+        "id": 2,
         "value": "K",
         "order": 13,
         "suit": "♠",
         "visible": false
       },
       {
-        "id": "9d",
+        "id": 3,
         "value": "10",
         "order": 10,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "6d",
+        "id": 6,
         "value": "7",
         "order": 7,
         "suit": "♦",
         "visible": false
       },
       {
-        "id": "2d",
+        "id": 5,
         "value": "3",
         "order": 3,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "11h",
+        "id": 7,
         "value": "Q",
         "order": 12,
         "suit": "♥",
         "visible": false
       },
       {
-        "id": "4d",
+        "id": 15,
         "value": "5",
         "order": 5,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "3d",
+        "id": 4,
         "value": "4",
         "order": 4,
         "suit": "♦",
@@ -61,7 +61,7 @@
     ],
     [
       {
-        "id": "12c",
+        "id": 16,
         "value": "K",
         "order": 13,
         "suit": "♣",
@@ -70,42 +70,42 @@
     ],
     [
       {
-        "id": "0c",
+        "id": 10,
         "value": "A",
         "order": 1,
         "suit": "♣",
         "visible": true
       },
       {
-        "id": "8h",
+        "id": 11,
         "value": "9",
         "order": 9,
         "suit": "♥",
         "visible": false
       },
       {
-        "id": "5s",
+        "id": 12,
         "value": "6",
         "order": 6,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "3h",
+        "id": 13,
         "value": "4",
         "order": 4,
         "suit": "♥",
         "visible": false
       },
       {
-        "id": "1s",
+        "id": 21,
         "value": "2",
         "order": 2,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "0s",
+        "id": 8,
         "value": "A",
         "order": 1,
         "suit": "♠",
@@ -114,35 +114,35 @@
     ],
     [
       {
-        "id": "2s",
+        "id": 9,
         "value": "3",
         "order": 3,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "10d",
+        "id": 26,
         "value": "J",
         "order": 11,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "5c",
+        "id": 27,
         "value": "6",
         "order": 6,
         "suit": "♣",
         "visible": false
       },
       {
-        "id": "10h",
+        "id": 28,
         "value": "J",
         "order": 11,
         "suit": "♥",
         "visible": true
       },
       {
-        "id": "9h",
+        "id": 29,
         "value": "10",
         "order": 10,
         "suit": "♥",
@@ -151,63 +151,63 @@
     ],
     [
       {
-        "id": "6s",
+        "id": 17,
         "value": "7",
         "order": 7,
         "suit": "♠",
         "visible": false
       },
       {
-        "id": "7s",
+        "id": 18,
         "value": "8",
         "order": 8,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "0h",
+        "id": 19,
         "value": "A",
         "order": 1,
         "suit": "♥",
         "visible": false
       },
       {
-        "id": "1d",
+        "id": 20,
         "value": "2",
         "order": 2,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "5d",
+        "id": 14,
         "value": "6",
         "order": 6,
         "suit": "♦",
         "visible": false
       },
       {
-        "id": "6h",
+        "id": 22,
         "value": "7",
         "order": 7,
         "suit": "♥",
         "visible": true
       },
       {
-        "id": "5h",
+        "id": 23,
         "value": "6",
         "order": 6,
         "suit": "♥",
         "visible": true
       },
       {
-        "id": "4h",
+        "id": 24,
         "value": "5",
         "order": 5,
         "suit": "♥",
         "visible": true
       },
       {
-        "id": "8s",
+        "id": 25,
         "value": "9",
         "order": 9,
         "suit": "♠",
@@ -216,35 +216,35 @@
     ],
     [
       {
-        "id": "4s",
+        "id": 30,
         "value": "5",
         "order": 5,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "3s",
+        "id": 31,
         "value": "4",
         "order": 4,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "2h",
+        "id": 51,
         "value": "3",
         "order": 3,
         "suit": "♥",
         "visible": false
       },
       {
-        "id": "0d",
+        "id": 52,
         "value": "A",
         "order": 1,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "1h",
+        "id": 32,
         "value": "2",
         "order": 2,
         "suit": "♥",
@@ -253,35 +253,35 @@
     ],
     [
       {
-        "id": "12d",
+        "id": 33,
         "value": "K",
         "order": 13,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "11d",
+        "id": 34,
         "value": "Q",
         "order": 12,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "7h",
+        "id": 35,
         "value": "8",
         "order": 8,
         "suit": "♥",
         "visible": false
       },
       {
-        "id": "8d",
+        "id": 37,
         "value": "9",
         "order": 9,
         "suit": "♦",
         "visible": true
       },
       {
-        "id": "7d",
+        "id": 36,
         "value": "8",
         "order": 8,
         "suit": "♦",
@@ -290,91 +290,91 @@
     ],
     [
       {
-        "id": "1c",
+        "id": 38,
         "value": "2",
         "order": 2,
         "suit": "♣",
         "visible": false
       },
       {
-        "id": "11s",
+        "id": 39,
         "value": "Q",
         "order": 12,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "4c",
+        "id": 40,
         "value": "5",
         "order": 5,
         "suit": "♣",
         "visible": true
       },
       {
-        "id": "3c",
+        "id": 41,
         "value": "4",
         "order": 4,
         "suit": "♣",
         "visible": true
       },
       {
-        "id": "2c",
+        "id": 42,
         "value": "3",
         "order": 3,
         "suit": "♣",
         "visible": true
       },
       {
-        "id": "9c",
+        "id": 43,
         "value": "10",
         "order": 10,
         "suit": "♣",
         "visible": false
       },
       {
-        "id": "10s",
+        "id": 44,
         "value": "J",
         "order": 11,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "9s",
+        "id": 45,
         "value": "10",
         "order": 10,
         "suit": "♠",
         "visible": true
       },
       {
-        "id": "6c",
+        "id": 46,
         "value": "7",
         "order": 7,
         "suit": "♣",
         "visible": false
       },
       {
-        "id": "8c",
+        "id": 47,
         "value": "9",
         "order": 9,
         "suit": "♣",
         "visible": true
       },
       {
-        "id": "7c",
+        "id": 48,
         "value": "8",
         "order": 8,
         "suit": "♣",
         "visible": true
       },
       {
-        "id": "11c",
+        "id": 49,
         "value": "Q",
         "order": 12,
         "suit": "♣",
         "visible": true
       },
       {
-        "id": "10c",
+        "id": 50,
         "value": "J",
         "order": 11,
         "suit": "♣",

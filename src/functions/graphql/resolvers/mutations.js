@@ -1,5 +1,11 @@
-import { initCards } from '../../../services/solitaire';
-import { createPlayerName, insertIntoDb, findAllItems } from './helpers';
+import { initCards, checkGameState } from '../../../services/solitaire';
+import {
+  createPlayerName,
+  insertIntoDb,
+  findAllItems,
+  findItemInDb,
+  deleteFromDb,
+} from './helpers';
 import { createISODate } from '../../../helpers/dates';
 import { gameOutcome } from '../../../helpers/game';
 
@@ -25,45 +31,43 @@ export const createUser = async (_, __, { client, variables }) => {
 };
 
 export const newGame = async (_, __, { client, variables }) => {
-  console.log({ client, variables });
+  const { uid } = variables;
 
+  const date = createISODate();
   const cards = initCards();
+
+  insertIntoDb(client, 'decks', { uid, date, cards });
 
   return { cards };
 };
 
-export const wonGame = async (_, __, { client, variables }) => {
-  const { data } = variables;
+export const saveGame = async (_, __, { client, variables }) => {
+  const { uid, moves } = variables;
   const date = createISODate();
-  const outcome = gameOutcome({ won: true });
 
-  const document = { date, ...data, won: true, lost: false, completed: true };
+  const { cards } = await findItemInDb(client, 'decks', {
+    findFields: { uid },
+    returnFields: {
+      projection: { cards: 1 },
+    },
+  });
 
-  await insertIntoDb(client, 'games', document);
+  const { isGameFinished, hasMoves } = checkGameState(moves, cards);
 
-  return { outcome };
-};
+  const game = {
+    ...variables,
+    moves: moves.length,
+    won: isGameFinished && !hasMoves,
+    lost: !isGameFinished && !hasMoves,
+    completed: true,
+  };
 
-export const lostGame = async (_, __, { client, variables }) => {
-  const { data } = variables;
-  const date = createISODate();
-  const outcome = gameOutcome({ lost: true });
+  const outcome = gameOutcome(game);
 
-  const document = { date, ...data, won: false, lost: true, completed: true };
+  const document = { date, ...game };
 
-  await insertIntoDb(client, 'games', document);
-
-  return { outcome };
-};
-
-export const quitGame = async (_, __, { client, variables }) => {
-  const { data } = variables;
-  const date = createISODate();
-  const outcome = gameOutcome({ completed: true });
-
-  const document = { date, ...data, won: false, lost: false, completed: true };
-
-  await insertIntoDb(client, 'games', document);
+  insertIntoDb(client, 'games', document);
+  deleteFromDb(client, 'decks', { uid });
 
   return { outcome };
 };
@@ -71,7 +75,5 @@ export const quitGame = async (_, __, { client, variables }) => {
 export const mutations = {
   createUser,
   newGame,
-  wonGame,
-  lostGame,
-  quitGame,
+  saveGame,
 };

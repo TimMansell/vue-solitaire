@@ -4,7 +4,7 @@ exports[`GameLost.vue matches snapshot 1`] = `
 <gameoverlay-stub centercontent="true" showlogo="true" data-test="game-lost">
   Sorry, no more Moves!
   <gamesummary-stub></gamesummary-stub>
-  <newgamebutton-stub iscompleted="true"></newgamebutton-stub>
+  <newgamebutton-stub></newgamebutton-stub>
   <showboardbutton-stub></showboardbutton-stub>
 </gameoverlay-stub>
 `;

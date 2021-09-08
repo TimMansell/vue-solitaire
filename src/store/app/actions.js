@@ -2,20 +2,18 @@ import { checkAppVersion, saveGame } from '@/services/db';
 import { version } from '../../../package.json';
 
 const actions = {
-  async initApp({ dispatch }, { getStats }) {
-    await Promise.all([
-      dispatch('initGame'),
-      dispatch('initUser'),
-      dispatch('getUser'),
-      dispatch('checkAppVersion', version),
-    ]);
-
-    if (getStats) {
-      dispatch('getStatsCount');
-    }
+  initApp({ dispatch }) {
+    dispatch('initUser');
+    dispatch('initGame');
+    dispatch('getUser');
+    dispatch('checkAppVersion', version);
+    dispatch('getStatsCount');
   },
-  restartApp({ commit }) {
+  restartApp({ commit, dispatch }) {
     commit('RESTART_APP');
+
+    dispatch('restartGame');
+    dispatch('checkAppVersion', version);
   },
   async checkAppVersion({ commit }, localVersionNumber) {
     const { matches } = await checkAppVersion(localVersionNumber);
@@ -26,38 +24,24 @@ const actions = {
     commit('SET_GAME_LOADING', isGameLoading);
     commit('SET_TIMER_PAUSED', isGameLoading);
   },
-  async newGame({ dispatch }, isCompleted) {
-    await Promise.all([dispatch('restartApp'), dispatch('restartGame')]);
-
-    dispatch('initApp', { getStats: false });
-
-    if (!isCompleted) {
-      dispatch('setGameResult', { quit: true });
-    }
+  newGame({ dispatch }) {
+    dispatch('saveGame');
+    dispatch('restartApp');
   },
-  setGameState({ commit, dispatch }, hasWon) {
-    if (hasWon) {
-      dispatch('setGameResult', { won: true });
-    } else {
-      dispatch('setGameResult', { lost: true });
-    }
-
+  setGameState({ commit }, hasWon) {
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
-  async setGameResult({ dispatch }, gameStatus) {
-    const newGame = dispatch('saveGame', gameStatus);
+  async saveGame({ dispatch, state, rootState }) {
+    const { luid } = rootState.user;
+    const { game } = state;
+
+    const newGame = saveGame(luid, game);
     const newUser = dispatch('createUser');
 
     await Promise.all([newGame, newUser]);
 
     dispatch('getStatsCount');
-  },
-  async saveGame({ state, rootState }, gameStatus) {
-    const { luid } = rootState.user;
-    const { game } = state;
-
-    return saveGame(luid, game, gameStatus);
   },
   setGameInactive({ commit }) {
     const isGamePaused = {
@@ -101,8 +85,13 @@ const actions = {
   toggleHistory({ commit }) {
     commit('SHOW_HISTORY');
   },
-  incrementMoves({ commit }) {
-    commit('INCREMENT_MOVES');
+  saveMove({ commit, rootState }, move) {
+    const { selectedCardId } = rootState.solitaire;
+
+    commit('SET_MOVES', {
+      selectedCardId,
+      ...move,
+    });
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);

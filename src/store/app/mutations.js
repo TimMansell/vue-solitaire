@@ -29,8 +29,8 @@ const mutations = {
   SET_OVERLAY_VISIBLE(state, isOverlayVisible) {
     state.isOverlayVisible = isOverlayVisible;
   },
-  INCREMENT_MOVES(state) {
-    state.game.moves += 1;
+  SET_MOVES(state, move) {
+    state.game.moves = [...state.game.moves, move];
   },
   UPDATE_GAME_TIME(state) {
     state.game.time += 1;
