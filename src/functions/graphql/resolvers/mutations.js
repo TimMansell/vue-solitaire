@@ -36,7 +36,6 @@ export const newGame = async (_, __, { client, variables }) => {
   const date = createISODate();
   const cards = initCards();
 
-  deleteFromDb(client, 'decks', { uid });
   insertIntoDb(client, 'decks', { uid, date, cards });
 
   return { cards };
@@ -68,6 +67,7 @@ export const saveGame = async (_, __, { client, variables }) => {
   const document = { date, ...game };
 
   insertIntoDb(client, 'games', document);
+  deleteFromDb(client, 'decks', { uid });
 
   return { outcome };
 };

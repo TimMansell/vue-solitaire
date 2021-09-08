@@ -48,7 +48,7 @@ export default {
     ]),
   },
   async created() {
-    this.initApp({ getStats: true });
+    this.initApp();
 
     // if (process.env.NODE_ENV === 'development') {
     //   setTimeout(() => {

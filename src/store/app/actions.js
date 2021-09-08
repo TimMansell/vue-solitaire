@@ -2,20 +2,18 @@ import { checkAppVersion, saveGame } from '@/services/db';
 import { version } from '../../../package.json';
 
 const actions = {
-  async initApp({ dispatch }, { getStats }) {
-    await Promise.all([
-      dispatch('initUser'),
-      dispatch('initGame'),
-      dispatch('getUser'),
-      dispatch('checkAppVersion', version),
-    ]);
-
-    if (getStats) {
-      dispatch('getStatsCount');
-    }
+  initApp({ dispatch }) {
+    dispatch('initUser');
+    dispatch('initGame');
+    dispatch('getUser');
+    dispatch('checkAppVersion', version);
+    dispatch('getStatsCount');
   },
-  restartApp({ commit }) {
+  restartApp({ commit, dispatch }) {
     commit('RESTART_APP');
+
+    dispatch('restartGame');
+    dispatch('checkAppVersion', version);
   },
   async checkAppVersion({ commit }, localVersionNumber) {
     const { matches } = await checkAppVersion(localVersionNumber);
@@ -26,14 +24,9 @@ const actions = {
     commit('SET_GAME_LOADING', isGameLoading);
     commit('SET_TIMER_PAUSED', isGameLoading);
   },
-  async newGame({ dispatch }) {
-    await Promise.all([
-      dispatch('saveGame'),
-      dispatch('restartApp'),
-      dispatch('restartGame'),
-    ]);
-
-    dispatch('initApp', { getStats: false });
+  newGame({ dispatch }) {
+    dispatch('saveGame');
+    dispatch('restartApp');
   },
   setGameState({ commit }, hasWon) {
     commit('SET_GAME_WON', hasWon);
