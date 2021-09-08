@@ -1,4 +1,4 @@
-export { initCards, getSelectedCard } from './cards';
+export { initCards } from './cards';
 export { initFoundation, getEmptyFoundationColumn } from './foundation';
 export { initBoard, isBoardEmpty } from './board';
 export {
