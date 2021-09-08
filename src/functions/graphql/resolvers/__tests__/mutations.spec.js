@@ -1,12 +1,19 @@
 import { mockUid, mockPlayers, mockPlayerName } from '@/mockData';
-import { createUser, newGame, wonGame, lostGame, quitGame } from '../mutations';
+import { createUser, newGame, saveGame } from '../mutations';
 import {
   wrapClient,
   createMockFind,
+  createMockFindOne,
   createMockSort,
   createMockInsertOne,
   createMockDeleteOne,
 } from '../__mocks__/mockDb';
+import fullGameDeck from '../../../../../tests/fixtures/decks/fullGame.json';
+import fullGameMoves from '../../../../../tests/fixtures/moves/fullGame.json';
+import incompleteGameDeck from '../../../../../tests/fixtures/decks/incompleteGame.json';
+import incompleteGameMoves from '../../../../../tests/fixtures/moves/incompleteGame.json';
+import quitGameDeck from '../../../../../tests/fixtures/decks/quitGame.json';
+import quitGameMoves from '../../../../../tests/fixtures/moves/quitGame.json';
 
 jest.mock('unique-names-generator', () => ({
   uniqueNamesGenerator: () => mockPlayerName,
@@ -54,37 +61,63 @@ describe('Graphql Mutation Resolvers', () => {
     });
   });
 
-  describe('Games', () => {
-    let mockContext;
+  describe('Save Game', () => {
+    it('it should return won game', async () => {
+      const mockClient = wrapClient({
+        ...createMockFindOne({ cards: fullGameDeck }),
+        ...createMockInsertOne({}),
+      });
 
-    const mockClient = wrapClient({ ...createMockInsertOne({}) });
-
-    beforeAll(() => {
-      mockContext = {
+      const mockContext = {
         ...mockClient,
         variables: {
-          data: {
-            moves: 50,
-            time: 15,
-          },
+          uid: mockUid,
+          moves: fullGameMoves,
+          time: 15,
         },
       };
-    });
 
-    it('wonGame', async () => {
-      const { outcome } = await wonGame('', '', mockContext);
+      const { outcome } = await saveGame('', '', mockContext);
 
       expect(outcome).toBe('Won');
     });
 
-    it('lostGame', async () => {
-      const { outcome } = await lostGame('', '', mockContext);
+    it('it should return lost game', async () => {
+      const mockClient = wrapClient({
+        ...createMockFindOne({ cards: incompleteGameDeck }),
+        ...createMockInsertOne({}),
+      });
+
+      const mockContext = {
+        ...mockClient,
+        variables: {
+          uid: mockUid,
+          moves: incompleteGameMoves,
+          time: 15,
+        },
+      };
+
+      const { outcome } = await saveGame('', '', mockContext);
 
       expect(outcome).toBe('Lost');
     });
 
-    it('quitGame', async () => {
-      const { outcome } = await quitGame('', '', mockContext);
+    it('it should return quit game', async () => {
+      const mockClient = wrapClient({
+        ...createMockFindOne({ cards: quitGameDeck }),
+        ...createMockInsertOne({}),
+      });
+
+      const mockContext = {
+        ...mockClient,
+        variables: {
+          uid: mockUid,
+          moves: quitGameMoves,
+          time: 15,
+        },
+      };
+
+      const { outcome } = await saveGame('', '', mockContext);
 
       expect(outcome).toBe('Gave Up');
     });

@@ -21,21 +21,9 @@ describe('DB service mutations', () => {
     expect(cards).toEqual(mockDeck);
   });
 
-  it('saveGame - game won', async () => {
-    const { outcome } = await saveGame(mockUid, gameParams, { won: true });
+  it('saveGame', async () => {
+    const { outcome } = await saveGame(mockUid, gameParams);
 
     expect(outcome).toEqual('Won');
-  });
-
-  it('saveGame - game lost', async () => {
-    const { outcome } = await saveGame(mockUid, gameParams, { lost: true });
-
-    expect(outcome).toEqual('Lost');
-  });
-
-  it('saveGame - game quit', async () => {
-    const { outcome } = await saveGame(mockUid, gameParams, { quit: true });
-
-    expect(outcome).toEqual('Gave Up');
   });
 });
