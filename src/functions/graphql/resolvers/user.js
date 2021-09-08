@@ -1,4 +1,4 @@
-import { countItemsInDb, findItemInDb, findHistoryItems } from './helpers';
+import { findItemInDb, findHistoryItems } from './helpers';
 
 export const exists = async (parent, __, { client }) => {
   const collection = 'users';
@@ -7,9 +7,9 @@ export const exists = async (parent, __, { client }) => {
     returnFields: { projection: { uid: 1 } },
   };
 
-  const itemCount = await countItemsInDb(client, collection, params);
+  const user = await findItemInDb(client, collection, params);
 
-  return itemCount;
+  return user !== null;
 };
 
 export const history = async (parent, args, context) => {

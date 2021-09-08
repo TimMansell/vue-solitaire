@@ -2,7 +2,6 @@ import { initCards, checkGameState } from '../../../services/solitaire';
 import {
   createPlayerName,
   insertIntoDb,
-  findAllItems,
   findItemInDb,
   deleteFromDb,
 } from './helpers';
@@ -14,14 +13,7 @@ export const createUser = async (_, __, { client, variables }) => {
     data: { uid },
   } = variables;
 
-  const playerNamesInUse = await findAllItems(client, 'users', {
-    findFields: {},
-    returnFields: {
-      projection: { name: 1 },
-    },
-  });
-
-  const name = createPlayerName(playerNamesInUse);
+  const name = await createPlayerName(client);
 
   const document = { uid, name };
 

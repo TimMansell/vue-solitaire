@@ -2,7 +2,7 @@ import { formatLeaderboardGames, formatHistoryGames } from './find/find';
 import { findItemsInDb, findAllItems, countItemsInDb } from './db';
 
 export const findLeaderboardItems = async (client, parent, find) => {
-  const findGames = findItemsInDb(client, 'games', {
+  const games = await findItemsInDb(client, 'games', {
     ...parent,
     findFields: { won: true },
     returnFields: {
@@ -11,14 +11,14 @@ export const findLeaderboardItems = async (client, parent, find) => {
     sortBy: { [find]: 1, date: 1 },
   });
 
-  const findPlayers = findAllItems(client, 'users', {
-    findFields: {},
+  const uids = [...new Set(games.map(({ uid }) => uid))];
+
+  const players = await findAllItems(client, 'users', {
+    findFields: { uid: { $in: uids } },
     returnFields: {
       projection: { uid: 1, name: 1 },
     },
   });
-
-  const [games, players] = await Promise.all([findGames, findPlayers]);
 
   const formattedGames = formatLeaderboardGames(games, players);
 
