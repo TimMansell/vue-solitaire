@@ -67,8 +67,6 @@ export const saveGame = async (_, __, { client, variables }) => {
 
   const document = { date, ...game };
 
-  console.log({ document });
-
   insertIntoDb(client, 'games', document);
 
   return { outcome };
