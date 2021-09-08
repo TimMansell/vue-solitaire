@@ -72,47 +72,8 @@ export const saveGame = async (_, __, { client, variables }) => {
   return { outcome };
 };
 
-export const wonGame = async (_, __, { client, variables }) => {
-  const { data } = variables;
-  const date = createISODate();
-  const outcome = gameOutcome({ won: true });
-
-  const document = { date, ...data, won: true, lost: false, completed: true };
-
-  await insertIntoDb(client, 'games', document);
-
-  return { outcome };
-};
-
-export const lostGame = async (_, __, { client, variables }) => {
-  const { data } = variables;
-  const date = createISODate();
-  const outcome = gameOutcome({ lost: true });
-
-  const document = { date, ...data, won: false, lost: true, completed: true };
-
-  await insertIntoDb(client, 'games', document);
-
-  return { outcome };
-};
-
-export const quitGame = async (_, __, { client, variables }) => {
-  const { data } = variables;
-  const date = createISODate();
-  const outcome = gameOutcome({ completed: true });
-
-  const document = { date, ...data, won: false, lost: false, completed: true };
-
-  await insertIntoDb(client, 'games', document);
-
-  return { outcome };
-};
-
 export const mutations = {
   createUser,
   newGame,
   saveGame,
-  wonGame,
-  lostGame,
-  quitGame,
 };
