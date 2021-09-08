@@ -210,6 +210,9 @@ describe('Game State', () => {
     cy.setBoard(foundations).then(() => {
       cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
 
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000);
+
       cy.get('[data-test="stats"]')
         .as('stats')
         .text()
@@ -231,6 +234,7 @@ describe('Game State', () => {
           cy.wrap($value).as('cachedMoves');
         });
 
+      cy.setTimerPaused(true);
       cy.reloadAndWait();
 
       cy.get('@cachedStats').then(($stats) => {

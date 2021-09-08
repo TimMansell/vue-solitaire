@@ -1,7 +1,10 @@
 import numeral from 'numeral';
-import { mockUid } from '../../../src/mockData';
-import foundations from '../../fixtures/boards/fullFoundation.json';
-import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
+import { mockUid, mockNewUid } from '../../../src/mockData';
+
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
+import fullGameMoves from '../../fixtures/moves/fullGame.json';
+import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
+import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
 
 describe('Stats', () => {
   afterEach(() => {
@@ -10,6 +13,8 @@ describe('Stats', () => {
 
   describe('Default', () => {
     beforeEach(() => {
+      localStorage.setItem('luid', mockNewUid);
+
       cy.visitApp();
     });
 
@@ -45,11 +50,9 @@ describe('Stats', () => {
   });
 
   describe('New User', () => {
-    beforeEach(() => {
-      cy.visitApp();
-    });
-
     it('it successfully retrieves 0 games played', () => {
+      cy.visitApp();
+
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
@@ -63,13 +66,13 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played', () => {
+      cy.visitApp();
+
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
 
       cy.cacheStatValues();
-
-      cy.wait('@waitForStatsAPI');
 
       cy.newGame();
 
@@ -89,76 +92,82 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played after lost game', () => {
-      cy.setBoard(noMovesKingColumn).then(() => {
-        cy.get('[data-test="stats"]')
-          .text()
-          .should('equal', '0');
+      cy.task('clearUser', mockNewUid);
 
-        cy.cacheStatValues();
+      localStorage.setItem('luid', mockNewUid);
 
-        cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
-        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+      cy.task('populateDeck', [incompleteGameDeck, mockNewUid]);
 
-        cy.wait('@waitForCreateUserAPI');
+      cy.visitApp({ mockDeck: incompleteGameDeck });
 
-        cy.get('[data-test="game-lost"]').within(() => {
-          cy.get('[data-test="new-game-btn"]').click();
-        });
+      cy.get('[data-test="stats"]')
+        .text()
+        .should('equal', '0');
 
-        cy.wait('@waitForStatsAPI');
+      cy.cacheStatValues();
 
-        cy.get('[data-test="stats"]').should('have.text', 1);
+      cy.runGameWithClicks(incompleteGameMoves);
 
-        cy.get('[data-test="stats-btn"]').click();
-
-        cy.wait('@waitForStatsAPI');
-
-        cy.checkStatsValues({ stat: 'user', values: [1, 0, 1, 0] });
-
-        cy.checkGlobalStatsLost();
+      cy.get('[data-test="game-lost"]').within(() => {
+        cy.get('[data-test="new-game-btn"]').click();
       });
+
+      cy.wait('@waitForCreateUserAPI');
+
+      cy.get('[data-test="stats"]').should('have.text', 1);
+
+      cy.get('[data-test="stats-btn"]').click();
+
+      cy.wait('@waitForStatsAPI');
+
+      cy.checkStatsValues({ stat: 'user', values: [1, 0, 1, 0] });
+
+      cy.checkGlobalStatsLost();
     });
 
     it('it successfully increments games played after won game', () => {
-      cy.setBoard(foundations).then(() => {
-        cy.get('[data-test="stats"]')
-          .text()
-          .should('equal', '0');
+      cy.task('clearUser', mockNewUid);
 
-        cy.cacheStatValues();
+      localStorage.setItem('luid', mockNewUid);
 
-        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
-        cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+      cy.task('populateDeck', [fullGameDeck, mockNewUid]);
 
-        cy.wait('@waitForCreateUserAPI');
+      cy.visitApp({ mockDeck: fullGameDeck });
 
-        cy.get('[data-test="game-won"]').within(() => {
-          cy.get('[data-test="new-game-btn"]').click();
-        });
+      cy.get('[data-test="stats"]')
+        .text()
+        .should('equal', '0');
 
-        cy.wait('@waitForStatsAPI');
+      cy.cacheStatValues();
 
-        cy.get('[data-test="stats"]').should('have.text', 1);
+      cy.runGameWithClicks(fullGameMoves);
 
-        cy.get('[data-test="stats-btn"]').click();
-
-        cy.wait('@waitForStatsAPI');
-
-        cy.checkStatsValues({ stat: 'user', values: [1, 1, 0, 0] });
-
-        cy.checkGlobalStatsWon();
+      cy.get('[data-test="game-won"]').within(() => {
+        cy.get('[data-test="new-game-btn"]').click();
       });
+
+      cy.wait('@waitForCreateUserAPI');
+
+      cy.get('[data-test="stats"]').should('have.text', 1);
+
+      cy.get('[data-test="stats-btn"]').click();
+
+      cy.wait('@waitForStatsAPI');
+
+      cy.checkStatsValues({ stat: 'user', values: [1, 1, 0, 0] });
+
+      cy.checkGlobalStatsWon();
     });
   });
 
   describe('Existing User', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
-
-      cy.visitApp();
     });
 
     it('it successfully retrieves games played', () => {
+      cy.visitApp();
+
       cy.get('[data-test="stats"]').should('not.have.text', '0');
 
       cy.get('[data-test="stats-btn"]').click();
@@ -170,6 +179,8 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played', () => {
+      cy.visitApp();
+
       cy.cacheStatValues();
 
       cy.get('[data-test="stats"]').then(($stats) => {
@@ -211,100 +222,96 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played after lost game', () => {
-      cy.setBoard(noMovesKingColumn).then(() => {
-        cy.cacheStatValues();
+      cy.task('populateDeck', [incompleteGameDeck, mockUid]);
 
-        cy.get('[data-test="stats"]').then(($stats) => {
-          const number = numeral($stats.text()).value();
+      cy.visitApp({ mockDeck: incompleteGameDeck });
 
-          cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
-          cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+      cy.cacheStatValues();
 
-          cy.get('[data-test="game-lost"]').within(() => {
-            cy.get('[data-test="new-game-btn"]').click();
-          });
+      cy.get('[data-test="stats"]').then(($stats) => {
+        const number = numeral($stats.text()).value();
 
-          cy.wait('@waitForStatsAPI');
+        cy.runGameWithClicks(incompleteGameMoves);
 
-          const newNumber = numeral(number + 1).format('0,0');
-
-          cy.get('[data-test="stats"]')
-            .text()
-            .should('equal', newNumber);
+        cy.get('[data-test="game-lost"]').within(() => {
+          cy.get('[data-test="new-game-btn"]').click();
         });
 
-        cy.get('[data-test="stats-btn"]').click();
+        cy.wait('@waitForStatsAPI');
 
-        cy.get('@gamesPlayed').then(($played) => {
-          const $newPlayed = numeral(numeral($played).value() + 1).format(
-            '0,0'
-          );
+        const newNumber = numeral(number + 1).format('0,0');
 
-          cy.get('@gamesWon').then(($won) => {
-            cy.get('@gamesLost').then(($lost) => {
-              const $newLost = numeral(numeral($lost).value() + 1).format(
-                '0,0'
-              );
-              cy.get('@gamesQuit').then(($quit) => {
-                cy.checkStatsValues({
-                  stat: 'user',
-                  values: [$newPlayed, $won, $newLost, $quit],
-                });
+        cy.get('[data-test="stats"]')
+          .text()
+          .should('equal', newNumber);
+      });
+
+      cy.get('[data-test="stats-btn"]').click();
+
+      cy.get('@gamesPlayed').then(($played) => {
+        const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
+
+        cy.get('@gamesWon').then(($won) => {
+          cy.get('@gamesLost').then(($lost) => {
+            const $newLost = numeral(numeral($lost).value() + 1).format('0,0');
+            cy.get('@gamesQuit').then(($quit) => {
+              cy.checkStatsValues({
+                stat: 'user',
+                values: [$newPlayed, $won, $newLost, $quit],
               });
             });
           });
         });
-
-        cy.checkGlobalStatsLost();
       });
+
+      cy.checkGlobalStatsLost();
     });
 
     it('it successfully increments games played after won game', () => {
-      cy.setBoard(foundations).then(() => {
-        cy.cacheStatValues();
+      cy.task('populateDeck', [fullGameDeck, mockUid]);
 
-        cy.get('[data-test="stats"]').then(($stats) => {
-          const number = numeral($stats.text()).value();
+      cy.visitApp({ mockDeck: fullGameDeck });
 
-          cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
-          cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+      cy.cacheStatValues();
 
-          cy.get('[data-test="game-won"]').within(() => {
-            cy.get('[data-test="new-game-btn"]').click();
-          });
+      cy.get('[data-test="stats"]').then(($stats) => {
+        const number = numeral($stats.text()).value();
 
-          cy.wait('@waitForStatsAPI');
+        cy.runGameWithClicks(fullGameMoves);
 
-          const newNumber = numeral(number + 1).format('0,0');
-
-          cy.get('[data-test="stats"]')
-            .text()
-            .should('equal', newNumber);
+        cy.get('[data-test="game-won"]').within(() => {
+          cy.get('[data-test="new-game-btn"]').click();
         });
 
-        cy.get('[data-test="stats-btn"]').click();
+        cy.wait('@waitForStatsAPI');
 
-        cy.get('@gamesPlayed').then(($played) => {
-          const $newPlayed = numeral(numeral($played).value() + 1).format(
-            '0,0'
-          );
+        const newNumber = numeral(number + 1).format('0,0');
 
-          cy.get('@gamesWon').then(($won) => {
-            const $newWon = numeral(numeral($won).value() + 1).format('0,0');
+        cy.get('[data-test="stats"]')
+          .text()
+          .should('equal', newNumber);
+      });
 
-            cy.get('@gamesLost').then(($lost) => {
-              cy.get('@gamesQuit').then(($quit) => {
-                cy.checkStatsValues({
-                  stat: 'user',
-                  values: [$newPlayed, $newWon, $lost, $quit],
-                });
+      cy.get('[data-test="stats-btn"]').click();
+
+      cy.get('@gamesPlayed').then(($played) => {
+        const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
+
+        cy.get('@gamesWon').then(($won) => {
+          const $newWon = numeral(numeral($won).value() + 1).format('0,0');
+
+          cy.get('@gamesLost').then(($lost) => {
+            cy.get('@gamesQuit').then(($quit) => {
+              cy.checkStatsValues({
+                stat: 'user',
+                values: [$newPlayed, $newWon, $lost, $quit],
               });
             });
           });
         });
-
-        cy.checkGlobalStatsWon();
       });
+
+      cy.checkGlobalStatsWon();
     });
   });
 });

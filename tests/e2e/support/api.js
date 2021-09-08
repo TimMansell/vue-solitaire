@@ -57,7 +57,18 @@ Cypress.Commands.add('interceptHistoryAPI', () => {
   });
 });
 
-Cypress.Commands.add('interceptNewGameAPI', (cards) => {
+Cypress.Commands.add('interceptNewGameAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('newGame')) {
+      // eslint-disable-next-line no-param-reassign
+      req.alias = 'waitForNewGameAPI';
+    }
+  });
+});
+
+Cypress.Commands.add('mockNewGameAPI', (cards) => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;
 
@@ -69,6 +80,65 @@ Cypress.Commands.add('interceptNewGameAPI', (cards) => {
           },
         },
       });
+    }
+  });
+});
+
+Cypress.Commands.add('mockStatsAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('GetStats')) {
+      req.reply({
+        data: {
+          userStats: { completed: 1 },
+          globalStats: { completed: 1, players: 1 },
+        },
+      });
+    }
+  });
+});
+
+Cypress.Commands.add('mockSaveGameAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('saveGame')) {
+      req.reply({ data: { saveGame: { outcome: 'Gave Up' } } });
+    }
+  });
+});
+
+Cypress.Commands.add('mockCreateUserAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('createUser')) {
+      req.reply({
+        data: { createUser: { name: 'PhilosophicalAmethystHoverfly' } },
+      });
+    }
+  });
+});
+
+Cypress.Commands.add('mockGetUserAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('query User')) {
+      req.reply({
+        data: { user: { exists: true, name: 'PhilosophicalAmethystHoverfly' } },
+      });
+    }
+  });
+});
+
+Cypress.Commands.add('mockVersionAPI', () => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    if (body?.query.includes('version')) {
+      req.reply({ data: { version: { matches: true } } });
     }
   });
 });

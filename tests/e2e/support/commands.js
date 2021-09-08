@@ -2,19 +2,30 @@ import numeral from 'numeral';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import 'cypress-commands';
 
-Cypress.Commands.add('visitApp', (deck) => {
+Cypress.Commands.add('visitApp', (obj) => {
   cy.interceptStatsAPI();
   cy.interceptCreateUserAPI();
   cy.interceptHistoryAPI();
   cy.interceptLeaderboardAPI();
+  cy.interceptNewGameAPI();
 
-  if (deck) {
-    cy.interceptNewGameAPI(deck);
+  if (obj?.mockDeck) {
+    cy.mockNewGameAPI(obj.mockDeck);
+  }
+
+  if (obj?.mockApi) {
+    cy.mockStatsAPI();
+    cy.mockSaveGameAPI();
+    cy.mockCreateUserAPI();
+    cy.mockGetUserAPI();
+    cy.mockVersionAPI();
   }
 
   cy.visit('/');
 
-  cy.wait('@waitForStatsAPI');
+  if (!obj?.mockApi) {
+    cy.wait('@waitForStatsAPI');
+  }
 });
 
 Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
@@ -38,6 +49,9 @@ Cypress.Commands.add('clearTest', () => {
   cy.clearLocalStorage();
 
   cy.setTimerPaused(true);
+
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(1500);
 });
 
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {

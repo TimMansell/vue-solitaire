@@ -1,57 +1,44 @@
 [
   {
-    "selectedCardId": 3,
+    "selectedCardId": 40,
     "selectedColumn": 0,
-    "isBoard": true
-  },
-  {
-    "selectedCardId": 48,
-    "selectedColumn": 6,
-    "isBoard": true
-  },
-  {
-    "selectedCardId": 47,
-    "selectedColumn": 6,
-    "isBoard": true
-  },
-  {
-    "selectedCardId": 41,
-    "selectedColumn": 6,
-    "isBoard": true
+    "isFoundation": true,
+    "suit": "♦",
+    "value": "A"
   },
   {
     "selectedCardId": 1,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "suit": "♣",
+    "value": "A"
+  },
+  {
+    "selectedCardId": 12,
     "selectedColumn": 0,
-    "isFoundation": true
+    "isBoard": true,
+    "suit": "♣",
+    "value": "Q"
   },
   {
-    "selectedCardId": 27,
-    "selectedColumn": 7,
-    "isBoard": true
+    "selectedCardId": 50,
+    "selectedColumn": 1,
+    "isBoard": true,
+    "suit": "♦",
+    "value": "J"
   },
   {
-    "selectedCardId": 30,
-    "selectedColumn": 5,
-    "isBoard": true
+    "selectedCardId": 9,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "suit": "♣",
+    "value": "9"
   },
   {
-    "selectedCardId": 22,
-    "selectedColumn": 4,
-    "isBoard": true
-  },
-  {
-    "selectedCardId": 43,
-    "selectedColumn": 3,
-    "isBoard": true
-  },
-  {
-    "selectedCardId": 6,
-    "selectedColumn": 4,
-    "isBoard": true
-  },
-  {
-    "selectedCardId": 20,
-    "selectedColumn": 0,
-    "isBoard": true
+    "selectedCardId": 45,
+    "selectedColumn": 6,
+    "isBoard": true,
+    "suit": "♦",
+    "value": "6"
   }
 ]
