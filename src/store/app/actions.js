@@ -4,8 +4,8 @@ import { version } from '../../../package.json';
 const actions = {
   async initApp({ dispatch }, { getStats }) {
     await Promise.all([
-      dispatch('initGame'),
       dispatch('initUser'),
+      dispatch('initGame'),
       dispatch('getUser'),
       dispatch('checkAppVersion', version),
     ]);
@@ -35,9 +35,7 @@ const actions = {
 
     dispatch('initApp', { getStats: false });
   },
-  setGameState({ commit, dispatch }, hasWon) {
-    dispatch('saveGame');
-
+  setGameState({ commit }, hasWon) {
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },
@@ -70,7 +68,7 @@ const actions = {
 
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  async setTimerPaused({ commit }, isPaused) {
+  setTimerPaused({ commit }, isPaused) {
     commit('SET_TIMER_PAUSED', isPaused);
   },
   updateTimer({ commit }) {
@@ -94,7 +92,7 @@ const actions = {
   toggleHistory({ commit }) {
     commit('SHOW_HISTORY');
   },
-  async saveMove({ commit, rootState }, move) {
+  saveMove({ commit, rootState }, move) {
     const { selectedCardId } = rootState.solitaire;
 
     commit('SET_MOVES', {
