@@ -20,8 +20,8 @@ describe('run', () => {
         incompleteGameDeck
       );
 
-      expect(cards.flat()).toHaveLength(51);
-      expect(foundation.flat()).toHaveLength(1);
+      expect(cards.flat()).toHaveLength(50);
+      expect(foundation.flat()).toHaveLength(2);
     });
   });
 });
