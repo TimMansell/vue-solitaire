@@ -1,41 +1,47 @@
-export const won = async (_, __, { client }) => {
-  const db = await client();
+import { countItemsInDb } from './helpers';
 
-  const wonQuery = await db
-    .collection('games')
-    .find({ won: true }, { projection: { won: 1 } });
+export const won = async (_, __, context) => {
+  const { client } = context;
 
-  return wonQuery.count();
+  return countItemsInDb({
+    client,
+    collection: 'games',
+    findFields: { won: true },
+    returnFields: { won: 1 },
+  });
 };
 
-export const lost = async (_, __, { client }) => {
-  const db = await client();
+export const lost = async (_, __, context) => {
+  const { client } = context;
 
-  const lostQuery = await db
-    .collection('games')
-    .find({ lost: true }, { projection: { lost: 1 } });
-
-  return lostQuery.count();
+  return countItemsInDb({
+    client,
+    collection: 'games',
+    findFields: { lost: true },
+    returnFields: { lost: 1 },
+  });
 };
 
-export const completed = async (_, __, { client }) => {
-  const db = await client();
+export const completed = async (_, __, context) => {
+  const { client } = context;
 
-  const completedQuery = await db
-    .collection('games')
-    .find({ completed: true }, { projection: { completed: 1 } });
-
-  return completedQuery.count();
+  return countItemsInDb({
+    client,
+    collection: 'games',
+    findFields: { completed: true },
+    returnFields: { completed: 1 },
+  });
 };
 
-export const players = async (_, __, { client }) => {
-  const db = await client();
+export const players = async (_, __, context) => {
+  const { client } = context;
 
-  const playersQuery = await db
-    .collection('users')
-    .find({}, { projection: { uid: 1 } });
-
-  return playersQuery.count();
+  return countItemsInDb({
+    client,
+    collection: 'users',
+    findFields: {},
+    returnFields: { uid: 1 },
+  });
 };
 
 export const globalStats = {

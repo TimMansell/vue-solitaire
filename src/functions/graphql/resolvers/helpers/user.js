@@ -15,11 +15,11 @@ export const createPlayerName = async (client) => {
     style: 'capital',
   });
 
-  const isPlayerNameInUse = await findItemInDb(client, 'users', {
+  const isPlayerNameInUse = await findItemInDb({
+    client,
+    collection: 'users',
     findFields: { name },
-    returnFields: {
-      projection: { name: 1 },
-    },
+    returnFields: { name: 1 },
   });
 
   if (isPlayerNameInUse) {

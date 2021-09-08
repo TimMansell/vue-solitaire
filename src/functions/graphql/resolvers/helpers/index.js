@@ -7,5 +7,5 @@ export {
   deleteFromDb,
   deleteAllFromDb,
 } from './db';
-export { findLeaderboardItems, findHistoryItems } from './find';
+export { findLeaderboardItems } from './leaderboards';
 export { createPlayerName } from './user';
