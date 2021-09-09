@@ -1,6 +1,6 @@
 import { countItemsInDb } from './helpers';
 
-export const won = async (_, __, context) => {
+export const won = (_, __, context) => {
   const { client } = context;
 
   return countItemsInDb({
@@ -11,7 +11,7 @@ export const won = async (_, __, context) => {
   });
 };
 
-export const lost = async (_, __, context) => {
+export const lost = (_, __, context) => {
   const { client } = context;
 
   return countItemsInDb({
@@ -22,7 +22,7 @@ export const lost = async (_, __, context) => {
   });
 };
 
-export const completed = async (_, __, context) => {
+export const completed = (_, __, context) => {
   const { client } = context;
 
   return countItemsInDb({
@@ -33,7 +33,7 @@ export const completed = async (_, __, context) => {
   });
 };
 
-export const players = async (_, __, context) => {
+export const players = (_, __, context) => {
   const { client } = context;
 
   return countItemsInDb({

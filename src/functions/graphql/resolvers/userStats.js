@@ -1,6 +1,6 @@
 import { countItemsInDb } from './helpers';
 
-export const won = async (parent, _, context) => {
+export const won = (parent, _, context) => {
   const { client } = context;
 
   return countItemsInDb({
@@ -11,7 +11,7 @@ export const won = async (parent, _, context) => {
   });
 };
 
-export const lost = async (parent, _, context) => {
+export const lost = (parent, _, context) => {
   const { client } = context;
 
   return countItemsInDb({
@@ -22,7 +22,7 @@ export const lost = async (parent, _, context) => {
   });
 };
 
-export const completed = async (parent, _, context) => {
+export const completed = (parent, _, context) => {
   const { client } = context;
 
   return countItemsInDb({
