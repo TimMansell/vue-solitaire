@@ -10,7 +10,7 @@ export const typeDefs = gql`
     leaderboards(offset: Int!, limit: Int!): Leaderboards!
   }
   type Mutation {
-    createUser(data: UserInput!): User!
+    createUser(uid: String!): User!
     newGame(uid: String!): Deck!
     saveGame(uid: String!, moves: [moveInput!]!, time: Int!): GameState!
   }
@@ -24,9 +24,6 @@ export const typeDefs = gql`
     name: String
     exists: Boolean
     history(offset: Int!, limit: Int!): [Game]!
-  }
-  input UserInput {
-    uid: String!
   }
   type Deck {
     cards: [Card]

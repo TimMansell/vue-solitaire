@@ -8,6 +8,7 @@ export const createUser = async (uid) => {
         mutation CreateAUser($data: UserInput!) {
           createUser(data: $data) {
             name
+            exists
           }
         }
       `,
