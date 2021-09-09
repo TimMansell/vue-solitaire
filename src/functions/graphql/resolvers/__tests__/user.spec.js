@@ -19,27 +19,19 @@ tzMock.register('UTC');
 describe('Graphql User Resolvers', () => {
   describe('exists', () => {
     it('should return exists = true', async () => {
-      const mockContext = wrapClient(
-        createMockFind({
-          ...createMockCount(1),
-        })
-      );
+      const mockContext = wrapClient(createMockFindOne(mockPlayerName));
 
       const result = await exists({ uid: mockUid }, '', mockContext);
 
-      expect(result).toEqual(1);
+      expect(result).toEqual(true);
     });
 
     it('should return exists = false', async () => {
-      const mockContext = wrapClient(
-        createMockFind({
-          ...createMockCount(0),
-        })
-      );
+      const mockContext = wrapClient(createMockFindOne(null));
 
       const result = await exists({ uid: mockUid }, '', mockContext);
 
-      expect(result).toEqual(0);
+      expect(result).toEqual(false);
     });
   });
 

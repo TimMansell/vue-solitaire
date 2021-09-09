@@ -5,7 +5,7 @@ import {
   mockLeaderboardsTimes,
   mockPlayers,
 } from '@/mockData';
-import { findLeaderboardItems } from '../find';
+import { findLeaderboardItems } from '../leaderboards';
 import {
   wrapClient,
   createMockFind,
@@ -22,7 +22,11 @@ describe('Graphql Resolver Helpers', () => {
       })
     );
 
-    const result = await findLeaderboardItems(client, '', 'moves');
+    const result = await findLeaderboardItems({
+      context: { client },
+      parent: '',
+      find: 'moves',
+    });
 
     expect(result).toEqual(mockLeaderboardsMoves);
   });
@@ -35,7 +39,11 @@ describe('Graphql Resolver Helpers', () => {
       })
     );
 
-    const result = await findLeaderboardItems(client, '', 'time');
+    const result = await findLeaderboardItems({
+      context: { client },
+      parent: '',
+      find: 'time',
+    });
 
     expect(result).toEqual(mockLeaderboardsTimes);
   });

@@ -1,10 +1,8 @@
-import { mockUid, mockPlayers, mockPlayerName } from '@/mockData';
+import { mockUid, mockPlayerName } from '@/mockData';
 import { createUser, newGame, saveGame } from '../mutations';
 import {
   wrapClient,
-  createMockFind,
   createMockFindOne,
-  createMockSort,
   createMockInsertOne,
   createMockDeleteOne,
 } from '../__mocks__/mockDb';
@@ -23,18 +21,13 @@ describe('Graphql Mutation Resolvers', () => {
   describe('Users', () => {
     it('createUser', async () => {
       const mockClient = wrapClient({
-        ...createMockFind({
-          ...createMockSort(mockPlayers),
-        }),
         ...createMockInsertOne({}),
       });
 
       const mockContext = {
         ...mockClient,
         variables: {
-          data: {
-            uid: mockUid,
-          },
+          uid: mockUid,
         },
       };
 
