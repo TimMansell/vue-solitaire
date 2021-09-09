@@ -5,7 +5,6 @@ import {
   mockPlayerName,
   mockLeaderboardsMoves,
   mockStats,
-  mockVersionNumber,
 } from '@/mockData';
 
 export const getUser = (uid) => {
@@ -16,11 +15,6 @@ export const getUser = (uid) => {
 
   return response;
 };
-
-export const getStatsCount = () => ({
-  userStats: { ...mockStats },
-  globalStats: { ...mockStats },
-});
 
 export const getStats = () => ({
   userStats: { ...mockStats },
@@ -35,10 +29,6 @@ export const createUser = (uid) => {
 };
 
 export const newGame = () => ({ cards: mockDeck });
-
-export const checkAppVersion = (localVersion) => ({
-  matches: mockVersionNumber === localVersion,
-});
 
 export const getUsersGames = () => ({
   history: mockHistory,
