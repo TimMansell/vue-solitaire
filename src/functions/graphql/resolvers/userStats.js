@@ -3,8 +3,6 @@ import { countItemsInDb } from './helpers';
 export const won = async (parent, _, context) => {
   const { client } = context;
 
-  console.log({ parent });
-
   return countItemsInDb({
     client,
     collection: 'games',

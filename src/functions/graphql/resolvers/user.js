@@ -1,7 +1,13 @@
-import { findItemInDb, findItemsInDb, countItemsInDb } from './helpers';
-import { formatHistoryGames } from './helpers/find/find';
+import {
+  findItemInDb,
+  findItemsInDb,
+  countItemsInDb,
+  formatHistoryGames,
+} from './helpers';
 
-export const exists = async (parent, __, { client }) => {
+export const exists = async (parent, __, context) => {
+  const { client } = context;
+
   const user = await findItemInDb({
     client,
     collection: 'users',

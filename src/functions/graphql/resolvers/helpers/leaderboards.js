@@ -1,4 +1,4 @@
-import { formatLeaderboardGames } from './find/find';
+import { formatLeaderboardGames } from './format';
 import { findItemsInDb, findAllItems } from './db';
 
 // eslint-disable-next-line import/prefer-default-export

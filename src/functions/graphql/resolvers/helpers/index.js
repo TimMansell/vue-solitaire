@@ -8,4 +8,4 @@ export {
   deleteAllFromDb,
 } from './db';
 export { findLeaderboardItems } from './leaderboards';
-export { createPlayerName } from './user';
+export { formatHistoryGames } from './format';

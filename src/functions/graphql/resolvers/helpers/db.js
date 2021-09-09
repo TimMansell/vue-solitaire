@@ -1,4 +1,4 @@
-export const insertIntoDb = async (client, collection, document) => {
+export const insertIntoDb = async ({ client, collection, document }) => {
   const db = await client();
 
   return db.collection(collection).insertOne({ ...document });
@@ -14,7 +14,7 @@ export const countItemsInDb = async ({
 
   return db
     .collection(collection)
-    .find(findFields, { projection: { ...returnFields } })
+    .find({ ...findFields }, { projection: { ...returnFields } })
     .count();
 };
 
@@ -29,8 +29,8 @@ export const findAllItems = async ({
 
   return db
     .collection(collection)
-    .find(findFields, { projection: { ...returnFields } })
-    .sort(sortBy)
+    .find({ ...findFields }, { projection: { ...returnFields } })
+    .sort({ ...sortBy })
     .toArray();
 };
 
@@ -47,10 +47,10 @@ export const findItemsInDb = async ({
 
   return db
     .collection(collection)
-    .find(findFields, { projection: { ...returnFields } })
+    .find({ ...findFields }, { projection: { ...returnFields } })
     .skip(offset)
     .limit(limit)
-    .sort(sortBy)
+    .sort({ ...sortBy })
     .toArray();
 };
 
@@ -64,13 +64,20 @@ export const findItemInDb = async ({
 
   return db
     .collection(collection)
-    .findOne(findFields, { projection: { ...returnFields } });
+    .findOne({ ...findFields }, { projection: { ...returnFields } });
 };
 
-export const deleteFromDb = async (client, collection, document) => {
+export const deleteFromDb = async ({
+  client,
+  collection,
+  findFields,
+  sortBy,
+}) => {
   const db = await client();
 
-  return db.collection(collection).deleteOne({ ...document });
+  return db
+    .collection(collection)
+    .findOneAndDelete({ ...findFields }, { sort: { ...sortBy } });
 };
 
 export const deleteAllFromDb = async (client, collection, document) => {
