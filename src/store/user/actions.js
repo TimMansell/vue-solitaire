@@ -14,13 +14,13 @@ const actions = {
     commit('SET_USER_NAME', name);
     commit('SET_USER_EXISTS', exists);
   },
-  async createUser({ state }) {
+  async createUser({ state, dispatch }) {
     const { luid, existsOnServer } = state;
 
     if (!existsOnServer) {
       const user = await createUser(luid);
 
-      dispatchEvent('setUser', user);
+      dispatch('setUser', user);
     }
   },
   async getAllGames({ commit, state }, params) {
