@@ -41,5 +41,5 @@ export const createMockInsertOne = (value) => ({
 });
 
 export const createMockDeleteOne = (value) => ({
-  deleteOne: () => value,
+  findOneAndDelete: () => value,
 });
