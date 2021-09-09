@@ -6,7 +6,7 @@ export const getInitialData = async (uid, localVersion) => {
   try {
     const response = await apollo.query({
       query: gql`
-        query User($uid: String!, $localVersion: String!) {
+        query GetInitialData($uid: String!, $localVersion: String!) {
           user(uid: $uid) {
             exists
             name
