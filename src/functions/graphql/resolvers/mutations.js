@@ -33,7 +33,7 @@ export const newGame = async (_, __, context) => {
   const date = createISODate();
   const cards = initCards();
 
-  deleteFromDb({
+  await deleteFromDb({
     client,
     collection: 'decks',
     findFields: { ...variables },
@@ -65,7 +65,7 @@ export const saveGame = async (_, __, context) => {
   const { isGameFinished, hasMoves } = checkGameState(moves, cards);
 
   const game = {
-    uid,
+    ...variables,
     moves: moves.length,
     won: isGameFinished && !hasMoves,
     lost: !isGameFinished && !hasMoves,
