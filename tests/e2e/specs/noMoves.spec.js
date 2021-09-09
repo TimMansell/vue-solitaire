@@ -85,7 +85,7 @@ describe('No moves', () => {
         '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
       ).click();
 
-      cy.wait('@waitForStatsAPI');
+      cy.wait('@waitForNewGameAPI');
 
       cy.get('[data-test="game-lost"]').should('not.exist');
     });

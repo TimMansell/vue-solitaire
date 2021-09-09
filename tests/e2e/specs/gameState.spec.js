@@ -79,10 +79,6 @@ describe('Game State', () => {
     cy.setBoard(foundations).then(() => {
       cy.newGame();
 
-      cy.wait('@waitForStatsAPI');
-
-      cy.reloadAndWait();
-
       cy.get('[data-test="columns"]').within(() => {
         cy.get('[data-test="column-card-placeholder"]').should('not.exist');
       });

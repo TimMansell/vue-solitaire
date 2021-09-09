@@ -1,4 +1,6 @@
-import { mockUid } from '../../../src/mockData';
+import { mockUid, mockNewUid } from '../../../src/mockData';
+import quitGameDeck from '../../fixtures/decks/quitGame.json';
+import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
 describe('History', () => {
   afterEach(() => {
@@ -24,11 +26,8 @@ describe('History', () => {
   });
 
   describe('New user', () => {
-    beforeEach(() => {
-      cy.visitApp();
-    });
-
     it('it shows no game message', () => {
+      cy.visitApp();
       cy.get('[data-test="history-btn"]').click();
 
       cy.get('[data-test="game-history"]').should('not.exist');
@@ -36,21 +35,47 @@ describe('History', () => {
     });
 
     it('it shows game history after first game played', () => {
-      cy.newGame();
+      cy.task('clearUser', mockNewUid);
 
-      cy.wait('@waitForStatsAPI');
+      localStorage.setItem('luid', mockNewUid);
 
-      cy.get('[data-test="history-btn"]').click();
+      cy.task('populateDeck', [quitGameDeck, mockNewUid]);
 
-      cy.wait('@waitForHistoryAPI');
+      cy.visitApp({ mockDeck: quitGameDeck });
 
-      cy.get('[data-test="table-row"]').should('have.length', 1);
+      cy.runGameWithClicks(quitGameMoves);
 
-      cy.checkCorrectHistoryPages(1, 25);
+      cy.get('[data-test="new-game-btn"]').click();
 
-      cy.checkCorrectHistoryActivePage(1);
+      cy.get('[data-test="timer"]').then(($timer) => {
+        const time = $timer.text();
 
-      cy.checkCorrectHistoryShowingGames();
+        cy.get('[data-test="moves"]').then(($moves) => {
+          const moves = $moves.text();
+
+          cy.get('[data-test="game-overlay-btns"]').within(() => {
+            cy.get('[data-test="new-game-btn"]').click();
+          });
+
+          cy.get('[data-test="history-btn"]').click();
+
+          cy.get('[data-test="table-row"]').should('have.length', 1);
+          cy.get('[data-test="table-row"] td')
+            .eq(4)
+            .text()
+            .should('equal', moves);
+          cy.get('[data-test="table-row"] td')
+            .eq(5)
+            .text()
+            .should('equal', time);
+
+          cy.checkCorrectHistoryPages(1, 25);
+
+          cy.checkCorrectHistoryActivePage(1);
+
+          cy.checkCorrectHistoryShowingGames();
+        });
+      });
     });
   });
 

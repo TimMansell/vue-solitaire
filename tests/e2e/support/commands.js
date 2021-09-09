@@ -3,7 +3,7 @@ import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 import 'cypress-commands';
 
 Cypress.Commands.add('visitApp', (obj) => {
-  cy.interceptStatsAPI();
+  cy.interceptInitialDataAPI();
   cy.interceptCreateUserAPI();
   cy.interceptHistoryAPI();
   cy.interceptLeaderboardAPI();
@@ -13,18 +13,20 @@ Cypress.Commands.add('visitApp', (obj) => {
     cy.mockNewGameAPI(obj.mockDeck);
   }
 
+  if (obj?.mockInitialApi) {
+    cy.mockInitialDataAPI(obj.mockInitialApi);
+  }
+
   if (obj?.mockApi) {
-    cy.mockStatsAPI();
     cy.mockSaveGameAPI();
     cy.mockCreateUserAPI();
     cy.mockGetUserAPI();
-    cy.mockVersionAPI();
   }
 
   cy.visit('/');
 
-  if (!obj?.mockApi) {
-    cy.wait('@waitForStatsAPI');
+  if (!obj) {
+    cy.wait('@waitForNewGameAPI');
   }
 });
 
@@ -38,11 +40,11 @@ Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
 });
 
 Cypress.Commands.add('reloadAndWait', () => {
-  cy.interceptStatsAPI();
+  cy.interceptInitialDataAPI();
 
   cy.reload();
 
-  cy.wait('@waitForStatsAPI');
+  cy.wait('@waitForInitialDataAPI');
 });
 
 Cypress.Commands.add('clearTest', () => {

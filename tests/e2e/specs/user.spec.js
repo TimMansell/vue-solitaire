@@ -27,7 +27,7 @@ describe('User', () => {
 
         cy.newGame();
 
-        cy.wait('@waitForStatsAPI');
+        cy.wait('@waitForInitialDataAPI');
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
@@ -46,11 +46,11 @@ describe('User', () => {
         cy.newGame();
 
         cy.wait('@waitForCreateUserAPI');
-        cy.wait('@waitForStatsAPI');
+        cy.wait('@waitForInitialDataAPI');
 
         cy.newGame();
 
-        cy.wait('@waitForStatsAPI');
+        cy.wait('@waitForInitialDataAPI');
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
@@ -82,7 +82,7 @@ describe('User', () => {
 
         cy.newGame();
 
-        cy.wait('@waitForStatsAPI');
+        cy.wait('@waitForInitialDataAPI');
 
         cy.get('@playerCount')
           .text()
