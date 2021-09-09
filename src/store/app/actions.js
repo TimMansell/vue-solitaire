@@ -1,32 +1,39 @@
-import { checkAppVersion, saveGame } from '@/services/db';
-import { version } from '../../../package.json';
+import { saveGame, getInitialData } from '@/services/db';
+import { version as localVersion } from '../../../package.json';
 
 const actions = {
-  initApp({ dispatch }) {
-    dispatch('initUser');
+  async initApp({ dispatch }) {
+    const uid = await dispatch('initUser');
+
+    const { user, userStats, globalStats, version } = await getInitialData(
+      uid,
+      localVersion
+    );
+
     dispatch('initGame');
-    dispatch('getUser');
-    dispatch('checkAppVersion', version);
-    dispatch('getStatsCount');
+    dispatch('setUser', user);
+    dispatch('setStatsCount', { userStats, globalStats });
+    dispatch('setAppVersion', version);
   },
-  restartApp({ commit, dispatch }) {
+  restartApp({ commit }) {
     commit('RESTART_APP');
-
-    dispatch('restartGame');
-    dispatch('checkAppVersion', version);
   },
-  async checkAppVersion({ commit }, localVersionNumber) {
-    const { matches } = await checkAppVersion(localVersionNumber);
-
+  setAppVersion({ commit }, { matches }) {
     commit('SET_VERSION_MATCH', matches);
   },
   setGameLoading({ commit }, isGameLoading) {
     commit('SET_GAME_LOADING', isGameLoading);
     commit('SET_TIMER_PAUSED', isGameLoading);
   },
-  newGame({ dispatch }) {
-    dispatch('saveGame');
-    dispatch('restartApp');
+  async newGame({ dispatch }) {
+    await Promise.all([
+      dispatch('saveGame'),
+      dispatch('restartApp'),
+      dispatch('restartGame'),
+    ]);
+
+    dispatch('initApp');
+    dispatch('initGame');
   },
   setGameState({ commit }, hasWon) {
     commit('SET_GAME_WON', hasWon);
@@ -36,12 +43,7 @@ const actions = {
     const { luid } = rootState.user;
     const { game } = state;
 
-    const newGame = saveGame(luid, game);
-    const newUser = dispatch('createUser');
-
-    await Promise.all([newGame, newUser]);
-
-    dispatch('getStatsCount');
+    await Promise.all([saveGame(luid, game), dispatch('createUser')]);
   },
   setGameInactive({ commit }) {
     const isGamePaused = {

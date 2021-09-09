@@ -2,34 +2,15 @@ import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { leaderboardsQuery } from './helpers';
 
-export const getUser = async (uid) => {
+export const getInitialData = async (uid, localVersion) => {
   try {
     const response = await apollo.query({
       query: gql`
-        query User($uid: String!) {
+        query User($uid: String!, $localVersion: String!) {
           user(uid: $uid) {
             exists
             name
           }
-        }
-      `,
-      variables: {
-        uid,
-      },
-      fetchPolicy: 'no-cache',
-    });
-
-    return response.data.user;
-  } catch (error) {
-    return { name: '', exists: false };
-  }
-};
-
-export const getStatsCount = async (uid) => {
-  try {
-    const response = await apollo.query({
-      query: gql`
-        query GetStats($uid: String!) {
           userStats(uid: $uid) {
             completed
           }
@@ -37,10 +18,14 @@ export const getStatsCount = async (uid) => {
             completed
             players
           }
+          version(localVersion: $localVersion) {
+            matches
+          }
         }
       `,
       variables: {
         uid,
+        localVersion,
       },
       fetchPolicy: 'no-cache',
     });
@@ -48,8 +33,15 @@ export const getStatsCount = async (uid) => {
     return response.data;
   } catch (error) {
     return {
+      user: {
+        name: '',
+        exists: false,
+      },
       userStats: {},
       globalStats: {},
+      version: {
+        matches: true,
+      },
     };
   }
 };
@@ -83,26 +75,6 @@ export const getStats = async (uid) => {
       userStats: {},
       globalStats: {},
     };
-  }
-};
-
-export const checkAppVersion = async (localVersion) => {
-  try {
-    const response = await apollo.query({
-      query: gql`
-        query CheckVersion($localVersion: String!) {
-          version(localVersion: $localVersion) {
-            matches
-          }
-        }
-      `,
-      variables: { localVersion },
-      fetchPolicy: 'no-cache',
-    });
-
-    return response.data.version;
-  } catch (error) {
-    return true;
   }
 };
 

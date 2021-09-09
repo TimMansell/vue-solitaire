@@ -1,8 +1,6 @@
 export {
-  getUser,
+  getInitialData,
   getStats,
-  getStatsCount,
-  checkAppVersion,
   getUsersGames,
   getLeaderboards,
 } from './queries';
