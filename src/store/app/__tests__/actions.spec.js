@@ -1,8 +1,6 @@
-import { mockVersionNumber } from '@/mockData';
 import actions from '../actions';
 
 const {
-  checkAppVersion,
   setGameInactive,
   toggleGamePaused,
   setTimerPaused,
@@ -17,20 +15,6 @@ describe('App Store', () => {
 
   beforeEach(() => {
     commit = jest.fn();
-  });
-
-  it('checkAppVersion - same version', async () => {
-    await checkAppVersion({ commit }, mockVersionNumber);
-
-    expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', true);
-  });
-
-  it('checkAppVersion - different versions', async () => {
-    const version = '0.0.1';
-
-    await checkAppVersion({ commit }, version);
-
-    expect(commit).toHaveBeenCalledWith('SET_VERSION_MATCH', false);
   });
 
   it('setGameInactive', () => {

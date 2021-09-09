@@ -1,7 +1,7 @@
 import { mockUid, mockLeaderboardsMoves, mockStats } from '@/mockData';
 import actions from '../actions';
 
-const { getStatsCount, getStats, getLeaderboards } = actions;
+const { getStats, getLeaderboards } = actions;
 
 const rootState = {
   user: {
@@ -16,14 +16,6 @@ describe('Stats Store', () => {
 
   beforeEach(() => {
     commit = jest.fn();
-  });
-
-  it('getStatsCount', async () => {
-    await getStatsCount({ commit, rootState });
-
-    expect(commit).toHaveBeenCalledWith('SET_USER_GAME_COUNT', mockStats);
-    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_GAME_COUNT', mockStats);
-    expect(commit).toHaveBeenCalledWith('SET_GLOBAL_PLAYER_COUNT', mockStats);
   });
 
   it('getStats', async () => {
