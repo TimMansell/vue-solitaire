@@ -1,14 +1,13 @@
-import { mockUid } from '../../../src/mockData';
-import foundations from '../../fixtures/boards/fullFoundation.json';
-import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
+import fullGameMoves from '../../fixtures/moves/fullGame.json';
+import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
+import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
+import quitGameDeck from '../../fixtures/decks/quitGame.json';
+import quitGameMoves from '../../fixtures/moves/quitGame.json';
+import emptyColumnDeck from '../../fixtures/decks/emptyColumn.json';
+import emptyColumnMoves from '../../fixtures/moves/emptyColumn.json';
 
 describe('Game State', () => {
-  beforeEach(() => {
-    localStorage.setItem('luid', mockUid);
-
-    cy.visitApp();
-  });
-
   afterEach(() => {
     cy.clearTest();
   });
@@ -17,6 +16,8 @@ describe('Game State', () => {
     let initalCard1;
     let initialCard2;
     let initialCard3;
+
+    cy.visitApp({ mockDeck: fullGameDeck });
 
     cy.get('[data-test="column-0"]').within(() => {
       cy.get('[data-test^="card"]')
@@ -42,7 +43,7 @@ describe('Game State', () => {
         });
     });
 
-    cy.reloadAndWait();
+    cy.reload();
 
     cy.get('[data-test="column-0"]').within(() => {
       cy.get('[data-test^="card"]')
@@ -76,16 +77,20 @@ describe('Game State', () => {
   });
 
   it('clicking on new game sets new board state', () => {
-    cy.setBoard(foundations).then(() => {
-      cy.newGame();
+    cy.visitApp({ mockDeck: emptyColumnDeck });
 
-      cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="column-card-placeholder"]').should('not.exist');
-      });
+    cy.runGameWithClicks(emptyColumnMoves);
+
+    cy.newGame();
+
+    cy.get('[data-test="columns"]').within(() => {
+      cy.get('[data-test="column-card-placeholder"]').should('not.exist');
     });
   });
 
   it('clicking on card then refreshing page should highlight card, then unhighlight card', () => {
+    cy.visitApp({ mockDeck: fullGameDeck });
+
     cy.get('[data-test="column-0"]').within(() => {
       cy.get('[data-test^="card"]')
         .eq(6)
@@ -93,7 +98,7 @@ describe('Game State', () => {
         .should('have.class', 'card--is-selected');
     });
 
-    cy.reloadAndWait();
+    cy.reload();
 
     cy.get('[data-test="column-0"]').within(() => {
       cy.get('[data-test^="card"]')
@@ -105,37 +110,37 @@ describe('Game State', () => {
   });
 
   it('refreshing page on game won shows game won state', () => {
-    cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
-      cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+    cy.visitApp({ mockDeck: fullGameDeck });
 
-      cy.get('[data-test="game-won"]').should('be.visible');
+    cy.runGameWithClicks(fullGameMoves);
 
-      cy.reloadAndWait();
+    cy.get('[data-test="game-won"]').should('be.visible');
 
-      cy.get('[data-test="game-won"]').should('be.visible');
-    });
+    cy.reload();
+
+    cy.get('[data-test="game-won"]').should('be.visible');
   });
 
   it('refreshing page on game lost shows game lost state', () => {
-    cy.setBoard(noMovesKingColumn).then(() => {
-      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
-      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+    cy.visitApp({ mockDeck: incompleteGameDeck });
 
-      cy.get('[data-test="game-lost"]').should('be.visible');
+    cy.runGameWithClicks(incompleteGameMoves);
 
-      cy.reloadAndWait();
+    cy.get('[data-test="game-lost"]').should('be.visible');
 
-      cy.get('[data-test="game-lost"]').should('be.visible');
-    });
+    cy.reload();
+
+    cy.get('[data-test="game-lost"]').should('be.visible');
   });
 
   it('refreshing page on leaderboards shows leaderboards', () => {
+    cy.visitApp({ mockDeck: fullGameDeck });
+
     cy.get('[data-test="leaderboards-btn"]').click();
 
     cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
 
-    cy.reloadAndWait();
+    cy.reload();
 
     cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
 
@@ -143,16 +148,20 @@ describe('Game State', () => {
   });
 
   it('refreshing page on how to play shows how to play', () => {
+    cy.visitApp({ mockDeck: fullGameDeck });
+
     cy.get('[data-test="game-rules-btn"]').click();
 
     cy.get('[data-test="rules-overlay"]').should('be.visible');
 
-    cy.reloadAndWait();
+    cy.reload();
 
     cy.get('[data-test="rules-overlay"]').should('be.visible');
   });
 
   it('should pause when page is automatically hidden', () => {
+    cy.visitApp({ mockDeck: fullGameDeck });
+
     cy.document().then((doc) => {
       cy.stub(doc, 'visibilityState').value('hidden');
     });
@@ -163,93 +172,95 @@ describe('Game State', () => {
   });
 
   it('refreshing page on game paused shows game paused state', () => {
+    cy.visitApp({ mockDeck: fullGameDeck });
+
     cy.get('[data-test="pause-game-btn"]').click();
 
     cy.get('[data-test="game-paused"]').should('be.visible');
 
-    cy.reloadAndWait();
+    cy.reload();
 
     cy.get('[data-test="game-paused"]').should('be.visible');
   });
 
   it('refreshing page on new game shows new game state', () => {
-    cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="new-game-btn"]').click();
+    cy.visitApp({ mockDeck: fullGameDeck });
 
-      cy.reloadAndWait();
+    cy.get('[data-test="new-game-btn"]').click();
 
-      cy.get('[data-test="game-new"]').should('be.visible');
-    });
+    cy.reload();
+
+    cy.get('[data-test="game-new"]').should('be.visible');
   });
 
   it('refreshing page on history shows history state', () => {
+    cy.visitApp({ mockDeck: fullGameDeck });
+
     cy.get('[data-test="history-btn"]').click();
 
     cy.get('[data-test="history-overlay"]').should('exist');
 
-    cy.reloadAndWait();
+    cy.reload();
 
     cy.get('[data-test="history-overlay"]').should('exist');
   });
 
   it('should show stats overlay on page refresh', () => {
+    cy.visitApp({ mockDeck: fullGameDeck });
+
     cy.get('[data-test="stats-btn"]').click();
 
     cy.get('[data-test="stats-overlay"]').should('exist');
 
-    cy.reloadAndWait();
+    cy.reload();
 
     cy.get('[data-test="stats-overlay"]').should('exist');
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
-    cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
+    cy.visitApp({ mockDeck: quitGameDeck });
 
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000);
+    cy.runGameWithClicks(quitGameMoves);
 
-      cy.get('[data-test="stats"]')
-        .as('stats')
-        .text()
-        .then(($value) => {
-          cy.wrap($value).as('cachedStats');
-        });
-
-      cy.get('[data-test="timer"]')
-        .as('timer')
-        .text()
-        .then(($value) => {
-          cy.wrap($value).as('cachedTimer');
-        });
-
-      cy.get('[data-test="moves"]')
-        .as('moves')
-        .text()
-        .then(($value) => {
-          cy.wrap($value).as('cachedMoves');
-        });
-
-      cy.setTimerPaused(true);
-      cy.reloadAndWait();
-
-      cy.get('@cachedStats').then(($stats) => {
-        cy.get('@stats')
-          .text()
-          .should('equal', $stats);
+    cy.get('[data-test="stats"]')
+      .as('stats')
+      .text()
+      .then(($value) => {
+        cy.wrap($value).as('cachedStats');
       });
 
-      cy.get('@cachedTimer').then(($timer) => {
-        cy.get('@timer')
-          .text()
-          .should('equal', $timer);
+    cy.get('[data-test="timer"]')
+      .as('timer')
+      .text()
+      .then(($value) => {
+        cy.wrap($value).as('cachedTimer');
       });
 
-      cy.get('@cachedMoves').then(($moves) => {
-        cy.get('@moves')
-          .text()
-          .should('equal', $moves);
+    cy.get('[data-test="moves"]')
+      .as('moves')
+      .text()
+      .then(($value) => {
+        cy.wrap($value).as('cachedMoves');
       });
+
+    cy.reload();
+
+    cy.get('@cachedStats').then(($stats) => {
+      cy.get('@stats')
+        .text()
+        .should('equal', $stats);
+    });
+
+    cy.get('@cachedTimer').then(($timer) => {
+      cy.get('@timer')
+        .text()
+        .should('equal', $timer);
+    });
+
+    cy.get('@cachedMoves').then(($moves) => {
+      cy.get('@moves')
+        .text()
+        .should('equal', $moves);
     });
   });
 });
