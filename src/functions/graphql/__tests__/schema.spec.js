@@ -226,7 +226,7 @@ describe('Graphql Schema', () => {
     it('createUser', async () => {
       const query = `
       mutation {
-        createUser(data: {uid: "1"}) {
+        createUser(uid: "1") {
           name
         }
       }

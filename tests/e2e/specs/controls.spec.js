@@ -21,6 +21,8 @@ describe('Controls', () => {
 
       cy.newGame();
 
+      cy.wait('@waitForNewGameAPI');
+
       cy.get('[data-test="foundation-0"]').shouldNotContain(['A♥']);
 
       cy.get('[data-card-selected="true"]').should('not.exist');

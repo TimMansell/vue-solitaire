@@ -1,18 +1,3 @@
-Cypress.Commands.add('interceptVersionAPI', ({ matches }) => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('version')) {
-      // eslint-disable-next-line no-param-reassign
-      req.alias = 'waitForVersionAPI';
-
-      req.reply({
-        data: { version: { matches } },
-      });
-    }
-  });
-});
-
 Cypress.Commands.add('interceptLeaderboardAPI', () => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;
@@ -24,13 +9,13 @@ Cypress.Commands.add('interceptLeaderboardAPI', () => {
   });
 });
 
-Cypress.Commands.add('interceptStatsAPI', () => {
+Cypress.Commands.add('interceptInitialDataAPI', () => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;
 
-    if (body?.query.includes('query GetStats')) {
+    if (body?.query.includes('query GetInitialData')) {
       // eslint-disable-next-line no-param-reassign
-      req.alias = 'waitForStatsAPI';
+      req.alias = 'waitForInitialDataAPI';
     }
   });
 });
@@ -61,9 +46,36 @@ Cypress.Commands.add('interceptNewGameAPI', () => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;
 
-    if (body?.query.includes('newGame')) {
+    if (body?.query.includes('mutation NewGame')) {
       // eslint-disable-next-line no-param-reassign
       req.alias = 'waitForNewGameAPI';
+    }
+  });
+});
+
+Cypress.Commands.add('mockInitialDataAPI', ({ version }) => {
+  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
+    const { body } = req;
+
+    console.log({ version });
+
+    if (body?.query.includes('query GetInitialData')) {
+      req.reply({
+        data: {
+          user: {
+            exists: true,
+            name: 'ExpectedAmberWoodpecker',
+          },
+          userStats: {
+            completed: 17,
+          },
+          globalStats: {
+            completed: 17942,
+            players: 3544,
+          },
+          version,
+        },
+      });
     }
   });
 });
@@ -78,21 +90,6 @@ Cypress.Commands.add('mockNewGameAPI', (cards) => {
           newGame: {
             cards,
           },
-        },
-      });
-    }
-  });
-});
-
-Cypress.Commands.add('mockStatsAPI', () => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('GetStats')) {
-      req.reply({
-        data: {
-          userStats: { completed: 1 },
-          globalStats: { completed: 1, players: 1 },
         },
       });
     }
@@ -129,16 +126,6 @@ Cypress.Commands.add('mockGetUserAPI', () => {
       req.reply({
         data: { user: { exists: true, name: 'PhilosophicalAmethystHoverfly' } },
       });
-    }
-  });
-});
-
-Cypress.Commands.add('mockVersionAPI', () => {
-  cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-    const { body } = req;
-
-    if (body?.query.includes('version')) {
-      req.reply({ data: { version: { matches: true } } });
     }
   });
 });

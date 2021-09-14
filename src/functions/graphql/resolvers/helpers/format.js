@@ -1,7 +1,7 @@
-import { formatDate } from '../../../../../helpers/dates';
-import { formatTime, formatTimeFromDate } from '../../../../../helpers/times';
-import { formatNumber } from '../../../../../helpers/numbers';
-import { gameOutcome } from '../../../../../helpers/game';
+import { formatDate } from '../../../../helpers/dates';
+import { formatTime, formatTimeFromDate } from '../../../../helpers/times';
+import { formatNumber } from '../../../../helpers/numbers';
+import { gameOutcome } from '../../../../helpers/game';
 
 export const formatLeaderboardGames = (games, players) =>
   games.map((item, index) => {

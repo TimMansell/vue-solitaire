@@ -59,7 +59,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats-btn"]').click();
 
-      cy.wait('@waitForStatsAPI');
+      cy.wait('@waitForInitialDataAPI');
 
       cy.checkStatsValues({ stat: 'user', values: [0, 0, 0, 0] });
       cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });
@@ -76,7 +76,7 @@ describe('Stats', () => {
 
       cy.newGame();
 
-      cy.wait('@waitForStatsAPI');
+      cy.wait('@waitForInitialDataAPI');
 
       cy.get('[data-test="stats"]')
         .text()
@@ -84,7 +84,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats-btn"]').click();
 
-      cy.wait('@waitForStatsAPI');
+      cy.wait('@waitForInitialDataAPI');
 
       cy.checkStatsValues({ stat: 'user', values: [1, 0, 0, 1] });
 
@@ -118,7 +118,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats-btn"]').click();
 
-      cy.wait('@waitForStatsAPI');
+      cy.wait('@waitForInitialDataAPI');
 
       cy.checkStatsValues({ stat: 'user', values: [1, 0, 1, 0] });
 
@@ -152,7 +152,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats-btn"]').click();
 
-      cy.wait('@waitForStatsAPI');
+      cy.wait('@waitForInitialDataAPI');
 
       cy.checkStatsValues({ stat: 'user', values: [1, 1, 0, 0] });
 
@@ -172,7 +172,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats-btn"]').click();
 
-      cy.wait('@waitForStatsAPI');
+      cy.wait('@waitForInitialDataAPI');
 
       cy.checkStatsValuesNot({ stat: 'user', values: [0, 0, 0, 0] });
       cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });
@@ -188,7 +188,7 @@ describe('Stats', () => {
 
         cy.newGame();
 
-        cy.wait('@waitForStatsAPI');
+        cy.wait('@waitForInitialDataAPI');
 
         const newNumber = numeral(number + 1).format('0,0');
 
@@ -237,7 +237,7 @@ describe('Stats', () => {
           cy.get('[data-test="new-game-btn"]').click();
         });
 
-        cy.wait('@waitForStatsAPI');
+        cy.wait('@waitForInitialDataAPI');
 
         const newNumber = numeral(number + 1).format('0,0');
 
@@ -283,7 +283,7 @@ describe('Stats', () => {
           cy.get('[data-test="new-game-btn"]').click();
         });
 
-        cy.wait('@waitForStatsAPI');
+        cy.wait('@waitForInitialDataAPI');
 
         const newNumber = numeral(number + 1).format('0,0');
 

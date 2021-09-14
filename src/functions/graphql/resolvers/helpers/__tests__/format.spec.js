@@ -6,7 +6,7 @@ import {
   mockLeaderboardsMoves,
   mockPlayers,
 } from '@/mockData';
-import { formatLeaderboardGames, formatHistoryGames } from '../find';
+import { formatLeaderboardGames, formatHistoryGames } from '../format';
 
 tzMock.register('UTC');
 

@@ -21,10 +21,8 @@ const actions = {
 
     commit('NEW_GAME', false);
   },
-  restartGame({ commit, dispatch }) {
+  restartGame({ commit }) {
     commit('RESTART_GAME');
-
-    dispatch('initGame');
   },
   checkGameState({ commit, dispatch, state }) {
     const hasMoves = checkHasMoves(state);

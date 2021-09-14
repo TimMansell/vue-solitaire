@@ -1,17 +1,19 @@
 import { mockUid, mockHistory, mockPlayerName } from '@/mockData';
 import actions from '../actions';
 
-const { initUser, getUser, createUser, getAllGames } = actions;
+const { initUser, createUser, getAllGames } = actions;
 
 jest.mock('@/services/db');
 
 describe('User Store', () => {
   let commit;
+  let dispatch;
 
   beforeEach(() => {
     localStorage.clear();
 
     commit = jest.fn();
+    dispatch = jest.fn();
   });
 
   describe('initUser', () => {
@@ -38,30 +40,6 @@ describe('User Store', () => {
     });
   });
 
-  describe('getUser', () => {
-    it('should return an existing user', async () => {
-      const state = {
-        luid: mockUid,
-      };
-
-      await getUser({ commit, state });
-
-      expect(commit).toHaveBeenCalledWith('SET_USER_NAME', mockPlayerName);
-      expect(commit).toHaveBeenCalledWith('SET_USER_EXISTS', true);
-    });
-
-    it('should not return an existing user', async () => {
-      const state = {
-        luid: '123',
-      };
-
-      await getUser({ commit, state });
-
-      expect(commit).toHaveBeenCalledWith('SET_USER_NAME', '');
-      expect(commit).toHaveBeenCalledWith('SET_USER_EXISTS', false);
-    });
-  });
-
   describe('createUser', () => {
     it('should return an existing user name for user who does not have lastest store', async () => {
       const state = {
@@ -69,9 +47,11 @@ describe('User Store', () => {
         existsOnServer: false,
       };
 
-      await createUser({ commit, state });
+      await createUser({ dispatch, state });
 
-      expect(commit).toHaveBeenCalledWith('SET_USER_NAME', mockPlayerName);
+      expect(dispatch).toHaveBeenCalledWith('setUser', {
+        name: mockPlayerName,
+      });
     });
 
     it('should return a new user name', async () => {
@@ -80,9 +60,11 @@ describe('User Store', () => {
         existsOnServer: false,
       };
 
-      await createUser({ commit, state });
+      await createUser({ dispatch, state });
 
-      expect(commit).toHaveBeenCalledWith('SET_USER_NAME', 'New Player Name');
+      expect(dispatch).toHaveBeenCalledWith('setUser', {
+        name: 'New Player Name',
+      });
     });
   });
 

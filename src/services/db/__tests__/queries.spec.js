@@ -6,10 +6,8 @@ import {
   mockVersionNumber,
 } from '@/mockData';
 import {
-  getUser,
+  getInitialData,
   getStats,
-  getStatsCount,
-  checkAppVersion,
   getUsersGames,
   getLeaderboards,
 } from '../queries';
@@ -17,19 +15,34 @@ import {
 jest.mock('../apollo');
 
 describe('DB service queries', () => {
-  describe('getUser', () => {
+  describe('getInitialData', () => {
     it('should return an existing user', async () => {
-      const { exists, name } = await getUser(mockUid);
+      const {
+        user: { exists, name },
+      } = await getInitialData(mockUid, mockVersionNumber);
 
       expect(exists).toBe(true);
       expect(name).toBe('Player Name');
     });
 
     it('should not return an existing user', async () => {
-      const { exists, name } = await getUser('123');
+      const {
+        user: { exists, name },
+      } = await getInitialData('123', mockVersionNumber);
 
       expect(exists).toBe(false);
       expect(name).toBe('New Player Name');
+    });
+
+    it('should return valid object for getStatsCount', async () => {
+      const { globalStats, userStats, version } = await getInitialData(
+        mockUid,
+        mockVersionNumber
+      );
+
+      expect(userStats).toEqual(mockStats);
+      expect(globalStats).toEqual(mockStats);
+      expect(version.matches).toEqual(true);
     });
   });
 
@@ -39,23 +52,6 @@ describe('DB service queries', () => {
 
       expect(userStats).toEqual(mockStats);
       expect(globalStats).toEqual(mockStats);
-    });
-  });
-
-  describe('getStatsCount', () => {
-    it('should return valid object for getStatsCount', async () => {
-      const { globalStats, userStats } = await getStatsCount(mockUid);
-
-      expect(userStats).toEqual(mockStats);
-      expect(globalStats).toEqual(mockStats);
-    });
-  });
-
-  describe('checkAppVersion', () => {
-    it('should return valid object for checkAppVersion', async () => {
-      const { matches } = await checkAppVersion(mockVersionNumber);
-
-      expect(matches).toEqual(true);
     });
   });
 

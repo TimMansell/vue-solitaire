@@ -9,10 +9,18 @@ const gameParams = {
 };
 
 describe('DB service mutations', () => {
-  it('createUser', async () => {
-    const { name } = await createUser(mockUid);
+  it('createUser - new user', async () => {
+    const { name, exists } = await createUser('123');
+
+    expect(name).toEqual(`New ${mockPlayerName}`);
+    expect(exists).toEqual(false);
+  });
+
+  it('createUser - existing user', async () => {
+    const { name, exists } = await createUser(mockUid);
 
     expect(name).toEqual(mockPlayerName);
+    expect(exists).toEqual(true);
   });
 
   it('newGame', async () => {

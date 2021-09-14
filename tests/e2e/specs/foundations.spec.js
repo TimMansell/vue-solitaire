@@ -190,6 +190,8 @@ describe('Foundation moves', () => {
           '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
         ).click();
 
+        cy.wait('@waitForNewGameAPI');
+
         cy.get('[data-test="game-won"]').should('not.exist');
 
         cy.get('[data-test="foundation-3"]').shouldNotContain(['K♠', 'Q♠']);
@@ -381,6 +383,8 @@ describe('Foundation moves', () => {
         cy.get(
           '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
         ).click();
+
+        cy.wait('@waitForNewGameAPI');
 
         cy.get('[data-test="game-won"]').should('not.exist');
 

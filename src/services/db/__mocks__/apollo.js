@@ -32,9 +32,14 @@ const query = ({ variables }) => {
   };
 };
 
-const mutate = () => ({
+const mutate = ({ variables }) => ({
   data: {
-    createUser: { name: mockPlayerName },
+    createUser: {
+      name: checkUserExistsOnServer(variables)
+        ? mockPlayerName
+        : `New ${mockPlayerName}`,
+      exists: checkUserExistsOnServer(variables),
+    },
     newGame: {
       cards: mockDeck,
     },
