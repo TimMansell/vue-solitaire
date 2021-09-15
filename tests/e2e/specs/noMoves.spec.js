@@ -1,126 +1,87 @@
-import noMovesKingColumn from '../../fixtures/boards/noMovesKingColumn.json';
-import noMovesAceFoundation from '../../fixtures/boards/noMovesAceFoundation.json';
-import noMovesAceTwoFoundation from '../../fixtures/boards/noMovesAceTwoFoundation.json';
-import foundations from '../../fixtures/boards/fullFoundation.json';
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
+import fullGameMoves from '../../fixtures/moves/fullGame.json';
+import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
+import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
+import noMovesKingColumnDeck from '../../fixtures/decks/noMovesKingColumn.json';
+import noMovesKingColumnMoves from '../../fixtures/moves/noMovesKingColumn.json';
+import initialAceMoveDeck from '../../fixtures/decks/initialAceMove.json';
+import initialAceAnd2MoveDeck from '../../fixtures/decks/initialAceAnd2Move.json';
 
 describe('No moves', () => {
-  beforeEach(() => {
-    cy.visitApp();
-  });
-
   afterEach(() => {
     cy.clearTest();
   });
 
   it('should have K♣ as an available move then no moves after that', () => {
-    cy.setBoard(noMovesKingColumn).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['K♣']);
+    cy.visitApp({ mockDeck: noMovesKingColumnDeck });
 
-      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+    cy.runGameWithClicks(noMovesKingColumnMoves);
 
-      cy.get('[data-test="game-lost"]').should('not.exist');
-
-      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
-
-      cy.get('[data-test="game-lost"]').should('be.visible');
-
-      cy.checkGameSummaryValues({ moves: 2 });
-    });
+    cy.get('[data-test="game-lost"]').should('be.visible');
   });
 
-  it('should have A♠ as an available foundation move then no moves after that', () => {
-    cy.setBoard(noMovesAceFoundation).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['A♠']);
+  it('should have A♦ as an available foundation move then no moves after that', () => {
+    cy.visitApp({ mockDeck: initialAceMoveDeck });
 
-      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
+    cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
 
-      cy.get('[data-test="game-lost"]').should('not.exist');
-
-      cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
-
-      cy.get('[data-test="game-lost"]').should('be.visible');
-
-      cy.checkGameSummaryValues({ moves: 2 });
-    });
+    cy.get('[data-test="game-lost"]').should('be.visible');
   });
 
-  it('should have 2♠ as an available foundation move then no moves after that', () => {
-    cy.setBoard(noMovesAceTwoFoundation).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['A♠']);
+  it('should have 2♦ as an available foundation move then no moves after that', () => {
+    cy.visitApp({ mockDeck: initialAceAnd2MoveDeck });
 
-      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
-      cy.get('[data-test="card-A♠"]').clickTo('[data-test="foundation-0"]');
+    cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
+    cy.get('[data-test="card-2♦"]').clickTo('[data-test="foundation-0"]');
 
-      cy.get('[data-test="game-lost"]').should('not.exist');
-
-      cy.get('[data-test="card-2♠"]').clickTo('[data-test="foundation-0"]');
-
-      cy.get('[data-test="game-lost"]').should('be.visible');
-
-      cy.checkGameSummaryValues({ moves: 3 });
-    });
+    cy.get('[data-test="game-lost"]').should('be.visible');
   });
 
   it('should not show lost game if game won', () => {
-    cy.setBoard(foundations).then(() => {
-      cy.get('[data-test="column-0"]').shouldContain(['K♠', 'Q♠']);
+    cy.visitApp({ mockDeck: fullGameDeck });
 
-      cy.get('[data-test="card-Q♠"]').clickTo('[data-test="foundation-3"]');
-      cy.get('[data-test="card-K♠"]').clickTo('[data-test="foundation-3"]');
+    cy.runGameWithClicks(fullGameMoves);
 
-      cy.get('[data-test="game-lost"]').should('not.exist');
-    });
+    cy.get('[data-test="game-lost"]').should('not.exist');
   });
 
-  it('it should start a new game and reset board', () => {
-    cy.setBoard(noMovesKingColumn).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['K♣']);
+  it('it should hide and show board after lost game, then reset board', () => {
+    cy.visitApp({ mockDeck: incompleteGameDeck });
 
-      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
-      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+    cy.runGameWithClicks(incompleteGameMoves);
 
-      cy.get('[data-test="game-lost"]').should('be.visible');
+    cy.get('[data-test="game-lost"]').should('be.visible');
 
-      cy.get(
-        '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
-      ).click();
+    cy.get('[data-test="game-overlay-btns"] [data-test="show-board-btn"]').as(
+      'showBoardButton'
+    );
 
-      cy.wait('@waitForNewGameAPI');
+    cy.get('@showBoardButton').click();
 
-      cy.get('[data-test="game-lost"]').should('not.exist');
-    });
-  });
+    cy.get('[data-test="game-lost"]').should(
+      'have.class',
+      'game-overlay--see-through'
+    );
 
-  it('it should hide and show board after lost game', () => {
-    cy.setBoard(noMovesKingColumn).then(() => {
-      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="card-K♣"]');
-      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+    cy.get('[data-test="game-overlay-logo"]').should('not.be.visible');
+    cy.get('[data-test="game-overlay-header"]').should('not.be.visible');
+    cy.get('[data-test="game-overlay-msg"]').should('not.be.visible');
 
-      cy.get('[data-test="game-overlay-btns"] [data-test="show-board-btn"]').as(
-        'showBoardButton'
-      );
+    cy.get('@showBoardButton').click();
 
-      cy.get('@showBoardButton').click();
+    cy.get('[data-test="game-lost"]').should(
+      'not.have.class',
+      'game-overlay--see-through'
+    );
 
-      cy.get('[data-test="game-lost"]').should(
-        'have.class',
-        'game-overlay--see-through'
-      );
+    cy.get('[data-test="game-overlay-logo"]').should('be.visible');
+    cy.get('[data-test="game-overlay-header"]').should('be.visible');
+    cy.get('[data-test="game-overlay-msg"]').should('be.visible');
 
-      cy.get('[data-test="game-overlay-logo"]').should('not.be.visible');
-      cy.get('[data-test="game-overlay-header"]').should('not.be.visible');
-      cy.get('[data-test="game-overlay-msg"]').should('not.be.visible');
+    cy.get(
+      '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
+    ).click();
 
-      cy.get('@showBoardButton').click();
-
-      cy.get('[data-test="game-lost"]').should(
-        'not.have.class',
-        'game-overlay--see-through'
-      );
-
-      cy.get('[data-test="game-overlay-logo"]').should('be.visible');
-      cy.get('[data-test="game-overlay-header"]').should('be.visible');
-      cy.get('[data-test="game-overlay-msg"]').should('be.visible');
-    });
+    cy.get('[data-test="game-lost"]').should('not.exist');
   });
 });
