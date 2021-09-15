@@ -1,4 +1,3 @@
-import { cy } from 'date-fns/locale';
 import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
