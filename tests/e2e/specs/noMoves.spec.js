@@ -1,5 +1,3 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
-import fullGameMoves from '../../fixtures/moves/fullGame.json';
 import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
 import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
 import noMovesKingColumnDeck from '../../fixtures/decks/noMovesKingColumn.json';
@@ -35,14 +33,6 @@ describe('No moves', () => {
     cy.get('[data-test="card-2♦"]').clickTo('[data-test="foundation-0"]');
 
     cy.get('[data-test="game-lost"]').should('be.visible');
-  });
-
-  it('should not show lost game if game won', () => {
-    cy.visitApp({ mockDeck: fullGameDeck });
-
-    cy.runGameWithClicks(fullGameMoves);
-
-    cy.get('[data-test="game-lost"]').should('not.exist');
   });
 
   it('it should hide and show board after lost game, then reset board', () => {

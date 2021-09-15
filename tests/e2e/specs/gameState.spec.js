@@ -1,5 +1,4 @@
 import fullGameDeck from '../../fixtures/decks/fullGame.json';
-import fullGameMoves from '../../fixtures/moves/fullGame.json';
 import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
 import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
@@ -107,18 +106,6 @@ describe('Game State', () => {
         .click()
         .should('not.have.class', 'card--is-selected');
     });
-  });
-
-  it('refreshing page on game won shows game won state', () => {
-    cy.visitApp({ mockDeck: fullGameDeck });
-
-    cy.runGameWithClicks(fullGameMoves);
-
-    cy.get('[data-test="game-won"]').should('be.visible');
-
-    cy.reload();
-
-    cy.get('[data-test="game-won"]').should('be.visible');
   });
 
   it('refreshing page on game lost shows game lost state', () => {

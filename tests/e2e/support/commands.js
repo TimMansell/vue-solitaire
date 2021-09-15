@@ -21,3 +21,9 @@ Cypress.Commands.add(
     });
   }
 );
+
+Cypress.Commands.add('reloadAndWait', () => {
+  cy.reload();
+
+  cy.wait('@waitForInitialDataAPI');
+});
