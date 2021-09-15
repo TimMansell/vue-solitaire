@@ -81,7 +81,7 @@ describe('Game State', () => {
 
     cy.runGameWithClicks(emptyColumnMoves);
 
-    cy.newGame();
+    cy.startNewGame();
 
     cy.get('[data-test="columns"]').within(() => {
       cy.get('[data-test="column-card-placeholder"]').should('not.exist');
@@ -136,7 +136,7 @@ describe('Game State', () => {
   it('refreshing page on leaderboards shows leaderboards', () => {
     cy.visitApp({ mockDeck: fullGameDeck });
 
-    cy.get('[data-test="leaderboards-btn"]').click();
+    cy.showLeaderboards();
 
     cy.get('[data-test="leaderboards-overlay"]').should('be.visible');
 
@@ -150,7 +150,7 @@ describe('Game State', () => {
   it('refreshing page on how to play shows how to play', () => {
     cy.visitApp({ mockDeck: fullGameDeck });
 
-    cy.get('[data-test="game-rules-btn"]').click();
+    cy.showRules();
 
     cy.get('[data-test="rules-overlay"]').should('be.visible');
 
@@ -174,7 +174,7 @@ describe('Game State', () => {
   it('refreshing page on game paused shows game paused state', () => {
     cy.visitApp({ mockDeck: fullGameDeck });
 
-    cy.get('[data-test="pause-game-btn"]').click();
+    cy.pauseGame();
 
     cy.get('[data-test="game-paused"]').should('be.visible');
 
@@ -186,7 +186,7 @@ describe('Game State', () => {
   it('refreshing page on new game shows new game state', () => {
     cy.visitApp({ mockDeck: fullGameDeck });
 
-    cy.get('[data-test="new-game-btn"]').click();
+    cy.newGame();
 
     cy.reload();
 
@@ -196,7 +196,7 @@ describe('Game State', () => {
   it('refreshing page on history shows history state', () => {
     cy.visitApp({ mockDeck: fullGameDeck });
 
-    cy.get('[data-test="history-btn"]').click();
+    cy.showHistory();
 
     cy.get('[data-test="history-overlay"]').should('exist');
 
@@ -208,7 +208,7 @@ describe('Game State', () => {
   it('should show stats overlay on page refresh', () => {
     cy.visitApp({ mockDeck: fullGameDeck });
 
-    cy.get('[data-test="stats-btn"]').click();
+    cy.showStats();
 
     cy.get('[data-test="stats-overlay"]').should('exist');
 

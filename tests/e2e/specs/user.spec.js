@@ -25,7 +25,7 @@ describe('User', () => {
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = numeral($playerCount.text()).value();
 
-        cy.newGame();
+        cy.startNewGame();
 
         cy.wait('@waitForInitialDataAPI');
 
@@ -43,12 +43,12 @@ describe('User', () => {
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = numeral($playerCount.text()).value();
 
-        cy.newGame();
+        cy.startNewGame();
 
         cy.wait('@waitForCreateUserAPI');
         cy.wait('@waitForInitialDataAPI');
 
-        cy.newGame();
+        cy.startNewGame();
 
         cy.wait('@waitForInitialDataAPI');
 
@@ -80,7 +80,7 @@ describe('User', () => {
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = $playerCount.text();
 
-        cy.newGame();
+        cy.startNewGame();
 
         cy.wait('@waitForInitialDataAPI');
 

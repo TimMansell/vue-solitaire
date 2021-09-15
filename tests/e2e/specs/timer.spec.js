@@ -17,14 +17,12 @@ describe('Timer', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
-        cy.get('[data-test="pause-game-btn"]').click();
+        cy.pauseGame();
 
         cy.get('[data-test="timer"]').then(($timerPaused) => {
           const pausedNumber = $timerPaused.text();
 
-          cy.get('[data-test="game-overlay-btns"]').within(() => {
-            cy.get('[data-test="pause-game-btn"]').click();
-          });
+          cy.resumeGame();
 
           // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(1000);
@@ -47,9 +45,9 @@ describe('Timer', () => {
     });
 
     it('it should pause timer after new game then pause game', () => {
-      cy.newGame();
+      cy.startNewGame();
 
-      cy.get('[data-test="pause-game-btn"]').click();
+      cy.pauseGame();
 
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
@@ -66,14 +64,12 @@ describe('Timer', () => {
     });
 
     it('it should increment timer correctly after pausing', () => {
-      cy.get('[data-test="pause-game-btn"]').click();
+      cy.pauseGame();
 
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
 
-      cy.get('[data-test="game-overlay-btns"]').within(() => {
-        cy.get('[data-test="pause-game-btn"]').click();
-      });
+      cy.resumeGame();
 
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000);
@@ -91,9 +87,7 @@ describe('Timer', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000);
 
-      cy.get('[data-test="game-overlay-btns"]').within(() => {
-        cy.get('[data-test="pause-game-btn"]').click();
-      });
+      cy.resumeGame();
 
       cy.get('[data-test="timer"]').should('contain', '0:00:03');
     });
@@ -106,7 +100,7 @@ describe('Timer', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
-        cy.get('[data-test="pause-game-btn"]').click();
+        cy.pauseGame();
 
         cy.reload();
 
@@ -127,7 +121,7 @@ describe('Timer', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
-        cy.get('[data-test="stats-btn"]').click();
+        cy.showStats();
 
         cy.reload();
 
@@ -148,7 +142,7 @@ describe('Timer', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
-        cy.get('[data-test="game-rules-btn"]').click();
+        cy.showRules();
 
         cy.reload();
 
@@ -211,7 +205,7 @@ describe('Timer', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
-        cy.get('[data-test="new-game-btn"]').click();
+        cy.newGame();
 
         cy.reload();
 
@@ -234,12 +228,12 @@ describe('Timer', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
-        cy.get('[data-test="stats-btn"]').click();
+        cy.showStats();
 
         cy.get('[data-test="timer"]').then(($timerPaused) => {
           const pausedNumber = $timerPaused.text();
 
-          cy.get('[data-test="game-overlay-close-btn"]').click();
+          cy.closeOverlay();
 
           // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(1000);
@@ -260,14 +254,12 @@ describe('Timer', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
-        cy.get('[data-test="new-game-btn"]').click();
+        cy.newGame();
 
         cy.get('[data-test="timer"]').then(($timerPaused) => {
           const pausedNumber = $timerPaused.text();
 
-          cy.get('[data-test="game-overlay-btns"]').within(() => {
-            cy.get('[data-test="continue-game-btn"]').click();
-          });
+          cy.continueGame();
 
           // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.wait(1000);
@@ -290,7 +282,7 @@ describe('Timer', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
 
-      cy.newGame();
+      cy.startNewGame();
 
       cy.get('[data-test="timer"]').should('contain', '0:00:00');
     });
@@ -309,9 +301,7 @@ describe('Timer', () => {
           expect(startNumber).to.equal(pausedNumber);
         });
 
-        cy.get('[data-test="game-lost"]').within(() => {
-          cy.get('[data-test="new-game-btn"]').click();
-        });
+        cy.confirmNewGame();
 
         cy.get('[data-test="timer"]').should('contain', '0:00:00');
       });
@@ -331,9 +321,7 @@ describe('Timer', () => {
           expect(startNumber).to.equal(pausedNumber);
         });
 
-        cy.get('[data-test="game-won"]').within(() => {
-          cy.get('[data-test="new-game-btn"]').click();
-        });
+        cy.confirmNewGame();
 
         cy.get('[data-test="timer"]').should('contain', '0:00:00');
       });

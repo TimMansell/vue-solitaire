@@ -52,11 +52,7 @@ describe('No moves', () => {
 
     cy.get('[data-test="game-lost"]').should('be.visible');
 
-    cy.get('[data-test="game-overlay-btns"] [data-test="show-board-btn"]').as(
-      'showBoardButton'
-    );
-
-    cy.get('@showBoardButton').click();
+    cy.showBoard();
 
     cy.get('[data-test="game-lost"]').should(
       'have.class',
@@ -67,7 +63,7 @@ describe('No moves', () => {
     cy.get('[data-test="game-overlay-header"]').should('not.be.visible');
     cy.get('[data-test="game-overlay-msg"]').should('not.be.visible');
 
-    cy.get('@showBoardButton').click();
+    cy.showBoard();
 
     cy.get('[data-test="game-lost"]').should(
       'not.have.class',
@@ -78,9 +74,7 @@ describe('No moves', () => {
     cy.get('[data-test="game-overlay-header"]').should('be.visible');
     cy.get('[data-test="game-overlay-msg"]').should('be.visible');
 
-    cy.get(
-      '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
-    ).click();
+    cy.confirmNewGame();
 
     cy.get('[data-test="game-lost"]').should('not.exist');
   });

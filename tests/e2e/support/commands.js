@@ -21,11 +21,3 @@ Cypress.Commands.add(
     });
   }
 );
-
-Cypress.Commands.add('newGame', () => {
-  cy.get('[data-test="new-game-btn"]').click();
-
-  cy.get('[data-test="game-overlay-btns"]').within(() => {
-    cy.get('[data-test="new-game-btn"]').click();
-  });
-});

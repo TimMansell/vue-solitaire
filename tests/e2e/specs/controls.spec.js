@@ -17,7 +17,7 @@ describe('Controls', () => {
 
     cy.get('[data-test="card-7♠"]').click();
 
-    cy.newGame();
+    cy.startNewGame();
 
     cy.get('[data-test="foundation-0"]').shouldNotContain(['A♣']);
 
@@ -31,11 +31,9 @@ describe('Controls', () => {
 
     cy.get('[data-test="card-7♠"]').click();
 
-    cy.get('[data-test="new-game-btn"]').click();
+    cy.newGame();
 
-    cy.get('[data-test="game-overlay-btns"]').within(() => {
-      cy.get('[data-test="continue-game-btn"]').click();
-    });
+    cy.continueGame();
 
     cy.get('[data-test="foundation-0"]').shouldContain(['A♣']);
 
@@ -45,11 +43,11 @@ describe('Controls', () => {
   it('it should open and close rules', () => {
     cy.visitApp();
 
-    cy.get('[data-test="game-rules-btn"]').click();
+    cy.showRules();
 
     cy.get('[data-test="rules-overlay"]').should('be.visible');
 
-    cy.get('[data-test="game-overlay-close-btn"]').click();
+    cy.closeOverlay();
 
     cy.get('[data-test="rules-overlay"]').should('not.exist');
   });
@@ -57,11 +55,11 @@ describe('Controls', () => {
   it('it should open and close history', () => {
     cy.visitApp();
 
-    cy.get('[data-test="history-btn"]').click();
+    cy.showHistory();
 
     cy.get('[data-test="history-overlay"]').should('exist');
 
-    cy.get('[data-test="game-overlay-close-btn"]').click();
+    cy.closeOverlay();
 
     cy.get('[data-test="history-overlay"]').should('not.exist');
   });
@@ -69,13 +67,11 @@ describe('Controls', () => {
   it('it should pause a game and show game paused overlay', () => {
     cy.visitApp();
 
-    cy.get('[data-test="pause-game-btn"]').click();
+    cy.pauseGame();
 
     cy.get('[data-test="game-paused"]').should('be.visible');
 
-    cy.get('[data-test="game-overlay-btns"]').within(() => {
-      cy.get('[data-test="pause-game-btn"]').click();
-    });
+    cy.resumeGame();
 
     cy.get('[data-test="game-paused"]').should('not.exist');
   });
@@ -85,7 +81,7 @@ describe('Controls', () => {
 
     cy.runGameWithClicks(quitGameMoves);
 
-    cy.get('[data-test="pause-game-btn"]').click();
+    cy.pauseGame();
 
     cy.checkGameSummaryValues({ moves: 10 });
   });

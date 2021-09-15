@@ -19,13 +19,11 @@ describe('Stats', () => {
     });
 
     it('should show stats overlay and then close overlay', () => {
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
-      cy.get('[data-test="stats-overlay"]')
-        .should('be.visible')
-        .within(() => {
-          cy.get('[data-test="game-overlay-close-btn"]').click();
-        });
+      cy.get('[data-test="stats-overlay"]').should('be.visible');
+
+      cy.closeOverlay();
 
       cy.get('[data-test="stats-overlay"]').should('not.exist');
     });
@@ -35,7 +33,7 @@ describe('Stats', () => {
         cy.stub(doc, 'visibilityState').value('hidden');
       });
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.document().trigger('visibilitychange');
 
@@ -57,7 +55,7 @@ describe('Stats', () => {
         .text()
         .should('equal', '0');
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.wait('@waitForInitialDataAPI');
 
@@ -74,7 +72,7 @@ describe('Stats', () => {
 
       cy.cacheStatValues();
 
-      cy.newGame();
+      cy.startNewGame();
 
       cy.wait('@waitForInitialDataAPI');
 
@@ -82,7 +80,7 @@ describe('Stats', () => {
         .text()
         .should('equal', '1');
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.wait('@waitForInitialDataAPI');
 
@@ -108,15 +106,13 @@ describe('Stats', () => {
 
       cy.runGameWithClicks(incompleteGameMoves);
 
-      cy.get('[data-test="game-lost"]').within(() => {
-        cy.get('[data-test="new-game-btn"]').click();
-      });
+      cy.confirmNewGame();
 
       cy.wait('@waitForCreateUserAPI');
 
       cy.get('[data-test="stats"]').should('have.text', 1);
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.wait('@waitForInitialDataAPI');
 
@@ -142,15 +138,13 @@ describe('Stats', () => {
 
       cy.runGameWithClicks(fullGameMoves);
 
-      cy.get('[data-test="game-won"]').within(() => {
-        cy.get('[data-test="new-game-btn"]').click();
-      });
+      cy.confirmNewGame();
 
       cy.wait('@waitForCreateUserAPI');
 
       cy.get('[data-test="stats"]').should('have.text', 1);
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.wait('@waitForInitialDataAPI');
 
@@ -170,7 +164,7 @@ describe('Stats', () => {
 
       cy.get('[data-test="stats"]').should('not.have.text', '0');
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.wait('@waitForInitialDataAPI');
 
@@ -186,7 +180,7 @@ describe('Stats', () => {
       cy.get('[data-test="stats"]').then(($stats) => {
         const number = numeral($stats.text()).value();
 
-        cy.newGame();
+        cy.startNewGame();
 
         cy.wait('@waitForInitialDataAPI');
 
@@ -197,7 +191,7 @@ describe('Stats', () => {
           .should('equal', newNumber);
       });
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.get('@gamesPlayed').then(($played) => {
         const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
@@ -233,9 +227,7 @@ describe('Stats', () => {
 
         cy.runGameWithClicks(incompleteGameMoves);
 
-        cy.get('[data-test="game-lost"]').within(() => {
-          cy.get('[data-test="new-game-btn"]').click();
-        });
+        cy.confirmNewGame();
 
         cy.wait('@waitForInitialDataAPI');
 
@@ -246,7 +238,7 @@ describe('Stats', () => {
           .should('equal', newNumber);
       });
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.get('@gamesPlayed').then(($played) => {
         const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
@@ -279,9 +271,7 @@ describe('Stats', () => {
 
         cy.runGameWithClicks(fullGameMoves);
 
-        cy.get('[data-test="game-won"]').within(() => {
-          cy.get('[data-test="new-game-btn"]').click();
-        });
+        cy.confirmNewGame();
 
         cy.wait('@waitForInitialDataAPI');
 
@@ -292,7 +282,7 @@ describe('Stats', () => {
           .should('equal', newNumber);
       });
 
-      cy.get('[data-test="stats-btn"]').click();
+      cy.showStats();
 
       cy.get('@gamesPlayed').then(($played) => {
         const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');

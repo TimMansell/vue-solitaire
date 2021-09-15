@@ -17,7 +17,7 @@ describe('History', () => {
         cy.stub(doc, 'visibilityState').value('hidden');
       });
 
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.document().trigger('visibilitychange');
 
@@ -28,7 +28,8 @@ describe('History', () => {
   describe('New user', () => {
     it('it shows no game message', () => {
       cy.visitApp();
-      cy.get('[data-test="history-btn"]').click();
+
+      cy.showHistory();
 
       cy.get('[data-test="game-history"]').should('not.exist');
       cy.get('[data-test="game-history-no-games-msg"]').should('exist');
@@ -45,7 +46,7 @@ describe('History', () => {
 
       cy.runGameWithClicks(quitGameMoves);
 
-      cy.get('[data-test="new-game-btn"]').click();
+      cy.newGame();
 
       cy.get('[data-test="timer"]').then(($timer) => {
         const time = $timer.text();
@@ -53,11 +54,9 @@ describe('History', () => {
         cy.get('[data-test="moves"]').then(($moves) => {
           const moves = $moves.text();
 
-          cy.get('[data-test="game-overlay-btns"]').within(() => {
-            cy.get('[data-test="new-game-btn"]').click();
-          });
+          cy.confirmNewGame();
 
-          cy.get('[data-test="history-btn"]').click();
+          cy.showHistory();
 
           cy.get('[data-test="table-row"]').should('have.length', 1);
           cy.get('[data-test="table-row"] td')
@@ -87,7 +86,7 @@ describe('History', () => {
     });
 
     it('it shows 1st page results', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 
@@ -109,7 +108,7 @@ describe('History', () => {
     });
 
     it('it shows 2nd page results using > button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 
@@ -123,7 +122,7 @@ describe('History', () => {
     });
 
     it('it shows 2nd page results using page 2 number button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 
@@ -137,7 +136,7 @@ describe('History', () => {
     });
 
     it('it shows last page results using Last button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 
@@ -168,7 +167,7 @@ describe('History', () => {
     });
 
     it('it shows 1st page results using First button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 
@@ -188,7 +187,7 @@ describe('History', () => {
     });
 
     it('it shows 1st page results using < button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 
@@ -208,7 +207,7 @@ describe('History', () => {
     });
 
     it('it shows 50 games per page and correct page numbers', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 
@@ -228,7 +227,7 @@ describe('History', () => {
     });
 
     it('it shows page one when games per page is changed', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 
@@ -250,7 +249,7 @@ describe('History', () => {
     });
 
     it('it should scroll to correct position on page after clicking on page', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory();
 
       cy.wait('@waitForHistoryAPI');
 

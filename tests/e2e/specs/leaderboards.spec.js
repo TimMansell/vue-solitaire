@@ -1,3 +1,4 @@
+import { cy } from 'date-fns/locale';
 import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
@@ -17,7 +18,7 @@ describe('Leaderboards', () => {
         cy.stub(doc, 'visibilityState').value('hidden');
       });
 
-      cy.get('[data-test="leaderboards-btn"]').click();
+      cy.showLeaderboards();
 
       cy.wait('@waitForLeaderboardAPI');
 
@@ -27,7 +28,7 @@ describe('Leaderboards', () => {
     });
 
     it('it should display correct heading', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+      cy.showLeaderboards();
 
       cy.wait('@waitForLeaderboardAPI');
 
@@ -53,7 +54,7 @@ describe('Leaderboards', () => {
     });
 
     it('it should display correct amount of table rows', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+      cy.showLeaderboards();
 
       cy.wait('@waitForLeaderboardAPI');
 
@@ -69,7 +70,7 @@ describe('Leaderboards', () => {
     });
 
     it('it should display correct table heading', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+      cy.showLeaderboards();
 
       cy.wait('@waitForLeaderboardAPI');
 
@@ -93,19 +94,19 @@ describe('Leaderboards', () => {
     });
 
     it('it should display player name after first game', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+      cy.showLeaderboards();
 
       cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="leaderboard-name"]').should('not.exist');
 
-      cy.get('[data-test="game-overlay-close"]').click();
+      cy.closeOverlay();
 
-      cy.newGame();
+      cy.startNewGame();
 
       cy.wait('@waitForCreateUserAPI');
 
-      cy.get('[data-test="leaderboards-btn"]').click();
+      cy.showLeaderboards();
 
       cy.wait('@waitForLeaderboardAPI');
 
@@ -121,7 +122,7 @@ describe('Leaderboards', () => {
     });
 
     it('it should display player name after first game', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+      cy.showLeaderboards();
 
       cy.wait('@waitForLeaderboardAPI');
 
