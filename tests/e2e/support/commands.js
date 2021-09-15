@@ -30,15 +30,6 @@ Cypress.Commands.add('visitApp', (obj) => {
   }
 });
 
-Cypress.Commands.add('setBoard', ({ cards, foundation }) => {
-  const getStore = () => cy.window().its('app.$store');
-
-  return getStore().then((store) => {
-    store.dispatch('setBoard', cards);
-    store.dispatch('setFoundation', foundation);
-  });
-});
-
 Cypress.Commands.add('reloadAndWait', () => {
   cy.interceptInitialDataAPI();
 
