@@ -14,11 +14,15 @@ describe('No moves', () => {
 
   describe('Variations', () => {
     it('should have K♣ as an available move then no moves after that', () => {
-      cy.visitApp({
+      cy.mockApi({
         mockDeck: noMovesKingColumnDeck,
-        mockInitialApi: true,
-        mockApi: true,
+        mockInitial: true,
+        mockSaveGame: true,
+        mockCreateUser: true,
+        mockGetUser: true,
       });
+
+      cy.visitApp();
 
       cy.runGameWithClicks(noMovesKingColumnMoves);
 
@@ -26,11 +30,15 @@ describe('No moves', () => {
     });
 
     it('should have A♦ as an available foundation move then no moves after that', () => {
-      cy.visitApp({
+      cy.mockApi({
         mockDeck: initialAceMoveDeck,
-        mockInitialApi: true,
-        mockApi: true,
+        mockInitial: true,
+        mockSaveGame: true,
+        mockCreateUser: true,
+        mockGetUser: true,
       });
+
+      cy.visitApp();
 
       cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
 
@@ -38,11 +46,15 @@ describe('No moves', () => {
     });
 
     it('should have 2♦ as an available foundation move then no moves after that', () => {
-      cy.visitApp({
+      cy.mockApi({
         mockDeck: initialAceAnd2MoveDeck,
-        mockInitialApi: true,
-        mockApi: true,
+        mockInitial: true,
+        mockSaveGame: true,
+        mockCreateUser: true,
+        mockGetUser: true,
       });
+
+      cy.visitApp();
 
       cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
       cy.get('[data-test="card-2♦"]').clickTo('[data-test="foundation-0"]');
@@ -59,7 +71,11 @@ describe('No moves', () => {
 
       cy.task('populateDeck', [incompleteGameDeck, mockNewUid]);
 
-      cy.visitApp({ mockDeck: incompleteGameDeck });
+      cy.mockApi({
+        mockDeck: incompleteGameDeck,
+      });
+
+      cy.visitApp();
 
       cy.cacheStatValues();
 
@@ -111,7 +127,11 @@ describe('No moves', () => {
 
       cy.task('populateDeck', [incompleteGameDeck, mockUid]);
 
-      cy.visitApp({ mockDeck: incompleteGameDeck });
+      cy.mockApi({
+        mockDeck: incompleteGameDeck,
+      });
+
+      cy.visitApp();
 
       cy.cacheStatValues();
 

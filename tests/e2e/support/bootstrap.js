@@ -1,4 +1,4 @@
-Cypress.Commands.add('visitApp', (obj) => {
+Cypress.Commands.add('visitApp', () => {
   cy.interceptInitialDataAPI();
   cy.interceptCreateUserAPI();
   cy.interceptHistoryAPI();
@@ -6,28 +6,41 @@ Cypress.Commands.add('visitApp', (obj) => {
   cy.interceptStatsAPI();
   cy.interceptNewGameAPI();
 
-  if (obj?.mockDeck) {
-    cy.mockNewGameAPI(obj.mockDeck);
-  }
-
-  if (obj?.mockInitialApi) {
-    const { mockVersion } = obj;
-
-    cy.mockInitialDataAPI({ matchesVersion: mockVersion });
-  }
-
-  if (obj?.mockApi) {
-    cy.mockSaveGameAPI();
-    cy.mockCreateUserAPI();
-    cy.mockGetUserAPI();
-  }
-
   cy.visit('/');
-
-  if (!obj) {
-    cy.wait('@waitForNewGameAPI');
-  }
 });
+
+Cypress.Commands.add(
+  'mockApi',
+  (
+    { mockDeck, mockInitial, mockSaveGame, mockCreateUser, mockGetUser } = {
+      mockDeck: [],
+      mockInitial: false,
+      mockSaveGame: false,
+      mockCreateUser: false,
+      mockGetUser: false,
+    }
+  ) => {
+    if (mockDeck) {
+      cy.mockNewGameAPI(mockDeck);
+    }
+
+    if (mockInitial) {
+      cy.mockInitialDataAPI(mockInitial);
+    }
+
+    if (mockSaveGame) {
+      cy.mockSaveGameAPI();
+    }
+
+    if (mockCreateUser) {
+      cy.mockCreateUserAPI();
+    }
+
+    if (mockGetUser) {
+      cy.mockGetUserAPI();
+    }
+  }
+);
 
 Cypress.Commands.add('clearTest', () => {
   cy.clearLocalStorage();

@@ -1,20 +1,23 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
 import emptyColumnDeck from '../../fixtures/decks/emptyColumn.json';
 import emptyColumnMoves from '../../fixtures/moves/emptyColumn.json';
 
 describe('Game State', () => {
+  beforeEach(() => {
+    cy.mockApi({
+      mockDeck: quitGameDeck,
+      mockInitial: true,
+    });
+
+    cy.visitApp();
+  });
+
   afterEach(() => {
     cy.clearTest();
   });
 
   it('should pause when page is automatically hidden', () => {
-    cy.visitApp({
-      mockDeck: fullGameDeck,
-      mockInitialApi: true,
-    });
-
     cy.document().then((doc) => {
       cy.stub(doc, 'visibilityState').value('hidden');
     });
@@ -25,18 +28,13 @@ describe('Game State', () => {
   });
 
   it('refreshing page shows same board state', () => {
-    cy.visitApp({
-      mockDeck: fullGameDeck,
-      mockInitialApi: true,
-    });
-
-    cy.get('[data-test^="card-9♠"]')
+    cy.get('[data-test^="card-4♠"]')
       .click()
       .should('have.class', 'card--is-selected');
 
     cy.reload();
 
-    cy.get('[data-test^="card-9♠"]')
+    cy.get('[data-test^="card-4♠"]')
       .should('have.class', 'card--is-selected')
       .click()
       .should('not.have.class', 'card--is-selected');
@@ -44,25 +42,20 @@ describe('Game State', () => {
     cy.get('[data-test="column-0"] [data-test^="card"]')
       .eq(6)
       .then(($card) => $card.attr('data-test'))
-      .should('contain', 'card-9♠');
+      .should('contain', 'card-4♣');
 
     cy.get('[data-test="column-2"] [data-test^="card"]')
       .eq(4)
       .then(($card) => $card.attr('data-test'))
-      .should('contain', 'card-J♦');
+      .should('contain', 'card-Q♣');
 
     cy.get('[data-test="column-5"] [data-test^="card"]')
       .eq(1)
       .then(($card) => $card.attr('data-test'))
-      .should('contain', 'card-A♣');
+      .should('contain', 'card-A♥');
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
-    cy.visitApp({
-      mockDeck: quitGameDeck,
-      mockInitialApi: true,
-    });
-
     cy.runGameWithClicks(quitGameMoves);
 
     cy.get('[data-test="stats"]')

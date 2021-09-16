@@ -35,39 +35,51 @@ describe('App', () => {
 
   describe('Version', () => {
     it('it should not show version upgrade toast', () => {
-      cy.visitApp({
+      cy.mockApi({
         mockDeck: fullGameDeck,
-        mockVersion: true,
-        mockInitialApi: true,
+        mockInitial: {
+          matchesVersion: true,
+        },
       });
+
+      cy.visitApp();
 
       cy.get('[data-test="version"]').should('not.exist');
     });
 
     it('it should show version upgrade toast', () => {
-      cy.visitApp({
+      cy.mockApi({
         mockDeck: fullGameDeck,
-        mockVersion: false,
-        mockInitialApi: true,
+        mockInitial: {
+          matchesVersion: false,
+        },
       });
+
+      cy.visitApp();
 
       cy.get('[data-test="version"]').should('exist');
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
-      cy.visitApp({
+      cy.mockApi({
         mockDeck: fullGameDeck,
-        mockVersion: false,
-        mockInitialApi: true,
+        mockInitial: {
+          matchesVersion: false,
+        },
       });
+
+      cy.visitApp();
 
       cy.get('[data-test="version"]').should('exist');
 
-      cy.visitApp({
+      cy.mockApi({
         mockDeck: fullGameDeck,
-        mockVersion: true,
-        mockInitialApi: true,
+        mockInitial: {
+          matchesVersion: true,
+        },
       });
+
+      cy.visitApp();
 
       cy.get('[data-test="version"]').should('not.exist');
     });

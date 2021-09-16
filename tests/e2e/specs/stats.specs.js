@@ -11,11 +11,15 @@ describe('Stats', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockNewUid);
 
-      cy.visitApp({
+      cy.mockApi({
         mockDeck: fullGameDeck,
-        mockInitialAPi: true,
-        mockApi: true,
+        mockInitial: true,
+        mockSaveGame: true,
+        mockCreateUser: true,
+        mockGetUser: true,
       });
+
+      cy.visitApp();
     });
 
     it('should not show game paused if user stats overlay is visible', () => {
@@ -39,7 +43,11 @@ describe('Stats', () => {
 
   describe('New User', () => {
     it('it successfully retrieves 0 games played', () => {
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
 
       cy.get('[data-test="stats"]')
         .text()
@@ -58,7 +66,11 @@ describe('Stats', () => {
 
       cy.task('populateDeck', [fullGameDeck, mockUid]);
 
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
 
       cy.get('[data-test="stats"]')
         .text()
@@ -84,7 +96,11 @@ describe('Stats', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
     });
 
     it('it successfully retrieves games played', () => {

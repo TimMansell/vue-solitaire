@@ -1,15 +1,20 @@
 import fullGameDeck from '../../fixtures/decks/fullGame.json';
 
 describe('Timer', () => {
+  beforeEach(() => {
+    cy.mockApi({
+      mockDeck: fullGameDeck,
+      mockInitial: true,
+    });
+
+    cy.visitApp();
+  });
+
   afterEach(() => {
     cy.clearTest();
   });
 
   describe('Default Functionality', () => {
-    beforeEach(() => {
-      cy.visitApp({ mockDeck: fullGameDeck, mockInitialAPi: true });
-    });
-
     it('timer stops when game is paused and starts when resumed', () => {
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
@@ -92,8 +97,6 @@ describe('Timer', () => {
 
   describe('Refreshing page', () => {
     it('timer should start paused when game is paused and page is refreshed', () => {
-      cy.visitApp({ mockDeck: fullGameDeck, mockInitialAPi: true });
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -113,12 +116,6 @@ describe('Timer', () => {
     });
 
     it('timer should start paused when stats overlay is open and page is refreshed', () => {
-      cy.visitApp({
-        mockDeck: fullGameDeck,
-        mockInitialAPi: true,
-        mockApi: true,
-      });
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -138,8 +135,6 @@ describe('Timer', () => {
     });
 
     it('timer should start paused when how to play overlay is open and page is refreshed', () => {
-      cy.visitApp({ mockDeck: fullGameDeck, mockInitialAPi: true });
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -159,8 +154,6 @@ describe('Timer', () => {
     });
 
     it('timer should start paused when new game overlay is open and page is refreshed', () => {
-      cy.visitApp({ mockDeck: fullGameDeck, mockInitialAPi: true });
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -182,8 +175,6 @@ describe('Timer', () => {
 
   describe('Resuming Timer', () => {
     it('timer stops when stats overlay is open and starts when resumed', () => {
-      cy.visitApp({ mockDeck: fullGameDeck, mockInitialAPi: true });
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -208,8 +199,6 @@ describe('Timer', () => {
     });
 
     it('timer stops when new game overlay is open and starts when resumed', () => {
-      cy.visitApp({ mockDeck: fullGameDeck, mockInitialAPi: true });
-
       cy.get('[data-test="timer"]').then(($timerStart) => {
         const startNumber = $timerStart.text();
 
@@ -236,8 +225,6 @@ describe('Timer', () => {
 
   describe('Resetting timer', () => {
     it('it should reset timer when new game is pressed', () => {
-      cy.visitApp({ mockDeck: fullGameDeck, mockInitialAPi: true });
-
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
 
