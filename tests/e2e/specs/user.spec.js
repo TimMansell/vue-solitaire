@@ -13,6 +13,8 @@ describe('User', () => {
     });
 
     it('it creates a new local user on initial page load', () => {
+      cy.wait('@waitForInitialDataAPI');
+
       const luid = localStorage.getItem('luid');
 
       // eslint-disable-next-line no-unused-expressions
@@ -23,11 +25,14 @@ describe('User', () => {
     it('it creates a new user on server after first game has been played', () => {
       cy.get('[data-test="player-count"]').as('playerCount');
 
+      cy.wait('@waitForInitialDataAPI');
+
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = numeral($playerCount.text()).value();
 
         cy.startNewGame();
 
+        cy.wait('@waitForCreateUserAPI');
         cy.wait('@waitForInitialDataAPI');
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
@@ -41,13 +46,14 @@ describe('User', () => {
     it('it does not create a new user on server after second game has been played', () => {
       cy.get('[data-test="player-count"]').as('playerCount');
 
+      cy.wait('@waitForInitialDataAPI');
+
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = numeral($playerCount.text()).value();
 
         cy.startNewGame();
 
         cy.wait('@waitForCreateUserAPI');
-        cy.wait('@waitForInitialDataAPI');
 
         cy.startNewGame();
 
