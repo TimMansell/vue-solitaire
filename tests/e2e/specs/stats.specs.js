@@ -1,7 +1,5 @@
 import numeral from 'numeral';
 import { mockUid, mockNewUid } from '../../../src/mockData';
-import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
-import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
 
 describe('Stats', () => {
   afterEach(() => {
@@ -85,38 +83,6 @@ describe('Stats', () => {
 
       cy.checkGlobalStatsQuit();
     });
-
-    it('it successfully increments games played after lost game', () => {
-      cy.task('clearUser', mockNewUid);
-
-      localStorage.setItem('luid', mockNewUid);
-
-      cy.task('populateDeck', [incompleteGameDeck, mockNewUid]);
-
-      cy.visitApp({ mockDeck: incompleteGameDeck });
-
-      cy.get('[data-test="stats"]')
-        .text()
-        .should('equal', '0');
-
-      cy.cacheStatValues();
-
-      cy.runGameWithClicks(incompleteGameMoves);
-
-      cy.confirmNewGame();
-
-      cy.wait('@waitForCreateUserAPI');
-
-      cy.get('[data-test="stats"]').should('have.text', 1);
-
-      cy.showStats();
-
-      cy.wait('@waitForInitialDataAPI');
-
-      cy.checkStatsValues({ stat: 'user', values: [1, 0, 1, 0] });
-
-      cy.checkGlobalStatsLost();
-    });
   });
 
   describe('Existing User', () => {
@@ -178,50 +144,6 @@ describe('Stats', () => {
       });
 
       cy.checkGlobalStatsQuit();
-    });
-
-    it('it successfully increments games played after lost game', () => {
-      cy.task('populateDeck', [incompleteGameDeck, mockUid]);
-
-      cy.visitApp({ mockDeck: incompleteGameDeck });
-
-      cy.cacheStatValues();
-
-      cy.get('[data-test="stats"]').then(($stats) => {
-        const number = numeral($stats.text()).value();
-
-        cy.runGameWithClicks(incompleteGameMoves);
-
-        cy.confirmNewGame();
-
-        cy.wait('@waitForInitialDataAPI');
-
-        const newNumber = numeral(number + 1).format('0,0');
-
-        cy.get('[data-test="stats"]')
-          .text()
-          .should('equal', newNumber);
-      });
-
-      cy.showStats();
-
-      cy.get('@gamesPlayed').then(($played) => {
-        const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
-
-        cy.get('@gamesWon').then(($won) => {
-          cy.get('@gamesLost').then(($lost) => {
-            const $newLost = numeral(numeral($lost).value() + 1).format('0,0');
-            cy.get('@gamesQuit').then(($quit) => {
-              cy.checkStatsValues({
-                stat: 'user',
-                values: [$newPlayed, $won, $newLost, $quit],
-              });
-            });
-          });
-        });
-      });
-
-      cy.checkGlobalStatsLost();
     });
   });
 });

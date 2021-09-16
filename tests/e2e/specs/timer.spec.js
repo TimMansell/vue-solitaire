@@ -1,6 +1,4 @@
 import fullGameDeck from '../../fixtures/decks/fullGame.json';
-import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
-import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
 
 describe('Timer', () => {
   afterEach(() => {
@@ -156,27 +154,6 @@ describe('Timer', () => {
       });
     });
 
-    it('timer should start paused when game lost overlay is open and page is refreshed', () => {
-      cy.visitApp({ mockDeck: incompleteGameDeck, mockApi: true });
-
-      cy.runGameWithClicks(incompleteGameMoves);
-
-      cy.get('[data-test="timer"]').then(($timerStart) => {
-        const startNumber = $timerStart.text();
-
-        cy.reload();
-
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(1000);
-
-        cy.get('[data-test="timer"]').then(($timerEnd) => {
-          const endNumber = $timerEnd.text();
-
-          expect(startNumber).to.equal(endNumber);
-        });
-      });
-    });
-
     it('timer should start paused when new game overlay is open and page is refreshed', () => {
       cy.visitApp({ mockDeck: fullGameDeck, mockApi: true });
 
@@ -263,26 +240,6 @@ describe('Timer', () => {
       cy.startNewGame();
 
       cy.get('[data-test="timer"]').should('contain', '0:00:00');
-    });
-
-    it('it stops timer when game is lost and resets when new game is started', () => {
-      cy.visitApp({ mockDeck: incompleteGameDeck, mockApi: true });
-
-      cy.runGameWithClicks(incompleteGameMoves);
-
-      cy.get('[data-test="timer"]').then(($timerStart) => {
-        const startNumber = $timerStart.text();
-
-        cy.get('[data-test="timer"]').then(($timerPaused) => {
-          const pausedNumber = $timerPaused.text();
-
-          expect(startNumber).to.equal(pausedNumber);
-        });
-
-        cy.confirmNewGame();
-
-        cy.get('[data-test="timer"]').should('contain', '0:00:00');
-      });
     });
   });
 });

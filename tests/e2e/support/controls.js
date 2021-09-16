@@ -1,7 +1,25 @@
+Cypress.Commands.add('testContinueGame', () => {
+  cy.newGame();
+
+  cy.get('[data-test="game-new"]').should('exist');
+
+  cy.reload();
+
+  cy.get('[data-test="game-new"]').should('exist');
+
+  cy.continueGame();
+
+  cy.get('[data-test="game-new"]').should('not.exist');
+});
+
 Cypress.Commands.add('testPause', () => {
   cy.pauseGame();
 
-  cy.get('[data-test="game-paused"]').should('be.visible');
+  cy.get('[data-test="game-paused"]').should('exist');
+
+  cy.reload();
+
+  cy.get('[data-test="game-paused"]').should('exist');
 
   cy.resumeGame();
 
@@ -11,7 +29,11 @@ Cypress.Commands.add('testPause', () => {
 Cypress.Commands.add('testRules', () => {
   cy.showRules();
 
-  cy.get('[data-test="rules-overlay"]').should('be.visible');
+  cy.get('[data-test="rules-overlay"]').should('exist');
+
+  cy.reload();
+
+  cy.get('[data-test="rules-overlay"]').should('exist');
 
   cy.closeOverlay();
 
@@ -23,6 +45,10 @@ Cypress.Commands.add('testHistory', () => {
 
   cy.get('[data-test="history-overlay"]').should('exist');
 
+  cy.reload();
+
+  cy.get('[data-test="history-overlay"]').should('exist');
+
   cy.closeOverlay();
 
   cy.get('[data-test="history-overlay"]').should('not.exist');
@@ -30,6 +56,10 @@ Cypress.Commands.add('testHistory', () => {
 
 Cypress.Commands.add('testStats', () => {
   cy.showStats();
+
+  cy.get('[data-test="stats-overlay"]').should('exist');
+
+  cy.reload();
 
   cy.get('[data-test="stats-overlay"]').should('exist');
 
@@ -45,9 +75,37 @@ Cypress.Commands.add('testLeaderboards', () => {
 
   cy.get('[data-test="leaderboards-overlay"]').should('exist');
 
+  cy.reload();
+
+  cy.get('[data-test="leaderboards-overlay"]').should('exist');
+
   cy.wait('@waitForLeaderboardAPI');
 
   cy.closeOverlay();
 
   cy.get('[data-test="leaderboards-overlay"]').should('not.exist');
+});
+
+Cypress.Commands.add('testShowBoard', () => {
+  cy.showBoard();
+
+  cy.get('[data-test="game-lost"]').should(
+    'have.class',
+    'game-overlay--see-through'
+  );
+
+  cy.get('[data-test="game-overlay-logo"]').should('not.be.visible');
+  cy.get('[data-test="game-overlay-header"]').should('not.be.visible');
+  cy.get('[data-test="game-overlay-msg"]').should('not.be.visible');
+
+  cy.showBoard();
+
+  cy.get('[data-test="game-lost"]').should(
+    'not.have.class',
+    'game-overlay--see-through'
+  );
+
+  cy.get('[data-test="game-overlay-logo"]').should('be.visible');
+  cy.get('[data-test="game-overlay-header"]').should('be.visible');
+  cy.get('[data-test="game-overlay-msg"]').should('be.visible');
 });
