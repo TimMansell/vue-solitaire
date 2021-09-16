@@ -9,7 +9,7 @@ describe('History', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visitApp();
+      cy.visitApp({ mockDeck: quitGameDeck });
     });
 
     it('should not show game paused if history overlay is visible', () => {
@@ -27,7 +27,7 @@ describe('History', () => {
 
   describe('New user', () => {
     it('it shows no game message', () => {
-      cy.visitApp();
+      cy.visitApp({ mockDeck: quitGameDeck });
 
       cy.showHistory();
 
@@ -82,7 +82,7 @@ describe('History', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visitApp();
+      cy.visitApp({ mockDeck: quitGameDeck });
     });
 
     it('it shows 1st page results', () => {

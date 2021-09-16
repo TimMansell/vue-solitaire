@@ -1,4 +1,5 @@
 import numeral from 'numeral';
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
 import { mockUid } from '../../../src/mockData';
 
 describe('User', () => {
@@ -8,7 +9,7 @@ describe('User', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.visitApp();
+      cy.visitApp({ mockDeck: fullGameDeck });
     });
 
     it('it creates a new local user on initial page load', () => {
@@ -65,7 +66,7 @@ describe('User', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visitApp();
+      cy.visitApp({ mockDeck: fullGameDeck });
     });
 
     it('it does not create a new local user on initial page load', () => {

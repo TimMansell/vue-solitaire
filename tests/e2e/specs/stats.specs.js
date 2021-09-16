@@ -1,4 +1,5 @@
 import numeral from 'numeral';
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
 import { mockUid, mockNewUid } from '../../../src/mockData';
 
 describe('Stats', () => {
@@ -10,7 +11,7 @@ describe('Stats', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockNewUid);
 
-      cy.visitApp();
+      cy.visitApp({ mockDeck: fullGameDeck });
     });
 
     it('should show stats overlay and then close overlay', () => {
@@ -43,9 +44,11 @@ describe('Stats', () => {
   });
 
   describe('New User', () => {
-    it('it successfully retrieves 0 games played', () => {
-      cy.visitApp();
+    beforeEach(() => {
+      cy.visitApp({ mockDeck: fullGameDeck });
+    });
 
+    it('it successfully retrieves 0 games played', () => {
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
@@ -59,8 +62,6 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played', () => {
-      cy.visitApp();
-
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
@@ -88,11 +89,11 @@ describe('Stats', () => {
   describe('Existing User', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
+
+      cy.visitApp({ mockDeck: fullGameDeck });
     });
 
     it('it successfully retrieves games played', () => {
-      cy.visitApp();
-
       cy.get('[data-test="stats"]').should('not.have.text', '0');
 
       cy.showStats();
@@ -104,8 +105,6 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played', () => {
-      cy.visitApp();
-
       cy.cacheStatValues();
 
       cy.get('[data-test="stats"]').then(($stats) => {

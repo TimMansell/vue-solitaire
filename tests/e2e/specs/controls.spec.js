@@ -2,13 +2,15 @@ import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
 describe('Controls', () => {
+  beforeEach(() => {
+    cy.visitApp({ mockDeck: quitGameDeck });
+  });
+
   afterEach(() => {
     cy.clearTest();
   });
 
   it('it should start a new game and reset board', () => {
-    cy.visitApp({ mockDeck: quitGameDeck });
-
     cy.runGameWithClicks(quitGameMoves);
 
     cy.get('[data-test="card-7♠"]').click();
@@ -23,8 +25,6 @@ describe('Controls', () => {
   });
 
   it('it should continue current game', () => {
-    cy.visitApp({ mockDeck: quitGameDeck });
-
     cy.runGameWithClicks(quitGameMoves);
 
     cy.get('[data-test="card-7♠"]').click();
@@ -38,8 +38,8 @@ describe('Controls', () => {
     cy.get('[data-test="card-7♠"]').should('have.class', 'card--is-selected');
   });
 
-  it('it should pause/resume, open/close rules, open/close history, open/close stats, open/close leaderboards', () => {
-    cy.visitApp();
+  it('it should new/continue, pause/resume, open/close: rules, history, stats, leaderboards', () => {
+    cy.testContinueGame();
 
     cy.testPause();
 
@@ -50,15 +50,5 @@ describe('Controls', () => {
     cy.testStats();
 
     cy.testLeaderboards();
-  });
-
-  it('it should show correct summary on game overlay', () => {
-    cy.visitApp({ mockDeck: quitGameDeck });
-
-    cy.runGameWithClicks(quitGameMoves);
-
-    cy.pauseGame();
-
-    cy.checkGameSummaryValues({ moves: 10 });
   });
 });

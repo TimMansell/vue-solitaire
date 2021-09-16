@@ -1,3 +1,5 @@
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
+
 describe('App', () => {
   afterEach(() => {
     cy.clearTest();
@@ -8,7 +10,7 @@ describe('App', () => {
       cy.visitApp();
     });
 
-    it('it successfullly loads', () => {
+    it('it successfully loads', () => {
       cy.get('[data-test="board"]').should('be.visible');
 
       cy.get('[data-test="columns"]').within(() => {
@@ -33,23 +35,35 @@ describe('App', () => {
 
   describe('Version', () => {
     it('it should not show version upgrade toast', () => {
-      cy.visitApp({ mockInitialApi: { version: { matches: true } } });
+      cy.visitApp({
+        mockDeck: fullGameDeck,
+        mockInitialApi: { version: { matches: true } },
+      });
 
       cy.get('[data-test="version"]').should('not.exist');
     });
 
     it('it should show version upgrade toast', () => {
-      cy.visitApp({ mockInitialApi: { version: { matches: false } } });
+      cy.visitApp({
+        mockDeck: fullGameDeck,
+        mockInitialApi: { version: { matches: false } },
+      });
 
       cy.get('[data-test="version"]').should('exist');
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
-      cy.visitApp({ mockInitialApi: { version: { matches: false } } });
+      cy.visitApp({
+        mockDeck: fullGameDeck,
+        mockInitialApi: { version: { matches: false } },
+      });
 
       cy.get('[data-test="version"]').should('exist');
 
-      cy.visitApp({ mockInitialApi: { version: { matches: true } } });
+      cy.visitApp({
+        mockDeck: fullGameDeck,
+        mockInitialApi: { version: { matches: true } },
+      });
 
       cy.get('[data-test="version"]').should('not.exist');
     });

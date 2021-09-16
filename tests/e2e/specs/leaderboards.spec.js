@@ -1,3 +1,4 @@
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
 import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
@@ -9,7 +10,7 @@ describe('Leaderboards', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visitApp();
+      cy.visitApp({ mockDeck: fullGameDeck });
     });
 
     it('should not show game paused if leaderboards overlay is visible', () => {
@@ -89,7 +90,7 @@ describe('Leaderboards', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.visitApp();
+      cy.visitApp({ mockDeck: fullGameDeck });
     });
 
     it('it should display player name after first game', () => {
@@ -117,7 +118,7 @@ describe('Leaderboards', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visitApp();
+      cy.visitApp({ mockDeck: fullGameDeck });
     });
 
     it('it should display player name after first game', () => {
