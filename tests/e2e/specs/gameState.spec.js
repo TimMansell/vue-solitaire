@@ -1,7 +1,5 @@
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
-import emptyColumnDeck from '../../fixtures/decks/emptyColumn.json';
-import emptyColumnMoves from '../../fixtures/moves/emptyColumn.json';
 
 describe('Game State', () => {
   beforeEach(() => {
@@ -102,21 +100,5 @@ describe('Game State', () => {
     cy.pauseGame();
 
     cy.checkGameSummaryValues({ moves: 10 });
-  });
-
-  it('clicking on new game sets new board state', () => {
-    cy.visitApp({
-      mockDeck: emptyColumnDeck,
-      mockInitialApi: true,
-      mockApi: true,
-    });
-
-    cy.runGameWithClicks(emptyColumnMoves);
-
-    cy.startNewGame();
-
-    cy.get('[data-test="columns"]').within(() => {
-      cy.get('[data-test="column-card-placeholder"]').should('not.exist');
-    });
   });
 });
