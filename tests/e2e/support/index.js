@@ -6,6 +6,7 @@ import './api';
 import './buttons';
 import './clicks';
 import './drags';
+import './controls';
 import './history';
 import './stats';
 import './snapshots';

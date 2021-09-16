@@ -3,6 +3,7 @@ Cypress.Commands.add('visitApp', (obj) => {
   cy.interceptCreateUserAPI();
   cy.interceptHistoryAPI();
   cy.interceptLeaderboardAPI();
+  cy.interceptStatsAPI();
   cy.interceptNewGameAPI();
 
   if (obj?.mockDeck) {

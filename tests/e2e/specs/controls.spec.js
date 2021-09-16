@@ -2,10 +2,6 @@ import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
 describe('Controls', () => {
-  beforeEach(() => {
-    // cy.visitApp();
-  });
-
   afterEach(() => {
     cy.clearTest();
   });
@@ -18,6 +14,8 @@ describe('Controls', () => {
     cy.get('[data-test="card-7♠"]').click();
 
     cy.startNewGame();
+
+    cy.wait('@waitForCreateUserAPI');
 
     cy.get('[data-test="foundation-0"]').shouldNotContain(['A♣']);
 
@@ -40,40 +38,18 @@ describe('Controls', () => {
     cy.get('[data-test="card-7♠"]').should('have.class', 'card--is-selected');
   });
 
-  it('it should open and close rules', () => {
+  it('it should pause/resume, open/close rules, open/close history, open/close stats, open/close leaderboards', () => {
     cy.visitApp();
 
-    cy.showRules();
+    cy.testPause();
 
-    cy.get('[data-test="rules-overlay"]').should('be.visible');
+    cy.testRules();
 
-    cy.closeOverlay();
+    cy.testHistory();
 
-    cy.get('[data-test="rules-overlay"]').should('not.exist');
-  });
+    cy.testStats();
 
-  it('it should open and close history', () => {
-    cy.visitApp();
-
-    cy.showHistory();
-
-    cy.get('[data-test="history-overlay"]').should('exist');
-
-    cy.closeOverlay();
-
-    cy.get('[data-test="history-overlay"]').should('not.exist');
-  });
-
-  it('it should pause a game and show game paused overlay', () => {
-    cy.visitApp();
-
-    cy.pauseGame();
-
-    cy.get('[data-test="game-paused"]').should('be.visible');
-
-    cy.resumeGame();
-
-    cy.get('[data-test="game-paused"]').should('not.exist');
+    cy.testLeaderboards();
   });
 
   it('it should show correct summary on game overlay', () => {
