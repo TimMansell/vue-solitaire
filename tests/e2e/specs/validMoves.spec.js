@@ -2,7 +2,12 @@ import validMoveDeck from '../../fixtures/decks/validMove.json';
 
 describe('Valid moves', () => {
   beforeEach(() => {
-    cy.visitApp({ mockDeck: validMoveDeck, mockInitialAPi: true });
+    cy.mockApi({
+      mockDeck: validMoveDeck,
+      mockInitial: true,
+    });
+
+    cy.visitApp();
   });
 
   afterEach(() => {

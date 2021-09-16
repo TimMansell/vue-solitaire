@@ -5,10 +5,12 @@ const moveTop = -200;
 
 describe('Dragged Cards', () => {
   beforeEach(() => {
-    cy.visitApp({
+    cy.mockApi({
       mockDeck: validMoveDeck,
-      mockInitialApi: true,
+      mockInitial: true,
     });
+
+    cy.visitApp();
   });
 
   afterEach(() => {

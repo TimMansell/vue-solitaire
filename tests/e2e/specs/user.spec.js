@@ -9,7 +9,11 @@ describe('User', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
     });
 
     it('it creates a new local user on initial page load', () => {
@@ -72,7 +76,11 @@ describe('User', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
     });
 
     it('it does not create a new local user on initial page load', () => {
@@ -83,6 +91,8 @@ describe('User', () => {
 
     it('it does not create a new user on server after first game has been played', () => {
       cy.get('[data-test="player-count"]').as('playerCount');
+
+      cy.wait('@waitForInitialDataAPI');
 
       cy.get('@playerCount').then(($playerCount) => {
         const intialPlayerCount = $playerCount.text();

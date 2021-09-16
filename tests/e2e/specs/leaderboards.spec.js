@@ -8,7 +8,12 @@ describe('Leaderboards', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visitApp({ mockDeck: fullGameDeck, mockInitialApi: true });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+        mockInitial: true,
+      });
+
+      cy.visitApp();
     });
 
     it('should not show game paused if leaderboards overlay is visible', () => {
@@ -80,7 +85,11 @@ describe('Leaderboards', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
     });
 
     it('it should display player name after first game', () => {
@@ -104,7 +113,11 @@ describe('Leaderboards', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
     });
 
     it('it should display player name after first game', () => {

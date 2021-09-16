@@ -9,7 +9,12 @@ describe('History', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visitApp({ mockDeck: quitGameDeck, mockInitialApi: true });
+      cy.mockApi({
+        mockDeck: quitGameDeck,
+        mockInitial: true,
+      });
+
+      cy.visitApp();
     });
 
     it('should not show game paused if history overlay is visible', () => {
@@ -27,7 +32,12 @@ describe('History', () => {
 
   describe('New user', () => {
     it('it shows no game message', () => {
-      cy.visitApp({ mockDeck: quitGameDeck, mockInitialApi: true });
+      cy.mockApi({
+        mockDeck: quitGameDeck,
+        mockInitial: true,
+      });
+
+      cy.visitApp();
 
       cy.showHistory({ wait: false });
 
@@ -42,7 +52,11 @@ describe('History', () => {
 
       cy.task('populateDeck', [quitGameDeck, mockNewUid]);
 
-      cy.visitApp({ mockDeck: quitGameDeck });
+      cy.mockApi({
+        mockDeck: quitGameDeck,
+      });
+
+      cy.visitApp();
 
       cy.runGameWithClicks(quitGameMoves);
 
@@ -82,7 +96,11 @@ describe('History', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
 
-      cy.visitApp({ mockDeck: quitGameDeck });
+      cy.mockApi({
+        mockDeck: quitGameDeck,
+      });
+
+      cy.visitApp();
     });
 
     it('it shows 1st page results', () => {

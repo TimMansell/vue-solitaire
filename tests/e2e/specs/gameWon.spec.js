@@ -16,7 +16,11 @@ describe('Timer', () => {
 
       cy.task('populateDeck', [fullGameDeck, mockNewUid]);
 
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
 
       cy.cacheStatValues();
 
@@ -66,7 +70,11 @@ describe('Timer', () => {
 
       cy.task('populateDeck', [fullGameDeck, mockUid]);
 
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+      });
+
+      cy.visitApp();
 
       cy.cacheStatValues();
 

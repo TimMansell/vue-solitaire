@@ -2,7 +2,12 @@ import AcesDeck from '../../fixtures/decks/acesToFoundation.json';
 
 describe('Foundation moves', () => {
   beforeEach(() => {
-    cy.visitApp({ mockDeck: AcesDeck, mockInitialApi: true });
+    cy.mockApi({
+      mockDeck: AcesDeck,
+      mockInitial: true,
+    });
+
+    cy.visitApp();
   });
 
   afterEach(() => {

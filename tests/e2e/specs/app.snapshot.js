@@ -16,7 +16,11 @@ const sizes = [
 describe('App', () => {
   sizes.forEach((size) => {
     it(`matches ${size} snapshot`, () => {
-      cy.visitApp({ mockDeck: quitGameDeck });
+      cy.mockApi({
+        mockDeck: quitGameDeck,
+      });
+
+      cy.visitApp();
 
       cy.runGameWithClicks(quitGameMoves);
 
