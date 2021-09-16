@@ -64,27 +64,25 @@ Cypress.Commands.add('interceptStatsAPI', () => {
   });
 });
 
-Cypress.Commands.add('mockInitialDataAPI', ({ version }) => {
+Cypress.Commands.add('mockInitialDataAPI', ({ matchesVersion = true }) => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;
-
-    console.log({ version });
 
     if (body?.query.includes('query GetInitialData')) {
       req.reply({
         data: {
           user: {
-            exists: true,
-            name: 'ExpectedAmberWoodpecker',
+            exists: false,
+            name: '',
           },
           userStats: {
-            completed: 17,
+            completed: 0,
           },
           globalStats: {
             completed: 17942,
             players: 3544,
           },
-          version,
+          version: { matches: matchesVersion },
         },
       });
     }

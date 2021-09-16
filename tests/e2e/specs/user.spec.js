@@ -89,8 +89,6 @@ describe('User', () => {
 
         cy.startNewGame();
 
-        cy.wait('@waitForInitialDataAPI');
-
         cy.get('@playerCount')
           .text()
           .should('equal', intialPlayerCount);

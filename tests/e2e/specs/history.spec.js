@@ -9,7 +9,7 @@ describe('History', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visitApp({ mockDeck: quitGameDeck });
+      cy.visitApp({ mockDeck: quitGameDeck, mockInitialApi: true });
     });
 
     it('should not show game paused if history overlay is visible', () => {
@@ -17,7 +17,7 @@ describe('History', () => {
         cy.stub(doc, 'visibilityState').value('hidden');
       });
 
-      cy.showHistory();
+      cy.showHistory({ wait: false });
 
       cy.document().trigger('visibilitychange');
 
@@ -27,9 +27,9 @@ describe('History', () => {
 
   describe('New user', () => {
     it('it shows no game message', () => {
-      cy.visitApp({ mockDeck: quitGameDeck });
+      cy.visitApp({ mockDeck: quitGameDeck, mockInitialApi: true });
 
-      cy.showHistory();
+      cy.showHistory({ wait: false });
 
       cy.get('[data-test="game-history"]').should('not.exist');
       cy.get('[data-test="game-history-no-games-msg"]').should('exist');
@@ -88,8 +88,6 @@ describe('History', () => {
     it('it shows 1st page results', () => {
       cy.showHistory();
 
-      cy.wait('@waitForHistoryAPI');
-
       cy.get('[data-test="table-row"]').should('have.length', 25);
 
       cy.get('[data-test="table-row"]:first-child td:first-child').then(
@@ -110,8 +108,6 @@ describe('History', () => {
     it('it shows 2nd page results using > button', () => {
       cy.showHistory();
 
-      cy.wait('@waitForHistoryAPI');
-
       cy.clickHistoryPageAndCheckGameNumber('>', -25);
 
       cy.checkCorrectHistoryPages(2, 25);
@@ -124,8 +120,6 @@ describe('History', () => {
     it('it shows 2nd page results using page 2 number button', () => {
       cy.showHistory();
 
-      cy.wait('@waitForHistoryAPI');
-
       cy.clickHistoryPageAndCheckGameNumber('2', -25);
 
       cy.checkCorrectHistoryPages(2, 25);
@@ -137,8 +131,6 @@ describe('History', () => {
 
     it('it shows last page results using Last button', () => {
       cy.showHistory();
-
-      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('Last')
@@ -169,8 +161,6 @@ describe('History', () => {
     it('it shows 1st page results using First button', () => {
       cy.showHistory();
 
-      cy.wait('@waitForHistoryAPI');
-
       cy.get('[data-test="pagination"]')
         .contains('2')
         .click();
@@ -188,8 +178,6 @@ describe('History', () => {
 
     it('it shows 1st page results using < button', () => {
       cy.showHistory();
-
-      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('2')
@@ -209,8 +197,6 @@ describe('History', () => {
     it('it shows 50 games per page and correct page numbers', () => {
       cy.showHistory();
 
-      cy.wait('@waitForHistoryAPI');
-
       cy.get('[data-test="table-row"]').should('have.length', 25);
 
       cy.get('[data-test="game-history"] [data-test="select"]').select('50');
@@ -228,8 +214,6 @@ describe('History', () => {
 
     it('it shows page one when games per page is changed', () => {
       cy.showHistory();
-
-      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('Last')
@@ -250,8 +234,6 @@ describe('History', () => {
 
     it('it should scroll to correct position on page after clicking on page', () => {
       cy.showHistory();
-
-      cy.wait('@waitForHistoryAPI');
 
       cy.get('[data-test="pagination"]')
         .contains('2')

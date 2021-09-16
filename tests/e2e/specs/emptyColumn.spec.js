@@ -3,7 +3,10 @@ import emptyColumnMoves from '../../fixtures/moves/emptyColumn.json';
 
 describe('Special column moves', () => {
   beforeEach(() => {
-    cy.visitApp({ mockDeck: emptyColumnDeck });
+    cy.visitApp({
+      mockDeck: emptyColumnDeck,
+      mockInitialApi: true,
+    });
 
     cy.runGameWithClicks(emptyColumnMoves);
   });

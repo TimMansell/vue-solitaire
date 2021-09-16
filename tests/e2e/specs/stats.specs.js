@@ -11,7 +11,11 @@ describe('Stats', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockNewUid);
 
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.visitApp({
+        mockDeck: fullGameDeck,
+        mockInitialAPi: true,
+        mockApi: true,
+      });
     });
 
     it('should not show game paused if user stats overlay is visible', () => {
@@ -43,8 +47,6 @@ describe('Stats', () => {
 
       cy.showStats();
 
-      cy.wait('@waitForStatsAPI');
-
       cy.checkStatsValues({ stat: 'user', values: [0, 0, 0, 0] });
       cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });
     });
@@ -72,8 +74,6 @@ describe('Stats', () => {
 
       cy.showStats();
 
-      cy.wait('@waitForStatsAPI');
-
       cy.checkStatsValues({ stat: 'user', values: [1, 0, 0, 1] });
 
       cy.checkGlobalStatsQuit();
@@ -91,8 +91,6 @@ describe('Stats', () => {
       cy.get('[data-test="stats"]').should('not.have.text', '0');
 
       cy.showStats();
-
-      cy.wait('@waitForInitialDataAPI');
 
       cy.checkStatsValuesNot({ stat: 'user', values: [0, 0, 0, 0] });
       cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });

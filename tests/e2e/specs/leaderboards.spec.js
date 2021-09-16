@@ -4,13 +4,11 @@ import { mockUid } from '../../../src/mockData';
 describe('Leaderboards', () => {
   afterEach(() => {
     cy.clearTest();
-
-    cy.interceptLeaderboardAPI();
   });
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.visitApp({ mockDeck: fullGameDeck });
+      cy.visitApp({ mockDeck: fullGameDeck, mockInitialApi: true });
     });
 
     it('should not show game paused if leaderboards overlay is visible', () => {
@@ -20,8 +18,6 @@ describe('Leaderboards', () => {
 
       cy.showLeaderboards();
 
-      cy.wait('@waitForLeaderboardAPI');
-
       cy.document().trigger('visibilitychange');
 
       cy.get('[data-test="game-paused"]').should('not.exist');
@@ -29,8 +25,6 @@ describe('Leaderboards', () => {
 
     it('it should display correct heading', () => {
       cy.showLeaderboards();
-
-      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="leaderboards-heading"]')
         .as('heading')
@@ -56,8 +50,6 @@ describe('Leaderboards', () => {
     it('it should display correct amount of table rows', () => {
       cy.showLeaderboards();
 
-      cy.wait('@waitForLeaderboardAPI');
-
       cy.get('[data-test="table-row"]').should('have.length', 25);
 
       cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
@@ -71,8 +63,6 @@ describe('Leaderboards', () => {
 
     it('it should display correct table heading', () => {
       cy.showLeaderboards();
-
-      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="table-header-row"] th')
         .eq(3)
@@ -96,8 +86,6 @@ describe('Leaderboards', () => {
     it('it should display player name after first game', () => {
       cy.showLeaderboards();
 
-      cy.wait('@waitForLeaderboardAPI');
-
       cy.get('[data-test="leaderboard-name"]').should('not.exist');
 
       cy.closeOverlay();
@@ -107,8 +95,6 @@ describe('Leaderboards', () => {
       cy.wait('@waitForCreateUserAPI');
 
       cy.showLeaderboards();
-
-      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="leaderboard-name"]').should('exist');
     });
@@ -123,8 +109,6 @@ describe('Leaderboards', () => {
 
     it('it should display player name after first game', () => {
       cy.showLeaderboards();
-
-      cy.wait('@waitForLeaderboardAPI');
 
       cy.get('[data-test="leaderboard-name"]').should('exist');
     });

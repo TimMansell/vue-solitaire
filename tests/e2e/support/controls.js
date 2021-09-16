@@ -41,7 +41,7 @@ Cypress.Commands.add('testRules', () => {
 });
 
 Cypress.Commands.add('testHistory', () => {
-  cy.showHistory();
+  cy.showHistory({ wait: false });
 
   cy.get('[data-test="history-overlay"]').should('exist');
 

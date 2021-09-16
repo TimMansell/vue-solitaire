@@ -14,7 +14,11 @@ describe('No moves', () => {
 
   describe('Variations', () => {
     it('should have K♣ as an available move then no moves after that', () => {
-      cy.visitApp({ mockDeck: noMovesKingColumnDeck });
+      cy.visitApp({
+        mockDeck: noMovesKingColumnDeck,
+        mockInitialApi: true,
+        mockApi: true,
+      });
 
       cy.runGameWithClicks(noMovesKingColumnMoves);
 
@@ -22,7 +26,11 @@ describe('No moves', () => {
     });
 
     it('should have A♦ as an available foundation move then no moves after that', () => {
-      cy.visitApp({ mockDeck: initialAceMoveDeck });
+      cy.visitApp({
+        mockDeck: initialAceMoveDeck,
+        mockInitialApi: true,
+        mockApi: true,
+      });
 
       cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
 
@@ -30,7 +38,11 @@ describe('No moves', () => {
     });
 
     it('should have 2♦ as an available foundation move then no moves after that', () => {
-      cy.visitApp({ mockDeck: initialAceAnd2MoveDeck });
+      cy.visitApp({
+        mockDeck: initialAceAnd2MoveDeck,
+        mockInitialApi: true,
+        mockApi: true,
+      });
 
       cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
       cy.get('[data-test="card-2♦"]').clickTo('[data-test="foundation-0"]');

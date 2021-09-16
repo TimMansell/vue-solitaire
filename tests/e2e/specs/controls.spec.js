@@ -3,7 +3,11 @@ import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
 describe('Controls', () => {
   beforeEach(() => {
-    cy.visitApp({ mockDeck: quitGameDeck });
+    cy.visitApp({
+      mockDeck: quitGameDeck,
+      mockInitialApi: true,
+      mockApi: true,
+    });
   });
 
   afterEach(() => {
@@ -16,8 +20,6 @@ describe('Controls', () => {
     cy.get('[data-test="card-7♠"]').click();
 
     cy.startNewGame();
-
-    cy.wait('@waitForCreateUserAPI');
 
     cy.get('[data-test="foundation-0"]').shouldNotContain(['A♣']);
 

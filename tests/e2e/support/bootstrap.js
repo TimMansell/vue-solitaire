@@ -11,7 +11,9 @@ Cypress.Commands.add('visitApp', (obj) => {
   }
 
   if (obj?.mockInitialApi) {
-    cy.mockInitialDataAPI(obj.mockInitialApi);
+    const { mockVersion } = obj;
+
+    cy.mockInitialDataAPI({ matchesVersion: mockVersion });
   }
 
   if (obj?.mockApi) {
@@ -31,6 +33,9 @@ Cypress.Commands.add('clearTest', () => {
   cy.clearLocalStorage();
 
   cy.setTimerPaused(true);
+
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(300);
 });
 
 Cypress.Commands.add('setTimerPaused', (shouldPause) => {
