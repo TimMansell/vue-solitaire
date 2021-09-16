@@ -9,6 +9,18 @@ describe('Game State', () => {
     cy.clearTest();
   });
 
+  it('should pause when page is automatically hidden', () => {
+    cy.visitApp({ mockDeck: fullGameDeck });
+
+    cy.document().then((doc) => {
+      cy.stub(doc, 'visibilityState').value('hidden');
+    });
+
+    cy.document().trigger('visibilitychange');
+
+    cy.get('[data-test="game-paused"]').should('be.visible');
+  });
+
   it('refreshing page shows same board state', () => {
     cy.visitApp({ mockDeck: fullGameDeck });
 
@@ -37,30 +49,8 @@ describe('Game State', () => {
       .eq(1)
       .then(($card) => $card.attr('data-test'))
       .should('contain', 'card-A♣');
-  });
 
-  it('clicking on new game sets new board state', () => {
-    cy.visitApp({ mockDeck: emptyColumnDeck });
-
-    cy.runGameWithClicks(emptyColumnMoves);
-
-    cy.startNewGame();
-
-    cy.get('[data-test="columns"]').within(() => {
-      cy.get('[data-test="column-card-placeholder"]').should('not.exist');
-    });
-  });
-
-  it('should pause when page is automatically hidden', () => {
-    cy.document().then((doc) => {
-      cy.stub(doc, 'visibilityState').value('hidden');
-    });
-
-    cy.visitApp({ mockDeck: fullGameDeck });
-
-    cy.document().trigger('visibilitychange');
-
-    cy.get('[data-test="game-paused"]').should('be.visible');
+    cy.wait('@waitForInitialDataAPI');
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
@@ -112,5 +102,19 @@ describe('Game State', () => {
     cy.pauseGame();
 
     cy.checkGameSummaryValues({ moves: 10 });
+  });
+
+  it('clicking on new game sets new board state', () => {
+    cy.visitApp({ mockDeck: emptyColumnDeck });
+
+    cy.runGameWithClicks(emptyColumnMoves);
+
+    cy.startNewGame();
+
+    cy.get('[data-test="columns"]').within(() => {
+      cy.get('[data-test="column-card-placeholder"]').should('not.exist');
+    });
+
+    cy.wait('@waitForCreateUserAPI');
   });
 });
