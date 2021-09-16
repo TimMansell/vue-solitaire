@@ -62,8 +62,6 @@ describe('Timer', () => {
 
   describe('Existing User', () => {
     it('should win game, keep state on page refresh, and increment won game stats', () => {
-      cy.task('clearUser', mockUid);
-
       localStorage.setItem('luid', mockUid);
 
       cy.task('populateDeck', [fullGameDeck, mockUid]);

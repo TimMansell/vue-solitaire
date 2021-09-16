@@ -95,8 +95,6 @@ describe('No moves', () => {
 
   describe('Existing User', () => {
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {
-      cy.task('clearUser', mockUid);
-
       localStorage.setItem('luid', mockUid);
 
       cy.task('populateDeck', [incompleteGameDeck, mockUid]);
