@@ -14,16 +14,6 @@ describe('Stats', () => {
       cy.visitApp({ mockDeck: fullGameDeck });
     });
 
-    it('should show stats overlay and then close overlay', () => {
-      cy.showStats();
-
-      cy.get('[data-test="stats-overlay"]').should('be.visible');
-
-      cy.closeOverlay();
-
-      cy.get('[data-test="stats-overlay"]').should('not.exist');
-    });
-
     it('should not show game paused if user stats overlay is visible', () => {
       cy.document().then((doc) => {
         cy.stub(doc, 'visibilityState').value('hidden');
@@ -44,24 +34,30 @@ describe('Stats', () => {
   });
 
   describe('New User', () => {
-    beforeEach(() => {
-      cy.visitApp({ mockDeck: fullGameDeck });
-    });
-
     it('it successfully retrieves 0 games played', () => {
+      cy.visitApp({ mockDeck: fullGameDeck });
+
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
 
       cy.showStats();
 
-      cy.wait('@waitForInitialDataAPI');
+      cy.wait('@waitForStatsAPI');
 
       cy.checkStatsValues({ stat: 'user', values: [0, 0, 0, 0] });
       cy.checkStatsValuesNot({ stat: 'global', values: [0, 0, 0, 0] });
     });
 
     it('it successfully increments games played', () => {
+      cy.task('clearUser', mockNewUid);
+
+      localStorage.setItem('luid', mockNewUid);
+
+      cy.task('populateDeck', [fullGameDeck, mockUid]);
+
+      cy.visitApp({ mockDeck: fullGameDeck });
+
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '0');
@@ -70,15 +66,13 @@ describe('Stats', () => {
 
       cy.startNewGame();
 
-      cy.wait('@waitForInitialDataAPI');
-
       cy.get('[data-test="stats"]')
         .text()
         .should('equal', '1');
 
       cy.showStats();
 
-      cy.wait('@waitForInitialDataAPI');
+      cy.wait('@waitForStatsAPI');
 
       cy.checkStatsValues({ stat: 'user', values: [1, 0, 0, 1] });
 
