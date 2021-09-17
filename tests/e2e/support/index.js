@@ -9,4 +9,5 @@ import './drags';
 import './controls';
 import './history';
 import './stats';
+import './timer';
 import './snapshots';
