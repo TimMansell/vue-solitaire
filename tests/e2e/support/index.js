@@ -3,6 +3,7 @@ import 'cypress-commands';
 import './commands';
 import './bootstrap';
 import './api';
+import './card';
 import './buttons';
 import './clicks';
 import './drags';

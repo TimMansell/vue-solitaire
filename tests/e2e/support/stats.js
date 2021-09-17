@@ -1,5 +1,19 @@
 import numeral from 'numeral';
 
+Cypress.Commands.add('saveStat', ({ stat }) => {
+  cy.get(`[data-test="${stat}"]`)
+    .then(($stat) => $stat.text())
+    .then(($stat) => cy.wrap($stat).as(stat));
+});
+
+Cypress.Commands.add('checkStat', ({ stat }) => {
+  cy.get(`@${stat}`).then((stats) => {
+    cy.get(`[data-test="${stat}"]`)
+      .text()
+      .should('equal', stats);
+  });
+});
+
 Cypress.Commands.add('cacheStatValues', () => {
   cy.get('[data-test="stats-btn"]').click();
 

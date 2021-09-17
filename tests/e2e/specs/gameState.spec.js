@@ -26,76 +26,35 @@ describe('Game State', () => {
   });
 
   it('refreshing page shows same board state', () => {
-    cy.get('[data-test^="card-4♠"]')
-      .click()
-      .should('have.class', 'card--is-selected');
+    cy.get('[data-test^="card-4♠"]').click();
+
+    cy.checkSelectedCard({ card: '4♠', isSelected: true });
 
     cy.reload();
 
-    cy.get('[data-test^="card-4♠"]')
-      .should('have.class', 'card--is-selected')
-      .click()
-      .should('not.have.class', 'card--is-selected');
+    cy.checkSelectedCard({ card: '4♠', isSelected: true });
 
-    cy.get('[data-test="column-0"] [data-test^="card"]')
-      .eq(6)
-      .then(($card) => $card.attr('data-test'))
-      .should('contain', 'card-4♣');
+    cy.get('[data-test^="card-4♠"]').click();
 
-    cy.get('[data-test="column-2"] [data-test^="card"]')
-      .eq(4)
-      .then(($card) => $card.attr('data-test'))
-      .should('contain', 'card-Q♣');
+    cy.checkSelectedCard({ card: '4♠', isSelected: false });
 
-    cy.get('[data-test="column-5"] [data-test^="card"]')
-      .eq(1)
-      .then(($card) => $card.attr('data-test'))
-      .should('contain', 'card-A♥');
+    cy.checkCard({ card: '4♣', column: 0, position: 6 });
+    cy.checkCard({ card: 'Q♣', column: 2, position: 4 });
+    cy.checkCard({ card: 'A♥', column: 5, position: 1 });
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
     cy.runGameWithClicks(quitGameMoves);
 
-    cy.get('[data-test="stats"]')
-      .as('stats')
-      .text()
-      .then(($value) => {
-        cy.wrap($value).as('cachedStats');
-      });
-
-    cy.get('[data-test="timer"]')
-      .as('timer')
-      .text()
-      .then(($value) => {
-        cy.wrap($value).as('cachedTimer');
-      });
-
-    cy.get('[data-test="moves"]')
-      .as('moves')
-      .text()
-      .then(($value) => {
-        cy.wrap($value).as('cachedMoves');
-      });
+    cy.saveStat({ stat: 'stats' });
+    cy.saveStat({ stat: 'timer' });
+    cy.saveStat({ stat: 'moves' });
 
     cy.reload();
 
-    cy.get('@cachedStats').then(($stats) => {
-      cy.get('@stats')
-        .text()
-        .should('equal', $stats);
-    });
-
-    cy.get('@cachedTimer').then(($timer) => {
-      cy.get('@timer')
-        .text()
-        .should('equal', $timer);
-    });
-
-    cy.get('@cachedMoves').then(($moves) => {
-      cy.get('@moves')
-        .text()
-        .should('equal', $moves);
-    });
+    cy.checkStat({ stat: 'stats' });
+    cy.checkStat({ stat: 'timer' });
+    cy.checkStat({ stat: 'moves' });
 
     cy.pauseGame();
 
