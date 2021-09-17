@@ -69,7 +69,7 @@ describe('Dragged Cards', () => {
   });
 
   it('should clear dragged cards when dropped outside of board', () => {
-    cy.dragFromTo('card-6♦', 'board');
+    cy.dragFromTo('6♦', 'board');
 
     cy.get('[data-test="columns"]').within(() => {
       cy.get('[data-test="card-6♦"]').should('be.visible');

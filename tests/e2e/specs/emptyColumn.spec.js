@@ -25,7 +25,7 @@ describe('Special column moves', () => {
 
   describe('using drag and drop', () => {
     it('should move K♣ to an empty column', () => {
-      cy.dragFromTo('card-K♣', 'column-1');
+      cy.dragFromTo('K♣', 'column-1');
 
       cy.get('[data-test="column-1"]').shouldContain(['K♣', 'K♦', 'Q♦', 'J♣']);
 
@@ -33,7 +33,7 @@ describe('Special column moves', () => {
     });
 
     it('should not move Q♣ to empty column', () => {
-      cy.dragFromTo('card-Q♣', 'column-0');
+      cy.dragFromTo('Q♣', 'column-0');
 
       cy.get('[data-test="column-1"]').shouldNotContain(['Q♣']);
 
@@ -41,7 +41,7 @@ describe('Special column moves', () => {
     });
 
     it('should not move J♠ to empty column', () => {
-      cy.dragFromTo('card-J♠', 'column-0');
+      cy.dragFromTo('J♠', 'column-0');
 
       cy.get('[data-test="column-0"]').shouldNotContain(['J♠']);
 

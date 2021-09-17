@@ -16,7 +16,7 @@ describe('Foundation moves', () => {
 
   describe('using drag and drop', () => {
     it('should move A♠ to 1st foundation', () => {
-      cy.dragFromTo('card-A♠', 'foundation-0');
+      cy.dragFromTo('A♠', 'foundation-0');
 
       cy.get('[data-test="foundation-0"]').shouldContain(['A♠']);
 
@@ -24,7 +24,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move A♠ to 2nd foundation', () => {
-      cy.dragFromTo('card-A♠', 'foundation-1');
+      cy.dragFromTo('A♠', 'foundation-1');
 
       cy.get('[data-test="foundation-1"]').shouldContain(['A♠']);
 
@@ -32,7 +32,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move A♠ to 3rd foundation', () => {
-      cy.dragFromTo('card-A♠', 'foundation-2');
+      cy.dragFromTo('A♠', 'foundation-2');
 
       cy.get('[data-test="foundation-2"]').shouldContain(['A♠']);
 
@@ -40,7 +40,7 @@ describe('Foundation moves', () => {
     });
 
     it('should move A♠ to 4th foundation', () => {
-      cy.dragFromTo('card-A♠', 'foundation-3');
+      cy.dragFromTo('A♠', 'foundation-3');
 
       cy.get('[data-test="foundation-3"]').shouldContain(['A♠']);
 
@@ -48,11 +48,11 @@ describe('Foundation moves', () => {
     });
 
     it('should move A♥, 2♥, 3♥ to 1st foundation', () => {
-      cy.dragFromTo('card-A♥', 'foundation-0');
+      cy.dragFromTo('A♥', 'foundation-0');
 
-      cy.dragFromTo('card-2♥', 'foundation-0');
+      cy.dragFromTo('2♥', 'foundation-0');
 
-      cy.dragFromTo('card-3♥', 'foundation-0');
+      cy.dragFromTo('3♥', 'foundation-0');
 
       cy.get('[data-test="foundation-0"]').shouldContain(['A♥', '2♥', '3♥']);
 
@@ -60,17 +60,17 @@ describe('Foundation moves', () => {
     });
 
     it('should move A♥ then 2♥ and A♠ then 2♠ to 2nd & 4th foundation', () => {
-      cy.dragFromTo('card-A♥', 'foundation-1');
+      cy.dragFromTo('A♥', 'foundation-1');
 
-      cy.dragFromTo('card-2♥', 'foundation-1');
+      cy.dragFromTo('2♥', 'foundation-1');
 
       cy.get('[data-test="foundation-1"]').shouldContain(['A♥', '2♥']);
 
       cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
 
-      cy.dragFromTo('card-A♠', 'foundation-3');
+      cy.dragFromTo('A♠', 'foundation-3');
 
-      cy.dragFromTo('card-2♠', 'foundation-3');
+      cy.dragFromTo('2♠', 'foundation-3');
 
       cy.get('[data-test="foundation-3"]').shouldContain(['A♠', '2♠']);
 
@@ -78,14 +78,14 @@ describe('Foundation moves', () => {
     });
 
     it('should move A♥ then 2♥ to 2nd foundation and not move A♠ to same foundation', () => {
-      cy.dragFromTo('card-A♥', 'foundation-1');
-      cy.dragFromTo('card-2♥', 'foundation-1');
+      cy.dragFromTo('A♥', 'foundation-1');
+      cy.dragFromTo('2♥', 'foundation-1');
 
       cy.get('[data-test="foundation-1"]').shouldContain(['A♥', '2♥']);
 
       cy.get('[data-test="column-3"]').shouldNotContain(['A♥', '2♥']);
 
-      cy.dragFromTo('card-A♠', 'foundation-1');
+      cy.dragFromTo('A♠', 'foundation-1');
 
       cy.get('[data-test="foundation-1"]').shouldNotContain(['A♠']);
 
@@ -93,8 +93,8 @@ describe('Foundation moves', () => {
     });
 
     it('should move A♦ to 1st foundation and not 2♦', () => {
-      cy.dragFromTo('card-A♦', 'foundation-0');
-      cy.dragFromTo('card-2♦', 'foundation-0');
+      cy.dragFromTo('A♦', 'foundation-0');
+      cy.dragFromTo('2♦', 'foundation-0');
 
       cy.get('[data-test="foundation-0"]').shouldContain(['A♦']);
       cy.get('[data-test="foundation-0"]').shouldNotContain(['2♦']);
@@ -103,9 +103,9 @@ describe('Foundation moves', () => {
     });
 
     it('should move A♥ to 1st foundation and not move 2♣', () => {
-      cy.dragFromTo('card-A♥', 'foundation-0');
+      cy.dragFromTo('A♥', 'foundation-0');
 
-      cy.dragFromTo('card-2♣', 'foundation-0');
+      cy.dragFromTo('2♣', 'foundation-0');
 
       cy.get('[data-test="foundation-0"]').shouldContain(['A♥']);
       cy.get('[data-test="foundation-0"]').shouldNotContain(['2♣']);
@@ -114,7 +114,7 @@ describe('Foundation moves', () => {
     });
 
     it('should not move A♣ to foundation', () => {
-      cy.dragFromTo('card-A♣', 'foundation-0');
+      cy.dragFromTo('A♣', 'foundation-0');
 
       cy.get('[data-test="column-4"]').shouldContain(['A♣']);
 

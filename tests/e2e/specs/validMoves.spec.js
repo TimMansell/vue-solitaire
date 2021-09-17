@@ -16,7 +16,7 @@ describe('Valid moves', () => {
 
   describe('using drag and drop', () => {
     it('should move 6♦ in middle of column to 7♦', () => {
-      cy.dragFromTo('card-6♦', 'card-7♦');
+      cy.dragFromTo('6♦', '7♦');
 
       cy.get('[data-test="column-2"]').shouldContain(['6♦']);
 
@@ -26,7 +26,7 @@ describe('Valid moves', () => {
     });
 
     it('should move 9♦ at bottom of column to 10♦', () => {
-      cy.dragFromTo('card-9♦', 'card-10♦');
+      cy.dragFromTo('9♦', '10♦');
 
       cy.get('[data-test="column-6"]').shouldContain(['9♦']);
 
@@ -36,7 +36,7 @@ describe('Valid moves', () => {
     });
 
     it('should move A♣ to 2♣', () => {
-      cy.dragFromTo('card-A♣', 'card-2♣');
+      cy.dragFromTo('A♣', '2♣');
 
       cy.get('[data-test="column-0"]').shouldContain(['A♣']);
 

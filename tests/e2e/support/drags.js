@@ -1,5 +1,11 @@
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
-  cy.get(`[data-test="${dragFrom}"]`)
+  const formattedDragFrom = `card-${dragFrom}`;
+  const formattedDragTo =
+    !dragTo.startsWith('foundation') && !dragTo.startsWith('column')
+      ? `card-${dragTo}`
+      : dragTo;
+
+  cy.get(`[data-test="${formattedDragFrom}"]`)
     .trigger('dragstart', {
       dataTransfer: new DataTransfer(),
       eventConstructor: 'DragEvent',
@@ -9,20 +15,17 @@ Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
       force: true,
     });
 
-  cy.get(`[data-test="dragged-cards"] [data-test="${dragFrom}"]`).should(
-    'be.visible'
-  );
+  cy.get(
+    `[data-test="dragged-cards"] [data-test="${formattedDragFrom}"]`
+  ).should('be.visible');
 
-  cy.get(`[data-test="columns"] [data-test="${dragFrom}"]`).should(
+  cy.get(`[data-test="columns"] [data-test="${formattedDragFrom}"]`).should(
     'not.be.visible'
   );
 
-  cy.get(`[data-test="${dragTo}"]`)
+  cy.get(`[data-test="${formattedDragTo}"]`)
     .trigger('drop', { force: true })
     .trigger('dragend', { force: true });
-
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  // cy.wait(500);
 
   cy.get('[data-test="dragged-cards"]')
     .children()
