@@ -45,7 +45,7 @@ describe('Controls', () => {
 
     cy.get('[data-test="foundation-0"]').shouldContain(['A♣']);
 
-    cy.get('[data-test="card-7♠"]').should('have.class', 'card--is-selected');
+    cy.checkSelectedCard({ card: '7♠', isSelected: true });
   });
 
   it('it should new/continue, pause/resume, open/close: rules, history, stats, leaderboards', () => {
