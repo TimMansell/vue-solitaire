@@ -118,9 +118,7 @@ describe('Stats', () => {
       cy.get('[data-test="stats"]').then(($stats) => {
         const number = numeral($stats.text()).value();
 
-        cy.startNewGame();
-
-        cy.wait('@waitForInitialDataAPI');
+        cy.startNewGame({ waitInitial: true });
 
         const newNumber = numeral(number + 1).format('0,0');
 

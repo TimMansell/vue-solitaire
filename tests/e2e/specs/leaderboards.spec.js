@@ -84,9 +84,7 @@ describe('Leaderboards', () => {
 
       cy.closeOverlay();
 
-      cy.startNewGame();
-
-      cy.wait('@waitForCreateUserAPI');
+      cy.startNewGame({ waitUser: true });
 
       cy.showLeaderboards();
 
