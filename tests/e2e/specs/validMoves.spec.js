@@ -20,9 +20,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-2"]').shouldContain(['6♦']);
 
-      cy.get('[data-test="moves"]')
-        .text()
-        .should('equal', '1');
+      cy.checkMoves(1);
     });
 
     it('should move 9♦ at bottom of column to 10♦', () => {
@@ -30,9 +28,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-6"]').shouldContain(['9♦']);
 
-      cy.get('[data-test="moves"]')
-        .text()
-        .should('equal', '1');
+      cy.checkMoves(1);
     });
 
     it('should move A♣ to 2♣', () => {
@@ -40,9 +36,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-0"]').shouldContain(['A♣']);
 
-      cy.get('[data-test="moves"]')
-        .text()
-        .should('equal', '1');
+      cy.checkMoves(1);
     });
   });
 
@@ -52,9 +46,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-2"]').shouldContain(['6♦']);
 
-      cy.get('[data-test="moves"]')
-        .text()
-        .should('equal', '1');
+      cy.checkMoves(1);
     });
 
     it('should move 9♦ at bottom of column to 10♦', () => {
@@ -62,9 +54,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-6"]').shouldContain(['9♦']);
 
-      cy.get('[data-test="moves"]')
-        .text()
-        .should('equal', '1');
+      cy.checkMoves(1);
     });
 
     it('should move A♣ to 2♣', () => {
@@ -72,9 +62,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-0"]').shouldContain(['A♣']);
 
-      cy.get('[data-test="moves"]')
-        .text()
-        .should('equal', '1');
+      cy.checkMoves(1);
     });
   });
 });
