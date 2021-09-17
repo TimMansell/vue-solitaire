@@ -11,5 +11,6 @@ import './history';
 import './stats';
 import './moves';
 import './leaderboards';
+import './user';
 import './timer';
 import './snapshots';

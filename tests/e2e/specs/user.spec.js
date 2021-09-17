@@ -14,11 +14,11 @@ describe('User', () => {
       });
 
       cy.visitApp();
+
+      cy.wait('@waitForInitialDataAPI');
     });
 
     it('it creates a new local user on initial page load', () => {
-      cy.wait('@waitForInitialDataAPI');
-
       const luid = localStorage.getItem('luid');
 
       // eslint-disable-next-line no-unused-expressions
@@ -27,47 +27,28 @@ describe('User', () => {
     });
 
     it('it creates a new user on server after first game has been played', () => {
-      cy.get('[data-test="player-count"]').as('playerCount');
-
-      cy.wait('@waitForInitialDataAPI');
-
-      cy.get('@playerCount').then(($playerCount) => {
+      cy.get('[data-test="player-count"]').then(($playerCount) => {
         const intialPlayerCount = numeral($playerCount.text()).value();
 
-        cy.startNewGame();
-
-        cy.wait('@waitForCreateUserAPI');
-        cy.wait('@waitForInitialDataAPI');
+        cy.startNewGame({ waitUser: true, waitInitial: true });
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
-        cy.get('@playerCount')
-          .text()
-          .should('equal', newPlayerCount);
+        cy.checkPlayerCount(newPlayerCount);
       });
     });
 
     it('it does not create a new user on server after second game has been played', () => {
-      cy.get('[data-test="player-count"]').as('playerCount');
-
-      cy.wait('@waitForInitialDataAPI');
-
-      cy.get('@playerCount').then(($playerCount) => {
+      cy.get('[data-test="player-count"]').then(($playerCount) => {
         const intialPlayerCount = numeral($playerCount.text()).value();
 
-        cy.startNewGame();
+        cy.startNewGame({ waitUser: true });
 
-        cy.wait('@waitForCreateUserAPI');
-
-        cy.startNewGame();
-
-        cy.wait('@waitForInitialDataAPI');
+        cy.startNewGame({ waitInitial: true });
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
-        cy.get('@playerCount')
-          .text()
-          .should('equal', newPlayerCount);
+        cy.checkPlayerCount(newPlayerCount);
       });
     });
   });
@@ -81,6 +62,8 @@ describe('User', () => {
       });
 
       cy.visitApp();
+
+      cy.wait('@waitForInitialDataAPI');
     });
 
     it('it does not create a new local user on initial page load', () => {
@@ -90,18 +73,12 @@ describe('User', () => {
     });
 
     it('it does not create a new user on server after first game has been played', () => {
-      cy.get('[data-test="player-count"]').as('playerCount');
-
-      cy.wait('@waitForInitialDataAPI');
-
-      cy.get('@playerCount').then(($playerCount) => {
+      cy.get('[data-test="player-count"]').then(($playerCount) => {
         const intialPlayerCount = $playerCount.text();
 
         cy.startNewGame();
 
-        cy.get('@playerCount')
-          .text()
-          .should('equal', intialPlayerCount);
+        cy.checkPlayerCount(intialPlayerCount);
       });
     });
   });
