@@ -48,7 +48,7 @@ describe('Valid moves', () => {
 
   describe('using clicks', () => {
     it('should move 6♦ in middle of column to 7♦', () => {
-      cy.get('[data-test="card-6♦"]').clickTo('[data-test="card-7♦"]');
+      cy.clickFromTo('6♦', '7♦');
 
       cy.get('[data-test="column-2"]').shouldContain(['6♦']);
 
@@ -58,7 +58,7 @@ describe('Valid moves', () => {
     });
 
     it('should move 9♦ at bottom of column to 10♦', () => {
-      cy.get('[data-test="card-9♦"]').clickTo('[data-test="card-10♦"]');
+      cy.clickFromTo('9♦', '10♦');
 
       cy.get('[data-test="column-6"]').shouldContain(['9♦']);
 
@@ -68,7 +68,7 @@ describe('Valid moves', () => {
     });
 
     it('should move A♣ to 2♣', () => {
-      cy.get('[data-test="card-A♣"]').clickTo('[data-test="card-2♣"]');
+      cy.clickFromTo('A♣', '2♣');
 
       cy.get('[data-test="column-0"]').shouldContain(['A♣']);
 

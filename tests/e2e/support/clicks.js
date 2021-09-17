@@ -1,6 +1,11 @@
-Cypress.Commands.add('clickTo', { prevSubject: true }, (subject, clickTo) => {
-  cy.get(subject).click({ force: true });
-  cy.get(clickTo).click({ force: true });
+Cypress.Commands.add('clickFromTo', (clickFrom, clickTo) => {
+  const formattedClickTo =
+    !clickTo.startsWith('foundation') && !clickTo.startsWith('column')
+      ? `card-${clickTo}`
+      : clickTo;
+
+  cy.get(`[data-test="card-${clickFrom}"]`).click({ force: true });
+  cy.get(`[data-test="${formattedClickTo}"]`).click({ force: true });
 });
 
 Cypress.Commands.add('runGameWithClicks', (moves) => {

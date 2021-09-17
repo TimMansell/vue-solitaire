@@ -40,7 +40,7 @@ describe('No moves', () => {
 
       cy.visitApp();
 
-      cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
+      cy.clickFromTo('A♦', 'foundation-0');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
     });
@@ -56,8 +56,8 @@ describe('No moves', () => {
 
       cy.visitApp();
 
-      cy.get('[data-test="card-A♦"]').clickTo('[data-test="foundation-0"]');
-      cy.get('[data-test="card-2♦"]').clickTo('[data-test="foundation-0"]');
+      cy.clickFromTo('A♦', 'foundation-0');
+      cy.clickFromTo('2♦', 'foundation-0');
 
       cy.get('[data-test="game-lost"]').should('be.visible');
     });

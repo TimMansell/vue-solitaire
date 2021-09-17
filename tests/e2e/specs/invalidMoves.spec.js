@@ -48,31 +48,31 @@ describe('Invalid moves', () => {
 
   describe('using clicks', () => {
     it('should not move 9♥ to 4♣ (invalid value & suit)', () => {
-      cy.get('[data-test="card-9♥"]').clickTo('[data-test="card-4♣"]');
+      cy.clickFromTo('9♥', '4♣');
 
       cy.get('[data-test="column-7"]').shouldNotContain(['9♥']);
     });
 
     it('should not move 2♠ to 4♣ (lower value and invalid suit)', () => {
-      cy.get('[data-test="card-2♠"]').clickTo('[data-test="card-4♣"]');
+      cy.clickFromTo('2♠', '4♣');
 
       cy.get('[data-test="column-7"]').shouldNotContain(['2♠']);
     });
 
     it('should not move 6♥ to 4♣ (higher value and invalid suit)', () => {
-      cy.get('[data-test="card-6♥"]').clickTo('[data-test="card-4♣"]');
+      cy.clickFromTo('6♥', '4♣');
 
       cy.get('[data-test="column-7"]').shouldNotContain(['6♥']);
     });
 
     it('should not move 3♦ to 4♣ (valid value and invalid suit)', () => {
-      cy.get('[data-test="card-3♦"]').clickTo('[data-test="card-4♣"]');
+      cy.clickFromTo('3♦', '4♣');
 
       cy.get('[data-test="column-7"]').shouldNotContain(['3♦']);
     });
 
     it('should not move 8♣ to 4♣ (invalid value and valid suit)', () => {
-      cy.get('[data-test="card-8♣"]').clickTo('[data-test="card-4♣"]');
+      cy.clickFromTo('8♣', '4♣');
 
       cy.get('[data-test="column-1"]').shouldNotContain(['8♣']);
     });

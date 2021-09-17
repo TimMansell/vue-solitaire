@@ -51,7 +51,7 @@ describe('Special column moves', () => {
 
   describe('using clicks', () => {
     it('should move K♣ to an empty column', () => {
-      cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-1"]');
+      cy.clickFromTo('K♣', 'column-1');
 
       cy.get('[data-test="column-1"]').shouldContain(['K♣', 'K♦', 'Q♦', 'J♣']);
 
@@ -59,7 +59,7 @@ describe('Special column moves', () => {
     });
 
     it('should not move Q♣ to empty column', () => {
-      cy.get('[data-test="card-Q♣"]').clickTo('[data-test="column-1"]');
+      cy.clickFromTo('Q♣', 'column-1');
 
       cy.get('[data-test="column-1"]').shouldNotContain(['Q♣']);
 
@@ -67,7 +67,7 @@ describe('Special column moves', () => {
     });
 
     it('should not move J♠ to empty column', () => {
-      cy.get('[data-test="card-J♠"]').clickTo('[data-test="column-0"]');
+      cy.clickFromTo('J♠', 'column-0');
 
       cy.get('[data-test="column-0"]').shouldNotContain(['J♠']);
 
