@@ -35,19 +35,11 @@ describe('Leaderboards', () => {
         .as('heading')
         .should('contain', 'Top 25 Best Moves');
 
-      cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
-        'Times'
-      );
-
-      cy.wait('@waitForLeaderboardAPI');
+      cy.selectBestItem('Times');
 
       cy.get('@heading').should('contain', 'Top 25 Best Times');
 
-      cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
-        '50'
-      );
-
-      cy.wait('@waitForLeaderboardAPI');
+      cy.selectTopItem('50');
 
       cy.get('@heading').should('contain', 'Top 50 Best Times');
     });
@@ -57,11 +49,7 @@ describe('Leaderboards', () => {
 
       cy.get('[data-test="table-row"]').should('have.length', 25);
 
-      cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
-        '50'
-      );
-
-      cy.wait('@waitForLeaderboardAPI');
+      cy.selectTopItem('50');
 
       cy.get('[data-test="table-row"]').should('have.length', 50);
     });
@@ -74,10 +62,7 @@ describe('Leaderboards', () => {
         .as('row')
         .should('contain', 'Moves');
 
-      cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
-        'Times'
-      );
-      cy.wait('@waitForLeaderboardAPI');
+      cy.selectBestItem('Times');
 
       cy.get('@row').should('contain', 'Times');
     });
