@@ -1,7 +1,9 @@
 Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
   const formattedDragFrom = `card-${dragFrom}`;
   const formattedDragTo =
-    !dragTo.startsWith('foundation') && !dragTo.startsWith('column')
+    !dragTo.startsWith('foundation') &&
+    !dragTo.startsWith('column') &&
+    !dragTo.startsWith('board')
       ? `card-${dragTo}`
       : dragTo;
 
