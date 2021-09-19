@@ -20,7 +20,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-2"]').shouldContain(['6♦']);
 
-      cy.checkMoves(1);
+      cy.checkMoveCount(1);
     });
 
     it('should move 9♦ at bottom of column to 10♦', () => {
@@ -28,7 +28,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-6"]').shouldContain(['9♦']);
 
-      cy.checkMoves(1);
+      cy.checkMoveCount(1);
     });
 
     it('should move A♣ to 2♣', () => {
@@ -36,7 +36,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-0"]').shouldContain(['A♣']);
 
-      cy.checkMoves(1);
+      cy.checkMoveCount(1);
     });
   });
 
@@ -46,7 +46,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-2"]').shouldContain(['6♦']);
 
-      cy.checkMoves(1);
+      cy.checkMoveCount(1);
     });
 
     it('should move 9♦ at bottom of column to 10♦', () => {
@@ -54,7 +54,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-6"]').shouldContain(['9♦']);
 
-      cy.checkMoves(1);
+      cy.checkMoveCount(1);
     });
 
     it('should move A♣ to 2♣', () => {
@@ -62,7 +62,7 @@ describe('Valid moves', () => {
 
       cy.get('[data-test="column-0"]').shouldContain(['A♣']);
 
-      cy.checkMoves(1);
+      cy.checkMoveCount(1);
     });
   });
 });
