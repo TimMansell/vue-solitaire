@@ -8,6 +8,8 @@ import './buttons';
 import './clicks';
 import './drags';
 import './controls';
+import './pagination';
+import './table';
 import './history';
 import './stats';
 import './moves';

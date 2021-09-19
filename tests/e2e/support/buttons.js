@@ -53,7 +53,7 @@ Cypress.Commands.add('showRules', () => {
   cy.get('[data-test="game-rules-btn"]').click();
 });
 
-Cypress.Commands.add('showHistory', ({ wait } = { wait: true }) => {
+Cypress.Commands.add('showHistory', ({ wait } = { wait: false }) => {
   cy.get('[data-test="history-btn"]').click();
 
   if (wait) {
