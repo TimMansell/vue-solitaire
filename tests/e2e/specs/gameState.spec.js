@@ -46,15 +46,15 @@ describe('Game State', () => {
   it('should show correct games, time, and moves on page refresh', () => {
     cy.runGameWithClicks(quitGameMoves);
 
-    cy.saveStat({ stat: 'stats' });
-    cy.saveStat({ stat: 'timer' });
-    cy.saveStat({ stat: 'moves' });
+    cy.saveGames();
+    cy.saveTimer({ alias: 'timer' });
+    cy.saveMoves();
 
     cy.reload();
 
-    cy.checkStat({ stat: 'stats' });
-    cy.checkStat({ stat: 'timer' });
-    cy.checkStat({ stat: 'moves' });
+    cy.checkGames();
+    cy.checkTimer();
+    cy.checkMoves();
 
     cy.pauseGame();
 
