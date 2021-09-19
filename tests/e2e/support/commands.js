@@ -1,3 +1,5 @@
+import numeral from 'numeral';
+
 Cypress.Commands.add(
   'shouldContain',
   { prevSubject: true },
@@ -39,7 +41,11 @@ Cypress.Commands.add(
   { prevSubject: true },
   (subject, alias) => {
     cy.get(subject)
-      .then(($value) => parseInt($value.text(), 10))
+      .then(($value) => numeral($value.text()).value())
       .then(($value) => cy.wrap($value).as(alias));
   }
 );
+
+Cypress.Commands.add('formatNumber', { prevSubject: true }, (subject) => {
+  cy.get(subject).then(($value) => numeral($value.text()).value());
+});

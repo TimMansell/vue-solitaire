@@ -1,4 +1,3 @@
-import numeral from 'numeral';
 import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
 import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
 import noMovesKingColumnDeck from '../../fixtures/decks/noMovesKingColumn.json';
@@ -26,7 +25,7 @@ describe('No moves', () => {
 
       cy.runGameWithClicks(noMovesKingColumnMoves);
 
-      cy.get('[data-test="game-lost"]').should('be.visible');
+      cy.checkGameLost();
     });
 
     it('should have A♦ as an available foundation move then no moves after that', () => {
@@ -42,7 +41,7 @@ describe('No moves', () => {
 
       cy.clickFromTo('A♦', 'foundation-0');
 
-      cy.get('[data-test="game-lost"]').should('be.visible');
+      cy.checkGameLost();
     });
 
     it('should have 2♦ as an available foundation move then no moves after that', () => {
@@ -59,7 +58,7 @@ describe('No moves', () => {
       cy.clickFromTo('A♦', 'foundation-0');
       cy.clickFromTo('2♦', 'foundation-0');
 
-      cy.get('[data-test="game-lost"]').should('be.visible');
+      cy.checkGameLost();
     });
   });
 
@@ -77,47 +76,26 @@ describe('No moves', () => {
 
       cy.visitApp();
 
-      cy.cacheStatValues();
+      cy.saveStats();
+      cy.saveGames();
 
       cy.runGameWithClicks(incompleteGameMoves);
 
-      cy.get('[data-test="game-lost"]').should('exist');
+      cy.checkGameLost();
 
       cy.testShowBoard();
 
-      // Test timer
-      cy.get('[data-test="timer"]').then(($timerStart) => {
-        const startNumber = $timerStart.text();
+      cy.checkReloadTimer();
 
-        cy.reloadAndWait();
+      cy.checkGameLost();
 
-        cy.get('[data-test="timer"]').then(($timerEnd) => {
-          const endNumber = $timerEnd.text();
+      cy.confirmNewGame({ waitUser: true });
 
-          expect(startNumber).to.equal(endNumber);
-        });
-      });
-
-      cy.reloadAndWait();
-
-      cy.get('[data-test="game-lost"]').should('exist');
-      cy.get('[data-test="game-won"]').should('not.exist');
-
-      cy.confirmNewGame();
-
-      // Timer should reset
-      cy.get('[data-test="timer"]').should('contain', '0:00:00');
-
-      cy.wait('@waitForCreateUserAPI');
-
-      // Check stats
-      cy.get('[data-test="stats"]').should('have.text', 1);
+      cy.checkGameNumber(1);
 
       cy.showStats();
 
-      cy.checkStatsValues({ stat: 'user', values: [1, 0, 1, 0] });
-
-      cy.checkGlobalStatsLost();
+      cy.checkAllStats({ played: true, lost: true });
     });
   });
 
@@ -133,65 +111,24 @@ describe('No moves', () => {
 
       cy.visitApp();
 
-      cy.cacheStatValues();
+      cy.saveStats();
+      cy.saveGames();
 
       cy.runGameWithClicks(incompleteGameMoves);
 
-      cy.get('[data-test="game-lost"]').should('exist');
+      cy.checkGameLost();
 
       cy.testShowBoard();
 
-      // Test timer
-      cy.get('[data-test="timer"]').then(($timerStart) => {
-        const startNumber = $timerStart.text();
+      cy.checkReloadTimer();
 
-        cy.reloadAndWait();
+      cy.checkGameLost();
 
-        cy.get('[data-test="timer"]').then(($timerEnd) => {
-          const endNumber = $timerEnd.text();
-
-          expect(startNumber).to.equal(endNumber);
-        });
-      });
-
-      cy.get('[data-test="game-lost"]').should('exist');
-      cy.get('[data-test="game-won"]').should('not.exist');
-
-      // Check stats
-      cy.get('[data-test="stats"]').then(($stats) => {
-        const number = numeral($stats.text()).value();
-
-        cy.confirmNewGame();
-
-        // Timer should reset
-        cy.get('[data-test="timer"]').should('contain', '0:00:00');
-
-        const newNumber = numeral(number + 1).format('0,0');
-
-        cy.get('[data-test="stats"]')
-          .text()
-          .should('equal', newNumber);
-      });
+      cy.confirmNewGame();
 
       cy.showStats();
 
-      cy.get('@gamesPlayed').then(($played) => {
-        const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
-
-        cy.get('@gamesWon').then(($won) => {
-          cy.get('@gamesLost').then(($lost) => {
-            const $newLost = numeral(numeral($lost).value() + 1).format('0,0');
-            cy.get('@gamesQuit').then(($quit) => {
-              cy.checkStatsValues({
-                stat: 'user',
-                values: [$newPlayed, $won, $newLost, $quit],
-              });
-            });
-          });
-        });
-      });
-
-      cy.checkGlobalStatsLost();
+      cy.checkAllStats({ played: true, lost: true });
     });
   });
 });

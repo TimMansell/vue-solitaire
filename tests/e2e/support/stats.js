@@ -1,137 +1,127 @@
 import numeral from 'numeral';
 
-Cypress.Commands.add('saveStat', ({ stat }) => {
-  cy.get(`[data-test="${stat}"]`)
-    .then(($stat) => $stat.text())
-    .then(($stat) => cy.wrap($stat).as(stat));
-});
+Cypress.Commands.add('saveGames', () =>
+  cy.get('[data-test="stats"]').saveTextAs('games')
+);
 
-Cypress.Commands.add('checkStat', ({ stat }) => {
-  cy.get(`@${stat}`).then((stats) => {
-    cy.get(`[data-test="${stat}"]`)
+Cypress.Commands.add('checkGames', () => {
+  cy.get('@games').then((stats) => {
+    cy.get('[data-test="stats"]')
       .text()
       .should('equal', stats);
   });
 });
 
-Cypress.Commands.add('cacheStatValues', () => {
-  cy.get('[data-test="stats-btn"]').click();
+Cypress.Commands.add('checkGameNumber', (number) =>
+  cy.get('[data-test="stats"]').should('have.text', number)
+);
 
-  cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('cellUser');
+Cypress.Commands.add('checkGameLost', () => {
+  cy.get('[data-test="game-lost"]').should('exist');
+  cy.get('[data-test="game-won"]').should('not.exist');
+});
+
+Cypress.Commands.add('saveStats', () => {
+  cy.showStats();
+
+  cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('userStats');
   cy.get('[data-test="global-stats"] [data-test="table-cell"]').as(
-    'cellGlobal'
+    'globalStats'
   );
 
-  cy.get('@cellUser')
+  cy.get('@userStats')
     .eq(0)
-    .text()
-    .then(($count) => {
-      cy.wrap($count).as('gamesPlayed');
-    });
+    .saveNumberAs('userPlayed');
 
-  cy.get('@cellUser')
+  cy.get('@userStats')
     .eq(1)
-    .text()
-    .then(($count) => {
-      cy.wrap($count).as('gamesWon');
-    });
+    .saveNumberAs('userWon');
 
-  cy.get('@cellUser')
+  cy.get('@userStats')
     .eq(2)
-    .text()
-    .then(($count) => {
-      cy.wrap($count).as('gamesLost');
-    });
+    .saveNumberAs('userLost');
 
-  cy.get('@cellUser')
+  cy.get('@userStats')
     .eq(3)
-    .text()
-    .then(($count) => {
-      cy.wrap($count).as('gamesQuit');
-    });
+    .saveNumberAs('userQuit');
 
-  cy.get('@cellGlobal')
+  cy.get('@globalStats')
     .eq(0)
-    .text()
-    .then(($count) => {
-      cy.wrap($count).as('globalGamesPlayed');
-    });
+    .saveNumberAs('globalPlayed');
 
-  cy.get('@cellGlobal')
+  cy.get('@globalStats')
     .eq(1)
-    .text()
-    .then(($count) => {
-      cy.wrap($count).as('globalGamesWon');
-    });
+    .saveNumberAs('globalWon');
 
-  cy.get('@cellGlobal')
+  cy.get('@globalStats')
     .eq(2)
-    .text()
-    .then(($count) => {
-      cy.wrap($count).as('globalGamesLost');
-    });
+    .saveNumberAs('globalLost');
 
-  cy.get('@cellGlobal')
+  cy.get('@globalStats')
     .eq(3)
-    .text()
-    .then(($count) => {
-      cy.wrap($count).as('globalGamesQuit');
-    });
+    .saveNumberAs('globalQuit');
 
-  // cy.get('[data-test="game-overlay-close-btn"]').click();
   cy.closeOverlay();
 });
 
-Cypress.Commands.add('checkStatsValues', ({ stat, values }) => {
-  const [one, two, three, four] = values;
+Cypress.Commands.add('checkAllStats', ({ played, won, lost, quit }) => {
+  cy.get('@games').then((stats) => {
+    const number = numeral(stats).value();
+    const incrementedNumber = numeral(number + 1).format('0,0');
 
-  cy.get(`[data-test="${stat}-stats"] [data-test="table-cell"]`).as('stat');
+    cy.get('[data-test="stats"]')
+      .text()
+      .should('equal', incrementedNumber);
+  });
 
-  cy.get('@stat')
-    .eq(0)
-    .text()
-    .should('equal', `${one}`);
+  const stats = ['user', 'global'];
 
-  cy.get('@stat')
-    .eq(1)
-    .text()
-    .should('equal', `${two}`);
+  stats.forEach((stat) => {
+    cy.get(`@${stat}Played`).then((gamesPlayed) => {
+      cy.get(`@${stat}Won`).then((gamesWon) => {
+        cy.get(`@${stat}Lost`).then((gamesLost) => {
+          cy.get(`@${stat}Quit`).then((gamesQuit) => {
+            const playedCount = played ? gamesPlayed + 1 : gamesPlayed;
+            const wonCount = won ? gamesWon + 1 : gamesWon;
+            const lostCount = lost ? gamesLost + 1 : gamesLost;
+            const quitCount = quit ? gamesQuit + 1 : gamesQuit;
 
-  cy.get('@stat')
-    .eq(2)
-    .text()
-    .should('equal', `${three}`);
-
-  cy.get('@stat')
-    .eq(3)
-    .text()
-    .should('equal', `${four}`);
+            cy.checkStats({
+              stat,
+              values: [playedCount, wonCount, lostCount, quitCount],
+            });
+          });
+        });
+      });
+    });
+  });
 });
 
-Cypress.Commands.add('checkStatsValuesNot', ({ stat, values }) => {
+Cypress.Commands.add('checkStats', ({ stat, values, not = false }) => {
   const [one, two, three, four] = values;
+  const shouldTest = not ? 'not.equal' : 'equal';
 
   cy.get(`[data-test="${stat}-stats"] [data-test="table-cell"]`).as('stat');
 
   cy.get('@stat')
     .eq(0)
-    .text()
-    .should('not.equal', `${one}`);
+    .formatNumber()
+    .should(shouldTest, one);
 
   cy.get('@stat')
     .eq(1)
-    .text()
-    .should('not.equal', `${two}`);
+    .formatNumber()
+    .should(shouldTest, two);
 
   cy.get('@stat')
     .eq(2)
-    .text()
-    .should('not.equal', `${three}`);
+    .formatNumber()
+    .should(shouldTest, three);
 
   cy.get('@stat')
     .eq(3)
-    .text()
-    .should('not.equal', `${four}`);
+    .formatNumber()
+    .should(shouldTest, four);
 });
 
 Cypress.Commands.add('checkGlobalStatsQuit', () => {
@@ -142,7 +132,7 @@ Cypress.Commands.add('checkGlobalStatsQuit', () => {
       cy.get('@globalGamesLost').then(($lost) => {
         cy.get('@globalGamesQuit').then(($quit) => {
           const $newQuit = numeral(numeral($quit).value() + 1).format('0,0');
-          cy.checkStatsValues({
+          cy.checkStats({
             stat: 'global',
             values: [$newPlayed, $won, $lost, $newQuit],
           });
@@ -161,7 +151,7 @@ Cypress.Commands.add('checkGlobalStatsWon', () => {
 
       cy.get('@globalGamesLost').then(($lost) => {
         cy.get('@globalGamesQuit').then(($quit) => {
-          cy.checkStatsValues({
+          cy.checkStats({
             stat: 'global',
             values: [$newPlayed, $newWon, $lost, $quit],
           });
@@ -171,29 +161,8 @@ Cypress.Commands.add('checkGlobalStatsWon', () => {
   });
 });
 
-Cypress.Commands.add('checkGlobalStatsLost', () => {
-  cy.get('@globalGamesPlayed').then(($played) => {
-    const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
-
-    cy.get('@globalGamesWon').then(($won) => {
-      cy.get('@globalGamesLost').then(($lost) => {
-        const $newLost = numeral(numeral($lost).value() + 1).format('0,0');
-
-        cy.get('@globalGamesQuit').then(($quit) => {
-          cy.checkStatsValues({
-            stat: 'global',
-            values: [$newPlayed, $won, $newLost, $quit],
-          });
-        });
-      });
-    });
-  });
-});
-
 Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
-  cy.get('[data-test="timer"]').then(($timerPaused) => {
-    const timer = $timerPaused.text();
-
+  cy.get('@timer').then((timer) => {
     cy.get('[data-test="game-summary-value"]')
       .eq(0)
       .text()
