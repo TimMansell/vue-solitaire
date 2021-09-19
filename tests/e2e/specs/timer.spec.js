@@ -49,7 +49,7 @@ describe('Timer', () => {
 
       cy.saveTimer({ alias: 'timerPaused', wait: 1000 });
 
-      cy.checkTimer({
+      cy.checkTimerPaused({
         start: 'timerStart',
         paused: 'timerPaused',
       });
@@ -95,7 +95,7 @@ describe('Timer', () => {
 
       cy.saveTimer({ alias: 'timerPaused', wait: 2000 });
 
-      cy.checkTimer({
+      cy.checkTimerPaused({
         start: 'timerStart',
         paused: 'timerPaused',
       });
@@ -110,7 +110,7 @@ describe('Timer', () => {
 
       cy.saveTimer({ alias: 'timerPaused', wait: 2000 });
 
-      cy.checkTimer({
+      cy.checkTimerPaused({
         start: 'timerStart',
         paused: 'timerPaused',
       });
@@ -125,7 +125,7 @@ describe('Timer', () => {
 
       cy.saveTimer({ alias: 'timerPaused', wait: 2000 });
 
-      cy.checkTimer({
+      cy.checkTimerPaused({
         start: 'timerStart',
         paused: 'timerPaused',
       });
@@ -140,7 +140,7 @@ describe('Timer', () => {
 
       cy.saveTimer({ alias: 'timerPaused', wait: 2000 });
 
-      cy.checkTimer({
+      cy.checkTimerPaused({
         start: 'timerStart',
         paused: 'timerPaused',
       });
@@ -192,7 +192,7 @@ describe('Timer', () => {
 
       cy.startNewGame();
 
-      cy.get('[data-test="timer"]').should('contain', '0:00:00');
+      cy.checkTimerHasReset();
     });
   });
 });
