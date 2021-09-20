@@ -16,6 +16,11 @@ Cypress.Commands.add('checkGameNumber', (number) =>
   cy.get('[data-test="stats"]').should('have.text', number)
 );
 
+Cypress.Commands.add('checkGameWon', () => {
+  cy.get('[data-test="game-won"]').should('exist');
+  cy.get('[data-test="game-lost"]').should('not.exist');
+});
+
 Cypress.Commands.add('checkGameLost', () => {
   cy.get('[data-test="game-lost"]').should('exist');
   cy.get('[data-test="game-won"]').should('not.exist');
@@ -135,25 +140,6 @@ Cypress.Commands.add('checkGlobalStatsQuit', () => {
           cy.checkStats({
             stat: 'global',
             values: [$newPlayed, $won, $lost, $newQuit],
-          });
-        });
-      });
-    });
-  });
-});
-
-Cypress.Commands.add('checkGlobalStatsWon', () => {
-  cy.get('@globalGamesPlayed').then(($played) => {
-    const $newPlayed = numeral(numeral($played).value() + 1).format('0,0');
-
-    cy.get('@globalGamesWon').then(($won) => {
-      const $newWon = numeral(numeral($won).value() + 1).format('0,0');
-
-      cy.get('@globalGamesLost').then(($lost) => {
-        cy.get('@globalGamesQuit').then(($quit) => {
-          cy.checkStats({
-            stat: 'global',
-            values: [$newPlayed, $newWon, $lost, $quit],
           });
         });
       });
