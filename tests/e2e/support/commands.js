@@ -6,7 +6,7 @@ Cypress.Commands.add(
   (subject, elements) => {
     cy.get(subject).within(() => {
       elements.forEach((element) => {
-        cy.get(`[data-test="card-${element}"]`).should('be.visible');
+        cy.get(`[data-test="card-${element}"]`).should('exist');
       });
     });
   }
