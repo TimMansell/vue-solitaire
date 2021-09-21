@@ -15,15 +15,15 @@ Cypress.Commands.add('testContinueGame', () => {
 Cypress.Commands.add('testPause', () => {
   cy.pauseGame();
 
-  cy.get('[data-test="game-paused"]').should('exist');
+  cy.checkGamePaused(true);
 
   cy.reload();
 
-  cy.get('[data-test="game-paused"]').should('exist');
+  cy.checkGamePaused(true);
 
   cy.resumeGame();
 
-  cy.get('[data-test="game-paused"]').should('not.exist');
+  cy.checkGamePaused(false);
 });
 
 Cypress.Commands.add('testRules', () => {
