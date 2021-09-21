@@ -34,8 +34,6 @@ describe('Timer', () => {
 
       cy.confirmNewGame({ waitUser: true });
 
-      cy.checkGameNumber(1);
-
       cy.showStats();
 
       cy.checkAllStats({ played: true, won: true });
