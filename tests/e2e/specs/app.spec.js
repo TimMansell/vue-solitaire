@@ -21,16 +21,6 @@ describe('App', () => {
         cy.get('[data-test^="foundation-"]').should('have.length', 4);
       });
     });
-
-    it('it should hide scroll bar when overlay is open and show scrollbar when overlay is closed', () => {
-      cy.pauseGame();
-
-      cy.get('[data-test="body"]').should('have.css', 'overflow', 'hidden');
-
-      cy.resumeGame();
-
-      cy.get('[data-test="body"]').should('have.css', 'overflow', 'auto');
-    });
   });
 
   describe('Version', () => {
@@ -44,7 +34,7 @@ describe('App', () => {
 
       cy.visitApp();
 
-      cy.get('[data-test="version"]').should('not.exist');
+      cy.checkVersionPopup(false);
     });
 
     it('it should show version upgrade toast', () => {
@@ -57,7 +47,7 @@ describe('App', () => {
 
       cy.visitApp();
 
-      cy.get('[data-test="version"]').should('exist');
+      cy.checkVersionPopup(true);
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
@@ -70,7 +60,7 @@ describe('App', () => {
 
       cy.visitApp();
 
-      cy.get('[data-test="version"]').should('exist');
+      cy.checkVersionPopup(true);
 
       cy.mockApi({
         mockDeck: fullGameDeck,
@@ -79,9 +69,9 @@ describe('App', () => {
         },
       });
 
-      cy.visitApp();
+      cy.reload();
 
-      cy.get('[data-test="version"]').should('not.exist');
+      cy.checkVersionPopup(false);
     });
   });
 });

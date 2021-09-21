@@ -16,4 +16,7 @@ import './moves';
 import './leaderboards';
 import './user';
 import './timer';
+import './version';
 import './snapshots';
+import './paused';
+import './visibility';
