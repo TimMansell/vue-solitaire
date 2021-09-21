@@ -32,9 +32,7 @@ describe('Stats', () => {
     });
 
     it('it successfully retrieves player count', () => {
-      cy.get('[data-test="player-count"]')
-        .text()
-        .should('not.equal', '0');
+      cy.checkPlayerCount({ count: 0, shouldEqual: false });
     });
   });
 

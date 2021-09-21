@@ -34,7 +34,7 @@ describe('User', () => {
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
-        cy.checkPlayerCount(newPlayerCount);
+        cy.checkPlayerCount({ count: newPlayerCount });
       });
     });
 
@@ -48,7 +48,7 @@ describe('User', () => {
 
         const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
 
-        cy.checkPlayerCount(newPlayerCount);
+        cy.checkPlayerCount({ count: newPlayerCount });
       });
     });
   });
@@ -78,7 +78,7 @@ describe('User', () => {
 
         cy.startNewGame();
 
-        cy.checkPlayerCount(intialPlayerCount);
+        cy.checkPlayerCount({ count: intialPlayerCount });
       });
     });
   });
