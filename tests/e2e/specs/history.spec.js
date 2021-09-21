@@ -39,8 +39,8 @@ describe('History', () => {
 
       cy.showHistory();
 
-      cy.get('[data-test="game-history"]').should('not.exist');
-      cy.get('[data-test="game-history-no-games-msg"]').should('exist');
+      cy.checkHistoryExists(false);
+      cy.checkGameMessageExists(true);
     });
 
     it('it shows game history after first game played', () => {
@@ -64,6 +64,9 @@ describe('History', () => {
       cy.startNewGame({ waitUser: true, waitInitial: true });
 
       cy.showHistory({ wait: true });
+
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
 
       cy.checkCorrectTableRows(1);
 
@@ -92,6 +95,9 @@ describe('History', () => {
     it('it shows 1st page results', () => {
       cy.showHistory({ wait: true });
 
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
+
       cy.checkCorrectTableRows(25);
 
       cy.checkGameNumbers();
@@ -105,6 +111,9 @@ describe('History', () => {
 
     it('it shows 2nd page results using > button', () => {
       cy.showHistory({ wait: true });
+
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
 
       cy.setHistoryPage('>');
 
@@ -120,6 +129,9 @@ describe('History', () => {
     it('it shows 2nd page results using page 2 number button', () => {
       cy.showHistory({ wait: true });
 
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
+
       cy.setHistoryPage('2');
 
       cy.checkGameNumbers();
@@ -134,6 +146,9 @@ describe('History', () => {
     it('it shows last page results using Last button', () => {
       cy.showHistory({ wait: true });
 
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
+
       cy.setHistoryPage('Last');
 
       cy.checkTableRow({ row: -1, cell: 0, value: '1' });
@@ -147,6 +162,9 @@ describe('History', () => {
 
     it('it shows 1st page results using First button', () => {
       cy.showHistory({ wait: true });
+
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
 
       cy.setHistoryPage('2');
 
@@ -164,6 +182,9 @@ describe('History', () => {
     it('it shows 1st page results using < button', () => {
       cy.showHistory({ wait: true });
 
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
+
       cy.setHistoryPage('2');
       cy.setHistoryPage('<');
 
@@ -178,6 +199,9 @@ describe('History', () => {
 
     it('it shows 50 games per page and correct page numbers', () => {
       cy.showHistory({ wait: true });
+
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
 
       cy.checkCorrectTableRows(25);
 
@@ -195,6 +219,9 @@ describe('History', () => {
     it('it shows page one when games per page is changed', () => {
       cy.showHistory({ wait: true });
 
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
+
       cy.setHistoryPage('Last');
 
       cy.selectGamesItem('50');
@@ -208,6 +235,9 @@ describe('History', () => {
 
     it('it should scroll to correct position on page after clicking on page', () => {
       cy.showHistory({ wait: true });
+
+      cy.checkHistoryExists(true);
+      cy.checkGameMessageExists(false);
 
       cy.setHistoryPage('2');
 

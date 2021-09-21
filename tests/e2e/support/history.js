@@ -87,6 +87,18 @@ Cypress.Commands.add('checkGameTime', () => {
   });
 });
 
+Cypress.Commands.add('checkHistoryExists', (exists) => {
+  const shouldExist = exists ? 'exist' : 'not.exist';
+
+  cy.get('[data-test="game-history"]').should(shouldExist);
+});
+
+Cypress.Commands.add('checkGameMessageExists', (exists) => {
+  const shouldExist = exists ? 'exist' : 'not.exist';
+
+  cy.get('[data-test="game-history-no-games-msg"]').should(shouldExist);
+});
+
 Cypress.Commands.add('checkCorrectShowingGames', () => {
   cy.get('[data-test="table-row"]:first-child td:first-child').saveNumberAs(
     'firstRow'
