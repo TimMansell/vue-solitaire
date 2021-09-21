@@ -7,3 +7,9 @@ Cypress.Commands.add('setVisibilityHidden', () => {
 Cypress.Commands.add('triggerVisibilityChange', () => {
   cy.document().trigger('visibilitychange');
 });
+
+Cypress.Commands.add('checkVisibilityHidden', (isHidden) => {
+  const haveCss = isHidden ? 'hidden' : 'auto';
+
+  cy.get('[data-test="body"]').should('have.css', 'overflow', haveCss);
+});
