@@ -31,40 +31,35 @@ describe('Leaderboards', () => {
     it('it should display correct heading', () => {
       cy.showLeaderboards();
 
-      cy.get('[data-test="leaderboards-heading"]')
-        .as('heading')
-        .should('contain', 'Top 25 Best Moves');
+      cy.checkLeaderboardHeading('Top 25 Best Moves');
 
       cy.selectBestItem('Times');
 
-      cy.get('@heading').should('contain', 'Top 25 Best Times');
+      cy.checkLeaderboardHeading('Top 25 Best Times');
 
       cy.selectTopItem('50');
 
-      cy.get('@heading').should('contain', 'Top 50 Best Times');
+      cy.checkLeaderboardHeading('Top 50 Best Times');
     });
 
     it('it should display correct amount of table rows', () => {
       cy.showLeaderboards();
 
-      cy.get('[data-test="table-row"]').should('have.length', 25);
+      cy.checkCorrectTableRows(25);
 
       cy.selectTopItem('50');
 
-      cy.get('[data-test="table-row"]').should('have.length', 50);
+      cy.checkCorrectTableRows(50);
     });
 
     it('it should display correct table heading', () => {
       cy.showLeaderboards();
 
-      cy.get('[data-test="table-header-row"] th')
-        .eq(3)
-        .as('row')
-        .should('contain', 'Moves');
+      cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
       cy.selectBestItem('Times');
 
-      cy.get('@row').should('contain', 'Times');
+      cy.checkTableHeading({ cell: 3, heading: 'Times' });
     });
   });
 
@@ -80,7 +75,7 @@ describe('Leaderboards', () => {
     it('it should display player name after first game', () => {
       cy.showLeaderboards();
 
-      cy.get('[data-test="leaderboard-name"]').should('not.exist');
+      cy.checkLeaderboardName(false);
 
       cy.closeOverlay();
 
@@ -88,7 +83,7 @@ describe('Leaderboards', () => {
 
       cy.showLeaderboards();
 
-      cy.get('[data-test="leaderboard-name"]').should('exist');
+      cy.checkLeaderboardName(true);
     });
   });
 
@@ -106,7 +101,7 @@ describe('Leaderboards', () => {
     it('it should display player name after first game', () => {
       cy.showLeaderboards();
 
-      cy.get('[data-test="leaderboard-name"]').should('exist');
+      cy.checkLeaderboardName(true);
     });
   });
 });
