@@ -18,15 +18,13 @@ describe('History', () => {
     });
 
     it('should not show game paused if history overlay is visible', () => {
-      cy.document().then((doc) => {
-        cy.stub(doc, 'visibilityState').value('hidden');
-      });
+      cy.setVisibilityHidden();
 
       cy.showHistory();
 
-      cy.document().trigger('visibilitychange');
+      cy.triggerVisibilityChange();
 
-      cy.get('[data-test="game-paused"]').should('not.exist');
+      cy.checkGamePaused(false);
     });
   });
 

@@ -70,11 +70,9 @@ describe('Timer', () => {
     });
 
     it('timer should pause when page is automatically hidden', () => {
-      cy.document().then((doc) => {
-        cy.stub(doc, 'visibilityState').value('hidden');
-      });
+      cy.setVisibilityHidden();
 
-      cy.document().trigger('visibilitychange');
+      cy.triggerVisibilityChange();
 
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000);

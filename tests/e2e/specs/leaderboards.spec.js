@@ -17,15 +17,13 @@ describe('Leaderboards', () => {
     });
 
     it('should not show game paused if leaderboards overlay is visible', () => {
-      cy.document().then((doc) => {
-        cy.stub(doc, 'visibilityState').value('hidden');
-      });
+      cy.setVisibilityHidden();
 
       cy.showLeaderboards();
 
-      cy.document().trigger('visibilitychange');
+      cy.triggerVisibilityChange();
 
-      cy.get('[data-test="game-paused"]').should('not.exist');
+      cy.checkGamePaused(false);
     });
 
     it('it should display correct heading', () => {

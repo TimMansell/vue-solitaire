@@ -16,13 +16,11 @@ describe('Game State', () => {
   });
 
   it('should pause when page is automatically hidden', () => {
-    cy.document().then((doc) => {
-      cy.stub(doc, 'visibilityState').value('hidden');
-    });
+    cy.setVisibilityHidden();
 
-    cy.document().trigger('visibilitychange');
+    cy.triggerVisibilityChange();
 
-    cy.get('[data-test="game-paused"]').should('be.visible');
+    cy.checkGamePaused(true);
   });
 
   it('refreshing page shows same board state', () => {
