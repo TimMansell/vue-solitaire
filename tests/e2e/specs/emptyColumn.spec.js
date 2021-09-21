@@ -27,25 +27,25 @@ describe('Special column moves', () => {
     it('should move K♣ to an empty column', () => {
       cy.dragFromTo('K♣', 'column-1');
 
-      cy.get('[data-test="column-1"]').shouldContain(['K♣', 'K♦', 'Q♦', 'J♣']);
+      cy.get('[data-test="column-1"]').shouldExist(['K♣', 'K♦', 'Q♦', 'J♣']);
 
-      cy.get('[data-test="column-7"]').shouldNotContain(['K♣']);
+      cy.get('[data-test="column-7"]').shouldNotExist(['K♣']);
     });
 
     it('should not move Q♣ to empty column', () => {
       cy.dragFromTo('Q♣', 'column-0');
 
-      cy.get('[data-test="column-1"]').shouldNotContain(['Q♣']);
+      cy.get('[data-test="column-1"]').shouldNotExist(['Q♣']);
 
-      cy.get('[data-test="column-0"]').shouldContain(['Q♣']);
+      cy.get('[data-test="column-0"]').shouldExist(['Q♣']);
     });
 
     it('should not move J♠ to empty column', () => {
       cy.dragFromTo('J♠', 'column-0');
 
-      cy.get('[data-test="column-0"]').shouldNotContain(['J♠']);
+      cy.get('[data-test="column-0"]').shouldNotExist(['J♠']);
 
-      cy.get('[data-test="column-4"]').shouldContain(['J♠']);
+      cy.get('[data-test="column-4"]').shouldExist(['J♠']);
     });
   });
 
@@ -53,25 +53,25 @@ describe('Special column moves', () => {
     it('should move K♣ to an empty column', () => {
       cy.clickFromTo('K♣', 'column-1');
 
-      cy.get('[data-test="column-1"]').shouldContain(['K♣', 'K♦', 'Q♦', 'J♣']);
+      cy.get('[data-test="column-1"]').shouldExist(['K♣', 'K♦', 'Q♦', 'J♣']);
 
-      cy.get('[data-test="column-7"]').shouldNotContain(['K♣']);
+      cy.get('[data-test="column-7"]').shouldNotExist(['K♣']);
     });
 
     it('should not move Q♣ to empty column', () => {
       cy.clickFromTo('Q♣', 'column-1');
 
-      cy.get('[data-test="column-1"]').shouldNotContain(['Q♣']);
+      cy.get('[data-test="column-1"]').shouldNotExist(['Q♣']);
 
-      cy.get('[data-test="column-0"]').shouldContain(['Q♣']);
+      cy.get('[data-test="column-0"]').shouldExist(['Q♣']);
     });
 
     it('should not move J♠ to empty column', () => {
       cy.clickFromTo('J♠', 'column-0');
 
-      cy.get('[data-test="column-0"]').shouldNotContain(['J♠']);
+      cy.get('[data-test="column-0"]').shouldNotExist(['J♠']);
 
-      cy.get('[data-test="column-4"]').shouldContain(['J♠']);
+      cy.get('[data-test="column-4"]').shouldExist(['J♠']);
     });
   });
 });

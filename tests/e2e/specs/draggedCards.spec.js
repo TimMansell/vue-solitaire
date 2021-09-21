@@ -19,9 +19,9 @@ describe('Dragged Cards', () => {
 
     cy.checkDraggedCardsNumber(1);
 
-    cy.get('[data-test="dragged-cards"]').shouldContain(['7♦']);
+    cy.get('[data-test="dragged-cards"]').shouldExist(['7♦']);
 
-    cy.get('[data-test="column-2"]').shouldNotContain(['7♦']);
+    cy.get('[data-test="column-2"]').shouldNotBeVisible(['7♦']);
   });
 
   it('should drag correct amount of cards', () => {
@@ -29,9 +29,9 @@ describe('Dragged Cards', () => {
 
     cy.checkDraggedCardsNumber(3);
 
-    cy.get('[data-test="dragged-cards"]').shouldContain(['6♦', '2♥']);
+    cy.get('[data-test="dragged-cards"]').shouldExist(['6♦', '2♥']);
 
-    cy.get('[data-test="column-3"]').shouldNotContain(['6♦', '2♥']);
+    cy.get('[data-test="column-3"]').shouldNotBeVisible(['6♦', '2♥']);
   });
 
   it('should clear dragged cards when dropped outside of board', () => {
@@ -39,6 +39,6 @@ describe('Dragged Cards', () => {
 
     cy.checkDraggedCardsNumber(0);
 
-    cy.get('[data-test="column-3"]').shouldContain(['6♦']);
+    cy.get('[data-test="column-3"]').shouldExist(['6♦']);
   });
 });

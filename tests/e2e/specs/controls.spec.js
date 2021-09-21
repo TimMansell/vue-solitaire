@@ -25,7 +25,7 @@ describe('Controls', () => {
 
     cy.startNewGame();
 
-    cy.get('[data-test="foundation-1"]').shouldNotContain(['A♣']);
+    cy.get('[data-test="foundation-1"]').shouldNotExist(['A♣']);
 
     cy.checkSelectedCard({ card: '4♠', isSelected: false });
 
@@ -43,7 +43,7 @@ describe('Controls', () => {
 
     cy.continueGame();
 
-    cy.get('[data-test="foundation-0"]').shouldContain(['A♣']);
+    cy.get('[data-test="foundation-0"]').shouldExist(['A♣']);
 
     cy.checkSelectedCard({ card: '7♠', isSelected: true });
   });
