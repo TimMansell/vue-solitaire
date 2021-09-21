@@ -21,13 +21,13 @@ describe('Controls', () => {
   it('it should start a new game and reset board', () => {
     cy.runGameWithClicks(emptyColumnMoves);
 
-    cy.get('[data-test="card-4♠"]').click();
+    cy.clickCard('4♠');
 
     cy.startNewGame();
 
     cy.get('[data-test="foundation-1"]').shouldNotContain(['A♣']);
 
-    cy.get('[data-card-selected="true"]').should('not.exist');
+    cy.checkSelectedCard({ card: '4♠', isSelected: false });
 
     cy.get('[data-test="columns"]').within(() => {
       cy.get('[data-test="column-card-placeholder"]').should('not.exist');
@@ -37,7 +37,7 @@ describe('Controls', () => {
   it('it should continue current game', () => {
     cy.runGameWithClicks(emptyColumnMoves);
 
-    cy.get('[data-test="card-7♠"]').click();
+    cy.clickCard('7♠');
 
     cy.newGame();
 

@@ -26,7 +26,7 @@ describe('Game State', () => {
   });
 
   it('refreshing page shows same board state', () => {
-    cy.get('[data-test^="card-4♠"]').click();
+    cy.clickCard('4♠');
 
     cy.checkSelectedCard({ card: '4♠', isSelected: true });
 
@@ -34,13 +34,13 @@ describe('Game State', () => {
 
     cy.checkSelectedCard({ card: '4♠', isSelected: true });
 
-    cy.get('[data-test^="card-4♠"]').click();
+    cy.clickCard('4♠');
 
     cy.checkSelectedCard({ card: '4♠', isSelected: false });
 
-    cy.checkCard({ card: '4♣', column: 0, position: 6 });
-    cy.checkCard({ card: 'Q♣', column: 2, position: 4 });
-    cy.checkCard({ card: 'A♥', column: 5, position: 1 });
+    cy.checkCardPosition({ card: '4♣', column: 0, position: 6 });
+    cy.checkCardPosition({ card: 'Q♣', column: 2, position: 4 });
+    cy.checkCardPosition({ card: 'A♥', column: 5, position: 1 });
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
