@@ -12,9 +12,11 @@ Cypress.Commands.add('checkGames', () => {
   });
 });
 
-Cypress.Commands.add('checkGameNumber', (number) =>
-  cy.get('[data-test="stats"]').should('have.text', number)
-);
+Cypress.Commands.add('checkGameNumber', ({ number, shouldEqual = true }) => {
+  const shouldHaveText = shouldEqual ? 'have.text' : 'not.have.text';
+
+  cy.get('[data-test="stats"]').should(shouldHaveText, `${number}`);
+});
 
 Cypress.Commands.add('checkGameWon', () => {
   cy.get('[data-test="game-won"]').should('exist');
@@ -74,7 +76,7 @@ Cypress.Commands.add('checkAllStats', ({ played, won, lost, quit }) => {
     const number = numeral(stats).value();
     const incrementedNumber = numeral(number + 1).format('0,0');
 
-    cy.checkGameNumber(incrementedNumber);
+    cy.checkGameNumber({ number: incrementedNumber });
   });
 
   const stats = ['user', 'global'];

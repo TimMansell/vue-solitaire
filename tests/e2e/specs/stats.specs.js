@@ -44,7 +44,7 @@ describe('Stats', () => {
 
       cy.visitApp();
 
-      cy.checkGameNumber(0);
+      cy.checkGameNumber({ number: 0 });
 
       cy.showStats();
 
@@ -88,7 +88,7 @@ describe('Stats', () => {
     });
 
     it('it successfully retrieves games played', () => {
-      cy.get('[data-test="stats"]').should('not.have.text', '0');
+      cy.checkGameNumber({ number: 0, shouldEqual: false });
 
       cy.showStats();
 
