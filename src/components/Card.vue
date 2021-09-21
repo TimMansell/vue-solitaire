@@ -175,12 +175,6 @@ export default {
 
   &--is-dragged {
     opacity: 0;
-
-    /* stylelint-disable scss/selector-no-redundant-nesting-selector */
-    & ~ .card {
-      opacity: 0;
-    }
-    /* stylelint-enable scss/selector-no-redundant-nesting-selector */
   }
 }
 </style>
