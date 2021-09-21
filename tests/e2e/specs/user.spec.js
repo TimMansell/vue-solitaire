@@ -1,6 +1,5 @@
-import numeral from 'numeral';
 import fullGameDeck from '../../fixtures/decks/fullGame.json';
-import { mockUid } from '../../../src/mockData';
+import { mockUid, mockNewUid } from '../../../src/mockData';
 
 describe('User', () => {
   afterEach(() => {
@@ -9,6 +8,12 @@ describe('User', () => {
 
   describe('New User', () => {
     beforeEach(() => {
+      cy.task('clearUser', mockNewUid);
+
+      localStorage.setItem('luid', mockNewUid);
+
+      cy.task('populateDeck', [fullGameDeck, mockNewUid]);
+
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
@@ -27,35 +32,33 @@ describe('User', () => {
     });
 
     it('it creates a new user on server after first game has been played', () => {
-      cy.get('[data-test="player-count"]').then(($playerCount) => {
-        const intialPlayerCount = numeral($playerCount.text()).value();
+      cy.savePlayerCount();
 
-        cy.startNewGame({ waitUser: true, waitInitial: true });
+      cy.startNewGame({ waitUser: true, waitInitial: true });
 
-        const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
-
-        cy.checkPlayerCount({ count: newPlayerCount });
-      });
+      cy.checkPlayerCount({ equal: true, incremented: true });
     });
 
     it('it does not create a new user on server after second game has been played', () => {
-      cy.get('[data-test="player-count"]').then(($playerCount) => {
-        const intialPlayerCount = numeral($playerCount.text()).value();
+      cy.savePlayerCount();
 
-        cy.startNewGame({ waitUser: true });
+      cy.startNewGame({ waitUser: true, waitInitial: true });
 
-        cy.startNewGame({ waitInitial: true });
+      cy.checkPlayerCount({ equal: true, incremented: true });
 
-        const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
+      cy.savePlayerCount();
 
-        cy.checkPlayerCount({ count: newPlayerCount });
-      });
+      cy.startNewGame({ waitInitial: true });
+
+      cy.checkPlayerCount({ equal: true });
     });
   });
 
   describe('Existing User', () => {
     beforeEach(() => {
       localStorage.setItem('luid', mockUid);
+
+      cy.task('populateDeck', [fullGameDeck, mockUid]);
 
       cy.mockApi({
         mockDeck: fullGameDeck,
@@ -73,13 +76,11 @@ describe('User', () => {
     });
 
     it('it does not create a new user on server after first game has been played', () => {
-      cy.get('[data-test="player-count"]').then(($playerCount) => {
-        const intialPlayerCount = $playerCount.text();
+      cy.savePlayerCount();
 
-        cy.startNewGame();
+      cy.startNewGame();
 
-        cy.checkPlayerCount({ count: intialPlayerCount });
-      });
+      cy.checkPlayerCount({ equal: true });
     });
   });
 });
