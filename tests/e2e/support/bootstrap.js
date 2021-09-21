@@ -45,16 +45,6 @@ Cypress.Commands.add(
 Cypress.Commands.add('clearTest', () => {
   cy.clearLocalStorage();
 
-  cy.setTimerPaused(true);
-
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(300);
-});
-
-Cypress.Commands.add('setTimerPaused', (shouldPause) => {
-  cy.window()
-    .its('app.$store')
-    .then((store) => {
-      store.dispatch('setTimerPaused', shouldPause);
-    });
 });
