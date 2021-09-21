@@ -241,7 +241,7 @@ describe('History', () => {
 
       cy.setHistoryPage('2');
 
-      cy.get('[data-test="filters"]').should('be.visible');
+      cy.checkFilterAtTopOfPage();
 
       cy.checkCorrectPages();
 

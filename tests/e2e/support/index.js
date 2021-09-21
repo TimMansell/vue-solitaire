@@ -13,6 +13,7 @@ import './table';
 import './history';
 import './stats';
 import './moves';
+import './filters';
 import './leaderboards';
 import './user';
 import './timer';
