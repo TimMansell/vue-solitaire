@@ -1,7 +1,5 @@
-import numeral from 'numeral';
-
 Cypress.Commands.add('saveGames', () =>
-  cy.get('[data-test="stats"]').saveTextAs('games')
+  cy.get('[data-test="stats"]').saveNumberAs('games')
 );
 
 Cypress.Commands.add('checkGames', () => {
@@ -15,7 +13,9 @@ Cypress.Commands.add('checkGames', () => {
 Cypress.Commands.add('checkGameNumber', ({ number, shouldEqual = true }) => {
   const shouldHaveText = shouldEqual ? 'have.text' : 'not.have.text';
 
-  cy.get('[data-test="stats"]').should(shouldHaveText, `${number}`);
+  cy.get('[data-test="stats"]')
+    .saveNumberAs('gameNumber')
+    .should(shouldHaveText, number);
 });
 
 Cypress.Commands.add('checkGameWon', () => {
@@ -72,12 +72,13 @@ Cypress.Commands.add('saveStats', () => {
 });
 
 Cypress.Commands.add('checkAllStats', ({ played, won, lost, quit }) => {
-  cy.get('@games').then((stats) => {
-    const number = numeral(stats).value();
-    const incrementedNumber = numeral(number + 1).format('0,0');
+  cy.get('@games').then((games) => {
+    const incrementedNumber = games + 1;
 
     cy.checkGameNumber({ number: incrementedNumber });
   });
+
+  cy.showStats();
 
   const stats = ['user', 'global'];
 

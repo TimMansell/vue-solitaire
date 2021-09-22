@@ -62,8 +62,6 @@ describe('Stats', () => {
 
       cy.startNewGame();
 
-      cy.showStats();
-
       cy.checkAllStats({ played: true, quit: true });
     });
   });
@@ -95,8 +93,6 @@ describe('Stats', () => {
       cy.saveGames();
 
       cy.startNewGame();
-
-      cy.showStats();
 
       cy.checkAllStats({ played: true, quit: true });
     });

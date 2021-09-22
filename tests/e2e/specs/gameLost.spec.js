@@ -89,8 +89,6 @@ describe('Game Lost', () => {
 
       cy.confirmNewGame({ waitUser: true });
 
-      cy.showStats();
-
       cy.checkAllStats({ played: true, lost: true });
     });
   });
@@ -123,8 +121,6 @@ describe('Game Lost', () => {
       cy.checkGameLost();
 
       cy.confirmNewGame();
-
-      cy.showStats();
 
       cy.checkAllStats({ played: true, lost: true });
     });
