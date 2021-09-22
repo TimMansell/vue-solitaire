@@ -53,7 +53,11 @@ describe('Stats', () => {
       cy.showStats();
 
       cy.checkStats({ stat: 'user', values: [0, 0, 0, 0] });
-      cy.checkStats({ stat: 'global', values: [0, 0, 0, 0], not: true });
+      cy.checkStats({
+        stat: 'global',
+        values: [0, 0, 0, 0],
+        shouldEqual: false,
+      });
     });
 
     it('it successfully increments games played', () => {
@@ -84,8 +88,12 @@ describe('Stats', () => {
 
       cy.showStats();
 
-      cy.checkStats({ stat: 'user', values: [0, 0, 0, 0], not: true });
-      cy.checkStats({ stat: 'global', values: [0, 0, 0, 0], not: true });
+      cy.checkStats({ stat: 'user', values: [0, 0, 0, 0], shouldEqual: true });
+      cy.checkStats({
+        stat: 'global',
+        values: [0, 0, 0, 0],
+        shouldEqual: true,
+      });
     });
 
     it('it successfully increments games played', () => {

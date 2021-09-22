@@ -11,11 +11,11 @@ Cypress.Commands.add('checkGames', () => {
 });
 
 Cypress.Commands.add('checkGameNumber', ({ number, shouldEqual = true }) => {
-  const shouldHaveText = shouldEqual ? 'have.text' : 'not.have.text';
+  const shouldTest = shouldEqual ? 'not.equal' : 'equal';
 
   cy.get('[data-test="stats"]')
-    .saveNumberAs('gameNumber')
-    .should(shouldHaveText, number);
+    .formatNumber()
+    .should(shouldTest, number);
 });
 
 Cypress.Commands.add('checkGameWon', () => {
@@ -103,9 +103,9 @@ Cypress.Commands.add('checkAllStats', ({ played, won, lost, quit }) => {
   });
 });
 
-Cypress.Commands.add('checkStats', ({ stat, values, not = false }) => {
+Cypress.Commands.add('checkStats', ({ stat, values, shouldEqual = true }) => {
   const [played, won, lost, quit] = values;
-  const shouldTest = not ? 'not.equal' : 'equal';
+  const shouldTest = shouldEqual ? 'equal' : 'not.equal';
 
   cy.get(`[data-test="${stat}-stats"] [data-test="table-cell"]`).as('stat');
 
