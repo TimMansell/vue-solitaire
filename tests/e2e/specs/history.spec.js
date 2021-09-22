@@ -29,14 +29,21 @@ describe('History', () => {
   });
 
   describe('New user', () => {
-    it('it shows no game message', () => {
+    beforeEach(() => {
+      cy.setUser(mockNewUid);
+
       cy.mockApi({
         mockDeck: quitGameDeck,
-        mockInitial: true,
       });
 
       cy.visitApp();
+    });
 
+    afterEach(() => {
+      cy.clearUser({ user: true, games: true, deck: true });
+    });
+
+    it('it shows no game message', () => {
       cy.showHistory();
 
       cy.checkHistoryExists(false);
@@ -44,18 +51,6 @@ describe('History', () => {
     });
 
     it('it shows game history after first game played', () => {
-      cy.task('clearUser', mockNewUid);
-
-      localStorage.setItem('luid', mockNewUid);
-
-      cy.task('populateDeck', [quitGameDeck, mockNewUid]);
-
-      cy.mockApi({
-        mockDeck: quitGameDeck,
-      });
-
-      cy.visitApp();
-
       cy.runGameWithClicks(quitGameMoves);
 
       cy.saveTimer({ alias: 'timer' });
@@ -83,13 +78,17 @@ describe('History', () => {
 
   describe('Existing user', () => {
     beforeEach(() => {
-      localStorage.setItem('luid', mockUid);
+      cy.setUser(mockUid);
 
       cy.mockApi({
         mockDeck: quitGameDeck,
       });
 
       cy.visitApp();
+    });
+
+    afterEach(() => {
+      cy.clearUser({ deck: true });
     });
 
     it('it shows 1st page results', () => {

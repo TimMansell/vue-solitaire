@@ -8,8 +8,6 @@ describe('Stats', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      localStorage.setItem('luid', mockNewUid);
-
       cy.mockApi({
         mockDeck: fullGameDeck,
         mockInitial: true,
@@ -39,13 +37,21 @@ describe('Stats', () => {
   });
 
   describe('New User', () => {
-    it('it successfully retrieves 0 games played', () => {
+    beforeEach(() => {
+      cy.setUser(mockNewUid);
+
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
 
       cy.visitApp();
+    });
 
+    afterEach(() => {
+      cy.clearUser({ user: true, games: true, deck: true });
+    });
+
+    it('it successfully retrieves 0 games played', () => {
       cy.checkGameNumber({ number: 0 });
 
       cy.showStats();
@@ -55,18 +61,6 @@ describe('Stats', () => {
     });
 
     it('it successfully increments games played', () => {
-      cy.task('clearUser', mockNewUid);
-
-      localStorage.setItem('luid', mockNewUid);
-
-      cy.task('populateDeck', [fullGameDeck, mockUid]);
-
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-      });
-
-      cy.visitApp();
-
       cy.saveStats();
       cy.saveGames();
 
@@ -80,13 +74,17 @@ describe('Stats', () => {
 
   describe('Existing User', () => {
     beforeEach(() => {
-      localStorage.setItem('luid', mockUid);
+      cy.setUser(mockUid);
 
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
 
       cy.visitApp();
+    });
+
+    afterEach(() => {
+      cy.clearUser({ deck: true });
     });
 
     it('it successfully retrieves games played', () => {

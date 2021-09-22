@@ -63,19 +63,21 @@ describe('No moves', () => {
   });
 
   describe('New User', () => {
-    it('should lose game, keep state on page refresh, and increment lost game stats', () => {
-      cy.task('clearUser', mockNewUid);
-
-      localStorage.setItem('luid', mockNewUid);
-
-      cy.task('populateDeck', [incompleteGameDeck, mockNewUid]);
+    beforeEach(() => {
+      cy.setUser(mockNewUid);
 
       cy.mockApi({
         mockDeck: incompleteGameDeck,
       });
 
       cy.visitApp();
+    });
 
+    afterEach(() => {
+      cy.clearUser({ user: true, games: true, deck: true });
+    });
+
+    it('should lose game, keep state on page refresh, and increment lost game stats', () => {
       cy.saveStats();
       cy.saveGames();
 
@@ -98,17 +100,21 @@ describe('No moves', () => {
   });
 
   describe('Existing User', () => {
-    it('should lose game, keep state on page refresh, and increment lost game stats', () => {
-      localStorage.setItem('luid', mockUid);
-
-      cy.task('populateDeck', [incompleteGameDeck, mockUid]);
+    beforeEach(() => {
+      cy.setUser(mockUid);
 
       cy.mockApi({
         mockDeck: incompleteGameDeck,
       });
 
       cy.visitApp();
+    });
 
+    afterEach(() => {
+      cy.clearUser({ deck: true });
+    });
+
+    it('should lose game, keep state on page refresh, and increment lost game stats', () => {
       cy.saveStats();
       cy.saveGames();
 

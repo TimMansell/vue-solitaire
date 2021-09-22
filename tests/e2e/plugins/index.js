@@ -11,6 +11,22 @@ const {
 module.exports = (on, config) => {
   addMatchImageSnapshotPlugin(on, config);
 
+  on('before:run', () => {
+    MongoClient.connect(uri, async (err, client) => {
+      if (err) {
+        console.log(`MONGO CONNECTION ERROR: ${err}`);
+
+        throw err;
+      } else {
+        const db = client.db(MONGODB_DB);
+
+        await db.collection('decks').deleteMany({});
+
+        client.close();
+      }
+    });
+  });
+
   on('task', {
     populateDeck(deck) {
       const [cards, uid] = deck;
@@ -24,7 +40,6 @@ module.exports = (on, config) => {
           } else {
             const db = client.db(MONGODB_DB);
 
-            await db.collection('decks').deleteMany({ uid });
             await db.collection('decks').insertOne({ uid, cards });
 
             client.close();
@@ -34,7 +49,7 @@ module.exports = (on, config) => {
         });
       });
     },
-    clearUser(uid) {
+    removeUser({ user, games, deck, uid }) {
       return new Promise((resolve) => {
         MongoClient.connect(uri, async (err, client) => {
           if (err) {
@@ -44,10 +59,17 @@ module.exports = (on, config) => {
           } else {
             const db = client.db(MONGODB_DB);
 
-            const user = db.collection('users').deleteMany({ uid });
-            const games = db.collection('games').deleteMany({ uid });
+            const clearUser = user
+              ? db.collection('users').deleteMany({ uid })
+              : '';
+            const clearGames = games
+              ? db.collection('games').deleteMany({ uid })
+              : '';
+            const clearDecks = deck
+              ? db.collection('decks').deleteMany({ uid })
+              : '';
 
-            await Promise.all([user, games]);
+            await Promise.all([clearUser, clearGames, clearDecks]);
 
             client.close();
 

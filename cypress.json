@@ -2,7 +2,8 @@
   "baseUrl": "http://localhost:8080",
   "pluginsFile": "tests/e2e/plugins/index.js",
   "video": false,
-  "retries": 1,
+  "retries": 0,
   "requestTimeout": 10000,
-  "defaultCommandTimeout": 10000
+  "defaultCommandTimeout": 10000,
+  "experimentalInteractiveRunEvents": true
 }

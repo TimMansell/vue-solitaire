@@ -8,19 +8,21 @@ describe('Timer', () => {
   });
 
   describe('New User', () => {
-    it('should win game, keep state on page refresh, and increment won game stats', () => {
-      cy.task('clearUser', mockNewUid);
-
-      localStorage.setItem('luid', mockNewUid);
-
-      cy.task('populateDeck', [fullGameDeck, mockNewUid]);
+    beforeEach(() => {
+      cy.setUser(mockNewUid);
 
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
 
       cy.visitApp();
+    });
 
+    afterEach(() => {
+      cy.clearUser({ user: true, games: true, deck: true });
+    });
+
+    it('should win game, keep state on page refresh, and increment won game stats', () => {
       cy.saveStats();
       cy.saveGames();
 
@@ -41,17 +43,21 @@ describe('Timer', () => {
   });
 
   describe('Existing User', () => {
-    it('should win game, keep state on page refresh, and increment won game stats', () => {
-      localStorage.setItem('luid', mockUid);
-
-      cy.task('populateDeck', [fullGameDeck, mockUid]);
+    beforeEach(() => {
+      cy.setUser(mockUid);
 
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
 
       cy.visitApp();
+    });
 
+    afterEach(() => {
+      cy.clearUser({ deck: true });
+    });
+
+    it('should win game, keep state on page refresh, and increment won game stats', () => {
       cy.saveStats();
       cy.saveGames();
 
