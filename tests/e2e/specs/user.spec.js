@@ -1,5 +1,5 @@
 import fullGameDeck from '../../fixtures/decks/fullGame.json';
-import { mockUid, mockNewUid } from '../../../src/mockData';
+import { mockUid } from '../../../src/mockData';
 
 describe('User', () => {
   afterEach(() => {
@@ -22,23 +22,18 @@ describe('User', () => {
       expect(luid).to.exist;
       expect(luid).to.not.equal('');
       expect(luid).to.not.equal(mockUid);
-      expect(luid).to.not.equal(mockNewUid);
     });
   });
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.setUser(mockNewUid);
-
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
 
       cy.visitApp({ waitInitial: true });
-    });
 
-    afterEach(() => {
-      cy.clearUser({ user: true, games: true, deck: true });
+      cy.setDeck(fullGameDeck);
     });
 
     it('it creates a new user on server after first game has been played', () => {
@@ -73,10 +68,8 @@ describe('User', () => {
       });
 
       cy.visitApp({ waitInitial: true });
-    });
 
-    afterEach(() => {
-      cy.clearUser({ deck: true });
+      cy.setDeck(fullGameDeck);
     });
 
     it('it does not create a new local user on initial page load', () => {

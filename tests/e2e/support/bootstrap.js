@@ -25,13 +25,7 @@ Cypress.Commands.add(
     }
   ) => {
     if (mockDeck) {
-      const luid = localStorage.getItem('luid');
-
       cy.mockNewGameAPI(mockDeck);
-
-      if (luid) {
-        cy.task('populateDeck', [mockDeck, luid]);
-      }
     }
 
     if (mockInitial) {

@@ -22,11 +22,8 @@ Cypress.Commands.add(
 
 Cypress.Commands.add('setUser', (uid) => localStorage.setItem('luid', uid));
 
-Cypress.Commands.add(
-  'clearUser',
-  ({ user = false, games = false, deck = false }) => {
-    const uid = localStorage.getItem('luid');
+Cypress.Commands.add('setDeck', (cards) => {
+  const uid = localStorage.getItem('luid');
 
-    cy.task('removeUser', { user, games, deck, uid });
-  }
-);
+  cy.task('populateDeck', { cards, uid });
+});

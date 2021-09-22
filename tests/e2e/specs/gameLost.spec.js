@@ -4,9 +4,9 @@ import noMovesKingColumnDeck from '../../fixtures/decks/noMovesKingColumn.json';
 import noMovesKingColumnMoves from '../../fixtures/moves/noMovesKingColumn.json';
 import initialAceMoveDeck from '../../fixtures/decks/initialAceMove.json';
 import initialAceAnd2MoveDeck from '../../fixtures/decks/initialAceAnd2Move.json';
-import { mockUid, mockNewUid } from '../../../src/mockData';
+import { mockUid } from '../../../src/mockData';
 
-describe('No moves', () => {
+describe('Game Lost', () => {
   afterEach(() => {
     cy.clearTest();
   });
@@ -64,17 +64,13 @@ describe('No moves', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.setUser(mockNewUid);
-
       cy.mockApi({
         mockDeck: incompleteGameDeck,
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ user: true, games: true, deck: true });
+      cy.setDeck(incompleteGameDeck);
     });
 
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {
@@ -108,10 +104,8 @@ describe('No moves', () => {
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ deck: true });
+      cy.setDeck(incompleteGameDeck);
     });
 
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {

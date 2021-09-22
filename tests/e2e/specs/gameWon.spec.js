@@ -1,25 +1,21 @@
 import fullGameDeck from '../../fixtures/decks/fullGame.json';
 import fullGameMoves from '../../fixtures/moves/fullGame.json';
-import { mockUid, mockNewUid } from '../../../src/mockData';
+import { mockUid } from '../../../src/mockData';
 
-describe('Timer', () => {
+describe('Game Won', () => {
   afterEach(() => {
     cy.clearTest();
   });
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.setUser(mockNewUid);
-
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ user: true, games: true, deck: true });
+      cy.setDeck(fullGameDeck);
     });
 
     it('should win game, keep state on page refresh, and increment won game stats', () => {
@@ -51,10 +47,8 @@ describe('Timer', () => {
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ deck: true });
+      cy.setDeck(fullGameDeck);
     });
 
     it('should win game, keep state on page refresh, and increment won game stats', () => {

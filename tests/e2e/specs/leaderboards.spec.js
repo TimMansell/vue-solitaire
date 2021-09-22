@@ -1,5 +1,5 @@
 import fullGameDeck from '../../fixtures/decks/fullGame.json';
-import { mockUid, mockNewUid } from '../../../src/mockData';
+import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
   afterEach(() => {
@@ -63,17 +63,13 @@ describe('Leaderboards', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.setUser(mockNewUid);
-
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ user: true, games: true, deck: true });
+      cy.setDeck(fullGameDeck);
     });
 
     it('it should display player name after first game', () => {
@@ -100,10 +96,8 @@ describe('Leaderboards', () => {
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ deck: true });
+      cy.setDeck(fullGameDeck);
     });
 
     it('it should display player name after first game', () => {

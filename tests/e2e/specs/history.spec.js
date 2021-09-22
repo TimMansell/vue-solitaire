@@ -1,4 +1,4 @@
-import { mockUid, mockNewUid } from '../../../src/mockData';
+import { mockUid } from '../../../src/mockData';
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
@@ -30,17 +30,13 @@ describe('History', () => {
 
   describe('New user', () => {
     beforeEach(() => {
-      cy.setUser(mockNewUid);
-
       cy.mockApi({
         mockDeck: quitGameDeck,
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ user: true, games: true, deck: true });
+      cy.setDeck(quitGameDeck);
     });
 
     it('it shows no game message', () => {
@@ -85,10 +81,8 @@ describe('History', () => {
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ deck: true });
+      cy.setDeck(quitGameDeck);
     });
 
     it('it shows 1st page results', () => {

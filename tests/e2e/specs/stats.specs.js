@@ -1,5 +1,5 @@
 import fullGameDeck from '../../fixtures/decks/fullGame.json';
-import { mockUid, mockNewUid } from '../../../src/mockData';
+import { mockUid } from '../../../src/mockData';
 
 describe('Stats', () => {
   afterEach(() => {
@@ -38,17 +38,13 @@ describe('Stats', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.setUser(mockNewUid);
-
       cy.mockApi({
         mockDeck: fullGameDeck,
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ user: true, games: true, deck: true });
+      cy.setDeck(fullGameDeck);
     });
 
     it('it successfully retrieves 0 games played', () => {
@@ -81,10 +77,8 @@ describe('Stats', () => {
       });
 
       cy.visitApp();
-    });
 
-    afterEach(() => {
-      cy.clearUser({ deck: true });
+      cy.setDeck(fullGameDeck);
     });
 
     it('it successfully retrieves games played', () => {

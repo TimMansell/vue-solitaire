@@ -28,9 +28,7 @@ module.exports = (on, config) => {
   });
 
   on('task', {
-    populateDeck(deck) {
-      const [cards, uid] = deck;
-
+    populateDeck({ cards, uid }) {
       return new Promise((resolve) => {
         MongoClient.connect(uri, async (err, client) => {
           if (err) {
@@ -61,13 +59,13 @@ module.exports = (on, config) => {
 
             const clearUser = user
               ? db.collection('users').deleteMany({ uid })
-              : '';
+              : true;
             const clearGames = games
               ? db.collection('games').deleteMany({ uid })
-              : '';
+              : true;
             const clearDecks = deck
               ? db.collection('decks').deleteMany({ uid })
-              : '';
+              : true;
 
             await Promise.all([clearUser, clearGames, clearDecks]);
 
