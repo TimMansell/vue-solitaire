@@ -1,4 +1,4 @@
-Cypress.Commands.add('visitApp', () => {
+Cypress.Commands.add('visitApp', ({ waitInitial } = { waitInitial: false }) => {
   cy.interceptInitialDataAPI();
   cy.interceptCreateUserAPI();
   cy.interceptHistoryAPI();
@@ -7,6 +7,10 @@ Cypress.Commands.add('visitApp', () => {
   cy.interceptNewGameAPI();
 
   cy.visit('/');
+
+  if (waitInitial) {
+    cy.wait('@waitForInitialDataAPI');
+  }
 });
 
 Cypress.Commands.add(

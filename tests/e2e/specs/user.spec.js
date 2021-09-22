@@ -18,9 +18,7 @@ describe('User', () => {
         mockDeck: fullGameDeck,
       });
 
-      cy.visitApp();
-
-      cy.wait('@waitForInitialDataAPI');
+      cy.visitApp({ waitInitial: true });
     });
 
     it('it creates a new local user on initial page load', () => {
@@ -64,9 +62,7 @@ describe('User', () => {
         mockDeck: fullGameDeck,
       });
 
-      cy.visitApp();
-
-      cy.wait('@waitForInitialDataAPI');
+      cy.visitApp({ waitInitial: true });
     });
 
     it('it does not create a new local user on initial page load', () => {
