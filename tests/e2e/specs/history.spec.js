@@ -35,8 +35,6 @@ describe('History', () => {
       });
 
       cy.visitApp();
-
-      cy.setDeck(quitGameDeck);
     });
 
     it('it shows no game message', () => {
@@ -47,6 +45,8 @@ describe('History', () => {
     });
 
     it('it shows game history after first game played', () => {
+      cy.setDeck(quitGameDeck);
+
       cy.runGameWithClicks(quitGameMoves);
 
       cy.saveTimer({ alias: 'timer' });
@@ -81,8 +81,6 @@ describe('History', () => {
       });
 
       cy.visitApp();
-
-      cy.setDeck(quitGameDeck);
     });
 
     it('it shows 1st page results', () => {
