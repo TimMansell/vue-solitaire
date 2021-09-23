@@ -38,6 +38,7 @@ module.exports = (on, config) => {
           } else {
             const db = client.db(MONGODB_DB);
 
+            await db.collection('decks').deleteMany({ uid });
             await db.collection('decks').insertOne({ uid, cards });
 
             client.close();
