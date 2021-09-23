@@ -33,7 +33,7 @@ describe('Timer', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000);
 
-      cy.get('[data-test="timer"]').should('contain', '0:00:03');
+      cy.checkTimerIs('0:00:03');
     });
 
     it('it should pause timer after new game then pause game', () => {
@@ -59,7 +59,7 @@ describe('Timer', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000);
 
-      cy.get('[data-test="timer"]').should('contain', '0:00:03');
+      cy.checkTimerIs('0:00:03');
     });
 
     it('timer should pause when page is automatically hidden', () => {
@@ -72,7 +72,7 @@ describe('Timer', () => {
 
       cy.resumeGame();
 
-      cy.get('[data-test="timer"]').should('contain', '0:00:03');
+      cy.checkTimerIs('0:00:03');
     });
   });
 

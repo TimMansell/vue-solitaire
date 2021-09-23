@@ -2,20 +2,21 @@ import { v4 as uuidv4 } from 'uuid';
 
 Cypress.Commands.add('saveTimer', ({ wait } = { wait: 0 }) => {
   const timers = JSON.parse(localStorage.getItem('timers')) ?? [];
+  const timerID = uuidv4();
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(wait);
-
-  const timerID = uuidv4();
 
   cy.get('[data-test="timer"]').saveTextAs(timerID);
 
   localStorage.setItem('timers', JSON.stringify([...timers, timerID]));
 });
 
-Cypress.Commands.add('checkTimerHasReset', () =>
-  cy.get('[data-test="timer"]').should('contain', '0:00:00')
+Cypress.Commands.add('checkTimerIs', (time) =>
+  cy.get('[data-test="timer"]').should('contain', time)
 );
+
+Cypress.Commands.add('checkTimerHasReset', () => cy.checkTimerIs('0:00:00'));
 
 Cypress.Commands.add('checkTimer', () => {
   const [start] = JSON.parse(localStorage.getItem('timers'));
