@@ -1,8 +1,16 @@
-Cypress.Commands.add('saveTimer', ({ alias = 'timer', wait = 0 }) => {
+import { v4 as uuidv4 } from 'uuid';
+
+Cypress.Commands.add('saveTimer', ({ wait } = { wait: 0 }) => {
+  const timers = JSON.parse(localStorage.getItem('timers')) ?? [];
+
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(wait);
 
-  cy.get('[data-test="timer"]').saveTextAs(alias);
+  const timerID = uuidv4();
+
+  cy.get('[data-test="timer"]').saveTextAs(timerID);
+
+  localStorage.setItem('timers', JSON.stringify([...timers, timerID]));
 });
 
 Cypress.Commands.add('checkTimerHasReset', () =>
@@ -10,14 +18,18 @@ Cypress.Commands.add('checkTimerHasReset', () =>
 );
 
 Cypress.Commands.add('checkTimer', () => {
-  cy.get('@timer').then((timer) => {
+  const [start] = JSON.parse(localStorage.getItem('timers'));
+
+  cy.get(`@${start}`).then((timer) => {
     cy.get('[data-test="timer"]')
       .text()
       .should('equal', timer);
   });
 });
 
-Cypress.Commands.add('checkTimerPaused', ({ start, paused }) => {
+Cypress.Commands.add('checkTimerIsPaused', () => {
+  const [start, paused] = JSON.parse(localStorage.getItem('timers'));
+
   cy.get(`@${start}`).then((timerStart) => {
     cy.get(`@${paused}`).then((timerPaused) => {
       expect(timerStart).to.equal(timerPaused);
@@ -25,7 +37,9 @@ Cypress.Commands.add('checkTimerPaused', ({ start, paused }) => {
   });
 });
 
-Cypress.Commands.add('checkTimerResumed', ({ start, paused, resumed }) => {
+Cypress.Commands.add('checkTimerHasResumed', () => {
+  const [start, paused, resumed] = JSON.parse(localStorage.getItem('timers'));
+
   cy.get(`@${start}`).then((timerStart) => {
     cy.get(`@${paused}`).then((timerPaused) => {
       cy.get(`@${resumed}`).then((timerResumed) => {
@@ -36,15 +50,12 @@ Cypress.Commands.add('checkTimerResumed', ({ start, paused, resumed }) => {
   });
 });
 
-Cypress.Commands.add('checkReloadTimer', () => {
-  cy.saveTimer({ alias: 'timerStart', wait: 1000 });
+Cypress.Commands.add('checkTimerIsPausedOnReload', () => {
+  cy.saveTimer({ wait: 1000 });
 
   cy.reloadAndWait();
 
-  cy.saveTimer({ alias: 'timerPaused', wait: 1000 });
+  cy.saveTimer({ wait: 1000 });
 
-  cy.checkTimerPaused({
-    start: 'timerStart',
-    paused: 'timerPaused',
-  });
+  cy.checkTimerIsPaused();
 });

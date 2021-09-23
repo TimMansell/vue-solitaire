@@ -169,11 +169,13 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
-  cy.get('@timer').then((timer) => {
+  const [timer] = JSON.parse(localStorage.getItem('timers'));
+
+  cy.get(`@${timer}`).then((time) => {
     cy.get('[data-test="game-summary-value"]')
       .eq(0)
       .text()
-      .should('equal', timer);
+      .should('equal', time);
   });
 
   cy.get('[data-test="game-summary-value"]')

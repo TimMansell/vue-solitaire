@@ -74,7 +74,7 @@ describe('Game Lost', () => {
 
       cy.testShowBoard();
 
-      cy.checkReloadTimer();
+      cy.checkTimerIsPausedOnReload();
 
       cy.checkGameLost();
 
@@ -107,7 +107,7 @@ describe('Game Lost', () => {
 
       cy.testShowBoard();
 
-      cy.checkReloadTimer();
+      cy.checkTimerIsPausedOnReload();
 
       cy.checkGameLost();
 

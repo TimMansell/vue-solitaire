@@ -26,7 +26,7 @@ describe('Game Won', () => {
 
       cy.checkGameWon();
 
-      cy.checkReloadTimer();
+      cy.checkTimerIsPausedOnReload();
 
       cy.checkGameWon();
 
@@ -57,7 +57,7 @@ describe('Game Won', () => {
 
       cy.checkGameWon();
 
-      cy.checkReloadTimer();
+      cy.checkTimerIsPausedOnReload();
 
       cy.checkGameWon();
 

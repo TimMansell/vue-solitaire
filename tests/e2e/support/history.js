@@ -79,11 +79,13 @@ Cypress.Commands.add('checkGameMoves', () => {
 });
 
 Cypress.Commands.add('checkGameTime', () => {
-  cy.get('@timer').then((timer) => {
+  const [timer] = JSON.parse(localStorage.getItem('timers'));
+
+  cy.get(`@${timer}`).then((time) => {
     cy.get('[data-test="table-row"] td')
       .eq(5)
       .text()
-      .should('equal', timer);
+      .should('equal', time);
   });
 });
 

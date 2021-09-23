@@ -16,21 +16,17 @@ describe('Timer', () => {
 
   describe('Default Functionality', () => {
     it('timer stops when game is paused and starts when resumed', () => {
-      cy.saveTimer({ alias: 'timerStart' });
+      cy.saveTimer();
 
       cy.pauseGame();
 
-      cy.saveTimer({ alias: 'timerPaused', wait: 1000 });
+      cy.saveTimer({ wait: 1000 });
 
       cy.resumeGame();
 
-      cy.saveTimer({ alias: 'timerResumed', wait: 1000 });
+      cy.saveTimer({ wait: 1000 });
 
-      cy.checkTimerResumed({
-        start: 'timerStart',
-        paused: 'timerPaused',
-        resumed: 'timerResumed',
-      });
+      cy.checkTimerHasResumed();
     });
 
     it('it should increment timer correctly', () => {
@@ -45,14 +41,11 @@ describe('Timer', () => {
 
       cy.pauseGame();
 
-      cy.saveTimer({ alias: 'timerStart', wait: 1000 });
+      cy.saveTimer({ wait: 1000 });
 
-      cy.saveTimer({ alias: 'timerPaused', wait: 1000 });
+      cy.saveTimer({ wait: 1000 });
 
-      cy.checkTimerPaused({
-        start: 'timerStart',
-        paused: 'timerPaused',
-      });
+      cy.checkTimerIsPaused();
     });
 
     it('it should increment timer correctly after pausing', () => {
@@ -85,101 +78,81 @@ describe('Timer', () => {
 
   describe('Refreshing page', () => {
     it('timer should start paused when game is paused and page is refreshed', () => {
-      cy.saveTimer({ alias: 'timerStart' });
+      cy.saveTimer();
 
       cy.pauseGame();
 
       cy.reload();
 
-      cy.saveTimer({ alias: 'timerPaused', wait: 2000 });
+      cy.saveTimer({ wait: 2000 });
 
-      cy.checkTimerPaused({
-        start: 'timerStart',
-        paused: 'timerPaused',
-      });
+      cy.checkTimerIsPaused();
     });
 
     it('timer should start paused when stats overlay is open and page is refreshed', () => {
-      cy.saveTimer({ alias: 'timerStart' });
+      cy.saveTimer();
 
       cy.showStats();
 
       cy.reload();
 
-      cy.saveTimer({ alias: 'timerPaused', wait: 2000 });
+      cy.saveTimer({ wait: 2000 });
 
-      cy.checkTimerPaused({
-        start: 'timerStart',
-        paused: 'timerPaused',
-      });
+      cy.checkTimerIsPaused();
     });
 
     it('timer should start paused when how to play overlay is open and page is refreshed', () => {
-      cy.saveTimer({ alias: 'timerStart' });
+      cy.saveTimer();
 
       cy.showRules();
 
       cy.reload();
 
-      cy.saveTimer({ alias: 'timerPaused', wait: 2000 });
+      cy.saveTimer({ wait: 2000 });
 
-      cy.checkTimerPaused({
-        start: 'timerStart',
-        paused: 'timerPaused',
-      });
+      cy.checkTimerIsPaused();
     });
 
     it('timer should start paused when new game overlay is open and page is refreshed', () => {
-      cy.saveTimer({ alias: 'timerStart' });
+      cy.saveTimer();
 
       cy.newGame();
 
       cy.reload();
 
-      cy.saveTimer({ alias: 'timerPaused', wait: 2000 });
+      cy.saveTimer({ wait: 2000 });
 
-      cy.checkTimerPaused({
-        start: 'timerStart',
-        paused: 'timerPaused',
-      });
+      cy.checkTimerIsPaused();
     });
   });
 
   describe('Resuming Timer', () => {
     it('timer stops when stats overlay is open and starts when resumed', () => {
-      cy.saveTimer({ alias: 'timerStart' });
+      cy.saveTimer();
 
       cy.showStats();
 
-      cy.saveTimer({ alias: 'timerPaused', wait: 1000 });
+      cy.saveTimer({ wait: 1000 });
 
       cy.closeOverlay();
 
-      cy.saveTimer({ alias: 'timerResumed', wait: 1000 });
+      cy.saveTimer({ wait: 1000 });
 
-      cy.checkTimerResumed({
-        start: 'timerStart',
-        paused: 'timerPaused',
-        resumed: 'timerResumed',
-      });
+      cy.checkTimerHasResumed();
     });
 
     it('timer stops when new game overlay is open and starts when resumed', () => {
-      cy.saveTimer({ alias: 'timerStart' });
+      cy.saveTimer();
 
       cy.newGame();
 
-      cy.saveTimer({ alias: 'timerPaused', wait: 1000 });
+      cy.saveTimer({ wait: 1000 });
 
       cy.continueGame();
 
-      cy.saveTimer({ alias: 'timerResumed', wait: 1000 });
+      cy.saveTimer({ wait: 1000 });
 
-      cy.checkTimerResumed({
-        start: 'timerStart',
-        paused: 'timerPaused',
-        resumed: 'timerResumed',
-      });
+      cy.checkTimerHasResumed();
     });
   });
 

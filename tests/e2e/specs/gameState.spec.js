@@ -45,7 +45,7 @@ describe('Game State', () => {
     cy.runGameWithClicks(quitGameMoves);
 
     cy.saveGames();
-    cy.saveTimer({ alias: 'timer' });
+    cy.saveTimer();
     cy.saveMoves();
 
     cy.reload();
