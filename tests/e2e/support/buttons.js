@@ -1,7 +1,10 @@
-Cypress.Commands.add('startNewGame', ({ waitUser } = { waitUser: false }) => {
-  cy.newGame();
-  cy.confirmNewGame({ waitUser });
-});
+Cypress.Commands.add(
+  'startNewGame',
+  ({ waitInitial, waitUser } = { waitInitial: false, waitUser: false }) => {
+    cy.newGame();
+    cy.confirmNewGame({ waitInitial, waitUser });
+  }
+);
 
 Cypress.Commands.add('newGame', () => {
   cy.get('[data-test="new-game-btn"]').click();
@@ -9,17 +12,24 @@ Cypress.Commands.add('newGame', () => {
   cy.checkVisibilityHidden(true);
 });
 
-Cypress.Commands.add('confirmNewGame', ({ waitUser } = { waitUser: false }) => {
-  cy.get('[data-test="game-overlay-btns"] [data-test="new-game-btn"]').click();
+Cypress.Commands.add(
+  'confirmNewGame',
+  ({ waitInitial, waitUser } = { waitInitial: false, waitUser: false }) => {
+    cy.get(
+      '[data-test="game-overlay-btns"] [data-test="new-game-btn"]'
+    ).click();
 
-  cy.checkVisibilityHidden(false);
+    cy.checkVisibilityHidden(false);
 
-  if (waitUser) {
-    cy.wait('@waitForCreateUserAPI');
+    if (waitUser) {
+      cy.wait('@waitForCreateUserAPI');
+    }
+
+    if (waitInitial) {
+      cy.wait('@waitForInitialDataAPI');
+    }
   }
-
-  cy.wait('@waitForInitialDataAPI');
-});
+);
 
 Cypress.Commands.add('pauseGame', () => {
   cy.get('[data-test="pause-game-btn"]').click();

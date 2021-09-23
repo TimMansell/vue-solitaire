@@ -188,7 +188,7 @@ describe('Timer', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
 
-      cy.startNewGame();
+      cy.startNewGame({ waitInitial: false });
 
       cy.checkTimerHasReset();
     });
