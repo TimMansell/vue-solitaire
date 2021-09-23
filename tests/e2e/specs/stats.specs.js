@@ -8,14 +8,6 @@ describe('Stats', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: true,
-        mockSaveGame: true,
-        mockCreateUser: true,
-        mockGetUser: true,
-      });
-
       cy.visitApp();
     });
 
@@ -30,9 +22,7 @@ describe('Stats', () => {
     });
 
     it('it successfully retrieves player count', () => {
-      cy.savePlayerCount();
-
-      cy.checkPlayerCount({ equal: false });
+      cy.checkPlayerCount();
     });
   });
 

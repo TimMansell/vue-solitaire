@@ -12,7 +12,7 @@ describe('User', () => {
         mockDeck: fullGameDeck,
       });
 
-      cy.visitApp({ waitInitial: true });
+      cy.visitApp();
     });
 
     it('it creates a new local user on initial page load', () => {
@@ -31,7 +31,7 @@ describe('User', () => {
         mockDeck: fullGameDeck,
       });
 
-      cy.visitApp({ waitInitial: true });
+      cy.visitApp();
 
       cy.setDeck(fullGameDeck);
     });
@@ -41,7 +41,7 @@ describe('User', () => {
 
       cy.startNewGame({ waitUser: true });
 
-      cy.checkPlayerCount({ equal: true, incremented: true });
+      cy.checkPlayerCountHasIncremented(true);
     });
 
     it('it does not create a new user on server after second game has been played', () => {
@@ -49,13 +49,13 @@ describe('User', () => {
 
       cy.startNewGame({ waitUser: true });
 
-      cy.checkPlayerCount({ equal: true, incremented: true });
+      cy.checkPlayerCountHasIncremented(true);
 
       cy.savePlayerCount();
 
       cy.startNewGame();
 
-      cy.checkPlayerCount({ equal: true });
+      cy.checkPlayerCountHasIncremented(false);
     });
   });
 
@@ -83,7 +83,7 @@ describe('User', () => {
 
       cy.startNewGame();
 
-      cy.checkPlayerCount({ equal: true });
+      cy.checkPlayerCountHasIncremented(false);
     });
   });
 });
