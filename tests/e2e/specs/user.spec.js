@@ -39,7 +39,7 @@ describe('User', () => {
     it('it creates a new user on server after first game has been played', () => {
       cy.savePlayerCount();
 
-      cy.startNewGame({ waitUser: true, waitInitial: true });
+      cy.startNewGame({ waitUser: true });
 
       cy.checkPlayerCount({ equal: true, incremented: true });
     });
@@ -47,13 +47,13 @@ describe('User', () => {
     it('it does not create a new user on server after second game has been played', () => {
       cy.savePlayerCount();
 
-      cy.startNewGame({ waitUser: true, waitInitial: true });
+      cy.startNewGame({ waitUser: true });
 
       cy.checkPlayerCount({ equal: true, incremented: true });
 
       cy.savePlayerCount();
 
-      cy.startNewGame({ waitInitial: true });
+      cy.startNewGame();
 
       cy.checkPlayerCount({ equal: true });
     });
@@ -67,7 +67,7 @@ describe('User', () => {
         mockDeck: fullGameDeck,
       });
 
-      cy.visitApp({ waitInitial: true });
+      cy.visitApp();
 
       cy.setDeck(fullGameDeck);
     });
@@ -81,7 +81,7 @@ describe('User', () => {
     it('it does not create a new user on server after first game has been played', () => {
       cy.savePlayerCount();
 
-      cy.startNewGame({ waitInitial: true });
+      cy.startNewGame();
 
       cy.checkPlayerCount({ equal: true });
     });
