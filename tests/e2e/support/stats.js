@@ -2,16 +2,21 @@ Cypress.Commands.add('saveGames', () =>
   cy.get('[data-test="stats"]').saveNumberAs('games')
 );
 
-Cypress.Commands.add('checkGames', () => {
-  cy.get('@games').then((stats) => {
-    cy.get('[data-test="stats"]')
-      .text()
-      .should('equal', stats);
-  });
-});
+Cypress.Commands.add(
+  'checkGames',
+  ({ shouldEqual } = { shouldEqual: true }) => {
+    const shouldTest = shouldEqual ? 'equal' : 'not.equal';
+
+    cy.get('@games').then((stats) => {
+      cy.get('[data-test="stats"]')
+        .formatNumber()
+        .should(shouldTest, stats);
+    });
+  }
+);
 
 Cypress.Commands.add('checkGameNumber', ({ number, shouldEqual = true }) => {
-  const shouldTest = shouldEqual ? 'not.equal' : 'equal';
+  const shouldTest = shouldEqual ? 'equal' : 'not.equal';
 
   cy.get('[data-test="stats"]')
     .formatNumber()
@@ -71,31 +76,46 @@ Cypress.Commands.add('saveStats', () => {
   cy.closeOverlay();
 });
 
-Cypress.Commands.add('checkAllStats', ({ played, won, lost, quit }) => {
-  cy.get('@games').then((games) => {
-    const incrementedNumber = games + 1;
-
-    cy.checkGameNumber({ number: incrementedNumber });
-  });
-
+Cypress.Commands.add('checkIncrementedStats', ({ played, won, lost, quit }) => {
   cy.showStats();
 
-  const stats = ['user', 'global'];
+  cy.get('@userPlayed').then((gamesPlayed) => {
+    const playedCount = played ? gamesPlayed + 1 : gamesPlayed;
 
-  stats.forEach((stat) => {
-    cy.get(`@${stat}Played`).then((gamesPlayed) => {
-      cy.get(`@${stat}Won`).then((gamesWon) => {
-        cy.get(`@${stat}Lost`).then((gamesLost) => {
-          cy.get(`@${stat}Quit`).then((gamesQuit) => {
-            const playedCount = played ? gamesPlayed + 1 : gamesPlayed;
-            const wonCount = won ? gamesWon + 1 : gamesWon;
-            const lostCount = lost ? gamesLost + 1 : gamesLost;
-            const quitCount = quit ? gamesQuit + 1 : gamesQuit;
+    cy.checkGameNumber({ number: playedCount });
 
-            cy.checkStats({
-              stat,
-              values: [playedCount, wonCount, lostCount, quitCount],
-            });
+    cy.get('@userWon').then((gamesWon) => {
+      cy.get('@userLost').then((gamesLost) => {
+        cy.get('@userQuit').then((gamesQuit) => {
+          const wonCount = won ? gamesWon + 1 : gamesWon;
+          const lostCount = lost ? gamesLost + 1 : gamesLost;
+          const quitCount = quit ? gamesQuit + 1 : gamesQuit;
+
+          cy.checkUserStats({
+            played: playedCount,
+            won: wonCount,
+            lost: lostCount,
+            quit: quitCount,
+          });
+        });
+      });
+    });
+  });
+
+  cy.get('@globalPlayed').then((gamesPlayed) => {
+    cy.get('@globalWon').then((gamesWon) => {
+      cy.get('@globalLost').then((gamesLost) => {
+        cy.get('@globalQuit').then((gamesQuit) => {
+          const playedCount = played ? gamesPlayed + 1 : gamesPlayed;
+          const wonCount = won ? gamesWon + 1 : gamesWon;
+          const lostCount = lost ? gamesLost + 1 : gamesLost;
+          const quitCount = quit ? gamesQuit + 1 : gamesQuit;
+
+          cy.checkGlobalStats({
+            played: playedCount,
+            won: wonCount,
+            lost: lostCount,
+            quit: quitCount,
           });
         });
       });
@@ -103,32 +123,50 @@ Cypress.Commands.add('checkAllStats', ({ played, won, lost, quit }) => {
   });
 });
 
-Cypress.Commands.add('checkStats', ({ stat, values, shouldEqual = true }) => {
-  const [played, won, lost, quit] = values;
-  const shouldTest = shouldEqual ? 'equal' : 'not.equal';
+Cypress.Commands.add(
+  'checkUserStats',
+  ({ played, won, lost, quit, shouldEqual = true }) => {
+    cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('stat');
 
-  cy.get(`[data-test="${stat}-stats"] [data-test="table-cell"]`).as('stat');
+    cy.checkStats({ played, won, lost, quit, shouldEqual });
+  }
+);
 
-  cy.get('@stat')
-    .eq(0)
-    .formatNumber()
-    .should(shouldTest, played);
+Cypress.Commands.add(
+  'checkGlobalStats',
+  ({ played, won, lost, quit, shouldEqual = true }) => {
+    cy.get('[data-test="global-stats"] [data-test="table-cell"]').as('stat');
 
-  cy.get('@stat')
-    .eq(1)
-    .formatNumber()
-    .should(shouldTest, won);
+    cy.checkStats({ played, won, lost, quit, shouldEqual });
+  }
+);
 
-  cy.get('@stat')
-    .eq(2)
-    .formatNumber()
-    .should(shouldTest, lost);
+Cypress.Commands.add(
+  'checkStats',
+  ({ played, won, lost, quit, shouldEqual }) => {
+    const shouldTest = shouldEqual ? 'equal' : 'not.equal';
 
-  cy.get('@stat')
-    .eq(3)
-    .formatNumber()
-    .should(shouldTest, quit);
-});
+    cy.get('@stat')
+      .eq(0)
+      .formatNumber()
+      .should(shouldTest, played);
+
+    cy.get('@stat')
+      .eq(1)
+      .formatNumber()
+      .should(shouldTest, won);
+
+    cy.get('@stat')
+      .eq(2)
+      .formatNumber()
+      .should(shouldTest, lost);
+
+    cy.get('@stat')
+      .eq(3)
+      .formatNumber()
+      .should(shouldTest, quit);
+  }
+);
 
 Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
   cy.get('@timer').then((timer) => {

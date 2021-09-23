@@ -52,10 +52,13 @@ describe('Stats', () => {
 
       cy.showStats();
 
-      cy.checkStats({ stat: 'user', values: [0, 0, 0, 0] });
-      cy.checkStats({
-        stat: 'global',
-        values: [0, 0, 0, 0],
+      cy.checkUserStats({ played: 0, won: 0, lost: 0, quit: 0 });
+
+      cy.checkGlobalStats({
+        played: 0,
+        won: 0,
+        lost: 0,
+        quit: 0,
         shouldEqual: false,
       });
     });
@@ -64,9 +67,9 @@ describe('Stats', () => {
       cy.saveStats();
       cy.saveGames();
 
-      cy.startNewGame();
+      cy.startNewGame({ waitInitial: true });
 
-      cy.checkAllStats({ played: true, quit: true });
+      cy.checkIncrementedStats({ played: true, quit: true });
     });
   });
 
@@ -88,11 +91,20 @@ describe('Stats', () => {
 
       cy.showStats();
 
-      cy.checkStats({ stat: 'user', values: [0, 0, 0, 0], shouldEqual: true });
-      cy.checkStats({
-        stat: 'global',
-        values: [0, 0, 0, 0],
-        shouldEqual: true,
+      cy.checkUserStats({
+        played: 0,
+        won: 0,
+        lost: 0,
+        quit: 0,
+        shouldEqual: false,
+      });
+
+      cy.checkGlobalStats({
+        played: 0,
+        won: 0,
+        lost: 0,
+        quit: 0,
+        shouldEqual: false,
       });
     });
 
@@ -100,9 +112,9 @@ describe('Stats', () => {
       cy.saveStats();
       cy.saveGames();
 
-      cy.startNewGame();
+      cy.startNewGame({ waitInitial: true });
 
-      cy.checkAllStats({ played: true, quit: true });
+      cy.checkIncrementedStats({ played: true, quit: true });
     });
   });
 });

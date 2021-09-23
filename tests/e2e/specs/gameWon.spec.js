@@ -32,7 +32,7 @@ describe('Game Won', () => {
 
       cy.confirmNewGame({ waitUser: true });
 
-      cy.checkAllStats({ played: true, won: true });
+      cy.checkIncrementedStats({ played: true, won: true });
     });
   });
 
@@ -63,7 +63,7 @@ describe('Game Won', () => {
 
       cy.confirmNewGame();
 
-      cy.checkAllStats({ played: true, won: true });
+      cy.checkIncrementedStats({ played: true, won: true });
     });
   });
 });
