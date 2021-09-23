@@ -1,4 +1,4 @@
-Cypress.Commands.add('visitApp', ({ waitInitial } = { waitInitial: false }) => {
+Cypress.Commands.add('visitApp', () => {
   cy.interceptInitialDataAPI();
   cy.interceptCreateUserAPI();
   cy.interceptHistoryAPI();
@@ -8,9 +8,7 @@ Cypress.Commands.add('visitApp', ({ waitInitial } = { waitInitial: false }) => {
 
   cy.visit('/');
 
-  if (waitInitial) {
-    cy.wait('@waitForInitialDataAPI');
-  }
+  cy.wait('@waitForInitialDataAPI');
 });
 
 Cypress.Commands.add(
@@ -48,7 +46,4 @@ Cypress.Commands.add(
 
 Cypress.Commands.add('clearTest', () => {
   cy.clearLocalStorage();
-
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(300);
 });
