@@ -52,7 +52,7 @@ describe('History', () => {
       cy.saveTimer({ alias: 'timer' });
       cy.saveMoves();
 
-      cy.startNewGame({ waitUser: true, waitInitial: true });
+      cy.startNewGame({ waitUser: true });
 
       cy.showHistory({ wait: true });
 
@@ -93,7 +93,7 @@ describe('History', () => {
 
       cy.checkCorrectTableRows(25);
 
-      cy.checkGameNumbers();
+      cy.checkGameRange();
 
       cy.checkCorrectPages();
 
@@ -110,7 +110,7 @@ describe('History', () => {
 
       cy.setHistoryPage('>');
 
-      cy.checkGameNumbers();
+      cy.checkGameRange();
 
       cy.checkCorrectPages();
 
@@ -127,7 +127,7 @@ describe('History', () => {
 
       cy.setHistoryPage('2');
 
-      cy.checkGameNumbers();
+      cy.checkGameRange();
 
       cy.checkCorrectPages();
 
@@ -163,7 +163,7 @@ describe('History', () => {
 
       cy.setHistoryPage('First');
 
-      cy.checkGameNumbers();
+      cy.checkGameRange();
 
       cy.checkCorrectPages();
 
@@ -181,7 +181,7 @@ describe('History', () => {
       cy.setHistoryPage('2');
       cy.setHistoryPage('<');
 
-      cy.checkGameNumbers();
+      cy.checkGameRange();
 
       cy.checkCorrectPages();
 

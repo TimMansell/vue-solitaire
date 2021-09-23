@@ -10,7 +10,7 @@ Cypress.Commands.add('selectGamesItem', (value) => {
   cy.wait('@waitForHistoryAPI');
 });
 
-Cypress.Commands.add('checkGameNumbers', () => {
+Cypress.Commands.add('checkGameRange', () => {
   cy.get('[data-test="pagination"]')
     .find('.pagination__page--is-active')
     .saveNumberAs('page');
