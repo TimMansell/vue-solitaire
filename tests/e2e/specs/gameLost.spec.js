@@ -16,9 +16,6 @@ describe('Game Lost', () => {
       cy.mockApi({
         mockDeck: noMovesKingColumnDeck,
         mockInitial: true,
-        mockSaveGame: true,
-        mockCreateUser: true,
-        mockGetUser: true,
       });
 
       cy.visitApp();
@@ -32,9 +29,6 @@ describe('Game Lost', () => {
       cy.mockApi({
         mockDeck: initialAceMoveDeck,
         mockInitial: true,
-        mockSaveGame: true,
-        mockCreateUser: true,
-        mockGetUser: true,
       });
 
       cy.visitApp();
@@ -48,9 +42,6 @@ describe('Game Lost', () => {
       cy.mockApi({
         mockDeck: initialAceAnd2MoveDeck,
         mockInitial: true,
-        mockSaveGame: true,
-        mockCreateUser: true,
-        mockGetUser: true,
       });
 
       cy.visitApp();
