@@ -57,7 +57,7 @@ describe('Stats', () => {
       cy.saveStats();
       cy.saveGames();
 
-      cy.startNewGame({ waitInitial: true });
+      cy.startNewGame();
 
       cy.checkIncrementedStats({ played: true, quit: true });
     });
@@ -102,7 +102,7 @@ describe('Stats', () => {
       cy.saveStats();
       cy.saveGames();
 
-      cy.startNewGame({ waitInitial: true });
+      cy.startNewGame();
 
       cy.checkIncrementedStats({ played: true, quit: true });
     });

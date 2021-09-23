@@ -22,12 +22,15 @@ Cypress.Commands.add(
       mockGetUser: false,
     }
   ) => {
+    cy.wrap(false).as('mockedInitial');
+
     if (mockDeck) {
       cy.mockNewGameAPI(mockDeck);
     }
 
     if (mockInitial) {
       cy.mockInitialDataAPI(mockInitial);
+      cy.wrap(true).as('mockedInitial');
     }
 
     if (mockSaveGame) {
