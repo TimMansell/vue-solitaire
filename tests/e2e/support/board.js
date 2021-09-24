@@ -19,3 +19,9 @@ Cypress.Commands.add('checkPlaceholderCardExists', (exists) => {
     cy.get('[data-test="column-card-placeholder"]').should(shouldExist);
   });
 });
+
+Cypress.Commands.add('checkPlaceholderCardAtColumn', (column) => {
+  cy.get(`[data-test="column-${column}"]`).within(() => {
+    cy.get('[data-test="column-card-placeholder"]').should('be.visible');
+  });
+});

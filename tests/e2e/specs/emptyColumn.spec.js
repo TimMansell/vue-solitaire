@@ -11,16 +11,12 @@ describe('Special column moves', () => {
     cy.visitApp();
 
     cy.runGameWithClicks(emptyColumnMoves);
+
+    cy.checkPlaceholderCardAtColumn(1);
   });
 
   afterEach(() => {
     cy.clearTest();
-  });
-
-  it('should show empty column card placeholder', () => {
-    cy.get('[data-test="column-1"]').within(() => {
-      cy.get('[data-test="column-card-placeholder"]').should('be.visible');
-    });
   });
 
   describe('using drag and drop', () => {
