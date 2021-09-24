@@ -4,7 +4,6 @@ Cypress.Commands.add('saveTimer', ({ wait } = { wait: 0 }) => {
   const timers = JSON.parse(localStorage.getItem('timers')) ?? [];
   const timerID = uuidv4();
 
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(wait);
 
   cy.get('[data-test="timer"]').saveTextAs(timerID);

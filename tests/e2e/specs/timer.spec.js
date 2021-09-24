@@ -30,7 +30,6 @@ describe('Timer', () => {
     });
 
     it('it should increment timer correctly', () => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000);
 
       cy.checkTimerIs('0:00:03');
@@ -51,12 +50,10 @@ describe('Timer', () => {
     it('it should increment timer correctly after pausing', () => {
       cy.pauseGame();
 
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
 
       cy.resumeGame();
 
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000);
 
       cy.checkTimerIs('0:00:03');
@@ -67,7 +64,6 @@ describe('Timer', () => {
 
       cy.triggerVisibilityChange();
 
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000);
 
       cy.resumeGame();
@@ -158,7 +154,6 @@ describe('Timer', () => {
 
   describe('Resetting timer', () => {
     it('it should reset timer when new game is pressed', () => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000);
 
       cy.startNewGame();
