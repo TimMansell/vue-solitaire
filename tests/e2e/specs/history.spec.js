@@ -59,7 +59,7 @@ describe('History', () => {
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
 
-      cy.checkHasTableRows(1);
+      cy.checkTableHasRowLength(1);
 
       cy.checkHistoryGame();
 
@@ -88,7 +88,7 @@ describe('History', () => {
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
 
-      cy.checkHasTableRows(25);
+      cy.checkTableHasRowLength(25);
 
       cy.checkHistoryGameRange();
 
@@ -193,11 +193,11 @@ describe('History', () => {
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
 
-      cy.checkHasTableRows(25);
+      cy.checkTableHasRowLength(25);
 
       cy.selectHistoryGames('50');
 
-      cy.checkHasTableRows(50);
+      cy.checkTableHasRowLength(50);
 
       cy.checkHistoryPages();
 

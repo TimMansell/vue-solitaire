@@ -1,4 +1,4 @@
-Cypress.Commands.add('checkHasTableRows', (rows) => {
+Cypress.Commands.add('checkTableHasRowLength', (rows) => {
   cy.get('[data-test="table-row"]').should('have.length', rows);
 });
 

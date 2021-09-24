@@ -43,11 +43,11 @@ describe('Leaderboards', () => {
     it('it should display correct amount of table rows', () => {
       cy.showLeaderboards();
 
-      cy.checkHasTableRows(25);
+      cy.checkTableHasRowLength(25);
 
       cy.selectLeaderboardTopItem('50');
 
-      cy.checkHasTableRows(50);
+      cy.checkTableHasRowLength(50);
     });
 
     it('it should display correct table heading', () => {
