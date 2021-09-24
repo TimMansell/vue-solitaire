@@ -26,15 +26,15 @@ describe('Game State', () => {
   it('refreshing page shows same board state', () => {
     cy.clickCard('4♠');
 
-    cy.checkSelectedCard({ card: '4♠', isSelected: true });
+    cy.checkCardIsSelected('4♠');
 
     cy.reload();
 
-    cy.checkSelectedCard({ card: '4♠', isSelected: true });
+    cy.checkCardIsSelected('4♠');
 
     cy.clickCard('4♠');
 
-    cy.checkSelectedCard({ card: '4♠', isSelected: false });
+    cy.checkCardIsNotSelected('4♠');
 
     cy.checkCardPosition({ card: '4♣', column: 0, position: 6 });
     cy.checkCardPosition({ card: 'Q♣', column: 2, position: 4 });

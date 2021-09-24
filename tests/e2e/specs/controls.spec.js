@@ -27,7 +27,7 @@ describe('Controls', () => {
 
     cy.get('[data-test="foundation-1"]').shouldNotExist(['A♣']);
 
-    cy.checkSelectedCard({ card: '4♠', isSelected: false });
+    cy.checkCardIsNotSelected('4♠');
 
     cy.checkPlaceholderCardExists(false);
   });
@@ -43,7 +43,7 @@ describe('Controls', () => {
 
     cy.get('[data-test="foundation-0"]').shouldExist(['A♣']);
 
-    cy.checkSelectedCard({ card: '7♠', isSelected: true });
+    cy.checkCardIsSelected('7♠');
   });
 
   it('it should new/continue, pause/resume, open/close rules, history, stats, leaderboards', () => {
