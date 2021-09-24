@@ -1,3 +1,5 @@
+import { mockStats } from '../../../src/mockData';
+
 Cypress.Commands.add('interceptLeaderboardAPI', () => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;
@@ -76,11 +78,10 @@ Cypress.Commands.add('mockInitialDataAPI', ({ matchesVersion = true }) => {
             name: '',
           },
           userStats: {
-            completed: 0,
+            ...mockStats,
           },
           globalStats: {
-            completed: 17942,
-            players: 3544,
+            ...mockStats,
           },
           version: { matches: matchesVersion },
         },
