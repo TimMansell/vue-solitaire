@@ -11,15 +11,9 @@ describe('App', () => {
     });
 
     it('it successfully loads', () => {
-      cy.get('[data-test="board"]').should('be.visible');
+      cy.checkBoard();
 
-      cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test^="card-"]').should('have.length', 52);
-      });
-
-      cy.get('[data-test="foundations"]').within(() => {
-        cy.get('[data-test^="foundation-"]').should('have.length', 4);
-      });
+      cy.checkFoundations();
     });
   });
 

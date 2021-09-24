@@ -7,6 +7,7 @@ import './card';
 import './buttons';
 import './clicks';
 import './drags';
+import './board';
 import './controls';
 import './pagination';
 import './table';

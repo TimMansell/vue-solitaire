@@ -29,9 +29,7 @@ describe('Controls', () => {
 
     cy.checkSelectedCard({ card: '4♠', isSelected: false });
 
-    cy.get('[data-test="columns"]').within(() => {
-      cy.get('[data-test="column-card-placeholder"]').should('not.exist');
-    });
+    cy.checkPlaceholderCardExists(false);
   });
 
   it('it should continue current game', () => {
@@ -48,7 +46,7 @@ describe('Controls', () => {
     cy.checkSelectedCard({ card: '7♠', isSelected: true });
   });
 
-  it('it should new/continue, pause/resume, open/close: rules, history, stats, leaderboards', () => {
+  it('it should new/continue, pause/resume, open/close rules, history, stats, leaderboards', () => {
     cy.testContinueGame();
 
     cy.testPause();
