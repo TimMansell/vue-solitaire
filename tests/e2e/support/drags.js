@@ -64,7 +64,7 @@ Cypress.Commands.add(
     })
 );
 
-Cypress.Commands.add('checkDraggedCardsNumber', (length) =>
+Cypress.Commands.add('checkDraggedCardsLength', (length) =>
   cy
     .get('[data-test="dragged-cards"]')
     .children()

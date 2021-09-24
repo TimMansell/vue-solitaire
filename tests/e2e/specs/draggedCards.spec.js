@@ -17,7 +17,7 @@ describe('Dragged Cards', () => {
   it('should drag single card', () => {
     cy.get('[data-test="card-7♦"]').drag({ x: 200, y: -200 });
 
-    cy.checkDraggedCardsNumber(1);
+    cy.checkDraggedCardsLength(1);
 
     cy.get('[data-test="dragged-cards"]').shouldExist(['7♦']);
 
@@ -27,7 +27,7 @@ describe('Dragged Cards', () => {
   it('should drag correct amount of cards', () => {
     cy.get('[data-test="card-6♦"]').drag({ x: 200, y: -200 });
 
-    cy.checkDraggedCardsNumber(3);
+    cy.checkDraggedCardsLength(3);
 
     cy.get('[data-test="dragged-cards"]').shouldExist(['6♦', '2♥']);
 
@@ -37,7 +37,7 @@ describe('Dragged Cards', () => {
   it('should clear dragged cards when dropped outside of board', () => {
     cy.dragFromTo('6♦', 'board');
 
-    cy.checkDraggedCardsNumber(0);
+    cy.checkDraggedCardsLength(0);
 
     cy.get('[data-test="column-3"]').shouldExist(['6♦']);
   });
