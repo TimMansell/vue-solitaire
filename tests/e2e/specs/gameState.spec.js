@@ -36,9 +36,11 @@ describe('Game State', () => {
 
     cy.checkCardIsNotSelected('4♠');
 
-    cy.checkCardPosition({ card: '4♣', column: 0, position: 6 });
-    cy.checkCardPosition({ card: 'Q♣', column: 2, position: 4 });
-    cy.checkCardPosition({ card: 'A♥', column: 5, position: 1 });
+    cy.checkCardPositions([
+      { card: '4♣', column: 0, position: 6 },
+      { card: 'Q♣', column: 2, position: 4 },
+      { card: 'A♥', column: 5, position: 1 },
+    ]);
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
