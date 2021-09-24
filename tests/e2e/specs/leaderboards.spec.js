@@ -31,11 +31,11 @@ describe('Leaderboards', () => {
 
       cy.checkLeaderboardHeading('Top 25 Best Moves');
 
-      cy.selectBestItem('Times');
+      cy.selectLeaderboardBestItem('Times');
 
       cy.checkLeaderboardHeading('Top 25 Best Times');
 
-      cy.selectTopItem('50');
+      cy.selectLeaderboardTopItem('50');
 
       cy.checkLeaderboardHeading('Top 50 Best Times');
     });
@@ -43,11 +43,11 @@ describe('Leaderboards', () => {
     it('it should display correct amount of table rows', () => {
       cy.showLeaderboards();
 
-      cy.checkCorrectTableRows(25);
+      cy.checkHasTableRows(25);
 
-      cy.selectTopItem('50');
+      cy.selectLeaderboardTopItem('50');
 
-      cy.checkCorrectTableRows(50);
+      cy.checkHasTableRows(50);
     });
 
     it('it should display correct table heading', () => {
@@ -55,7 +55,7 @@ describe('Leaderboards', () => {
 
       cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
-      cy.selectBestItem('Times');
+      cy.selectLeaderboardBestItem('Times');
 
       cy.checkTableHeading({ cell: 3, heading: 'Times' });
     });
@@ -75,7 +75,7 @@ describe('Leaderboards', () => {
     it('it should display player name after first game', () => {
       cy.showLeaderboards();
 
-      cy.checkLeaderboardName(false);
+      cy.checkLeaderboardNameExists(false);
 
       cy.closeOverlay();
 
@@ -83,7 +83,7 @@ describe('Leaderboards', () => {
 
       cy.showLeaderboards();
 
-      cy.checkLeaderboardName(true);
+      cy.checkLeaderboardNameExists(true);
     });
   });
 
@@ -103,7 +103,7 @@ describe('Leaderboards', () => {
     it('it should display player name after first game', () => {
       cy.showLeaderboards();
 
-      cy.checkLeaderboardName(true);
+      cy.checkLeaderboardNameExists(true);
     });
   });
 });
