@@ -4,88 +4,72 @@ Cypress.Commands.add('setHistoryPage', (pageText) => {
   cy.wait('@waitForHistoryAPI');
 });
 
-Cypress.Commands.add('selectGamesItem', (value) => {
+Cypress.Commands.add('selectHistoryGames', (value) => {
   cy.get('[data-test="game-history"] [data-test="select"]').select(value);
 
   cy.wait('@waitForHistoryAPI');
 });
 
-Cypress.Commands.add('checkGameRange', () => {
-  cy.get('[data-test="pagination"]')
-    .find('.pagination__page--is-active')
-    .saveNumberAs('page');
-
+Cypress.Commands.add('getSelectHistoryGames', () => {
   cy.get(
     '[data-test="game-history"] [data-test="select"] :selected'
-  ).saveNumberAs('itemsPerPage');
+  ).formatNumber();
+});
 
-  cy.get('[data-test="table-row"]:first-child td:first-child').saveNumberAs(
-    'firstRow'
-  );
+Cypress.Commands.add('getHistoryTotalGames', () => {
+  cy.get('[data-test="game-history-total-games"]').getData('games');
+});
 
-  cy.get('[data-test="table-row"]:last-child td:first-child').saveNumberAs(
-    'lastRow'
-  );
+Cypress.Commands.add('checkHistoryGameRange', () => {
+  cy.getTableCellValue({ row: 0, cell: 0 }).saveNumberAs('firstRow');
+  cy.getTableCellValue({ row: -1, cell: 0 }).saveNumberAs('lastRow');
+  cy.getHistoryTotalGames().as('games');
+  cy.getActivePage().as('activePage');
+  cy.getSelectHistoryGames().as('historyGames');
 
-  cy.get('[data-test="game-history-total-games"]')
-    .then(($value) => $value.attr('data-games'))
-    .then((games) => {
-      cy.get('@page').then((page) => {
-        cy.get('@itemsPerPage').then((items) => {
-          cy.get('@firstRow').then((firstRow) => {
-            expect(firstRow).to.equal(games - (page - 1) * items);
-          });
+  cy.get('@games').then((games) => {
+    cy.get('@activePage').then((page) => {
+      cy.get('@historyGames').then((historyGames) => {
+        cy.get('@firstRow').then((firstRow) => {
+          expect(firstRow).to.equal(games - (page - 1) * historyGames);
+        });
 
-          cy.get('@lastRow').then((lastRow) => {
-            expect(lastRow).to.equal(games - page * items + 1);
-          });
+        cy.get('@lastRow').then((lastRow) => {
+          expect(lastRow).to.equal(games - page * historyGames + 1);
         });
       });
     });
-});
-
-Cypress.Commands.add('checkCorrectPages', () => {
-  cy.get('[data-test="pagination"]')
-    .find('.pagination__page--is-active')
-    .saveNumberAs('page');
-
-  cy.get(
-    '[data-test="game-history"] [data-test="select"] :selected'
-  ).saveNumberAs('itemsPerPage');
-
-  cy.get('[data-test="game-history-total-games"]')
-    .then(($value) => $value.attr('data-games'))
-    .then((games) => {
-      cy.get('@page').then((page) => {
-        cy.get('@itemsPerPage').then((items) => {
-          const pages = Math.ceil(games / items);
-
-          cy.get('[data-test="game-history-pages"]').should(
-            'contain',
-            `${page} / ${pages}`
-          );
-        });
-      });
-    });
-});
-
-Cypress.Commands.add('checkGameMoves', () => {
-  cy.get('@moves').then((moves) => {
-    cy.get('[data-test="table-row"] td')
-      .eq(4)
-      .text()
-      .should('equal', moves);
   });
 });
 
-Cypress.Commands.add('checkGameTime', () => {
+Cypress.Commands.add('checkHistoryPages', () => {
+  cy.getHistoryTotalGames().as('games');
+  cy.getActivePage().as('activePage');
+  cy.getSelectHistoryGames().as('historyGames');
+
+  cy.get('@games').then((games) => {
+    cy.get('@activePage').then((page) => {
+      cy.get('@historyGames').then((historyGames) => {
+        const pages = Math.ceil(games / historyGames);
+
+        cy.get('[data-test="game-history-pages"]').should(
+          'contain',
+          `${page} / ${pages}`
+        );
+      });
+    });
+  });
+});
+
+Cypress.Commands.add('checkHistoryGame', () => {
   const [timer] = JSON.parse(localStorage.getItem('timers'));
 
   cy.get(`@${timer}`).then((time) => {
-    cy.get('[data-test="table-row"] td')
-      .eq(5)
-      .text()
-      .should('equal', time);
+    cy.checkTableCellValue({ row: 0, cell: 5, value: time });
+  });
+
+  cy.get('@moves').then((moves) => {
+    cy.checkTableCellValue({ row: 0, cell: 4, value: moves });
   });
 });
 
@@ -95,20 +79,15 @@ Cypress.Commands.add('checkHistoryExists', (exists) => {
   cy.get('[data-test="game-history"]').should(shouldExist);
 });
 
-Cypress.Commands.add('checkGameMessageExists', (exists) => {
+Cypress.Commands.add('checkHistoryMessageExists', (exists) => {
   const shouldExist = exists ? 'exist' : 'not.exist';
 
   cy.get('[data-test="game-history-no-games-msg"]').should(shouldExist);
 });
 
-Cypress.Commands.add('checkCorrectShowingGames', () => {
-  cy.get('[data-test="table-row"]:first-child td:first-child').saveNumberAs(
-    'firstRow'
-  );
-
-  cy.get('[data-test="table-row"]:last-child td:first-child').saveNumberAs(
-    'lastRow'
-  );
+Cypress.Commands.add('checkHistoryShowingGames', () => {
+  cy.getTableCellValue({ row: 0, cell: 0 }).saveNumberAs('firstRow');
+  cy.getTableCellValue({ row: -1, cell: 0 }).saveNumberAs('lastRow');
 
   cy.get('@firstRow').then((firstRow) => {
     cy.get('@lastRow').then((lastRow) => {
@@ -118,4 +97,8 @@ Cypress.Commands.add('checkCorrectShowingGames', () => {
       );
     });
   });
+});
+
+Cypress.Commands.add('checkHistoryHasFirstGameShowing', () => {
+  cy.checkTableCellValue({ row: -1, cell: 0, value: '1' });
 });

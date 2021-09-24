@@ -4,13 +4,19 @@ Cypress.Commands.add('setPage', (pageText) => {
     .click();
 });
 
-Cypress.Commands.add('checkCorrectPage', (activePage) => {
+Cypress.Commands.add('getActivePage', () => {
+  cy.get('[data-test="pagination"]')
+    .find('.pagination__page--is-active')
+    .formatNumber();
+});
+
+Cypress.Commands.add('checkIsOnPage', (activePage) => {
   cy.get('[data-test="pagination"]')
     .find('.pagination__page--is-active')
     .should('contain', activePage);
 });
 
-Cypress.Commands.add('checkLastPage', () => {
+Cypress.Commands.add('checkIsLastPage', () => {
   cy.get('[data-test="pagination"]')
     .children()
     .eq(-3)

@@ -1,8 +1,8 @@
-Cypress.Commands.add('checkCorrectTableRows', (rows) => {
+Cypress.Commands.add('checkHasTableRows', (rows) => {
   cy.get('[data-test="table-row"]').should('have.length', rows);
 });
 
-Cypress.Commands.add('checkTableRow', ({ row, cell, value }) => {
+Cypress.Commands.add('checkTableCellValue', ({ row, cell, value }) => {
   cy.get('[data-test="table-row"]')
     .eq(row)
     .find('td')
@@ -15,4 +15,11 @@ Cypress.Commands.add('checkTableHeading', ({ cell, heading }) => {
     .find('th')
     .eq(cell)
     .should('contain', heading);
+});
+
+Cypress.Commands.add('getTableCellValue', ({ row, cell }) => {
+  cy.get('[data-test="table-row"]')
+    .eq(row)
+    .find('td')
+    .eq(cell);
 });

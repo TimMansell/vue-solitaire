@@ -41,7 +41,7 @@ describe('History', () => {
       cy.showHistory();
 
       cy.checkHistoryExists(false);
-      cy.checkGameMessageExists(true);
+      cy.checkHistoryMessageExists(true);
     });
 
     it('it shows game history after first game played', () => {
@@ -57,18 +57,17 @@ describe('History', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
-      cy.checkCorrectTableRows(1);
+      cy.checkHasTableRows(1);
 
-      cy.checkGameMoves();
-      cy.checkGameTime();
+      cy.checkHistoryGame();
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(1);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
   });
 
@@ -87,156 +86,156 @@ describe('History', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
-      cy.checkCorrectTableRows(25);
+      cy.checkHasTableRows(25);
 
-      cy.checkGameRange();
+      cy.checkHistoryGameRange();
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(1);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 2nd page results using > button', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
       cy.setHistoryPage('>');
 
-      cy.checkGameRange();
+      cy.checkHistoryGameRange();
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(2);
+      cy.checkIsOnPage(2);
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 2nd page results using page 2 number button', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
       cy.setHistoryPage('2');
 
-      cy.checkGameRange();
+      cy.checkHistoryGameRange();
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(2);
+      cy.checkIsOnPage(2);
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows last page results using Last button', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
       cy.setHistoryPage('Last');
 
-      cy.checkTableRow({ row: -1, cell: 0, value: '1' });
+      cy.checkHistoryHasFirstGameShowing();
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkLastPage();
+      cy.checkIsLastPage();
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 1st page results using First button', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
       cy.setHistoryPage('2');
 
       cy.setHistoryPage('First');
 
-      cy.checkGameRange();
+      cy.checkHistoryGameRange();
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(1);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 1st page results using < button', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
       cy.setHistoryPage('2');
       cy.setHistoryPage('<');
 
-      cy.checkGameRange();
+      cy.checkHistoryGameRange();
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(1);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 50 games per page and correct page numbers', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
-      cy.checkCorrectTableRows(25);
+      cy.checkHasTableRows(25);
 
-      cy.selectGamesItem('50');
+      cy.selectHistoryGames('50');
 
-      cy.checkCorrectTableRows(50);
+      cy.checkHasTableRows(50);
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(1);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows page one when games per page is changed', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
       cy.setHistoryPage('Last');
 
-      cy.selectGamesItem('50');
+      cy.selectHistoryGames('50');
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(1);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it should scroll to correct position on page after clicking on page', () => {
       cy.showHistory({ wait: true });
 
       cy.checkHistoryExists(true);
-      cy.checkGameMessageExists(false);
+      cy.checkHistoryMessageExists(false);
 
       cy.setHistoryPage('2');
 
       cy.checkFilterAtTopOfPage();
 
-      cy.checkCorrectPages();
+      cy.checkHistoryPages();
 
-      cy.checkCorrectPage(2);
+      cy.checkIsOnPage(2);
     });
   });
 });
