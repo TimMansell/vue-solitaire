@@ -20,7 +20,7 @@ describe('Game State', () => {
 
     cy.triggerVisibilityChange();
 
-    cy.checkGamePaused(true);
+    cy.checkGameIsPaused(true);
   });
 
   it('refreshing page shows same board state', () => {

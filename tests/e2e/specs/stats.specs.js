@@ -18,7 +18,7 @@ describe('Stats', () => {
 
       cy.triggerVisibilityChange();
 
-      cy.checkGamePaused(false);
+      cy.checkGameIsPaused(false);
     });
 
     it('it successfully retrieves player count', () => {

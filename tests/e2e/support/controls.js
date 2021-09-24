@@ -15,15 +15,15 @@ Cypress.Commands.add('testContinueGame', () => {
 Cypress.Commands.add('testPause', () => {
   cy.pauseGame();
 
-  cy.checkGamePaused(true);
+  cy.checkGameIsPaused(true);
 
   cy.reload();
 
-  cy.checkGamePaused(true);
+  cy.checkGameIsPaused(true);
 
   cy.resumeGame();
 
-  cy.checkGamePaused(false);
+  cy.checkGameIsPaused(false);
 });
 
 Cypress.Commands.add('testRules', () => {

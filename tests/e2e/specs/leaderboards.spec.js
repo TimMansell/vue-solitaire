@@ -23,7 +23,7 @@ describe('Leaderboards', () => {
 
       cy.triggerVisibilityChange();
 
-      cy.checkGamePaused(false);
+      cy.checkGameIsPaused(false);
     });
 
     it('it should display correct heading', () => {

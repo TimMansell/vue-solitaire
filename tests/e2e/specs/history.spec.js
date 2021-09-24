@@ -24,7 +24,7 @@ describe('History', () => {
 
       cy.triggerVisibilityChange();
 
-      cy.checkGamePaused(false);
+      cy.checkGameIsPaused(false);
     });
   });
 
