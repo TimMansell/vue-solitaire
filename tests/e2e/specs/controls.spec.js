@@ -25,7 +25,7 @@ describe('Controls', () => {
 
     cy.startNewGame();
 
-    cy.get('[data-test="foundation-1"]').shouldNotExist(['A♣']);
+    cy.checkCardsNotExistOn(['A♣'], 'foundation-1');
 
     cy.checkCardIsNotSelected('4♠');
 
@@ -41,7 +41,7 @@ describe('Controls', () => {
 
     cy.continueGame();
 
-    cy.get('[data-test="foundation-0"]').shouldExist(['A♣']);
+    cy.checkCardsExistOn(['A♣'], 'foundation-0');
 
     cy.checkCardIsSelected('7♠');
   });
