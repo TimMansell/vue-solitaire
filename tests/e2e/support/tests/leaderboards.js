@@ -3,7 +3,7 @@ Cypress.Commands.add('selectLeaderboardTopItem', (value) => {
     value
   );
 
-  cy.wait('@waitForLeaderboardAPI');
+  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('selectLeaderboardBestItem', (value) => {
@@ -11,7 +11,7 @@ Cypress.Commands.add('selectLeaderboardBestItem', (value) => {
     value
   );
 
-  cy.wait('@waitForLeaderboardAPI');
+  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('checkLeaderboardHeading', (heading) => {

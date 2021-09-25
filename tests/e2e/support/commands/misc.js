@@ -1,7 +1,7 @@
 Cypress.Commands.add('reloadAndWait', () => {
   cy.reload();
 
-  cy.wait('@waitForInitialDataAPI');
+  cy.wait('@GetInitialDataAPI');
 });
 
 Cypress.Commands.add('clearTest', () => {

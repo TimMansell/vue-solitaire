@@ -15,12 +15,12 @@ Cypress.Commands.add('confirmNewGame', ({ waitUser } = { waitUser: false }) => {
   cy.checkVisibilityHidden(false);
 
   if (waitUser) {
-    cy.wait('@waitForCreateUserAPI');
+    cy.wait('@CreateAUserAPI');
   }
 
   cy.get('@mockedInitial').then((isMocked) => {
     if (!isMocked) {
-      cy.wait('@waitForInitialDataAPI');
+      cy.wait('@GetInitialDataAPI');
     }
   });
 });
@@ -52,7 +52,7 @@ Cypress.Commands.add('showStats', () => {
 
   cy.checkVisibilityHidden(true);
 
-  cy.wait('@waitForStatsAPI');
+  cy.wait('@GetStatsAPI');
 });
 
 Cypress.Commands.add('showRules', () => {
@@ -67,7 +67,7 @@ Cypress.Commands.add('showHistory', ({ wait } = { wait: false }) => {
   cy.checkVisibilityHidden(true);
 
   if (wait) {
-    cy.wait('@waitForHistoryAPI');
+    cy.wait('@UserHistoryAPI');
   }
 });
 
@@ -76,7 +76,7 @@ Cypress.Commands.add('showLeaderboards', () => {
 
   cy.checkVisibilityHidden(true);
 
-  cy.wait('@waitForLeaderboardAPI');
+  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('showBoard', () => {

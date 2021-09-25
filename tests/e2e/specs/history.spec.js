@@ -20,7 +20,7 @@ describe('History', () => {
     it('should not show game paused if history overlay is visible', () => {
       cy.setVisibilityHidden();
 
-      cy.showHistory();
+      cy.showHistory({ wait: true });
 
       cy.triggerVisibilityChange();
 

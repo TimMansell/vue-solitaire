@@ -8,7 +8,6 @@ describe('Controls', () => {
       mockInitial: true,
       mockSaveGame: true,
       mockCreateUser: true,
-      mockGetUser: true,
     });
 
     cy.visitApp();

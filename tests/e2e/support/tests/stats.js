@@ -27,8 +27,6 @@ Cypress.Commands.add('checkGameLost', () => {
 });
 
 Cypress.Commands.add('checkStats', () => {
-  // const uid = localStorage.getItem('luid');
-
   cy.getStats();
 
   cy.showStats();

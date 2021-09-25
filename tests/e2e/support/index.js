@@ -1,5 +1,6 @@
 import 'cypress-commands';
 
+import './bootstrap';
+import './api/index';
 import './commands/index';
-import './bootstrap/index';
 import './tests/index';

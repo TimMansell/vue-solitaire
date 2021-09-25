@@ -1,13 +1,13 @@
 Cypress.Commands.add('setHistoryPage', (pageText) => {
   cy.setPage(pageText);
 
-  cy.wait('@waitForHistoryAPI');
+  cy.wait('@UserHistoryAPI');
 });
 
 Cypress.Commands.add('selectHistoryGames', (value) => {
   cy.get('[data-test="game-history"] [data-test="select"]').select(value);
 
-  cy.wait('@waitForHistoryAPI');
+  cy.wait('@UserHistoryAPI');
 });
 
 Cypress.Commands.add('getSelectHistoryGames', () => {
