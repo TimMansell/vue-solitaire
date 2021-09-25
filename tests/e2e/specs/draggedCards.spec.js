@@ -15,7 +15,7 @@ describe('Dragged Cards', () => {
   });
 
   it('should drag single card', () => {
-    cy.get('[data-test="card-7♦"]').drag({ x: 200, y: -200 });
+    cy.dragCardToPosition('7♦', { x: 200, y: -200 });
 
     cy.checkDraggedCardsLength(1);
 
@@ -24,7 +24,7 @@ describe('Dragged Cards', () => {
   });
 
   it('should drag correct amount of cards', () => {
-    cy.get('[data-test="card-6♦"]').drag({ x: 200, y: -200 });
+    cy.dragCardToPosition('6♦', { x: 200, y: -200 });
 
     cy.checkDraggedCardsLength(3);
 
@@ -33,7 +33,7 @@ describe('Dragged Cards', () => {
   });
 
   it('should clear dragged cards when dropped outside of board', () => {
-    cy.dragFromTo('6♦', 'board');
+    cy.dragCardFromTo('6♦', 'board');
 
     cy.checkDraggedCardsLength(0);
 

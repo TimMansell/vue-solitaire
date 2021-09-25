@@ -21,21 +21,21 @@ describe('Special column moves', () => {
 
   describe('using drag and drop', () => {
     it('should move K♣ to an empty column', () => {
-      cy.dragFromTo('K♣', 'column-1');
+      cy.dragCardFromTo('K♣', 'column-1');
 
       cy.checkCardsExistOn(['K♣', 'K♦', 'Q♦', 'J♣'], 'column-1');
       cy.checkCardsNotExistOn(['K♣'], 'column-7');
     });
 
     it('should not move Q♣ to empty column', () => {
-      cy.dragFromTo('Q♣', 'column-0');
+      cy.dragCardFromTo('Q♣', 'column-0');
 
       cy.checkCardsNotExistOn(['Q♣'], 'column-1');
       cy.checkCardsExistOn(['Q♣'], 'column-0');
     });
 
     it('should not move J♠ to empty column', () => {
-      cy.dragFromTo('J♠', 'column-0');
+      cy.dragCardFromTo('J♠', 'column-0');
 
       cy.checkCardsNotExistOn(['J♠'], 'column-0');
       cy.checkCardsExistOn(['J♠'], 'column-4');

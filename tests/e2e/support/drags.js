@@ -1,4 +1,20 @@
-Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
+Cypress.Commands.add('dragCardToPosition', (card, { x, y }) => {
+  cy.get(`[data-test="card-${card}"]`)
+    .trigger('dragstart', 0, 0, {
+      dataTransfer: new DataTransfer(),
+      force: true,
+    })
+    .trigger('mousemove', x, y, {
+      force: true,
+    })
+    .then((draggedCard) => {
+      const { offsetLeft, offsetTop } = draggedCard[0];
+
+      cy.checkDraggedCardsPosition({ offsetLeft, offsetTop, x, y });
+    });
+});
+
+Cypress.Commands.add('dragCardFromTo', (dragFrom, dragTo) => {
   const formattedDragFrom = `card-${dragFrom}`;
   const formattedDragTo =
     !dragTo.startsWith('foundation') &&
@@ -32,22 +48,6 @@ Cypress.Commands.add('dragFromTo', (dragFrom, dragTo) => {
   cy.get('[data-test="dragged-cards"]')
     .children()
     .should('have.length', 0);
-});
-
-Cypress.Commands.add('drag', { prevSubject: true }, (subject, { x, y }) => {
-  cy.get(subject)
-    .trigger('dragstart', 0, 0, {
-      dataTransfer: new DataTransfer(),
-      force: true,
-    })
-    .trigger('mousemove', x, y, {
-      force: true,
-    })
-    .then((card) => {
-      const { offsetLeft, offsetTop } = card[0];
-
-      cy.checkDraggedCardsPosition({ offsetLeft, offsetTop, x, y });
-    });
 });
 
 Cypress.Commands.add(
