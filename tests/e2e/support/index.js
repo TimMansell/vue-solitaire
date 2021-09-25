@@ -1,24 +1,5 @@
 import 'cypress-commands';
 
-import './commands';
-import './bootstrap';
-import './api';
-import './card';
-import './buttons';
-import './clicks';
-import './drags';
-import './board';
-import './controls';
-import './pagination';
-import './table';
-import './history';
-import './stats';
-import './moves';
-import './filters';
-import './leaderboards';
-import './user';
-import './timer';
-import './version';
-import './snapshots';
-import './paused';
-import './visibility';
+import './commands/index';
+import './bootstrap/index';
+import './tests/index';

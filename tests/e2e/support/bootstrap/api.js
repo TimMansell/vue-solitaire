@@ -1,5 +1,40 @@
-import { mockStats } from '../../../src/mockData';
+import { mockStats } from '../../../../src/mockData';
 
+Cypress.Commands.add(
+  'mockApi',
+  (
+    { mockDeck, mockInitial, mockSaveGame, mockCreateUser, mockGetUser } = {
+      mockDeck: [],
+      mockInitial: false,
+      mockSaveGame: false,
+      mockCreateUser: false,
+      mockGetUser: false,
+    }
+  ) => {
+    cy.wrap(false).as('mockedInitial');
+
+    if (mockDeck) {
+      cy.mockNewGameAPI(mockDeck);
+    }
+
+    if (mockInitial) {
+      cy.mockInitialDataAPI(mockInitial);
+      cy.wrap(true).as('mockedInitial');
+    }
+
+    if (mockSaveGame) {
+      cy.mockSaveGameAPI();
+    }
+
+    if (mockCreateUser) {
+      cy.mockCreateUserAPI();
+    }
+
+    if (mockGetUser) {
+      cy.mockGetUserAPI();
+    }
+  }
+);
 Cypress.Commands.add('interceptLeaderboardAPI', () => {
   cy.intercept('POST', '.netlify/functions/graphql', (req) => {
     const { body } = req;

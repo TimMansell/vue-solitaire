@@ -1,11 +1,5 @@
 import numeral from 'numeral';
 
-Cypress.Commands.add('reloadAndWait', () => {
-  cy.reload();
-
-  cy.wait('@waitForInitialDataAPI');
-});
-
 Cypress.Commands.add('saveTextAs', { prevSubject: true }, (subject, alias) => {
   cy.get(subject)
     .then(($value) => $value.text())
