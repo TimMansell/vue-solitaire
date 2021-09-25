@@ -58,6 +58,6 @@ describe('Game State', () => {
 
     cy.pauseGame();
 
-    cy.checkGameSummaryValues({ moves: 10 });
+    cy.checkGameSummary();
   });
 });

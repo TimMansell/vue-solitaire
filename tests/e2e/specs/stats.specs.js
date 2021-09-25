@@ -33,33 +33,18 @@ describe('Stats', () => {
       });
 
       cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it successfully retrieves 0 games played', () => {
-      cy.checkGameNumber({ number: 0 });
-
-      cy.showStats();
-
-      cy.checkUserStats({ played: 0, won: 0, lost: 0, quit: 0 });
-
-      cy.checkGlobalStats({
-        played: 0,
-        won: 0,
-        lost: 0,
-        quit: 0,
-        shouldEqual: false,
-      });
+      cy.checkStats();
     });
 
     it('it successfully increments games played', () => {
-      cy.saveStats();
-      cy.saveGames();
+      cy.setDeck(fullGameDeck);
 
       cy.startNewGame();
 
-      cy.checkIncrementedStats({ played: true, quit: true });
+      cy.checkStats();
     });
   });
 
@@ -72,39 +57,18 @@ describe('Stats', () => {
       });
 
       cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it successfully retrieves games played', () => {
-      cy.checkGameNumber({ number: 0, shouldEqual: false });
-
-      cy.showStats();
-
-      cy.checkUserStats({
-        played: 0,
-        won: 0,
-        lost: 0,
-        quit: 0,
-        shouldEqual: false,
-      });
-
-      cy.checkGlobalStats({
-        played: 0,
-        won: 0,
-        lost: 0,
-        quit: 0,
-        shouldEqual: false,
-      });
+      cy.checkStats();
     });
 
     it('it successfully increments games played', () => {
-      cy.saveStats();
-      cy.saveGames();
+      cy.setDeck(fullGameDeck);
 
       cy.startNewGame();
 
-      cy.checkIncrementedStats({ played: true, quit: true });
+      cy.checkStats();
     });
   });
 });

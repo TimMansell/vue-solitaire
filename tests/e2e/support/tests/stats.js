@@ -2,25 +2,18 @@ Cypress.Commands.add('saveGames', () =>
   cy.get('[data-test="stats"]').saveNumberAs('games')
 );
 
-Cypress.Commands.add(
-  'checkGames',
-  ({ shouldEqual } = { shouldEqual: true }) => {
-    const shouldTest = shouldEqual ? 'equal' : 'not.equal';
+Cypress.Commands.add('checkGames', () => {
+  cy.get('@games').then((stats) => {
+    cy.get('[data-test="stats"]')
+      .formatNumber()
+      .should('equal', stats);
+  });
+});
 
-    cy.get('@games').then((stats) => {
-      cy.get('[data-test="stats"]')
-        .formatNumber()
-        .should(shouldTest, stats);
-    });
-  }
-);
-
-Cypress.Commands.add('checkGameNumber', ({ number, shouldEqual = true }) => {
-  const shouldTest = shouldEqual ? 'equal' : 'not.equal';
-
+Cypress.Commands.add('checkGameNumber', (number) => {
   cy.get('[data-test="stats"]')
     .formatNumber()
-    .should(shouldTest, number);
+    .should('equal', number);
 });
 
 Cypress.Commands.add('checkGameWon', () => {
@@ -33,142 +26,53 @@ Cypress.Commands.add('checkGameLost', () => {
   cy.get('[data-test="game-won"]').should('not.exist');
 });
 
-Cypress.Commands.add('saveStats', () => {
+Cypress.Commands.add('checkStats', () => {
+  // const uid = localStorage.getItem('luid');
+
+  cy.getStats();
+
   cy.showStats();
 
-  cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('userStats');
-  cy.get('[data-test="global-stats"] [data-test="table-cell"]').as(
-    'globalStats'
-  );
+  cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('stat');
+  cy.get('@userStats').then(({ won, lost, completed }) => {
+    const quit = completed - won - lost;
 
-  cy.get('@userStats')
-    .eq(0)
-    .saveNumberAs('userPlayed');
+    cy.checkGameNumber(completed);
 
-  cy.get('@userStats')
-    .eq(1)
-    .saveNumberAs('userWon');
-
-  cy.get('@userStats')
-    .eq(2)
-    .saveNumberAs('userLost');
-
-  cy.get('@userStats')
-    .eq(3)
-    .saveNumberAs('userQuit');
-
-  cy.get('@globalStats')
-    .eq(0)
-    .saveNumberAs('globalPlayed');
-
-  cy.get('@globalStats')
-    .eq(1)
-    .saveNumberAs('globalWon');
-
-  cy.get('@globalStats')
-    .eq(2)
-    .saveNumberAs('globalLost');
-
-  cy.get('@globalStats')
-    .eq(3)
-    .saveNumberAs('globalQuit');
-
-  cy.closeOverlay();
-});
-
-Cypress.Commands.add('checkIncrementedStats', ({ played, won, lost, quit }) => {
-  cy.showStats();
-
-  cy.get('@userPlayed').then((gamesPlayed) => {
-    const playedCount = played ? gamesPlayed + 1 : gamesPlayed;
-
-    cy.checkGameNumber({ number: playedCount });
-
-    cy.get('@userWon').then((gamesWon) => {
-      cy.get('@userLost').then((gamesLost) => {
-        cy.get('@userQuit').then((gamesQuit) => {
-          const wonCount = won ? gamesWon + 1 : gamesWon;
-          const lostCount = lost ? gamesLost + 1 : gamesLost;
-          const quitCount = quit ? gamesQuit + 1 : gamesQuit;
-
-          cy.checkUserStats({
-            played: playedCount,
-            won: wonCount,
-            lost: lostCount,
-            quit: quitCount,
-          });
-        });
-      });
-    });
+    cy.checkStatsValues({ won, lost, completed, quit });
   });
 
-  cy.get('@globalPlayed').then((gamesPlayed) => {
-    cy.get('@globalWon').then((gamesWon) => {
-      cy.get('@globalLost').then((gamesLost) => {
-        cy.get('@globalQuit').then((gamesQuit) => {
-          const playedCount = played ? gamesPlayed + 1 : gamesPlayed;
-          const wonCount = won ? gamesWon + 1 : gamesWon;
-          const lostCount = lost ? gamesLost + 1 : gamesLost;
-          const quitCount = quit ? gamesQuit + 1 : gamesQuit;
+  cy.get('[data-test="global-stats"] [data-test="table-cell"]').as('stat');
+  cy.get('@globalStats').then(({ won, lost, completed }) => {
+    const quit = completed - won - lost;
 
-          cy.checkGlobalStats({
-            played: playedCount,
-            won: wonCount,
-            lost: lostCount,
-            quit: quitCount,
-          });
-        });
-      });
-    });
+    cy.checkStatsValues({ won, lost, completed, quit });
   });
 });
 
-Cypress.Commands.add(
-  'checkUserStats',
-  ({ played, won, lost, quit, shouldEqual = true }) => {
-    cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('stat');
+Cypress.Commands.add('checkStatsValues', ({ completed, won, lost, quit }) => {
+  cy.get('@stat')
+    .eq(0)
+    .formatNumber()
+    .should('equal', completed);
 
-    cy.checkStats({ played, won, lost, quit, shouldEqual });
-  }
-);
+  cy.get('@stat')
+    .eq(1)
+    .formatNumber()
+    .should('equal', won);
 
-Cypress.Commands.add(
-  'checkGlobalStats',
-  ({ played, won, lost, quit, shouldEqual = true }) => {
-    cy.get('[data-test="global-stats"] [data-test="table-cell"]').as('stat');
+  cy.get('@stat')
+    .eq(2)
+    .formatNumber()
+    .should('equal', lost);
 
-    cy.checkStats({ played, won, lost, quit, shouldEqual });
-  }
-);
+  cy.get('@stat')
+    .eq(3)
+    .formatNumber()
+    .should('equal', quit);
+});
 
-Cypress.Commands.add(
-  'checkStats',
-  ({ played, won, lost, quit, shouldEqual }) => {
-    const shouldTest = shouldEqual ? 'equal' : 'not.equal';
-
-    cy.get('@stat')
-      .eq(0)
-      .formatNumber()
-      .should(shouldTest, played);
-
-    cy.get('@stat')
-      .eq(1)
-      .formatNumber()
-      .should(shouldTest, won);
-
-    cy.get('@stat')
-      .eq(2)
-      .formatNumber()
-      .should(shouldTest, lost);
-
-    cy.get('@stat')
-      .eq(3)
-      .formatNumber()
-      .should(shouldTest, quit);
-  }
-);
-
-Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
+Cypress.Commands.add('checkGameSummary', () => {
   const [timer] = JSON.parse(localStorage.getItem('timers'));
 
   cy.get(`@${timer}`).then((time) => {
@@ -178,8 +82,10 @@ Cypress.Commands.add('checkGameSummaryValues', ({ moves }) => {
       .should('equal', time);
   });
 
-  cy.get('[data-test="game-summary-value"]')
-    .eq(1)
-    .text()
-    .should('equal', `${moves}`);
+  cy.get('@moves').then((moves) => {
+    cy.get('[data-test="game-summary-value"]')
+      .eq(1)
+      .text()
+      .should('equal', `${moves}`);
+  });
 });
