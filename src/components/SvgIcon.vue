@@ -1,11 +1,6 @@
 <template>
-  <svg
-    :class="className"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 100 140"
-  >
-    <title v-if="title">{{ title }}</title>
-    <use :xlink:href="iconPath" xmlns:xlink="http://www.w3.org/1999/xlink" />
+  <svg class="svg-icon" viewBox="0 0 100 140">
+    <use :href="src" />
   </svg>
 </template>
 
@@ -17,23 +12,12 @@ export default {
       type: String,
       required: true,
     },
-    title: {
-      type: String,
-      default: null,
-    },
   },
   computed: {
-    iconPath() {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      let icon = require(`@/assets/icons/${this.name}.svg`);
-      if (Object.prototype.hasOwnProperty.call(icon, 'default')) {
-        icon = icon.default;
-      }
+    src() {
+      const { name } = this;
 
-      return icon.url;
-    },
-    className() {
-      return `svg-icon svg-icon--${this.name}`;
+      return `#card-${name}`;
     },
   },
 };
