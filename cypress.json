@@ -4,5 +4,6 @@
   "video": false,
   "retries": 1,
   "requestTimeout": 10000,
-  "defaultCommandTimeout": 10000
+  "defaultCommandTimeout": 10000,
+  "experimentalInteractiveRunEvents": true
 }

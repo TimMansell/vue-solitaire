@@ -1,0 +1,58 @@
+[
+  {
+    "selectedCardId": 27,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "A",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 40,
+    "selectedColumn": 5,
+    "isBoard": true,
+    "value": "A",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 47,
+    "selectedColumn": 6,
+    "isBoard": true,
+    "value": "8",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 41,
+    "selectedColumn": 1,
+    "isBoard": true,
+    "value": "2",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 46,
+    "selectedColumn": 6,
+    "isBoard": true,
+    "value": "7",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 51,
+    "selectedColumn": 1,
+    "isBoard": true,
+    "value": "Q",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 1,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "A",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 23,
+    "selectedColumn": 4,
+    "isBoard": true,
+    "value": "10",
+    "suit": "♠"
+  }
+]

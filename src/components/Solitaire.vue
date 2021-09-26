@@ -21,10 +21,6 @@ import LeaderboardsOverlay from '@/components/LeaderboardsOverlay.vue';
 import NewGameOverlay from '@/components/NewGameOverlay.vue';
 import HistoryOverlay from '@/components/HistoryOverlay.vue';
 import CheckVersion from '@/components/CheckVersion.vue';
-// import {
-//   foundation,
-//   cards,
-// } from '../../tests/fixtures/boards/noMovesKingColumn.json';
 
 export default {
   name: 'Home',
@@ -49,16 +45,9 @@ export default {
   },
   async created() {
     this.initApp();
-
-    // if (process.env.NODE_ENV === 'development') {
-    //   setTimeout(() => {
-    //     this.setFoundation(foundation);
-    //     this.setBoard(cards);
-    //   }, 1000);
-    // }
   },
   methods: {
-    ...mapActions(['initApp', 'setFoundation', 'setBoard']),
+    ...mapActions(['initApp']),
   },
 };
 </script>

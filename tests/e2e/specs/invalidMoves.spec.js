@@ -1,7 +1,12 @@
-import invalidMove from '../../fixtures/boards/invalidMove.json';
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
 
 describe('Invalid moves', () => {
   beforeEach(() => {
+    cy.mockApi({
+      mockDeck: fullGameDeck,
+      mockInitial: true,
+    });
+
     cy.visitApp();
   });
 
@@ -10,109 +15,66 @@ describe('Invalid moves', () => {
   });
 
   describe('using drag and drop', () => {
-    // invalid value, invalid suit
-    it('should not move 6♠ to 4♦', () => {
-      cy.setBoard(invalidMove).then(() => {
-        // Test card from middle.
-        cy.get('[data-test="column-4"]').shouldContain(['6♠']);
+    it('should not move 9♥ to 4♣ (invalid value & suit)', () => {
+      cy.dragCardFromTo('9♥', '4♣');
 
-        cy.dragFromTo('card-6♠', 'card-4♦');
-
-        cy.get('[data-test="column-5"]').shouldNotContain(['6♠']);
-      });
+      cy.checkCardsNotExistOn(['9♥'], 'column-7');
     });
 
-    it('should not move 5♠ to 10♦', () => {
-      cy.setBoard(invalidMove).then(() => {
-        // Test card from bottom.
-        cy.get('[data-test="column-0"]').shouldContain(['5♠']);
+    it('should not move 2♠ to 4♣ (lower value and invalid suit)', () => {
+      cy.dragCardFromTo('2♠', '4♣');
 
-        cy.dragFromTo('card-5♠', 'card-10♦');
-
-        cy.get('[data-test="column-6"]').shouldNotContain(['5♠']);
-      });
+      cy.checkCardsNotExistOn(['2♠'], 'column-7');
     });
 
-    // valid value, wrong suit
-    it('should not move 4♦ to 5♠', () => {
-      cy.setBoard(invalidMove).then(() => {
-        cy.get('[data-test="column-5"]').shouldContain(['4♦']);
+    it('should not move 6♥ to 4♣ (higher value and invalid suit)', () => {
+      cy.dragCardFromTo('6♥', '4♣');
 
-        cy.dragFromTo('card-4♦', 'card-5♠');
-
-        cy.get('[data-test="column-0"]').shouldNotContain(['4♦']);
-      });
+      cy.checkCardsNotExistOn(['6♥'], 'column-7');
     });
 
-    // valid suit, wrong value
-    it('should not move 7♦ to 9♦', () => {
-      cy.setBoard(invalidMove).then(() => {
-        cy.get('[data-test="column-2"]').shouldContain(['7♦']);
+    it('should not move 3♦ to 4♣ (valid value and invalid suit)', () => {
+      cy.dragCardFromTo('3♦', '4♣');
 
-        cy.dragFromTo('card-7♦', 'card-9♦');
+      cy.checkCardsNotExistOn(['3♦'], 'column-7');
+    });
 
-        cy.get('[data-test="column-1"]').shouldNotContain(['7♦']);
-      });
+    it('should not move 8♣ to 4♣ (invalid value and valid suit)', () => {
+      cy.dragCardFromTo('8♣', '4♣');
+
+      cy.checkCardsNotExistOn(['8♣'], 'column-1');
     });
   });
 
   describe('using clicks', () => {
-    // invalid value, invalid suit
-    it('should not move 6♠ to 4♦', () => {
-      cy.setBoard(invalidMove).then(() => {
-        // Test card from middle.
-        cy.get('[data-test="column-4"]').shouldContain(['6♠']);
+    it('should not move 9♥ to 4♣ (invalid value & suit)', () => {
+      cy.clickFromTo('9♥', '4♣');
 
-        cy.get('[data-test="card-6♠"]').clickTo('[data-test="card-4♦"]');
-
-        cy.get('[data-test="column-5"]').shouldNotContain(['6♠']);
-      });
+      cy.checkCardsNotExistOn(['9♥'], 'column-7');
     });
 
-    it('should not move 5♠ to 10♦', () => {
-      cy.setBoard(invalidMove).then(() => {
-        // Test card from bottom.
-        cy.get('[data-test="column-0"]').shouldContain(['5♠']);
+    it('should not move 2♠ to 4♣ (lower value and invalid suit)', () => {
+      cy.clickFromTo('2♠', '4♣');
 
-        cy.get('[data-test="card-5♠"]').clickTo('[data-test="card-10♦"]');
-
-        cy.get('[data-test="column-6"]').shouldNotContain(['5♠']);
-      });
+      cy.checkCardsNotExistOn(['2♠'], 'column-7');
     });
 
-    // valid value, wrong suit
-    it('should not move 4♦ to 5♠', () => {
-      cy.setBoard(invalidMove).then(() => {
-        cy.get('[data-test="column-5"]').shouldContain(['4♦']);
+    it('should not move 6♥ to 4♣ (higher value and invalid suit)', () => {
+      cy.clickFromTo('6♥', '4♣');
 
-        cy.get('[data-test="card-4♦"]').clickTo('[data-test="card-5♠"]');
-
-        cy.get('[data-test="column-0"]').shouldNotContain(['4♦']);
-      });
+      cy.checkCardsNotExistOn(['6♥'], 'column-7');
     });
 
-    // valid suit, wrong value
-    it('should not move 7♦ to 9♦', () => {
-      cy.setBoard(invalidMove).then(() => {
-        cy.get('[data-test="column-2"]').shouldContain(['7♦']);
+    it('should not move 3♦ to 4♣ (valid value and invalid suit)', () => {
+      cy.clickFromTo('3♦', '4♣');
 
-        cy.get('[data-test="card-7♦"]').clickTo('[data-test="card-9♦"]');
-
-        cy.get('[data-test="column-1"]').shouldNotContain(['7♦']);
-      });
+      cy.checkCardsNotExistOn(['3♦'], 'column-7');
     });
 
-    // valid card, same column
-    it('should not move Q♠ to K♠ on the same column', () => {
-      cy.setBoard(invalidMove).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['Q♠']);
+    it('should not move 8♣ to 4♣ (invalid value and valid suit)', () => {
+      cy.clickFromTo('8♣', '4♣');
 
-        cy.get('[data-test="card-Q♠"]').clickTo('[data-test="card-K♠"]');
-
-        cy.get('[data-test="column-7"]')
-          .children()
-          .should('have.length', 6);
-      });
+      cy.checkCardsNotExistOn(['8♣'], 'column-1');
     });
   });
 });

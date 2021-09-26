@@ -1,146 +1,67 @@
-import emptyColumn from '../../fixtures/boards/emptyColumn.json';
-import invalidMove from '../../fixtures/boards/invalidMove.json';
+import emptyColumnDeck from '../../fixtures/decks/emptyColumn.json';
+import emptyColumnMoves from '../../fixtures/moves/emptyColumn.json';
 
 describe('Special column moves', () => {
   beforeEach(() => {
+    cy.mockApi({
+      mockDeck: emptyColumnDeck,
+      mockInitial: true,
+    });
+
     cy.visitApp();
+
+    cy.runGameWithClicks(emptyColumnMoves);
+
+    cy.checkPlaceholderCardAtColumn(1);
   });
 
   afterEach(() => {
     cy.clearTest();
   });
 
-  it('should show empty column card placeholder', () => {
-    cy.setBoard(emptyColumn).then(() => {
-      cy.get('[data-test="column-0"]').within(() => {
-        cy.get('[data-test="column-card-placeholder"]').should('be.visible');
-      });
-    });
-  });
-
   describe('using drag and drop', () => {
-    it('should move K♣ & 9♣ to an empty column', () => {
-      cy.setBoard(emptyColumn).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['K♣', '9♣']);
+    it('should move K♣ to an empty column', () => {
+      cy.dragCardFromTo('K♣', 'column-1');
 
-        cy.dragFromTo('card-K♣', 'column-0');
-
-        cy.get('[data-test="column-0"]').shouldContain(['K♣', '9♣']);
-
-        cy.get('[data-test="column-7"]').shouldNotContain(['K♣', '9♣']);
-      });
+      cy.checkCardsExistOn(['K♣', 'K♦', 'Q♦', 'J♣'], 'column-1');
+      cy.checkCardsNotExistOn(['K♣'], 'column-7');
     });
 
-    it('should move K♥ to 5♠ to an empty column', () => {
-      cy.setBoard(emptyColumn).then(() => {
-        cy.get('[data-test="column-1"]').shouldContain(['K♥']);
+    it('should not move Q♣ to empty column', () => {
+      cy.dragCardFromTo('Q♣', 'column-0');
 
-        cy.dragFromTo('card-K♥', 'column-0');
-
-        cy.get('[data-test="column-0"]').shouldContain(['K♥', '9♦', '5♠']);
-
-        cy.get('[data-test="column-1"]').shouldNotContain(['K♥', '9♦', '5♠']);
-
-        cy.get('[data-test="column-1"]').shouldContain(['A♠']);
-      });
+      cy.checkCardsNotExistOn(['Q♣'], 'column-1');
+      cy.checkCardsExistOn(['Q♣'], 'column-0');
     });
 
-    // K to not empty
-    it('should not move K♠ to 9♦', () => {
-      cy.setBoard(invalidMove).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['K♠']);
+    it('should not move J♠ to empty column', () => {
+      cy.dragCardFromTo('J♠', 'column-0');
 
-        cy.dragFromTo('card-K♠', 'card-9♦');
-
-        cy.get('[data-test="column-1"]').shouldNotContain(['K♠']);
-      });
-    });
-
-    it('should not move Q♥ to empty column', () => {
-      cy.setBoard(emptyColumn).then(() => {
-        cy.get('[data-test="column-2"]').shouldContain(['Q♥']);
-
-        cy.dragFromTo('card-Q♥', 'column-0');
-
-        cy.get('[data-test="column-0"]').shouldNotContain(['Q♥']);
-
-        cy.get('[data-test="column-2"]').shouldContain(['Q♥']);
-      });
-    });
-
-    it('should not move J♦ to empty column', () => {
-      cy.setBoard(emptyColumn).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['J♦']);
-
-        cy.dragFromTo('card-J♦', 'column-0');
-
-        cy.get('[data-test="column-0"]').shouldNotContain(['J♦']);
-
-        cy.get('[data-test="column-3"]').shouldContain(['J♦']);
-      });
+      cy.checkCardsNotExistOn(['J♠'], 'column-0');
+      cy.checkCardsExistOn(['J♠'], 'column-4');
     });
   });
 
   describe('using clicks', () => {
-    it('should move K♣ & 9♣ to an empty column', () => {
-      cy.setBoard(emptyColumn).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['K♣', '9♣']);
+    it('should move K♣ to an empty column', () => {
+      cy.clickFromTo('K♣', 'column-1');
 
-        cy.get('[data-test="card-K♣"]').clickTo('[data-test="column-0"]');
-
-        cy.get('[data-test="column-0"]').shouldContain(['K♣', '9♣']);
-
-        cy.get('[data-test="column-7"]').shouldNotContain(['K♣', '9♣']);
-      });
+      cy.checkCardsExistOn(['K♣', 'K♦', 'Q♦', 'J♣'], 'column-1');
+      cy.checkCardsNotExistOn(['K♣'], 'column-7');
     });
 
-    it('should move K♥ to 5♠ to an empty column', () => {
-      cy.setBoard(emptyColumn).then(() => {
-        cy.get('[data-test="column-1"]').shouldContain(['K♥']);
+    it('should not move Q♣ to empty column', () => {
+      cy.clickFromTo('Q♣', 'column-1');
 
-        cy.get('[data-test="card-K♥"]').clickTo('[data-test="column-0"]');
-
-        cy.get('[data-test="column-0"]').shouldContain(['K♥', '9♦', '5♠']);
-
-        cy.get('[data-test="column-1"]').shouldNotContain(['K♥', '9♦', '5♠']);
-
-        cy.get('[data-test="column-1"]').shouldContain(['A♠']);
-      });
+      cy.checkCardsNotExistOn(['Q♣'], 'column-1');
+      cy.checkCardsExistOn(['Q♣'], 'column-0');
     });
 
-    // K to not empty
-    it('should not move K♠ to 9♦', () => {
-      cy.setBoard(invalidMove).then(() => {
-        cy.get('[data-test="column-7"]').shouldContain(['K♠']);
+    it('should not move J♠ to empty column', () => {
+      cy.clickFromTo('J♠', 'column-0');
 
-        cy.get('[data-test="card-K♠"]').clickTo('[data-test="card-9♦"]');
-
-        cy.get('[data-test="column-1"]').shouldNotContain(['K♠']);
-      });
-    });
-
-    it('should not move Q♥ to empty column', () => {
-      cy.setBoard(emptyColumn).then(() => {
-        cy.get('[data-test="column-2"]').shouldContain(['Q♥']);
-
-        cy.get('[data-test="card-Q♥"]').clickTo('[data-test="column-0"]');
-
-        cy.get('[data-test="column-0"]').shouldNotContain(['Q♥']);
-
-        cy.get('[data-test="column-2"]').shouldContain(['Q♥']);
-      });
-    });
-
-    it('should not move J♦ to empty column', () => {
-      cy.setBoard(emptyColumn).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['J♦']);
-
-        cy.get('[data-test="card-J♦"]').clickTo('[data-test="column-0"]');
-
-        cy.get('[data-test="column-0"]').shouldNotContain(['J♦']);
-
-        cy.get('[data-test="column-3"]').shouldContain(['J♦']);
-      });
+      cy.checkCardsNotExistOn(['J♠'], 'column-0');
+      cy.checkCardsExistOn(['J♠'], 'column-4');
     });
   });
 });

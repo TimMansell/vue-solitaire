@@ -1,3 +1,5 @@
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
+
 describe('App', () => {
   afterEach(() => {
     cy.clearTest();
@@ -8,52 +10,62 @@ describe('App', () => {
       cy.visitApp();
     });
 
-    it('it successfullly loads', () => {
-      cy.get('[data-test="board"]').should('be.visible');
+    it('it successfully loads', () => {
+      cy.checkBoard();
 
-      cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test^="card-"]').should('have.length', 52);
-      });
-
-      cy.get('[data-test="foundations"]').within(() => {
-        cy.get('[data-test^="foundation-"]').should('have.length', 4);
-      });
-    });
-
-    it('it should hide scroll bar when overlay is open and show scrollbar when overlay is closed', () => {
-      cy.get('[data-test="pause-game-btn"]').click();
-
-      cy.get('[data-test="body"]').should('have.css', 'overflow', 'hidden');
-
-      cy.get('[data-test="game-overlay-btns"]').within(() => {
-        cy.get('[data-test="pause-game-btn"]').click();
-      });
-
-      cy.get('[data-test="body"]').should('have.css', 'overflow', 'auto');
+      cy.checkFoundations();
     });
   });
 
   describe('Version', () => {
     it('it should not show version upgrade toast', () => {
-      cy.visitApp({ mockInitialApi: { version: { matches: true } } });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+        mockInitial: {
+          matchesVersion: true,
+        },
+      });
 
-      cy.get('[data-test="version"]').should('not.exist');
+      cy.visitApp();
+
+      cy.checkVersionPopup(false);
     });
 
     it('it should show version upgrade toast', () => {
-      cy.visitApp({ mockInitialApi: { version: { matches: false } } });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+        mockInitial: {
+          matchesVersion: false,
+        },
+      });
 
-      cy.get('[data-test="version"]').should('exist');
+      cy.visitApp();
+
+      cy.checkVersionPopup(true);
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
-      cy.visitApp({ mockInitialApi: { version: { matches: false } } });
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+        mockInitial: {
+          matchesVersion: false,
+        },
+      });
 
-      cy.get('[data-test="version"]').should('exist');
+      cy.visitApp();
 
-      cy.visitApp({ mockInitialApi: { version: { matches: true } } });
+      cy.checkVersionPopup(true);
 
-      cy.get('[data-test="version"]').should('not.exist');
+      cy.mockApi({
+        mockDeck: fullGameDeck,
+        mockInitial: {
+          matchesVersion: true,
+        },
+      });
+
+      cy.reload();
+
+      cy.checkVersionPopup(false);
     });
   });
 });

@@ -1,4 +1,4 @@
-import { mockUid, mockNewUid } from '../../../src/mockData';
+import { mockUid } from '../../../src/mockData';
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
@@ -9,262 +9,233 @@ describe('History', () => {
 
   describe('Default', () => {
     beforeEach(() => {
+      cy.mockApi({
+        mockDeck: quitGameDeck,
+        mockInitial: true,
+      });
+
       cy.visitApp();
     });
 
     it('should not show game paused if history overlay is visible', () => {
-      cy.document().then((doc) => {
-        cy.stub(doc, 'visibilityState').value('hidden');
-      });
+      cy.setVisibilityHidden();
 
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.document().trigger('visibilitychange');
+      cy.triggerVisibilityChange();
 
-      cy.get('[data-test="game-paused"]').should('not.exist');
+      cy.checkGameIsPaused(false);
     });
   });
 
   describe('New user', () => {
-    it('it shows no game message', () => {
-      cy.visitApp();
-      cy.get('[data-test="history-btn"]').click();
+    beforeEach(() => {
+      cy.mockApi({
+        mockDeck: quitGameDeck,
+      });
 
-      cy.get('[data-test="game-history"]').should('not.exist');
-      cy.get('[data-test="game-history-no-games-msg"]').should('exist');
+      cy.visitApp();
+    });
+
+    it('it shows no game message', () => {
+      cy.showHistory();
+
+      cy.checkHistoryExists(false);
+      cy.checkHistoryMessageExists(true);
     });
 
     it('it shows game history after first game played', () => {
-      cy.task('clearUser', mockNewUid);
-
-      localStorage.setItem('luid', mockNewUid);
-
-      cy.task('populateDeck', [quitGameDeck, mockNewUid]);
-
-      cy.visitApp({ mockDeck: quitGameDeck });
+      cy.setDeck(quitGameDeck);
 
       cy.runGameWithClicks(quitGameMoves);
 
-      cy.get('[data-test="new-game-btn"]').click();
+      cy.saveTimer();
+      cy.saveMoves();
 
-      cy.get('[data-test="timer"]').then(($timer) => {
-        const time = $timer.text();
+      cy.startNewGame({ waitUser: true });
 
-        cy.get('[data-test="moves"]').then(($moves) => {
-          const moves = $moves.text();
+      cy.showHistory({ wait: true });
 
-          cy.get('[data-test="game-overlay-btns"]').within(() => {
-            cy.get('[data-test="new-game-btn"]').click();
-          });
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-          cy.get('[data-test="history-btn"]').click();
+      cy.checkTableHasRowLength(1);
 
-          cy.get('[data-test="table-row"]').should('have.length', 1);
-          cy.get('[data-test="table-row"] td')
-            .eq(4)
-            .text()
-            .should('equal', moves);
-          cy.get('[data-test="table-row"] td')
-            .eq(5)
-            .text()
-            .should('equal', time);
+      cy.checkHistoryGame();
 
-          cy.checkCorrectHistoryPages(1, 25);
+      cy.checkHistoryPages();
 
-          cy.checkCorrectHistoryActivePage(1);
+      cy.checkIsOnPage(1);
 
-          cy.checkCorrectHistoryShowingGames();
-        });
-      });
+      cy.checkHistoryShowingGames();
     });
   });
 
   describe('Existing user', () => {
     beforeEach(() => {
-      localStorage.setItem('luid', mockUid);
+      cy.setUser(mockUid);
+
+      cy.mockApi({
+        mockDeck: quitGameDeck,
+      });
 
       cy.visitApp();
     });
 
     it('it shows 1st page results', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.get('[data-test="table-row"]').should('have.length', 25);
+      cy.checkTableHasRowLength(25);
 
-      cy.get('[data-test="table-row"]:first-child td:first-child').then(
-        (cell) => {
-          const gameNumber = parseInt(cell.text(), 10);
+      cy.checkHistoryGameRange();
 
-          cy.get('[data-test="stats"]').should('contain', gameNumber);
-        }
-      );
+      cy.checkHistoryPages();
 
-      cy.checkCorrectHistoryPages(1, 25);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectHistoryActivePage(1);
-
-      cy.checkCorrectHistoryShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 2nd page results using > button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.clickHistoryPageAndCheckGameNumber('>', -25);
+      cy.setHistoryPage('>');
 
-      cy.checkCorrectHistoryPages(2, 25);
+      cy.checkHistoryGameRange();
 
-      cy.checkCorrectHistoryActivePage(2);
+      cy.checkHistoryPages();
 
-      cy.checkCorrectHistoryShowingGames();
+      cy.checkIsOnPage(2);
+
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 2nd page results using page 2 number button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.clickHistoryPageAndCheckGameNumber('2', -25);
+      cy.setHistoryPage('2');
 
-      cy.checkCorrectHistoryPages(2, 25);
+      cy.checkHistoryGameRange();
 
-      cy.checkCorrectHistoryActivePage(2);
+      cy.checkHistoryPages();
 
-      cy.checkCorrectHistoryShowingGames();
+      cy.checkIsOnPage(2);
+
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows last page results using Last button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.get('[data-test="pagination"]')
-        .contains('Last')
-        .click();
+      cy.setHistoryPage('Last');
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryHasFirstGameShowing();
 
-      cy.get('[data-test="table-row"]:last-child td:first-child').should(
-        'contain',
-        '1'
-      );
+      cy.checkHistoryPages();
 
-      cy.get('[data-test="pagination"]')
-        .children()
-        .eq(-3)
-        .should('have.class', 'pagination__page--is-active')
-        .then(($page) => {
-          const pageNumber = $page.text();
+      cy.checkIsLastPage();
 
-          cy.checkCorrectHistoryPages(pageNumber, 25);
-
-          cy.checkCorrectHistoryActivePage(pageNumber);
-        });
-
-      cy.checkCorrectHistoryShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 1st page results using First button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.get('[data-test="pagination"]')
-        .contains('2')
-        .click();
+      cy.setHistoryPage('2');
 
-      cy.wait('@waitForHistoryAPI');
+      cy.setHistoryPage('First');
 
-      cy.clickHistoryPageAndCheckGameNumber('First', +25);
+      cy.checkHistoryGameRange();
 
-      cy.checkCorrectHistoryPages(1, 25);
+      cy.checkHistoryPages();
 
-      cy.checkCorrectHistoryActivePage(1);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectHistoryShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 1st page results using < button', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.get('[data-test="pagination"]')
-        .contains('2')
-        .click();
+      cy.setHistoryPage('2');
+      cy.setHistoryPage('<');
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryGameRange();
 
-      cy.clickHistoryPageAndCheckGameNumber('<', +25);
+      cy.checkHistoryPages();
 
-      cy.checkCorrectHistoryPages(1, 25);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectHistoryActivePage(1);
-
-      cy.checkCorrectHistoryShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows 50 games per page and correct page numbers', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.get('[data-test="table-row"]').should('have.length', 25);
+      cy.checkTableHasRowLength(25);
 
-      cy.get('[data-test="game-history"] [data-test="select"]').select('50');
+      cy.selectHistoryGames('50');
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkTableHasRowLength(50);
 
-      cy.get('[data-test="table-row"]').should('have.length', 50);
+      cy.checkHistoryPages();
 
-      cy.checkCorrectHistoryPages(1, 50);
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectHistoryActivePage(1);
-
-      cy.checkCorrectHistoryShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it shows page one when games per page is changed', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.get('[data-test="pagination"]')
-        .contains('Last')
-        .click();
+      cy.setHistoryPage('Last');
 
-      cy.wait('@waitForHistoryAPI');
+      cy.selectHistoryGames('50');
 
-      cy.get('[data-test="game-history"] [data-test="select"]').select('50');
+      cy.checkHistoryPages();
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkIsOnPage(1);
 
-      cy.checkCorrectHistoryPages(1, 50);
-
-      cy.checkCorrectHistoryActivePage(1);
-
-      cy.checkCorrectHistoryShowingGames();
+      cy.checkHistoryShowingGames();
     });
 
     it('it should scroll to correct position on page after clicking on page', () => {
-      cy.get('[data-test="history-btn"]').click();
+      cy.showHistory({ wait: true });
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkHistoryExists(true);
+      cy.checkHistoryMessageExists(false);
 
-      cy.get('[data-test="pagination"]')
-        .contains('2')
-        .click();
+      cy.setHistoryPage('2');
 
-      cy.wait('@waitForHistoryAPI');
+      cy.checkFilterAtTopOfPage();
 
-      cy.get('[data-test="filters"]').should('be.visible');
+      cy.checkHistoryPages();
 
-      cy.checkCorrectHistoryPages(2, 25);
-
-      cy.checkCorrectHistoryActivePage(2);
+      cy.checkIsOnPage(2);
     });
   });
 });

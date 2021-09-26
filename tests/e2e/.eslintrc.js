@@ -7,5 +7,6 @@ module.exports = {
   },
   rules: {
     strict: 'off',
+    'cypress/no-unnecessary-waiting': 'off',
   },
 };

@@ -1,7 +1,12 @@
-import validMove from '../../fixtures/boards/validMove.json';
+import validMoveDeck from '../../fixtures/decks/validMove.json';
 
 describe('Valid moves', () => {
   beforeEach(() => {
+    cy.mockApi({
+      mockDeck: validMoveDeck,
+      mockInitial: true,
+    });
+
     cy.visitApp();
   });
 
@@ -11,93 +16,53 @@ describe('Valid moves', () => {
 
   describe('using drag and drop', () => {
     it('should move 6♦ in middle of column to 7♦', () => {
-      cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['6♦']);
+      cy.dragCardFromTo('6♦', '7♦');
 
-        cy.dragFromTo('card-6♦', 'card-7♦');
+      cy.checkCardsExistOn(['6♦'], 'column-2');
 
-        cy.get('[data-test="column-2"]').shouldContain(['6♦']);
-      });
+      cy.checkMoveCount(1);
     });
 
     it('should move 9♦ at bottom of column to 10♦', () => {
-      cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="column-1"]').shouldContain(['9♦']);
+      cy.dragCardFromTo('9♦', '10♦');
 
-        cy.dragFromTo('card-9♦', 'card-10♦');
+      cy.checkCardsExistOn(['9♦'], 'column-6');
 
-        cy.get('[data-test="column-6"]').shouldContain(['9♦']);
-      });
+      cy.checkMoveCount(1);
     });
 
     it('should move A♣ to 2♣', () => {
-      cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="column-4"]').shouldContain(['A♣']);
+      cy.dragCardFromTo('A♣', '2♣');
 
-        cy.dragFromTo('card-A♣', 'card-2♣');
+      cy.checkCardsExistOn(['A♣'], 'column-0');
 
-        cy.get('[data-test="column-0"]').shouldContain(['A♣']);
-      });
-    });
-
-    it('should increment moves', () => {
-      cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="column-4"]').shouldContain(['A♣']);
-
-        cy.dragFromTo('card-A♣', 'card-2♣');
-
-        cy.get('[data-test="column-0"]').shouldContain(['A♣']);
-
-        cy.get('[data-test="moves"]')
-          .text()
-          .should('equal', '1');
-      });
+      cy.checkMoveCount(1);
     });
   });
 
   describe('using clicks', () => {
     it('should move 6♦ in middle of column to 7♦', () => {
-      cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="column-3"]').shouldContain(['6♦']);
+      cy.clickFromTo('6♦', '7♦');
 
-        cy.get('[data-test="card-6♦"]').clickTo('[data-test="card-7♦"]');
+      cy.checkCardsExistOn(['6♦'], 'column-2');
 
-        cy.get('[data-test="column-2"]').shouldContain(['6♦']);
-      });
+      cy.checkMoveCount(1);
     });
 
     it('should move 9♦ at bottom of column to 10♦', () => {
-      cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="column-1"]').shouldContain(['9♦']);
+      cy.clickFromTo('9♦', '10♦');
 
-        cy.get('[data-test="card-9♦"]').clickTo('[data-test="card-10♦"]');
+      cy.checkCardsExistOn(['9♦'], 'column-6');
 
-        cy.get('[data-test="column-6"]').shouldContain(['9♦']);
-      });
+      cy.checkMoveCount(1);
     });
 
     it('should move A♣ to 2♣', () => {
-      cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="column-4"]').shouldContain(['A♣']);
+      cy.clickFromTo('A♣', '2♣');
 
-        cy.get('[data-test="card-A♣"]').clickTo('[data-test="card-2♣"]');
+      cy.checkCardsExistOn(['A♣'], 'column-0');
 
-        cy.get('[data-test="column-0"]').shouldContain(['A♣']);
-      });
-    });
-
-    it('should increment moves', () => {
-      cy.setBoard(validMove).then(() => {
-        cy.get('[data-test="column-4"]').shouldContain(['A♣']);
-
-        cy.dragFromTo('card-A♣', 'card-2♣');
-
-        cy.get('[data-test="column-0"]').shouldContain(['A♣']);
-
-        cy.get('[data-test="moves"]')
-          .text()
-          .should('equal', '1');
-      });
+      cy.checkMoveCount(1);
     });
   });
 });
