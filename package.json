@@ -93,7 +93,11 @@
     "stylelint-config-standard": "20.0.0",
     "stylelint-webpack-plugin": "2.1.1",
     "timezone-mock": "^1.2.1",
-    "vue-template-compiler": "2.6.12"
+    "vue-template-compiler": "2.6.12",
+    "yorkie": "^2.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,vue}": [
