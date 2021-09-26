@@ -18,8 +18,5 @@ Cypress.Commands.add('checkTableHeading', ({ cell, heading }) => {
 });
 
 Cypress.Commands.add('getTableCellValue', ({ row, cell }) => {
-  cy.get('[data-test="table-row"]')
-    .eq(row)
-    .find('td')
-    .eq(cell);
+  cy.get('[data-test="table-row"]').eq(row).find('td').eq(cell);
 });

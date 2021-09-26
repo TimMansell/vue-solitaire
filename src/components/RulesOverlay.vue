@@ -1,17 +1,13 @@
 <template>
   <GameOverlay :btn-close="toggleRules" data-test="rules-overlay">
-    <template #title>
-      How to play
-    </template>
+    <template #title> How to play </template>
     <template #msg>
       <p>
         The aim of the game is to successfully move all cards from the bottom 8
         board columns to the top 4 foundation columns.
       </p>
       <h2>Face up cards</h2>
-      <p>
-        You can move any face up card to any other face up card providing:
-      </p>
+      <p>You can move any face up card to any other face up card providing:</p>
       <ul>
         <li>
           the card being moved to is exposed at the bottom of the column (no
@@ -41,9 +37,7 @@
         </li>
       </ul>
       <h2>Moving cards</h2>
-      <p>
-        You can move cards by:
-      </p>
+      <p>You can move cards by:</p>
       <ul data-test="rules-overlay-move-list">
         <li class="show-on-click">
           clicking and dragging the card(s) to the desired column

@@ -77,10 +77,7 @@ describe('Table.vue', () => {
     });
 
     expect(
-      wrapper
-        .findAll('[data-test="table-row"]')
-        .at(0)
-        .classes()
+      wrapper.findAll('[data-test="table-row"]').at(0).classes()
     ).toContain('table__row--highlighted');
   });
 });

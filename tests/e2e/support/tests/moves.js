@@ -1,7 +1,5 @@
 Cypress.Commands.add('checkMoveCount', (moves) => {
-  cy.get('[data-test="moves"]')
-    .text()
-    .should('equal', `${moves}`);
+  cy.get('[data-test="moves"]').text().should('equal', `${moves}`);
 });
 
 Cypress.Commands.add('saveMoves', () =>

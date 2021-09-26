@@ -72,14 +72,8 @@ export default {
       return `${value}${suit}`;
     },
     classes() {
-      const {
-        selectedCardId,
-        id,
-        stacked,
-        clickable,
-        visible,
-        isDragged,
-      } = this;
+      const { selectedCardId, id, stacked, clickable, visible, isDragged } =
+        this;
 
       return {
         'card--is-selected': selectedCardId === id && !isDragged,

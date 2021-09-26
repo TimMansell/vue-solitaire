@@ -3,9 +3,7 @@ Cypress.Commands.add('savePlayerCount', () =>
 );
 
 Cypress.Commands.add('checkPlayerCount', () => {
-  cy.get('[data-test="player-count"]')
-    .formatNumber()
-    .should('not.equal', 0);
+  cy.get('[data-test="player-count"]').formatNumber().should('not.equal', 0);
 });
 
 Cypress.Commands.add('checkPlayerCountHasIncremented', (hasIncremented) => {

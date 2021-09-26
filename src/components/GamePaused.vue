@@ -1,12 +1,8 @@
 <template>
   <GameOverlay center-content show-logo data-test="game-paused">
-    <template #title>
-      Game Paused
-    </template>
+    <template #title> Game Paused </template>
     <template #msg>
-      <p v-if="!isGameActive">
-        Your game has been paused due to inactivity
-      </p>
+      <p v-if="!isGameActive">Your game has been paused due to inactivity</p>
       <GameSummary />
     </template>
     <template #buttons>
