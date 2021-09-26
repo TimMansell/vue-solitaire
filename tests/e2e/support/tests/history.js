@@ -65,11 +65,11 @@ Cypress.Commands.add('checkHistoryGame', () => {
   const [timer] = JSON.parse(localStorage.getItem('timers'));
 
   cy.get(`@${timer}`).then((time) => {
-    cy.checkTableCellValue({ row: 0, cell: 5, value: time });
+    cy.checkTableCell({ row: 0, cell: 5, value: time });
   });
 
   cy.get('@moves').then((moves) => {
-    cy.checkTableCellValue({ row: 0, cell: 4, value: moves });
+    cy.checkTableCell({ row: 0, cell: 4, value: moves });
   });
 });
 
@@ -100,5 +100,5 @@ Cypress.Commands.add('checkHistoryShowingGames', () => {
 });
 
 Cypress.Commands.add('checkHistoryHasFirstGameShowing', () => {
-  cy.checkTableCellValue({ row: -1, cell: 0, value: '1' });
+  cy.checkTableCell({ row: -1, cell: 0, value: '1' });
 });

@@ -2,7 +2,7 @@ Cypress.Commands.add('checkTableHasRowLength', (rows) => {
   cy.get('[data-test="table-row"]').should('have.length', rows);
 });
 
-Cypress.Commands.add('checkTableCellValue', ({ row, cell, value }) => {
+Cypress.Commands.add('checkTableCell', ({ row, cell, value }) => {
   cy.get('[data-test="table-row"]')
     .eq(row)
     .find('td')
