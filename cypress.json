@@ -7,6 +7,6 @@
   "defaultCommandTimeout": 10000,
   "experimentalInteractiveRunEvents": true,
   "env": {
-    "graphql": "'.netlify/functions/graphql'"
+    "graphql": ".netlify/functions/graphql"
   }
 }
