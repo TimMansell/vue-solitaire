@@ -20,10 +20,6 @@ describe('Stats', () => {
 
       cy.checkGameIsPaused(false);
     });
-
-    it('it successfully retrieves player count', () => {
-      cy.checkPlayerCount();
-    });
   });
 
   describe('New User', () => {

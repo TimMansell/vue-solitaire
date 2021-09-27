@@ -1,18 +1,10 @@
-Cypress.Commands.add('savePlayerCount', () =>
-  cy.get('[data-test="player-count"]').saveNumberAs('playerCount')
-);
-
 Cypress.Commands.add('checkPlayerCount', () => {
-  cy.get('[data-test="player-count"]').formatNumber().should('not.equal', 0);
-});
+  cy.getPlayerCount();
 
-Cypress.Commands.add('checkPlayerCountHasIncremented', (hasIncremented) => {
-  cy.get('@playerCount').then((playerCount) => {
-    const checkCount = hasIncremented ? playerCount + 1 : playerCount;
-
+  cy.get('@playerCount').then(({ players }) => {
     cy.get('[data-test="player-count"]')
       .formatNumber()
-      .should('equal', checkCount);
+      .should('equal', players);
   });
 });
 

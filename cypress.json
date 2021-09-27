@@ -5,5 +5,8 @@
   "retries": 1,
   "requestTimeout": 10000,
   "defaultCommandTimeout": 10000,
-  "experimentalInteractiveRunEvents": true
+  "experimentalInteractiveRunEvents": true,
+  "env": {
+    "graphql": ".netlify/functions/graphql"
+  }
 }
