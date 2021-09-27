@@ -37,25 +37,19 @@ describe('User', () => {
     });
 
     it('it creates a new user on server after first game has been played', () => {
-      cy.savePlayerCount();
-
       cy.startNewGame({ waitUser: true });
 
-      cy.checkPlayerCountHasIncremented(true);
+      cy.checkPlayerCount();
     });
 
     it('it does not create a new user on server after second game has been played', () => {
-      cy.savePlayerCount();
-
       cy.startNewGame({ waitUser: true });
 
-      cy.checkPlayerCountHasIncremented(true);
-
-      cy.savePlayerCount();
+      cy.checkPlayerCount();
 
       cy.startNewGame();
 
-      cy.checkPlayerCountHasIncremented(false);
+      cy.checkPlayerCount();
     });
   });
 
@@ -79,11 +73,9 @@ describe('User', () => {
     });
 
     it('it does not create a new user on server after first game has been played', () => {
-      cy.savePlayerCount();
-
       cy.startNewGame();
 
-      cy.checkPlayerCountHasIncremented(false);
+      cy.checkPlayerCount();
     });
   });
 });
