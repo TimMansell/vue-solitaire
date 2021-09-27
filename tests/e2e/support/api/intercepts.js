@@ -1,4 +1,5 @@
 Cypress.Commands.add('interceptAPIs', () => {
+  const url = Cypress.env('graphql');
   const interceptAPI = (request, operationName) => {
     const { body } = request;
 
@@ -8,7 +9,7 @@ Cypress.Commands.add('interceptAPIs', () => {
     }
   };
 
-  cy.intercept('POST', '.netlify/functions/graphql', (request) => {
+  cy.intercept('POST', url, (request) => {
     interceptAPI(request, 'GetInitialData');
     interceptAPI(request, 'CreateAUser');
     interceptAPI(request, 'NewGame');
