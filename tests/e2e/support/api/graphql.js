@@ -49,7 +49,7 @@ Cypress.Commands.add('getPlayerCount', () => {
       data: { globalStats },
     } = body;
 
-    cy.wrap(globalStats).as('playerCount');
+    return globalStats;
   });
 });
 
