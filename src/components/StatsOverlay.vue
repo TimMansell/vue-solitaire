@@ -4,9 +4,7 @@
     :btn-close="toggleStats"
     data-test="stats-overlay"
   >
-    <template #title>
-      Your Stats
-    </template>
+    <template #title> Your Stats </template>
     <template #msg>
       <Table
         :headings="['Played', 'Won', 'Lost', 'Gave Up']"

@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GamePaused.vue matches snapshot 1`] = `
-<gameoverlay-stub centercontent="true" showlogo="true" data-test="game-paused">
-  Game Paused
+<gameoverlay-stub centercontent="true" showlogo="true" data-test="game-paused"> Game Paused
   <!---->
   <gamesummary-stub></gamesummary-stub>
   <pausegamebutton-stub></pausegamebutton-stub>
@@ -10,11 +9,7 @@ exports[`GamePaused.vue matches snapshot 1`] = `
 `;
 
 exports[`GamePaused.vue shows inactive msg 1`] = `
-<gameoverlay-stub centercontent="true" showlogo="true" data-test="game-paused">
-  Game Paused
-  <p>
-    Your game has been paused due to inactivity
-  </p>
+<gameoverlay-stub centercontent="true" showlogo="true" data-test="game-paused"> Game Paused <p>Your game has been paused due to inactivity</p>
   <gamesummary-stub></gamesummary-stub>
   <pausegamebutton-stub></pausegamebutton-stub>
 </gameoverlay-stub>

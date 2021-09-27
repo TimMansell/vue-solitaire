@@ -1,7 +1,5 @@
 Cypress.Commands.add('setPage', (pageText) => {
-  cy.get('[data-test="pagination"]')
-    .contains(pageText)
-    .click();
+  cy.get('[data-test="pagination"]').contains(pageText).click();
 });
 
 Cypress.Commands.add('getActivePage', () => {

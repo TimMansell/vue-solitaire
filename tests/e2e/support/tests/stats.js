@@ -4,16 +4,12 @@ Cypress.Commands.add('saveGames', () =>
 
 Cypress.Commands.add('checkGames', () => {
   cy.get('@games').then((stats) => {
-    cy.get('[data-test="stats"]')
-      .formatNumber()
-      .should('equal', stats);
+    cy.get('[data-test="stats"]').formatNumber().should('equal', stats);
   });
 });
 
 Cypress.Commands.add('checkGameNumber', (number) => {
-  cy.get('[data-test="stats"]')
-    .formatNumber()
-    .should('equal', number);
+  cy.get('[data-test="stats"]').formatNumber().should('equal', number);
 });
 
 Cypress.Commands.add('checkGameWon', () => {
@@ -49,25 +45,13 @@ Cypress.Commands.add('checkStats', () => {
 });
 
 Cypress.Commands.add('checkStatsValues', ({ completed, won, lost, quit }) => {
-  cy.get('@stat')
-    .eq(0)
-    .formatNumber()
-    .should('equal', completed);
+  cy.get('@stat').eq(0).formatNumber().should('equal', completed);
 
-  cy.get('@stat')
-    .eq(1)
-    .formatNumber()
-    .should('equal', won);
+  cy.get('@stat').eq(1).formatNumber().should('equal', won);
 
-  cy.get('@stat')
-    .eq(2)
-    .formatNumber()
-    .should('equal', lost);
+  cy.get('@stat').eq(2).formatNumber().should('equal', lost);
 
-  cy.get('@stat')
-    .eq(3)
-    .formatNumber()
-    .should('equal', quit);
+  cy.get('@stat').eq(3).formatNumber().should('equal', quit);
 });
 
 Cypress.Commands.add('checkGameSummary', () => {

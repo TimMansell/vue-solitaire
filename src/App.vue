@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~sanitize.css';
+@import 'sanitize.css';
 
 html {
   font-family: var(--font-family-primary);

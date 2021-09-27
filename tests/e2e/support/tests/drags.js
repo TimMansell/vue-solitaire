@@ -45,9 +45,7 @@ Cypress.Commands.add('dragCardFromTo', (dragFrom, dragTo) => {
     .trigger('drop', { force: true })
     .trigger('dragend', { force: true });
 
-  cy.get('[data-test="dragged-cards"]')
-    .children()
-    .should('have.length', 0);
+  cy.get('[data-test="dragged-cards"]').children().should('have.length', 0);
 });
 
 Cypress.Commands.add(
@@ -65,8 +63,5 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add('checkDraggedCardsLength', (length) =>
-  cy
-    .get('[data-test="dragged-cards"]')
-    .children()
-    .should('have.length', length)
+  cy.get('[data-test="dragged-cards"]').children().should('have.length', length)
 );

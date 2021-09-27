@@ -5,9 +5,7 @@
     data-test="history-overlay"
     :btn-close="toggleHistory"
   >
-    <template #title>
-      History
-    </template>
+    <template #title> History </template>
     <template #msg>
       <GameHistory v-if="userGameCount" @scrollTo="scrollTo" />
       <p v-if="!userGameCount" data-test="game-history-no-games-msg">

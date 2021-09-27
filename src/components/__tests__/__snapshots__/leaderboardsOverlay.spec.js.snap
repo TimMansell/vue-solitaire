@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LeaderboardsOverlay.vue matches snapshot 1`] = `
-<gameoverlay-stub centercontent="true" btnclose="[Function]" data-test="leaderboards-overlay">
-  Leaderboards
-  <leaderboards-stub></leaderboards-stub>
+<gameoverlay-stub centercontent="true" btnclose="[Function]" data-test="leaderboards-overlay"> Leaderboards <leaderboards-stub></leaderboards-stub>
 </gameoverlay-stub>
 `;

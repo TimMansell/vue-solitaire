@@ -21,9 +21,7 @@ Cypress.Commands.add('checkTimer', () => {
   const [start] = JSON.parse(localStorage.getItem('timers'));
 
   cy.get(`@${start}`).then((timer) => {
-    cy.get('[data-test="timer"]')
-      .text()
-      .should('equal', timer);
+    cy.get('[data-test="timer"]').text().should('equal', timer);
   });
 });
 

@@ -5,9 +5,7 @@
     data-test="leaderboards-overlay"
     :btn-close="toggleLeaderboards"
   >
-    <template #title>
-      Leaderboards
-    </template>
+    <template #title> Leaderboards </template>
     <template #msg>
       <Leaderboards @scrollTo="scrollTo" />
     </template>
