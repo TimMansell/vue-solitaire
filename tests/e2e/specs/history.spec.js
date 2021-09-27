@@ -49,9 +49,6 @@ describe('History', () => {
 
       cy.runGameWithClicks(quitGameMoves);
 
-      cy.saveTimer();
-      cy.saveMoves();
-
       cy.startNewGame({ waitUser: true });
 
       cy.showHistory({ wait: true });

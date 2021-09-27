@@ -16,7 +16,3 @@ Cypress.Commands.add('checkTableHeading', ({ cell, heading }) => {
     .eq(cell)
     .should('contain', heading);
 });
-
-Cypress.Commands.add('getTableCellValue', ({ row, cell }) => {
-  cy.get('[data-test="table-row"]').eq(row).find('td').eq(cell);
-});
