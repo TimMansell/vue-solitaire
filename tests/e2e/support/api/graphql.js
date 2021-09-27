@@ -25,8 +25,7 @@ Cypress.Commands.add('getStats', () => {
       data: { globalStats, userStats },
     } = body;
 
-    cy.wrap(userStats).as('userStats');
-    cy.wrap(globalStats).as('globalStats');
+    return { globalStats, userStats };
   });
 });
 
