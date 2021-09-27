@@ -23,6 +23,10 @@ describe('User', () => {
       expect(luid).to.not.equal('');
       expect(luid).to.not.equal(mockUid);
     });
+
+    it('it successfully retrieves player count', () => {
+      cy.checkPlayerCount();
+    });
   });
 
   describe('New User', () => {
