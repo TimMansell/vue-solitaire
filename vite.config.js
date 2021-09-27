@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     port: 8080,
     proxy: {
-      '/.netlify/functions/graphql': 'http://localhost:9000',
+      '^/.netlify/functions/graphql': 'http://localhost:9000',
     },
   },
   resolve: {
