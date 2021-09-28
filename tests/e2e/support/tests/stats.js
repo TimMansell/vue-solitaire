@@ -23,24 +23,40 @@ Cypress.Commands.add('checkGameLost', () => {
 });
 
 Cypress.Commands.add('checkStats', () => {
-  cy.getStats();
-
   cy.showStats();
 
-  cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('stat');
-  cy.get('@userStats').then(({ won, lost, completed }) => {
-    const quit = completed - won - lost;
+  cy.getStats().then(({ userStats, globalStats }) => {
+    const {
+      won: userWon,
+      lost: userLost,
+      completed: userCompleted,
+    } = userStats;
+    const {
+      won: globalWon,
+      lost: globalLost,
+      completed: globalCompleted,
+    } = globalStats;
+    const userQuit = userCompleted - userWon - userLost;
+    const globalQuit = globalCompleted - globalWon - globalLost;
 
-    cy.checkGameNumber(completed);
+    cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('stat');
 
-    cy.checkStatsValues({ won, lost, completed, quit });
-  });
+    cy.checkGameNumber(userCompleted);
+    cy.checkStatsValues({
+      won: userWon,
+      lost: userLost,
+      completed: userCompleted,
+      quit: userQuit,
+    });
 
-  cy.get('[data-test="global-stats"] [data-test="table-cell"]').as('stat');
-  cy.get('@globalStats').then(({ won, lost, completed }) => {
-    const quit = completed - won - lost;
+    cy.get('[data-test="global-stats"] [data-test="table-cell"]').as('stat');
 
-    cy.checkStatsValues({ won, lost, completed, quit });
+    cy.checkStatsValues({
+      won: globalWon,
+      lost: globalLost,
+      completed: globalCompleted,
+      quit: globalQuit,
+    });
   });
 });
 

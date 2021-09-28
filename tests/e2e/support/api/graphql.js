@@ -25,13 +25,13 @@ Cypress.Commands.add('getStats', () => {
       data: { globalStats, userStats },
     } = body;
 
-    cy.wrap(userStats).as('userStats');
-    cy.wrap(globalStats).as('globalStats');
+    return { globalStats, userStats };
   });
 });
 
 Cypress.Commands.add('getPlayerCount', () => {
   const url = Cypress.env('graphql');
+
   const query = `query {
     globalStats {
       players
@@ -48,6 +48,39 @@ Cypress.Commands.add('getPlayerCount', () => {
       data: { globalStats },
     } = body;
 
-    cy.wrap(globalStats).as('playerCount');
+    return globalStats;
+  });
+});
+
+Cypress.Commands.add('getUserHistory', ({ offset, limit }) => {
+  const url = Cypress.env('graphql');
+  const uid = localStorage.getItem('luid');
+
+  const query = `query {
+    user(uid: "${uid}") {
+      history(offset: ${offset}, limit: ${limit}) {
+        number
+        date
+        time
+        outcome
+        moves
+        duration
+      }
+    }
+  }`;
+
+  cy.request({
+    method: 'POST',
+    url,
+    body: { query },
+    failOnStatusCode: false,
+  }).then(({ body }) => {
+    const {
+      data: {
+        user: { history },
+      },
+    } = body;
+
+    return history;
   });
 });
