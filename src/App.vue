@@ -1,23 +1,20 @@
 <template>
   <div id="app">
-    <Header />
-    <Solitaire />
-    <Footer />
+    <RouterView />
   </div>
 </template>
 
 <script>
 /* eslint vue-scoped-css/require-scoped: off */
-import Header from '@/components/Header.vue';
-import Solitaire from '@/components/Solitaire.vue';
-import Footer from '@/components/Footer.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'App',
-  components: {
-    Header,
-    Solitaire,
-    Footer,
+  async created() {
+    this.initApp();
+  },
+  methods: {
+    ...mapActions(['initApp']),
   },
 };
 </script>
