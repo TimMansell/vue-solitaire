@@ -1,16 +1,17 @@
 <template>
-  <Button
-    :is-stacked="true"
-    @click="toggleLeaderboards"
-    :disabled="isGameLoading"
-    data-test="leaderboards-btn"
-  >
-    Ranks
-  </Button>
+  <RouterLink to="/leaderboards">
+    <Button
+      :is-stacked="true"
+      :disabled="isGameLoading"
+      data-test="leaderboards-btn"
+    >
+      Ranks
+    </Button>
+  </RouterLink>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -20,9 +21,6 @@ export default {
   },
   computed: {
     ...mapGetters(['isGameLoading']),
-  },
-  methods: {
-    ...mapActions(['toggleLeaderboards']),
   },
 };
 </script>

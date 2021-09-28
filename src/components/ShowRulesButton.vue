@@ -1,18 +1,14 @@
 <template>
-  <Button
-    :is-stacked="isStacked"
-    @click="toggleRules"
-    data-test="game-rules-btn"
-    title="How to Play"
-  >
-    <FontAwesomeIcon :icon="rulesIcon" />
-  </Button>
+  <RouterLink to="/rules">
+    <Button :is-stacked="true" data-test="game-rules-btn" title="How to Play">
+      <FontAwesomeIcon :icon="rulesIcon" />
+    </Button>
+  </RouterLink>
 </template>
 
 <script>
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -21,19 +17,10 @@ export default {
     Button,
     FontAwesomeIcon,
   },
-  props: {
-    isStacked: {
-      type: Boolean,
-      default: false,
-    },
-  },
   data() {
     return {
       rulesIcon: faQuestionCircle,
     };
-  },
-  methods: {
-    ...mapActions(['toggleRules']),
   },
 };
 </script>

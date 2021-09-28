@@ -1,6 +1,6 @@
 <template>
   <RouterLink to="/">
-    <Button data-test="continue-game-btn"> Continue </Button>
+    <Button data-test="resume-game-btn"> Resume </Button>
   </RouterLink>
 </template>
 
@@ -8,7 +8,7 @@
 import Button from './Button.vue';
 
 export default {
-  name: 'NewGame',
+  name: 'PauseGameButton',
   components: {
     Button,
   },

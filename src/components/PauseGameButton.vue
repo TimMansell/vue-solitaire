@@ -1,17 +1,17 @@
 <template>
-  <Button
-    :is-stacked="isStacked"
-    @click="toggleGamePaused"
-    :disabled="isGameLoading"
-    data-test="pause-game-btn"
-  >
-    <span v-if="!isGamePaused">Pause</span>
-    <span v-if="isGamePaused">Resume</span>
-  </Button>
+  <RouterLink to="/pause">
+    <Button
+      :is-stacked="true"
+      :disabled="isGameLoading"
+      data-test="pause-game-btn"
+    >
+      Pause
+    </Button>
+  </RouterLink>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -19,17 +19,8 @@ export default {
   components: {
     Button,
   },
-  props: {
-    isStacked: {
-      type: Boolean,
-      default: false,
-    },
-  },
   computed: {
-    ...mapGetters(['isGamePaused', 'isGameLoading']),
-  },
-  methods: {
-    ...mapActions(['toggleGamePaused']),
+    ...mapGetters(['isGameLoading']),
   },
 };
 </script>
