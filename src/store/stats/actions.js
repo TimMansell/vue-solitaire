@@ -14,18 +14,8 @@ const actions = {
     commit('SET_GLOBAL_STATS', globalStats);
     commit('SET_GLOBAL_GAME_COUNT', globalStats);
   },
-  toggleStats({ commit, state }) {
-    const showStats = !state.showStats;
-
-    commit('SHOW_STATS', showStats);
-  },
   clearStats({ commit }) {
     commit('CLEAR_STATS');
-  },
-  toggleLeaderboards({ commit, state }) {
-    const showLeaderboards = !state.showLeaderboards;
-
-    commit('SHOW_LEADERBOARDS', showLeaderboards);
   },
   async getLeaderboards({ commit }, params) {
     commit('SET_LEADERBOARDS', []);

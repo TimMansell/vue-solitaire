@@ -13,9 +13,6 @@ const state = () => ({
     moves: [],
     time: 0,
   },
-  showRules: false,
-  showNewGame: false,
-  showHistory: false,
   versionMatch: true,
 });
 

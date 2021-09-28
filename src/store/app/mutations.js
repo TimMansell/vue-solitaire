@@ -35,15 +35,6 @@ const mutations = {
   UPDATE_GAME_TIME(state) {
     state.game.time += 1;
   },
-  SHOW_RULES(state, showRules) {
-    state.showRules = showRules;
-  },
-  SHOW_NEW_GAME(state, showNewGame) {
-    state.showNewGame = showNewGame;
-  },
-  SHOW_HISTORY(state) {
-    state.showHistory = !state.showHistory;
-  },
 };
 
 export default mutations;

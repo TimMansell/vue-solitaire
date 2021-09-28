@@ -69,23 +69,10 @@ const actions = {
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');
   },
-  toggleRules({ commit, state }) {
-    const showRules = !state.showRules;
-
-    commit('SHOW_RULES', showRules);
-  },
-  toggleNewGame({ commit, state }) {
-    const showNewGame = !state.showNewGame;
-
-    commit('SHOW_NEW_GAME', showNewGame);
-  },
   toggleOverlayVisibility({ commit, state }) {
     const isOverlayVisible = !state.isOverlayVisible;
 
     commit('SET_OVERLAY_VISIBLE', isOverlayVisible);
-  },
-  toggleHistory({ commit }) {
-    commit('SHOW_HISTORY');
   },
   saveMove({ commit, rootState }, move) {
     const { selectedCardId } = rootState.solitaire;

@@ -8,9 +8,6 @@ const getters = {
   isOverlayVisible: (state) => state.isOverlayVisible,
   timer: (state) => state.game.time,
   moves: (state) => state.game.moves.length,
-  showRules: (state) => state.showRules,
-  showNewGame: (state) => state.showNewGame,
-  showHistory: (state) => state.showHistory,
   versionMatch: (state) => state.versionMatch,
 };
 
