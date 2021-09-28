@@ -49,12 +49,17 @@ export const newGame = async (uid) => {
   }
 };
 
-export const saveGame = async (uid, { moves, time }) => {
+export const saveGame = async (uid, { moves, time, paused }) => {
   try {
     const response = await apollo.mutate({
       mutation: gql`
-        mutation SaveGame($uid: String!, $moves: [moveInput!]!, $time: Int!) {
-          saveGame(uid: $uid, moves: $moves, time: $time) {
+        mutation SaveGame(
+          $uid: String!
+          $moves: [moveInput!]!
+          $time: Int!
+          $paused: [pauseInput!]
+        ) {
+          saveGame(uid: $uid, moves: $moves, time: $time, paused: $paused) {
             outcome
           }
         }
@@ -63,6 +68,7 @@ export const saveGame = async (uid, { moves, time }) => {
         uid,
         moves,
         time,
+        paused,
       },
     });
 

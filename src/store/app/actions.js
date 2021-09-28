@@ -1,4 +1,5 @@
 import { saveGame, getInitialData } from '@/services/db';
+import { createISODate } from '@/helpers/dates';
 import { version as localVersion } from '../../../package.json';
 
 const actions = {
@@ -47,6 +48,9 @@ const actions = {
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
   },
+    const date = createISODate();
+
+    commit('SET_PAUSED', { isPaused, date });
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');
   },
