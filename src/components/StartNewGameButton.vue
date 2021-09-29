@@ -1,5 +1,5 @@
 <template>
-  <Button @click="playNewGame" data-test="new-game-btn"> New </Button>
+  <Button @click="playNewGame" data-test="start-new-game-btn"> New </Button>
 </template>
 
 <script>
