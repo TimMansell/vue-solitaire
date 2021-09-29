@@ -2,14 +2,14 @@
   <div class="game-overlay" :class="overlayClasses" data-test="game-overlay">
     <div
       class="game-overlay__close"
-      v-if="btnClose"
       title="Close Overlay"
+      v-if="showClose"
       data-test="game-overlay-close"
     >
       <Button
+        @click="closeOverlay"
         type="icon"
         size="lg"
-        @click="btnClose"
         data-test="game-overlay-close-btn"
       >
         <FontAwesomeIcon :icon="closeIcon" />
@@ -71,9 +71,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    // eslint-disable-next-line vue/require-default-prop
-    btnClose: {
-      type: Function,
+    showClose: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -116,19 +116,22 @@ export default {
   mounted() {
     // Stop body from scrolling when overlay is open.
     this.setHideBody(true);
-    this.setTimerPaused(true);
   },
   destroyed() {
     // Enable body scrolling.
     this.setHideBody(false);
-    this.setTimerPaused(false);
   },
   methods: {
-    ...mapActions(['setTimerPaused']),
+    ...mapActions(['setGamePaused']),
     setHideBody(value) {
       const overflow = value ? 'hidden' : 'auto';
 
       document.body.style.overflow = overflow;
+    },
+    closeOverlay() {
+      this.setGamePaused(false);
+
+      this.$router.push('/');
     },
   },
 };

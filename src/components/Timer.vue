@@ -12,7 +12,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters(['timer', 'isTimerPaused']),
+    ...mapGetters(['timer', 'isGamePaused']),
     formattedTime() {
       const { timer } = this;
 
@@ -20,12 +20,15 @@ export default {
     },
   },
   mounted() {
-    const { isTimerPaused } = this;
+    const { isGamePaused } = this;
 
-    this.setTimer(isTimerPaused);
+    this.setTimer(isGamePaused);
+  },
+  destroyed() {
+    clearInterval(this.gameTimer);
   },
   watch: {
-    isTimerPaused(val, oldVal) {
+    isGamePaused(val, oldVal) {
       if (val === oldVal) return;
 
       this.setTimer(val);

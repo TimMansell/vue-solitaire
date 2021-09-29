@@ -1,20 +1,55 @@
 <template>
   <div id="app">
+    <Home />
     <RouterView />
   </div>
 </template>
 
 <script>
 /* eslint vue-scoped-css/require-scoped: off */
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
+import Home from '@/pages/Home.vue';
 
 export default {
   name: 'App',
+  components: {
+    Home,
+  },
+  computed: {
+    ...mapGetters(['isGamePaused']),
+  },
   async created() {
     this.initApp();
   },
+  mounted() {
+    const events = {
+      visibilitychange: (e) => setTimeout(this.checkGameVisible, 2000, e),
+    };
+
+    this.events = addEventListener(events);
+  },
+  destroyed() {
+    const { events } = this;
+
+    removeEventListener(events);
+  },
   methods: {
-    ...mapActions(['initApp']),
+    ...mapActions(['initApp', 'setGamePaused']),
+    checkGameVisible({ target }) {
+      const { isGamePaused } = this;
+
+      if (isGamePaused) return;
+
+      if (target.visibilityState === 'hidden') {
+        this.setGamePaused(true);
+
+        this.$router.push('/pause');
+      }
+    },
   },
 };
 </script>

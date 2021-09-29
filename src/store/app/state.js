@@ -3,11 +3,7 @@ const state = () => ({
   isGameLoading: true,
   isGameWon: false,
   isGameLost: false,
-  isGamePaused: {
-    isPaused: false,
-    isActive: false,
-  },
-  isTimerPaused: true,
+  isGamePaused: false,
   isOverlayVisible: true,
   game: {
     moves: [],

@@ -23,7 +23,7 @@ const actions = {
   },
   setGameLoading({ commit }, isGameLoading) {
     commit('SET_GAME_LOADING', isGameLoading);
-    commit('SET_TIMER_PAUSED', isGameLoading);
+    commit('SET_GAME_PAUSED', isGameLoading);
   },
   async newGame({ dispatch }) {
     await Promise.all([
@@ -45,26 +45,8 @@ const actions = {
 
     await Promise.all([saveGame(luid, game), dispatch('createUser')]);
   },
-  setGameInactive({ commit }) {
-    const isGamePaused = {
-      isPaused: true,
-      isActive: false,
-    };
-
+  setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
-  },
-  toggleGamePaused({ commit, state }) {
-    const { isPaused } = state.isGamePaused;
-
-    const isGamePaused = {
-      isPaused: !isPaused,
-      isActive: true,
-    };
-
-    commit('SET_GAME_PAUSED', isGamePaused);
-  },
-  setTimerPaused({ commit }, isPaused) {
-    commit('SET_TIMER_PAUSED', isPaused);
   },
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');

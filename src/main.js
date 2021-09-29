@@ -4,7 +4,6 @@ import VueRouter from 'vue-router';
 import 'virtual:svg-icons-register';
 
 import App from '@/App.vue';
-import Home from '@/pages/Home.vue';
 import New from '@/pages/New.vue';
 import Pause from '@/pages/Pause.vue';
 import Games from '@/pages/Games.vue';
@@ -20,7 +19,6 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Home },
   { path: '/new', component: New },
   { path: '/pause', component: Pause },
   { path: '/games', component: Games },
