@@ -6,7 +6,6 @@ const state = () => ({
   foundation: [[], [], [], []],
   placeholders: columns,
   selectedCardId: null,
-  hasMoves: true,
   draggedCards: [],
   isNewGame: true,
 });

@@ -35,7 +35,7 @@ const actions = {
     dispatch('initApp');
     dispatch('initGame');
   },
-  setGameState({ commit }, hasWon) {
+  setGameCompleted({ commit }, hasWon) {
     commit('SET_GAME_WON', hasWon);
     commit('SET_GAME_LOST', !hasWon);
   },

@@ -20,9 +20,9 @@ export default {
     Home,
   },
   computed: {
-    ...mapGetters(['isGamePaused']),
+    ...mapGetters(['isGamePaused', 'hasGameWon', 'hasGameLost']),
   },
-  async created() {
+  created() {
     this.initApp();
   },
   mounted() {
@@ -36,6 +36,26 @@ export default {
     const { events } = this;
 
     removeEventListener(events);
+  },
+  watch: {
+    hasGameWon(val, oldVal) {
+      if (val === oldVal) return;
+
+      if (val) {
+        this.setGamePaused(true);
+
+        this.$router.push('/won');
+      }
+    },
+    hasGameLost(val, oldVal) {
+      if (val === oldVal) return;
+
+      if (val) {
+        this.setGamePaused(true);
+
+        this.$router.push('/lost');
+      }
+    },
   },
   methods: {
     ...mapActions(['initApp', 'setGamePaused']),

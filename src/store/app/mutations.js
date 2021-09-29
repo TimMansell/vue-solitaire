@@ -14,11 +14,11 @@ const mutations = {
   SET_GAME_LOADING(state, isLoading) {
     state.isGameLoading = isLoading;
   },
-  SET_GAME_WON(state, isGameWon) {
-    state.isGameWon = isGameWon;
+  SET_GAME_WON(state, hasGameWon) {
+    state.hasGameWon = hasGameWon;
   },
-  SET_GAME_LOST(state, isGameLost) {
-    state.isGameLost = isGameLost;
+  SET_GAME_LOST(state, hasGameLost) {
+    state.hasGameLost = hasGameLost;
   },
   SET_GAME_PAUSED(state, isGamePaused) {
     state.isGamePaused = isGamePaused;

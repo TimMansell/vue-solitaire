@@ -1,7 +1,7 @@
 const getters = {
   isGameLoading: (state) => state.isGameLoading,
-  isGameWon: (state) => state.isGameWon,
-  isGameLost: (state) => state.isGameLost,
+  hasGameWon: (state) => state.hasGameWon,
+  hasGameLost: (state) => state.hasGameLost,
   isGamePaused: (state) => state.isGamePaused,
   isOverlayVisible: (state) => state.isOverlayVisible,
   timer: (state) => state.game.time,

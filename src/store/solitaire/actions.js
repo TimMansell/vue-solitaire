@@ -24,15 +24,12 @@ const actions = {
   restartGame({ commit }) {
     commit('RESTART_GAME');
   },
-  checkGameState({ commit, dispatch, state }) {
+  checkGameState({ dispatch, state }) {
     const hasMoves = checkHasMoves(state);
-
-    commit('SET_HAS_MOVES', hasMoves);
+    const isEmptyBoard = isBoardEmpty(state);
 
     if (!hasMoves) {
-      const isEmptyBoard = isBoardEmpty(state);
-
-      dispatch('setGameState', isEmptyBoard);
+      dispatch('setGameCompleted', isEmptyBoard);
     }
   },
   initFoundation({ dispatch, state }, isNewGame) {
