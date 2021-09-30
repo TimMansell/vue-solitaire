@@ -31,7 +31,7 @@ describe('Leaderboards', () => {
 
       cy.checkLeaderboardHeading('Top 25 Best Moves');
 
-      cy.selectLeaderboardBestItem('Times');
+      cy.selectLeaderboardBestItem('times');
 
       cy.checkLeaderboardHeading('Top 25 Best Times');
 
@@ -55,7 +55,7 @@ describe('Leaderboards', () => {
 
       cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
-      cy.selectLeaderboardBestItem('Times');
+      cy.selectLeaderboardBestItem('times');
 
       cy.checkTableHeading({ cell: 3, heading: 'Times' });
     });
