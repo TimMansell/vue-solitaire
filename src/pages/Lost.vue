@@ -18,7 +18,7 @@ import StartNewGameButton from '@/components/StartNewGameButton.vue';
 import ShowBoardButton from '@/components/ShowBoardButton.vue';
 
 export default {
-  name: 'GameLost',
+  name: 'LostPage',
   components: {
     GameOverlay,
     StartNewGameButton,

@@ -16,7 +16,7 @@ import GameSummary from '@/components/GameSummary.vue';
 import StartNewGameButton from '@/components/StartNewGameButton.vue';
 
 export default {
-  name: 'GameWon',
+  name: 'WonPage',
   components: {
     GameOverlay,
     StartNewGameButton,

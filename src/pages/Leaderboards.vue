@@ -18,7 +18,7 @@ import GameOverlay from '@/components/GameOverlay.vue';
 import Leaderboards from '@/components/Leaderboards.vue';
 
 export default {
-  name: 'LeaderboardOverlay',
+  name: 'LeaderboardsPage',
   components: {
     GameOverlay,
     Leaderboards,

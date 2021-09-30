@@ -12,7 +12,7 @@ import Solitaire from '@/components/Solitaire.vue';
 import Footer from '@/components/Footer.vue';
 
 export default {
-  name: 'Home',
+  name: 'HomePage',
   components: {
     Header,
     Solitaire,

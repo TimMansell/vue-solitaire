@@ -16,7 +16,7 @@ import GameSummary from '@/components/GameSummary.vue';
 import ResumeGameButton from '@/components/ResumeGameButton.vue';
 
 export default {
-  name: 'GamePaused',
+  name: 'PausePage',
   components: {
     GameOverlay,
     ResumeGameButton,

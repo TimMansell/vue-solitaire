@@ -17,7 +17,7 @@ import StartNewGameButton from '@/components/StartNewGameButton.vue';
 import ContinueGameButton from '@/components/ContinueGameButton.vue';
 
 export default {
-  name: 'NewGameOverlay',
+  name: 'NewPage',
   components: {
     GameOverlay,
     StartNewGameButton,
