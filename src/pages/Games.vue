@@ -8,9 +8,7 @@
     <template #title> History </template>
     <template #msg>
       <GameHistory v-if="userGameCount" @scrollTo="scrollTo" />
-      <p v-if="!userGameCount" data-test="game-history-no-games-msg">
-        You have not played any games yet
-      </p>
+      <NoGames v-if="!userGameCount" data-test="game-history-no-games-msg" />
     </template>
   </GameOverlay>
 </template>
@@ -20,12 +18,14 @@ import { mapGetters } from 'vuex';
 import VueScrollTo from 'vue-scrollto';
 import GameOverlay from '@/components/GameOverlay.vue';
 import GameHistory from '@/components/GameHistory.vue';
+import NoGames from '@/components/NoGames.vue';
 
 export default {
-  name: 'HistoryOverlay',
+  name: 'GamesPage',
   components: {
     GameOverlay,
     GameHistory,
+    NoGames,
   },
   computed: {
     ...mapGetters(['userGameCount']),
