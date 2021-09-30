@@ -1,6 +1,9 @@
 <template>
   <button class="btn" :class="classes" @click="click">
-    <slot />
+    <RouterLink v-if="link" :to="link" tag="span">
+      <slot />
+    </RouterLink>
+    <slot v-if="!link" />
   </button>
 </template>
 
@@ -14,6 +17,10 @@ export default {
         return ['default', 'alt', 'link', 'icon'].includes(value);
       },
       default: 'default',
+    },
+    link: {
+      type: String,
+      default: '',
     },
     isStacked: {
       type: Boolean,

@@ -1,7 +1,5 @@
 <template>
-  <RouterLink to="/">
-    <Button data-test="continue-game-btn"> Continue </Button>
-  </RouterLink>
+  <Button link="/" data-test="continue-game-btn"> Continue </Button>
 </template>
 
 <script>

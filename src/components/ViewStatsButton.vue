@@ -1,9 +1,12 @@
 <template>
-  <RouterLink to="/stats">
-    <Button :is-stacked="true" :disabled="isGameLoading" data-test="stats-btn">
-      Stats
-    </Button>
-  </RouterLink>
+  <Button
+    link="/stats"
+    :is-stacked="true"
+    :disabled="isGameLoading"
+    data-test="stats-btn"
+  >
+    Stats
+  </Button>
 </template>
 
 <script>

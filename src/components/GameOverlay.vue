@@ -6,11 +6,9 @@
       v-if="showClose"
       data-test="game-overlay-close"
     >
-      <RouterLink to="/">
-        <Button type="icon" size="lg" data-test="game-overlay-close-btn">
-          <FontAwesomeIcon :icon="closeIcon" />
-        </Button>
-      </RouterLink>
+      <Button link="/" type="icon" size="lg" data-test="game-overlay-close-btn">
+        <FontAwesomeIcon :icon="closeIcon" />
+      </Button>
     </div>
     <div class="game-overlay__container">
       <div class="game-overlay__content">

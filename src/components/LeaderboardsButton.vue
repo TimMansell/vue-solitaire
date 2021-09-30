@@ -1,13 +1,12 @@
 <template>
-  <RouterLink to="/leaderboards">
-    <Button
-      :is-stacked="true"
-      :disabled="isGameLoading"
-      data-test="leaderboards-btn"
-    >
-      Ranks
-    </Button>
-  </RouterLink>
+  <Button
+    link="/leaderboards"
+    :is-stacked="true"
+    :disabled="isGameLoading"
+    data-test="leaderboards-btn"
+  >
+    Ranks
+  </Button>
 </template>
 
 <script>

@@ -1,13 +1,12 @@
 <template>
-  <RouterLink to="/pause">
-    <Button
-      :is-stacked="true"
-      :disabled="isGameLoading"
-      data-test="pause-game-btn"
-    >
-      Pause
-    </Button>
-  </RouterLink>
+  <Button
+    link="/pause"
+    :is-stacked="true"
+    :disabled="isGameLoading"
+    data-test="pause-game-btn"
+  >
+    Pause
+  </Button>
 </template>
 
 <script>

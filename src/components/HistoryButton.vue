@@ -1,13 +1,12 @@
 <template>
-  <RouterLink to="/games">
-    <Button
-      :is-stacked="true"
-      :disabled="isGameLoading"
-      data-test="history-btn"
-    >
-      Games
-    </Button>
-  </RouterLink>
+  <Button
+    link="/games"
+    :is-stacked="true"
+    :disabled="isGameLoading"
+    data-test="history-btn"
+  >
+    Games
+  </Button>
 </template>
 
 <script>

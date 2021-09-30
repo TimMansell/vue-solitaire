@@ -1,9 +1,12 @@
 <template>
-  <RouterLink to="/rules">
-    <Button :is-stacked="true" data-test="game-rules-btn" title="How to Play">
-      <FontAwesomeIcon :icon="rulesIcon" />
-    </Button>
-  </RouterLink>
+  <Button
+    link="/rules"
+    :is-stacked="true"
+    data-test="game-rules-btn"
+    title="How to Play"
+  >
+    <FontAwesomeIcon :icon="rulesIcon" />
+  </Button>
 </template>
 
 <script>
