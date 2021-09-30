@@ -9,7 +9,7 @@
         <Select
           v-model="filters.showBest"
           label="Best"
-          :items="['Moves', 'Times']"
+          :items="['moves', 'times']"
           @select="setBest"
           data-test="leaderboard-set-best"
         />
@@ -24,10 +24,10 @@
       </Filters>
     </div>
 
-    <p data-test="leaderboards-heading">Top {{ limit }} Best {{ showBest }}</p>
+    <p data-test="leaderboards-heading">Top {{ limit }} Best {{ best }}</p>
 
     <ResponsiveTable
-      :headings="['Rank', 'Date', 'Player', `${showBest}`]"
+      :headings="['Rank', 'Date', 'Player', `${best}`]"
       :items="leaderboards"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'player', value: name }"
@@ -74,6 +74,11 @@ export default {
     },
     limit() {
       return this.filters.limit;
+    },
+    best() {
+      const { showBest } = this.filters;
+
+      return showBest.charAt(0).toUpperCase() + showBest.slice(1);
     },
   },
   mounted() {
