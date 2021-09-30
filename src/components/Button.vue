@@ -1,9 +1,6 @@
 <template>
   <button class="btn" :class="classes" @click="click">
-    <RouterLink v-if="link" :to="link" tag="span">
-      <slot />
-    </RouterLink>
-    <slot v-if="!link" />
+    <slot />
   </button>
 </template>
 

@@ -1,12 +1,14 @@
 <template>
-  <Button link="/" data-test="resume-game-btn"> Resume </Button>
+  <Button @click="$router.push('/')" data-test="resume-game-btn">
+    Resume
+  </Button>
 </template>
 
 <script>
 import Button from './Button.vue';
 
 export default {
-  name: 'PauseGameButton',
+  name: 'ResumeGameButton',
   components: {
     Button,
   },

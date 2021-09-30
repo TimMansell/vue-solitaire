@@ -1,6 +1,6 @@
 <template>
   <Button
-    link="/rules"
+    @click="$router.push('/rules')"
     :is-stacked="true"
     data-test="game-rules-btn"
     title="How to Play"

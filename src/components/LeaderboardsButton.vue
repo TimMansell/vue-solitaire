@@ -1,6 +1,6 @@
 <template>
   <Button
-    link="/leaderboards"
+    @click="$router.push('/leaderboards')"
     :is-stacked="true"
     :disabled="isGameLoading"
     data-test="leaderboards-btn"

@@ -1,6 +1,6 @@
 <template>
   <Button
-    link="/new"
+    @click="$router.push('/new')"
     :is-stacked="true"
     :disabled="isGameLoading"
     data-test="new-game-btn"
@@ -14,7 +14,7 @@ import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
-  name: 'NewGame',
+  name: 'NewGameButton',
   components: {
     Button,
   },

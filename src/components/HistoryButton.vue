@@ -1,6 +1,6 @@
 <template>
   <Button
-    link="/games"
+    @click="$router.push('/games')"
     :is-stacked="true"
     :disabled="isGameLoading"
     data-test="history-btn"
