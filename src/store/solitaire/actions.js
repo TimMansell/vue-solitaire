@@ -29,7 +29,7 @@ const actions = {
     const isEmptyBoard = isBoardEmpty(state);
 
     if (!hasMoves) {
-      dispatch('setGameCompleted', isEmptyBoard);
+      dispatch('setGameOutcome', isEmptyBoard);
     }
   },
   initFoundation({ dispatch, state }, isNewGame) {
