@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rules.vue matches snapshot 1`] = `
+<gameoverlay-stub showclose="true" data-test="rules-overlay"> How to play <rules-stub></rules-stub>
+</gameoverlay-stub>
+`;
