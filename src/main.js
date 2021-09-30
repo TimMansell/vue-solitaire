@@ -66,12 +66,26 @@ const routes = [
       main: Home,
       overlay: () => import('@/pages/Won.vue'),
     },
+    beforeEnter(to, from, next) {
+      if (store.getters.hasGameWon) {
+        next();
+      } else {
+        next('/');
+      }
+    },
   },
   {
     path: '/lost',
     components: {
       main: Home,
       overlay: () => import('@/pages/Lost.vue'),
+    },
+    beforeEnter(to, from, next) {
+      if (store.getters.hasGameLost) {
+        next();
+      } else {
+        next('/');
+      }
     },
   },
   {
