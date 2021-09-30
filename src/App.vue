@@ -38,8 +38,6 @@ export default {
       if (val === oldVal) return;
 
       if (val) {
-        this.setGamePaused(true);
-
         this.$router.push('/won');
       }
     },
@@ -47,22 +45,18 @@ export default {
       if (val === oldVal) return;
 
       if (val) {
-        this.setGamePaused(true);
-
         this.$router.push('/lost');
       }
     },
   },
   methods: {
-    ...mapActions(['initApp', 'setGamePaused']),
+    ...mapActions(['initApp']),
     checkGameVisible({ target }) {
       const { isGamePaused } = this;
 
       if (isGamePaused) return;
 
       if (target.visibilityState === 'hidden') {
-        this.setGamePaused(true);
-
         this.$router.push('/pause');
       }
     },

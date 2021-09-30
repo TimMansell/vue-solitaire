@@ -1,16 +1,17 @@
 <template>
-  <Button
-    @click="newGame"
-    :is-stacked="true"
-    :disabled="isGameLoading"
-    data-test="new-game-btn"
-  >
-    New
-  </Button>
+  <RouterLink to="/new">
+    <Button
+      :is-stacked="true"
+      :disabled="isGameLoading"
+      data-test="new-game-btn"
+    >
+      New
+    </Button>
+  </RouterLink>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -20,14 +21,6 @@ export default {
   },
   computed: {
     ...mapGetters(['isGameLoading']),
-  },
-  methods: {
-    ...mapActions(['setGamePaused']),
-    newGame() {
-      this.setGamePaused(true);
-
-      this.$router.push('/new');
-    },
   },
 };
 </script>

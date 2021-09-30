@@ -108,6 +108,16 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.path === '/') {
+    store.dispatch('setGamePaused', false);
+  } else {
+    store.dispatch('setGamePaused', true);
+  }
+
+  next();
+});
+
 new Vue({
   store,
   router,

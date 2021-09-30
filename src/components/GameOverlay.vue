@@ -6,14 +6,11 @@
       v-if="showClose"
       data-test="game-overlay-close"
     >
-      <Button
-        @click="closeOverlay"
-        type="icon"
-        size="lg"
-        data-test="game-overlay-close-btn"
-      >
-        <FontAwesomeIcon :icon="closeIcon" />
-      </Button>
+      <RouterLink to="/">
+        <Button type="icon" size="lg" data-test="game-overlay-close-btn">
+          <FontAwesomeIcon :icon="closeIcon" />
+        </Button>
+      </RouterLink>
     </div>
     <div class="game-overlay__container">
       <div class="game-overlay__content">
@@ -48,7 +45,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -122,16 +119,10 @@ export default {
     this.setHideBody(false);
   },
   methods: {
-    ...mapActions(['setGamePaused']),
     setHideBody(value) {
       const overflow = value ? 'hidden' : 'auto';
 
       document.body.style.overflow = overflow;
-    },
-    closeOverlay() {
-      this.setGamePaused(false);
-
-      this.$router.push('/');
     },
   },
 };

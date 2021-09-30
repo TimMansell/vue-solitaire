@@ -1,5 +1,7 @@
 <template>
-  <Button @click="goHome" data-test="home-btn"> Go Home </Button>
+  <RouterLink to="/">
+    <Button data-test="home-btn"> Go Home </Button>
+  </RouterLink>
 </template>
 
 <script>
@@ -9,12 +11,6 @@ export default {
   name: 'HomeButton',
   components: {
     Button,
-  },
-
-  methods: {
-    goHome() {
-      this.$router.push('/');
-    },
   },
 };
 </script>

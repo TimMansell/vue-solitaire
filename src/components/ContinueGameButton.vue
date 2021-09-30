@@ -1,25 +1,16 @@
 <template>
-  <Button @click="continueGame" data-test="continue-game-btn">
-    Continue
-  </Button>
+  <RouterLink to="/">
+    <Button data-test="continue-game-btn"> Continue </Button>
+  </RouterLink>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
   name: 'NewGame',
   components: {
     Button,
-  },
-  methods: {
-    ...mapActions(['setGamePaused']),
-    continueGame() {
-      this.setGamePaused(false);
-
-      this.$router.push('/');
-    },
   },
 };
 </script>
