@@ -52,7 +52,7 @@ const routes = [
   },
   {
     path: '/leaderboards',
-    redirect: '/leaderboards/Moves/25',
+    redirect: '/leaderboards/moves/25',
   },
   {
     path: '/leaderboards/:showBest/:limit',
