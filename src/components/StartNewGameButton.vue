@@ -7,7 +7,7 @@ import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
-  name: 'NewGame',
+  name: 'StartNewGameButton',
   components: {
     Button,
   },
