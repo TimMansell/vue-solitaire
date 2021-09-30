@@ -29,4 +29,17 @@ describe('Leaderboards.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('should show correct top message', () => {
+    const wrapper = shallowMount(Leaderboards, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.find('[data-test="leaderboards-heading"]').text()).toContain(
+      'Top 25 Best Moves'
+    );
+  });
 });
