@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StartNewGameButton.vue matches snapshot 1`] = `<button-stub type="default" size="md" data-test="start-new-game-btn"> New </button-stub>`;
