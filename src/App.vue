@@ -36,7 +36,7 @@ export default {
   },
   watch: {
     gameOutcome: {
-      async handler({ hasGameWon, hasGameLost }) {
+      handler({ hasGameWon, hasGameLost }) {
         if (hasGameWon) {
           this.$router.push('/won');
         }
