@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import 'virtual:svg-icons-register';
 
 import App from '@/App.vue';
+import Home from '@/pages/Home.vue';
 import New from '@/pages/New.vue';
 import Pause from '@/pages/Pause.vue';
 import Games from '@/pages/Games.vue';
@@ -12,6 +13,7 @@ import Leaderboards from '@/pages/Leaderboards.vue';
 import Rules from '@/pages/Rules.vue';
 import Won from '@/pages/Won.vue';
 import Lost from '@/pages/Lost.vue';
+import PageNotFound from '@/pages/PageNotFound.vue';
 import store from './store';
 
 Vue.config.productionTip = false;
@@ -19,14 +21,74 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/new', component: New },
-  { path: '/pause', component: Pause },
-  { path: '/games', component: Games },
-  { path: '/stats', component: Stats },
-  { path: '/leaderboards', component: Leaderboards },
-  { path: '/rules', component: Rules },
-  { path: '/won', component: Won },
-  { path: '/lost', component: Lost },
+  {
+    path: '/',
+    components: {
+      main: Home,
+    },
+  },
+  {
+    path: '/new',
+    components: {
+      main: Home,
+      overlay: New,
+    },
+  },
+  {
+    path: '/pause',
+    components: {
+      main: Home,
+      overlay: Pause,
+    },
+  },
+  {
+    path: '/games',
+    components: {
+      main: Home,
+      overlay: Games,
+    },
+  },
+  {
+    path: '/stats',
+    components: {
+      main: Home,
+      overlay: Stats,
+    },
+  },
+  {
+    path: '/leaderboards',
+    components: {
+      main: Home,
+      overlay: Leaderboards,
+    },
+  },
+  {
+    path: '/rules',
+    components: {
+      main: Home,
+      overlay: Rules,
+    },
+  },
+  {
+    path: '/won',
+    components: {
+      main: Home,
+      overlay: Won,
+    },
+  },
+  {
+    path: '/lost',
+    components: {
+      main: Home,
+      overlay: Lost,
+    },
+  },
+  {
+    path: '*',
+    components: {
+      main: PageNotFound,
+    },
+  },
 ];
 
 const router = new VueRouter({

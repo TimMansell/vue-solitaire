@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Home />
-    <RouterView />
+    <RouterView name="main" />
+    <RouterView name="overlay" />
   </div>
 </template>
 
@@ -12,13 +12,9 @@ import {
   addEventListener,
   removeEventListener,
 } from '@/helpers/eventListeners';
-import Home from '@/pages/Home.vue';
 
 export default {
   name: 'App',
-  components: {
-    Home,
-  },
   computed: {
     ...mapGetters(['isGamePaused', 'hasGameWon', 'hasGameLost']),
   },
