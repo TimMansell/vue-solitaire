@@ -35,9 +35,8 @@ const actions = {
     dispatch('initApp');
     dispatch('initGame');
   },
-  setGameCompleted({ commit }, hasWon) {
-    commit('SET_GAME_WON', hasWon);
-    commit('SET_GAME_LOST', !hasWon);
+  setGameOutcome({ commit }, hasWon) {
+    commit('SET_GAME_OUTCOME', hasWon);
   },
   async saveGame({ dispatch, state, rootState }) {
     const { luid } = rootState.user;
@@ -51,10 +50,8 @@ const actions = {
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');
   },
-  toggleOverlayVisibility({ commit, state }) {
-    const isOverlayVisible = !state.isOverlayVisible;
-
-    commit('SET_OVERLAY_VISIBLE', isOverlayVisible);
+  toggleOverlayVisibility({ commit }) {
+    commit('SET_OVERLAY_VISIBLE');
   },
   saveMove({ commit, rootState }, move) {
     const { selectedCardId } = rootState.solitaire;

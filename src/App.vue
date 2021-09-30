@@ -16,14 +16,15 @@ import {
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['isGamePaused', 'hasGameWon', 'hasGameLost']),
+    ...mapGetters(['isGamePaused', 'gameOutcome']),
   },
   created() {
     this.initApp();
   },
   mounted() {
     const events = {
-      visibilitychange: (e) => setTimeout(this.checkGameVisible, 2000, e),
+      visibilitychange: ({ target }) =>
+        setTimeout(this.checkGameFocused, 2000, target),
     };
 
     this.events = addEventListener(events);
@@ -34,29 +35,27 @@ export default {
     removeEventListener(events);
   },
   watch: {
-    hasGameWon(val, oldVal) {
-      if (val === oldVal) return;
+    gameOutcome: {
+      async handler({ hasGameWon, hasGameLost }) {
+        if (hasGameWon) {
+          this.$router.push('/won');
+        }
 
-      if (val) {
-        this.$router.push('/won');
-      }
-    },
-    hasGameLost(val, oldVal) {
-      if (val === oldVal) return;
-
-      if (val) {
-        this.$router.push('/lost');
-      }
+        if (hasGameLost) {
+          this.$router.push('/lost');
+        }
+      },
+      deep: true,
     },
   },
   methods: {
     ...mapActions(['initApp']),
-    checkGameVisible({ target }) {
+    checkGameFocused({ visibilityState }) {
       const { isGamePaused } = this;
 
       if (isGamePaused) return;
 
-      if (target.visibilityState === 'hidden') {
+      if (visibilityState === 'hidden') {
         this.$router.push('/pause');
       }
     },

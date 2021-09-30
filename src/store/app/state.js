@@ -1,14 +1,16 @@
 // Return state as function so we can reset it.
 const state = () => ({
-  isGameLoading: true,
-  hasGameWon: false,
-  hasGameLost: false,
-  isGamePaused: false,
-  isOverlayVisible: true,
   game: {
     moves: [],
     time: 0,
   },
+  gameOutcome: {
+    hasGameWon: false,
+    hasGameLost: false,
+  },
+  isGameLoading: true,
+  isGamePaused: false,
+  isOverlayVisible: true,
   versionMatch: true,
 });
 
