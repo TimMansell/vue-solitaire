@@ -34,6 +34,10 @@ const routes = [
   },
   {
     path: '/games',
+    redirect: '/games/1/25',
+  },
+  {
+    path: '/games/:page/:limit',
     components: {
       main: Home,
       overlay: () => import('@/pages/Games.vue'),
@@ -48,6 +52,10 @@ const routes = [
   },
   {
     path: '/leaderboards',
+    redirect: '/leaderboards/Moves/25',
+  },
+  {
+    path: '/leaderboards/:showBest/:limit',
     components: {
       main: Home,
       overlay: () => import('@/pages/Leaderboards.vue'),

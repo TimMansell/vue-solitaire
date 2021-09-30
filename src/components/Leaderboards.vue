@@ -7,7 +7,7 @@
     <div ref="scrollTo">
       <Filters>
         <Select
-          v-model="showBest"
+          v-model="filters.showBest"
           label="Best"
           :items="['Moves', 'Times']"
           @select="setBest"
@@ -15,7 +15,7 @@
         />
 
         <Select
-          v-model="limit"
+          v-model="filters.limit"
           label="Top"
           :items="['25', '50', '100', '500']"
           @select="displayLimit"
@@ -50,24 +50,31 @@ export default {
   },
   data() {
     return {
-      limit: 25,
-      showBest: 'Moves',
+      filters: {
+        limit: parseInt(this.$route.params.limit, 10),
+        showBest: this.$route.params.showBest,
+      },
     };
   },
   watch: {
-    async limit() {
-      await this.displayGames();
+    filters: {
+      async handler() {
+        await this.displayGames();
 
-      this.scrollTo();
-    },
-    async showBest() {
-      await this.displayGames();
-
-      this.scrollTo();
+        this.updateUrl();
+        this.scrollTo();
+      },
+      deep: true,
     },
   },
   computed: {
     ...mapGetters(['leaderboards', 'name']),
+    showBest() {
+      return this.filters.showBest;
+    },
+    limit() {
+      return this.filters.limit;
+    },
   },
   mounted() {
     this.displayGames();
@@ -75,21 +82,23 @@ export default {
   methods: {
     ...mapActions(['getLeaderboards']),
     displayLimit(limit) {
-      this.limit = parseInt(limit, 10);
+      this.filters.limit = parseInt(limit, 10);
     },
     setBest(showBest) {
-      this.showBest = showBest;
+      this.filters.showBest = showBest;
     },
     async displayGames() {
-      const { limit, showBest } = this;
+      const { filters } = this;
 
-      await this.getLeaderboards({
-        limit,
-        showBest,
-      });
+      await this.getLeaderboards(filters);
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);
+    },
+    updateUrl() {
+      const { showBest, limit } = this;
+
+      this.$router.push(`/leaderboards/${showBest}/${limit}`);
     },
   },
 };

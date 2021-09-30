@@ -11,7 +11,7 @@
         </div>
 
         <Select
-          v-model="limit"
+          v-model="filters.limit"
           label="Games"
           :items="['25', '50', '100', '500']"
           @select="displayLimit"
@@ -57,8 +57,10 @@ export default {
   },
   data() {
     return {
-      page: 1,
-      limit: 25,
+      filters: {
+        page: parseInt(this.$route.params.page, 10),
+        limit: parseInt(this.$route.params.limit, 10),
+      },
     };
   },
   filters: {
@@ -66,8 +68,25 @@ export default {
       return formatNumber(value);
     },
   },
+  watch: {
+    filters: {
+      async handler() {
+        await this.displayGames();
+
+        this.updateUrl();
+        this.scrollTo();
+      },
+      deep: true,
+    },
+  },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
+    page() {
+      return this.filters.page;
+    },
+    limit() {
+      return this.filters.limit;
+    },
     offset() {
       const { page, limit } = this;
 
@@ -120,20 +139,12 @@ export default {
   },
   methods: {
     ...mapActions(['getAllGames']),
-    async displayPage(page) {
-      this.page = page;
-
-      await this.displayGames();
-
-      this.scrollTo();
+    displayPage(page) {
+      this.filters.page = page;
     },
-    async displayLimit(limit) {
-      this.page = 1;
-      this.limit = parseInt(limit, 10);
-
-      await this.displayGames();
-
-      this.scrollTo();
+    displayLimit(limit) {
+      this.filters.page = 1;
+      this.filters.limit = parseInt(limit, 10);
     },
     async displayGames() {
       const { offset, limit } = this;
@@ -142,6 +153,11 @@ export default {
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);
+    },
+    updateUrl() {
+      const { page, limit } = this;
+
+      this.$router.push(`/games/${page}/${limit}`);
     },
   },
 };
