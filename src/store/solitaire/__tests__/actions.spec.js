@@ -25,17 +25,17 @@ describe('Solitaire Store', () => {
   it('should have no moves for game state', () => {
     const state = { hasMoves: false };
 
-    checkGameState({ commit, dispatch, state });
+    checkGameState({ dispatch, state });
 
-    expect(dispatch).toHaveBeenCalledWith('setGameState', true);
+    expect(dispatch).toHaveBeenCalledWith('setGameOutcome', true);
   });
 
   it('should have moves for game state', () => {
     const state = { hasMoves: true };
 
-    checkGameState({ commit, dispatch, state });
+    checkGameState({ dispatch, state });
 
-    expect(dispatch).not.toHaveBeenCalledWith('setGameState');
+    expect(dispatch).not.toHaveBeenCalledWith('setGameOutcome');
   });
 
   it('should clear foundations for new game', () => {

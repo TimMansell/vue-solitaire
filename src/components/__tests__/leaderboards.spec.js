@@ -4,6 +4,12 @@ import { mockUid, mockLeaderboardsMoves, mockPlayerName } from '@/mockData';
 
 const mocks = {
   $store: { dispatch: jest.fn() },
+  $route: {
+    params: {
+      limit: 25,
+      showBest: 'moves',
+    },
+  },
 };
 
 const mockComputed = {

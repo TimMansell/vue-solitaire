@@ -15,7 +15,7 @@ describe('GameOverlay.vue', () => {
       mocks,
       propsData: {
         showLogo: true,
-        btnClose: () => {},
+        showClose: true,
       },
       slots: {
         title: 'Title',

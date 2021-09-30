@@ -4,6 +4,12 @@ import { mockHistory } from '@/mockData';
 
 const mocks = {
   $store: { dispatch: jest.fn() },
+  $route: {
+    params: {
+      page: 1,
+      limit: 25,
+    },
+  },
 };
 
 const mockComputed = {
@@ -44,7 +50,7 @@ describe('GameHistory.vue', () => {
       },
     });
 
-    await wrapper.setData({ limit: 3 });
+    await wrapper.setData({ filters: { limit: 3 } });
 
     expect(wrapper.find('[data-test="game-history-pages"]').text()).toContain(
       'Page: 1 / 2'
@@ -59,7 +65,7 @@ describe('GameHistory.vue', () => {
       },
     });
 
-    await wrapper.setData({ limit: 3 });
+    await wrapper.setData({ filters: { limit: 3 } });
 
     expect(
       wrapper
@@ -77,7 +83,7 @@ describe('GameHistory.vue', () => {
       },
     });
 
-    await wrapper.setData({ limit: mockHistory.length });
+    await wrapper.setData({ filters: { limit: mockHistory.length } });
 
     expect(
       wrapper
@@ -95,7 +101,7 @@ describe('GameHistory.vue', () => {
       },
     });
 
-    await wrapper.setData({ limit: 2 });
+    await wrapper.setData({ filters: { limit: 2 } });
 
     expect(wrapper.vm.pageRows).toBe(2);
   });
@@ -108,7 +114,7 @@ describe('GameHistory.vue', () => {
       },
     });
 
-    await wrapper.setData({ limit: mockHistory.length });
+    await wrapper.setData({ filters: { limit: mockHistory.length } });
 
     expect(wrapper.vm.pageRows).toBe(mockHistory.length);
   });
@@ -121,8 +127,7 @@ describe('GameHistory.vue', () => {
       },
     });
 
-    await wrapper.setData({ limit: 3 });
-    await wrapper.setData({ page: 2 });
+    await wrapper.setData({ filters: { limit: 3, page: 2 } });
 
     expect(wrapper.vm.pageRows).toBe(1);
   });
