@@ -15,10 +15,6 @@ export default {
       },
       default: 'default',
     },
-    link: {
-      type: String,
-      default: '',
-    },
     isStacked: {
       type: Boolean,
       default: false,
