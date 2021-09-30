@@ -1,19 +1,19 @@
 <template>
   <header class="header">
     <Controls />
-    <Stats />
+    <GameStats />
   </header>
 </template>
 
 <script>
 import Controls from '@/components/Controls.vue';
-import Stats from '@/components/Stats.vue';
+import GameStats from '@/components/GameStats.vue';
 
 export default {
   name: 'Header',
   components: {
     Controls,
-    Stats,
+    GameStats,
   },
 };
 </script>

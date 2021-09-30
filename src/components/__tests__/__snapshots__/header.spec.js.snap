@@ -3,6 +3,6 @@
 exports[`Header.vue matches snapshot 1`] = `
 <header class="header">
   <controls-stub></controls-stub>
-  <stats-stub></stats-stub>
+  <gamestats-stub></gamestats-stub>
 </header>
 `;
