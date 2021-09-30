@@ -98,7 +98,7 @@ export default {
     updateUrl() {
       const { showBest, limit } = this;
 
-      this.$router.push(`/leaderboards/${showBest}/${limit}`);
+      this.$router.replace(`/leaderboards/${showBest}/${limit}`);
     },
   },
 };
