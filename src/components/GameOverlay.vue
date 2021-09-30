@@ -6,7 +6,12 @@
       v-if="showClose"
       data-test="game-overlay-close"
     >
-      <Button link="/" type="icon" size="lg" data-test="game-overlay-close-btn">
+      <Button
+        @click="$router.push('/')"
+        type="icon"
+        size="lg"
+        data-test="game-overlay-close-btn"
+      >
         <FontAwesomeIcon :icon="closeIcon" />
       </Button>
     </div>
