@@ -3,11 +3,7 @@ import GameStats from '@/components/GameStats.vue';
 
 describe('GameStats.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(GameStats, {
-      computed: {
-        timer: () => 1,
-      },
-    });
+    const wrapper = shallowMount(GameStats);
 
     expect(wrapper).toMatchSnapshot();
   });
