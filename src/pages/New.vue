@@ -1,6 +1,6 @@
 <template>
   <GameOverlay center-content show-logo data-test="game-new">
-    <template #title> Are you sure? page</template>
+    <template #title> Are you sure?</template>
     <template #msg>
       <p>This game will still count towards your statistics</p>
     </template>
