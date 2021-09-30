@@ -5,15 +5,6 @@ import 'virtual:svg-icons-register';
 
 import App from '@/App.vue';
 import Home from '@/pages/Home.vue';
-import New from '@/pages/New.vue';
-import Pause from '@/pages/Pause.vue';
-import Games from '@/pages/Games.vue';
-import Stats from '@/pages/Stats.vue';
-import Leaderboards from '@/pages/Leaderboards.vue';
-import Rules from '@/pages/Rules.vue';
-import Won from '@/pages/Won.vue';
-import Lost from '@/pages/Lost.vue';
-import PageNotFound from '@/pages/PageNotFound.vue';
 import store from './store';
 
 Vue.config.productionTip = false;
@@ -31,62 +22,62 @@ const routes = [
     path: '/new',
     components: {
       main: Home,
-      overlay: New,
+      overlay: () => import('@/pages/New.vue'),
     },
   },
   {
     path: '/pause',
     components: {
       main: Home,
-      overlay: Pause,
+      overlay: () => import('@/pages/Pause.vue'),
     },
   },
   {
     path: '/games',
     components: {
       main: Home,
-      overlay: Games,
+      overlay: () => import('@/pages/Games.vue'),
     },
   },
   {
     path: '/stats',
     components: {
       main: Home,
-      overlay: Stats,
+      overlay: () => import('@/pages/Stats.vue'),
     },
   },
   {
     path: '/leaderboards',
     components: {
       main: Home,
-      overlay: Leaderboards,
+      overlay: () => import('@/pages/Leaderboards.vue'),
     },
   },
   {
     path: '/rules',
     components: {
       main: Home,
-      overlay: Rules,
+      overlay: () => import('@/pages/Rules.vue'),
     },
   },
   {
     path: '/won',
     components: {
       main: Home,
-      overlay: Won,
+      overlay: () => import('@/pages/Won.vue'),
     },
   },
   {
     path: '/lost',
     components: {
       main: Home,
-      overlay: Lost,
+      overlay: () => import('@/pages/Lost.vue'),
     },
   },
   {
     path: '*',
     components: {
-      main: PageNotFound,
+      main: () => import('@/pages/PageNotFound.vue'),
     },
   },
 ];
