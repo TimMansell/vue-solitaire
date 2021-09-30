@@ -66,7 +66,7 @@ const routes = [
       overlay: () => import('@/pages/Won.vue'),
     },
     beforeEnter(to, from, next) {
-      if (store.getters.hasGameWon) {
+      if (store.getters.gameOutcome.hasGameWon) {
         next();
       } else {
         next('/');
@@ -80,7 +80,7 @@ const routes = [
       overlay: () => import('@/pages/Lost.vue'),
     },
     beforeEnter(to, from, next) {
-      if (store.getters.hasGameLost) {
+      if (store.getters.gameOutcome.hasGameLost) {
         next();
       } else {
         next('/');
