@@ -1,6 +1,6 @@
 <template>
   <Button
-    :is-stacked="isStacked"
+    :is-stacked="true"
     @click="gotoUrl"
     data-test="github-btn"
     title="Visit Github Repository"
@@ -19,12 +19,6 @@ export default {
   components: {
     Button,
     FontAwesomeIcon,
-  },
-  props: {
-    isStacked: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
     return {
