@@ -3,6 +3,7 @@ import store from '@/store';
 import Home from '@/pages/Home.vue';
 import New from '@/pages/New.vue';
 import Pause from '@/pages/Pause.vue';
+import History from '@/pages/History.vue';
 import Stats from '@/pages/Stats.vue';
 import Leaderboards from '@/pages/Leaderboards.vue';
 
@@ -35,7 +36,7 @@ const routes = [
     path: '/history/:page/:limit',
     components: {
       main: Home,
-      overlay: () => import('@/pages/Games.vue'),
+      overlay: History,
     },
   },
   {

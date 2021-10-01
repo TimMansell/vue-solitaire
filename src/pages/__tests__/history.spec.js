@@ -1,13 +1,13 @@
 import { shallowMount } from '@vue/test-utils';
-import Games from '@/pages/Games.vue';
+import History from '@/pages/History.vue';
 
 const mocks = {
   $store: { dispatch: jest.fn() },
 };
 
-describe('Games.vue', () => {
+describe('History.vue', () => {
   it('matches snapshot - no games', () => {
-    const wrapper = shallowMount(Games, {
+    const wrapper = shallowMount(History, {
       mocks,
       computed: {
         userGameCount: () => 0,
@@ -18,7 +18,7 @@ describe('Games.vue', () => {
   });
 
   it('matches snapshot - with games', () => {
-    const wrapper = shallowMount(Games, {
+    const wrapper = shallowMount(History, {
       mocks,
       computed: {
         userGameCount: () => 4,
@@ -29,7 +29,7 @@ describe('Games.vue', () => {
   });
 
   it('should not show no games message', () => {
-    const wrapper = shallowMount(Games, {
+    const wrapper = shallowMount(History, {
       mocks,
       computed: {
         userGameCount: () => 4,
@@ -42,7 +42,7 @@ describe('Games.vue', () => {
   });
 
   it('should show no games message', () => {
-    const wrapper = shallowMount(Games, {
+    const wrapper = shallowMount(History, {
       mocks,
       computed: {
         userGameCount: () => 0,
