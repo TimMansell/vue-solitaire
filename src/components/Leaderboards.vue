@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import xss from 'xss';
 import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
@@ -51,8 +52,8 @@ export default {
   data() {
     return {
       filters: {
-        limit: parseInt(this.$route.params.limit, 10),
-        showBest: this.$route.params.showBest,
+        limit: parseInt(xss(this.$route.params.limit), 10),
+        showBest: xss(this.$route.params.showBest),
       },
     };
   },

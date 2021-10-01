@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import xss from 'xss';
 import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
@@ -58,8 +59,8 @@ export default {
   data() {
     return {
       filters: {
-        page: parseInt(this.$route.params.page, 10),
-        limit: parseInt(this.$route.params.limit, 10),
+        page: parseInt(xss(this.$route.params.page), 10),
+        limit: parseInt(xss(this.$route.params.limit), 10),
       },
     };
   },
