@@ -105,7 +105,9 @@ const router = new VueRouter({
 });
 
 router.afterEach((to) => {
-  if (to.path === '/') {
+  const { isGameLoading } = store.getters;
+
+  if (to.path === '/' && !isGameLoading) {
     store.dispatch('setGamePaused', false);
   } else {
     store.dispatch('setGamePaused', true);
