@@ -2,7 +2,7 @@
   <GameOverlay center-content show-logo data-test="404">
     <template #title> Page Not Found :(</template>
     <template #msg>
-      <p>Click the button below to be taken back home</p>
+      <p>Click the button below to be taken back to the game</p>
     </template>
     <template #buttons>
       <HomeButton />
