@@ -99,14 +99,12 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.afterEach((to) => {
   if (to.path === '/') {
     store.dispatch('setGamePaused', false);
   } else {
     store.dispatch('setGamePaused', true);
   }
-
-  next();
 });
 
 export default router;
