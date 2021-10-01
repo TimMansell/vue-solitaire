@@ -1,6 +1,10 @@
 import VueRouter from 'vue-router';
 import store from '@/store';
 import Home from '@/pages/Home.vue';
+import New from '@/pages/New.vue';
+import Pause from '@/pages/Pause.vue';
+import Stats from '@/pages/Stats.vue';
+import Leaderboards from '@/pages/Leaderboards.vue';
 
 const routes = [
   {
@@ -13,14 +17,14 @@ const routes = [
     path: '/new',
     components: {
       main: Home,
-      overlay: () => import('@/pages/New.vue'),
+      overlay: New,
     },
   },
   {
     path: '/pause',
     components: {
       main: Home,
-      overlay: () => import('@/pages/Pause.vue'),
+      overlay: Pause,
     },
   },
   {
@@ -38,7 +42,7 @@ const routes = [
     path: '/stats',
     components: {
       main: Home,
-      overlay: () => import('@/pages/Stats.vue'),
+      overlay: Stats,
     },
   },
   {
@@ -49,7 +53,7 @@ const routes = [
     path: '/leaderboards/:showBest/:limit',
     components: {
       main: Home,
-      overlay: () => import('@/pages/Leaderboards.vue'),
+      overlay: Leaderboards,
     },
   },
   {
