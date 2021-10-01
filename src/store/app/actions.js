@@ -33,7 +33,6 @@ const actions = {
     ]);
 
     dispatch('initApp');
-    dispatch('initGame');
   },
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
