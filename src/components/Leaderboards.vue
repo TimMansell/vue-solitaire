@@ -9,7 +9,7 @@
         <Select
           v-model="filters.showBest"
           label="Best"
-          :items="['moves', 'times']"
+          :items="bestItems"
           @select="setBest"
           data-test="leaderboard-set-best"
         />
@@ -17,7 +17,7 @@
         <Select
           v-model="filters.limit"
           label="Top"
-          :items="['25', '50', '100', '500']"
+          :items="limitItems"
           @select="displayLimit"
           data-test="leaderboard-set-top"
         />
@@ -51,6 +51,8 @@ export default {
   },
   data() {
     return {
+      bestItems: ['moves', 'times'],
+      limitItems: [25, 50, 100, 500],
       filters: {
         limit: parseInt(xss(this.$route.params.limit), 10),
         showBest: xss(this.$route.params.showBest),
@@ -83,10 +85,21 @@ export default {
     },
   },
   mounted() {
+    this.checkInitialFilters();
     this.displayGames();
   },
   methods: {
     ...mapActions(['getLeaderboards']),
+    checkInitialFilters() {
+      const { limitItems, bestItems, filters } = this;
+      const { limit, showBest } = filters;
+
+      const validLimit = limitItems.includes(limit);
+      const validBest = bestItems.includes(showBest);
+
+      this.filters.limit = validLimit ? limit : limitItems[0];
+      this.filters.showBest = validBest ? showBest : bestItems[0];
+    },
     displayLimit(limit) {
       this.filters.limit = parseInt(limit, 10);
     },

@@ -13,7 +13,7 @@
         <Select
           v-model="filters.limit"
           label="Games"
-          :items="['25', '50', '100', '500']"
+          :items="limitItems"
           @select="displayLimit"
         />
       </Filters>
@@ -58,6 +58,7 @@ export default {
   },
   data() {
     return {
+      limitItems: [25, 50, 100, 500],
       filters: {
         page: parseInt(xss(this.$route.params.page), 10),
         limit: parseInt(xss(this.$route.params.limit), 10),
@@ -136,10 +137,20 @@ export default {
     },
   },
   mounted() {
+    this.checkInitialFilters();
     this.displayGames();
   },
   methods: {
     ...mapActions(['getAllGames']),
+    checkInitialFilters() {
+      const { limitItems, filters, totalPages } = this;
+      const { limit, page } = filters;
+
+      const validLimit = limitItems.includes(limit);
+
+      this.filters.limit = validLimit ? limit : limitItems[0];
+      this.filters.page = page <= totalPages ? page : 1;
+    },
     displayPage(page) {
       this.filters.page = page;
     },
