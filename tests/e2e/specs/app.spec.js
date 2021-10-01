@@ -19,7 +19,7 @@ describe('App', () => {
     it('show pause page if url is changed manually', () => {
       cy.visit('#/pause');
 
-      cy.checkGameIsPaused();
+      cy.checkGameIsPaused(true);
 
       cy.resumeGame();
 
