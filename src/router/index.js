@@ -24,11 +24,11 @@ const routes = [
     },
   },
   {
-    path: '/games',
-    redirect: '/games/1/25',
+    path: '/history',
+    redirect: '/history/1/25',
   },
   {
-    path: '/games/:page/:limit',
+    path: '/history/:page/:limit',
     components: {
       main: Home,
       overlay: () => import('@/pages/Games.vue'),

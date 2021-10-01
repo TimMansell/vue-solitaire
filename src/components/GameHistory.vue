@@ -158,7 +158,7 @@ export default {
     updateUrl() {
       const { page, limit } = this;
 
-      this.$router.replace(`/games/${page}/${limit}`);
+      this.$router.replace(`/history/${page}/${limit}`);
     },
   },
 };
