@@ -12,13 +12,17 @@ Cypress.Commands.add('checkGameNumber', (number) => {
   cy.get('[data-test="stats"]').formatNumber().should('equal', number);
 });
 
-Cypress.Commands.add('checkGameWon', () => {
-  cy.get('[data-test="game-won"]').should('exist');
+Cypress.Commands.add('checkGameWon', (hasWon) => {
+  const wonExist = hasWon ? 'exist' : 'not.exist';
+
+  cy.get('[data-test="game-won"]').should(wonExist);
   cy.get('[data-test="game-lost"]').should('not.exist');
 });
 
-Cypress.Commands.add('checkGameLost', () => {
-  cy.get('[data-test="game-lost"]').should('exist');
+Cypress.Commands.add('checkGameLost', (hasLost) => {
+  const lostExist = hasLost ? 'exist' : 'not.exist';
+
+  cy.get('[data-test="game-lost"]').should(lostExist);
   cy.get('[data-test="game-won"]').should('not.exist');
 });
 

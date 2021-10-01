@@ -88,3 +88,9 @@ Cypress.Commands.add('closeOverlay', () => {
 
   cy.checkVisibilityHidden(false);
 });
+
+Cypress.Commands.add('goHome', () => {
+  cy.get('[data-test="home-btn"]').click();
+
+  cy.checkVisibilityHidden(false);
+});

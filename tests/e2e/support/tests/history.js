@@ -5,7 +5,7 @@ Cypress.Commands.add('setHistoryPage', (pageText) => {
 });
 
 Cypress.Commands.add('selectHistoryGames', (value) => {
-  cy.get('[data-test="game-history"] [data-test="select"]').select(value);
+  cy.get('[data-test="game-history"] [data-test="select"]').select(`${value}`);
 
   cy.wait('@UserHistoryAPI');
 });
@@ -36,6 +36,10 @@ Cypress.Commands.add('getFirstAndLastGame', () => {
       });
     });
   });
+});
+
+Cypress.Commands.add('checkSelectHistoryGames', (value) => {
+  cy.getSelectHistoryGames().should('equal', value);
 });
 
 Cypress.Commands.add('checkHistoryGameRange', () => {

@@ -17,3 +17,4 @@ import './version';
 import './snapshots';
 import './paused';
 import './visibility';
+import './404';
