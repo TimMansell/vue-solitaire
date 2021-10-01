@@ -29,6 +29,50 @@ describe('GameHistory.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('should set default filters when route params are incorrect format', () => {
+    const wrapper = shallowMount(GameHistory, {
+      mocks: {
+        ...mocks,
+        $route: {
+          params: {
+            page: 'abc',
+            limit: 'abc',
+          },
+        },
+      },
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.vm.filters).toStrictEqual({
+      page: 1,
+      limit: 25,
+    });
+  });
+
+  it('should set default filters when route params are correct format but are out of bounds', () => {
+    const wrapper = shallowMount(GameHistory, {
+      mocks: {
+        ...mocks,
+        $route: {
+          params: {
+            page: 5000,
+            limit: 5000,
+          },
+        },
+      },
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.vm.filters).toStrictEqual({
+      page: 1,
+      limit: 25,
+    });
+  });
+
   it('should show correct completed games message', () => {
     const wrapper = shallowMount(GameHistory, {
       mocks,

@@ -6,8 +6,8 @@ const mocks = {
   $store: { dispatch: jest.fn() },
   $route: {
     params: {
-      limit: 25,
       showBest: 'moves',
+      limit: 25,
     },
   },
 };
@@ -28,6 +28,50 @@ describe('Leaderboards.vue', () => {
     });
 
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should set default filters when route params are incorrect format', () => {
+    const wrapper = shallowMount(Leaderboards, {
+      mocks: {
+        ...mocks,
+        $route: {
+          params: {
+            showBest: 'abc',
+            limit: 'abc',
+          },
+        },
+      },
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.vm.filters).toStrictEqual({
+      showBest: 'moves',
+      limit: 25,
+    });
+  });
+
+  it('should set default filters when route params are correct format but are out of bounds', () => {
+    const wrapper = shallowMount(Leaderboards, {
+      mocks: {
+        ...mocks,
+        $route: {
+          params: {
+            showBest: 'times',
+            limit: 5000,
+          },
+        },
+      },
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.vm.filters).toStrictEqual({
+      showBest: 'times',
+      limit: 25,
+    });
   });
 
   it('should show correct top message', () => {
