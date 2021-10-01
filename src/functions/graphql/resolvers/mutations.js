@@ -8,7 +8,9 @@ import { initCards, checkGameState } from '../../../services/solitaire';
 import {
   insertIntoDb,
   findItemInDb,
+  findAllItems,
   deleteFromDb,
+  deleteAllFromDb,
   calculateTime,
 } from './helpers';
 import { createISODate } from '../../../helpers/dates';
@@ -56,21 +58,38 @@ export const newGame = async (_, __, context) => {
 
 export const saveGame = async (_, __, context) => {
   const { client, variables } = context;
-  const { uid, moves, time, paused } = variables;
+  const { uid, moves, time } = variables;
+  const timeThreshold = 0.95;
 
   const finishDate = createISODate();
 
-  const { cards, date: startDate } = await findItemInDb({
+  const findDeck = findItemInDb({
     client,
     collection: 'decks',
     findFields: { uid },
     returnFields: { cards: 1, date: 1 },
   });
 
-  const { isGameFinished, hasMoves } = checkGameState(moves, cards);
-  const time2 = calculateTime(startDate, finishDate, paused);
+  const findPaused = findAllItems({
+    client,
+    collection: 'pause',
+    findFields: { uid },
+    returnFields: { date: 1, isGamePaused: 1 },
+  });
 
-  console.log({ time2, time });
+  const [deck, paused] = await Promise.all([findDeck, findPaused]);
+
+  const { cards, date: startDate } = deck;
+  const newPaused = [...paused, { date: finishDate, isPaused: false }];
+
+  const { isGameFinished, hasMoves } = checkGameState(moves, cards);
+  const timeServer = calculateTime(startDate, finishDate, newPaused);
+
+  const timeDiff = time / timeServer;
+
+  const savedTime = timeDiff >= timeThreshold ? time : timeServer;
+
+  console.log({ timeServer, time, timeDiff });
 
   const game = {
     date: finishDate,
@@ -79,6 +98,7 @@ export const saveGame = async (_, __, context) => {
     won: isGameFinished && !hasMoves,
     lost: !isGameFinished && !hasMoves,
     completed: true,
+    time: savedTime,
   };
 
   const outcome = gameOutcome(game);
@@ -96,11 +116,32 @@ export const saveGame = async (_, __, context) => {
     sortBy: { date: 1 },
   });
 
+  deleteAllFromDb({
+    client,
+    collection: 'pause',
+    findFields: { uid },
+  });
+
   return { outcome };
+};
+
+export const pauseGame = async (_, __, context) => {
+  const { client, variables } = context;
+
+  const date = createISODate();
+
+  insertIntoDb({
+    client,
+    collection: 'pause',
+    document: { ...variables, date },
+  });
+
+  return { saved: true };
 };
 
 export const mutations = {
   createUser,
   newGame,
   saveGame,
+  pauseGame,
 };

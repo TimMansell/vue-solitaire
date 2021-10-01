@@ -29,9 +29,6 @@ const mutations = {
   SET_MOVES(state, move) {
     state.game.moves = [...state.game.moves, move];
   },
-  SET_PAUSED(state, paused) {
-    state.game.paused = [...state.game.paused, paused];
-  },
   UPDATE_GAME_TIME(state) {
     state.game.time += 1;
   },

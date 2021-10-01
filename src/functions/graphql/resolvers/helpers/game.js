@@ -3,11 +3,11 @@ import { differenceInSeconds, parseISO } from 'date-fns';
 // eslint-disable-next-line import/prefer-default-export
 export const calculateTime = (startDate, finishDate, paused) => {
   const pauseMoves = paused
-    .filter(({ isPaused }) => isPaused)
+    .filter(({ isGamePaused }) => isGamePaused)
     .map(({ date }) => date);
 
   const resumeMoves = paused
-    .filter(({ isPaused }) => !isPaused)
+    .filter(({ isGamePaused }) => !isGamePaused)
     .map(({ date }) => date);
 
   const pauseResumeMoves = pauseMoves.map((date, index) => ({
@@ -20,14 +20,19 @@ export const calculateTime = (startDate, finishDate, paused) => {
   const time = differenceInSeconds(parseISO(finishDate), parseISO(startDate));
 
   const pauseMoveTimes = pauseResumeMoves.reduce(
-    (totalTime, { pause, resume }) =>
-      totalTime + differenceInSeconds(parseISO(resume), parseISO(pause)),
+    (totalTime, { pause, resume }) => {
+      return (
+        totalTime +
+        differenceInSeconds(parseISO(resume), parseISO(pause), {
+          roundingMethod: 'ceil',
+        })
+      );
+    },
     0
   );
-
   const gameTime = time - pauseMoveTimes;
 
-  console.log({ gameTime, time, pauseMoveTimes });
+  console.log({ time, gameTime, pauseMoveTimes });
 
   return gameTime;
 };

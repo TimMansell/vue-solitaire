@@ -1,5 +1,4 @@
-import { saveGame, getInitialData } from '@/services/db';
-import { createISODate } from '@/helpers/dates';
+import { saveGame, getInitialData, pauseGame } from '@/services/db';
 import { version as localVersion } from '../../../package.json';
 
 const actions = {
@@ -45,12 +44,13 @@ const actions = {
 
     await Promise.all([saveGame(luid, game), dispatch('createUser')]);
   },
-  setGamePaused({ commit }, isGamePaused) {
+  setGamePaused({ commit, rootState }, isGamePaused) {
+    const { luid } = rootState.user;
+
+    pauseGame(luid, isGamePaused);
+
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-    const date = createISODate();
-
-    commit('SET_PAUSED', { isPaused, date });
   updateTimer({ commit }) {
     commit('UPDATE_GAME_TIME');
   },

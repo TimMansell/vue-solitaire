@@ -80,7 +80,7 @@ export const deleteFromDb = async ({
     .findOneAndDelete({ ...findFields }, { sort: { ...sortBy } });
 };
 
-export const deleteAllFromDb = async (client, collection, document) => {
+export const deleteAllFromDb = async ({ client, collection, document }) => {
   const db = await client();
 
   return db.collection(collection).deleteMany({ ...document });

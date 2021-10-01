@@ -3,7 +3,6 @@ const state = () => ({
   game: {
     moves: [],
     time: 0,
-    paused: [],
   },
   gameOutcome: {
     hasGameWon: false,
