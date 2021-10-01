@@ -65,4 +65,16 @@ describe('Button.vue', () => {
 
     expect(wrapper.emitted().click).toBeTruthy();
   });
+
+  it('should not call click method', () => {
+    const wrapper = shallowMount(Button, {
+      propsData: {
+        disabled: true,
+      },
+    });
+
+    wrapper.trigger('click');
+
+    expect(wrapper.emitted().click).toBeFalsy();
+  });
 });

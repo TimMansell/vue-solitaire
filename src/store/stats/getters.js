@@ -5,8 +5,6 @@ const getters = {
   userGameCount: (state) => state.userGameCount,
   globalGameCount: (state) => state.globalGameCount,
   leaderboards: (state) => state.leaderboards,
-  showStats: (state) => state.showStats,
-  showLeaderboards: (state) => state.showLeaderboards,
 };
 
 export default getters;

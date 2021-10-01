@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResumeGameButton.vue matches snapshot 1`] = `
+<button-stub type="default" size="md" data-test="resume-game-btn">
+  Resume
+</button-stub>
+`;

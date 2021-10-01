@@ -1,23 +1,64 @@
 <template>
   <div id="app">
-    <Header />
-    <Solitaire />
-    <Footer />
+    <RouterView name="main" />
+    <RouterView name="overlay" />
   </div>
 </template>
 
 <script>
 /* eslint vue-scoped-css/require-scoped: off */
-import Header from '@/components/Header.vue';
-import Solitaire from '@/components/Solitaire.vue';
-import Footer from '@/components/Footer.vue';
+import { mapGetters, mapActions } from 'vuex';
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
 
 export default {
   name: 'App',
-  components: {
-    Header,
-    Solitaire,
-    Footer,
+  computed: {
+    ...mapGetters(['isGamePaused', 'gameOutcome']),
+  },
+  created() {
+    this.initApp();
+  },
+  mounted() {
+    const events = {
+      visibilitychange: ({ target }) =>
+        setTimeout(this.checkGameFocused, 2000, target),
+    };
+
+    this.events = addEventListener(events);
+  },
+  destroyed() {
+    const { events } = this;
+
+    removeEventListener(events);
+  },
+  watch: {
+    gameOutcome: {
+      handler({ hasGameWon, hasGameLost }) {
+        if (hasGameWon) {
+          this.$router.push('/won');
+        }
+
+        if (hasGameLost) {
+          this.$router.push('/lost');
+        }
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    ...mapActions(['initApp']),
+    checkGameFocused({ visibilityState }) {
+      const { isGamePaused } = this;
+
+      if (isGamePaused) return;
+
+      if (visibilityState === 'hidden') {
+        this.$router.push('/pause');
+      }
+    },
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" :class="classes" @click="click">
+  <button class="btn" :class="classes" @click="click" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -16,6 +16,10 @@ export default {
       default: 'default',
     },
     isStacked: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },

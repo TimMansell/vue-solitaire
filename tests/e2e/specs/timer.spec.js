@@ -70,6 +70,32 @@ describe('Timer', () => {
 
       cy.checkTimerIs('0:00:03');
     });
+
+    it('timer should pause/unpause if url is changed manually', () => {
+      cy.saveTimer();
+
+      cy.visit('#/pause');
+
+      cy.saveTimer({ wait: 2000 });
+
+      cy.checkTimerIsPaused();
+
+      cy.visit('#/');
+
+      cy.wait(2000);
+
+      cy.checkTimerIs('0:00:02');
+    });
+
+    it('timer should pause on 404 page', () => {
+      cy.visit('#/abc');
+
+      cy.wait(2000);
+
+      cy.goHome();
+
+      cy.checkTimerIs('0:00:00');
+    });
   });
 
   describe('Refreshing page', () => {

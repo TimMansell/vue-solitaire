@@ -1,13 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PauseGameButton.vue matches pause snapshot 1`] = `
-<button-stub type="default" size="md" data-test="pause-game-btn"><span>Pause</span>
-  <!---->
-</button-stub>
-`;
-
-exports[`PauseGameButton.vue matches resume snapshot 1`] = `
-<button-stub type="default" size="md" data-test="pause-game-btn">
-  <!----> <span>Resume</span>
+exports[`PauseGameButton.vue matches snapshot 1`] = `
+<button-stub type="default" isstacked="true" size="md" data-test="pause-game-btn">
+  Pause
 </button-stub>
 `;

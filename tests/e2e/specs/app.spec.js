@@ -15,6 +15,26 @@ describe('App', () => {
 
       cy.checkFoundations();
     });
+
+    it('show pause page if url is changed manually', () => {
+      cy.visit('#/pause');
+
+      cy.checkGameIsPaused(true);
+
+      cy.resumeGame();
+
+      cy.checkBoard();
+    });
+
+    it('it should show 404 page', () => {
+      cy.visit('#/abc');
+
+      cy.check404();
+
+      cy.goHome();
+
+      cy.checkBoard();
+    });
   });
 
   describe('Version', () => {

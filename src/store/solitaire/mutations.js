@@ -23,9 +23,6 @@ const mutations = {
   UNSELECT_CARD(state) {
     state.selectedCardId = null;
   },
-  SET_HAS_MOVES(state, hasMoves) {
-    state.hasMoves = hasMoves;
-  },
   DRAG_CARDS(state, cards) {
     state.draggedCards = cards;
   },

@@ -1,16 +1,16 @@
 <template>
   <div class="controls">
     <div class="controls__actions">
-      <NewGameButton show-confirmation is-stacked />
-      <PauseGameButton is-stacked />
-      <HistoryButton is-stacked />
-      <ViewStatsButton is-stacked />
-      <LeaderboardsButton is-stacked />
+      <NewGameButton />
+      <PauseGameButton />
+      <HistoryButton />
+      <ViewStatsButton />
+      <LeaderboardsButton />
     </div>
     <div>
-      <ShowRulesButton is-stacked />
-      <PortfolioButton is-stacked />
-      <GithubButton is-stacked v-if="showGithubButton" />
+      <ShowRulesButton />
+      <PortfolioButton />
+      <GithubButton v-if="showGithubButton" />
     </div>
   </div>
 </template>

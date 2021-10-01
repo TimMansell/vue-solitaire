@@ -11,6 +11,18 @@ describe('Game Lost', () => {
     cy.clearTest();
   });
 
+  describe('Default', () => {
+    beforeEach(() => {
+      cy.visitApp();
+    });
+
+    it('it should not show lost page if game is not lost', () => {
+      cy.visit('#/lost');
+
+      cy.checkGameLost(false);
+    });
+  });
+
   describe('Variations', () => {
     it('should have K♣ as an available move then no moves after that', () => {
       cy.mockApi({
@@ -22,7 +34,7 @@ describe('Game Lost', () => {
 
       cy.runGameWithClicks(noMovesKingColumnMoves);
 
-      cy.checkGameLost();
+      cy.checkGameLost(true);
     });
 
     it('should have A♦ as an available foundation move then no moves after that', () => {
@@ -35,7 +47,7 @@ describe('Game Lost', () => {
 
       cy.clickFromTo('A♦', 'foundation-0');
 
-      cy.checkGameLost();
+      cy.checkGameLost(true);
     });
 
     it('should have 2♦ as an available foundation move then no moves after that', () => {
@@ -49,7 +61,7 @@ describe('Game Lost', () => {
       cy.clickFromTo('A♦', 'foundation-0');
       cy.clickFromTo('2♦', 'foundation-0');
 
-      cy.checkGameLost();
+      cy.checkGameLost(true);
     });
   });
 
@@ -67,13 +79,13 @@ describe('Game Lost', () => {
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {
       cy.runGameWithClicks(incompleteGameMoves);
 
-      cy.checkGameLost();
+      cy.checkGameLost(true);
 
       cy.testShowBoard();
 
       cy.checkTimerIsPausedOnReload();
 
-      cy.checkGameLost();
+      cy.checkGameLost(true);
 
       cy.confirmNewGame({ waitUser: true });
 
@@ -97,13 +109,13 @@ describe('Game Lost', () => {
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {
       cy.runGameWithClicks(incompleteGameMoves);
 
-      cy.checkGameLost();
+      cy.checkGameLost(true);
 
       cy.testShowBoard();
 
       cy.checkTimerIsPausedOnReload();
 
-      cy.checkGameLost();
+      cy.checkGameLost(true);
 
       cy.confirmNewGame();
 

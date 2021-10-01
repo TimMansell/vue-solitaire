@@ -10,7 +10,7 @@ Cypress.Commands.add('newGame', () => {
 });
 
 Cypress.Commands.add('confirmNewGame', ({ waitUser } = { waitUser: false }) => {
-  cy.get('[data-test="game-overlay-btns"] [data-test="new-game-btn"]').click();
+  cy.get('[data-test="start-new-game-btn"]').click();
 
   cy.checkVisibilityHidden(false);
 
@@ -32,17 +32,13 @@ Cypress.Commands.add('pauseGame', () => {
 });
 
 Cypress.Commands.add('resumeGame', () => {
-  cy.get(
-    '[data-test="game-overlay-btns"] [data-test="pause-game-btn"]'
-  ).click();
+  cy.get('[data-test="resume-game-btn"]').click();
 
   cy.checkVisibilityHidden(false);
 });
 
 Cypress.Commands.add('continueGame', () => {
-  cy.get(
-    '[data-test="game-overlay-btns"] [data-test="continue-game-btn"]'
-  ).click();
+  cy.get('[data-test="continue-game-btn"]').click();
 
   cy.checkVisibilityHidden(false);
 });
@@ -89,6 +85,12 @@ Cypress.Commands.add('showBoard', () => {
 
 Cypress.Commands.add('closeOverlay', () => {
   cy.get('[data-test="game-overlay-close-btn"]').click();
+
+  cy.checkVisibilityHidden(false);
+});
+
+Cypress.Commands.add('goHome', () => {
+  cy.get('[data-test="home-btn"]').click();
 
   cy.checkVisibilityHidden(false);
 });

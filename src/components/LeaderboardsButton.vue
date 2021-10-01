@@ -1,7 +1,7 @@
 <template>
   <Button
+    @click="$router.push('/leaderboards')"
     :is-stacked="true"
-    @click="toggleLeaderboards"
     :disabled="isGameLoading"
     data-test="leaderboards-btn"
   >
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -20,9 +20,6 @@ export default {
   },
   computed: {
     ...mapGetters(['isGameLoading']),
-  },
-  methods: {
-    ...mapActions(['toggleLeaderboards']),
   },
 };
 </script>

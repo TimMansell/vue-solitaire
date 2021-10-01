@@ -7,27 +7,27 @@
     <div ref="scrollTo">
       <Filters>
         <Select
-          v-model="showBest"
+          v-model="filters.showBest"
           label="Best"
-          :items="['Moves', 'Times']"
+          :items="bestItems"
           @select="setBest"
           data-test="leaderboard-set-best"
         />
 
         <Select
-          v-model="limit"
+          v-model="filters.limit"
           label="Top"
-          :items="['25', '50', '100', '500']"
+          :items="limitItems"
           @select="displayLimit"
           data-test="leaderboard-set-top"
         />
       </Filters>
     </div>
 
-    <p data-test="leaderboards-heading">Top {{ limit }} Best {{ showBest }}</p>
+    <p data-test="leaderboards-heading">Top {{ limit }} Best {{ best }}</p>
 
     <ResponsiveTable
-      :headings="['Rank', 'Date', 'Player', `${showBest}`]"
+      :headings="['Rank', 'Date', 'Player', `${best}`]"
       :items="leaderboards"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'player', value: name }"
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import xss from 'xss';
 import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
@@ -50,46 +51,73 @@ export default {
   },
   data() {
     return {
-      limit: 25,
-      showBest: 'Moves',
+      bestItems: ['moves', 'times'],
+      limitItems: [25, 50, 100, 500],
+      filters: {
+        limit: parseInt(xss(this.$route.params.limit), 10),
+        showBest: xss(this.$route.params.showBest),
+      },
     };
   },
   watch: {
-    async limit() {
-      await this.displayGames();
+    filters: {
+      async handler() {
+        await this.displayGames();
 
-      this.scrollTo();
-    },
-    async showBest() {
-      await this.displayGames();
-
-      this.scrollTo();
+        this.updateUrl();
+        this.scrollTo();
+      },
+      deep: true,
     },
   },
   computed: {
     ...mapGetters(['leaderboards', 'name']),
+    showBest() {
+      return this.filters.showBest;
+    },
+    limit() {
+      return this.filters.limit;
+    },
+    best() {
+      const { showBest } = this.filters;
+
+      return showBest.charAt(0).toUpperCase() + showBest.slice(1);
+    },
   },
   mounted() {
+    this.checkInitialFilters();
     this.displayGames();
   },
   methods: {
     ...mapActions(['getLeaderboards']),
+    checkInitialFilters() {
+      const { limitItems, bestItems, filters } = this;
+      const { limit, showBest } = filters;
+
+      const validLimit = limitItems.includes(limit);
+      const validBest = bestItems.includes(showBest);
+
+      this.filters.limit = validLimit ? limit : limitItems[0];
+      this.filters.showBest = validBest ? showBest : bestItems[0];
+    },
     displayLimit(limit) {
-      this.limit = parseInt(limit, 10);
+      this.filters.limit = parseInt(limit, 10);
     },
     setBest(showBest) {
-      this.showBest = showBest;
+      this.filters.showBest = showBest;
     },
     async displayGames() {
-      const { limit, showBest } = this;
+      const { filters } = this;
 
-      await this.getLeaderboards({
-        limit,
-        showBest,
-      });
+      await this.getLeaderboards(filters);
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);
+    },
+    updateUrl() {
+      const { showBest, limit } = this;
+
+      this.$router.replace(`/leaderboards/${showBest}/${limit}`);
     },
   },
 };

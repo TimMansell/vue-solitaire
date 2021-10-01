@@ -31,11 +31,11 @@ describe('Leaderboards', () => {
 
       cy.checkLeaderboardHeading('Top 25 Best Moves');
 
-      cy.selectLeaderboardBestItem('Times');
+      cy.selectLeaderboardBest('times');
 
       cy.checkLeaderboardHeading('Top 25 Best Times');
 
-      cy.selectLeaderboardTopItem('50');
+      cy.selectLeaderboardTop(50);
 
       cy.checkLeaderboardHeading('Top 50 Best Times');
     });
@@ -45,7 +45,7 @@ describe('Leaderboards', () => {
 
       cy.checkTableHasRowLength(25);
 
-      cy.selectLeaderboardTopItem('50');
+      cy.selectLeaderboardTop(50);
 
       cy.checkTableHasRowLength(50);
     });
@@ -55,9 +55,38 @@ describe('Leaderboards', () => {
 
       cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
-      cy.selectLeaderboardBestItem('Times');
+      cy.selectLeaderboardBest('times');
 
       cy.checkTableHeading({ cell: 3, heading: 'Times' });
+    });
+
+    it('should show correct data from url params', () => {
+      const best = 'times';
+      const top = 100;
+
+      cy.visit(`#/leaderboards/${best}/${top}`);
+
+      cy.checkSelectLeaderboardBest(best);
+      cy.checkSelectLeaderboardTop(top);
+
+      cy.checkLeaderboardHeading('Top 100 Best Times');
+
+      cy.checkTableHeading({ cell: 3, heading: 'Times' });
+
+      cy.checkLeaderboardGameRange();
+    });
+
+    it('it should set filters to default params', () => {
+      cy.visit('#/leaderboards/abc/5000');
+
+      cy.checkSelectLeaderboardBest('moves');
+      cy.checkSelectLeaderboardTop(25);
+
+      cy.checkLeaderboardHeading('Top 25 Best Moves');
+
+      cy.checkTableHeading({ cell: 3, heading: 'Moves' });
+
+      cy.url().should('include', '#/leaderboards/moves/25');
     });
   });
 

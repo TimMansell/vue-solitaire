@@ -1,7 +1,7 @@
 <template>
   <Button
-    :is-stacked="isStacked"
-    @click="playNewGame"
+    @click="$router.push('/new')"
+    :is-stacked="true"
     :disabled="isGameLoading"
     data-test="new-game-btn"
   >
@@ -10,40 +10,16 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
-  name: 'NewGame',
+  name: 'NewGameButton',
   components: {
     Button,
   },
-  props: {
-    showConfirmation: {
-      type: Boolean,
-      default: false,
-    },
-    isStacked: {
-      type: Boolean,
-      default: false,
-    },
-  },
   computed: {
     ...mapGetters(['isGameLoading']),
-  },
-  methods: {
-    ...mapActions(['newGame', 'toggleNewGame']),
-    playNewGame() {
-      const { showConfirmation } = this;
-
-      if (showConfirmation) {
-        this.toggleNewGame();
-
-        return;
-      }
-
-      this.newGame();
-    },
   },
 };
 </script>

@@ -1,15 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Stats.vue matches snapshot 1`] = `
-<div class="stats">
-  <div class="stats__item">
-    <usergames-stub></usergames-stub>
-  </div>
-  <div class="stats__item">
-    <moves-stub></moves-stub>
-  </div>
-  <div class="stats__item">
-    <timer-stub></timer-stub>
-  </div>
+<div>
+  <table-stub headings="Played,Won,Lost,Gave Up" items="9,2,4,3,,22.22%,44.44%,33.33%" placeholderrows="2" data-test="user-stats"></table-stub>
+  <h1>Global Stats</h1>
+  <table-stub headings="Played,Won,Lost,Gave Up" items="9,2,4,3,,22.22%,44.44%,33.33%" placeholderrows="2" data-test="global-stats"></table-stub>
 </div>
 `;

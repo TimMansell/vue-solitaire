@@ -192,7 +192,7 @@ describe('History', () => {
 
       cy.checkTableHasRowLength(25);
 
-      cy.selectHistoryGames('50');
+      cy.selectHistoryGames(50);
 
       cy.checkTableHasRowLength(50);
 
@@ -211,7 +211,7 @@ describe('History', () => {
 
       cy.setHistoryPage('Last');
 
-      cy.selectHistoryGames('50');
+      cy.selectHistoryGames(50);
 
       cy.checkHistoryPages();
 
@@ -233,6 +233,39 @@ describe('History', () => {
       cy.checkHistoryPages();
 
       cy.checkIsOnPage(2);
+    });
+
+    it('should show correct data from url params', () => {
+      const page = 2;
+      const games = 50;
+
+      cy.setUser(mockUid);
+
+      cy.visit(`#/history/${page}/${games}`);
+
+      cy.checkSelectHistoryGames(games);
+
+      cy.checkHistoryGameRange();
+
+      cy.checkHistoryPages();
+
+      cy.checkIsOnPage(page);
+    });
+
+    it('it should set filters to default params', () => {
+      cy.setUser(mockUid);
+
+      cy.visit('#/history/abc/5000');
+
+      cy.checkSelectHistoryGames(25);
+
+      cy.checkHistoryGameRange();
+
+      cy.checkHistoryPages();
+
+      cy.checkIsOnPage(1);
+
+      cy.url().should('include', '#/history/1/25');
     });
   });
 });

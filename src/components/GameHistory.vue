@@ -11,9 +11,9 @@
         </div>
 
         <Select
-          v-model="limit"
+          v-model="filters.limit"
           label="Games"
-          :items="['25', '50', '100', '500']"
+          :items="limitItems"
           @select="displayLimit"
         />
       </Filters>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import xss from 'xss';
 import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
@@ -57,8 +58,11 @@ export default {
   },
   data() {
     return {
-      page: 1,
-      limit: 25,
+      limitItems: [25, 50, 100, 500],
+      filters: {
+        page: parseInt(xss(this.$route.params.page), 10),
+        limit: parseInt(xss(this.$route.params.limit), 10),
+      },
     };
   },
   filters: {
@@ -66,8 +70,25 @@ export default {
       return formatNumber(value);
     },
   },
+  watch: {
+    filters: {
+      async handler() {
+        await this.displayGames();
+
+        this.updateUrl();
+        this.scrollTo();
+      },
+      deep: true,
+    },
+  },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
+    page() {
+      return this.filters.page;
+    },
+    limit() {
+      return this.filters.limit;
+    },
     offset() {
       const { page, limit } = this;
 
@@ -116,24 +137,26 @@ export default {
     },
   },
   mounted() {
+    this.checkInitialFilters();
     this.displayGames();
   },
   methods: {
     ...mapActions(['getAllGames']),
-    async displayPage(page) {
-      this.page = page;
+    checkInitialFilters() {
+      const { limitItems, filters, totalPages } = this;
+      const { limit, page } = filters;
 
-      await this.displayGames();
+      const validLimit = limitItems.includes(limit);
 
-      this.scrollTo();
+      this.filters.limit = validLimit ? limit : limitItems[0];
+      this.filters.page = page <= totalPages ? page : 1;
     },
-    async displayLimit(limit) {
-      this.page = 1;
-      this.limit = parseInt(limit, 10);
-
-      await this.displayGames();
-
-      this.scrollTo();
+    displayPage(page) {
+      this.filters.page = page;
+    },
+    displayLimit(limit) {
+      this.filters.page = 1;
+      this.filters.limit = parseInt(limit, 10);
     },
     async displayGames() {
       const { offset, limit } = this;
@@ -142,6 +165,11 @@ export default {
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);
+    },
+    updateUrl() {
+      const { page, limit } = this;
+
+      this.$router.replace(`/history/${page}/${limit}`);
     },
   },
 };

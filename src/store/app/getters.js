@@ -1,16 +1,10 @@
 const getters = {
   isGameLoading: (state) => state.isGameLoading,
-  isGameWon: (state) => state.isGameWon,
-  isGameLost: (state) => state.isGameLost,
-  isGamePaused: (state) => state.isGamePaused.isPaused,
-  isGameActive: (state) => state.isGamePaused.isActive,
-  isTimerPaused: (state) => state.isTimerPaused,
+  isGamePaused: (state) => state.isGamePaused,
   isOverlayVisible: (state) => state.isOverlayVisible,
+  gameOutcome: (state) => state.gameOutcome,
   timer: (state) => state.game.time,
   moves: (state) => state.game.moves.length,
-  showRules: (state) => state.showRules,
-  showNewGame: (state) => state.showNewGame,
-  showHistory: (state) => state.showHistory,
   versionMatch: (state) => state.versionMatch,
 };
 

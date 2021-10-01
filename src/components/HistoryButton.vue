@@ -1,7 +1,7 @@
 <template>
   <Button
-    :is-stacked="isStacked"
-    @click="toggleHistory"
+    @click="$router.push('/history')"
+    :is-stacked="true"
     :disabled="isGameLoading"
     data-test="history-btn"
   >
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -18,17 +18,8 @@ export default {
   components: {
     Button,
   },
-  props: {
-    isStacked: {
-      type: Boolean,
-      default: false,
-    },
-  },
   computed: {
     ...mapGetters(['isGameLoading']),
-  },
-  methods: {
-    ...mapActions(['toggleHistory']),
   },
 };
 </script>

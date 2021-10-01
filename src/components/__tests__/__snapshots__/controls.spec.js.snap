@@ -3,15 +3,15 @@
 exports[`Controls.vue matches snapshot 1`] = `
 <div class="controls">
   <div class="controls__actions">
-    <newgamebutton-stub showconfirmation="true" isstacked="true"></newgamebutton-stub>
-    <pausegamebutton-stub isstacked="true"></pausegamebutton-stub>
-    <historybutton-stub isstacked="true"></historybutton-stub>
-    <viewstatsbutton-stub is-stacked=""></viewstatsbutton-stub>
-    <leaderboardsbutton-stub is-stacked=""></leaderboardsbutton-stub>
+    <newgamebutton-stub></newgamebutton-stub>
+    <pausegamebutton-stub></pausegamebutton-stub>
+    <historybutton-stub></historybutton-stub>
+    <viewstatsbutton-stub></viewstatsbutton-stub>
+    <leaderboardsbutton-stub></leaderboardsbutton-stub>
   </div>
   <div>
-    <showrulesbutton-stub isstacked="true"></showrulesbutton-stub>
-    <portfoliobutton-stub isstacked="true"></portfoliobutton-stub>
+    <showrulesbutton-stub></showrulesbutton-stub>
+    <portfoliobutton-stub></portfoliobutton-stub>
     <!---->
   </div>
 </div>

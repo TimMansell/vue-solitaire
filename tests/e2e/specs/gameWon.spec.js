@@ -7,6 +7,18 @@ describe('Game Won', () => {
     cy.clearTest();
   });
 
+  describe('Default', () => {
+    beforeEach(() => {
+      cy.visitApp();
+    });
+
+    it('it should not show won page if game is not won', () => {
+      cy.visit('#/won');
+
+      cy.checkGameWon(false);
+    });
+  });
+
   describe('New User', () => {
     beforeEach(() => {
       cy.mockApi({
@@ -21,11 +33,11 @@ describe('Game Won', () => {
     it('should win game, keep state on page refresh, and increment won game stats', () => {
       cy.runGameWithClicks(fullGameMoves);
 
-      cy.checkGameWon();
+      cy.checkGameWon(true);
 
       cy.checkTimerIsPausedOnReload();
 
-      cy.checkGameWon();
+      cy.checkGameWon(true);
 
       cy.confirmNewGame({ waitUser: true });
 
@@ -49,11 +61,11 @@ describe('Game Won', () => {
     it('should win game, keep state on page refresh, and increment won game stats', () => {
       cy.runGameWithClicks(fullGameMoves);
 
-      cy.checkGameWon();
+      cy.checkGameWon(true);
 
       cy.checkTimerIsPausedOnReload();
 
-      cy.checkGameWon();
+      cy.checkGameWon(true);
 
       cy.confirmNewGame();
 
