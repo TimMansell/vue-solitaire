@@ -1,12 +1,46 @@
-import { differenceInSeconds, parseISO } from 'date-fns';
+import {
+  differenceInMilliseconds,
+  parseISO,
+  isAfter,
+  isBefore,
+} from 'date-fns';
 
-// eslint-disable-next-line import/prefer-default-export
-export const calculateTime = (startDate, finishDate, paused) => {
-  const pauseMoves = paused
+export const validateTime = ({
+  times,
+  duration,
+  timeLength,
+  startDate,
+  finishDate,
+}) => {
+  const isAfterStartTime = isAfter(
+    parseISO(times[0].date),
+    parseISO(startDate)
+  );
+
+  const [{ date }] = times.slice(-1);
+  const isBeforeFinishTime = isBefore(parseISO(date), parseISO(finishDate));
+
+  const doesTimeMatch = duration === timeLength;
+
+  console.log({ doesTimeMatch, isAfterStartTime, isBeforeFinishTime });
+
+  return doesTimeMatch && isAfterStartTime && isBeforeFinishTime;
+};
+
+export const calculateTime = (moves, times) => {
+  const newMoves = moves.slice(0, moves.length - 1);
+  const time = times.map(({ date }) => date);
+  const timeLength = times.length;
+  const ACCOUNT_FIRST_SECOND = 1;
+
+  const [startTime] = time.slice(0);
+  const [finishTime] = time.slice(-1);
+
+  const pauseMoves = newMoves
     .filter(({ isGamePaused }) => isGamePaused)
     .map(({ date }) => date);
 
-  const resumeMoves = paused
+  const resumeMoves = newMoves
     .filter(({ isGamePaused }) => !isGamePaused)
     .map(({ date }) => date);
 
@@ -17,22 +51,23 @@ export const calculateTime = (startDate, finishDate, paused) => {
 
   console.log({ pauseResumeMoves });
 
-  const time = differenceInSeconds(parseISO(finishDate), parseISO(startDate));
-
-  const pauseMoveTimes = pauseResumeMoves.reduce(
-    (totalTime, { pause, resume }) => {
-      return (
-        totalTime +
-        differenceInSeconds(parseISO(resume), parseISO(pause), {
-          roundingMethod: 'ceil',
-        })
-      );
-    },
-    0
+  const gameTime = differenceInMilliseconds(
+    parseISO(finishTime),
+    parseISO(startTime)
   );
-  const gameTime = time - pauseMoveTimes;
 
-  console.log({ time, gameTime, pauseMoveTimes });
+  const pauseTime = pauseResumeMoves.reduce((totalTime, { pause, resume }) => {
+    return (
+      totalTime + differenceInMilliseconds(parseISO(resume), parseISO(pause))
+    );
+  }, 0);
 
-  return gameTime;
+  console.log({ gameTime, pauseTime });
+
+  const duration =
+    Math.ceil((gameTime - pauseTime) / 1000) + ACCOUNT_FIRST_SECOND;
+
+  console.log({ duration, timeLength });
+
+  return { duration, timeLength };
 };

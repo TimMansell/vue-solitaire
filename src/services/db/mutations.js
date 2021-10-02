@@ -29,6 +29,7 @@ export const newGame = async (uid) => {
       mutation: gql`
         mutation NewGame($uid: String!) {
           newGame(uid: $uid) {
+            date
             cards {
               id
               value
@@ -45,16 +46,22 @@ export const newGame = async (uid) => {
 
     return response.data.newGame;
   } catch (error) {
-    return { cards: [] };
+    return { date: '', cards: [] };
   }
 };
 
-export const saveGame = async (uid, { moves, time }) => {
+export const saveGame = async (uid, { moves, times }) => {
+  // const filteredTimes = times.filter(({ isGamePaused }) => !isGamePaused);
+
   try {
     const response = await apollo.mutate({
       mutation: gql`
-        mutation SaveGame($uid: String!, $moves: [moveInput!]!, $time: Int!) {
-          saveGame(uid: $uid, moves: $moves, time: $time) {
+        mutation SaveGame(
+          $uid: String!
+          $moves: [moveInput!]!
+          $times: [timeInput!]!
+        ) {
+          saveGame(uid: $uid, moves: $moves, times: $times) {
             outcome
           }
         }
@@ -62,7 +69,7 @@ export const saveGame = async (uid, { moves, time }) => {
       variables: {
         uid,
         moves,
-        time,
+        times,
       },
     });
 

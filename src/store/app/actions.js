@@ -1,4 +1,5 @@
-import { saveGame, getInitialData, pauseGame } from '@/services/db';
+import { saveGame, getInitialData } from '@/services/db';
+import { createISODate } from '@/helpers/dates';
 import { version as localVersion } from '../../../package.json';
 
 const actions = {
@@ -34,6 +35,9 @@ const actions = {
 
     dispatch('initApp');
   },
+  setGameStartTime({ commit }, startTime) {
+    commit('SET_GAME_START_TIME', startTime);
+  },
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
@@ -43,24 +47,32 @@ const actions = {
 
     await Promise.all([saveGame(luid, game), dispatch('createUser')]);
   },
-  setGamePaused({ commit, rootState }, isGamePaused) {
-    const { luid } = rootState.user;
+  setGamePaused({ commit, state }, isGamePaused) {
+    const { isGameLoading } = state;
+    const date = createISODate();
 
-    pauseGame(luid, isGamePaused);
+    if (!isGameLoading) {
+      commit('SET_MOVES', {
+        date,
+        isGamePaused,
+      });
+    }
 
     commit('SET_GAME_PAUSED', isGamePaused);
   },
   updateTimer({ commit }) {
-    commit('UPDATE_GAME_TIME');
+    const date = createISODate();
+
+    commit('UPDATE_GAME_TIME', date);
   },
   toggleOverlayVisibility({ commit }) {
     commit('SET_OVERLAY_VISIBLE');
   },
-  saveMove({ commit, rootState }, move) {
-    const { selectedCardId } = rootState.solitaire;
+  saveMove({ commit, state }, move) {
+    const [{ date }] = state.game.times.slice(-1);
 
     commit('SET_MOVES', {
-      selectedCardId,
+      date,
       ...move,
     });
   },

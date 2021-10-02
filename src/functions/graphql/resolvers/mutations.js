@@ -8,10 +8,10 @@ import { initCards, checkGameState } from '../../../services/solitaire';
 import {
   insertIntoDb,
   findItemInDb,
-  findAllItems,
   deleteFromDb,
   deleteAllFromDb,
   calculateTime,
+  validateTime,
 } from './helpers';
 import { createISODate } from '../../../helpers/dates';
 import { gameOutcome } from '../../../helpers/game';
@@ -53,43 +53,33 @@ export const newGame = async (_, __, context) => {
     document: { ...variables, date, cards },
   });
 
-  return { cards };
+  return { date, cards };
 };
 
 export const saveGame = async (_, __, context) => {
   const { client, variables } = context;
-  const { uid, moves, time } = variables;
-  const timeThreshold = 0.95;
+  const { uid, moves, times } = variables;
 
   const finishDate = createISODate();
 
-  const findDeck = findItemInDb({
+  const { cards, date: startDate } = await findItemInDb({
     client,
     collection: 'decks',
     findFields: { uid },
     returnFields: { cards: 1, date: 1 },
   });
 
-  const findPaused = findAllItems({
-    client,
-    collection: 'pause',
-    findFields: { uid },
-    returnFields: { date: 1, isGamePaused: 1 },
+  const { isGameFinished, hasMoves } = checkGameState(moves, cards);
+  const { duration, timeLength } = calculateTime(moves, times);
+  const isValidTime = validateTime({
+    times,
+    duration,
+    timeLength,
+    startDate,
+    finishDate,
   });
 
-  const [deck, paused] = await Promise.all([findDeck, findPaused]);
-
-  const { cards, date: startDate } = deck;
-  const newPaused = [...paused, { date: finishDate, isPaused: false }];
-
-  const { isGameFinished, hasMoves } = checkGameState(moves, cards);
-  const timeServer = calculateTime(startDate, finishDate, newPaused);
-
-  const timeDiff = time / timeServer;
-
-  const savedTime = timeDiff >= timeThreshold ? time : timeServer;
-
-  console.log({ timeServer, time, timeDiff });
+  console.log({ isValidTime });
 
   const game = {
     date: finishDate,
@@ -98,7 +88,7 @@ export const saveGame = async (_, __, context) => {
     won: isGameFinished && !hasMoves,
     lost: !isGameFinished && !hasMoves,
     completed: true,
-    time: savedTime,
+    time: timeLength,
   };
 
   const outcome = gameOutcome(game);

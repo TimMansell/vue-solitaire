@@ -2,7 +2,7 @@
 const state = () => ({
   game: {
     moves: [],
-    time: 0,
+    times: [],
   },
   gameOutcome: {
     hasGameWon: false,
