@@ -21,7 +21,7 @@ export default {
     },
   },
   mounted() {
-    this.gameTimer = pauseMe(() => this.updateTimer(), 1000, true);
+    this.gameTimer = pauseMe(() => this.setTimer(), 1000, true);
   },
   destroyed() {
     clearInterval(this.gameTimer);
@@ -40,6 +40,13 @@ export default {
   },
   methods: {
     ...mapActions(['updateTimer']),
+    setTimer() {
+      const { isGamePaused } = this;
+
+      if (isGamePaused) return;
+
+      this.updateTimer();
+    },
   },
 };
 </script>
