@@ -24,7 +24,7 @@ export default {
     this.gameTimer = pauseMe(() => this.setTimer(), 1000, true);
   },
   destroyed() {
-    clearInterval(this.gameTimer);
+    this.gameTimer.stop();
   },
   watch: {
     isGamePaused(val, oldVal) {
