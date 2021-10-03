@@ -7878,6 +7878,10 @@ path-type@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
 
+pause-me@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/pause-me/-/pause-me-1.2.0.tgz#b3e2b91719d2d4ffb4143c76d86eff44fe794636"
+
 pbkdf2@^3.0.3:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.1.2.tgz#dd822aa0887580e52f1a039dc3eda108efae3075"

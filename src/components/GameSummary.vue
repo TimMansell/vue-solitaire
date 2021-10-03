@@ -32,15 +32,15 @@ export default {
     FontAwesomeIcon,
   },
   computed: {
-    ...mapGetters(['timer', 'moves']),
+    ...mapGetters(['duration', 'moves']),
     summary() {
-      const { timer, moves } = this;
+      const { duration, moves } = this;
 
       const summary = [
         {
           icon: faUserClock,
           name: 'Time',
-          value: numeral(timer).format('00:00:00'),
+          value: numeral(duration).format('00:00:00'),
         },
         { icon: faHistory, name: 'Moves', value: moves },
       ];

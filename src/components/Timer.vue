@@ -6,23 +6,22 @@
 </template>
 
 <script>
+import pauseMe from 'pause-me';
 import numeral from 'numeral';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters(['timer', 'isGamePaused']),
+    ...mapGetters(['duration', 'isGamePaused']),
     formattedTime() {
-      const { timer } = this;
+      const { duration } = this;
 
-      return numeral(timer).format('00:00:00');
+      return numeral(duration).format('00:00:00');
     },
   },
   mounted() {
-    const { isGamePaused } = this;
-
-    this.setTimer(isGamePaused);
+    this.gameTimer = pauseMe(() => this.updateTimer(), 1000, true);
   },
   destroyed() {
     clearInterval(this.gameTimer);
@@ -31,18 +30,16 @@ export default {
     isGamePaused(val, oldVal) {
       if (val === oldVal) return;
 
-      this.setTimer(val);
+      if (val) {
+        this.gameTimer.pause();
+        return;
+      }
+
+      this.gameTimer.resume();
     },
   },
   methods: {
     ...mapActions(['updateTimer']),
-    setTimer(isPaused) {
-      if (!isPaused) {
-        this.gameTimer = window.setInterval(() => this.updateTimer(), 1000);
-      } else {
-        clearInterval(this.gameTimer);
-      }
-    },
   },
 };
 </script>
