@@ -70,11 +70,10 @@ export const saveGame = async (_, __, context) => {
   });
 
   const { isGameFinished, hasMoves } = checkGameState(moves, cards);
-  const { duration, timeLength } = calculateTime(startDate, moves, times);
+  const duration = calculateTime(startDate, moves, times);
   const isValidTime = validateTime({
     times,
     duration,
-    timeLength,
     startDate,
     finishDate,
   });
@@ -88,7 +87,7 @@ export const saveGame = async (_, __, context) => {
     won: isGameFinished && !hasMoves,
     lost: !isGameFinished && !hasMoves,
     completed: true,
-    time: timeLength,
+    time: duration,
   };
 
   const outcome = gameOutcome(game);

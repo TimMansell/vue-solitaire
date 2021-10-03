@@ -2,14 +2,10 @@ import 'dotenv/config';
 
 import { differenceInSeconds, parseISO, isAfter, isBefore } from 'date-fns';
 
-export const validateTime = ({
-  times,
-  duration,
-  timeLength,
-  startDate,
-  finishDate,
-}) => {
+export const validateTime = ({ times, duration, startDate, finishDate }) => {
   const { TIMER_THRESHOLD } = process.env;
+  const clientTime = times.length;
+  const threshold = parseInt(TIMER_THRESHOLD, 10);
 
   const isAfterStartTime = isAfter(
     parseISO(times[0].date),
@@ -20,27 +16,31 @@ export const validateTime = ({
   const isBeforeFinishTime = isBefore(parseISO(date), parseISO(finishDate));
 
   const doesTimeMatch =
-    duration === timeLength ||
-    duration + parseInt(TIMER_THRESHOLD, 10) === timeLength ||
-    duration - parseInt(TIMER_THRESHOLD, 10) === timeLength;
+    duration === clientTime ||
+    duration + threshold === clientTime ||
+    duration - threshold === clientTime;
 
-  console.log({ doesTimeMatch, isAfterStartTime, isBeforeFinishTime });
+  console.log({
+    clientTime,
+    doesTimeMatch,
+    isAfterStartTime,
+    isBeforeFinishTime,
+  });
 
   return doesTimeMatch && isAfterStartTime && isBeforeFinishTime;
 };
 
 export const calculateTime = (startDate, moves, times) => {
-  const newMoves = moves.slice(0, moves.length - 1);
+  const movesWithoutLastPause = moves.slice(0, moves.length - 1);
+
   const time = times.map(({ date }) => date);
-  const timeLength = times.length;
+  const [finishDate] = time.slice(-1);
 
-  const [finishTime] = time.slice(-1);
-
-  const pauseMoves = newMoves
+  const pauseMoves = movesWithoutLastPause
     .filter(({ isGamePaused }) => isGamePaused)
     .map(({ date }) => date);
 
-  const resumeMoves = newMoves
+  const resumeMoves = movesWithoutLastPause
     .filter(({ isGamePaused }) => !isGamePaused)
     .map(({ date }) => date);
 
@@ -52,11 +52,11 @@ export const calculateTime = (startDate, moves, times) => {
   console.log({ pauseResumeMoves });
 
   const gameTime = differenceInSeconds(
-    parseISO(finishTime),
+    parseISO(finishDate),
     parseISO(startDate)
   );
 
-  console.log({ startDate, finishTime });
+  console.log({ startDate, finishDate });
 
   const pauseTime = pauseResumeMoves.reduce((totalTime, { pause, resume }) => {
     return totalTime + differenceInSeconds(parseISO(resume), parseISO(pause));
@@ -66,7 +66,5 @@ export const calculateTime = (startDate, moves, times) => {
 
   const duration = gameTime - pauseTime;
 
-  console.log({ duration, timeLength });
-
-  return { duration, timeLength };
+  return duration;
 };
