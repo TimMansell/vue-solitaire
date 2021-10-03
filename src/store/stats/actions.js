@@ -2,7 +2,11 @@ import { socket } from '@/services/websockets';
 import { getStats, getLeaderboards } from '@/services/db';
 
 const actions = {
-  initStats({ commit }) {
+  initStats({ commit, rootState }) {
+    const { luid } = rootState.user;
+
+    socket.emit('initCounts', luid);
+
     socket.on('getUserGameCount', (userStats) => {
       commit('SET_USER_GAME_COUNT', userStats);
     });
