@@ -14,9 +14,6 @@ const mutations = {
   SET_GAME_LOADING(state, isLoading) {
     state.isGameLoading = isLoading;
   },
-  SET_GAME_START_TIME(state, startTime) {
-    state.game.startTime = startTime;
-  },
   SET_GAME_OUTCOME(state, hasGameWon) {
     state.gameOutcome = {
       hasGameWon,

@@ -43,10 +43,9 @@ const actions = {
       dispatch('setGameLoading', true);
 
       const { luid } = rootState.user;
-      const { date, cards } = await newGame(luid);
+      const { cards } = await newGame(luid);
       const board = initBoard(cards);
 
-      dispatch('setGameStartTime', date);
       dispatch('setBoard', board);
       dispatch('setGameLoading', false);
     } else {

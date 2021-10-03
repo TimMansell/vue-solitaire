@@ -29,7 +29,6 @@ export const newGame = async (uid) => {
       mutation: gql`
         mutation NewGame($uid: String!) {
           newGame(uid: $uid) {
-            date
             cards {
               id
               value
@@ -51,8 +50,6 @@ export const newGame = async (uid) => {
 };
 
 export const saveGame = async (uid, { moves, times }) => {
-  // const filteredTimes = times.filter(({ isGamePaused }) => !isGamePaused);
-
   try {
     const response = await apollo.mutate({
       mutation: gql`

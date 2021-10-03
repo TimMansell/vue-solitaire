@@ -36,7 +36,6 @@ export const typeDefs = gql`
     history(offset: Int!, limit: Int!): [Game]!
   }
   type Deck {
-    date: String
     cards: [Card]
   }
   type Card {

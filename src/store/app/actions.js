@@ -35,9 +35,6 @@ const actions = {
 
     dispatch('initApp');
   },
-  setGameStartTime({ commit }, startTime) {
-    commit('SET_GAME_START_TIME', startTime);
-  },
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
