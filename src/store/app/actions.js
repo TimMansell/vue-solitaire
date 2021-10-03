@@ -57,8 +57,11 @@ const actions = {
 
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  updateTimer({ commit }) {
+  updateTimer({ commit, rootState }) {
+    const { isGamePaused } = rootState.app;
     const date = createISODate();
+
+    if (isGamePaused) return;
 
     commit('UPDATE_GAME_TIME', date);
   },
