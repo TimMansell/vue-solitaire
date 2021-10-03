@@ -23,8 +23,7 @@ export default {
   },
   mounted() {
     const events = {
-      visibilitychange: ({ target }) =>
-        setTimeout(this.checkGameFocused, 2000, target),
+      visibilitychange: ({ target }) => this.checkGameFocused(target),
     };
 
     this.events = addEventListener(events);
