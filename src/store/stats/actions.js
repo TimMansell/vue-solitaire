@@ -1,10 +1,16 @@
+import { socket } from '@/services/websockets';
 import { getStats, getLeaderboards } from '@/services/db';
 
 const actions = {
-  async setStatsCount({ commit }, { userStats, globalStats }) {
-    commit('SET_USER_GAME_COUNT', userStats);
-    commit('SET_GLOBAL_GAME_COUNT', globalStats);
-    commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
+  initStats({ commit }) {
+    socket.on('getUserGameCount', (userStats) => {
+      commit('SET_USER_GAME_COUNT', userStats);
+    });
+
+    socket.on('getGlobalCounts', (globalStats) => {
+      commit('SET_GLOBAL_GAME_COUNT', globalStats);
+      commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
+    });
   },
   async getStats({ commit, rootState }) {
     const { luid } = rootState.user;

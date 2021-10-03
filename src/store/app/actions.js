@@ -1,18 +1,16 @@
 import { saveGame, getInitialData } from '@/services/db';
+import { socket } from '@/services/websockets';
 import { version as localVersion } from '../../../package.json';
 
 const actions = {
   async initApp({ dispatch }) {
     const uid = await dispatch('initUser');
 
-    const { user, userStats, globalStats, version } = await getInitialData(
-      uid,
-      localVersion
-    );
+    const { user, version } = await getInitialData(uid, localVersion);
 
     dispatch('initGame');
     dispatch('setUser', user);
-    dispatch('setStatsCount', { userStats, globalStats });
+    dispatch('initStats');
     dispatch('setAppVersion', version);
   },
   restartApp({ commit }) {
@@ -43,6 +41,8 @@ const actions = {
     const { game } = state;
 
     await Promise.all([saveGame(luid, game), dispatch('createUser')]);
+
+    socket.emit('saveGame', luid);
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
