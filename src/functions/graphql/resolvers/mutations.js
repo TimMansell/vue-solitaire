@@ -37,23 +37,23 @@ export const createUser = async (_, __, context) => {
 export const newGame = async (_, __, context) => {
   const { client, variables } = context;
 
-  const date = createISODate();
+  const startDate = createISODate();
   const cards = initCards();
 
   await deleteFromDb({
     client,
     collection: 'decks',
     findFields: { ...variables },
-    sortBy: { date: 1 },
+    sortBy: { startDate: 1 },
   });
 
   insertIntoDb({
     client,
     collection: 'decks',
-    document: { ...variables, date, cards },
+    document: { ...variables, startDate, cards },
   });
 
-  return { date, cards };
+  return { cards };
 };
 
 export const saveGame = async (_, __, context) => {
@@ -62,15 +62,15 @@ export const saveGame = async (_, __, context) => {
 
   const finishDate = createISODate();
 
-  const { cards, date: startDate } = await findItemInDb({
+  const { cards, startDate } = await findItemInDb({
     client,
     collection: 'decks',
     findFields: { uid },
-    returnFields: { cards: 1, date: 1 },
+    returnFields: { cards: 1, startDate: 1 },
   });
 
   const { isGameFinished, hasMoves } = checkGameState(moves, cards);
-  const { duration, timeLength } = calculateTime(moves, times);
+  const { duration, timeLength } = calculateTime(startDate, moves, times);
   const isValidTime = validateTime({
     times,
     duration,
