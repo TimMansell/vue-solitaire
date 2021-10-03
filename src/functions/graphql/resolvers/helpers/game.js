@@ -1,9 +1,6 @@
-import {
-  differenceInMilliseconds,
-  parseISO,
-  isAfter,
-  isBefore,
-} from 'date-fns';
+import 'dotenv/config';
+
+import { differenceInSeconds, parseISO, isAfter, isBefore } from 'date-fns';
 
 export const validateTime = ({
   times,
@@ -12,6 +9,8 @@ export const validateTime = ({
   startDate,
   finishDate,
 }) => {
+  const { TIMER_THRESHOLD } = process.env;
+
   const isAfterStartTime = isAfter(
     parseISO(times[0].date),
     parseISO(startDate)
@@ -20,20 +19,21 @@ export const validateTime = ({
   const [{ date }] = times.slice(-1);
   const isBeforeFinishTime = isBefore(parseISO(date), parseISO(finishDate));
 
-  const doesTimeMatch = duration === timeLength;
+  const doesTimeMatch =
+    duration === timeLength ||
+    duration + parseInt(TIMER_THRESHOLD, 10) === timeLength ||
+    duration - parseInt(TIMER_THRESHOLD, 10) === timeLength;
 
   console.log({ doesTimeMatch, isAfterStartTime, isBeforeFinishTime });
 
   return doesTimeMatch && isAfterStartTime && isBeforeFinishTime;
 };
 
-export const calculateTime = (moves, times) => {
+export const calculateTime = (startDate, moves, times) => {
   const newMoves = moves.slice(0, moves.length - 1);
   const time = times.map(({ date }) => date);
   const timeLength = times.length;
-  const ACCOUNT_FIRST_SECOND = 1;
 
-  const [startTime] = time.slice(0);
   const [finishTime] = time.slice(-1);
 
   const pauseMoves = newMoves
@@ -51,21 +51,20 @@ export const calculateTime = (moves, times) => {
 
   console.log({ pauseResumeMoves });
 
-  const gameTime = differenceInMilliseconds(
+  const gameTime = differenceInSeconds(
     parseISO(finishTime),
-    parseISO(startTime)
+    parseISO(startDate)
   );
 
+  console.log({ startDate, finishTime });
+
   const pauseTime = pauseResumeMoves.reduce((totalTime, { pause, resume }) => {
-    return (
-      totalTime + differenceInMilliseconds(parseISO(resume), parseISO(pause))
-    );
+    return totalTime + differenceInSeconds(parseISO(resume), parseISO(pause));
   }, 0);
 
   console.log({ gameTime, pauseTime });
 
-  const duration =
-    Math.ceil((gameTime - pauseTime) / 1000) + ACCOUNT_FIRST_SECOND;
+  const duration = gameTime - pauseTime;
 
   console.log({ duration, timeLength });
 
