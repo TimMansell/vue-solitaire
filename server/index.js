@@ -1,9 +1,12 @@
-const { Server } = require('socket.io');
+const http = require('http');
+const express = require('express');
+const socketIO = require('socket.io');
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB } = process.env;
-const uri = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
+const URI = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
+const APP_PORT = process.env.PORT || 5000;
 
 const getUserCounts = async (db, uid) => {
   const userCompleted = await db
@@ -37,17 +40,21 @@ const getGlobalCounts = async (db) => {
 };
 
 const main = async () => {
-  const db = await MongoClient.connect(uri, {
+  const app = express();
+
+  app.use(express.static(`${__dirname}/`));
+
+  const server = http.createServer(app);
+  server.listen(APP_PORT);
+
+  console.log('http server listening on %d', APP_PORT);
+
+  const db = await MongoClient.connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 
-  const io = new Server(3000, {
-    cors: {
-      origin: 'http://localhost:8080',
-      methods: ['GET', 'POST'],
-    },
-  });
+  const io = socketIO(server);
 
   io.on('connection', async (socket) => {
     console.log('Client connected.');
