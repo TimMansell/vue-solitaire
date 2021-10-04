@@ -1,4 +1,4 @@
-import { saveGame, getInitialData } from '@/services/db';
+import { getInitialData } from '@/services/db';
 import { emitSocket } from '@/services/websockets';
 import { version as localVersion } from '../../../package.json';
 
@@ -24,25 +24,20 @@ const actions = {
     commit('SET_GAME_PAUSED', isGameLoading);
   },
   async newGame({ dispatch }) {
-    await Promise.all([
-      dispatch('saveGame'),
-      dispatch('restartApp'),
-      dispatch('restartGame'),
-    ]);
-
-    dispatch('initApp');
-    dispatch('initGame');
+    dispatch('saveGame');
+    dispatch('restartApp');
+    dispatch('restartGame');
   },
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  async saveGame({ dispatch, state, rootState }) {
+  async saveGame({ state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
 
-    await Promise.all([saveGame(luid, game), dispatch('createUser')]);
+    // await Promise.all([saveGame(luid, game), dispatch('createUser')]);
 
-    emitSocket('saveGame', luid);
+    emitSocket('saveGame', { uid: luid, ...game });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);

@@ -1,10 +1,11 @@
 import http from 'http';
 import express from 'express';
-import socketIO from 'socket.io';
+import { Server } from 'socket.io';
 import { MongoClient } from 'mongodb';
 import 'dotenv/config';
 
-import { getUserCounts, getGlobalCounts } from './stats/index';
+import { getUserCounts, getGlobalCounts } from './stats';
+import { newGame, saveGame } from './game';
 
 const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB } = process.env;
 const URI = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
@@ -27,7 +28,7 @@ const main = async () => {
 
   const db = connection.db(MONGODB_DB);
 
-  const io = socketIO(server);
+  const io = new Server(server);
 
   io.on('connection', async (socket) => {
     console.log('Client connected.');
@@ -43,10 +44,25 @@ const main = async () => {
       socket.emit('getGlobalCounts', { completed: globalCompleted, players });
     });
 
-    socket.on('saveGame', async () => {
-      const { globalCompleted, players } = await getGlobalCounts(db);
+    socket.on('newGame', async (uid) => {
+      const cards = await newGame(db, uid);
 
-      io.emit('getGlobalCounts', { completed: globalCompleted, players });
+      socket.emit('newGame', cards);
+    });
+
+    socket.on('saveGame', async ({ uid, moves }) => {
+      await saveGame(db, { uid, moves });
+
+      const getNewGame = await newGame(db, uid);
+      const getGlobalStats = await getGlobalCounts(db);
+
+      const [cards, globalStats] = await Promise.all([
+        getNewGame,
+        getGlobalStats,
+      ]);
+
+      socket.emit('newGame', cards);
+      io.emit('getGlobalCounts', globalStats);
     });
 
     socket.on('disconnect', () => {
