@@ -8,9 +8,6 @@ const mutations = {
 
     Object.assign(state, newState);
   },
-  NEW_GAME(state, isNewGame) {
-    state.isNewGame = isNewGame;
-  },
   SET_BOARD(state, cards) {
     state.cards = cards;
   },

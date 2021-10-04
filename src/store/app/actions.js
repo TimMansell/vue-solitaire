@@ -4,12 +4,10 @@ import { version as localVersion } from '../../../package.json';
 
 const actions = {
   async initApp({ dispatch }) {
-    const uid = await dispatch('initUser');
-
-    const { user, version } = await getInitialData(uid, localVersion);
+    const { version } = await getInitialData(localVersion);
 
     dispatch('initGame');
-    dispatch('setUser', user);
+    dispatch('initUser');
     dispatch('initStats');
     dispatch('setAppVersion', version);
   },
@@ -34,8 +32,6 @@ const actions = {
   async saveGame({ state, rootState }) {
     const { luid } = rootState.user;
     const { game } = state;
-
-    // await Promise.all([saveGame(luid, game), dispatch('createUser')]);
 
     emitSocket('saveGame', { uid: luid, ...game });
   },

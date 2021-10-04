@@ -1,3 +1,4 @@
+import { onSocket, emitSocket } from '@/services/websockets';
 import {
   initBoard,
   initFoundation,
@@ -10,16 +11,20 @@ import {
   getEmptyFoundationColumn,
   getDraggedCards,
 } from '@/services/solitaire';
-import { onSocket } from '@/services/websockets';
 
 const actions = {
-  initGame({ commit, dispatch }) {
-    onSocket('newGame', (cards) => {
-      dispatch('initBoard', cards);
+  initGame({ dispatch, state, rootState }) {
+    const { cards } = state;
+    const { luid } = rootState.user;
+
+    if (cards.flat().length === 0) {
+      emitSocket('newGame', luid);
+    }
+
+    onSocket('newGame', (deck) => {
+      dispatch('initBoard', deck);
       dispatch('initFoundation');
     });
-
-    commit('NEW_GAME', false);
   },
   restartGame({ commit }) {
     commit('RESTART_GAME');
@@ -33,8 +38,9 @@ const actions = {
     }
   },
   initFoundation({ dispatch, state }) {
-    const { foundation, isNewGame } = state;
-    const foundationCards = !isNewGame ? foundation : initFoundation();
+    const { foundation } = state;
+    const foundationCards =
+      foundation.flat().length > 0 ? foundation : initFoundation();
 
     dispatch('setFoundation', foundationCards);
   },

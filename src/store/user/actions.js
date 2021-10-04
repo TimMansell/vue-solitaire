@@ -1,27 +1,21 @@
+import { emitSocket, onSocket } from '@/services/websockets';
 import { initUser } from '@/services/user';
-import { createUser, getUsersGames } from '@/services/db';
+import { getUsersGames } from '@/services/db';
 
 const actions = {
   initUser({ commit, state }) {
     const { luid } = state;
     const uid = luid || initUser();
 
+    emitSocket('getUser', luid);
+
+    onSocket('setUser', (user) => {
+      commit('SET_USER_NAME', user);
+    });
+
     commit('SET_USER_ID', uid);
 
     return uid;
-  },
-  setUser({ commit }, { name, exists }) {
-    commit('SET_USER_NAME', name);
-    commit('SET_USER_EXISTS', exists);
-  },
-  async createUser({ state, dispatch }) {
-    const { luid, existsOnServer } = state;
-
-    if (!existsOnServer) {
-      const user = await createUser(luid);
-
-      dispatch('setUser', user);
-    }
   },
   async getAllGames({ commit, state }, params) {
     const { luid } = state;

@@ -4,8 +4,9 @@ import { Server } from 'socket.io';
 import { MongoClient } from 'mongodb';
 import 'dotenv/config';
 
-import { getUserCounts, getGlobalCounts } from './stats';
+import { getCounts } from './stats';
 import { newGame, saveGame } from './game';
+import { getUser, createUser } from './user';
 
 const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB } = process.env;
 const URI = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
@@ -34,13 +35,7 @@ const main = async () => {
     console.log('Client connected.');
 
     socket.on('initCounts', async (uid) => {
-      const getUserCount = getUserCounts(db, uid);
-      const getGlobalCount = getGlobalCounts(db);
-
-      const [userStats, globalStats] = await Promise.all([
-        getUserCount,
-        getGlobalCount,
-      ]);
+      const { userStats, globalStats } = await getCounts(db, uid);
 
       socket.emit('getUserGameCount', userStats);
       socket.emit('getGlobalCounts', globalStats);
@@ -53,18 +48,30 @@ const main = async () => {
     });
 
     socket.on('saveGame', async ({ uid, moves }) => {
-      await saveGame(db, { uid, moves });
-
-      const getNewGame = await newGame(db, uid);
-      const getGlobalStats = await getGlobalCounts(db);
-
-      const [cards, globalStats] = await Promise.all([
-        getNewGame,
-        getGlobalStats,
+      const [userExists] = await Promise.all([
+        getUser(db, uid),
+        saveGame(db, { uid, moves }),
       ]);
 
+      if (!userExists) {
+        const user = await createUser(db, uid);
+
+        socket.emit('setUser', user);
+      }
+
+      const cards = await newGame(db, uid);
       socket.emit('newGame', cards);
+
+      const { userStats, globalStats } = await getCounts(db, uid);
+
+      socket.emit('getUserGameCount', userStats);
       io.emit('getGlobalCounts', globalStats);
+    });
+
+    socket.on('getUser', async (uid) => {
+      const user = await getUser(db, uid);
+
+      socket.emit('setUser', user);
     });
 
     socket.on('disconnect', () => {
