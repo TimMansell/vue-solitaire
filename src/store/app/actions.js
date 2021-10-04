@@ -1,5 +1,5 @@
 import { saveGame, getInitialData } from '@/services/db';
-import { socket } from '@/services/websockets';
+import { emitSocket } from '@/services/websockets';
 import { version as localVersion } from '../../../package.json';
 
 const actions = {
@@ -42,7 +42,7 @@ const actions = {
 
     await Promise.all([saveGame(luid, game), dispatch('createUser')]);
 
-    socket.emit('saveGame', luid);
+    emitSocket('saveGame', luid);
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
