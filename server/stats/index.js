@@ -1,14 +1,14 @@
 export const getUserCounts = async (db, uid) => {
-  const userCompleted = await db
+  const completed = await db
     .collection('games')
     .find({ uid, completed: true }, { projection: { completed: 1 } })
     .count();
 
-  return { userCompleted };
+  return { completed };
 };
 
 export const getGlobalCounts = async (db) => {
-  const getGlobalCompleted = db
+  const getCompleted = db
     .collection('games')
     .find({ completed: true }, { projection: { completed: 1 } })
     .count();
@@ -18,10 +18,7 @@ export const getGlobalCounts = async (db) => {
     .find({}, { projection: {} })
     .count();
 
-  const [globalCompleted, players] = await Promise.all([
-    getGlobalCompleted,
-    getPlayers,
-  ]);
+  const [completed, players] = await Promise.all([getCompleted, getPlayers]);
 
-  return { globalCompleted, players };
+  return { completed, players };
 };

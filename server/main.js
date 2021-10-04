@@ -37,11 +37,13 @@ const main = async () => {
       const getUserCount = getUserCounts(db, uid);
       const getGlobalCount = getGlobalCounts(db);
 
-      const [{ userCompleted }, { globalCompleted, players }] =
-        await Promise.all([getUserCount, getGlobalCount]);
+      const [userStats, globalStats] = await Promise.all([
+        getUserCount,
+        getGlobalCount,
+      ]);
 
-      socket.emit('getUserGameCount', { completed: userCompleted });
-      socket.emit('getGlobalCounts', { completed: globalCompleted, players });
+      socket.emit('getUserGameCount', userStats);
+      socket.emit('getGlobalCounts', globalStats);
     });
 
     socket.on('newGame', async (uid) => {
