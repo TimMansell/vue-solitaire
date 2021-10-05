@@ -1,17 +1,17 @@
-import { connectSocket, emitSocket, onSocket } from '@/services/websockets';
+import { socketConnect, socketEmit, socketOn } from '@/services/websockets';
 import { getStats, getLeaderboards } from '@/services/db';
 
 const actions = {
   initStats({ commit }) {
-    connectSocket(() => {
-      emitSocket('initCounts');
+    socketConnect(() => {
+      socketEmit('initCounts');
     });
 
-    onSocket('getUserGameCount', (userStats) => {
+    socketOn('getUserGameCount', (userStats) => {
       commit('SET_USER_GAME_COUNT', userStats);
     });
 
-    onSocket('getGlobalCounts', (globalStats) => {
+    socketOn('getGlobalCounts', (globalStats) => {
       commit('SET_GLOBAL_GAME_COUNT', globalStats);
       commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
     });

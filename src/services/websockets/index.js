@@ -7,15 +7,15 @@ export const socket = io(VITE_WEBSOCKETS_URL, {
   transports: ['websocket'],
 });
 
-export const connectSocket = (callback) => {
+export const socketConnect = (callback) => {
   socket.on('connect', (obj) => {
     callback(obj);
   });
 };
 
-export const emitSocket = (name, payload) => socket.emit(name, payload);
+export const socketEmit = (name, payload) => socket.emit(name, payload);
 
-export const onSocket = (name, callback) => {
+export const socketOn = (name, callback) => {
   socket.on(name, (obj) => {
     callback(obj);
   });

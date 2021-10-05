@@ -1,5 +1,5 @@
 import { getInitialData } from '@/services/db';
-import { emitSocket } from '@/services/websockets';
+import { socketEmit } from '@/services/websockets';
 import { version as localVersion } from '../../../package.json';
 
 const actions = {
@@ -32,7 +32,7 @@ const actions = {
   async saveGame({ state }) {
     const { game } = state;
 
-    emitSocket('saveGame', { ...game });
+    socketEmit('saveGame', { ...game });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);

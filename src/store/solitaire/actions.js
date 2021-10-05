@@ -1,4 +1,4 @@
-import { onSocket, emitSocket } from '@/services/websockets';
+import { socketOn, socketEmit } from '@/services/websockets';
 import {
   initBoard,
   initFoundation,
@@ -17,10 +17,10 @@ const actions = {
     const { cards } = state;
 
     if (cards.flat().length === 0) {
-      emitSocket('newGame');
+      socketEmit('newGame');
     }
 
-    onSocket('newGame', (deck) => {
+    socketOn('newGame', (deck) => {
       dispatch('initBoard', deck);
       dispatch('initFoundation');
     });
