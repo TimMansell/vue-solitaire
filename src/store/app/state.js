@@ -12,6 +12,7 @@ const state = () => ({
   isGamePaused: false,
   isOverlayVisible: true,
   versionMatch: true,
+  hasConnection: false,
 });
 
 export default state;

@@ -16,7 +16,7 @@ import {
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['isGamePaused', 'gameOutcome']),
+    ...mapGetters(['isGamePaused', 'gameOutcome', 'hasConnection']),
   },
   created() {
     this.initApp();
@@ -35,6 +35,16 @@ export default {
     removeEventListener(events);
   },
   watch: {
+    hasConnection(val, oldVal) {
+      if (val === oldVal) return;
+
+      if (val) {
+        this.$router.push('/');
+        return;
+      }
+
+      this.$router.push('/connection-lost');
+    },
     gameOutcome: {
       handler({ hasGameWon, hasGameLost }) {
         if (hasGameWon) {

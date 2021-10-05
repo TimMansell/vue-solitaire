@@ -13,6 +13,12 @@ export const socketConnect = (callback) => {
   });
 };
 
+export const socketDrop = (callback) => {
+  socket.on('disconnect', (obj) => {
+    callback(obj);
+  });
+};
+
 export const socketEmit = (name, payload) => socket.emit(name, payload);
 
 export const socketOn = (name, callback) => {

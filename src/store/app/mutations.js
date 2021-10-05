@@ -8,6 +8,9 @@ const mutations = {
 
     Object.assign(state, newState);
   },
+  SET_HAS_CONNECTION(state, hasConnection) {
+    state.hasConnection = hasConnection;
+  },
   SET_VERSION_MATCH(state, versionMatch) {
     state.versionMatch = versionMatch;
   },

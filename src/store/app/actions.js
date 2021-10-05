@@ -1,5 +1,5 @@
 import { getInitialData } from '@/services/db';
-import { socketEmit } from '@/services/websockets';
+import { socketConnect, socketDrop, socketEmit } from '@/services/websockets';
 import { version as localVersion } from '../../../package.json';
 
 const actions = {
@@ -10,9 +10,20 @@ const actions = {
     dispatch('initGame');
     dispatch('initStats');
     dispatch('setAppVersion', version);
+
+    socketConnect(() => {
+      dispatch('hasConnection', true);
+    });
+
+    socketDrop(() => {
+      dispatch('hasConnection', false);
+    });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
+  },
+  hasConnection({ commit }, hasConnection) {
+    commit('SET_HAS_CONNECTION', hasConnection);
   },
   setAppVersion({ commit }, { matches }) {
     commit('SET_VERSION_MATCH', matches);
