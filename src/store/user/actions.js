@@ -1,4 +1,4 @@
-import { emitSocket, onSocket } from '@/services/websockets';
+import { connectSocket, emitSocket, onSocket } from '@/services/websockets';
 import { initUser } from '@/services/user';
 import { getUsersGames } from '@/services/db';
 
@@ -7,7 +7,9 @@ const actions = {
     const { luid } = state;
     const uid = luid || initUser();
 
-    emitSocket('getUser', luid);
+    connectSocket(() => {
+      emitSocket('setUser', luid);
+    });
 
     onSocket('setUser', (user) => {
       commit('SET_USER_NAME', user);

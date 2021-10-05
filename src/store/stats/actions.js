@@ -1,11 +1,11 @@
-import { emitSocket, onSocket } from '@/services/websockets';
+import { connectSocket, emitSocket, onSocket } from '@/services/websockets';
 import { getStats, getLeaderboards } from '@/services/db';
 
 const actions = {
-  initStats({ commit, rootState }) {
-    const { luid } = rootState.user;
-
-    emitSocket('initCounts', luid);
+  initStats({ commit }) {
+    connectSocket(() => {
+      emitSocket('initCounts');
+    });
 
     onSocket('getUserGameCount', (userStats) => {
       commit('SET_USER_GAME_COUNT', userStats);

@@ -6,8 +6,8 @@ const actions = {
   async initApp({ dispatch }) {
     const { version } = await getInitialData(localVersion);
 
-    dispatch('initGame');
     dispatch('initUser');
+    dispatch('initGame');
     dispatch('initStats');
     dispatch('setAppVersion', version);
   },
@@ -29,11 +29,10 @@ const actions = {
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  async saveGame({ state, rootState }) {
-    const { luid } = rootState.user;
+  async saveGame({ state }) {
     const { game } = state;
 
-    emitSocket('saveGame', { uid: luid, ...game });
+    emitSocket('saveGame', { ...game });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);

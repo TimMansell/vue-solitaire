@@ -13,12 +13,11 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
-  initGame({ dispatch, state, rootState }) {
+  initGame({ dispatch, state }) {
     const { cards } = state;
-    const { luid } = rootState.user;
 
     if (cards.flat().length === 0) {
-      emitSocket('newGame', luid);
+      emitSocket('newGame');
     }
 
     onSocket('newGame', (deck) => {

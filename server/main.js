@@ -32,22 +32,26 @@ const main = async () => {
   const io = new Server(server);
 
   io.on('connection', async (socket) => {
-    console.log('Client connected.');
+    console.log('Client connected.', socket.id);
 
-    socket.on('initCounts', async (uid) => {
+    socket.on('initCounts', async () => {
+      const { uid } = socket;
       const { userStats, globalStats } = await getCounts(db, uid);
 
       socket.emit('getUserGameCount', userStats);
       socket.emit('getGlobalCounts', globalStats);
     });
 
-    socket.on('newGame', async (uid) => {
+    socket.on('newGame', async () => {
+      const { uid } = socket;
+
       const cards = await newGame(db, uid);
 
       socket.emit('newGame', cards);
     });
 
-    socket.on('saveGame', async ({ uid, moves }) => {
+    socket.on('saveGame', async ({ moves }) => {
+      const { uid } = socket;
       const [userExists] = await Promise.all([
         getUser(db, uid),
         saveGame(db, { uid, moves }),
@@ -68,7 +72,10 @@ const main = async () => {
       io.emit('getGlobalCounts', globalStats);
     });
 
-    socket.on('getUser', async (uid) => {
+    socket.on('setUser', async (uid) => {
+      // eslint-disable-next-line no-param-reassign
+      socket.uid = uid;
+
       const user = await getUser(db, uid);
 
       socket.emit('setUser', user);
@@ -77,7 +84,7 @@ const main = async () => {
     socket.on('disconnect', () => {
       socket.removeAllListeners();
 
-      console.log('Client disconnected.');
+      console.log('Client disconnected.', socket.uid);
     });
   });
 };
