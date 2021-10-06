@@ -1,9 +1,9 @@
-import http from 'http';
+import { createServer } from 'http';
 import express from 'express';
 import { Server } from 'socket.io';
 import { MongoClient } from 'mongodb';
-import 'dotenv/config';
 import { version } from './package.json';
+import 'dotenv/config';
 
 import { getCounts } from './stats';
 import { newGame, saveGame } from './game';
@@ -18,7 +18,7 @@ const main = async () => {
 
   app.use(express.static(`${__dirname}/`));
 
-  const server = http.createServer(app);
+  const server = createServer(app);
   server.listen(APP_PORT);
 
   console.log('http server listening on %d', APP_PORT);
