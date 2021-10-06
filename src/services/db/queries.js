@@ -2,32 +2,6 @@ import { gql } from 'apollo-boost';
 import apollo from './apollo';
 import { leaderboardsQuery } from './helpers';
 
-export const getInitialData = async (localVersion) => {
-  try {
-    const response = await apollo.query({
-      query: gql`
-        query GetInitialData($localVersion: String!) {
-          version(localVersion: $localVersion) {
-            matches
-          }
-        }
-      `,
-      variables: {
-        localVersion,
-      },
-      fetchPolicy: 'no-cache',
-    });
-
-    return response.data;
-  } catch (error) {
-    return {
-      version: {
-        matches: true,
-      },
-    };
-  }
-};
-
 export const getStats = async (uid) => {
   try {
     const response = await apollo.query({

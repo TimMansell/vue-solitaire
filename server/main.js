@@ -3,6 +3,7 @@ import express from 'express';
 import { Server } from 'socket.io';
 import { MongoClient } from 'mongodb';
 import 'dotenv/config';
+import { version } from './package.json';
 
 import { getCounts } from './stats';
 import { newGame, saveGame } from './game';
@@ -33,6 +34,8 @@ const main = async () => {
 
   io.on('connection', async (socket) => {
     console.log('Client connected.', socket.id);
+
+    socket.emit('version', version);
 
     socket.on('initCounts', async () => {
       const { uid } = socket;

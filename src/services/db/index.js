@@ -1,6 +1,1 @@
-export {
-  getInitialData,
-  getStats,
-  getUsersGames,
-  getLeaderboards,
-} from './queries';
+export { getStats, getUsersGames, getLeaderboards } from './queries';

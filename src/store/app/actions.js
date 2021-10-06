@@ -1,15 +1,15 @@
-import { getInitialData } from '@/services/db';
-import { socketConnect, socketDrop, socketEmit } from '@/services/websockets';
-import { version as localVersion } from '../../../package.json';
+import {
+  socketConnect,
+  socketDrop,
+  socketEmit,
+  socketOn,
+} from '@/services/websockets';
 
 const actions = {
   async initApp({ dispatch }) {
-    const { version } = await getInitialData(localVersion);
-
     dispatch('initUser');
     dispatch('initGame');
     dispatch('initStats');
-    dispatch('setAppVersion', version);
 
     socketConnect(() => {
       dispatch('hasConnection', true);
@@ -18,6 +18,10 @@ const actions = {
     socketDrop(() => {
       dispatch('hasConnection', false);
     });
+
+    socketOn('version', (version) => {
+      dispatch('checkVersion', version);
+    });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
@@ -25,7 +29,12 @@ const actions = {
   hasConnection({ commit }, hasConnection) {
     commit('SET_HAS_CONNECTION', hasConnection);
   },
-  setAppVersion({ commit }, { matches }) {
+  checkVersion({ commit }, version) {
+    const localVersion = localStorage.getItem('version');
+    const matches = localVersion === version;
+
+    localStorage.setItem('version', version);
+
     commit('SET_VERSION_MATCH', matches);
   },
   setGameLoading({ commit }, isGameLoading) {
