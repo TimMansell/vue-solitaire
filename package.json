@@ -31,7 +31,7 @@
     "serve:ws": "run-p ws:watch ws:server",
     "ws:server": "nodemon ./server/index.js",
     "ws:watch": "cd server && rollup -c ./rollup.config.js -w",
-    "heroku-prebuild": "cd server && yarn install --production",
+    "heroku-prebuild": "cd server && yarn install --production=false",
     "heroku-postbuild": "cd server && rollup -c ./rollup.config.js",
     "start": "node ./server/index.js"
   },
