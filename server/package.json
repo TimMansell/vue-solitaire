@@ -17,14 +17,14 @@
     "express": "^4.17.1",
     "mongodb": "4.1.2",
     "socket.io": "4.2.0",
-    "unique-names-generator": "^4.6.0",
+    "unique-names-generator": "^4.6.0"
+  },
+  "devDependencies": {
     "@rollup/plugin-alias": "^3.1.5",
     "@rollup/plugin-commonjs": "^21.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "rollup": "^2.58.0",
     "rollup-plugin-terser": "^7.0.2"
-  },
-  "devDependencies": {
   }
 }

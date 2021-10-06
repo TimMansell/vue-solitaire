@@ -6,7 +6,7 @@
     "node": ">=14.x"
   },
   "scripts": {
-    "postinstall": "cd server && yarn",
+    "postinstall": "cd server && yarn install --production=false",
     "serve": "run-p serve:ws serve:app serve:graphql",
     "serve:app": "vite",
     "serve:graphql": "netlify-lambda serve src/functions --config ./webpack.functions.js",
@@ -31,7 +31,6 @@
     "serve:ws": "run-p ws:watch ws:server",
     "ws:server": "nodemon ./server/index.js",
     "ws:watch": "cd server && rollup -c ./rollup.config.js -w",
-    "heroku-prebuild": "cd server && yarn install --production=false",
     "heroku-postbuild": "cd server && rollup -c ./rollup.config.js",
     "start": "node ./server/index.js"
   },
