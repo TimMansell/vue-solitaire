@@ -93,13 +93,6 @@ const routes = [
     },
   },
   {
-    path: '/connection-lost',
-    components: {
-      main: Home,
-      overlay: () => import('@/pages/ConnectionLost.vue'),
-    },
-  },
-  {
     path: '*',
     components: {
       main: () => import('@/pages/PageNotFound.vue'),
@@ -112,13 +105,7 @@ const router = new VueRouter({
 });
 
 router.afterEach((to) => {
-  const { isGameLoading, isGamePaused, hasConnection } = store.getters;
-
-  if (!hasConnection) {
-    router.push('/connection-lost');
-
-    return;
-  }
+  const { isGameLoading, isGamePaused } = store.getters;
 
   if (to.path === '/' && !isGameLoading) {
     store.dispatch('setGamePaused', false);

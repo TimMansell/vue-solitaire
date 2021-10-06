@@ -22,12 +22,16 @@ export default {
     this.initApp();
   },
   mounted() {
+    const { hasConnection } = this;
+
     const events = {
       visibilitychange: ({ target }) =>
         setTimeout(this.checkGameFocused, 2000, target),
     };
 
     this.events = addEventListener(events);
+
+    this.checkConnection(hasConnection);
   },
   destroyed() {
     const { events } = this;
@@ -38,12 +42,7 @@ export default {
     hasConnection(val, oldVal) {
       if (val === oldVal) return;
 
-      if (val) {
-        this.$router.push('/');
-        return;
-      }
-
-      this.$router.push('/connection-lost');
+      this.checkConnection(val);
     },
     gameOutcome: {
       handler({ hasGameWon, hasGameLost }) {
@@ -68,6 +67,15 @@ export default {
       if (visibilityState === 'hidden') {
         this.$router.push('/pause');
       }
+    },
+    checkConnection(hasConnection) {
+      this.$toasted.clear();
+
+      if (hasConnection) return;
+
+      this.$toasted.show(
+        'Connection to server has been lost. Playing in offline mode'
+      );
     },
   },
 };
