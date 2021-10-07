@@ -16,8 +16,9 @@ const actions = {
     });
 
     commit('SET_USER_ID', uid);
-
-    return uid;
+  },
+  getUser({ state }) {
+    return state.luid;
   },
   async getAllGames({ commit, state }, params) {
     const { luid } = state;

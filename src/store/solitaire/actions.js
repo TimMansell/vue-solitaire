@@ -1,4 +1,4 @@
-import { socketOn, socketEmit } from '@/services/websockets';
+import { socketConnect, socketOn, socketEmit } from '@/services/websockets';
 import {
   initBoard,
   initFoundation,
@@ -16,9 +16,13 @@ const actions = {
   initGame({ dispatch, state }) {
     const { cards } = state;
 
-    if (cards.flat().length === 0) {
-      socketEmit('newGame');
-    }
+    socketConnect(async () => {
+      if (cards.flat().length === 0) {
+        const uid = await dispatch('getUser');
+
+        socketEmit('newGame', uid);
+      }
+    });
 
     socketOn('newGame', (deck) => {
       dispatch('initBoard', deck);

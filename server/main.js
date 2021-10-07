@@ -9,7 +9,8 @@ import { getCounts } from './stats';
 import { newGame, saveGame } from './game';
 import { getUser, createUser } from './user';
 
-const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB } = process.env;
+const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB, NODE_ENV } =
+  process.env;
 const URI = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
 const APP_PORT = process.env.PORT || 5000;
 
@@ -37,24 +38,24 @@ const main = async () => {
 
     socket.emit('version', version);
 
-    socket.on('initCounts', async () => {
-      const { uid } = socket;
+    socket.on('initCounts', async (uid) => {
       const { userStats, globalStats } = await getCounts(db, uid);
 
       socket.emit('getUserGameCount', userStats);
       socket.emit('getGlobalCounts', globalStats);
     });
 
-    socket.on('newGame', async () => {
-      const { uid } = socket;
+    socket.on('newGame', async (uid) => {
+      const isMockedDeck = NODE_ENV === 'test';
 
-      const cards = await newGame(db, uid);
+      console.log({ uid, isMockedDeck });
+
+      const cards = await newGame(db, uid, isMockedDeck);
 
       socket.emit('newGame', cards);
     });
 
-    socket.on('saveGame', async ({ moves }) => {
-      const { uid } = socket;
+    socket.on('saveGame', async ({ uid, moves }) => {
       const [userExists] = await Promise.all([
         getUser(db, uid),
         saveGame(db, { uid, moves }),
@@ -76,9 +77,6 @@ const main = async () => {
     });
 
     socket.on('setUser', async (uid) => {
-      // eslint-disable-next-line no-param-reassign
-      socket.uid = uid;
-
       const user = await getUser(db, uid);
 
       socket.emit('setUser', user);

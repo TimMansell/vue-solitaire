@@ -1,7 +1,15 @@
 import { initCards, checkGameState } from '@/services/solitaire/index';
 import { createISODate } from '@/helpers/dates';
 
-export const newGame = async (db, uid) => {
+export const newGame = async (db, uid, isMocked) => {
+  if (isMocked) {
+    const { cards } = await db
+      .collection('decks')
+      .findOne({ uid, isMocked }, { projection: { cards: 1 } });
+
+    return cards;
+  }
+
   const date = createISODate();
   const cards = initCards();
 

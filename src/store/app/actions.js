@@ -49,10 +49,11 @@ const actions = {
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  async saveGame({ state }) {
+  async saveGame({ dispatch, state }) {
     const { game } = state;
+    const uid = await dispatch('getUser');
 
-    socketEmit('saveGame', { ...game });
+    socketEmit('saveGame', { uid, ...game });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);

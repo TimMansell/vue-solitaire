@@ -2,9 +2,11 @@ import { socketConnect, socketEmit, socketOn } from '@/services/websockets';
 import { getStats, getLeaderboards } from '@/services/db';
 
 const actions = {
-  initStats({ commit }) {
+  async initStats({ commit, dispatch }) {
+    const uid = await dispatch('getUser');
+
     socketConnect(() => {
-      socketEmit('initCounts');
+      socketEmit('initCounts', uid);
     });
 
     socketOn('getUserGameCount', (userStats) => {

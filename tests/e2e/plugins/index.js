@@ -39,7 +39,9 @@ module.exports = (on, config) => {
             const db = client.db(MONGODB_DB);
 
             await db.collection('decks').deleteMany({ uid });
-            await db.collection('decks').insertOne({ uid, cards });
+            await db
+              .collection('decks')
+              .insertOne({ uid, cards, isMocked: true });
 
             client.close();
 
