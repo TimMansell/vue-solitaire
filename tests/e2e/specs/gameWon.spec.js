@@ -21,13 +21,9 @@ describe('Game Won', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('should win game, keep state on page refresh, and increment won game stats', () => {
@@ -49,13 +45,9 @@ describe('Game Won', () => {
     beforeEach(() => {
       cy.setUser(mockUid);
 
-      cy.mockApi({
-        mockDeck: fullGameDeck,
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('should win game, keep state on page refresh, and increment won game stats', () => {

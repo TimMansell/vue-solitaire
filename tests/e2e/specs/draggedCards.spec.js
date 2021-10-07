@@ -2,12 +2,9 @@ import validMoveDeck from '../../fixtures/decks/validMove.json';
 
 describe('Dragged Cards', () => {
   beforeEach(() => {
-    cy.mockApi({
-      mockDeck: validMoveDeck,
-      mockInitial: true,
+    cy.setDeck(validMoveDeck).then(() => {
+      cy.visitApp();
     });
-
-    cy.visitApp();
   });
 
   afterEach(() => {

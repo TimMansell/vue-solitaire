@@ -1,5 +1,3 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
-
 describe('App', () => {
   afterEach(() => {
     cy.clearTest();
@@ -39,12 +37,7 @@ describe('App', () => {
 
   describe('Version', () => {
     it('it should not show version upgrade toast', () => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: {
-          matchesVersion: true,
-        },
-      });
+      localStorage.setItem('version', '0.0.1');
 
       cy.visitApp();
 
@@ -52,12 +45,7 @@ describe('App', () => {
     });
 
     it('it should show version upgrade toast', () => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: {
-          matchesVersion: false,
-        },
-      });
+      localStorage.setItem('version', '0.0.0');
 
       cy.visitApp();
 
@@ -65,23 +53,13 @@ describe('App', () => {
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: {
-          matchesVersion: false,
-        },
-      });
+      localStorage.setItem('version', '0.0.0');
 
       cy.visitApp();
 
       cy.checkVersionPopup(true);
 
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: {
-          matchesVersion: true,
-        },
-      });
+      localStorage.setItem('version', '0.0.1');
 
       cy.reload();
 

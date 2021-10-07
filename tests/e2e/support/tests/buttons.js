@@ -1,6 +1,6 @@
-Cypress.Commands.add('startNewGame', ({ waitUser } = { waitUser: false }) => {
+Cypress.Commands.add('startNewGame', () => {
   cy.newGame();
-  cy.confirmNewGame({ waitUser });
+  cy.confirmNewGame();
 });
 
 Cypress.Commands.add('newGame', () => {
@@ -9,20 +9,10 @@ Cypress.Commands.add('newGame', () => {
   cy.checkVisibilityHidden(true);
 });
 
-Cypress.Commands.add('confirmNewGame', ({ waitUser } = { waitUser: false }) => {
+Cypress.Commands.add('confirmNewGame', () => {
   cy.get('[data-test="start-new-game-btn"]').click();
 
   cy.checkVisibilityHidden(false);
-
-  if (waitUser) {
-    cy.wait('@CreateAUserAPI');
-  }
-
-  cy.get('@mockedInitial').then((isMocked) => {
-    if (!isMocked) {
-      cy.wait('@GetInitialDataAPI');
-    }
-  });
 });
 
 Cypress.Commands.add('pauseGame', () => {

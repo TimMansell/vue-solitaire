@@ -3,12 +3,9 @@ import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
 describe('Game State', () => {
   beforeEach(() => {
-    cy.mockApi({
-      mockDeck: quitGameDeck,
-      mockInitial: true,
+    cy.setDeck(quitGameDeck).then(() => {
+      cy.visitApp();
     });
-
-    cy.visitApp();
   });
 
   afterEach(() => {

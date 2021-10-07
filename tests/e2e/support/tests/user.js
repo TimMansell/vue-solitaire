@@ -8,8 +8,4 @@ Cypress.Commands.add('checkPlayerCount', () => {
 
 Cypress.Commands.add('setUser', (uid) => localStorage.setItem('luid', uid));
 
-Cypress.Commands.add('setDeck', (cards) => {
-  const uid = localStorage.getItem('luid');
-
-  cy.task('populateDeck', { cards, uid });
-});
+Cypress.Commands.add('setDeck', (cards) => cy.task('populateDeck', cards));

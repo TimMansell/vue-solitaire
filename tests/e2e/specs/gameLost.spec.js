@@ -25,12 +25,9 @@ describe('Game Lost', () => {
 
   describe('Variations', () => {
     it('should have K♣ as an available move then no moves after that', () => {
-      cy.mockApi({
-        mockDeck: noMovesKingColumnDeck,
-        mockInitial: true,
+      cy.setDeck(noMovesKingColumnDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
 
       cy.runGameWithClicks(noMovesKingColumnMoves);
 
@@ -38,12 +35,9 @@ describe('Game Lost', () => {
     });
 
     it('should have A♦ as an available foundation move then no moves after that', () => {
-      cy.mockApi({
-        mockDeck: initialAceMoveDeck,
-        mockInitial: true,
+      cy.setDeck(initialAceMoveDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
 
       cy.clickFromTo('A♦', 'foundation-0');
 
@@ -51,12 +45,9 @@ describe('Game Lost', () => {
     });
 
     it('should have 2♦ as an available foundation move then no moves after that', () => {
-      cy.mockApi({
-        mockDeck: initialAceAnd2MoveDeck,
-        mockInitial: true,
+      cy.setDeck(initialAceAnd2MoveDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
 
       cy.clickFromTo('A♦', 'foundation-0');
       cy.clickFromTo('2♦', 'foundation-0');
@@ -67,13 +58,9 @@ describe('Game Lost', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: incompleteGameDeck,
+      cy.setDeck(incompleteGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(incompleteGameDeck);
     });
 
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {
@@ -97,13 +84,9 @@ describe('Game Lost', () => {
     beforeEach(() => {
       cy.setUser(mockUid);
 
-      cy.mockApi({
-        mockDeck: incompleteGameDeck,
+      cy.setDeck(incompleteGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(incompleteGameDeck);
     });
 
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {

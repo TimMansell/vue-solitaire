@@ -10,9 +10,6 @@ Cypress.Commands.add('interceptAPIs', () => {
   };
 
   cy.intercept('POST', url, (request) => {
-    interceptAPI(request, 'GetInitialData');
-    interceptAPI(request, 'CreateAUser');
-    interceptAPI(request, 'NewGame');
     interceptAPI(request, 'GetStats');
     interceptAPI(request, 'Leaderboards');
     interceptAPI(request, 'UserHistory');

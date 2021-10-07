@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB } = process.env;
-const uri = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
+const URI = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
 
 const {
   addMatchImageSnapshotPlugin,
@@ -11,44 +11,30 @@ const {
 module.exports = (on, config) => {
   addMatchImageSnapshotPlugin(on, config);
 
-  on('before:run', () => {
-    MongoClient.connect(uri, async (err, client) => {
-      if (err) {
-        console.log(`MONGO CONNECTION ERROR: ${err}`);
+  let db;
 
-        throw err;
-      } else {
-        const db = client.db(MONGODB_DB);
-
-        await db.collection('decks').deleteMany({});
-
-        client.close();
-      }
+  on('before:run', async () => {
+    const connection = await MongoClient.connect(URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
+
+    db = connection.db(MONGODB_DB);
+  });
+
+  on('after:run', () => {
+    db.close();
   });
 
   on('task', {
-    populateDeck({ cards, uid }) {
-      return new Promise((resolve) => {
-        MongoClient.connect(uri, async (err, client) => {
-          if (err) {
-            console.log(`MONGO CONNECTION ERROR: ${err}`);
-
-            throw err;
-          } else {
-            const db = client.db(MONGODB_DB);
-
-            await db.collection('decks').deleteMany({ uid });
-            await db
-              .collection('decks')
-              .insertOne({ uid, cards, isMocked: true });
-
-            client.close();
-
-            resolve({});
-          }
-        });
-      });
+    populateDeck(cards) {
+      return db
+        .collection('decks')
+        .findOneAndUpdate(
+          { isMocked: true },
+          { $set: { uid: null, cards, isMocked: true } },
+          { upsert: true }
+        );
     },
   });
 

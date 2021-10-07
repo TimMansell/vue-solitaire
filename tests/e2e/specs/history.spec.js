@@ -9,11 +9,6 @@ describe('History', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: quitGameDeck,
-        mockInitial: true,
-      });
-
       cy.visitApp();
     });
 
@@ -29,15 +24,9 @@ describe('History', () => {
   });
 
   describe('New user', () => {
-    beforeEach(() => {
-      cy.mockApi({
-        mockDeck: quitGameDeck,
-      });
-
-      cy.visitApp();
-    });
-
     it('it shows no game message', () => {
+      cy.visitApp();
+
       cy.showHistory();
 
       cy.checkHistoryExists(false);
@@ -45,7 +34,9 @@ describe('History', () => {
     });
 
     it('it shows game history after first game played', () => {
-      cy.setDeck(quitGameDeck);
+      cy.setDeck(quitGameDeck).then(() => {
+        cy.visitApp();
+      });
 
       cy.runGameWithClicks(quitGameMoves);
 
@@ -71,10 +62,6 @@ describe('History', () => {
   describe('Existing user', () => {
     beforeEach(() => {
       cy.setUser(mockUid);
-
-      cy.mockApi({
-        mockDeck: quitGameDeck,
-      });
 
       cy.visitApp();
     });

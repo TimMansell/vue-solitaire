@@ -9,8 +9,7 @@ import { getCounts } from './stats';
 import { newGame, saveGame } from './game';
 import { getUser, createUser } from './user';
 
-const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB, NODE_ENV } =
-  process.env;
+const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB } = process.env;
 const URI = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
 const APP_PORT = process.env.PORT || 5000;
 
@@ -46,11 +45,7 @@ const main = async () => {
     });
 
     socket.on('newGame', async (uid) => {
-      const isMockedDeck = NODE_ENV === 'test';
-
-      console.log({ uid, isMockedDeck });
-
-      const cards = await newGame(db, uid, isMockedDeck);
+      const cards = await newGame(db, uid);
 
       socket.emit('newGame', cards);
     });

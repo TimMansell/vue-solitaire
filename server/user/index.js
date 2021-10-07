@@ -18,9 +18,9 @@ export const createUser = async (db, uid) => {
 };
 
 export const getUser = async (db, uid) => {
-  const { name } = await db
+  const user = await db
     .collection('users')
     .findOne({ uid }, { projection: { name: 1 } });
 
-  return name;
+  return user?.name;
 };

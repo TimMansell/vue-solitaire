@@ -8,10 +8,6 @@ describe('User', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-      });
-
       cy.visitApp();
     });
 
@@ -31,13 +27,9 @@ describe('User', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it creates a new user on server after first game has been played', () => {
@@ -61,13 +53,9 @@ describe('User', () => {
     beforeEach(() => {
       cy.setUser(mockUid);
 
-      cy.mockApi({
-        mockDeck: fullGameDeck,
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it does not create a new local user on initial page load', () => {

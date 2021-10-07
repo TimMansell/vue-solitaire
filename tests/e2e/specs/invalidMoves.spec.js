@@ -2,12 +2,9 @@ import fullGameDeck from '../../fixtures/decks/fullGame.json';
 
 describe('Invalid moves', () => {
   beforeEach(() => {
-    cy.mockApi({
-      mockDeck: fullGameDeck,
-      mockInitial: true,
+    cy.setDeck(fullGameDeck).then(() => {
+      cy.visitApp();
     });
-
-    cy.visitApp();
   });
 
   afterEach(() => {

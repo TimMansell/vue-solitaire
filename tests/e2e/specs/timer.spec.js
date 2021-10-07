@@ -1,12 +1,5 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
-
 describe('Timer', () => {
   beforeEach(() => {
-    cy.mockApi({
-      mockDeck: fullGameDeck,
-      mockInitial: true,
-    });
-
     cy.visitApp();
   });
 

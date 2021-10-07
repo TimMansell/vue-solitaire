@@ -51,7 +51,7 @@ Cypress.Commands.add('checkTimerHasResumed', () => {
 Cypress.Commands.add('checkTimerIsPausedOnReload', () => {
   cy.saveTimer({ wait: 1000 });
 
-  cy.reloadAndWait();
+  cy.reload();
 
   cy.saveTimer({ wait: 1000 });
 

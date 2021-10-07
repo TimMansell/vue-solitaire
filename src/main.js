@@ -17,8 +17,10 @@ Vue.use(Toasted, {
   position: 'bottom-center',
 });
 
-new Vue({
+const app = new Vue({
   store,
   router,
   render: (h) => h(App),
 }).$mount('#app');
+
+window.app = app;

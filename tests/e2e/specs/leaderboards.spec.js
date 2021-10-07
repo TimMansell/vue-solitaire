@@ -8,11 +8,6 @@ describe('Leaderboards', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: true,
-      });
-
       cy.visitApp();
     });
 
@@ -92,13 +87,9 @@ describe('Leaderboards', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it should display player name after first game', () => {
@@ -120,13 +111,9 @@ describe('Leaderboards', () => {
     beforeEach(() => {
       cy.setUser(mockUid);
 
-      cy.mockApi({
-        mockDeck: fullGameDeck,
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it should display player name after first game', () => {
