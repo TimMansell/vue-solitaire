@@ -2,9 +2,10 @@ import { createServer } from 'http';
 import express from 'express';
 import { Server } from 'socket.io';
 import { MongoClient } from 'mongodb';
-import { version } from '../package.json';
+
 import 'dotenv/config';
 
+import { checkVersion } from './version';
 import {
   getCounts,
   getPlayerStats,
@@ -40,7 +41,11 @@ const main = async () => {
   io.on('connection', async (socket) => {
     console.log('Client connected.', socket.id);
 
-    socket.emit('version', version);
+    socket.on('checkVersion', (localVersion) => {
+      const version = checkVersion(localVersion);
+
+      socket.emit('checkVersion', version);
+    });
 
     socket.on('initCounts', async (uid) => {
       try {

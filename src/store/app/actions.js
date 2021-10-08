@@ -12,6 +12,7 @@ const actions = {
     dispatch('initStats');
 
     socketConnect(() => {
+      dispatch('checkVersion');
       dispatch('hasConnection', true);
     });
 
@@ -19,8 +20,8 @@ const actions = {
       dispatch('hasConnection', false);
     });
 
-    socketOn('version', (version) => {
-      dispatch('checkVersion', version);
+    socketOn('checkVersion', (version) => {
+      dispatch('setVersion', version);
     });
   },
   restartApp({ commit }) {
@@ -29,11 +30,13 @@ const actions = {
   hasConnection({ commit }, hasConnection) {
     commit('SET_HAS_CONNECTION', hasConnection);
   },
-  checkVersion({ commit }, version) {
-    const localVersion = localStorage.getItem('version');
-    const matches = localVersion === version;
+  checkVersion() {
+    const wsVersion = localStorage.getItem('wsVersion');
 
-    localStorage.setItem('version', version);
+    socketEmit('checkVersion', wsVersion);
+  },
+  setVersion({ commit }, { version, matches }) {
+    localStorage.setItem('wsVersion', version);
 
     commit('SET_VERSION_MATCH', matches);
   },

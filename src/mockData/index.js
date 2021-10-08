@@ -462,4 +462,4 @@ export const mockPlayers = [
 
 export const mockStats = { won: 2, lost: 4, completed: 9, players: 4 };
 
-export const mockVersionNumber = '1.0.0';
+export const mockVersionNumber = '0.0.1';

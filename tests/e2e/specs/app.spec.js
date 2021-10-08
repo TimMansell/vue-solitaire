@@ -1,3 +1,6 @@
+import { mockVersionNumber } from '../../../src/mockData';
+import { version } from '../../../server/package.json';
+
 describe('App', () => {
   afterEach(() => {
     cy.clearTest();
@@ -36,30 +39,26 @@ describe('App', () => {
   });
 
   describe('Version', () => {
+    it('it should not show version upgrade toast when no wsVersion is set', () => {
+      cy.visitApp();
+
+      cy.checkVersionPopup(false);
+    });
+
     it('it should not show version upgrade toast', () => {
-      localStorage.setItem('version', '0.0.1');
+      localStorage.setItem('wsVersion', version);
 
       cy.visitApp();
 
       cy.checkVersionPopup(false);
     });
 
-    it('it should show version upgrade toast', () => {
-      localStorage.setItem('version', '0.0.0');
-
-      cy.visitApp();
-
-      cy.checkVersionPopup(true);
-    });
-
     it('it should show version upgrade toast and not show it after page reload', () => {
-      localStorage.setItem('version', '0.0.0');
+      localStorage.setItem('wsVersion', mockVersionNumber);
 
       cy.visitApp();
 
       cy.checkVersionPopup(true);
-
-      localStorage.setItem('version', '0.0.1');
 
       cy.reload();
 
