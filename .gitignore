@@ -30,4 +30,4 @@ yarn-error.log*
 # netlify functions
 /functions
 
-/server/index.js
+/server/dist/

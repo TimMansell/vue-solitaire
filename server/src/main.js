@@ -2,7 +2,7 @@ import { createServer } from 'http';
 import express from 'express';
 import { Server } from 'socket.io';
 import { MongoClient } from 'mongodb';
-import { version } from './package.json';
+import { version } from '../package.json';
 import 'dotenv/config';
 
 import { getCounts } from './stats';

@@ -31,10 +31,10 @@
     "lint:css": "stylelint src/**/*.{vue,scss} --fix",
     "serve:ws": "run-p ws:watch ws:server",
     "serve:ws:test": "cross-env NODE_ENV=test run-p ws:watch ws:server",
-    "ws:server": "nodemon ./server/index.js",
+    "ws:server": "nodemon ./server/dist/index.js",
     "ws:watch": "cd server && rollup -c ./rollup.config.js -w",
     "heroku-postbuild": "cd server && rollup -c ./rollup.config.js",
-    "start": "node ./server/index.js"
+    "start": "node ./server/dist/index.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

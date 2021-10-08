@@ -8,9 +8,9 @@ import json from '@rollup/plugin-json';
 const projectRootDir = path.resolve(__dirname);
 
 export default {
-  input: './main.js',
+  input: './src/main.js',
   output: {
-    file: './index.js',
+    file: './dist/index.js',
     format: 'cjs',
   },
   plugins: [
