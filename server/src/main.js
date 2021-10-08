@@ -5,9 +5,14 @@ import { MongoClient } from 'mongodb';
 import { version } from '../package.json';
 import 'dotenv/config';
 
-import { getCounts } from './stats';
+import {
+  getCounts,
+  getPlayerStats,
+  getGlobalStats,
+  getLeaderboards,
+} from './stats';
 import { newGame, saveGame } from './game';
-import { getUser, createUser } from './user';
+import { getUser, createUser, getUserGames } from './user';
 
 const { MONGOBD_URI, MONGODB_USER, MONGOBD_PASS, MONGODB_DB } = process.env;
 const URI = `mongodb+srv://${MONGODB_USER}:${MONGOBD_PASS}@${MONGOBD_URI}/test?retryWrites=true&w=majority`;
@@ -96,6 +101,39 @@ const main = async () => {
         const user = await getUser(db, uid);
 
         socket.emit('setUser', user);
+      } catch (error) {
+        console.log({ error });
+      }
+    });
+
+    socket.on('getStats', async (uid) => {
+      try {
+        const [userStats, globalStats] = await Promise.all([
+          getPlayerStats(db, uid),
+          getGlobalStats(db),
+        ]);
+
+        socket.emit('getStats', { userStats, globalStats });
+      } catch (error) {
+        console.log({ error });
+      }
+    });
+
+    socket.on('getUserGames', async ({ uid, offset, limit }) => {
+      try {
+        const games = await getUserGames(db, uid, offset, limit);
+
+        socket.emit('getUserGames', games);
+      } catch (error) {
+        console.log({ error });
+      }
+    });
+
+    socket.on('getLeaderboards', async ({ showBest, limit }) => {
+      try {
+        const games = await getLeaderboards(db, showBest, limit);
+
+        socket.emit('getLeaderboards', games);
       } catch (error) {
         console.log({ error });
       }

@@ -1,6 +1,5 @@
 import { socketConnect, socketEmit, socketOn } from '@/services/websockets';
 import { initUser } from '@/services/user';
-import { getUsersGames } from '@/services/db';
 
 const actions = {
   initUser({ commit, state }) {
@@ -15,19 +14,21 @@ const actions = {
       commit('SET_USER_NAME', user);
     });
 
+    socketOn('getUserGames', (games) => {
+      commit('SET_USER_GAMES', games);
+    });
+
     commit('SET_USER_ID', uid);
   },
   getUser({ state }) {
     return state.luid;
   },
-  async getAllGames({ commit, state }, params) {
-    const { luid } = state;
+  async getAllGames({ commit, dispatch }, params) {
+    const uid = await dispatch('getUser');
 
     commit('SET_USER_GAMES', []);
 
-    const { history } = await getUsersGames(luid, params);
-
-    commit('SET_USER_GAMES', history);
+    socketEmit('getUserGames', { uid, ...params });
   },
 };
 
