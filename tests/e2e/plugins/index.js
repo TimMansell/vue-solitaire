@@ -11,10 +11,11 @@ const {
 module.exports = (on, config) => {
   addMatchImageSnapshotPlugin(on, config);
 
+  let connection;
   let db;
 
   on('before:run', async () => {
-    const connection = await MongoClient.connect(URI, {
+    connection = await MongoClient.connect(URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -23,7 +24,7 @@ module.exports = (on, config) => {
   });
 
   on('after:run', () => {
-    db.close();
+    connection.close();
   });
 
   on('task', {
