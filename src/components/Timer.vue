@@ -7,12 +7,13 @@
 
 <script>
 import numeral from 'numeral';
+import pauseMe from 'pause-me';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters(['timer', 'isGamePaused']),
+    ...mapGetters(['timer', 'isGamePaused', 'isGameLoading']),
     formattedTime() {
       const { timer } = this;
 
@@ -20,28 +21,48 @@ export default {
     },
   },
   mounted() {
-    const { isGamePaused } = this;
-
-    this.setTimer(isGamePaused);
+    this.gameTimer = pauseMe(() => this.updateTimer(), 1000, true);
+    this.checkInitialState();
   },
   destroyed() {
-    clearInterval(this.gameTimer);
+    this.gameTimer.stop();
   },
   watch: {
-    isGamePaused(val, oldVal) {
-      if (val === oldVal) return;
+    isGamePaused(isPaused, isPausedPrev) {
+      const { isGameLoading } = this;
 
-      this.setTimer(val);
+      if (isPaused === isPausedPrev || isGameLoading) return;
+
+      if (isPaused) {
+        this.gameTimer.pause();
+        return;
+      }
+
+      this.gameTimer.resume();
+    },
+    isGameLoading(isLoading, isLoadingPrev) {
+      if (isLoading === isLoadingPrev) return;
+
+      if (isLoading) {
+        this.gameTimer.stop();
+        return;
+      }
+
+      this.gameTimer.resume();
     },
   },
   methods: {
     ...mapActions(['updateTimer']),
-    setTimer(isPaused) {
-      if (!isPaused) {
-        this.gameTimer = window.setInterval(() => this.updateTimer(), 1000);
-      } else {
-        clearInterval(this.gameTimer);
+    checkInitialState() {
+      const { isGamePaused, isGameLoading } = this;
+
+      if (!isGamePaused && !isGameLoading) {
+        this.gameTimer.resume();
+
+        return;
       }
+
+      this.gameTimer.pause();
     },
   },
 };

@@ -13,15 +13,9 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
-  initGame({ dispatch, state }) {
-    const { cards } = state;
-
-    socketConnect(async () => {
-      if (cards.flat().length === 0) {
-        const uid = await dispatch('getUser');
-
-        socketEmit('newGame', uid);
-      }
+  initGame({ dispatch }) {
+    socketConnect(() => {
+      dispatch('initNewGame');
     });
 
     socketOn('newGame', (deck) => {
@@ -50,9 +44,17 @@ const actions = {
   initBoard({ dispatch }, cards) {
     const board = initBoard(cards);
 
-    dispatch('setGameLoading', true);
     dispatch('setBoard', board);
     dispatch('setGameLoading', false);
+  },
+  async initNewGame({ dispatch, state }) {
+    const uid = await dispatch('getUser');
+    const { cards } = state;
+
+    if (cards.flat().length === 0) {
+      dispatch('setGameLoading', true);
+      socketEmit('newGame', uid);
+    }
   },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);

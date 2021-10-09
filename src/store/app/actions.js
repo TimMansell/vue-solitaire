@@ -42,9 +42,8 @@ const actions = {
   },
   setGameLoading({ commit }, isGameLoading) {
     commit('SET_GAME_LOADING', isGameLoading);
-    commit('SET_GAME_PAUSED', isGameLoading);
   },
-  async newGame({ dispatch }) {
+  newGame({ dispatch }) {
     dispatch('saveGame');
     dispatch('restartApp');
     dispatch('restartGame');
