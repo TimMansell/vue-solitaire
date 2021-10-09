@@ -39,14 +39,14 @@ describe('App', () => {
   });
 
   describe('Version', () => {
-    it('it should not show version upgrade toast when no wsVersion is set', () => {
+    it('it should not show version upgrade toast when no appVersion is set', () => {
       cy.visitApp();
 
       cy.checkVersionPopup(false);
     });
 
     it('it should not show version upgrade toast', () => {
-      localStorage.setItem('wsVersion', version);
+      localStorage.setItem('appVersion', version);
 
       cy.visitApp();
 
@@ -54,7 +54,7 @@ describe('App', () => {
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
-      localStorage.setItem('wsVersion', mockVersionNumber);
+      localStorage.setItem('appVersion', mockVersionNumber);
 
       cy.visitApp();
 

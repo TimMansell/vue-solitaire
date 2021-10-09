@@ -31,12 +31,12 @@ const actions = {
     commit('SET_HAS_CONNECTION', hasConnection);
   },
   checkVersion() {
-    const wsVersion = localStorage.getItem('wsVersion');
+    const appVersion = localStorage.getItem('appVersion');
 
-    socketEmit('checkVersion', wsVersion);
+    socketEmit('checkVersion', appVersion);
   },
   setVersion({ commit }, { version, matches }) {
-    localStorage.setItem('wsVersion', version);
+    localStorage.setItem('appVersion', version);
 
     commit('SET_VERSION_MATCH', matches);
   },
