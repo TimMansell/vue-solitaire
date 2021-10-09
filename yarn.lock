@@ -4181,6 +4181,10 @@ cypress-image-snapshot@3.1.1:
     pkg-dir "^3.0.0"
     term-img "^4.0.0"
 
+cypress-wait-until@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/cypress-wait-until/-/cypress-wait-until-1.7.1.tgz#3789cd18affdbb848e3cfc1f918353c7ba1de6f8"
+
 cypress@7.5.0:
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-7.5.0.tgz#72dd342e3b45f54b63cd46819f38d126feff5954"
@@ -8127,6 +8131,10 @@ path-type@^3.0.0:
 path-type@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
+
+pause-me@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/pause-me/-/pause-me-1.2.0.tgz#b3e2b91719d2d4ffb4143c76d86eff44fe794636"
 
 pbkdf2@^3.0.3:
   version "3.1.2"
