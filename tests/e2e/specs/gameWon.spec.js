@@ -35,7 +35,7 @@ describe('Game Won', () => {
 
       cy.checkGameWon(true);
 
-      cy.confirmNewGame({ waitUser: true });
+      cy.confirmNewGame();
 
       cy.checkStats();
     });

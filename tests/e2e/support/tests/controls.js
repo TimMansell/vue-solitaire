@@ -63,8 +63,6 @@ Cypress.Commands.add('testStats', () => {
 
   cy.get('[data-test="stats-overlay"]').should('exist');
 
-  cy.wait('@GetStatsAPI');
-
   cy.closeOverlay();
 
   cy.get('[data-test="stats-overlay"]').should('not.exist');
@@ -78,8 +76,6 @@ Cypress.Commands.add('testLeaderboards', () => {
   cy.reload();
 
   cy.get('[data-test="leaderboards-overlay"]').should('exist');
-
-  cy.wait('@LeaderboardsAPI');
 
   cy.closeOverlay();
 

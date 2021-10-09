@@ -2,16 +2,12 @@ Cypress.Commands.add('selectLeaderboardTop', (value) => {
   cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
     `${value}`
   );
-
-  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('selectLeaderboardBest', (value) => {
   cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
     value
   );
-
-  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('getSelectLeaderboardTop', () => {

@@ -74,7 +74,7 @@ describe('Game Lost', () => {
 
       cy.checkGameLost(true);
 
-      cy.confirmNewGame({ waitUser: true });
+      cy.confirmNewGame();
 
       cy.checkStats();
     });

@@ -37,8 +37,6 @@ Cypress.Commands.add('showStats', () => {
   cy.get('[data-test="stats-btn"]').click();
 
   cy.checkVisibilityHidden(true);
-
-  cy.wait('@GetStatsAPI');
 });
 
 Cypress.Commands.add('showRules', () => {
@@ -47,22 +45,16 @@ Cypress.Commands.add('showRules', () => {
   cy.checkVisibilityHidden(true);
 });
 
-Cypress.Commands.add('showHistory', ({ wait } = { wait: false }) => {
+Cypress.Commands.add('showHistory', () => {
   cy.get('[data-test="history-btn"]').click();
 
   cy.checkVisibilityHidden(true);
-
-  if (wait) {
-    cy.wait('@UserHistoryAPI');
-  }
 });
 
 Cypress.Commands.add('showLeaderboards', () => {
   cy.get('[data-test="leaderboards-btn"]').click();
 
   cy.checkVisibilityHidden(true);
-
-  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('showBoard', () => {

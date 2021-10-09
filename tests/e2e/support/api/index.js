@@ -1,2 +1,1 @@
 import './graphql';
-import './intercepts';

@@ -1,4 +1,3 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
 import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
@@ -87,9 +86,7 @@ describe('Leaderboards', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.setDeck(fullGameDeck).then(() => {
-        cy.visitApp();
-      });
+      cy.visitApp();
     });
 
     it('it should display player name after first game', () => {
@@ -99,7 +96,7 @@ describe('Leaderboards', () => {
 
       cy.closeOverlay();
 
-      cy.startNewGame({ waitUser: true });
+      cy.startNewGame();
 
       cy.showLeaderboards();
 
@@ -111,12 +108,10 @@ describe('Leaderboards', () => {
     beforeEach(() => {
       cy.setUser(mockUid);
 
-      cy.setDeck(fullGameDeck).then(() => {
-        cy.visitApp();
-      });
+      cy.visitApp();
     });
 
-    it('it should display player name after first game', () => {
+    it('it should display player name ', () => {
       cy.showLeaderboards();
 
       cy.checkLeaderboardNameExists(true);
