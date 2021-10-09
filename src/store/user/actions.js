@@ -7,7 +7,7 @@ const actions = {
     const uid = luid || initUser();
 
     socketConnect(() => {
-      socketEmit('setUser', luid);
+      socketEmit('setUser', uid);
     });
 
     socketOn('setUser', (user) => {
