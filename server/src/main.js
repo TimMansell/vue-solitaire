@@ -1,133 +1,38 @@
 import { Server } from 'socket.io';
 
 import { setupServer, setupDB } from './db';
-import { checkVersion } from './version';
 import {
-  getCounts,
-  getPlayerStats,
-  getGlobalStats,
-  getLeaderboards,
-} from './stats';
-import { newGame, saveGame } from './game';
-import { getUser, createUser, getUserGames } from './user';
+  setupSocket,
+  checkVersionSocket,
+  newGameSocket,
+  saveGameSocket,
+  setUserSocket,
+  getUserGamesSocket,
+  initCountsSocket,
+  getStatsSocket,
+  getLeaderboardsSocket,
+  disconnectSocket,
+} from './sockets';
 
 const main = async () => {
   const server = await setupServer();
   const db = await setupDB();
-
   const io = new Server(server);
 
   io.on('connection', async (socket) => {
+    const onSocket = setupSocket({ socket, db, io });
+
+    onSocket(checkVersionSocket);
+    onSocket(newGameSocket);
+    onSocket(saveGameSocket);
+    onSocket(setUserSocket);
+    onSocket(getUserGamesSocket);
+    onSocket(initCountsSocket);
+    onSocket(getStatsSocket);
+    onSocket(getLeaderboardsSocket);
+    onSocket(disconnectSocket);
+
     console.log('Client connected.', socket.id);
-
-    socket.on('checkVersion', (localVersion) => {
-      const version = checkVersion(localVersion);
-
-      socket.emit('checkVersion', version);
-    });
-
-    socket.on('initCounts', async (uid) => {
-      try {
-        const { userStats, globalStats } = await getCounts(db, uid);
-
-        socket.emit('getUserGameCount', userStats);
-        socket.emit('getGlobalCounts', globalStats);
-      } catch (error) {
-        console.log({ error });
-      }
-    });
-
-    socket.on('newGame', async (uid) => {
-      try {
-        const cards = await newGame(db, uid);
-
-        socket.emit('newGame', cards);
-      } catch (error) {
-        console.log({ error });
-      }
-    });
-
-    socket.on('saveGame', async ({ uid, moves }) => {
-      try {
-        const [userExists] = await Promise.all([
-          getUser(db, uid),
-          saveGame(db, { uid, moves }),
-        ]);
-
-        if (!userExists) {
-          try {
-            const user = await createUser(db, uid);
-
-            socket.emit('setUser', user);
-          } catch (error) {
-            console.log({ error });
-          }
-        }
-      } catch (error) {
-        console.log({ error });
-      }
-
-      try {
-        const cards = await newGame(db, uid);
-        socket.emit('newGame', cards);
-
-        const { userStats, globalStats } = await getCounts(db, uid);
-
-        socket.emit('getUserGameCount', userStats);
-        io.emit('getGlobalCounts', globalStats);
-      } catch (error) {
-        console.log({ error });
-      }
-    });
-
-    socket.on('setUser', async (uid) => {
-      try {
-        const user = await getUser(db, uid);
-
-        socket.emit('setUser', user);
-      } catch (error) {
-        console.log({ error });
-      }
-    });
-
-    socket.on('getStats', async (uid) => {
-      try {
-        const [userStats, globalStats] = await Promise.all([
-          getPlayerStats(db, uid),
-          getGlobalStats(db),
-        ]);
-
-        socket.emit('getStats', { userStats, globalStats });
-      } catch (error) {
-        console.log({ error });
-      }
-    });
-
-    socket.on('getUserGames', async ({ uid, offset, limit }) => {
-      try {
-        const games = await getUserGames(db, uid, offset, limit);
-
-        socket.emit('getUserGames', games);
-      } catch (error) {
-        console.log({ error });
-      }
-    });
-
-    socket.on('getLeaderboards', async ({ showBest, limit }) => {
-      try {
-        const games = await getLeaderboards(db, showBest, limit);
-
-        socket.emit('getLeaderboards', games);
-      } catch (error) {
-        console.log({ error });
-      }
-    });
-
-    socket.on('disconnect', () => {
-      socket.removeAllListeners();
-
-      console.log('Client disconnected.', socket.id);
-    });
   });
 };
 
