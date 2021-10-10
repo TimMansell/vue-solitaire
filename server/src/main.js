@@ -2,7 +2,7 @@ import { Server } from 'socket.io';
 
 import { setupServer, setupDB } from './setup';
 import {
-  setupSocket,
+  setupOnSocket,
   checkVersionSocket,
   newGameSocket,
   saveGameSocket,
@@ -19,17 +19,17 @@ const main = async () => {
   const io = new Server(server);
 
   io.on('connection', async (socket) => {
-    const onSocket = setupSocket({ socket, db, io });
+    const on = setupOnSocket({ socket, db, io });
 
-    onSocket(checkVersionSocket);
-    onSocket(newGameSocket);
-    onSocket(saveGameSocket);
-    onSocket(setUserSocket);
-    onSocket(getUserGamesSocket);
-    onSocket(initCountsSocket);
-    onSocket(getStatsSocket);
-    onSocket(getLeaderboardsSocket);
-    onSocket(disconnectSocket);
+    on(checkVersionSocket);
+    on(newGameSocket);
+    on(saveGameSocket);
+    on(setUserSocket);
+    on(getUserGamesSocket);
+    on(initCountsSocket);
+    on(getStatsSocket);
+    on(getLeaderboardsSocket);
+    on(disconnectSocket);
 
     console.log('Client connected.', socket.id);
   });

@@ -1,4 +1,4 @@
-export const setupSocket =
+export const setupOnSocket =
   ({ socket, db, io }) =>
   (socketToRun) =>
     socketToRun({ socket, db, io });
