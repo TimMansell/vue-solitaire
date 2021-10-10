@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
 
-import { setupServer, setupDB } from './db';
+import { setupServer, setupDB } from './setup';
 import {
   setupSocket,
   checkVersionSocket,
