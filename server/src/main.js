@@ -15,8 +15,7 @@ import {
 } from './sockets';
 
 const main = async () => {
-  const server = await setupServer();
-  const db = await setupDB();
+  const [server, db] = await Promise.all([setupServer(), setupDB()]);
   const io = new Server(server);
 
   io.on('connection', async (socket) => {
