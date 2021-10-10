@@ -2,7 +2,7 @@ import { initCards, checkGameState } from '@/services/solitaire';
 import { createISODate } from '@/helpers/dates';
 import 'dotenv/config';
 
-export const newGame = async (db, uid) => {
+export const newDeck = async (db, uid) => {
   const { NODE_ENV } = process.env;
   const isMocked = NODE_ENV === 'test';
 
@@ -26,7 +26,8 @@ export const newGame = async (db, uid) => {
   return cards;
 };
 
-export const saveGame = async (db, { uid, moves }) => {
+export const saveGame = async (db, uid, game) => {
+  const { moves, time } = game;
   const date = createISODate();
 
   const { cards } = await db
@@ -35,14 +36,15 @@ export const saveGame = async (db, { uid, moves }) => {
 
   const { isGameFinished, hasMoves } = checkGameState(moves, cards);
 
-  const game = {
+  const document = {
     date,
     uid,
     moves: moves.length,
+    time,
     won: isGameFinished && !hasMoves,
     lost: !isGameFinished && !hasMoves,
     completed: true,
   };
 
-  db.collection('games').insertOne({ ...game });
+  db.collection('games').insertOne({ ...document });
 };

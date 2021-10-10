@@ -14,7 +14,7 @@ const actions = {
       commit('SET_USER_NAME', user);
     });
 
-    socketOn('getUserGames', (games) => {
+    socketOn('getUserHistory', (games) => {
       commit('SET_USER_GAMES', games);
     });
 
@@ -28,7 +28,7 @@ const actions = {
 
     commit('SET_USER_GAMES', []);
 
-    socketEmit('getUserGames', { uid, ...params });
+    socketEmit('getUserHistory', { uid, ...params });
   },
 };
 

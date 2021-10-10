@@ -5,10 +5,10 @@ const actions = {
     const uid = await dispatch('getUser');
 
     socketConnect(() => {
-      socketEmit('initCounts', uid);
+      socketEmit('getAllCounts', uid);
     });
 
-    socketOn('getUserGameCount', (userStats) => {
+    socketOn('getUserCounts', (userStats) => {
       commit('SET_USER_GAME_COUNT', userStats);
     });
 

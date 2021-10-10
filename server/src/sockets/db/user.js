@@ -29,8 +29,8 @@ export const getUser = async (db, uid) => {
   return user?.name;
 };
 
-export const getUserGames = async (db, uid, offset, limit) => {
-  const getGames = db
+export const getGames = async (db, uid, offset, limit) => {
+  const findGames = db
     .collection('games')
     .find(
       { uid },
@@ -41,12 +41,12 @@ export const getUserGames = async (db, uid, offset, limit) => {
     .sort({ date: -1 })
     .toArray();
 
-  const getGamesPlayed = db
+  const findGamesPlayed = db
     .collection('games')
     .find({ uid }, { projection: { date: 1 } })
     .count();
 
-  const [games, gamesPlayed] = await Promise.all([getGames, getGamesPlayed]);
+  const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
 
   const formattedGames = games.map(
     ({ date, won, lost, time, moves }, index) => ({

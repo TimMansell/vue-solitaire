@@ -1,25 +1,13 @@
-import { getUser, getUserGames } from './helpers/user';
+import { emitSetUser, emitGetUserHistory } from './emit/user';
 
-export const setUserSocket = ({ socket, db }) => {
-  socket.on('setUser', async (uid) => {
-    try {
-      const user = await getUser(db, uid);
-
-      socket.emit('setUser', user);
-    } catch (error) {
-      console.log({ error });
-    }
+export const setUser = ({ socket, db }) => {
+  socket.on('setUser', (uid) => {
+    emitSetUser({ socket, db, uid });
   });
 };
 
-export const getUserGamesSocket = ({ socket, db }) => {
-  socket.on('getUserGames', async ({ uid, offset, limit }) => {
-    try {
-      const games = await getUserGames(db, uid, offset, limit);
-
-      socket.emit('getUserGames', games);
-    } catch (error) {
-      console.log({ error });
-    }
+export const getUserHistory = ({ socket, db }) => {
+  socket.on('getUserHistory', ({ uid, offset, limit }) => {
+    emitGetUserHistory({ socket, db, uid, offset, limit });
   });
 };

@@ -55,7 +55,7 @@ const actions = {
     const { game } = state;
     const uid = await dispatch('getUser');
 
-    socketEmit('saveGame', { uid, ...game });
+    socketEmit('saveGame', { uid, game });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);

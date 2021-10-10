@@ -3,15 +3,15 @@ import { Server } from 'socket.io';
 import { setupServer, setupDB } from './setup';
 import {
   setupOnSocket,
-  checkVersionSocket,
-  newGameSocket,
-  saveGameSocket,
-  setUserSocket,
-  getUserGamesSocket,
-  initCountsSocket,
-  getStatsSocket,
-  getLeaderboardsSocket,
-  disconnectSocket,
+  checkVersion,
+  newGame,
+  saveGame,
+  setUser,
+  getUserHistory,
+  getAllCounts,
+  getStats,
+  getLeaderboards,
+  disconnect,
 } from './sockets';
 
 const main = async () => {
@@ -21,15 +21,15 @@ const main = async () => {
   io.on('connection', async (socket) => {
     const on = setupOnSocket({ socket, db, io });
 
-    on(checkVersionSocket);
-    on(newGameSocket);
-    on(saveGameSocket);
-    on(setUserSocket);
-    on(getUserGamesSocket);
-    on(initCountsSocket);
-    on(getStatsSocket);
-    on(getLeaderboardsSocket);
-    on(disconnectSocket);
+    on(checkVersion);
+    on(newGame);
+    on(saveGame);
+    on(setUser);
+    on(getUserHistory);
+    on(getAllCounts);
+    on(getStats);
+    on(getLeaderboards);
+    on(disconnect);
 
     console.log('Client connected.', socket.id);
   });

@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-export const disconnectSocket = ({ socket }) => {
+export const disconnect = ({ socket }) => {
   socket.on('disconnect', () => {
     socket.removeAllListeners();
 

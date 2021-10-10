@@ -1,10 +1,8 @@
-import { checkVersion } from './helpers/version';
+import { emitCheckVersion } from './emit/version';
 
 // eslint-disable-next-line import/prefer-default-export
-export const checkVersionSocket = ({ socket }) => {
+export const checkVersion = ({ socket }) => {
   socket.on('checkVersion', (localVersion) => {
-    const version = checkVersion(localVersion);
-
-    socket.emit('checkVersion', version);
+    emitCheckVersion({ socket, localVersion });
   });
 };
