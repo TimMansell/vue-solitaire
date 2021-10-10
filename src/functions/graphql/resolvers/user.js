@@ -1,22 +1,4 @@
-import {
-  findItemInDb,
-  findItemsInDb,
-  countItemsInDb,
-  formatHistoryGames,
-} from './helpers';
-
-export const exists = async (parent, __, context) => {
-  const { client } = context;
-
-  const user = await findItemInDb({
-    client,
-    collection: 'users',
-    findFields: { ...parent },
-    returnFields: { uid: 1 },
-  });
-
-  return user !== null;
-};
+import { findItemsInDb, countItemsInDb, formatHistoryGames } from './helpers';
 
 export const history = async (parent, args, context) => {
   const { client } = context;
@@ -47,21 +29,6 @@ export const history = async (parent, args, context) => {
   return formattedGames;
 };
 
-export const name = async (parent, _, context) => {
-  const { client } = context;
-
-  const user = await findItemInDb({
-    client,
-    collection: 'users',
-    findFields: { ...parent },
-    returnFields: { name: 1 },
-  });
-
-  return user?.name;
-};
-
 export const user = {
-  exists,
   history,
-  name,
 };

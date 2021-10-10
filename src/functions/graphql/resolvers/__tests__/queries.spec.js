@@ -1,12 +1,5 @@
 import { mockUid } from '@/mockData';
-import {
-  userStats,
-  globalStats,
-  version,
-  user,
-  leaderboards,
-} from '../queries';
-import { version as localVersion } from '../../../../../package.json';
+import { userStats, globalStats, user, leaderboards } from '../queries';
 
 describe('Graphql Query Resolvers', () => {
   it('userStats', () => {
@@ -19,12 +12,6 @@ describe('Graphql Query Resolvers', () => {
     const result = globalStats();
 
     expect(result).toEqual({});
-  });
-
-  it('version', () => {
-    const result = version('', { localVersion });
-
-    expect(result).toEqual({ number: localVersion, matches: true });
   });
 
   it('user', () => {

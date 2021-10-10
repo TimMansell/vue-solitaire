@@ -71,30 +71,6 @@ describe('Graphql Schema', () => {
       });
     });
 
-    it('version', async () => {
-      const query = `
-        query {
-          version(localVersion:"1.0.0") {
-            number
-            matches
-          }
-        }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          version: {
-            number: 'String',
-            matches: true,
-          },
-        },
-      });
-    });
-
     it('history', async () => {
       const query = `
         query {
@@ -216,92 +192,6 @@ describe('Graphql Schema', () => {
                 duration: 'String',
               },
             ],
-          },
-        },
-      });
-    });
-  });
-
-  describe('Mutations', () => {
-    it('createUser', async () => {
-      const query = `
-      mutation {
-        createUser(uid: "1") {
-          name
-        }
-      }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          createUser: {
-            name: 'String',
-          },
-        },
-      });
-    });
-
-    it('newGame', async () => {
-      const query = `
-      mutation {
-        newGame(uid: "1") {
-          cards {
-            id
-            value
-            order
-            suit
-          }
-        }
-      }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          newGame: {
-            cards: [
-              {
-                id: 1,
-                value: 'String',
-                order: 1,
-                suit: 'String',
-              },
-              {
-                id: 1,
-                value: 'String',
-                order: 1,
-                suit: 'String',
-              },
-            ],
-          },
-        },
-      });
-    });
-
-    it('saveGame', async () => {
-      const query = `
-        mutation {
-          saveGame(uid: "1", moves:[{selectedCardId: 1, selectedColumn: 0,isBoard: true}], time: 10) {
-            outcome
-          }
-        }
-      `;
-
-      const result = await graphql(schemaWithMocks, query).then(
-        (response) => response
-      );
-
-      expect(result).toEqual({
-        data: {
-          saveGame: {
-            outcome: 'String',
           },
         },
       });
