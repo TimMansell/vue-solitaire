@@ -41,7 +41,9 @@ export default {
       this.gameTimer.resume();
     },
     isGameLoading(isLoading, isLoadingPrev) {
-      if (isLoading === isLoadingPrev) return;
+      const { isGamePaused } = this;
+
+      if (isLoading === isLoadingPrev || isGamePaused) return;
 
       if (isLoading) {
         this.gameTimer.stop();
