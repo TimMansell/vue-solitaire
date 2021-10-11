@@ -10,11 +10,13 @@ export const emitCounts = async ({ io, socket, db, uid }) => {
     const { userStats, globalStats } = await getCounts(db, uid);
 
     socket.emit('getUserCounts', userStats);
-    socket.emit('getGlobalCounts', globalStats);
 
-    if (io) {
-      io.emit('getGlobalCounts', globalStats);
+    if (!io) {
+      socket.emit('getGlobalCounts', globalStats);
+      return;
     }
+
+    io.emit('getGlobalCounts', globalStats);
   } catch (error) {
     console.log({ error });
   }
