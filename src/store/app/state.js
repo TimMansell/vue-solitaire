@@ -8,11 +8,17 @@ const state = () => ({
     hasGameWon: false,
     hasGameLost: false,
   },
-  isGameLoading: true,
+  isGameLoading: false,
   isGamePaused: false,
   isOverlayVisible: true,
   versionMatch: true,
-  hasConnection: true,
+  hasConnection: false,
+  hasOfflineMove: false,
+  isOfflineGame: false,
+  // connection: {
+  //   isOnline: false,
+  //   hasOfflineMove: false,
+  // },
 });
 
 export default state;

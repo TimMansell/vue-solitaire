@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     classes() {
-      const { type, isStacked, size } = this;
+      const { type, isStacked, size, disabled } = this;
 
       return {
         'btn--alt': type === 'alt',
@@ -41,6 +41,7 @@ export default {
         'btn--is-stacked': isStacked,
         'btn--icon': type === 'icon',
         'btn--large': size === 'lg',
+        'btn--disabled': disabled,
       };
     },
   },
@@ -77,6 +78,10 @@ export default {
   &:hover {
     background: var(--col-primary-alt-2);
     cursor: pointer;
+  }
+
+  &--disabled {
+    cursor: not-allowed !important;
   }
 
   &--icon {

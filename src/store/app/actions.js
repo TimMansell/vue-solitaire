@@ -24,8 +24,8 @@ const actions = {
       dispatch('setVersion', version);
     });
   },
-  restartApp({ commit }) {
-    commit('RESTART_APP');
+  restartApp({ commit }, hasConnection) {
+    commit('RESTART_APP', hasConnection);
   },
   hasConnection({ commit }, hasConnection) {
     commit('SET_HAS_CONNECTION', hasConnection);
@@ -43,10 +43,22 @@ const actions = {
   setGameLoading({ commit }, isGameLoading) {
     commit('SET_GAME_LOADING', isGameLoading);
   },
-  newGame({ dispatch }) {
-    dispatch('saveGame');
-    dispatch('restartApp');
-    dispatch('restartGame');
+  newGame({ dispatch, state }) {
+    const { hasOfflineMove, hasConnection, isOfflineGame } = state;
+
+    if (!hasOfflineMove && hasConnection && !isOfflineGame) {
+      dispatch('saveOnlineGame');
+      return;
+    }
+
+    if (!hasConnection) {
+      dispatch('newOfflineGame');
+      return;
+    }
+
+    if (hasConnection && (hasConnection || isOfflineGame)) {
+      dispatch('newOnlineGame');
+    }
   },
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
@@ -66,8 +78,13 @@ const actions = {
   toggleOverlayVisibility({ commit }) {
     commit('SET_OVERLAY_VISIBLE');
   },
-  saveMove({ commit, rootState }, move) {
+  saveMove({ commit, dispatch, rootState, state }, move) {
+    const { hasConnection } = state;
     const { selectedCardId } = rootState.solitaire;
+
+    if (!hasConnection) {
+      dispatch('setOfflineMove', true);
+    }
 
     commit('SET_MOVES', {
       selectedCardId,
@@ -76,6 +93,12 @@ const actions = {
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
+  },
+  setOfflineMove({ commit }, hasMove) {
+    commit('SET_OFFLINE_MOVE', hasMove);
+  },
+  setOfflineGame({ commit }, isOfflineGame) {
+    commit('SET_OFFLINE_GAME', isOfflineGame);
   },
 };
 

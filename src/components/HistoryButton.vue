@@ -2,7 +2,7 @@
   <Button
     @click="$router.push('/history')"
     :is-stacked="true"
-    :disabled="isGameLoading"
+    :disabled="isGameLoading || !hasConnection"
     data-test="history-btn"
   >
     Games
@@ -19,7 +19,7 @@ export default {
     Button,
   },
   computed: {
-    ...mapGetters(['isGameLoading']),
+    ...mapGetters(['isGameLoading', 'hasConnection']),
   },
 };
 </script>
