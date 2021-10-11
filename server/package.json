@@ -8,6 +8,12 @@
   },
   "main": "index.js",
   "scripts": {
+    "build": "rollup -c ./rollup.config.js",
+    "serve:dev": "run-p serve watch",
+    "serve:test": "cross-env NODE_ENV=test run-p build start",
+    "serve": "nodemon ./dist/index.js",
+    "watch": "rollup -c ./rollup.config.js -w",
+    "start": "node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
