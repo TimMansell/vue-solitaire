@@ -1,4 +1,11 @@
 Cypress.Commands.add('checkPlayerCount', () => {
+  cy.waitUntil(() =>
+    cy
+      .get('[data-test="player-count"]')
+      .formatNumber()
+      .then((count) => count !== 0)
+  );
+
   cy.getPlayerCount().then(({ players }) => {
     cy.get('[data-test="player-count"]')
       .formatNumber()

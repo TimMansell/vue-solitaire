@@ -45,8 +45,10 @@ Cypress.Commands.add('showRules', () => {
   cy.checkVisibilityHidden(true);
 });
 
-Cypress.Commands.add('showHistory', () => {
+Cypress.Commands.add('showHistory', ({ wait } = { wait: false }) => {
   cy.get('[data-test="history-btn"]').click();
+
+  cy.waitforInitialHistoryPageToLoad(wait);
 
   cy.checkVisibilityHidden(true);
 });
