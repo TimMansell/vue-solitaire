@@ -7,10 +7,9 @@
   },
   "scripts": {
     "postinstall": "cd server && yarn install --production=false",
-    "serve": "run-p serve:ws serve:app serve:graphql",
+    "serve": "run-p serve:ws serve:app",
     "serve:app": "vite",
     "serve:graphql": "netlify-lambda serve src/functions --config ./webpack.functions.js",
-    "serve:graphql:test": "cross-env NODE_ENV=test netlify-lambda serve src/functions --config ./webpack.functions.js",
     "serve:test": "run-p serve:ws:test serve:app serve:graphql",
     "build": "run-p build:app build:functions",
     "build:app": "vite build",
