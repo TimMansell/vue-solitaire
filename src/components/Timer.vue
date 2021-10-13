@@ -43,8 +43,6 @@ export default {
     hasCards(cards, cardsPrev) {
       const { isGamePaused } = this;
 
-      console.log({ cards, cardsPrev, isGamePaused });
-
       if (cards === cardsPrev || isGamePaused) return;
 
       if (cards) {
