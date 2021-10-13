@@ -1,14 +1,11 @@
 <template>
   <Toast
     v-if="!versionMatch"
-    title="Update available"
-    :msgs="[
-      'A new version of the website is available.',
-      'Refresh your browser or click on update',
-    ]"
+    :msgs="['A new version of the website is available.']"
+    position="top-right"
     btn-text="Update"
     :btn-click="refreshPage"
-    data-test="version"
+    data-test="version-alert"
   />
 </template>
 
@@ -17,7 +14,7 @@ import { mapGetters } from 'vuex';
 import Toast from '@/components/Toast.vue';
 
 export default {
-  name: 'CheckVersion',
+  name: 'VersionAlert',
   components: {
     Toast,
   },

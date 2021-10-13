@@ -1,17 +1,14 @@
 <template>
-  <div class="toast">
+  <div class="toast" :class="classes">
     <div class="toast__wrapper">
       <div class="toast__content">
-        <h2 class="toast__header" v-if="title" data-test="toast-header">
-          {{ title }}
-        </h2>
         <div class="toast__msg">
           <div v-for="(msg, index) in msgs" :key="index">
             {{ msg }}
           </div>
         </div>
       </div>
-      <Button type="alt" @click="btnClick">
+      <Button type="alt" size="sm" @click="btnClick">
         {{ btnText }}
       </Button>
     </div>
@@ -27,10 +24,6 @@ export default {
     Button,
   },
   props: {
-    title: {
-      type: String,
-      default: '',
-    },
     msgs: {
       type: Array,
       required: true,
@@ -43,17 +36,33 @@ export default {
       type: Function,
       default: () => {},
     },
+    position: {
+      type: String,
+      validator(value) {
+        return ['top-right', 'bottom-center'].includes(value);
+      },
+      default: 'bottom-center',
+    },
+  },
+  computed: {
+    classes() {
+      const { position } = this;
+
+      return {
+        'toast--top-right': position === 'top-right',
+        'toast--bottom-center': position === 'bottom-center',
+      };
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
 .toast {
+  display: flex;
   position: fixed;
-  top: 0;
-  right: 0;
   width: 100%;
-  z-index: calc(var(--z-overlay) + 1);
+  z-index: calc(var(--z-overlay) - 1);
   padding: var(--pd-sm);
   color: var(--col-tertiary);
 
@@ -61,42 +70,57 @@ export default {
     width: auto;
   }
 
+  &--bottom-center {
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    @media (min-width: $bp-sm) {
+      bottom: var(--mg-md);
+    }
+
+    @media (min-width: $bp-md) {
+      bottom: var(--mg-xl);
+    }
+  }
+
+  &--top-right {
+    top: 0;
+    right: 0;
+  }
+
   &__wrapper {
     display: flex;
-    position: relative;
+    flex: 1;
+    flex-direction: column;
+    align-items: stretch;
     border: 1px solid var(--bdr-secondary);
     border-radius: 7px;
     padding: var(--pd-sm);
     background: var(--bg-secondary);
 
-    @media (min-width: $bp-xs) {
-      align-items: flex-end;
+    @media (min-width: $bp-sm) {
+      flex: none;
+      flex-direction: row;
+      align-items: center;
     }
   }
 
   &__content {
     flex: 1;
-    line-height: 1.3;
     width: 100%;
     text-align: left;
   }
 
-  &__header {
-    margin-bottom: 0;
-    color: var(--col-primary);
-
-    &:empty {
-      margin-bottom: 0;
-    }
-  }
-
   &__msg {
-    display: none;
-    margin-bottom: 0;
-    margin-right: var(--mg-md);
+    margin-bottom: var(--mg-xs);
+    font-size: var(--font-size-sm);
+    text-align: center;
 
-    @media (min-width: $bp-xs) {
-      display: block;
+    @media (min-width: $bp-sm) {
+      margin-bottom: 0;
+      margin-right: var(--mg-md);
     }
   }
 }

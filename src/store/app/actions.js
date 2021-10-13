@@ -13,11 +13,11 @@ const actions = {
 
     socketConnect(() => {
       dispatch('checkVersion');
-      dispatch('hasConnection', true);
+      dispatch('setIsOnline', true);
     });
 
     socketDrop(() => {
-      dispatch('hasConnection', false);
+      dispatch('setIsOnline', false);
     });
 
     socketOn('checkVersion', (version) => {
@@ -27,10 +27,10 @@ const actions = {
   restartApp({ commit }) {
     commit('RESTART_APP');
   },
-  hasConnection({ commit }, hasConnection) {
-    localStorage.setItem('hasConnection', hasConnection);
+  setIsOnline({ commit }, isOnline) {
+    localStorage.setItem('isOnline', isOnline);
 
-    commit('SET_HAS_CONNECTION', hasConnection);
+    commit('SET_IS_ONLINE', isOnline);
   },
   checkVersion() {
     const version = localStorage.getItem('appVersion');

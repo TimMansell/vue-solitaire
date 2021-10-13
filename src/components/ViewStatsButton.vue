@@ -2,7 +2,7 @@
   <Button
     @click="$router.push('/stats')"
     :is-stacked="true"
-    :disabled="isGameLoading || !hasConnection"
+    :disabled="!hasCards || !isOnline"
     data-test="stats-btn"
   >
     Stats
@@ -19,7 +19,7 @@ export default {
     Button,
   },
   computed: {
-    ...mapGetters(['isGameLoading', 'hasConnection']),
+    ...mapGetters(['hasCards', 'isOnline']),
   },
 };
 </script>

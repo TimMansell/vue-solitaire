@@ -2,6 +2,7 @@
   <div id="app">
     <RouterView name="main" />
     <RouterView name="overlay" />
+    <OfflineAlert />
   </div>
 </template>
 
@@ -12,26 +13,26 @@ import {
   addEventListener,
   removeEventListener,
 } from '@/helpers/eventListeners';
+import OfflineAlert from '@/components/OfflineAlert.vue';
 
 export default {
   name: 'App',
+  components: {
+    OfflineAlert,
+  },
   computed: {
-    ...mapGetters(['isGamePaused', 'gameOutcome', 'hasConnection']),
+    ...mapGetters(['isGamePaused', 'gameOutcome']),
   },
   created() {
     this.initApp();
   },
   mounted() {
-    const { hasConnection } = this;
-
     const events = {
       visibilitychange: ({ target }) =>
         setTimeout(this.checkGameFocused, 2000, target),
     };
 
     this.events = addEventListener(events);
-
-    this.checkConnection(hasConnection);
   },
   destroyed() {
     const { events } = this;
@@ -39,11 +40,6 @@ export default {
     removeEventListener(events);
   },
   watch: {
-    hasConnection(val, oldVal) {
-      if (val === oldVal) return;
-
-      this.checkConnection(val);
-    },
     gameOutcome: {
       handler({ hasGameWon, hasGameLost }) {
         if (hasGameWon) {
@@ -67,15 +63,6 @@ export default {
       if (visibilityState === 'hidden') {
         this.$router.push('/pause');
       }
-    },
-    checkConnection(hasConnection) {
-      this.$toasted.clear();
-
-      if (hasConnection) return;
-
-      this.$toasted.show(
-        'Connection to server has been lost. Playing in offline mode'
-      );
     },
   },
 };

@@ -7,7 +7,7 @@ const getters = {
   timer: (state) => state.game.time,
   moves: (state) => state.game.moves.length,
   versionMatch: (state) => state.versionMatch,
-  hasConnection: (state) => state.hasConnection,
+  isOnline: (state) => state.connection.isOnline,
 };
 
 export default getters;

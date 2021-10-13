@@ -26,7 +26,7 @@ export default {
     size: {
       type: String,
       validator(value) {
-        return ['md', 'lg'].includes(value);
+        return ['sm', 'md', 'lg'].includes(value);
       },
       default: 'md',
     },
@@ -40,6 +40,7 @@ export default {
         'btn--link': type === 'link',
         'btn--is-stacked': isStacked,
         'btn--icon': type === 'icon',
+        'btn--small': size === 'sm',
         'btn--large': size === 'lg',
         'btn--disabled': disabled,
       };
@@ -133,6 +134,10 @@ export default {
       background: none;
       text-shadow: none;
     }
+  }
+
+  &--small {
+    font-size: var(--font-size-sm);
   }
 
   &--large {

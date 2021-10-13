@@ -1,7 +1,7 @@
 <template>
   <GameOverlay center-content show-logo data-test="game-new">
     <template #title> Are you sure?</template>
-    <template #msg>
+    <template #msg v-if="isOnline">
       <p>This game will still count towards your statistics</p>
     </template>
     <template #buttons>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import StartNewGameButton from '@/components/StartNewGameButton.vue';
 import ContinueGameButton from '@/components/ContinueGameButton.vue';
@@ -22,6 +23,9 @@ export default {
     GameOverlay,
     StartNewGameButton,
     ContinueGameButton,
+  },
+  computed: {
+    ...mapGetters(['isOnline']),
   },
 };
 </script>
