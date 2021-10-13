@@ -8,9 +8,11 @@
           </div>
         </div>
       </div>
-      <Button type="alt" size="sm" @click="btnClick">
-        {{ btnText }}
-      </Button>
+      <div class="toast__button" v-if="btnText">
+        <Button type="alt" size="sm" @click="btnClick">
+          {{ btnText }}
+        </Button>
+      </div>
     </div>
   </div>
 </template>
@@ -30,7 +32,7 @@ export default {
     },
     btnText: {
       type: String,
-      required: true,
+      default: '',
     },
     btnClick: {
       type: Function,
@@ -114,13 +116,16 @@ export default {
   }
 
   &__msg {
-    margin-bottom: var(--mg-xs);
     font-size: var(--font-size-sm);
     text-align: center;
+  }
+
+  &__button {
+    margin-top: var(--mg-xs);
 
     @media (min-width: $bp-sm) {
-      margin-bottom: 0;
       margin-right: var(--mg-md);
+      margin-top: 0;
     }
   }
 }

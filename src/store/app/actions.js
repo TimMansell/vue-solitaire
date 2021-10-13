@@ -10,10 +10,12 @@ const actions = {
     dispatch('initUser');
     dispatch('initGame');
     dispatch('initStats');
+    dispatch('setIsConnecting', true);
 
     socketConnect(() => {
       dispatch('checkVersion');
       dispatch('setIsOnline', true);
+      dispatch('setIsConnecting', false);
     });
 
     socketDrop(() => {
@@ -28,9 +30,10 @@ const actions = {
     commit('RESTART_APP');
   },
   setIsOnline({ commit }, isOnline) {
-    localStorage.setItem('isOnline', isOnline);
-
     commit('SET_IS_ONLINE', isOnline);
+  },
+  setIsConnecting({ commit }, isConnecting) {
+    commit('SET_IS_CONNECTING', isConnecting);
   },
   checkVersion() {
     const version = localStorage.getItem('appVersion');

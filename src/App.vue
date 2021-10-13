@@ -2,6 +2,7 @@
   <div id="app">
     <RouterView name="main" />
     <RouterView name="overlay" />
+    <ConnectingAlert />
     <OfflineAlert />
   </div>
 </template>
@@ -13,11 +14,13 @@ import {
   addEventListener,
   removeEventListener,
 } from '@/helpers/eventListeners';
+import ConnectingAlert from '@/components/ConnectingAlert.vue';
 import OfflineAlert from '@/components/OfflineAlert.vue';
 
 export default {
   name: 'App',
   components: {
+    ConnectingAlert,
     OfflineAlert,
   },
   computed: {

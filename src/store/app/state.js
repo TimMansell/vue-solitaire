@@ -1,5 +1,5 @@
 // Return state as function so we can reset it.
-const state = () => ({
+const state = (currentState) => ({
   game: {
     moves: [],
     time: 0,
@@ -12,7 +12,8 @@ const state = () => ({
   isOverlayVisible: true,
   versionMatch: true,
   connection: {
-    isOnline: JSON.parse(localStorage.getItem('isOnline')) ?? false,
+    isConnecting: currentState?.connection.isConnecting ?? true,
+    isOnline: currentState?.connection.isOnline ?? true,
   },
 });
 
