@@ -20,11 +20,8 @@ const actions = {
 
     commit('SET_USER_ID', uid);
   },
-  getUser({ state }) {
-    return state.luid;
-  },
-  async getAllGames({ commit, dispatch }, params) {
-    const uid = await dispatch('getUser');
+  getAllGames({ commit, getters }, params) {
+    const { uid } = getters;
 
     commit('SET_USER_GAMES', []);
 

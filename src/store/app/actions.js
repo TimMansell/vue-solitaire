@@ -6,7 +6,7 @@ import {
 } from '@/services/websockets';
 
 const actions = {
-  async initApp({ dispatch }) {
+  initApp({ dispatch }) {
     dispatch('initUser');
     dispatch('initGame');
     dispatch('initStats');
@@ -53,9 +53,8 @@ const actions = {
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  async saveGame({ dispatch, state }) {
-    const { game } = state;
-    const uid = await dispatch('getUser');
+  saveGame({ getters }) {
+    const { uid, game } = getters;
 
     socketEmit('saveGame', { uid, game });
   },
@@ -68,8 +67,8 @@ const actions = {
   toggleOverlayVisibility({ commit }) {
     commit('SET_OVERLAY_VISIBLE');
   },
-  saveMove({ commit, rootState }, move) {
-    const { selectedCardId } = rootState.solitaire;
+  saveMove({ commit, getters }, move) {
+    const { selectedCardId } = getters;
 
     commit('SET_MOVES', {
       selectedCardId,

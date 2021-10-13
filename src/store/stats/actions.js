@@ -1,11 +1,12 @@
 import { socketConnect, socketEmit, socketOn } from '@/services/websockets';
 
 const actions = {
-  async initStats({ commit, dispatch }) {
-    const uid = await dispatch('getUser');
+  initStats({ commit, getters }) {
+    const { uid } = getters;
 
     socketConnect(() => {
-      socketEmit('getAllCounts', uid);
+      socketEmit('getUserCounts', uid);
+      socketEmit('getGlobalCounts');
     });
 
     socketOn('getUserCounts', (userStats) => {
@@ -27,15 +28,15 @@ const actions = {
       commit('SET_LEADERBOARDS', leaderboards);
     });
   },
-  async getStats({ dispatch }) {
-    const uid = await dispatch('getUser');
+  getStats({ getters }) {
+    const { uid } = getters;
 
     socketEmit('getStats', uid);
   },
   clearStats({ commit }) {
     commit('CLEAR_STATS');
   },
-  async getLeaderboards({ commit }, params) {
+  getLeaderboards({ commit }, params) {
     commit('SET_LEADERBOARDS', []);
 
     socketEmit('getLeaderboards', params);
