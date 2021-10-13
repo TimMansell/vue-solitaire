@@ -1,20 +1,22 @@
 <template>
-  <div class="toast" :class="classes">
-    <div class="toast__wrapper">
-      <div class="toast__content">
-        <div class="toast__msg">
-          <div v-for="(msg, index) in msgs" :key="index">
-            {{ msg }}
+  <transition :duration="duration">
+    <div class="toast" :class="classes">
+      <div class="toast__wrapper">
+        <div class="toast__content">
+          <div class="toast__msg">
+            <div v-for="(msg, index) in msgs" :key="index">
+              {{ msg }}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="toast__button" v-if="btnText">
-        <Button type="alt" size="sm" @click="btnClick">
-          {{ btnText }}
-        </Button>
+        <div class="toast__button" v-if="btnText">
+          <Button type="alt" size="sm" @click="btnClick">
+            {{ btnText }}
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -44,6 +46,10 @@ export default {
         return ['top-right', 'bottom-center'].includes(value);
       },
       default: 'bottom-center',
+    },
+    duration: {
+      type: Number,
+      default: 0,
     },
   },
   computed: {
@@ -122,9 +128,11 @@ export default {
 
   &__button {
     margin-top: var(--mg-xs);
+    display: flex;
+    justify-content: center;
 
     @media (min-width: $bp-sm) {
-      margin-right: var(--mg-md);
+      margin-left: var(--mg-md);
       margin-top: 0;
     }
   }
