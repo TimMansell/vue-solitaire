@@ -13,7 +13,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters(['timer', 'isGamePaused', 'isGameLoading']),
+    ...mapGetters(['timer', 'isGamePaused', 'hasCards']),
     formattedTime() {
       const { timer } = this;
 
@@ -29,9 +29,9 @@ export default {
   },
   watch: {
     isGamePaused(isPaused, isPausedPrev) {
-      const { isGameLoading } = this;
+      const { hasCards } = this;
 
-      if (isPaused === isPausedPrev || isGameLoading) return;
+      if (isPaused === isPausedPrev || !hasCards) return;
 
       if (isPaused) {
         this.gameTimer.pause();
@@ -40,25 +40,27 @@ export default {
 
       this.gameTimer.resume();
     },
-    isGameLoading(isLoading, isLoadingPrev) {
+    hasCards(cards, cardsPrev) {
       const { isGamePaused } = this;
 
-      if (isLoading === isLoadingPrev || isGamePaused) return;
+      console.log({ cards, cardsPrev, isGamePaused });
 
-      if (isLoading) {
-        this.gameTimer.stop();
+      if (cards === cardsPrev || isGamePaused) return;
+
+      if (cards) {
+        this.gameTimer.resume();
         return;
       }
 
-      this.gameTimer.resume();
+      this.gameTimer.stop();
     },
   },
   methods: {
     ...mapActions(['updateTimer']),
     checkInitialState() {
-      const { isGamePaused, isGameLoading } = this;
+      const { isGamePaused, hasCards } = this;
 
-      if (!isGamePaused && !isGameLoading) {
+      if (!isGamePaused && hasCards) {
         this.gameTimer.resume();
 
         return;

@@ -42,9 +42,6 @@ const actions = {
 
     commit('SET_VERSION_MATCH', matches);
   },
-  setGameLoading({ commit }, isGameLoading) {
-    commit('SET_GAME_LOADING', isGameLoading);
-  },
   newGame({ dispatch }) {
     dispatch('saveGame');
     dispatch('restartApp');

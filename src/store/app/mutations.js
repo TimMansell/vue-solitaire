@@ -14,9 +14,6 @@ const mutations = {
   SET_VERSION_MATCH(state, versionMatch) {
     state.versionMatch = versionMatch;
   },
-  SET_GAME_LOADING(state, isLoading) {
-    state.isGameLoading = isLoading;
-  },
   SET_GAME_OUTCOME(state, hasGameWon) {
     state.gameOutcome = {
       hasGameWon,

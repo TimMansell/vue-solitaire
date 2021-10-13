@@ -8,7 +8,6 @@ const state = () => ({
     hasGameWon: false,
     hasGameLost: false,
   },
-  isGameLoading: false,
   isGamePaused: false,
   isOverlayVisible: true,
   versionMatch: true,

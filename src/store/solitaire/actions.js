@@ -23,11 +23,10 @@ const actions = {
       dispatch('initFoundation');
     });
   },
-  initNewGame({ dispatch, getters }) {
+  initNewGame({ getters }) {
     const { uid, hasCards } = getters;
 
     if (!hasCards) {
-      dispatch('setGameLoading', true);
       socketEmit('newGame', uid);
     }
   },
@@ -53,7 +52,6 @@ const actions = {
     const board = initBoard(cards);
 
     dispatch('setBoard', board);
-    dispatch('setGameLoading', false);
   },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);
