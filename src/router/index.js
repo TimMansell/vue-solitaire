@@ -98,6 +98,14 @@ const routes = [
       main: () => import('@/pages/PageNotFound.vue'),
     },
   },
+  {
+    path: '/what-is-offline-mode',
+    name: 'what-is-offline-mode',
+    components: {
+      main: Home,
+      overlay: () => import('@/pages/OfflineMode.vue'),
+    },
+  },
 ];
 
 const router = new VueRouter({
