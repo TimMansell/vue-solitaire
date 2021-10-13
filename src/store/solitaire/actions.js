@@ -1,4 +1,4 @@
-import { socketConnect, socketOn } from '@/services/websockets';
+import { socketConnect, socketOn, socketEmit } from '@/services/websockets';
 import {
   initBoard,
   initFoundation,
@@ -13,20 +13,22 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
-  initGame({ dispatch, rootState }) {
-    const { hasConnection } = rootState;
-
+  initGame({ dispatch }) {
     socketConnect(() => {
-      dispatch('initNewOnlineGame');
+      dispatch('initNewGame');
     });
 
     socketOn('newGame', (deck) => {
       dispatch('initBoard', deck);
       dispatch('initFoundation');
     });
+  },
+  initNewGame({ dispatch, getters }) {
+    const { uid, hasCards } = getters;
 
-    if (!hasConnection) {
-      dispatch('initNewOfflineGame');
+    if (!hasCards) {
+      dispatch('setGameLoading', true);
+      socketEmit('newGame', uid);
     }
   },
   restartGame({ commit }) {
@@ -40,10 +42,10 @@ const actions = {
       dispatch('setGameOutcome', isEmptyBoard);
     }
   },
-  initFoundation({ dispatch, state }) {
+  initFoundation({ dispatch, state, getters }) {
     const { foundation } = state;
-    const foundationCards =
-      foundation.flat().length > 0 ? foundation : initFoundation();
+    const { hasFoundations } = getters;
+    const foundationCards = hasFoundations ? foundation : initFoundation();
 
     dispatch('setFoundation', foundationCards);
   },

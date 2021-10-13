@@ -24,16 +24,18 @@ const actions = {
       dispatch('setVersion', version);
     });
   },
-  restartApp({ commit }, hasConnection) {
-    commit('RESTART_APP', hasConnection);
+  restartApp({ commit }) {
+    commit('RESTART_APP');
   },
   hasConnection({ commit }, hasConnection) {
+    localStorage.setItem('hasConnection', hasConnection);
+
     commit('SET_HAS_CONNECTION', hasConnection);
   },
   checkVersion() {
-    const appVersion = localStorage.getItem('appVersion');
+    const version = localStorage.getItem('appVersion');
 
-    socketEmit('checkVersion', appVersion);
+    socketEmit('checkVersion', version);
   },
   setVersion({ commit }, { version, matches }) {
     localStorage.setItem('appVersion', version);
@@ -43,22 +45,10 @@ const actions = {
   setGameLoading({ commit }, isGameLoading) {
     commit('SET_GAME_LOADING', isGameLoading);
   },
-  newGame({ dispatch, state }) {
-    const { hasOfflineMove, hasConnection, isOfflineGame } = state;
-
-    if (!hasOfflineMove && hasConnection && !isOfflineGame) {
-      dispatch('saveOnlineGame');
-      return;
-    }
-
-    if (!hasConnection) {
-      dispatch('newOfflineGame');
-      return;
-    }
-
-    if (hasConnection && (hasConnection || isOfflineGame)) {
-      dispatch('newOnlineGame');
-    }
+  newGame({ dispatch }) {
+    dispatch('saveGame');
+    dispatch('restartApp');
+    dispatch('restartGame');
   },
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
@@ -78,13 +68,8 @@ const actions = {
   toggleOverlayVisibility({ commit }) {
     commit('SET_OVERLAY_VISIBLE');
   },
-  saveMove({ commit, dispatch, rootState, state }, move) {
-    const { hasConnection } = state;
+  saveMove({ commit, rootState }, move) {
     const { selectedCardId } = rootState.solitaire;
-
-    if (!hasConnection) {
-      dispatch('setOfflineMove', true);
-    }
 
     commit('SET_MOVES', {
       selectedCardId,
@@ -93,12 +78,6 @@ const actions = {
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
-  },
-  setOfflineMove({ commit }, hasMove) {
-    commit('SET_OFFLINE_MOVE', hasMove);
-  },
-  setOfflineGame({ commit }, isOfflineGame) {
-    commit('SET_OFFLINE_GAME', isOfflineGame);
   },
 };
 

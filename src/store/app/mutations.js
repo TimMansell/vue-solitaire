@@ -1,10 +1,9 @@
 import defaultState from './state';
 
 const mutations = {
-  RESTART_APP(state, hasConnection) {
+  RESTART_APP(state) {
     const newState = {
       ...defaultState(),
-      hasConnection,
     };
 
     Object.assign(state, newState);
@@ -35,12 +34,6 @@ const mutations = {
   },
   UPDATE_GAME_TIME(state) {
     state.game.time += 1;
-  },
-  SET_OFFLINE_MOVE(state, hasMove) {
-    state.hasOfflineMove = hasMove;
-  },
-  SET_OFFLINE_GAME(state, isOfflineGame) {
-    state.isOfflineGame = isOfflineGame;
   },
 };
 

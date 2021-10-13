@@ -12,13 +12,7 @@ const state = () => ({
   isGamePaused: false,
   isOverlayVisible: true,
   versionMatch: true,
-  hasConnection: false,
-  hasOfflineMove: false,
-  isOfflineGame: false,
-  // connection: {
-  //   isOnline: false,
-  //   hasOfflineMove: false,
-  // },
+  hasConnection: JSON.parse(localStorage.getItem('hasConnection')) ?? false,
 });
 
 export default state;
