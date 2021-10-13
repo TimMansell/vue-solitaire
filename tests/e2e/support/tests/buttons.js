@@ -13,6 +13,8 @@ Cypress.Commands.add('confirmNewGame', () => {
   cy.get('[data-test="start-new-game-btn"]').click();
 
   cy.checkVisibilityHidden(false);
+
+  cy.waitGlobalCountToIncrement();
 });
 
 Cypress.Commands.add('pauseGame', () => {

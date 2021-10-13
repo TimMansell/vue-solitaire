@@ -26,6 +26,29 @@ Cypress.Commands.add('checkGameLost', (hasLost) => {
   cy.get('[data-test="game-won"]').should('not.exist');
 });
 
+Cypress.Commands.add('waitGlobalCount', () =>
+  cy.waitUntil(() =>
+    cy
+      .get('[data-test="global-stats"]')
+      .formatNumber()
+      .then((count) => count !== 0)
+  )
+);
+
+Cypress.Commands.add('waitGlobalCountToIncrement', () =>
+  cy
+    .get('[data-test="global-stats"]')
+    .formatNumber()
+    .then(($count) => {
+      cy.waitUntil(() =>
+        cy
+          .get('[data-test="global-stats"]')
+          .formatNumber()
+          .then((count) => count === $count + 1)
+      );
+    })
+);
+
 Cypress.Commands.add('checkStats', () => {
   cy.showStats();
 
