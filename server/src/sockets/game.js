@@ -1,5 +1,5 @@
 import { emitNewGame, emitSavedGame } from './emit/game';
-import { emitCounts } from './emit/stats';
+import { emitGetUserCounts, emitGetGlobalCounts } from './emit/stats';
 import { emitSetUser } from './emit/user';
 
 export const newGame = ({ socket, db }) => {
@@ -17,6 +17,7 @@ export const saveGame = ({ socket, db, io }) => {
       emitSetUser({ socket, db, uid, create: true }),
     ]);
 
-    emitCounts({ io, socket, db, uid });
+    emitGetUserCounts({ socket, db, uid });
+    emitGetGlobalCounts({ io, socket, db });
   });
 };

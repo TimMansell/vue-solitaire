@@ -8,7 +8,8 @@ import {
   saveGame,
   setUser,
   getUserHistory,
-  getAllCounts,
+  getUserCounts,
+  getGlobalCounts,
   getStats,
   getLeaderboards,
   disconnect,
@@ -26,7 +27,8 @@ const main = async () => {
     on(saveGame);
     on(setUser);
     on(getUserHistory);
-    on(getAllCounts);
+    on(getUserCounts);
+    on(getGlobalCounts);
     on(getStats);
     on(getLeaderboards);
     on(disconnect);

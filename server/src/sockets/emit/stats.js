@@ -1,22 +1,31 @@
 import {
-  getCounts,
+  getUserCounts,
+  getGlobalCounts,
   getPlayerStats,
   getGlobalStats,
   getLeaderboards,
 } from '../db/stats';
 
-export const emitCounts = async ({ io, socket, db, uid }) => {
+export const emitGetUserCounts = async ({ socket, db, uid }) => {
   try {
-    const { userStats, globalStats } = await getCounts(db, uid);
+    const counts = await getUserCounts(db, uid);
 
-    socket.emit('getUserCounts', userStats);
+    socket.emit('getUserCounts', counts);
+  } catch (error) {
+    console.log({ error });
+  }
+};
 
-    if (!io) {
-      socket.emit('getGlobalCounts', globalStats);
+export const emitGetGlobalCounts = async ({ io, socket, db }) => {
+  try {
+    const counts = await getGlobalCounts(db);
+
+    if (io) {
+      io.emit('getGlobalCounts', counts);
       return;
     }
 
-    io.emit('getGlobalCounts', globalStats);
+    socket.emit('getGlobalCounts', counts);
   } catch (error) {
     console.log({ error });
   }

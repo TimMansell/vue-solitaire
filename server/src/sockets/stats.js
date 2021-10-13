@@ -1,8 +1,19 @@
-import { emitCounts, emitGetStats, emitGetLeaderboards } from './emit/stats';
+import {
+  emitGetUserCounts,
+  emitGetGlobalCounts,
+  emitGetStats,
+  emitGetLeaderboards,
+} from './emit/stats';
 
-export const getAllCounts = ({ socket, db }) => {
-  socket.on('getAllCounts', (uid) => {
-    emitCounts({ socket, db, uid });
+export const getUserCounts = ({ socket, db }) => {
+  socket.on('getUserCounts', (uid) => {
+    emitGetUserCounts({ socket, db, uid });
+  });
+};
+
+export const getGlobalCounts = ({ socket, db }) => {
+  socket.on('getGlobalCounts', () => {
+    emitGetGlobalCounts({ socket, db });
   });
 };
 

@@ -4,6 +4,7 @@ export const emitNewGame = async ({ socket, db, uid }) => {
   try {
     const cards = await newDeck(db, uid);
 
+    // setTimeout(() => socket.emit('newGame', cards), 5000);
     socket.emit('newGame', cards);
   } catch (error) {
     console.log({ error });

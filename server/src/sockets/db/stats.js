@@ -1,7 +1,7 @@
 import { formatDate } from '@/helpers/dates';
 import { formatTime } from '@/helpers/times';
 
-const getUserCounts = async (db, uid) => {
+export const getUserCounts = async (db, uid) => {
   const completed = await db
     .collection('games')
     .find({ uid, completed: true }, { projection: { completed: 1 } })
@@ -10,7 +10,7 @@ const getUserCounts = async (db, uid) => {
   return { completed };
 };
 
-const getGlobalCounts = async (db) => {
+export const getGlobalCounts = async (db) => {
   const getCompleted = db
     .collection('games')
     .find({ completed: true }, { projection: { completed: 1 } })
@@ -74,15 +74,6 @@ export const getGlobalStats = async (db) => {
   ]);
 
   return { completed, won, lost };
-};
-
-export const getCounts = async (db, uid) => {
-  const [userStats, globalStats] = await Promise.all([
-    getUserCounts(db, uid),
-    getGlobalCounts(db),
-  ]);
-
-  return { userStats, globalStats };
 };
 
 const formatKey = (showBest) => {
