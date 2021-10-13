@@ -30,8 +30,8 @@
     "lint:css": "stylelint src/**/*.{vue,scss} --fix",
     "serve:ws": "cd server && run-p serve:dev",
     "serve:ws:test": "cd server && run-p serve:test",
-    "heroku-postbuild": "run-s build",
-    "start": "cd server && run-p start"
+    "heroku-postbuild": "cd server && yarn build",
+    "start": "cd server && yarn start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
