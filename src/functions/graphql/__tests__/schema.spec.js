@@ -71,6 +71,30 @@ describe('Graphql Schema', () => {
       });
     });
 
+    it('version', async () => {
+      const query = `
+        query {
+          version(localVersion:"1.0.0") {
+            number
+            matches
+          }
+        }
+      `;
+
+      const result = await graphql(schemaWithMocks, query).then(
+        (response) => response
+      );
+
+      expect(result).toEqual({
+        data: {
+          version: {
+            number: 'String',
+            matches: true,
+          },
+        },
+      });
+    });
+
     it('history', async () => {
       const query = `
         query {
