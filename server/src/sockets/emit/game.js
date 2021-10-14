@@ -1,8 +1,10 @@
 import { newDeck, saveGame } from '../db/game';
 
 export const emitNewGame = async ({ socket, db, uid }) => {
+  const isMocked = process.env.NODE_ENV === 'test';
+
   try {
-    const cards = await newDeck(db, uid);
+    const cards = await newDeck(db, uid, isMocked);
 
     socket.emit('newGame', cards);
   } catch (error) {
