@@ -1,5 +1,5 @@
 // Return state as function so we can reset it.
-const state = () => ({
+const state = (currentState) => ({
   game: {
     moves: [],
     time: 0,
@@ -8,10 +8,13 @@ const state = () => ({
     hasGameWon: false,
     hasGameLost: false,
   },
-  isGameLoading: true,
   isGamePaused: false,
   isOverlayVisible: true,
   versionMatch: true,
+  connection: {
+    isConnecting: currentState?.connection.isConnecting ?? true,
+    isOnline: currentState?.connection.isOnline ?? true,
+  },
 });
 
 export default state;

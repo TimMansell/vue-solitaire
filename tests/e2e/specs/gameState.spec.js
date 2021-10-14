@@ -2,20 +2,13 @@ import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
 describe('Game State', () => {
-  beforeEach(() => {
-    cy.mockApi({
-      mockDeck: quitGameDeck,
-      mockInitial: true,
-    });
-
-    cy.visitApp();
-  });
-
   afterEach(() => {
     cy.clearTest();
   });
 
   it('should pause when page is automatically hidden', () => {
+    cy.visitApp();
+
     cy.setVisibilityHidden();
 
     cy.triggerVisibilityChange();
@@ -24,6 +17,10 @@ describe('Game State', () => {
   });
 
   it('refreshing page shows same board state', () => {
+    cy.setDeck(quitGameDeck).then(() => {
+      cy.visitApp();
+    });
+
     cy.clickCard('4♠');
 
     cy.checkCardIsSelected('4♠');
@@ -44,6 +41,10 @@ describe('Game State', () => {
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
+    cy.setDeck(quitGameDeck).then(() => {
+      cy.visitApp();
+    });
+
     cy.runGameWithClicks(quitGameMoves);
 
     cy.saveGames();

@@ -93,6 +93,21 @@ const routes = [
     },
   },
   {
+    path: '/what-is-offline-mode',
+    name: 'what-is-offline-mode',
+    components: {
+      main: Home,
+      overlay: () => import('@/pages/OfflineMode.vue'),
+    },
+    beforeEnter(to, from, next) {
+      if (!store.getters.isOnline) {
+        next();
+      } else {
+        next('/');
+      }
+    },
+  },
+  {
     path: '*',
     components: {
       main: () => import('@/pages/PageNotFound.vue'),
@@ -105,10 +120,10 @@ const router = new VueRouter({
 });
 
 router.afterEach((to) => {
+  store.dispatch('setGamePaused', true);
+
   if (to.path === '/') {
     store.dispatch('setGamePaused', false);
-  } else {
-    store.dispatch('setGamePaused', true);
   }
 });
 

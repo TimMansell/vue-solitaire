@@ -7,7 +7,6 @@ const state = () => ({
   placeholders: columns,
   selectedCardId: null,
   draggedCards: [],
-  isNewGame: true,
 });
 
 export default state;

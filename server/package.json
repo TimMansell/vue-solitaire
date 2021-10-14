@@ -1,0 +1,36 @@
+{
+  "name": "vue-solitaire-web-sockets",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "engines": {
+    "node": ">=14.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c ./rollup.config.js",
+    "serve:dev": "run-p serve watch",
+    "serve:test": "cross-env NODE_ENV=test run-s build start",
+    "serve": "nodemon ./dist/index.js",
+    "watch": "rollup -c ./rollup.config.js -w",
+    "start": "node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "10.0.0",
+    "express": "^4.17.1",
+    "mongodb": "4.1.2",
+    "socket.io": "4.2.0",
+    "unique-names-generator": "^4.6.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.5",
+    "@rollup/plugin-commonjs": "^21.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "rollup": "^2.58.0",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}

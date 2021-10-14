@@ -1,5 +1,5 @@
-import { formatLeaderboardGames } from './format';
 import { findItemsInDb, findAllItems } from './db';
+import { formatLeaderboardGames } from '../../../../services/stats';
 
 // eslint-disable-next-line import/prefer-default-export
 export const findLeaderboardItems = async ({ context, parent, find }) => {
@@ -23,7 +23,7 @@ export const findLeaderboardItems = async ({ context, parent, find }) => {
     returnFields: { uid: 1, name: 1 },
   });
 
-  const formattedGames = formatLeaderboardGames(games, players);
+  const formattedGames = formatLeaderboardGames(games, players, find);
 
   return formattedGames;
 };

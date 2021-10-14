@@ -48,6 +48,16 @@ describe('Button.vue', () => {
     expect(wrapper.classes()).toContain('btn--is-stacked');
   });
 
+  it('renders a small button', () => {
+    const wrapper = shallowMount(Button, {
+      propsData: {
+        size: 'sm',
+      },
+    });
+
+    expect(wrapper.classes()).toContain('btn--small');
+  });
+
   it('renders a large button', () => {
     const wrapper = shallowMount(Button, {
       propsData: {
@@ -56,6 +66,16 @@ describe('Button.vue', () => {
     });
 
     expect(wrapper.classes()).toContain('btn--large');
+  });
+
+  it('renders a disabled button', () => {
+    const wrapper = shallowMount(Button, {
+      propsData: {
+        disabled: true,
+      },
+    });
+
+    expect(wrapper.classes()).toContain('btn--disabled');
   });
 
   it('should call click method', () => {

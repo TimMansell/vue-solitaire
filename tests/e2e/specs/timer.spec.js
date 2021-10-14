@@ -1,13 +1,10 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
+const wait = 2000;
 
 describe('Timer', () => {
   beforeEach(() => {
-    cy.mockApi({
-      mockDeck: fullGameDeck,
-      mockInitial: true,
-    });
-
     cy.visitApp();
+
+    cy.waitForTimerToStart();
   });
 
   afterEach(() => {
@@ -20,17 +17,17 @@ describe('Timer', () => {
 
       cy.pauseGame();
 
-      cy.saveTimer({ wait: 1000 });
+      cy.saveTimer({ wait });
 
       cy.resumeGame();
 
-      cy.saveTimer({ wait: 1000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerHasResumed();
     });
 
     it('it should increment timer correctly', () => {
-      cy.wait(2000);
+      cy.wait(wait);
 
       cy.checkTimerIs('0:00:03');
     });
@@ -40,9 +37,9 @@ describe('Timer', () => {
 
       cy.pauseGame();
 
-      cy.saveTimer({ wait: 1000 });
+      cy.saveTimer({ wait });
 
-      cy.saveTimer({ wait: 1000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerIsPaused();
     });
@@ -50,11 +47,11 @@ describe('Timer', () => {
     it('it should increment timer correctly after pausing', () => {
       cy.pauseGame();
 
-      cy.wait(1000);
+      cy.wait(wait);
 
       cy.resumeGame();
 
-      cy.wait(2000);
+      cy.wait(wait);
 
       cy.checkTimerIs('0:00:03');
     });
@@ -64,7 +61,7 @@ describe('Timer', () => {
 
       cy.triggerVisibilityChange();
 
-      cy.wait(2000);
+      cy.wait(wait);
 
       cy.resumeGame();
 
@@ -76,29 +73,37 @@ describe('Timer', () => {
 
       cy.visit('#/pause');
 
-      cy.saveTimer({ wait: 2000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerIsPaused();
 
       cy.visit('#/');
 
-      cy.wait(2000);
+      cy.wait(wait);
 
-      cy.checkTimerIs('0:00:02');
+      cy.checkTimerIs('0:00:03');
     });
 
     it('timer should pause on 404 page', () => {
       cy.visit('#/abc');
 
-      cy.wait(2000);
+      cy.wait(wait);
 
       cy.goHome();
 
-      cy.checkTimerIs('0:00:00');
+      cy.checkTimerIs('0:00:01');
     });
   });
 
   describe('Refreshing page', () => {
+    it('timer should continue when page is refreshed', () => {
+      cy.reload();
+
+      cy.saveTimer({ wait });
+
+      cy.checkTimerIs('0:00:03');
+    });
+
     it('timer should start paused when game is paused and page is refreshed', () => {
       cy.saveTimer();
 
@@ -106,7 +111,7 @@ describe('Timer', () => {
 
       cy.reload();
 
-      cy.saveTimer({ wait: 2000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerIsPaused();
     });
@@ -118,7 +123,7 @@ describe('Timer', () => {
 
       cy.reload();
 
-      cy.saveTimer({ wait: 2000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerIsPaused();
     });
@@ -130,7 +135,7 @@ describe('Timer', () => {
 
       cy.reload();
 
-      cy.saveTimer({ wait: 2000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerIsPaused();
     });
@@ -142,7 +147,7 @@ describe('Timer', () => {
 
       cy.reload();
 
-      cy.saveTimer({ wait: 2000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerIsPaused();
     });
@@ -154,11 +159,11 @@ describe('Timer', () => {
 
       cy.showStats();
 
-      cy.saveTimer({ wait: 1000 });
+      cy.saveTimer({ wait });
 
       cy.closeOverlay();
 
-      cy.saveTimer({ wait: 1000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerHasResumed();
     });
@@ -168,11 +173,11 @@ describe('Timer', () => {
 
       cy.newGame();
 
-      cy.saveTimer({ wait: 1000 });
+      cy.saveTimer({ wait });
 
       cy.continueGame();
 
-      cy.saveTimer({ wait: 1000 });
+      cy.saveTimer({ wait });
 
       cy.checkTimerHasResumed();
     });

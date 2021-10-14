@@ -1,4 +1,5 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
+import { mockVersionNumber } from '../../../src/mockData';
+import { version } from '../../../server/package.json';
 
 describe('App', () => {
   afterEach(() => {
@@ -11,9 +12,17 @@ describe('App', () => {
     });
 
     it('it successfully loads', () => {
+      cy.checkConnectingAlertIsVisible(false);
+
       cy.checkBoard();
 
       cy.checkFoundations();
+
+      cy.getInitialData().then(({ userStats, globalStats }) => {
+        cy.checkGameNumber(userStats.completed);
+        cy.checkGlobalGameNumber(globalStats.completed);
+        cy.checkPlayerNumber(globalStats.players);
+      });
     });
 
     it('show pause page if url is changed manually', () => {
@@ -37,55 +46,53 @@ describe('App', () => {
     });
   });
 
-  describe('Version', () => {
-    it('it should not show version upgrade toast', () => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: {
-          matchesVersion: true,
-        },
-      });
+  describe('Offline', () => {
+    it('it should show alert if offline', () => {
+      cy.visit('/');
 
+      cy.window()
+        .its('solitaire.$store')
+        .then((store) => {
+          store.dispatch('setIsOnline', false);
+        });
+
+      cy.checkOfflineAlertIsVisible(true);
+
+      cy.window()
+        .its('solitaire.$store')
+        .then((store) => {
+          store.dispatch('setIsOnline', true);
+        });
+
+      cy.checkOfflineAlertIsVisible(false);
+    });
+  });
+
+  describe('Version', () => {
+    it('it should not show version upgrade toast when no appVersion is set', () => {
       cy.visitApp();
 
-      cy.checkVersionPopup(false);
+      cy.checkVersionAlertIsVisible(false);
     });
 
-    it('it should show version upgrade toast', () => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: {
-          matchesVersion: false,
-        },
-      });
+    it('it should not show version upgrade toast', () => {
+      localStorage.setItem('appVersion', version);
 
       cy.visitApp();
 
-      cy.checkVersionPopup(true);
+      cy.checkVersionAlertIsVisible(false);
     });
 
     it('it should show version upgrade toast and not show it after page reload', () => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: {
-          matchesVersion: false,
-        },
-      });
+      localStorage.setItem('appVersion', mockVersionNumber);
 
       cy.visitApp();
 
-      cy.checkVersionPopup(true);
-
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: {
-          matchesVersion: true,
-        },
-      });
+      cy.checkVersionAlertIsVisible(true);
 
       cy.reload();
 
-      cy.checkVersionPopup(false);
+      cy.checkVersionAlertIsVisible(false);
     });
   });
 });

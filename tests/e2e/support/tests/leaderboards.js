@@ -2,16 +2,12 @@ Cypress.Commands.add('selectLeaderboardTop', (value) => {
   cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
     `${value}`
   );
-
-  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('selectLeaderboardBest', (value) => {
   cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
     value
   );
-
-  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('getSelectLeaderboardTop', () => {
@@ -24,6 +20,30 @@ Cypress.Commands.add('getSelectLeaderboardBest', () => {
   cy.get(
     '[data-test="leaderboard-set-best"] [data-test="select"] :selected'
   ).text();
+});
+
+Cypress.Commands.add('checkLeaderboards', () => {
+  cy.getSelectLeaderboardBest().then((best) => {
+    cy.getSelectLeaderboardTop().then((limit) => {
+      cy.getLeaderboards({ best, limit }).then((games) => {
+        const rows = [...Array(10).keys()].map(() =>
+          Math.floor(Math.random() * (games.length - 1) + 1)
+        );
+
+        rows.forEach((row) => {
+          cy.checkTableCell({ row, cell: 0, value: games[row].rank });
+          cy.checkTableCell({ row, cell: 1, value: games[row].date });
+          cy.checkTableCell({ row, cell: 2, value: games[row].player });
+
+          if (best === 'times') {
+            cy.checkTableCell({ row, cell: 3, value: games[row].duration });
+          } else {
+            cy.checkTableCell({ row, cell: 3, value: games[row][best] });
+          }
+        });
+      });
+    });
+  });
 });
 
 Cypress.Commands.add('checkSelectLeaderboardBest', (value) => {

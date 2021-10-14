@@ -1,9 +1,9 @@
-Cypress.Commands.add('reloadAndWait', () => {
-  cy.reload();
-
-  cy.wait('@GetInitialDataAPI');
-});
-
 Cypress.Commands.add('clearTest', () => {
+  cy.window()
+    .its('solitaire.$store')
+    .then((store) => {
+      store.dispatch('setGamePaused', true);
+    });
+
   cy.clearLocalStorage();
 });

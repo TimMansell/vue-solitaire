@@ -13,7 +13,7 @@ import './filters';
 import './leaderboards';
 import './user';
 import './timer';
-import './version';
+import './alerts';
 import './snapshots';
 import './paused';
 import './visibility';

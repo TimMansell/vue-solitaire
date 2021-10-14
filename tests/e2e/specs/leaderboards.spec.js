@@ -1,4 +1,3 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
 import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
@@ -8,11 +7,6 @@ describe('Leaderboards', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-        mockInitial: true,
-      });
-
       cy.visitApp();
     });
 
@@ -24,6 +18,20 @@ describe('Leaderboards', () => {
       cy.triggerVisibilityChange();
 
       cy.checkGameIsPaused(false);
+    });
+
+    it('it should display correct data', () => {
+      cy.showLeaderboards();
+
+      cy.checkLeaderboards();
+
+      cy.selectLeaderboardBest('times');
+
+      cy.checkLeaderboards();
+
+      cy.selectLeaderboardTop(50);
+
+      cy.checkLeaderboards();
     });
 
     it('it should display correct heading', () => {
@@ -92,13 +100,7 @@ describe('Leaderboards', () => {
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-      });
-
       cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it should display player name after first game', () => {
@@ -108,7 +110,7 @@ describe('Leaderboards', () => {
 
       cy.closeOverlay();
 
-      cy.startNewGame({ waitUser: true });
+      cy.startNewGame();
 
       cy.showLeaderboards();
 
@@ -120,16 +122,10 @@ describe('Leaderboards', () => {
     beforeEach(() => {
       cy.setUser(mockUid);
 
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-      });
-
       cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
-    it('it should display player name after first game', () => {
+    it('it should display player name ', () => {
       cy.showLeaderboards();
 
       cy.checkLeaderboardNameExists(true);

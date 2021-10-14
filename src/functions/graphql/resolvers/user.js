@@ -1,22 +1,5 @@
-import {
-  findItemInDb,
-  findItemsInDb,
-  countItemsInDb,
-  formatHistoryGames,
-} from './helpers';
-
-export const exists = async (parent, __, context) => {
-  const { client } = context;
-
-  const user = await findItemInDb({
-    client,
-    collection: 'users',
-    findFields: { ...parent },
-    returnFields: { uid: 1 },
-  });
-
-  return user !== null;
-};
+import { findItemsInDb, countItemsInDb } from './helpers';
+import { formatHistoryGames } from '../../../services/stats';
 
 export const history = async (parent, args, context) => {
   const { client } = context;
@@ -42,26 +25,11 @@ export const history = async (parent, args, context) => {
 
   const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
 
-  const formattedGames = formatHistoryGames(games, offset, gamesPlayed);
+  const formattedGames = formatHistoryGames(games, gamesPlayed, offset);
 
   return formattedGames;
 };
 
-export const name = async (parent, _, context) => {
-  const { client } = context;
-
-  const user = await findItemInDb({
-    client,
-    collection: 'users',
-    findFields: { ...parent },
-    returnFields: { name: 1 },
-  });
-
-  return user?.name;
-};
-
 export const user = {
-  exists,
   history,
-  name,
 };

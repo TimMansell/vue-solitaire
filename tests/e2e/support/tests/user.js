@@ -1,15 +1,20 @@
 Cypress.Commands.add('checkPlayerCount', () => {
-  cy.getPlayerCount().then(({ players }) => {
-    cy.get('[data-test="player-count"]')
+  cy.waitUntil(() =>
+    cy
+      .get('[data-test="player-count"]')
       .formatNumber()
-      .should('equal', players);
+      .then((count) => count !== 0)
+  );
+
+  cy.getPlayerCount().then(({ players }) => {
+    cy.checkPlayerNumber(players);
   });
 });
 
+Cypress.Commands.add('checkPlayerNumber', (players) =>
+  cy.get('[data-test="player-count"]').formatNumber().should('equal', players)
+);
+
 Cypress.Commands.add('setUser', (uid) => localStorage.setItem('luid', uid));
 
-Cypress.Commands.add('setDeck', (cards) => {
-  const uid = localStorage.getItem('luid');
-
-  cy.task('populateDeck', { cards, uid });
-});
+Cypress.Commands.add('setDeck', (cards) => cy.task('populateDeck', cards));

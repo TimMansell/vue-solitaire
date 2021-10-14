@@ -11,8 +11,11 @@ Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
-new Vue({
+const solitaire = new Vue({
   store,
   router,
   render: (h) => h(App),
 }).$mount('#app');
+
+// Give access to cypress.
+window.solitaire = solitaire;

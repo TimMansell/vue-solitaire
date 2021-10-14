@@ -3,6 +3,6 @@
 exports[`Solitaire.vue matches snapshot 1`] = `
 <div class="solitaire">
   <board-stub></board-stub>
-  <checkversion-stub></checkversion-stub>
+  <versionalert-stub></versionalert-stub>
 </div>
 `;

@@ -1,5 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 
+Cypress.Commands.add('waitForTimerToStart', () =>
+  cy.waitUntil(() =>
+    cy
+      .get('[data-test="timer"]')
+      .text()
+      .then((timer) => timer === '0:00:01')
+  )
+);
+
 Cypress.Commands.add('saveTimer', ({ wait } = { wait: 0 }) => {
   const timers = JSON.parse(localStorage.getItem('timers')) ?? [];
   const timerID = uuidv4();
@@ -11,11 +20,17 @@ Cypress.Commands.add('saveTimer', ({ wait } = { wait: 0 }) => {
   localStorage.setItem('timers', JSON.stringify([...timers, timerID]));
 });
 
-Cypress.Commands.add('checkTimerIs', (time) =>
-  cy.get('[data-test="timer"]').should('contain', time)
-);
+Cypress.Commands.add('checkTimerIs', (time) => {
+  cy.get('[data-test="timer"]').saveTextAs('timer');
 
-Cypress.Commands.add('checkTimerHasReset', () => cy.checkTimerIs('0:00:00'));
+  cy.get('@timer').then((timer) => {
+    expect(timer).to.equal(time);
+  });
+});
+
+Cypress.Commands.add('checkTimerHasReset', () =>
+  cy.get('[data-test="timer"]').should('contain', '0:00:00')
+);
 
 Cypress.Commands.add('checkTimer', () => {
   const [start] = JSON.parse(localStorage.getItem('timers'));
@@ -51,7 +66,7 @@ Cypress.Commands.add('checkTimerHasResumed', () => {
 Cypress.Commands.add('checkTimerIsPausedOnReload', () => {
   cy.saveTimer({ wait: 1000 });
 
-  cy.reloadAndWait();
+  cy.reload();
 
   cy.saveTimer({ wait: 1000 });
 

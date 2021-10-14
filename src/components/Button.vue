@@ -26,21 +26,23 @@ export default {
     size: {
       type: String,
       validator(value) {
-        return ['md', 'lg'].includes(value);
+        return ['sm', 'md', 'lg'].includes(value);
       },
       default: 'md',
     },
   },
   computed: {
     classes() {
-      const { type, isStacked, size } = this;
+      const { type, isStacked, size, disabled } = this;
 
       return {
         'btn--alt': type === 'alt',
         'btn--link': type === 'link',
         'btn--is-stacked': isStacked,
         'btn--icon': type === 'icon',
+        'btn--small': size === 'sm',
         'btn--large': size === 'lg',
+        'btn--disabled': disabled,
       };
     },
   },
@@ -77,6 +79,10 @@ export default {
   &:hover {
     background: var(--col-primary-alt-2);
     cursor: pointer;
+  }
+
+  &--disabled {
+    cursor: not-allowed !important;
   }
 
   &--icon {
@@ -128,6 +134,10 @@ export default {
       background: none;
       text-shadow: none;
     }
+  }
+
+  &--small {
+    font-size: var(--font-size-sm);
   }
 
   &--large {

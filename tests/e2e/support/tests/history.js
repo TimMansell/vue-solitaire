@@ -1,13 +1,9 @@
 Cypress.Commands.add('setHistoryPage', (pageText) => {
   cy.setPage(pageText);
-
-  cy.wait('@UserHistoryAPI');
 });
 
 Cypress.Commands.add('selectHistoryGames', (value) => {
   cy.get('[data-test="game-history"] [data-test="select"]').select(`${value}`);
-
-  cy.wait('@UserHistoryAPI');
 });
 
 Cypress.Commands.add('getSelectHistoryGames', () => {
@@ -104,4 +100,12 @@ Cypress.Commands.add('checkHistoryShowingGames', () => {
 
 Cypress.Commands.add('checkHistoryHasFirstGameShowing', () => {
   cy.checkTableCell({ row: -1, cell: 0, value: '1' });
+});
+
+Cypress.Commands.add('waitforInitialHistoryPageToLoad', (shouldWait) => {
+  if (shouldWait) {
+    cy.getHistoryTotalGames().then((games) => {
+      cy.waitUntil(() => cy.checkTableCell({ row: 0, cell: 0, value: games }));
+    });
+  }
 });

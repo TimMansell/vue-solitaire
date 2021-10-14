@@ -13,6 +13,7 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
+  ignorePatterns: ['server/dist/'],
   rules: {
     'import/no-cycle': 'off',
     'import/no-unresolved': [2, { ignore: ['@'] }],

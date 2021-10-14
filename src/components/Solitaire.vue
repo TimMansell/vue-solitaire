@@ -1,19 +1,19 @@
 <template>
   <div class="solitaire">
     <Board />
-    <CheckVersion />
+    <VersionAlert />
   </div>
 </template>
 
 <script>
 import Board from '@/components/Board.vue';
-import CheckVersion from '@/components/CheckVersion.vue';
+import VersionAlert from '@/components/VersionAlert.vue';
 
 export default {
   name: 'Home',
   components: {
     Board,
-    CheckVersion,
+    VersionAlert,
   },
 };
 </script>

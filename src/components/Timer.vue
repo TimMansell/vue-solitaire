@@ -7,12 +7,13 @@
 
 <script>
 import numeral from 'numeral';
+import pauseMe from 'pause-me';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters(['timer', 'isGamePaused']),
+    ...mapGetters(['timer', 'isGamePaused', 'hasCards']),
     formattedTime() {
       const { timer } = this;
 
@@ -20,28 +21,50 @@ export default {
     },
   },
   mounted() {
-    const { isGamePaused } = this;
-
-    this.setTimer(isGamePaused);
+    this.gameTimer = pauseMe(() => this.updateTimer(), 1000, true);
+    this.checkInitialState();
   },
   destroyed() {
-    clearInterval(this.gameTimer);
+    this.gameTimer.stop();
   },
   watch: {
-    isGamePaused(val, oldVal) {
-      if (val === oldVal) return;
+    isGamePaused(isPaused, isPausedPrev) {
+      const { hasCards } = this;
 
-      this.setTimer(val);
+      if (isPaused === isPausedPrev || !hasCards) return;
+
+      if (isPaused) {
+        this.gameTimer.pause();
+        return;
+      }
+
+      this.gameTimer.resume();
+    },
+    hasCards(cards, cardsPrev) {
+      const { isGamePaused } = this;
+
+      if (cards === cardsPrev || isGamePaused) return;
+
+      if (cards) {
+        this.gameTimer.resume();
+        return;
+      }
+
+      this.gameTimer.stop();
     },
   },
   methods: {
     ...mapActions(['updateTimer']),
-    setTimer(isPaused) {
-      if (!isPaused) {
-        this.gameTimer = window.setInterval(() => this.updateTimer(), 1000);
-      } else {
-        clearInterval(this.gameTimer);
+    checkInitialState() {
+      const { isGamePaused, hasCards } = this;
+
+      if (!isGamePaused && hasCards) {
+        this.gameTimer.resume();
+
+        return;
       }
+
+      this.gameTimer.pause();
     },
   },
 };

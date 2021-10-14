@@ -1,27 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Toast.vue matches snapshot 1`] = `
-<div class="toast">
-  <div class="toast__wrapper">
-    <div class="toast__content">
-      <h2 data-test="toast-header" class="toast__header">
-        test title
-      </h2>
-      <div class="toast__msg">
-        <div>
-          line 1
-        </div>
-        <div>
-          line 2
-        </div>
-        <div>
-          line 3
+<transition-stub duration="0" title="test title">
+  <div data-test="toast" class="toast toast--bottom-center">
+    <div class="toast__wrapper">
+      <div class="toast__content">
+        <div class="toast__msg">
+          <div>
+            line 1
+          </div>
+          <div>
+            line 2
+          </div>
+          <div>
+            line 3
+          </div>
         </div>
       </div>
+      <div class="toast__button">
+        <button-stub type="alt" size="sm">
+          btn text
+        </button-stub>
+      </div>
     </div>
-    <button-stub type="alt" size="md">
-      btn text
-    </button-stub>
   </div>
-</div>
+</transition-stub>
+`;
+
+exports[`Toast.vue should not show button 1`] = `
+<transition-stub duration="0" title="test title">
+  <div data-test="toast" class="toast toast--bottom-center">
+    <div class="toast__wrapper">
+      <div class="toast__content">
+        <div class="toast__msg">
+          <div>
+            line 1
+          </div>
+          <div>
+            line 2
+          </div>
+          <div>
+            line 3
+          </div>
+        </div>
+      </div>
+      <!---->
+    </div>
+  </div>
+</transition-stub>
 `;

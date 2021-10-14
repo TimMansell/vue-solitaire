@@ -12,6 +12,10 @@ Cypress.Commands.add('checkGameNumber', (number) => {
   cy.get('[data-test="stats"]').formatNumber().should('equal', number);
 });
 
+Cypress.Commands.add('checkGlobalGameNumber', (number) => {
+  cy.get('[data-test="global-stats"]').formatNumber().should('equal', number);
+});
+
 Cypress.Commands.add('checkGameWon', (hasWon) => {
   const wonExist = hasWon ? 'exist' : 'not.exist';
 

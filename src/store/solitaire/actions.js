@@ -1,3 +1,4 @@
+import { socketConnect, socketOn, socketEmit } from '@/services/ws';
 import {
   initBoard,
   initFoundation,
@@ -10,16 +11,24 @@ import {
   getEmptyFoundationColumn,
   getDraggedCards,
 } from '@/services/solitaire';
-import { newGame } from '@/services/db';
 
 const actions = {
-  initGame({ commit, dispatch, state }) {
-    const { isNewGame } = state;
+  initGame({ dispatch }) {
+    socketConnect(() => {
+      dispatch('initNewGame');
+    });
 
-    dispatch('initBoard', isNewGame);
-    dispatch('initFoundation', isNewGame);
+    socketOn('newGame', (deck) => {
+      dispatch('initBoard', deck);
+      dispatch('initFoundation');
+    });
+  },
+  initNewGame({ getters }) {
+    const { uid, hasCards } = getters;
 
-    commit('NEW_GAME', false);
+    if (!hasCards) {
+      socketEmit('newGame', uid);
+    }
   },
   restartGame({ commit }) {
     commit('RESTART_GAME');
@@ -32,27 +41,15 @@ const actions = {
       dispatch('setGameOutcome', isEmptyBoard);
     }
   },
-  initFoundation({ dispatch, state }, isNewGame) {
-    const { foundation } = state;
-    const foundationCards = !isNewGame ? foundation : initFoundation();
+  initFoundation({ dispatch }) {
+    const foundationCards = initFoundation();
 
     dispatch('setFoundation', foundationCards);
   },
-  async initBoard({ dispatch, state, rootState }, isNewGame) {
-    if (isNewGame) {
-      dispatch('setGameLoading', true);
+  initBoard({ dispatch }, cards) {
+    const board = initBoard(cards);
 
-      const { luid } = rootState.user;
-      const { cards } = await newGame(luid);
-      const board = initBoard(cards);
-
-      dispatch('setBoard', board);
-      dispatch('setGameLoading', false);
-    } else {
-      const { cards } = state;
-
-      dispatch('setBoard', cards);
-    }
+    dispatch('setBoard', board);
   },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);

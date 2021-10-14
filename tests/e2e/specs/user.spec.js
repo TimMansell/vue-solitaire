@@ -8,10 +8,6 @@ describe('User', () => {
 
   describe('Default', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
-      });
-
       cy.visitApp();
     });
 
@@ -23,31 +19,23 @@ describe('User', () => {
       expect(luid).to.not.equal('');
       expect(luid).to.not.equal(mockUid);
     });
-
-    it('it successfully retrieves player count', () => {
-      cy.checkPlayerCount();
-    });
   });
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.mockApi({
-        mockDeck: fullGameDeck,
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it creates a new user on server after first game has been played', () => {
-      cy.startNewGame({ waitUser: true });
+      cy.startNewGame();
 
       cy.checkPlayerCount();
     });
 
     it('it does not create a new user on server after second game has been played', () => {
-      cy.startNewGame({ waitUser: true });
+      cy.startNewGame();
 
       cy.checkPlayerCount();
 
@@ -61,13 +49,9 @@ describe('User', () => {
     beforeEach(() => {
       cy.setUser(mockUid);
 
-      cy.mockApi({
-        mockDeck: fullGameDeck,
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
       });
-
-      cy.visitApp();
-
-      cy.setDeck(fullGameDeck);
     });
 
     it('it does not create a new local user on initial page load', () => {

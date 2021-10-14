@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alerts.vue matches snapshot 1`] = `
+<div>
+  <connectingalert-stub></connectingalert-stub>
+  <offlinealert-stub></offlinealert-stub>
+</div>
+`;

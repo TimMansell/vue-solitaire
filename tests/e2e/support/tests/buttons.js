@@ -1,6 +1,6 @@
-Cypress.Commands.add('startNewGame', ({ waitUser } = { waitUser: false }) => {
+Cypress.Commands.add('startNewGame', () => {
   cy.newGame();
-  cy.confirmNewGame({ waitUser });
+  cy.confirmNewGame();
 });
 
 Cypress.Commands.add('newGame', () => {
@@ -9,20 +9,10 @@ Cypress.Commands.add('newGame', () => {
   cy.checkVisibilityHidden(true);
 });
 
-Cypress.Commands.add('confirmNewGame', ({ waitUser } = { waitUser: false }) => {
+Cypress.Commands.add('confirmNewGame', () => {
   cy.get('[data-test="start-new-game-btn"]').click();
 
   cy.checkVisibilityHidden(false);
-
-  if (waitUser) {
-    cy.wait('@CreateAUserAPI');
-  }
-
-  cy.get('@mockedInitial').then((isMocked) => {
-    if (!isMocked) {
-      cy.wait('@GetInitialDataAPI');
-    }
-  });
 });
 
 Cypress.Commands.add('pauseGame', () => {
@@ -47,8 +37,6 @@ Cypress.Commands.add('showStats', () => {
   cy.get('[data-test="stats-btn"]').click();
 
   cy.checkVisibilityHidden(true);
-
-  cy.wait('@GetStatsAPI');
 });
 
 Cypress.Commands.add('showRules', () => {
@@ -60,19 +48,15 @@ Cypress.Commands.add('showRules', () => {
 Cypress.Commands.add('showHistory', ({ wait } = { wait: false }) => {
   cy.get('[data-test="history-btn"]').click();
 
-  cy.checkVisibilityHidden(true);
+  cy.waitforInitialHistoryPageToLoad(wait);
 
-  if (wait) {
-    cy.wait('@UserHistoryAPI');
-  }
+  cy.checkVisibilityHidden(true);
 });
 
 Cypress.Commands.add('showLeaderboards', () => {
   cy.get('[data-test="leaderboards-btn"]').click();
 
   cy.checkVisibilityHidden(true);
-
-  cy.wait('@LeaderboardsAPI');
 });
 
 Cypress.Commands.add('showBoard', () => {

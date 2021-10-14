@@ -1,48 +1,62 @@
-import { saveGame, getInitialData } from '@/services/db';
-import { version as localVersion } from '../../../package.json';
+import {
+  socketConnect,
+  socketDisconnect,
+  socketEmit,
+  socketOn,
+} from '@/services/ws';
 
 const actions = {
-  async initApp({ dispatch }) {
-    const uid = await dispatch('initUser');
-
-    const { user, userStats, globalStats, version } = await getInitialData(
-      uid,
-      localVersion
-    );
-
+  initApp({ dispatch }) {
+    dispatch('initUser');
     dispatch('initGame');
-    dispatch('setUser', user);
-    dispatch('setStatsCount', { userStats, globalStats });
-    dispatch('setAppVersion', version);
+    dispatch('initStats');
+    dispatch('setIsConnecting', true);
+
+    socketConnect(() => {
+      dispatch('checkVersion');
+      dispatch('setIsOnline', true);
+      dispatch('setIsConnecting', false);
+    });
+
+    socketDisconnect(() => {
+      dispatch('setIsOnline', false);
+    });
+
+    socketOn('checkVersion', (version) => {
+      dispatch('setVersion', version);
+    });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
   },
-  setAppVersion({ commit }, { matches }) {
+  setIsOnline({ commit }, isOnline) {
+    commit('SET_IS_ONLINE', isOnline);
+  },
+  setIsConnecting({ commit }, isConnecting) {
+    commit('SET_IS_CONNECTING', isConnecting);
+  },
+  checkVersion() {
+    const version = localStorage.getItem('appVersion');
+
+    socketEmit('checkVersion', version);
+  },
+  setVersion({ commit }, { version, matches }) {
+    localStorage.setItem('appVersion', version);
+
     commit('SET_VERSION_MATCH', matches);
   },
-  setGameLoading({ commit }, isGameLoading) {
-    commit('SET_GAME_LOADING', isGameLoading);
-    commit('SET_GAME_PAUSED', isGameLoading);
-  },
-  async newGame({ dispatch }) {
-    await Promise.all([
-      dispatch('saveGame'),
-      dispatch('restartApp'),
-      dispatch('restartGame'),
-    ]);
-
-    dispatch('initApp');
-    dispatch('initGame');
+  newGame({ dispatch }) {
+    dispatch('saveGame');
+    dispatch('restartApp');
+    dispatch('restartGame');
   },
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  async saveGame({ dispatch, state, rootState }) {
-    const { luid } = rootState.user;
-    const { game } = state;
+  saveGame({ getters }) {
+    const { uid, game } = getters;
 
-    await Promise.all([saveGame(luid, game), dispatch('createUser')]);
+    socketEmit('saveGame', { uid, game });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
@@ -53,8 +67,8 @@ const actions = {
   toggleOverlayVisibility({ commit }) {
     commit('SET_OVERLAY_VISIBLE');
   },
-  saveMove({ commit, rootState }, move) {
-    const { selectedCardId } = rootState.solitaire;
+  saveMove({ commit, getters }, move) {
+    const { selectedCardId } = getters;
 
     commit('SET_MOVES', {
       selectedCardId,
