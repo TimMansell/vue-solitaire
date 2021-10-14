@@ -1,5 +1,4 @@
-import { formatDate } from '@/helpers/dates';
-import { formatTime } from '@/helpers/times';
+import { getLeaderboadSortBy, formatLeaderboardGames } from '@/services/stats';
 
 export const getUserCounts = async (db, uid) => {
   const completed = await db
@@ -76,16 +75,10 @@ export const getGlobalStats = async (db) => {
   return { completed, won, lost };
 };
 
-const formatKey = (showBest) => {
-  if (showBest === 'times') {
-    return 'time';
-  }
-
-  return 'moves';
-};
-
 export const getLeaderboards = async (db, showBest, limit) => {
-  const key = formatKey(showBest);
+  const sortBy = getLeaderboadSortBy(showBest);
+
+  console.log({ sortBy, showBest });
 
   const games = await db
     .collection('games')
@@ -94,7 +87,7 @@ export const getLeaderboards = async (db, showBest, limit) => {
       { projection: { _id: 0, date: 1, uid: 1, time: 1, moves: 1 } }
     )
     .limit(limit)
-    .sort({ [key]: 1, date: 1 })
+    .sort({ [sortBy]: 1, date: 1 })
     .toArray();
 
   const uids = [...new Set(games.map(({ uid }) => uid))];
@@ -104,33 +97,7 @@ export const getLeaderboards = async (db, showBest, limit) => {
     .find({ uid: { $in: uids } }, { projection: { _id: 0, uid: 1, name: 1 } })
     .toArray();
 
-  const formattedGames = games.map((item, index) => {
-    const { uid, date, time, moves } = item;
-
-    const player = players.find(({ uid: id }) => id === uid);
-
-    const defaultItems = {
-      rank: index + 1,
-      date: formatDate(date),
-      player: player?.name ?? 'Unknown Player',
-    };
-
-    if (showBest === 'moves') {
-      return {
-        ...defaultItems,
-        moves,
-      };
-    }
-
-    if (showBest === 'times') {
-      return {
-        ...defaultItems,
-        duration: formatTime(time),
-      };
-    }
-
-    return defaultItems;
-  });
+  const formattedGames = formatLeaderboardGames(games, players, sortBy);
 
   return formattedGames;
 };

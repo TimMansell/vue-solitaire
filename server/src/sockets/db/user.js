@@ -4,10 +4,7 @@ import {
   colors,
   animals,
 } from 'unique-names-generator';
-import { formatDate } from '@/helpers/dates';
-import { formatTime, formatTimeFromDate } from '@/helpers/times';
-import { formatNumber } from '@/helpers/numbers';
-import { gameOutcome } from '@/helpers/game';
+import { formatHistoryGames } from '@/services/stats';
 
 export const createUser = async (db, uid) => {
   const name = uniqueNamesGenerator({
@@ -48,16 +45,7 @@ export const getGames = async (db, uid, offset, limit) => {
 
   const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
 
-  const formattedGames = games.map(
-    ({ date, won, lost, time, moves }, index) => ({
-      number: formatNumber(gamesPlayed - offset - index),
-      date: formatDate(date),
-      time: formatTimeFromDate(date),
-      outcome: gameOutcome({ won, lost }),
-      moves,
-      duration: formatTime(time),
-    })
-  );
+  const formattedGames = formatHistoryGames(games, gamesPlayed, offset);
 
   return formattedGames;
 };

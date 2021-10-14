@@ -1,4 +1,5 @@
-import { findItemsInDb, countItemsInDb, formatHistoryGames } from './helpers';
+import { findItemsInDb, countItemsInDb } from './helpers';
+import { formatHistoryGames } from '../../../services/stats';
 
 export const history = async (parent, args, context) => {
   const { client } = context;
