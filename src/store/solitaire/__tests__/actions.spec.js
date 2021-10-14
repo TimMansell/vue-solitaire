@@ -1,10 +1,8 @@
-import { mockUid, mockBoard, mockFoundation } from '@/mockData';
+import { mockBoard } from '@/mockData';
 import actions from '../actions';
 
 const {
   checkGameState,
-  initFoundation,
-  initBoard,
   moveCardsToColumn,
   moveCardToFoundation,
   setDraggedCards,
@@ -36,50 +34,6 @@ describe('Solitaire Store', () => {
     checkGameState({ dispatch, state });
 
     expect(dispatch).not.toHaveBeenCalledWith('setGameOutcome');
-  });
-
-  it('should clear foundations for new game', () => {
-    const state = {
-      foundation: [],
-    };
-
-    initFoundation({ dispatch, state }, true);
-
-    expect(dispatch).toHaveBeenCalledWith('setFoundation', mockFoundation);
-  });
-
-  it('should load foundations from state', () => {
-    const state = {
-      foundation: mockFoundation,
-    };
-
-    initFoundation({ dispatch, state }, false);
-
-    expect(dispatch).toHaveBeenCalledWith('setFoundation', mockFoundation);
-  });
-
-  it('should set a new board for new game', async () => {
-    const state = {
-      cards: [],
-    };
-
-    const rootState = { user: { luid: mockUid } };
-
-    await initBoard({ dispatch, state, rootState }, true);
-
-    expect(dispatch).toHaveBeenCalledWith('setBoard', mockBoard);
-  });
-
-  it('should load board from state', () => {
-    const state = {
-      cards: mockBoard,
-    };
-
-    const rootState = { user: { luid: mockUid } };
-
-    initBoard({ dispatch, state, rootState }, false);
-
-    expect(dispatch).toHaveBeenCalledWith('setBoard', mockBoard);
   });
 
   it('should move cards to column', () => {

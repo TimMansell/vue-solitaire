@@ -1,11 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import CheckVersion from '@/components/CheckVersion.vue';
+import VersionAlert from '@/components/VersionAlert.vue';
 
-jest.mock('@/services/db');
-
-describe('CheckVersion.vue', () => {
+describe('VersionAlert.vue', () => {
   it('matches version match snapshot', () => {
-    const wrapper = shallowMount(CheckVersion, {
+    const wrapper = shallowMount(VersionAlert, {
       computed: {
         versionMatch: () => true,
       },
@@ -15,7 +13,7 @@ describe('CheckVersion.vue', () => {
   });
 
   it('matches no version match snapshot', () => {
-    const wrapper = shallowMount(CheckVersion, {
+    const wrapper = shallowMount(VersionAlert, {
       computed: {
         versionMatch: () => false,
       },
@@ -25,22 +23,22 @@ describe('CheckVersion.vue', () => {
   });
 
   it('should match version and not show notification', () => {
-    const wrapper = shallowMount(CheckVersion, {
+    const wrapper = shallowMount(VersionAlert, {
       computed: {
         versionMatch: () => true,
       },
     });
 
-    expect(wrapper.find('[data-test="version"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="version-alert"]').exists()).toBe(false);
   });
 
   it('should not match version and show notification', () => {
-    const wrapper = shallowMount(CheckVersion, {
+    const wrapper = shallowMount(VersionAlert, {
       computed: {
         versionMatch: () => false,
       },
     });
 
-    expect(wrapper.find('[data-test="version"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="version-alert"]').exists()).toBe(true);
   });
 });

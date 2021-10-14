@@ -5,7 +5,8 @@ describe('NewGameButton.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(NewGameButton, {
       computed: {
-        isGameLoading: () => false,
+        hasCards: () => true,
+        isOnline: () => true,
       },
     });
 

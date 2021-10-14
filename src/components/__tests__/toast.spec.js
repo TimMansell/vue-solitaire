@@ -15,16 +15,4 @@ describe('Toast.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('should not render a header', () => {
-    const { msgs, btnText } = propsData;
-
-    const wrapper = shallowMount(Toast, {
-      propsData: { msgs, btnText },
-    });
-
-    const header = wrapper.find('[data-test="toast-header"]');
-
-    expect(header.exists()).toBe(false);
-  });
 });

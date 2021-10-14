@@ -1,8 +1,6 @@
 import { mockUid } from '@/mockData';
 import { initUser } from '../index';
 
-jest.mock('@/services/db');
-
 jest.mock('uuid', () => ({
   v4: () => mockUid,
 }));
