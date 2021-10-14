@@ -11,7 +11,7 @@ const {
 } = actions;
 
 jest.mock('@/services/solitaire');
-jest.mock('@/services/db');
+jest.mock('@/services/ws');
 
 describe('Solitaire Store', () => {
   let commit;

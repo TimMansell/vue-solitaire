@@ -1,4 +1,4 @@
-import { socketConnect, socketEmit, socketOn } from '@/services/websockets';
+import { socketConnect, socketEmit, socketOn } from '@/services/ws';
 import { initUser } from '@/services/user';
 
 const actions = {

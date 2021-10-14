@@ -1,9 +1,9 @@
 import {
   socketConnect,
-  socketDrop,
+  socketDisconnect,
   socketEmit,
   socketOn,
-} from '@/services/websockets';
+} from '@/services/ws';
 
 const actions = {
   initApp({ dispatch }) {
@@ -18,7 +18,7 @@ const actions = {
       dispatch('setIsConnecting', false);
     });
 
-    socketDrop(() => {
+    socketDisconnect(() => {
       dispatch('setIsOnline', false);
     });
 

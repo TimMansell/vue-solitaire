@@ -3,7 +3,7 @@ import actions from '../actions';
 
 const { initUser, createUser, getAllGames } = actions;
 
-jest.mock('@/services/db');
+jest.mock('@/services/ws');
 
 describe('User Store', () => {
   let commit;

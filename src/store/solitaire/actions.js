@@ -1,4 +1,4 @@
-import { socketConnect, socketOn, socketEmit } from '@/services/websockets';
+import { socketConnect, socketOn, socketEmit } from '@/services/ws';
 import {
   initBoard,
   initFoundation,

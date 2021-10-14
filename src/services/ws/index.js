@@ -13,7 +13,7 @@ export const socketConnect = (callback) => {
   });
 };
 
-export const socketDrop = (callback) => {
+export const socketDisconnect = (callback) => {
   socket.on('disconnect', (obj) => {
     callback(obj);
   });
