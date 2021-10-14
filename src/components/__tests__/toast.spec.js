@@ -15,4 +15,40 @@ describe('Toast.vue', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('should render in top/right position', () => {
+    const wrapper = shallowMount(Toast, {
+      propsData: {
+        ...propsData,
+        position: 'top-right',
+      },
+    });
+
+    expect(wrapper.find('[data-test="toast"]').classes()).toContain(
+      'toast--top-right'
+    );
+  });
+
+  it('should render in bototm/center position', () => {
+    const wrapper = shallowMount(Toast, {
+      propsData: {
+        ...propsData,
+      },
+    });
+
+    expect(wrapper.find('[data-test="toast"]').classes()).toContain(
+      'toast--bottom-center'
+    );
+  });
+
+  it('should not show button', () => {
+    const wrapper = shallowMount(Toast, {
+      propsData: {
+        ...propsData,
+        btnText: '',
+      },
+    });
+
+    expect(wrapper).toMatchSnapshot();
+  });
 });

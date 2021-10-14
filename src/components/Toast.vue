@@ -1,6 +1,6 @@
 <template>
   <transition :duration="duration">
-    <div class="toast" :class="classes">
+    <div class="toast" :class="classes" data-test="toast">
       <div class="toast__wrapper">
         <div class="toast__content">
           <div class="toast__msg">
