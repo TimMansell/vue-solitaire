@@ -20,6 +20,20 @@ describe('Leaderboards', () => {
       cy.checkGameIsPaused(false);
     });
 
+    it('it should display correct data', () => {
+      cy.showLeaderboards();
+
+      cy.checkLeaderboards();
+
+      cy.selectLeaderboardBest('times');
+
+      cy.checkLeaderboards();
+
+      cy.selectLeaderboardTop(50);
+
+      cy.checkLeaderboards();
+    });
+
     it('it should display correct heading', () => {
       cy.showLeaderboards();
 

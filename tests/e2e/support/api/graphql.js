@@ -1,3 +1,33 @@
+Cypress.Commands.add('getInitialData', () => {
+  const url = Cypress.env('graphql');
+  const uid = localStorage.getItem('luid');
+
+  const query = `query {
+    userStats(uid: "${uid}") {
+      completed
+    }
+    globalStats {
+      completed
+      players
+    }
+  }`;
+
+  cy.request({
+    method: 'POST',
+    url,
+    body: { query },
+    failOnStatusCode: false,
+  }).then(({ body }) => {
+    const {
+      data: { globalStats, userStats },
+    } = body;
+
+    console.log({ body });
+
+    return { globalStats, userStats };
+  });
+});
+
 Cypress.Commands.add('getStats', () => {
   const url = Cypress.env('graphql');
   const uid = localStorage.getItem('luid');
@@ -83,4 +113,27 @@ Cypress.Commands.add('getUserHistory', ({ offset, limit }) => {
 
     return history;
   });
+});
+
+Cypress.Commands.add('getLeaderboards', ({ best, limit }) => {
+  const url = Cypress.env('graphql');
+
+  const query = `query {
+    leaderboards(offset: 0, limit: ${limit}) {
+      ${best} {
+        rank
+        date
+        player
+        moves
+        duration
+      }
+    }
+  }`;
+
+  cy.request({
+    method: 'POST',
+    url,
+    body: { query },
+    failOnStatusCode: false,
+  }).then(({ body }) => body.data.leaderboards[best]);
 });
