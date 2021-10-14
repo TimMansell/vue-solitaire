@@ -1,6 +1,6 @@
 Cypress.Commands.add('clearTest', () => {
   cy.window()
-    .its('app.$store')
+    .its('solitaire.$store')
     .then((store) => {
       store.dispatch('setGamePaused', true);
     });
