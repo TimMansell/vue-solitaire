@@ -16,7 +16,7 @@ export const newDeck = async (db, uid, isMocked) => {
 
   db.collection('decks').findOneAndUpdate(
     { uid },
-    { $set: { uid, cards, date } },
+    { $set: { uid, cards, date, hasPlayed: false } },
     { upsert: true }
   );
 
@@ -27,10 +27,20 @@ export const saveGame = async (db, uid, game) => {
   const { moves, time } = game;
   const date = createISODate();
 
-  const { cards } = await db
+  const { value } = await db
     .collection('decks')
-    .findOne({ uid }, { projection: { cards: 1 } });
+    .findOneAndUpdate(
+      { uid, hasPlayed: false },
+      { $set: { hasPlayed: true } },
+      { projection: { cards: 1 } }
+    );
 
+  // block game with no deck being added.
+  if (!value) {
+    return;
+  }
+
+  const { cards } = value;
   const { isGameFinished, hasMoves } = checkGameState(moves, cards);
 
   const document = {
