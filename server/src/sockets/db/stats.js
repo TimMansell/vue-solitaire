@@ -78,8 +78,6 @@ export const getGlobalStats = async (db) => {
 export const getLeaderboards = async (db, showBest, limit) => {
   const sortBy = getLeaderboadSortBy(showBest);
 
-  console.log({ sortBy, showBest });
-
   const games = await db
     .collection('games')
     .find(

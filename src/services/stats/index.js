@@ -30,7 +30,7 @@ export const formatLeaderboardGames = (games, players, sortBy) =>
       };
     }
 
-    if (sortBy === 'times') {
+    if (sortBy === 'time') {
       return {
         ...defaultItems,
         duration: formatTime(time),

@@ -25,7 +25,7 @@ export const history = async (parent, args, context) => {
 
   const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
 
-  const formattedGames = formatHistoryGames(games, offset, gamesPlayed);
+  const formattedGames = formatHistoryGames(games, gamesPlayed, offset);
 
   return formattedGames;
 };

@@ -33,7 +33,7 @@ describe('Stats service', () => {
     const result = formatLeaderboardGames(
       mockLeaderboardsTimesAPI,
       mockPlayers,
-      'times'
+      'time'
     );
 
     expect(result).toEqual(mockLeaderboardsTimes);
