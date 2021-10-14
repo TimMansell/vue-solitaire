@@ -41,10 +41,8 @@ const actions = {
       dispatch('setGameOutcome', isEmptyBoard);
     }
   },
-  initFoundation({ dispatch, state, getters }) {
-    const { foundation } = state;
-    const { hasFoundations } = getters;
-    const foundationCards = hasFoundations ? foundation : initFoundation();
+  initFoundation({ dispatch }) {
+    const foundationCards = initFoundation();
 
     dispatch('setFoundation', foundationCards);
   },
