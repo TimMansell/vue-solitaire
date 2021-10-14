@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import OfflineMode from '@/components/OfflineMode.vue';
+import OfflineMode from '@/pages/OfflineMode.vue';
 
 describe('OfflineMode.vue', () => {
   it('matches snapshot', () => {
