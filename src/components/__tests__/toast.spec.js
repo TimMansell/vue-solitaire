@@ -41,6 +41,19 @@ describe('Toast.vue', () => {
     );
   });
 
+  it('should render a blurred background', () => {
+    const wrapper = shallowMount(Toast, {
+      propsData: {
+        ...propsData,
+        blurBackground: true,
+      },
+    });
+
+    expect(wrapper.find('[data-test="toast"]').classes()).toContain(
+      'toast--blur'
+    );
+  });
+
   it('should not show button', () => {
     const wrapper = shallowMount(Toast, {
       propsData: {
