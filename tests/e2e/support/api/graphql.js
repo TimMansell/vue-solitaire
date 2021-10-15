@@ -37,11 +37,13 @@ Cypress.Commands.add('getStats', () => {
       won
       lost
       completed
+      abandoned
     }
     globalStats {
       won
       lost
       completed
+      abandoned
     }
   }`;
 
@@ -90,8 +92,6 @@ Cypress.Commands.add('getUserHistory', ({ offset, limit }) => {
     user(uid: "${uid}") {
       history(offset: ${offset}, limit: ${limit}) {
         number
-        date
-        time
         outcome
         moves
         duration
@@ -122,7 +122,6 @@ Cypress.Commands.add('getLeaderboards', ({ best, limit }) => {
     leaderboards(offset: 0, limit: ${limit}) {
       ${best} {
         rank
-        date
         player
         moves
         duration

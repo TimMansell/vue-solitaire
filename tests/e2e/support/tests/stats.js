@@ -38,14 +38,14 @@ Cypress.Commands.add('checkStats', () => {
       won: userWon,
       lost: userLost,
       completed: userCompleted,
+      abandoned: userQuit,
     } = userStats;
     const {
       won: globalWon,
       lost: globalLost,
       completed: globalCompleted,
+      abandoned: globalQuit,
     } = globalStats;
-    const userQuit = userCompleted - userWon - userLost;
-    const globalQuit = globalCompleted - globalWon - globalLost;
 
     cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('stat');
 

@@ -366,32 +366,32 @@ export const mockHistoryApi = [
 
 export const mockHistory = [
   {
-    date: '20-05-2021',
-    time: '23:34:49',
+    date: '2021-05-20T23:34:49.564Z',
+    time: '2021-05-20T23:34:49.564Z',
     duration: '0:00:12',
     moves: 1,
     number: '4',
     outcome: 'Gave Up',
   },
   {
-    date: '19-05-2021',
-    time: '23:34:49',
+    date: '2021-05-19T23:34:49.564Z',
+    time: '2021-05-19T23:34:49.564Z',
     duration: '0:00:12',
     moves: 2,
     number: '3',
     outcome: 'Won',
   },
   {
-    date: '19-05-2021',
-    time: '23:34:49',
+    date: '2021-05-19T23:34:49.564Z',
+    time: '2021-05-19T23:34:49.564Z',
     duration: '0:00:12',
     moves: 2,
     number: '2',
     outcome: 'Lost',
   },
   {
-    date: '19-05-2021',
-    time: '23:34:49',
+    date: '2021-05-19T23:34:49.564Z',
+    time: '2021-05-19T23:34:49.564Z',
     duration: '0:00:12',
     moves: 2,
     number: '1',
@@ -415,13 +415,13 @@ export const mockLeaderboardsMovesAPI = [
 export const mockLeaderboardsMoves = [
   {
     rank: 1,
-    date: '29-04-2021',
+    date: '2021-04-29T12:25:47.907Z',
     player: 'Player 1',
     moves: 2,
   },
   {
     rank: 2,
-    date: '29-04-2021',
+    date: '2021-04-29T12:26:20.825Z',
     player: 'Player 2',
     moves: 2,
   },
@@ -443,13 +443,13 @@ export const mockLeaderboardsTimesAPI = [
 export const mockLeaderboardsTimes = [
   {
     rank: 1,
-    date: '29-04-2021',
+    date: '2021-04-29T12:25:47.907Z',
     player: 'Player 1',
     duration: '0:00:20',
   },
   {
     rank: 2,
-    date: '29-04-2021',
+    date: '2021-04-29T12:26:20.825Z',
     player: 'Player 2',
     duration: '0:03:20',
   },

@@ -24,6 +24,7 @@ describe('Graphql Schema', () => {
             won
             lost
             completed
+            abandoned
           }
         }
       `;
@@ -38,6 +39,7 @@ describe('Graphql Schema', () => {
             won: 1,
             lost: 1,
             completed: 1,
+            abandoned: 1,
           },
         },
       });
@@ -50,6 +52,7 @@ describe('Graphql Schema', () => {
             won
             lost
             completed
+            abandoned
             players
           }
         }
@@ -65,6 +68,7 @@ describe('Graphql Schema', () => {
             won: 1,
             lost: 1,
             completed: 1,
+            abandoned: 1,
             players: 1,
           },
         },

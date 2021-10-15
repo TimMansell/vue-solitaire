@@ -28,7 +28,7 @@
 
     <ResponsiveTable
       :headings="['Rank', 'Date', 'Player', `${best}`]"
-      :items="leaderboards"
+      :items="leaderboardsUsingLocalTimeZone"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'player', value: name }"
     />
@@ -41,6 +41,7 @@ import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
+import { formatDate } from '@/helpers/dates';
 
 export default {
   name: 'Leaderboards',
@@ -72,6 +73,14 @@ export default {
   },
   computed: {
     ...mapGetters(['leaderboards', 'name']),
+    leaderboardsUsingLocalTimeZone() {
+      const { leaderboards } = this;
+
+      return leaderboards.map((leaderboard) => ({
+        ...leaderboard,
+        date: formatDate(leaderboard.date),
+      }));
+    },
     showBest() {
       return this.filters.showBest;
     },
@@ -106,10 +115,10 @@ export default {
     setBest(showBest) {
       this.filters.showBest = showBest;
     },
-    async displayGames() {
+    displayGames() {
       const { filters } = this;
 
-      await this.getLeaderboards(filters);
+      this.getLeaderboards(filters);
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);

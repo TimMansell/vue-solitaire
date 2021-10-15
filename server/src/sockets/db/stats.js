@@ -1,4 +1,8 @@
-import { getLeaderboadSortBy, formatLeaderboardGames } from '@/services/stats';
+import {
+  getLeaderboadSortBy,
+  formatLeaderboardGames,
+  formatStats,
+} from '@/services/stats';
 
 export const getUserCounts = async (db, uid) => {
   const completed = await db
@@ -47,7 +51,9 @@ export const getPlayerStats = async (db, uid) => {
     getLost,
   ]);
 
-  return { completed, won, lost };
+  const formattedStats = formatStats({ completed, won, lost });
+
+  return formattedStats;
 };
 
 export const getGlobalStats = async (db) => {
@@ -72,7 +78,9 @@ export const getGlobalStats = async (db) => {
     getLost,
   ]);
 
-  return { completed, won, lost };
+  const formattedStats = formatStats({ completed, won, lost });
+
+  return formattedStats;
 };
 
 export const getLeaderboards = async (db, showBest, limit) => {
