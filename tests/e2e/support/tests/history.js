@@ -38,13 +38,6 @@ Cypress.Commands.add('checkSelectHistoryGames', (value) => {
   cy.getSelectHistoryGames().should('equal', value);
 });
 
-Cypress.Commands.add('checkHistoryGameRange', () => {
-  cy.getFirstAndLastGame().then(({ firstGame, lastGame }) => {
-    cy.checkTableCell({ row: 0, cell: 0, value: firstGame.number });
-    cy.checkTableCell({ row: -1, cell: 0, value: lastGame.number });
-  });
-});
-
 Cypress.Commands.add('checkHistoryPages', () => {
   cy.getHistoryTotalGames().as('games');
   cy.getActivePage().as('activePage');
@@ -64,16 +57,23 @@ Cypress.Commands.add('checkHistoryPages', () => {
   });
 });
 
-Cypress.Commands.add('checkHistoryGame', () => {
-  cy.getUserHistory({ offset: 0, limit: 1 }).then((history) => {
-    const { number, date, time, outcome, moves, duration } = history[0];
+Cypress.Commands.add('checkHistoryGames', () => {
+  cy.getActivePage().then((page) => {
+    cy.getSelectHistoryGames().then((limit) => {
+      const offset = (page - 1) * limit;
 
-    cy.checkTableCell({ row: 0, cell: 0, value: number });
-    cy.checkTableCell({ row: 0, cell: 1, value: date });
-    cy.checkTableCell({ row: 0, cell: 2, value: time });
-    cy.checkTableCell({ row: 0, cell: 3, value: outcome });
-    cy.checkTableCell({ row: 0, cell: 4, value: moves });
-    cy.checkTableCell({ row: 0, cell: 5, value: duration });
+      cy.getUserHistory({ offset, limit }).then((games) => {
+        const count = games.length <= 5 ? games.length : 5;
+        const rows = [...Array(count)];
+
+        rows.forEach((_, row) => {
+          cy.checkTableCell({ row, cell: 0, value: games[row].number });
+          cy.checkTableCell({ row, cell: 3, value: games[row].outcome });
+          cy.checkTableCell({ row, cell: 4, value: games[row].moves });
+          cy.checkTableCell({ row, cell: 5, value: games[row].duration });
+        });
+      });
+    });
   });
 });
 

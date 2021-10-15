@@ -1,5 +1,4 @@
-import { formatDate } from '@/helpers/dates';
-import { formatTime, formatTimeFromDate } from '@/helpers/times';
+import { formatTime } from '@/helpers/times';
 import { formatNumber, formatPercent } from '@/helpers/numbers';
 import { gameOutcome } from '@/helpers/game';
 
@@ -19,7 +18,7 @@ export const formatLeaderboardGames = (games, players, sortBy) =>
 
     const defaultItems = {
       rank: index + 1,
-      date: formatDate(date),
+      date,
       player: player?.name ?? 'Unknown Player',
     };
 
@@ -43,8 +42,8 @@ export const formatLeaderboardGames = (games, players, sortBy) =>
 export const formatHistoryGames = (games, gamesPlayed, offset) =>
   games.map(({ date, won, lost, time, moves }, index) => ({
     number: formatNumber(gamesPlayed - offset - index),
-    date: formatDate(date),
-    time: formatTimeFromDate(date),
+    date,
+    time: date,
     outcome: gameOutcome({ won, lost }),
     moves,
     duration: formatTime(time),

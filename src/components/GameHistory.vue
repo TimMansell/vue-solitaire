@@ -26,7 +26,7 @@
 
     <ResponsiveTable
       :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
-      :items="gameHistory"
+      :items="gameHistoryUsingLocalTimeZone"
       :placeholder-rows="pageRows"
       :to-highlight="{ key: 'outcome', value: 'Won' }"
     />
@@ -47,6 +47,8 @@ import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
 import { formatNumber } from '@/helpers/numbers';
+import { formatDate } from '@/helpers/dates';
+import { formatTimeFromDate } from '@/helpers/times';
 
 export default {
   name: 'GameHistory',
@@ -83,6 +85,15 @@ export default {
   },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
+    gameHistoryUsingLocalTimeZone() {
+      const { gameHistory } = this;
+
+      return gameHistory.map((game) => ({
+        ...game,
+        date: formatDate(game.date),
+        time: formatTimeFromDate(game.time),
+      }));
+    },
     page() {
       return this.filters.page;
     },
@@ -158,10 +169,10 @@ export default {
       this.filters.page = 1;
       this.filters.limit = parseInt(limit, 10);
     },
-    async displayGames() {
+    displayGames() {
       const { offset, limit } = this;
 
-      await this.getAllGames({ offset, limit });
+      this.getAllGames({ offset, limit });
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);

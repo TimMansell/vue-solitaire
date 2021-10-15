@@ -32,7 +32,6 @@ Cypress.Commands.add('checkLeaderboards', () => {
 
         rows.forEach((row) => {
           cy.checkTableCell({ row, cell: 0, value: games[row].rank });
-          cy.checkTableCell({ row, cell: 1, value: games[row].date });
           cy.checkTableCell({ row, cell: 2, value: games[row].player });
 
           if (best === 'times') {
