@@ -23,10 +23,11 @@ export const newDeck = async (db, uid, isMocked) => {
   return cards;
 };
 
-export const saveGame = async (db, uid, game) => {
+export const saveGame = async (db, uid, game, gameOutcome) => {
   const { moves, time } = game;
   const date = createISODate();
 
+  // Find users deck.
   const { value } = await db
     .collection('decks')
     .findOneAndUpdate(
@@ -35,15 +36,32 @@ export const saveGame = async (db, uid, game) => {
       { projection: { cards: 1 } }
     );
 
-  // block game with no deck being added.
+  // If existing user has no deck then save game using old format.
+  // For users on app version < v3.0.0
   if (!value) {
+    const user = await db
+      .collection('users')
+      .findOne({ uid }, { projection: { name: 1 } });
+
+    if (!user) return;
+
+    db.collection('games').insertOne({
+      date,
+      uid,
+      moves: moves.length,
+      time,
+      won: gameOutcome.hasGameWon,
+      lost: gameOutcome.hasGameLost,
+      completed: true,
+    });
+
     return;
   }
 
   const { cards } = value;
   const { isGameFinished, hasMoves } = checkGameState(moves, cards);
 
-  const document = {
+  db.collection('games').insertOne({
     date,
     uid,
     moves: moves.length,
@@ -51,7 +69,5 @@ export const saveGame = async (db, uid, game) => {
     won: isGameFinished && !hasMoves,
     lost: !isGameFinished && !hasMoves,
     completed: true,
-  };
-
-  db.collection('games').insertOne({ ...document });
+  });
 };

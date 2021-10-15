@@ -12,9 +12,9 @@ export const emitNewGame = async ({ socket, db, uid }) => {
   }
 };
 
-export const emitSavedGame = async ({ socket, db, uid, game }) => {
+export const emitSavedGame = async ({ socket, db, uid, game, gameOutcome }) => {
   try {
-    await saveGame(db, uid, game);
+    await saveGame(db, uid, game, gameOutcome);
 
     socket.emit('savedGame');
   } catch (error) {
