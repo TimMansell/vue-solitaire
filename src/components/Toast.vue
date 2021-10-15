@@ -51,14 +51,19 @@ export default {
       type: Number,
       default: 0,
     },
+    blurBackground: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
-      const { position } = this;
+      const { position, blurBackground } = this;
 
       return {
         'toast--top-right': position === 'top-right',
         'toast--bottom-center': position === 'bottom-center',
+        'toast--blur': blurBackground,
       };
     },
   },
@@ -76,6 +81,23 @@ export default {
 
   @media (min-width: $bp-sm) {
     width: auto;
+  }
+
+  &--blur {
+    &::after {
+      position: fixed;
+      z-index: -1;
+      content: '';
+      inset: 0;
+      background: var(--bg-primary);
+
+      /* stylelint-disable max-nesting-depth */
+      @supports (backdrop-filter: blur(var(--blur))) {
+        background: var(--bg-primary-alt-3);
+        backdrop-filter: blur(var(--blur));
+      }
+      /* stylelint-enable max-nesting-depth */
+    }
   }
 
   &--bottom-center {

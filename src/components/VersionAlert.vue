@@ -2,15 +2,15 @@
   <Toast
     v-if="!versionMatch"
     :msgs="['A new version of the website is available.']"
-    position="top-right"
     btn-text="Update"
     :btn-click="refreshPage"
+    blur-background
     data-test="version-alert"
   />
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Toast from '@/components/Toast.vue';
 
 export default {
@@ -21,7 +21,17 @@ export default {
   computed: {
     ...mapGetters(['versionMatch']),
   },
+  watch: {
+    versionMatch(versionMatch, versionMatchPrev) {
+      if (versionMatch === versionMatchPrev) return;
+
+      if (!versionMatch) {
+        this.setGamePaused(true);
+      }
+    },
+  },
   methods: {
+    ...mapActions(['setGamePaused']),
     refreshPage() {
       window.location.href = '/';
     },
