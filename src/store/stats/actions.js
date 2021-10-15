@@ -21,20 +21,19 @@ const actions = {
     socketOn('getStats', ({ userStats, globalStats }) => {
       commit('SET_USER_STATS', userStats);
       commit('SET_GLOBAL_STATS', globalStats);
-      commit('SET_GLOBAL_GAME_COUNT', globalStats);
     });
 
     socketOn('getLeaderboards', (leaderboards) => {
       commit('SET_LEADERBOARDS', leaderboards);
     });
   },
-  getStats({ getters }) {
+  getStats({ commit, getters }) {
     const { uid } = getters;
 
+    commit('SET_USER_STATS', []);
+    commit('SET_GLOBAL_STATS', []);
+
     socketEmit('getStats', uid);
-  },
-  clearStats({ commit }) {
-    commit('CLEAR_STATS');
   },
   getLeaderboards({ commit }, params) {
     commit('SET_LEADERBOARDS', []);

@@ -37,6 +37,7 @@ export const typeDefs = gql`
     won: Int
     lost: Int
     completed: Int
+    abandoned: Int
     players: Int
   }
   type LeaderboardGame {
@@ -55,6 +56,7 @@ export const typeDefs = gql`
     won: Int
     lost: Int
     completed: Int
+    abandoned: Int
   }
   type Version {
     number: String

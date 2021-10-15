@@ -14,10 +14,6 @@ const mutations = {
   SET_GLOBAL_PLAYER_COUNT(state, { players }) {
     state.playerCount = players;
   },
-  CLEAR_STATS(state) {
-    state.userStats = {};
-    state.globalStats = {};
-  },
   SET_LEADERBOARDS(state, leaderboards) {
     state.leaderboards = leaderboards;
   },

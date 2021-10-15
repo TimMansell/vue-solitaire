@@ -7,16 +7,27 @@ import {
   mockLeaderboardsMovesAPI,
   mockLeaderboardsMoves,
   mockPlayers,
+  mockStats,
 } from '@/mockData';
 import {
   getLeaderboadSortBy,
   formatLeaderboardGames,
   formatHistoryGames,
+  formatStats,
 } from '../index';
 
 tzMock.register('UTC');
 
 describe('Stats service', () => {
+  it('should return formatted stats', async () => {
+    const result = formatStats(mockStats);
+
+    expect(result).toStrictEqual([
+      ['9', '2', '4', '3'],
+      ['', '22.22%', '44.44%', '33.33%'],
+    ]);
+  });
+
   it('should return time from getLeaderboadSortBy', async () => {
     const result = getLeaderboadSortBy('times');
 

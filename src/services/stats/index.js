@@ -1,6 +1,6 @@
 import { formatDate } from '@/helpers/dates';
 import { formatTime, formatTimeFromDate } from '@/helpers/times';
-import { formatNumber } from '@/helpers/numbers';
+import { formatNumber, formatPercent } from '@/helpers/numbers';
 import { gameOutcome } from '@/helpers/game';
 
 export const getLeaderboadSortBy = (showBest) => {
@@ -49,3 +49,23 @@ export const formatHistoryGames = (games, gamesPlayed, offset) =>
     moves,
     duration: formatTime(time),
   }));
+
+export const formatStats = ({ completed, won, lost }) => {
+  const abandoned = completed - won - lost;
+
+  const completedCount = formatNumber(completed);
+  const wonCount = formatNumber(won);
+  const lostCount = formatNumber(lost);
+  const abandonedCount = formatNumber(abandoned);
+
+  const wonPercent = formatPercent(won / completed);
+  const lostPercent = formatPercent(lost / completed);
+  const abandonedPercent = formatPercent(abandoned / completed);
+
+  const stats = [
+    [completedCount, wonCount, lostCount, abandonedCount],
+    ['', wonPercent, lostPercent, abandonedPercent],
+  ];
+
+  return stats;
+};

@@ -37,11 +37,13 @@ Cypress.Commands.add('getStats', () => {
       won
       lost
       completed
+      abandoned
     }
     globalStats {
       won
       lost
       completed
+      abandoned
     }
   }`;
 
