@@ -18,4 +18,6 @@ const solitaire = new Vue({
 }).$mount('#app');
 
 // Give access to cypress.
-window.solitaire = solitaire;
+if (import.meta.env.DEV) {
+  window.solitaire = solitaire;
+}
