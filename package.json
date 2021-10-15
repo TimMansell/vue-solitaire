@@ -42,6 +42,7 @@
     "@graphql-tools/schema": "6.0.18",
     "apollo-server-lambda": "2.25.1",
     "core-js": "3.14.0",
+    "crypto-js": "^4.1.1",
     "date-fns": "2.22.1",
     "dotenv": "8.2.0",
     "encoding": "0.1.13",
