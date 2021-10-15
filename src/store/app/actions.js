@@ -1,3 +1,5 @@
+import sha1 from 'crypto-js/sha1';
+import { createISODate } from '@/helpers/dates';
 import {
   socketConnect,
   socketDisconnect,
@@ -50,29 +52,38 @@ const actions = {
     dispatch('restartApp');
     dispatch('restartGame');
   },
+  setGameHash({ commit }, hash) {
+    commit('SET_GAME_HASH', hash);
+  },
   setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
   saveGame({ getters }) {
-    const { uid, game, gameOutcome } = getters;
+    const { uid, game } = getters;
 
-    socketEmit('saveGame', { uid, game, gameOutcome });
+    socketEmit('saveGame', { uid, game });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  updateTimer({ commit }) {
-    commit('UPDATE_GAME_TIME');
+  updateTimer({ commit, getters }) {
+    const { gameHash } = getters;
+    const date = createISODate();
+    const hash = sha1(date, gameHash).toString();
+
+    commit('UPDATE_GAME_TIME', { date, hash });
   },
   toggleOverlayVisibility({ commit }) {
     commit('SET_OVERLAY_VISIBLE');
   },
   saveMove({ commit, getters }, move) {
-    const { selectedCardId } = getters;
+    const { selectedCardId, latestTime } = getters;
+    const { hash } = latestTime;
 
     commit('SET_MOVES', {
       selectedCardId,
       ...move,
+      hash,
     });
   },
   setTableHelper({ commit }, showHelper) {

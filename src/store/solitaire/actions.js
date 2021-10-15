@@ -18,9 +18,10 @@ const actions = {
       dispatch('initNewGame');
     });
 
-    socketOn('newGame', (deck) => {
-      dispatch('initBoard', deck);
+    socketOn('newGame', ({ cards, hash }) => {
+      dispatch('initBoard', cards);
       dispatch('initFoundation');
+      dispatch('setGameHash', hash);
     });
   },
   initNewGame({ getters }) {

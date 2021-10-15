@@ -9,4 +9,4 @@ export {
   moveCardsToFoundation,
   getDraggedCards,
 } from './moves';
-export { checkGameState } from './run';
+export { checkGameState, checkGameTime, checkGameMoves } from './run';

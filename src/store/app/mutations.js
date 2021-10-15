@@ -32,8 +32,11 @@ const mutations = {
   SET_MOVES(state, move) {
     state.game.moves = [...state.game.moves, move];
   },
-  UPDATE_GAME_TIME(state) {
-    state.game.time += 1;
+  UPDATE_GAME_TIME(state, time) {
+    state.game.times = [...state.game.times, time];
+  },
+  SET_GAME_HASH(state, hash) {
+    state.game.hash = hash;
   },
 };
 
