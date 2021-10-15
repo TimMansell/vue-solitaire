@@ -106,12 +106,12 @@ export default {
   methods: {
     ...mapActions(['setCard', 'setDraggedCards']),
     selectCard(e, id) {
-      const { selectedCardId, isGamePaused } = this;
+      const { selectedCardId, clickable, visible, isGamePaused } = this;
 
       if (!selectedCardId && !isGamePaused) {
         e.stopPropagation();
 
-        if (this.clickable && this.visible) {
+        if (clickable && visible) {
           this.setCard(id);
         }
       }
