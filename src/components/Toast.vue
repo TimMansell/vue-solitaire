@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="toast__button" v-if="btnText">
-          <Button type="alt" size="sm" @click="btnClick">
+          <Button type="alt" @click="btnClick">
             {{ btnText }}
           </Button>
         </div>
@@ -43,9 +43,9 @@ export default {
     position: {
       type: String,
       validator(value) {
-        return ['top-right', 'bottom-center'].includes(value);
+        return ['primary', 'secondary'].includes(value);
       },
-      default: 'bottom-center',
+      default: 'primary',
     },
     duration: {
       type: Number,
@@ -61,8 +61,8 @@ export default {
       const { position, blurBackground } = this;
 
       return {
-        'toast--top-right': position === 'top-right',
-        'toast--bottom-center': position === 'bottom-center',
+        'toast--primary': position === 'primary',
+        'toast--secondary': position === 'secondary',
         'toast--blur': blurBackground,
       };
     },
@@ -100,7 +100,7 @@ export default {
     }
   }
 
-  &--bottom-center {
+  &--secondary {
     justify-content: center;
     bottom: 0;
     left: 0;
@@ -115,7 +115,7 @@ export default {
     }
   }
 
-  &--top-right {
+  &--primary {
     top: 0;
     right: 0;
   }
@@ -146,6 +146,10 @@ export default {
   &__msg {
     font-size: var(--font-size-sm);
     text-align: center;
+
+    @media (min-width: $bp-xs) {
+      font-size: var(--font-size);
+    }
   }
 
   &__button {

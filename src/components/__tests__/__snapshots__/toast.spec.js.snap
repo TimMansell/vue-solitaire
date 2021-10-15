@@ -2,7 +2,7 @@
 
 exports[`Toast.vue matches snapshot 1`] = `
 <transition-stub duration="0" title="test title">
-  <div data-test="toast" class="toast toast--bottom-center">
+  <div data-test="toast" class="toast toast--primary">
     <div class="toast__wrapper">
       <div class="toast__content">
         <div class="toast__msg">
@@ -18,7 +18,7 @@ exports[`Toast.vue matches snapshot 1`] = `
         </div>
       </div>
       <div class="toast__button">
-        <button-stub type="alt" size="sm">
+        <button-stub type="alt" size="md">
           btn text
         </button-stub>
       </div>
@@ -29,7 +29,7 @@ exports[`Toast.vue matches snapshot 1`] = `
 
 exports[`Toast.vue should not show button 1`] = `
 <transition-stub duration="0" title="test title">
-  <div data-test="toast" class="toast toast--bottom-center">
+  <div data-test="toast" class="toast toast--primary">
     <div class="toast__wrapper">
       <div class="toast__content">
         <div class="toast__msg">
