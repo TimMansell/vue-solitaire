@@ -9,11 +9,6 @@ export const typeDefs = gql`
     user(uid: String!): User!
     leaderboards(offset: Int!, limit: Int!): Leaderboards!
   }
-  type Mutation {
-    wonGame(data: GameInput!): Game!
-    lostGame(data: GameInput!): Game!
-    quitGame(data: GameInput!): Game!
-  }
   type User {
     history(offset: Int!, limit: Int!): [Game]!
   }
@@ -24,14 +19,6 @@ export const typeDefs = gql`
     outcome: String
     moves: Int
     duration: String
-  }
-  input GameInput {
-    uid: String!
-    won: Boolean
-    lost: Boolean
-    completed: Boolean
-    moves: Int!
-    time: Int!
   }
   type GlobalStats {
     won: Int

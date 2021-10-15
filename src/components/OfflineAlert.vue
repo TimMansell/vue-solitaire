@@ -2,6 +2,7 @@
   <Toast
     v-if="!isOnline"
     :msgs="['Connection to the server has been lost.']"
+    position="secondary"
     btn-text="How can I fix this?"
     :btn-click="offlineMode"
     data-test="offline-alert"

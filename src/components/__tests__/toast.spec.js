@@ -16,28 +16,41 @@ describe('Toast.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render in top/right position', () => {
+  it('should render in primary position', () => {
     const wrapper = shallowMount(Toast, {
       propsData: {
         ...propsData,
-        position: 'top-right',
       },
     });
 
     expect(wrapper.find('[data-test="toast"]').classes()).toContain(
-      'toast--top-right'
+      'toast--primary'
     );
   });
 
-  it('should render in bototm/center position', () => {
+  it('should render in bottom/center position', () => {
     const wrapper = shallowMount(Toast, {
       propsData: {
         ...propsData,
+        position: 'secondary',
       },
     });
 
     expect(wrapper.find('[data-test="toast"]').classes()).toContain(
-      'toast--bottom-center'
+      'toast--secondary'
+    );
+  });
+
+  it('should render a blurred background', () => {
+    const wrapper = shallowMount(Toast, {
+      propsData: {
+        ...propsData,
+        blurBackground: true,
+      },
+    });
+
+    expect(wrapper.find('[data-test="toast"]').classes()).toContain(
+      'toast--blur'
     );
   });
 

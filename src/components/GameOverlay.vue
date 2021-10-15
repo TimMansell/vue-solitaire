@@ -133,9 +133,6 @@ export default {
 
 <style lang="scss" scoped>
 .game-overlay {
-  --blur: 10px;
-  --animation-speed: 0.4s;
-
   display: grid;
   align-items: center;
   position: fixed;

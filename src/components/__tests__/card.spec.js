@@ -12,6 +12,7 @@ const defaultProps = {
 
 const computed = {
   selectedCardId: () => null,
+  isGamePaused: () => false,
 };
 
 describe('Card.vue', () => {
@@ -199,6 +200,7 @@ describe('Card.vue', () => {
         ...defaultProps,
       },
       computed: {
+        ...computed,
         selectedCardId: () => 2,
       },
     });
@@ -214,6 +216,7 @@ describe('Card.vue', () => {
         isDragged: true,
       },
       computed: {
+        ...computed,
         selectedCardId: () => 2,
       },
     });
@@ -253,6 +256,24 @@ describe('Card.vue', () => {
           visible: false,
         },
         computed,
+      });
+
+      wrapper.trigger('click');
+
+      expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not call store action "setCard" when clicked when game is paued', () => {
+      const wrapper = shallowMount(Card, {
+        mocks,
+        propsData: {
+          ...defaultProps,
+          visible: false,
+        },
+        computed: {
+          ...computed,
+          isGamePaused: () => false,
+        },
       });
 
       wrapper.trigger('click');

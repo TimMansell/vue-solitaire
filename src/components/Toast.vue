@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="toast__button" v-if="btnText">
-          <Button type="alt" size="sm" @click="btnClick">
+          <Button type="alt" @click="btnClick">
             {{ btnText }}
           </Button>
         </div>
@@ -43,22 +43,27 @@ export default {
     position: {
       type: String,
       validator(value) {
-        return ['top-right', 'bottom-center'].includes(value);
+        return ['primary', 'secondary'].includes(value);
       },
-      default: 'bottom-center',
+      default: 'primary',
     },
     duration: {
       type: Number,
       default: 0,
     },
+    blurBackground: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
-      const { position } = this;
+      const { position, blurBackground } = this;
 
       return {
-        'toast--top-right': position === 'top-right',
-        'toast--bottom-center': position === 'bottom-center',
+        'toast--primary': position === 'primary',
+        'toast--secondary': position === 'secondary',
+        'toast--blur': blurBackground,
       };
     },
   },
@@ -78,7 +83,24 @@ export default {
     width: auto;
   }
 
-  &--bottom-center {
+  &--blur {
+    &::after {
+      position: fixed;
+      z-index: -1;
+      content: '';
+      inset: 0;
+      background: var(--bg-primary);
+
+      /* stylelint-disable max-nesting-depth */
+      @supports (backdrop-filter: blur(var(--blur))) {
+        background: var(--bg-primary-alt-3);
+        backdrop-filter: blur(var(--blur));
+      }
+      /* stylelint-enable max-nesting-depth */
+    }
+  }
+
+  &--secondary {
     justify-content: center;
     bottom: 0;
     left: 0;
@@ -93,7 +115,7 @@ export default {
     }
   }
 
-  &--top-right {
+  &--primary {
     top: 0;
     right: 0;
   }
@@ -124,6 +146,10 @@ export default {
   &__msg {
     font-size: var(--font-size-sm);
     text-align: center;
+
+    @media (min-width: $bp-xs) {
+      font-size: var(--font-size);
+    }
   }
 
   &__button {
