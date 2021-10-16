@@ -10,7 +10,7 @@ const getters = {
   versionMatch: (state) => state.versionMatch,
   isConnecting: (state) => state.connection.isConnecting,
   isOnline: (state) => state.connection.isOnline,
-  latestTime: (state) => state.game.times.slice(-1)[0] ?? '',
+  prevHash: (state) => state.game.times.slice(-1)[0]?.hash ?? '',
 };
 
 export default getters;

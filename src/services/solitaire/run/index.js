@@ -1,4 +1,4 @@
-import sha1 from 'crypto-js/sha1';
+import sha256 from 'crypto-js/sha256';
 import { parseISO, isAfter, isBefore } from 'date-fns';
 import { runGameMoves } from './run';
 import { isBoardEmpty } from '../board';
@@ -18,22 +18,33 @@ export const checkGameState = (moves, deck) => {
   return { isGameFinished, hasMoves };
 };
 
-export const checkGameTime = (times, gameHash) => {
+export const checkGameTime = (times, gameHash, startTime, endTime) => {
   const initialValidTime = true;
+  const initialHash = '';
+  const { date: firstTime } = times[0];
+  const { date: lastTime } = times.slice(-1)[0];
 
   const gameTimeReduce = (prevValue, currentValue) => {
+    const [isValidTime, prevHash] = prevValue;
     const { date, hash } = currentValue;
 
-    if (!prevValue) return prevValue;
+    if (!isValidTime) return [false, prevHash];
 
-    const hashCheck = sha1(date, gameHash).toString();
+    const hashCheck = sha256(prevHash + date + gameHash).toString();
+    const isValidHash = hashCheck === hash;
 
-    return hashCheck === hash;
+    return [isValidHash, hash];
   };
 
-  const isValidTime = times.reduce(gameTimeReduce, initialValidTime);
+  const [isValidTime] = times.reduce(gameTimeReduce, [
+    initialValidTime,
+    initialHash,
+  ]);
 
-  return isValidTime;
+  const isValidStartTime = isAfter(parseISO(firstTime), parseISO(startTime));
+  const isValidEndTime = isBefore(parseISO(lastTime), parseISO(endTime));
+
+  return isValidTime && isValidStartTime && isValidEndTime;
 };
 
 export const checkGameMoves = (moves, times, startTime, endTime) => {

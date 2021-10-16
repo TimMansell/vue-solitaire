@@ -1,4 +1,4 @@
-import sha1 from 'crypto-js/sha1';
+import sha256 from 'crypto-js/sha256';
 import { createISODate } from '@/helpers/dates';
 import {
   socketConnect,
@@ -67,9 +67,9 @@ const actions = {
     commit('SET_GAME_PAUSED', isGamePaused);
   },
   updateTimer({ commit, getters }) {
-    const { gameHash } = getters;
+    const { gameHash, prevHash } = getters;
     const date = createISODate();
-    const hash = sha1(date, gameHash).toString();
+    const hash = sha256(prevHash + date + gameHash).toString();
 
     commit('UPDATE_GAME_TIME', { date, hash });
   },
@@ -77,15 +77,14 @@ const actions = {
     commit('SET_OVERLAY_VISIBLE');
   },
   saveMove({ commit, getters }, move) {
-    const { selectedCardId, latestTime } = getters;
-    const { hash } = latestTime;
+    const { selectedCardId, prevHash } = getters;
     const date = createISODate();
 
     commit('SET_MOVES', {
       selectedCardId,
       ...move,
       date,
-      hash,
+      hash: prevHash,
     });
   },
   setTableHelper({ commit }, showHelper) {

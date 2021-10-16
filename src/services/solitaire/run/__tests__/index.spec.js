@@ -7,6 +7,28 @@ import incompleteGameMoves from '../../../../../tests/fixtures/moves/incompleteG
 import quitGameDeck from '../../../../../tests/fixtures/decks/quitGame.json';
 import quitGameMoves from '../../../../../tests/fixtures/moves/quitGame.json';
 
+const startTime = '2021-10-16T04:08:51.998Z';
+const endTime = '2021-10-16T04:08:57.006Z';
+const times = [
+  {
+    date: '2021-10-16T04:08:52.998Z',
+    hash: 'd445f6b02581703100547644177ae4aca2425f158c6c69fb36be6e2a36ab3e53',
+  },
+  {
+    date: '2021-10-16T04:08:54.000Z',
+    hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
+  },
+  {
+    date: '2021-10-16T04:08:55.004Z',
+    hash: '6cf61b96423d0888c9344ab13e1923a5a0a7c3089cd71a2eb1cad766407942a1',
+  },
+  {
+    date: '2021-10-16T04:08:56.006Z',
+    hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
+  },
+];
+const hash = 'Wfy_b8ACBz6oI_Lr50jsB';
+
 describe('run', () => {
   describe('checkGameState', () => {
     it('should be won game', () => {
@@ -52,374 +74,274 @@ describe('run', () => {
 
   describe('checkGameTime', () => {
     it('should be a valid time', () => {
-      const hash = 'A95OcEhvtULiVtN4N2QP9';
-
-      const time = [
-        {
-          date: '2021-10-15T06:08:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
-        },
-        {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
-        },
-        {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
-        },
-        {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
-        },
-      ];
-
-      const result = checkGameTime(time, hash);
+      const result = checkGameTime(times, hash, startTime, endTime);
 
       expect(result).toBe(true);
     });
 
-    it('should not be a valid time with invalid date', () => {
-      const hash = 'A95OcEhvtULiVtN4N2QP9';
+    it('should not be a valid time due to wrong hash', () => {
+      const wrongHash = 'Wfy_b8ACBz6oI_Lr50jsc';
 
-      const time = [
-        {
-          date: '2021-10-15T06:07:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
-        },
-        {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
-        },
-        {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
-        },
-        {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
-        },
-      ];
-
-      const result = checkGameTime(time, hash);
+      const result = checkGameTime(times, wrongHash, startTime, endTime);
 
       expect(result).toBe(false);
     });
 
-    it('should not be a valid time with invalid hash', () => {
-      const hash = 'A95OcEhvtULiVtN4N2QP9';
-
-      const time = [
+    it('should not be a valid time due to invalid date', () => {
+      const wrongTimes = [
         {
-          date: '2021-10-15T06:08:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d52',
+          date: '2021-10-16T04:08:52.898Z', // wrong time
+          hash: 'd445f6b02581703100547644177ae4aca2425f158c6c69fb36be6e2a36ab3e53',
         },
         {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
+          date: '2021-10-16T04:08:54.000Z',
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
         },
         {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
+          date: '2021-10-16T04:08:55.004Z',
+          hash: '6cf61b96423d0888c9344ab13e1923a5a0a7c3089cd71a2eb1cad766407942a1',
         },
         {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
+          date: '2021-10-16T04:08:56.006Z',
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
         },
       ];
 
-      const result = checkGameTime(time, hash);
+      const result = checkGameTime(wrongTimes, hash, startTime, endTime);
+
+      expect(result).toBe(false);
+    });
+
+    it('should not be a valid time due to invalid hash', () => {
+      const wrongTimes = [
+        {
+          date: '2021-10-16T04:08:52.998Z',
+          hash: 'd445f6b02581703100547644177ae4aca2425f158c6c69fb36be6e2a36ab3e53',
+        },
+        {
+          date: '2021-10-16T04:08:54.000Z',
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
+        },
+        {
+          date: '2021-10-16T04:08:55.004Z',
+          hash: '6cf61b96423d0888c9344ab13e1923a5a0a7c3089cd71a2eb1cad766407942ax', // wrong hash
+        },
+        {
+          date: '2021-10-16T04:08:56.006Z',
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
+        },
+      ];
+
+      const result = checkGameTime(wrongTimes, hash, startTime, endTime);
+
+      expect(result).toBe(false);
+    });
+
+    it('should not be a valid time due to game starting before start time', () => {
+      const wrongTimes = [
+        {
+          date: '2021-10-16T04:08:50.998Z', // wrong time
+          hash: 'd445f6b02581703100547644177ae4aca2425f158c6c69fb36be6e2a36ab3e53',
+        },
+        {
+          date: '2021-10-16T04:08:54.000Z',
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
+        },
+        {
+          date: '2021-10-16T04:08:55.004Z',
+          hash: '6cf61b96423d0888c9344ab13e1923a5a0a7c3089cd71a2eb1cad766407942a1',
+        },
+        {
+          date: '2021-10-16T04:08:56.006Z',
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
+        },
+      ];
+
+      const result = checkGameTime(wrongTimes, hash, startTime, endTime);
+
+      expect(result).toBe(false);
+    });
+
+    it('should not be a valid time due to game ending before end time', () => {
+      const wrongTimes = [
+        {
+          date: '2021-10-16T04:08:52.998Z',
+          hash: 'd445f6b02581703100547644177ae4aca2425f158c6c69fb36be6e2a36ab3e53',
+        },
+        {
+          date: '2021-10-16T04:08:54.000Z',
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
+        },
+        {
+          date: '2021-10-16T04:08:55.004Z',
+          hash: '6cf61b96423d0888c9344ab13e1923a5a0a7c3089cd71a2eb1cad766407942a1',
+        },
+        {
+          date: '2021-10-16T04:08:58.006Z', // wrong time
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
+        },
+      ];
+      const result = checkGameTime(wrongTimes, hash, startTime, endTime);
 
       expect(result).toBe(false);
     });
   });
 
-  describe.only('checkGameMoves', () => {
+  describe('checkGameMoves', () => {
     it('should have valid moves if no moves is emtpy', () => {
-      const startTime = '2021-10-15T06:08:33.795Z';
-      const endTime = '2021-10-15T06:08:37.795Z';
-
       const moves = [];
 
-      const time = [
-        {
-          date: '2021-10-15T06:08:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
-        },
-        {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
-        },
-        {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
-        },
-        {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
-        },
-      ];
-
-      const result = checkGameMoves(moves, time, startTime, endTime);
+      const result = checkGameMoves(moves, times, startTime, endTime);
 
       expect(result).toBe(true);
     });
 
     it('should have valid move times', () => {
-      const startTime = '2021-10-15T06:08:33.795Z';
-      const endTime = '2021-10-15T06:08:37.795Z';
-
       const moves = [
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:34.795Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
+          date: '2021-10-16T04:08:54.000Z',
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:35.795Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
+          date: '2021-10-16T04:08:55.004Z',
+          hash: '6cf61b96423d0888c9344ab13e1923a5a0a7c3089cd71a2eb1cad766407942a1',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:36.795Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
+          date: '2021-10-16T04:08:56.006Z',
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
         },
       ];
 
-      const time = [
-        {
-          date: '2021-10-15T06:08:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
-        },
-        {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
-        },
-        {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
-        },
-        {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
-        },
-      ];
-
-      const result = checkGameMoves(moves, time, startTime, endTime);
+      const result = checkGameMoves(moves, times, startTime, endTime);
 
       expect(result).toBe(true);
     });
 
-    it('should not have valid moves time with invalid hash', () => {
-      const startTime = '2021-10-15T06:08:33.795Z';
-      const endTime = '2021-10-15T06:08:37.795Z';
-
+    it('should not have valid moves time due to invalid hash', () => {
       const moves = [
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:34.795Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
+          date: '2021-10-16T04:08:54.000Z',
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:35.795Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae790xx',
+          date: '2021-10-16T04:08:55.004Z',
+          hash: 'b608c667db61bda910fe266e678dbd6e76088361', // wrong hash
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:36.795Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
+          date: '2021-10-16T04:08:56.006Z',
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
         },
       ];
 
-      const time = [
-        {
-          date: '2021-10-15T06:08:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d52',
-        },
-        {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
-        },
-        {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
-        },
-        {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
-        },
-      ];
-
-      const result = checkGameMoves(moves, time, startTime, endTime);
+      const result = checkGameMoves(moves, times, startTime, endTime);
 
       expect(result).toBe(false);
     });
 
-    it('should not have valid moves time earlier move than start time', () => {
-      const startTime = '2021-10-15T06:08:35.795Z';
-      const endTime = '2021-10-15T06:08:37.795Z';
-
+    it('should not have valid moves time due to earlier move than start time', () => {
       const moves = [
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:34.795Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
+          date: '2021-10-16T04:08:50.004Z', // wrong time
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:35.795Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae790xx',
+          date: '2021-10-16T04:08:55.004Z',
+          hash: 'b608c667db61bda910fe266e678dbd6e76088360',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:36.795Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
+          date: '2021-10-16T04:08:56.006Z',
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
         },
       ];
 
-      const time = [
-        {
-          date: '2021-10-15T06:08:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d52',
-        },
-        {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
-        },
-        {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
-        },
-        {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
-        },
-      ];
-
-      const result = checkGameMoves(moves, time, startTime, endTime);
+      const result = checkGameMoves(moves, times, startTime, endTime);
 
       expect(result).toBe(false);
     });
 
-    it('should not have valid moves time with move time before previous move time', () => {
-      const startTime = '2021-10-15T06:08:33.795Z';
-      const endTime = '2021-10-15T06:08:37.795Z';
-
+    it('should not have valid moves time due to move time being before previous move time', () => {
       const moves = [
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:34.795Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
+          date: '2021-10-16T04:08:56.004Z', // wrong time
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:33.795Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae790xx',
+          date: '2021-10-16T04:08:55.004Z',
+          hash: '6cf61b96423d0888c9344ab13e1923a5a0a7c3089cd71a2eb1cad766407942a1',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:36.795Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
+          date: '2021-10-16T04:08:56.006Z',
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
         },
       ];
 
-      const time = [
-        {
-          date: '2021-10-15T06:08:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d52',
-        },
-        {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
-        },
-        {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
-        },
-        {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
-        },
-      ];
-
-      const result = checkGameMoves(moves, time, startTime, endTime);
+      const result = checkGameMoves(moves, times, startTime, endTime);
 
       expect(result).toBe(false);
     });
 
-    it('should not have valid moves time with move after end time', () => {
-      const startTime = '2021-10-15T06:08:33.795Z';
-      const endTime = '2021-10-15T06:08:35.795Z';
-
+    it('should not have valid moves time due to move after end time', () => {
       const moves = [
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:34.795Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
+          date: '2021-10-16T04:08:54.000Z',
+          hash: 'f6443923e02401b7e72bf27fc9dc9c8cee98f971cc8bea01586baaa697934cbf',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:35.795Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
+          date: '2021-10-16T04:08:55.004Z',
+          hash: '6cf61b96423d0888c9344ab13e1923a5a0a7c3089cd71a2eb1cad766407942a1',
         },
         {
           selectedCardId: 14,
           selectedColumn: 2,
           isFoundation: true,
-          date: '2021-10-15T06:08:36.795Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
+          date: '2021-10-16T04:08:58.006Z', // wrong time
+          hash: '8f35982ac17c63f6c25d3de8a5421b1211d4855d77dae1c02753b877b0e43e90',
         },
       ];
 
-      const time = [
-        {
-          date: '2021-10-15T06:08:33.792Z',
-          hash: '7afcb87b00122c2f4fa10a53693faaa8d030ac63214a4b7528049e8233664d53',
-        },
-        {
-          date: '2021-10-15T06:08:34.795Z',
-          hash: 'cd73f133ef8b02c045d975506b79b1c7db921eec57d2683bfb17fcc2554f9009',
-        },
-        {
-          date: '2021-10-15T06:08:35.797Z',
-          hash: '14fb12ab05dbafe6aac9cffe95e385b97afc621df3d611f6a19a6cec9ae79054',
-        },
-        {
-          date: '2021-10-15T06:15:43.214Z',
-          hash: '833e792f562f78fa62751f4fcb59f37d028d1517090f4c44e77efb08929505aa',
-        },
-      ];
-
-      const result = checkGameMoves(moves, time, startTime, endTime);
+      const result = checkGameMoves(moves, times, startTime, endTime);
 
       expect(result).toBe(false);
     });
