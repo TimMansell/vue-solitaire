@@ -13,7 +13,7 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Stats',
   computed: {
-    ...mapGetters(['timer', 'isGamePaused', 'hasCards']),
+    ...mapGetters(['timer', 'isGamePaused', 'emptyBoard']),
     formattedTime() {
       const { timer } = this;
 
@@ -29,9 +29,9 @@ export default {
   },
   watch: {
     isGamePaused(isPaused, isPausedPrev) {
-      const { hasCards } = this;
+      const { emptyBoard } = this;
 
-      if (isPaused === isPausedPrev || !hasCards) return;
+      if (isPaused === isPausedPrev || emptyBoard) return;
 
       if (isPaused) {
         this.gameTimer.pause();
@@ -40,25 +40,25 @@ export default {
 
       this.gameTimer.resume();
     },
-    hasCards(cards, cardsPrev) {
+    emptyBoard(emptyBoard, emptyBoardPrev) {
       const { isGamePaused } = this;
 
-      if (cards === cardsPrev || isGamePaused) return;
+      if (emptyBoard === emptyBoardPrev || isGamePaused) return;
 
-      if (cards) {
-        this.gameTimer.resume();
+      if (emptyBoard) {
+        this.gameTimer.stop();
         return;
       }
 
-      this.gameTimer.stop();
+      this.gameTimer.resume();
     },
   },
   methods: {
     ...mapActions(['updateTimer']),
     checkInitialState() {
-      const { isGamePaused, hasCards } = this;
+      const { isGamePaused, emptyBoard } = this;
 
-      if (!isGamePaused && hasCards) {
+      if (!isGamePaused && !emptyBoard) {
         this.gameTimer.resume();
 
         return;

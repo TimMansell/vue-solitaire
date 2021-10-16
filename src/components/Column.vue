@@ -20,7 +20,7 @@
     <CardPlaceholder
       v-if="!cards.length"
       :cards="placeholderCards"
-      :see-through="hasCards"
+      :see-through="!emptyBoard"
       data-test="column-card-placeholder"
     />
   </div>
@@ -48,12 +48,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['selectedCardId', 'hasCards', 'placeholders']),
+    ...mapGetters(['selectedCardId', 'placeholders', 'emptyBoard']),
     placeholderCards() {
-      const { columnNo, hasCards, placeholders } = this;
+      const { columnNo, emptyBoard, placeholders } = this;
       const DEFAULT_CARDS = 1;
 
-      const numberOfCards = !hasCards ? placeholders[columnNo] : DEFAULT_CARDS;
+      const numberOfCards = emptyBoard ? placeholders[columnNo] : DEFAULT_CARDS;
 
       return numberOfCards;
     },

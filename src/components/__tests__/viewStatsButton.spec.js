@@ -5,7 +5,7 @@ describe('ViewStatsButton.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(ViewStatsButton, {
       computed: {
-        hasCards: () => true,
+        emptyBoard: () => false,
         isOnline: () => true,
       },
     });
