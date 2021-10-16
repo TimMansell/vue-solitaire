@@ -27,6 +27,8 @@ describe('Game Won', () => {
     });
 
     it('should win game, keep state on page refresh, and increment won game stats', () => {
+      cy.saveStats();
+
       cy.runGameWithClicks(fullGameMoves);
 
       cy.checkGameWon(true);
@@ -37,7 +39,12 @@ describe('Game Won', () => {
 
       cy.confirmNewGame();
 
-      cy.checkStats();
+      cy.checkStatsHaveIncremented({
+        completed: true,
+        won: true,
+        lost: false,
+        quit: false,
+      });
     });
   });
 
@@ -51,6 +58,8 @@ describe('Game Won', () => {
     });
 
     it('should win game, keep state on page refresh, and increment won game stats', () => {
+      cy.saveStats();
+
       cy.runGameWithClicks(fullGameMoves);
 
       cy.checkGameWon(true);
@@ -61,7 +70,12 @@ describe('Game Won', () => {
 
       cy.confirmNewGame();
 
-      cy.checkStats();
+      cy.checkStatsHaveIncremented({
+        completed: true,
+        won: true,
+        lost: false,
+        quit: false,
+      });
     });
   });
 });

@@ -30,53 +30,75 @@ Cypress.Commands.add('checkGameLost', (hasLost) => {
   cy.get('[data-test="game-won"]').should('not.exist');
 });
 
-Cypress.Commands.add('checkStats', () => {
-  cy.showStats();
-
-  cy.getStats().then(({ userStats, globalStats }) => {
-    const {
-      won: userWon,
-      lost: userLost,
-      completed: userCompleted,
-      abandoned: userQuit,
-    } = userStats;
-    const {
-      won: globalWon,
-      lost: globalLost,
-      completed: globalCompleted,
-      abandoned: globalQuit,
-    } = globalStats;
-
-    cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('stat');
-
-    cy.checkGameNumber(userCompleted);
-    cy.checkStatsValues({
-      won: userWon,
-      lost: userLost,
-      completed: userCompleted,
-      quit: userQuit,
-    });
-
-    cy.get('[data-test="global-stats"] [data-test="table-cell"]').as('stat');
-
-    cy.checkStatsValues({
-      won: globalWon,
-      lost: globalLost,
-      completed: globalCompleted,
-      quit: globalQuit,
-    });
-  });
+Cypress.Commands.add('saveStats', () => {
+  cy.getStats().then((stats) => cy.wrap(stats).as('stats'));
 });
 
-Cypress.Commands.add('checkStatsValues', ({ completed, won, lost, quit }) => {
-  cy.get('@stat').eq(0).formatNumber().should('equal', completed);
+Cypress.Commands.add(
+  'checkStatsHaveIncremented',
+  ({ completed, won, lost, quit }) => {
+    cy.showStats();
 
-  cy.get('@stat').eq(1).formatNumber().should('equal', won);
+    cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('userStats');
+    cy.get('[data-test="global-stats"] [data-test="table-cell"]').as(
+      'globalStats'
+    );
 
-  cy.get('@stat').eq(2).formatNumber().should('equal', lost);
+    cy.get('@stats').then(({ userStats, globalStats }) => {
+      const {
+        won: uWon,
+        lost: uLost,
+        completed: uCompleted,
+        abandoned: uQuit,
+      } = userStats;
+      const {
+        won: gWon,
+        lost: gLost,
+        completed: gCompleted,
+        abandoned: gQuit,
+      } = globalStats;
 
-  cy.get('@stat').eq(3).formatNumber().should('equal', quit);
-});
+      const uWonCount = won ? uWon + 1 : uWon;
+      const uLostCount = lost ? uLost + 1 : uLost;
+      const uCompletedCount = completed ? uCompleted + 1 : uCompleted;
+      const uQuitCount = quit ? uQuit + 1 : uQuit;
+
+      const gWonCount = won ? gWon + 1 : gWon;
+      const gLostCount = lost ? gLost + 1 : gLost;
+      const gCompletedCount = completed ? gCompleted + 1 : gCompleted;
+      const gQuitCount = quit ? gQuit + 1 : gQuit;
+
+      cy.checkGameNumber(uCompletedCount);
+
+      cy.checkStatsValues('userStats', {
+        won: uWonCount,
+        lost: uLostCount,
+        completed: uCompletedCount,
+        quit: uQuitCount,
+      });
+
+      cy.checkStatsValues('globalStats', {
+        won: gWonCount,
+        lost: gLostCount,
+        completed: gCompletedCount,
+        quit: gQuitCount,
+      });
+    });
+  }
+);
+
+Cypress.Commands.add(
+  'checkStatsValues',
+  (statsType, { completed, won, lost, quit }) => {
+    cy.get(`@${statsType}`).eq(0).formatNumber().should('equal', completed);
+
+    cy.get(`@${statsType}`).eq(1).formatNumber().should('equal', won);
+
+    cy.get(`@${statsType}`).eq(2).formatNumber().should('equal', lost);
+
+    cy.get(`@${statsType}`).eq(3).formatNumber().should('equal', quit);
+  }
+);
 
 Cypress.Commands.add('checkGameSummary', () => {
   const [timer] = JSON.parse(localStorage.getItem('timers'));
