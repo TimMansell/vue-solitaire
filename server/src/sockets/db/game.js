@@ -54,6 +54,9 @@ export const saveGame = async (db, uid, game) => {
   const isValidTime = checkGameTime(times, hash);
   const isValidMoves = checkGameMoves(moves, times, startTime, endTime);
 
+  const strippedTimes = times.map(({ date }) => date);
+  const strippedMoves = moves.map(({ date }) => date);
+
   db.collection('games').insertOne({
     date: endTime,
     uid,
@@ -64,8 +67,8 @@ export const saveGame = async (db, uid, game) => {
     completed: true,
     deck: cards,
     solution: {
-      times,
-      moves,
+      times: strippedTimes,
+      moves: strippedMoves,
     },
   });
 };
