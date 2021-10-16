@@ -232,7 +232,7 @@ describe('Card.vue', () => {
       $store: mockStore,
     };
 
-    it('should not call store action "setCard" when clicked', () => {
+    it('should not call store action when clicked', () => {
       const wrapper = shallowMount(Card, {
         mocks,
         propsData: {
@@ -248,7 +248,7 @@ describe('Card.vue', () => {
       expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
     });
 
-    it('should not call store action "setCard" when clicked when not visible', () => {
+    it('should not call store action when clicked when not visible', () => {
       const wrapper = shallowMount(Card, {
         mocks,
         propsData: {
@@ -263,7 +263,7 @@ describe('Card.vue', () => {
       expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
     });
 
-    it('should not call store action "setCard" when clicked when game is paued', () => {
+    it('should not call store action when clicked when game is paued', () => {
       const wrapper = shallowMount(Card, {
         mocks,
         propsData: {
@@ -281,7 +281,7 @@ describe('Card.vue', () => {
       expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
     });
 
-    it('should call store action "setCard" when clicked when visible', () => {
+    it('should call store action when clicked when visible', () => {
       const wrapper = shallowMount(Card, {
         propsData: {
           ...defaultProps,
