@@ -79,10 +79,12 @@ const actions = {
   saveMove({ commit, getters }, move) {
     const { selectedCardId, latestTime } = getters;
     const { hash } = latestTime;
+    const date = createISODate();
 
     commit('SET_MOVES', {
       selectedCardId,
       ...move,
+      date,
       hash,
     });
   },

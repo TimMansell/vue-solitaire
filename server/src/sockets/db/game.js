@@ -21,8 +21,6 @@ export const newDeck = async (db, uid, isMocked) => {
   const date = createISODate();
   const cards = !isMocked ? initCards() : await getMockedCards(db, uid);
 
-  console.log({ isMocked });
-
   db.collection('decks').findOneAndUpdate(
     { uid },
     { $set: { uid, cards, date, hash, hasPlayed: false } },
@@ -34,7 +32,7 @@ export const newDeck = async (db, uid, isMocked) => {
 
 export const saveGame = async (db, uid, game) => {
   const { moves, times } = game;
-  const date = createISODate();
+  const endTime = createISODate();
 
   // Find users deck.
   const { value } = await db
@@ -42,7 +40,7 @@ export const saveGame = async (db, uid, game) => {
     .findOneAndUpdate(
       { uid, hasPlayed: false },
       { $set: { hasPlayed: true } },
-      { projection: { cards: 1, hash: 1 } }
+      { projection: { date: 1, cards: 1, hash: 1 } }
     );
 
   // If existing user has no deck then don't save game.
@@ -51,13 +49,13 @@ export const saveGame = async (db, uid, game) => {
     return;
   }
 
-  const { cards, hash } = value;
+  const { date: startTime, cards, hash } = value;
   const { isGameFinished, hasMoves } = checkGameState(moves, cards);
   const isValidTime = checkGameTime(times, hash);
-  const isValidMoves = checkGameMoves(moves, times);
+  const isValidMoves = checkGameMoves(moves, times, startTime, endTime);
 
   db.collection('games').insertOne({
-    date,
+    date: endTime,
     uid,
     moves: moves.length,
     time: times.length,
