@@ -1,6 +1,6 @@
 // Return state as function so we can reset it.
 const state = (currentState) => ({
-  game: {
+  gamev300: {
     moves: [],
     times: [],
     hash: '',

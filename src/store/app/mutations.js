@@ -30,13 +30,13 @@ const mutations = {
     state.isOverlayVisible = !state.isOverlayVisible;
   },
   SET_MOVES(state, move) {
-    state.game.moves = [...state.game.moves, move];
+    state.gamev300.moves = [...state.gamev300.moves, move];
   },
   UPDATE_GAME_TIME(state, time) {
-    state.game.times = [...state.game.times, time];
+    state.gamev300.times = [...state.gamev300.times, time];
   },
   SET_GAME_HASH(state, hash) {
-    state.game.hash = hash;
+    state.gamev300.hash = hash;
   },
 };
 
