@@ -1,17 +1,17 @@
 <template>
-  <span class="skeleteon">
-    <span class="skeleteon__bar" />
+  <span class="skeleton" data-test="skeleton">
+    <span class="skeleton__bar" />
   </span>
 </template>
 
 <script>
 export default {
-  name: 'Skeleteon',
+  name: 'Skeleton',
 };
 </script>
 
 <style scoped lang="scss">
-.skeleteon {
+.skeleton {
   display: flex;
 
   &__bar {

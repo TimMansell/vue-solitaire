@@ -64,6 +64,8 @@ describe('Game Lost', () => {
     });
 
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {
+      cy.saveStats();
+
       cy.runGameWithClicks(incompleteGameMoves);
 
       cy.checkGameLost(true);
@@ -76,7 +78,12 @@ describe('Game Lost', () => {
 
       cy.confirmNewGame();
 
-      cy.checkStats();
+      cy.checkStatsHaveIncremented({
+        completed: true,
+        lost: true,
+        won: false,
+        quit: false,
+      });
     });
   });
 
@@ -90,6 +97,8 @@ describe('Game Lost', () => {
     });
 
     it('should lose game, keep state on page refresh, and increment lost game stats', () => {
+      cy.saveStats();
+
       cy.runGameWithClicks(incompleteGameMoves);
 
       cy.checkGameLost(true);
@@ -102,7 +111,12 @@ describe('Game Lost', () => {
 
       cy.confirmNewGame();
 
-      cy.checkStats();
+      cy.checkStatsHaveIncremented({
+        completed: true,
+        lost: true,
+        won: false,
+        quit: false,
+      });
     });
   });
 });

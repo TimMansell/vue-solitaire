@@ -27,13 +27,27 @@ describe('Stats', () => {
     });
 
     it('it successfully retrieves 0 games played', () => {
-      cy.checkStats();
+      cy.saveStats();
+
+      cy.checkStatsHaveIncremented({
+        complete: false,
+        won: false,
+        lost: false,
+        quit: false,
+      });
     });
 
     it('it successfully increments games played', () => {
+      cy.saveStats();
+
       cy.startNewGame();
 
-      cy.checkStats();
+      cy.checkStatsHaveIncremented({
+        completed: true,
+        quit: true,
+        won: false,
+        lost: false,
+      });
     });
   });
 
@@ -45,13 +59,27 @@ describe('Stats', () => {
     });
 
     it('it successfully retrieves games played', () => {
-      cy.checkStats();
+      cy.saveStats();
+
+      cy.checkStatsHaveIncremented({
+        complete: false,
+        won: false,
+        lost: false,
+        quit: false,
+      });
     });
 
     it('it successfully increments games played', () => {
+      cy.saveStats();
+
       cy.startNewGame();
 
-      cy.checkStats();
+      cy.checkStatsHaveIncremented({
+        completed: true,
+        quit: true,
+        won: false,
+        lost: false,
+      });
     });
   });
 });
