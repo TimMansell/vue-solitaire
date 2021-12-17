@@ -2,7 +2,7 @@
   <Button
     @click="$router.push('/leaderboards')"
     :is-stacked="true"
-    :disabled="!hasCards || !isOnline"
+    :disabled="!hasCards || !isOnline || isGamePaused"
     data-test="leaderboards-btn"
   >
     Ranks
@@ -19,7 +19,7 @@ export default {
     Button,
   },
   computed: {
-    ...mapGetters(['hasCards', 'isOnline']),
+    ...mapGetters(['hasCards', 'isOnline', 'isGamePaused']),
   },
 };
 </script>
