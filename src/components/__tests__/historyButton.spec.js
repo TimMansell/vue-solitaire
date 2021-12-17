@@ -5,7 +5,7 @@ describe('HistoryButton.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(HistoryButton, {
       computed: {
-        hasCards: () => true,
+        isEmptyBoard: () => false,
         isOnline: () => true,
         isGamePaused: () => false,
       },

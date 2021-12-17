@@ -7,7 +7,7 @@ describe('Timer.vue', () => {
       computed: {
         timer: () => 1,
         isGamePaused: () => true,
-        hasCards: () => true,
+        isEmptyBoard: () => false,
       },
     });
 
@@ -19,7 +19,7 @@ describe('Timer.vue', () => {
       computed: {
         timer: () => 10,
         isGamePaused: () => true,
-        hasCards: () => true,
+        isEmptyBoard: () => false,
       },
     });
 
@@ -31,7 +31,7 @@ describe('Timer.vue', () => {
       computed: {
         timer: () => 75,
         isGamePaused: () => true,
-        hasCards: () => true,
+        isEmptyBoard: () => false,
       },
     });
 
