@@ -7,6 +7,7 @@ describe('PauseGameButton.vue', () => {
       computed: {
         hasCards: () => true,
         isOnline: () => true,
+        isGamePaused: () => false,
       },
     });
 
