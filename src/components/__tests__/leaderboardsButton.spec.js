@@ -5,7 +5,7 @@ describe('LeaderboardsButton.vue', () => {
   it('matches snapshot', () => {
     const wrapper = shallowMount(LeaderboardsButton, {
       computed: {
-        hasCards: () => true,
+        isEmptyBoard: () => false,
         isOnline: () => true,
         isGamePaused: () => false,
       },

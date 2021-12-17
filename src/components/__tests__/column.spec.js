@@ -57,7 +57,7 @@ describe('Column.vue', () => {
     const wrapper = shallowMount(Column, {
       propsData,
       computed: {
-        hasCards: () => true,
+        isEmptyBoard: () => false,
         placeholders: () => 1,
       },
     });

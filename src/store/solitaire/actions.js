@@ -24,9 +24,9 @@ const actions = {
     });
   },
   initNewGame({ getters }) {
-    const { uid, hasCards } = getters;
+    const { uid, isEmptyBoard } = getters;
 
-    if (!hasCards) {
+    if (isEmptyBoard) {
       socketEmit('newGame', uid);
     }
   },
