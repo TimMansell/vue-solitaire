@@ -23,6 +23,10 @@ export const setupServer = () => {
   const app = express().use(express.static(`${__dirname}/`));
   const server = createServer(app).listen(APP_PORT);
 
+  app.get('/', (req, res) => {
+    res.send('Server is responding :)');
+  });
+
   console.log('http server listening on %d', APP_PORT);
 
   return server;
