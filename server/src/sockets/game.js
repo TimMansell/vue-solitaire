@@ -10,10 +10,8 @@ export const newGame = ({ socket, db }) => {
 
 export const saveGame = ({ socket, db, io }) => {
   socket.on('saveGame', async ({ uid, game, gameOutcome }) => {
-    await emitSavedGame({ socket, db, uid, game, gameOutcome });
-
     await Promise.all([
-      emitNewGame({ socket, db, uid }),
+      emitSavedGame({ socket, db, uid, game, gameOutcome }),
       emitSetUser({ socket, db, uid, create: true }),
     ]);
 
