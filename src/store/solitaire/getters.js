@@ -1,13 +1,13 @@
 const getters = {
-  cards: (state) => state.cards,
-  foundation: (state) => state.foundation,
-  placeholders: (state) => state.placeholders,
-  selectedCardId: (state) => state.selectedCardId,
-  draggedCards: (state) => state.draggedCards,
-  draggedCardsIDs: (state) => state.draggedCards.map(({ id }) => id),
-  hasFoundations: (state) => state.foundation.flat().length > 0,
-  isEmptyBoard: (state) =>
-    !state.foundation.flat().length && !state.cards.flat().length,
+  cards: ({ cards }) => cards,
+  foundation: ({ foundation }) => foundation,
+  placeholders: ({ placeholders }) => placeholders,
+  selectedCardId: ({ selectedCardId }) => selectedCardId,
+  draggedCards: ({ draggedCards }) => draggedCards,
+  draggedCardsIDs: ({ draggedCards }) => draggedCards.map(({ id }) => id),
+  hasFoundations: ({ foundation }) => foundation.flat().length > 0,
+  isEmptyBoard: ({ foundation, cards }) =>
+    !foundation.flat().length && !cards.flat().length,
 };
 
 export default getters;

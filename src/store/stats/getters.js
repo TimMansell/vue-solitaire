@@ -1,10 +1,10 @@
 const getters = {
-  globalStats: (state) => state.globalStats,
-  userStats: (state) => state.userStats,
-  playerCount: (state) => state.playerCount,
-  userGameCount: (state) => state.userGameCount,
-  globalGameCount: (state) => state.globalGameCount,
-  leaderboards: (state) => state.leaderboards,
+  globalStats: ({ globalStats }) => globalStats,
+  userStats: ({ userStats }) => userStats,
+  playerCount: ({ playerCount }) => playerCount,
+  userGameCount: ({ userGameCount }) => userGameCount,
+  globalGameCount: ({ globalGameCount }) => globalGameCount,
+  leaderboards: ({ leaderboards }) => leaderboards,
 };
 
 export default getters;
