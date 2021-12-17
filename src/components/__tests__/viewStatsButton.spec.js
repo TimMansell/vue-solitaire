@@ -7,6 +7,7 @@ describe('ViewStatsButton.vue', () => {
       computed: {
         hasCards: () => true,
         isOnline: () => true,
+        isGamePaused: () => false,
       },
     });
 
