@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import DefaultCard from '@/components/DefaultCard.vue';
 import TouchEvents from '@/components/TouchEvents.vue';
 
@@ -28,9 +28,16 @@ export default {
       default: 'A♣',
     },
   },
+  computed: {
+    ...mapGetters(['isGamePaused']),
+  },
   methods: {
     ...mapActions(['autoMoveCardToFoundation']),
     autoMoveCard(e, id) {
+      const { isGamePaused } = this;
+
+      if (isGamePaused) return;
+
       this.autoMoveCardToFoundation(id);
     },
   },
