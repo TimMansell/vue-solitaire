@@ -45,12 +45,21 @@ const actions = {
 
     commit('SET_VERSION_MATCH', matches);
   },
-  newGame({ dispatch }) {
-    dispatch('saveGame');
+  async newGame({ dispatch, getters }) {
+    const { uid, isCompletedGame } = getters;
+
     dispatch('restartApp');
     dispatch('restartGame');
+
+    if (!isCompletedGame) {
+      await dispatch('saveGame');
+    }
+
+    socketEmit('newGame', uid);
   },
-  setGameOutcome({ commit }, hasWon) {
+  setGameOutcome({ commit, dispatch }, hasWon) {
+    dispatch('saveGame');
+
     commit('SET_GAME_OUTCOME', hasWon);
   },
   saveGame({ getters }) {

@@ -9,6 +9,8 @@ const getters = {
   versionMatch: (state) => state.versionMatch,
   isConnecting: (state) => state.connection.isConnecting,
   isOnline: (state) => state.connection.isOnline,
+  isCompletedGame: (state) =>
+    state.gameOutcome.hasGameLost || state.gameOutcome.hasGameWon,
 };
 
 export default getters;
