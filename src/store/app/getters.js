@@ -1,16 +1,16 @@
 const getters = {
-  game: (state) => state.game,
-  isGameLoading: (state) => state.isGameLoading,
-  isGamePaused: (state) => state.isGamePaused,
-  isOverlayVisible: (state) => state.isOverlayVisible,
-  gameOutcome: (state) => state.gameOutcome,
-  timer: (state) => state.game.time,
-  moves: (state) => state.game.moves.length,
-  versionMatch: (state) => state.versionMatch,
-  isConnecting: (state) => state.connection.isConnecting,
-  isOnline: (state) => state.connection.isOnline,
-  isCompletedGame: (state) =>
-    state.gameOutcome.hasGameLost || state.gameOutcome.hasGameWon,
+  game: ({ game }) => game,
+  isGameLoading: ({ isGameLoading }) => isGameLoading,
+  isGamePaused: ({ isGamePaused }) => isGamePaused,
+  isOverlayVisible: ({ isOverlayVisible }) => isOverlayVisible,
+  gameOutcome: ({ gameOutcome }) => gameOutcome,
+  timer: ({ game }) => game.time,
+  moves: ({ game }) => game.moves.length,
+  versionMatch: ({ versionMatch }) => versionMatch,
+  isConnecting: ({ connection }) => connection.isConnecting,
+  isOnline: ({ connection }) => connection.isOnline,
+  isCompletedGame: ({ gameOutcome }) =>
+    gameOutcome.hasGameLost || gameOutcome.hasGameWon,
 };
 
 export default getters;

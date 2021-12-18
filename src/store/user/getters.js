@@ -1,8 +1,8 @@
 const getters = {
-  luid: (state) => state.luid,
-  uid: (state) => state.luid,
-  name: (state) => state.name,
-  gameHistory: (state) => state.gameHistory,
+  luid: ({ luid }) => luid,
+  uid: ({ luid }) => luid,
+  name: ({ name }) => name,
+  gameHistory: ({ gameHistory }) => gameHistory,
 };
 
 export default getters;
