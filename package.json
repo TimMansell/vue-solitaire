@@ -6,11 +6,9 @@
     "node": ">=14.x"
   },
   "scripts": {
-    "postinstall": "cd server && yarn install --production=false",
-    "serve": "run-p serve:ws serve:app",
-    "serve:app": "vite",
+    "serve": "vite",
     "serve:graphql": "netlify-lambda serve src/functions --config ./webpack.functions.js",
-    "serve:test": "run-p serve:ws:test serve:app serve:graphql",
+    "serve:test": "run-p serve serve:graphql",
     "build": "run-p build:app build:functions",
     "build:app": "vite build",
     "build:functions": "netlify-lambda build src/functions --config ./webpack.functions.js",
@@ -26,12 +24,8 @@
     "test:e2e:run:snapshots": "cypress run --headless --config ignoreTestFiles=\"**/*spec*\"",
     "test:e2e:run:updatesnapshots": "cypress run --headless --env updateSnapshots=true --config ignoreTestFiles=\"**/*spec*\"",
     "lint": "run-p lint:js lint:css",
-    "lint:js": "eslint {src,tests,server}/**/*.{vue,js} --fix",
-    "lint:css": "stylelint src/**/*.{vue,scss} --fix",
-    "serve:ws": "cd server && run-p serve:dev",
-    "serve:ws:test": "cd server && run-p serve:test",
-    "heroku-postbuild": "cd server && yarn build",
-    "start": "cd server && yarn start"
+    "lint:js": "eslint {src,tests}/**/*.{vue,js} --fix",
+    "lint:css": "stylelint src/**/*.{vue,scss} --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -79,7 +73,6 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "^27.2.2",
-    "cross-env": "7.0.3",
     "cypress": "7.5.0",
     "cypress-commands": "1.1.0",
     "cypress-image-snapshot": "3.1.1",
@@ -99,7 +92,6 @@
     "jest-transform-stub": "^2.0.0",
     "lint-staged": "10.5.4",
     "netlify-lambda": "2.0.9",
-    "nodemon": "^2.0.13",
     "npm-run-all": "4.1.5",
     "sass": "1.42.1",
     "stylelint": "13.13.1",

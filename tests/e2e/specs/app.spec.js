@@ -1,5 +1,4 @@
 import { mockVersionNumber } from '../../../src/mockData';
-import { version } from '../../../server/package.json';
 
 describe('App', () => {
   afterEach(() => {
@@ -76,7 +75,7 @@ describe('App', () => {
     });
 
     it('it should not show version upgrade toast', () => {
-      localStorage.setItem('appVersion', version);
+      localStorage.setItem('appVersion', '1.0.0');
 
       cy.visitApp();
 
