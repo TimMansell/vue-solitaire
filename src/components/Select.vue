@@ -8,8 +8,8 @@
       @change="$emit('select', $event.target.value)"
       data-test="select"
     >
-      <option v-for="(item, index) in items" :key="index">
-        {{ item }}
+      <option v-for="(item, index) in items" :value="item.value" :key="index">
+        {{ item.text }}
       </option>
     </select>
   </div>

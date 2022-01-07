@@ -11,46 +11,19 @@ Cypress.Commands.add('selectLeaderboardBest', (value) => {
 });
 
 Cypress.Commands.add('getSelectLeaderboardTop', () => {
-  cy.get(
-    '[data-test="leaderboard-set-top"] [data-test="select"] :selected'
-  ).formatNumber();
+  cy.get('[data-test="leaderboard-set-top"] [data-test="select"] :selected');
 });
 
 Cypress.Commands.add('getSelectLeaderboardBest', () => {
-  cy.get(
-    '[data-test="leaderboard-set-best"] [data-test="select"] :selected'
-  ).text();
-});
-
-Cypress.Commands.add('checkLeaderboards', () => {
-  cy.getSelectLeaderboardBest().then((best) => {
-    cy.getSelectLeaderboardTop().then((limit) => {
-      cy.getLeaderboards({ best, limit }).then((games) => {
-        const rows = [...Array(10).keys()].map(() =>
-          Math.floor(Math.random() * (games.length - 1) + 1)
-        );
-
-        rows.forEach((row) => {
-          cy.checkTableCell({ row, cell: 0, value: games[row].rank });
-          cy.checkTableCell({ row, cell: 2, value: games[row].player });
-
-          if (best === 'times') {
-            cy.checkTableCell({ row, cell: 3, value: games[row].duration });
-          } else {
-            cy.checkTableCell({ row, cell: 3, value: games[row][best] });
-          }
-        });
-      });
-    });
-  });
+  cy.get('[data-test="leaderboard-set-best"] [data-test="select"] :selected');
 });
 
 Cypress.Commands.add('checkSelectLeaderboardBest', (value) => {
-  cy.getSelectLeaderboardBest().should('equal', value);
+  cy.getSelectLeaderboardBest().text().should('equal', value);
 });
 
 Cypress.Commands.add('checkSelectLeaderboardTop', (value) => {
-  cy.getSelectLeaderboardTop().should('equal', value);
+  cy.getSelectLeaderboardTop().text().should('equal', value);
 });
 
 Cypress.Commands.add('checkLeaderboardHeading', (heading) => {
@@ -64,8 +37,10 @@ Cypress.Commands.add('checkLeaderboardNameExists', (shouldExist) => {
 });
 
 Cypress.Commands.add('checkLeaderboardGameRange', () => {
-  cy.getSelectLeaderboardTop().then((value) => {
+  cy.getSelectLeaderboardTop().then((selectedLimit) => {
+    const limit = parseInt(selectedLimit[0].value, 10);
+
     cy.checkTableCell({ row: 0, cell: 0, value: 1 });
-    cy.checkTableCell({ row: -1, cell: 0, value });
+    cy.checkTableCell({ row: -1, cell: 0, value: limit });
   });
 });
