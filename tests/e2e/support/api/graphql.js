@@ -28,39 +28,6 @@ Cypress.Commands.add('getInitialData', () => {
   });
 });
 
-Cypress.Commands.add('getStats', () => {
-  const url = Cypress.env('graphql');
-  const uid = localStorage.getItem('luid');
-
-  const query = `query {
-    userStats(uid: "${uid}") {
-      won
-      lost
-      completed
-      abandoned
-    }
-    globalStats {
-      won
-      lost
-      completed
-      abandoned
-    }
-  }`;
-
-  cy.request({
-    method: 'POST',
-    url,
-    body: { query },
-    failOnStatusCode: false,
-  }).then(({ body }) => {
-    const {
-      data: { globalStats, userStats },
-    } = body;
-
-    return { globalStats, userStats };
-  });
-});
-
 Cypress.Commands.add('getPlayerCount', () => {
   const url = Cypress.env('graphql');
 

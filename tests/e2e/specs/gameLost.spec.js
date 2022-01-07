@@ -12,14 +12,28 @@ describe('Game Lost', () => {
   });
 
   describe('Default', () => {
-    beforeEach(() => {
-      cy.visitApp();
-    });
-
     it('it should not show lost page if game is not lost', () => {
+      cy.visitApp();
+
       cy.visit('#/lost');
 
       cy.checkGameLost(false);
+    });
+
+    it('should lose game, keep state on page refresh', () => {
+      cy.setDeck(incompleteGameDeck).then(() => {
+        cy.visitApp();
+      });
+
+      cy.runGameWithClicks(incompleteGameMoves);
+
+      cy.checkGameLost(true);
+
+      cy.testShowBoard();
+
+      cy.checkTimerIsPausedOnReload();
+
+      cy.checkGameLost(true);
     });
   });
 
@@ -63,18 +77,10 @@ describe('Game Lost', () => {
       });
     });
 
-    it('should lose game, keep state on page refresh, and increment lost game stats', () => {
+    it('should lose game and increment lost game stats', () => {
       cy.saveStats();
 
       cy.runGameWithClicks(incompleteGameMoves);
-
-      cy.checkGameLost(true);
-
-      cy.testShowBoard();
-
-      cy.checkTimerIsPausedOnReload();
-
-      cy.checkGameLost(true);
 
       cy.confirmNewGame();
 
@@ -96,18 +102,10 @@ describe('Game Lost', () => {
       });
     });
 
-    it('should lose game, keep state on page refresh, and increment lost game stats', () => {
+    it('should lose game and increment lost game stats', () => {
       cy.saveStats();
 
       cy.runGameWithClicks(incompleteGameMoves);
-
-      cy.checkGameLost(true);
-
-      cy.testShowBoard();
-
-      cy.checkTimerIsPausedOnReload();
-
-      cy.checkGameLost(true);
 
       cy.confirmNewGame();
 
