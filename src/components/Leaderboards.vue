@@ -52,8 +52,16 @@ export default {
   },
   data() {
     return {
-      bestItems: ['moves', 'times'],
-      limitItems: [25, 50, 100, 500],
+      bestItems: [
+        { text: 'Moves', value: 'moves' },
+        { text: 'Times', value: 'time' },
+      ],
+      limitItems: [
+        { text: '25', value: 25 },
+        { text: '50', value: 50 },
+        { text: '100', value: 100 },
+        { text: '500', value: 500 },
+      ],
       filters: {
         limit: parseInt(xss(this.$route.params.limit), 10),
         showBest: xss(this.$route.params.showBest),
@@ -88,9 +96,11 @@ export default {
       return this.filters.limit;
     },
     best() {
-      const { showBest } = this.filters;
+      const [showBest] = this.bestItems.filter(
+        ({ value }) => value === this.filters.showBest
+      );
 
-      return showBest.charAt(0).toUpperCase() + showBest.slice(1);
+      return showBest?.text;
     },
   },
   mounted() {
@@ -100,20 +110,19 @@ export default {
   methods: {
     ...mapActions(['getLeaderboards']),
     checkInitialFilters() {
-      const { limitItems, bestItems, filters } = this;
-      const { limit, showBest } = filters;
+      const { limitItems, bestItems, limit, showBest } = this;
 
-      const validLimit = limitItems.includes(limit);
-      const validBest = bestItems.includes(showBest);
+      const validLimit = limitItems.map(({ value }) => value).includes(limit);
+      const validBest = bestItems.map(({ value }) => value).includes(showBest);
 
-      this.filters.limit = validLimit ? limit : limitItems[0];
-      this.filters.showBest = validBest ? showBest : bestItems[0];
+      this.filters.limit = validLimit ? limit : limitItems[0].value;
+      this.filters.showBest = validBest ? showBest : bestItems[0].value;
     },
     displayLimit(limit) {
       this.filters.limit = parseInt(limit, 10);
     },
-    setBest(showBest) {
-      this.filters.showBest = showBest;
+    setBest(best) {
+      this.filters.showBest = best;
     },
     displayGames() {
       const { filters } = this;
@@ -124,7 +133,7 @@ export default {
       this.$emit('scrollTo', this.$refs.scrollTo);
     },
     updateUrl() {
-      const { showBest, limit } = this;
+      const { limit, showBest } = this;
 
       this.$router.replace(`/leaderboards/${showBest}/${limit}`);
     },

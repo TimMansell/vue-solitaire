@@ -60,7 +60,12 @@ export default {
   },
   data() {
     return {
-      limitItems: [25, 50, 100, 500],
+      limitItems: [
+        { text: '25', value: 25 },
+        { text: '50', value: 50 },
+        { text: '100', value: 100 },
+        { text: '500', value: 500 },
+      ],
       filters: {
         page: parseInt(xss(this.$route.params.page), 10),
         limit: parseInt(xss(this.$route.params.limit), 10),
@@ -157,9 +162,9 @@ export default {
       const { limitItems, filters, totalPages } = this;
       const { limit, page } = filters;
 
-      const validLimit = limitItems.includes(limit);
+      const validLimit = limitItems.map(({ value }) => value).includes(limit);
 
-      this.filters.limit = validLimit ? limit : limitItems[0];
+      this.filters.limit = validLimit ? limit : limitItems[0].value;
       this.filters.page = page <= totalPages ? page : 1;
     },
     displayPage(page) {

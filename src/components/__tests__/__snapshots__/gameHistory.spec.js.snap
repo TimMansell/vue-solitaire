@@ -10,7 +10,7 @@ exports[`GameHistory.vue matches snapshot 1`] = `
       <div data-test="game-history-pages">
         Page: 1 / 1
       </div>
-      <select-stub label="Games" value="25" items="25,50,100,500"></select-stub>
+      <select-stub label="Games" value="25" items="[object Object],[object Object],[object Object],[object Object]"></select-stub>
     </filters-stub>
   </div>
   <p data-test="game-history-showing-games">

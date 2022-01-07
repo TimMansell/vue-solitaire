@@ -20,26 +20,12 @@ describe('Leaderboards', () => {
       cy.checkGameIsPaused(false);
     });
 
-    it('it should display correct data', () => {
-      cy.showLeaderboards();
-
-      cy.checkLeaderboards();
-
-      cy.selectLeaderboardBest('times');
-
-      cy.checkLeaderboards();
-
-      cy.selectLeaderboardTop(50);
-
-      cy.checkLeaderboards();
-    });
-
     it('it should display correct heading', () => {
       cy.showLeaderboards();
 
       cy.checkLeaderboardHeading('Top 25 Best Moves');
 
-      cy.selectLeaderboardBest('times');
+      cy.selectLeaderboardBest('Times');
 
       cy.checkLeaderboardHeading('Top 25 Best Times');
 
@@ -51,11 +37,11 @@ describe('Leaderboards', () => {
     it('it should display correct amount of table rows', () => {
       cy.showLeaderboards();
 
-      cy.checkTableHasRowLength(25);
+      cy.checkLeaderboardGameRange();
 
       cy.selectLeaderboardTop(50);
 
-      cy.checkTableHasRowLength(50);
+      cy.checkLeaderboardGameRange();
     });
 
     it('it should display correct table heading', () => {
@@ -63,19 +49,16 @@ describe('Leaderboards', () => {
 
       cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
-      cy.selectLeaderboardBest('times');
+      cy.selectLeaderboardBest('Times');
 
       cy.checkTableHeading({ cell: 3, heading: 'Times' });
     });
 
     it('should show correct data from url params', () => {
-      const best = 'times';
-      const top = 100;
+      cy.visit(`#/leaderboards/time/100`);
 
-      cy.visit(`#/leaderboards/${best}/${top}`);
-
-      cy.checkSelectLeaderboardBest(best);
-      cy.checkSelectLeaderboardTop(top);
+      cy.checkSelectLeaderboardBest('Times');
+      cy.checkSelectLeaderboardTop('100');
 
       cy.checkLeaderboardHeading('Top 100 Best Times');
 
@@ -87,8 +70,8 @@ describe('Leaderboards', () => {
     it('it should set filters to default params', () => {
       cy.visit('#/leaderboards/abc/5000');
 
-      cy.checkSelectLeaderboardBest('moves');
-      cy.checkSelectLeaderboardTop(25);
+      cy.checkSelectLeaderboardBest('Moves');
+      cy.checkSelectLeaderboardTop('25');
 
       cy.checkLeaderboardHeading('Top 25 Best Moves');
 

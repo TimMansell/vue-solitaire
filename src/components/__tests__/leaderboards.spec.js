@@ -36,7 +36,7 @@ describe('Leaderboards.vue', () => {
         ...mocks,
         $route: {
           params: {
-            showBest: 'abc',
+            showBest: 5000,
             limit: 'abc',
           },
         },
@@ -58,7 +58,7 @@ describe('Leaderboards.vue', () => {
         ...mocks,
         $route: {
           params: {
-            showBest: 'times',
+            showBest: 'time',
             limit: 5000,
           },
         },
@@ -69,7 +69,7 @@ describe('Leaderboards.vue', () => {
     });
 
     expect(wrapper.vm.filters).toStrictEqual({
-      showBest: 'times',
+      showBest: 'time',
       limit: 25,
     });
   });
