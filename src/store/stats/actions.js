@@ -5,8 +5,7 @@ const actions = {
     const { uid } = getters;
 
     socketConnect(() => {
-      socketEmit('getUserCounts', uid);
-      socketEmit('getGlobalCounts');
+      socketEmit('getCounts', uid);
     });
 
     socketOn('getUserCounts', (userStats) => {

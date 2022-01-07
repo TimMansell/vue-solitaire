@@ -62,10 +62,12 @@ const actions = {
 
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  saveGame({ getters }) {
+  saveGame({ dispatch, getters }) {
     const { uid, game, gameOutcome } = getters;
 
     socketEmit('saveGame', { uid, game, gameOutcome });
+
+    dispatch('createUser');
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);

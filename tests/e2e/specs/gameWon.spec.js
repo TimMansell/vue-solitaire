@@ -8,14 +8,25 @@ describe('Game Won', () => {
   });
 
   describe('Default', () => {
-    beforeEach(() => {
-      cy.visitApp();
-    });
-
     it('it should not show won page if game is not won', () => {
+      cy.visitApp();
       cy.visit('#/won');
 
       cy.checkGameWon(false);
+    });
+
+    it('should win game, keep state on page refresh', () => {
+      cy.setDeck(fullGameDeck).then(() => {
+        cy.visitApp();
+      });
+
+      cy.runGameWithClicks(fullGameMoves);
+
+      cy.checkGameWon(true);
+
+      cy.checkTimerIsPausedOnReload();
+
+      cy.checkGameWon(true);
     });
   });
 
@@ -26,16 +37,10 @@ describe('Game Won', () => {
       });
     });
 
-    it('should win game, keep state on page refresh, and increment won game stats', () => {
+    it('should win game and increment won game stats', () => {
       cy.saveStats();
 
       cy.runGameWithClicks(fullGameMoves);
-
-      cy.checkGameWon(true);
-
-      cy.checkTimerIsPausedOnReload();
-
-      cy.checkGameWon(true);
 
       cy.confirmNewGame();
 
@@ -57,16 +62,10 @@ describe('Game Won', () => {
       });
     });
 
-    it('should win game, keep state on page refresh, and increment won game stats', () => {
+    it('should win game and increment won game stats', () => {
       cy.saveStats();
 
       cy.runGameWithClicks(fullGameMoves);
-
-      cy.checkGameWon(true);
-
-      cy.checkTimerIsPausedOnReload();
-
-      cy.checkGameWon(true);
 
       cy.confirmNewGame();
 

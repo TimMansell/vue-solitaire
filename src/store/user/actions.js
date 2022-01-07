@@ -20,6 +20,13 @@ const actions = {
 
     commit('SET_USER_ID', uid);
   },
+  createUser({ getters }) {
+    const { uid, name } = getters;
+
+    if (name) return;
+
+    socketEmit('createUser', uid);
+  },
   getAllGames({ commit, getters }, params) {
     const { uid } = getters;
 

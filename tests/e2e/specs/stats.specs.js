@@ -27,14 +27,7 @@ describe('Stats', () => {
     });
 
     it('it successfully retrieves 0 games played', () => {
-      cy.saveStats();
-
-      cy.checkStatsHaveIncremented({
-        complete: false,
-        won: false,
-        lost: false,
-        quit: false,
-      });
+      cy.checkUserStatsAreZero();
     });
 
     it('it successfully increments games played', () => {
@@ -59,14 +52,7 @@ describe('Stats', () => {
     });
 
     it('it successfully retrieves games played', () => {
-      cy.saveStats();
-
-      cy.checkStatsHaveIncremented({
-        complete: false,
-        won: false,
-        lost: false,
-        quit: false,
-      });
+      cy.checkUserStatsAreNotZero();
     });
 
     it('it successfully increments games played', () => {
