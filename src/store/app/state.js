@@ -10,7 +10,10 @@ const state = (currentState) => ({
   },
   isGamePaused: false,
   isOverlayVisible: true,
-  versionMatch: true,
+  version: {
+    isLatest: true,
+    isOutdated: false,
+  },
   connection: {
     isConnecting: currentState?.connection.isConnecting ?? true,
     isOnline: currentState?.connection.isOnline ?? true,

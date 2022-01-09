@@ -21,7 +21,7 @@ export default {
     Alerts,
   },
   computed: {
-    ...mapGetters(['isGamePaused', 'gameOutcome']),
+    ...mapGetters(['isGamePaused', 'gameOutcome', 'version']),
   },
   created() {
     this.initApp();
@@ -48,6 +48,20 @@ export default {
 
         if (hasGameLost) {
           this.$router.push('/lost');
+        }
+      },
+      deep: true,
+    },
+    version: {
+      handler({ isLatest, isOutdated }) {
+        console.log({ isLatest, isOutdated });
+
+        if (!isLatest) {
+          this.$router.replace('/update');
+        }
+
+        if (isOutdated) {
+          this.$router.replace('/updating');
         }
       },
       deep: true,

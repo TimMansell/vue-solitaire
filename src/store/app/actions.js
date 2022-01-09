@@ -4,16 +4,24 @@ import {
   socketEmit,
   socketOn,
 } from '@/services/ws';
+import {
+  getVersion,
+  setVersion,
+  checkVersionIsOutdated,
+  checkVersionIsLatest,
+} from '@/services/version';
+import { version } from '../../../package.json';
 
 const actions = {
   initApp({ dispatch }) {
     dispatch('initUser');
     dispatch('initGame');
     dispatch('initStats');
+    dispatch('checkVersion');
     dispatch('setIsConnecting', true);
 
     socketConnect(() => {
-      dispatch('checkVersion');
+      dispatch('getLatestVersion');
       dispatch('setIsOnline', true);
       dispatch('setIsConnecting', false);
     });
@@ -22,12 +30,17 @@ const actions = {
       dispatch('setIsOnline', false);
     });
 
-    socketOn('checkVersion', (version) => {
-      dispatch('setVersion', version);
+    socketOn('getLatestVersion', (latestVersion) => {
+      dispatch('setVersion', latestVersion);
     });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
+  },
+  updateApp({ dispatch }) {
+    dispatch('restartApp');
+    dispatch('restartGame');
+    dispatch('initNewGame');
   },
   setIsOnline({ commit }, isOnline) {
     commit('SET_IS_ONLINE', isOnline);
@@ -35,15 +48,22 @@ const actions = {
   setIsConnecting({ commit }, isConnecting) {
     commit('SET_IS_CONNECTING', isConnecting);
   },
-  checkVersion() {
-    const version = localStorage.getItem('appVersion');
+  checkVersion({ commit }) {
+    const appVersion = getVersion();
+    const isVersionOutdated = checkVersionIsOutdated(appVersion, version);
 
-    socketEmit('checkVersion', version);
+    setVersion(version);
+
+    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
-  setVersion({ commit }, { version, matches }) {
-    localStorage.setItem('appVersion', version);
+  getLatestVersion() {
+    socketEmit('getLatestVersion');
+  },
+  setVersion({ commit }, { latestVersion }) {
+    const appVersion = getVersion();
+    const isVersionLatest = checkVersionIsLatest(appVersion, latestVersion);
 
-    commit('SET_VERSION_MATCH', matches);
+    commit('SET_IS_LATEST_VERSION', isVersionLatest);
   },
   async newGame({ dispatch, getters }) {
     const { uid, isCompletedGame } = getters;
@@ -63,9 +83,9 @@ const actions = {
     commit('SET_GAME_OUTCOME', hasWon);
   },
   saveGame({ dispatch, getters }) {
-    const { uid, game, gameOutcome } = getters;
+    const { uid, game } = getters;
 
-    socketEmit('saveGame', { uid, game, gameOutcome });
+    socketEmit('saveGame', { uid, game });
 
     dispatch('createUser');
   },
