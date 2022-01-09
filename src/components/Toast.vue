@@ -1,6 +1,6 @@
 <template>
   <transition :duration="duration">
-    <div class="toast" :class="classes" data-test="toast">
+    <div class="toast" data-test="toast">
       <div class="toast__wrapper">
         <div class="toast__content">
           <div class="toast__msg">
@@ -51,21 +51,6 @@ export default {
       type: Number,
       default: 0,
     },
-    blurBackground: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    classes() {
-      const { position, blurBackground } = this;
-
-      return {
-        'toast--primary': position === 'primary',
-        'toast--secondary': position === 'secondary',
-        'toast--blur': blurBackground,
-      };
-    },
   },
 };
 </script>
@@ -73,68 +58,23 @@ export default {
 <style scoped lang="scss">
 .toast {
   display: flex;
+  justify-content: center;
   position: fixed;
+  bottom: 4vh;
   width: 100%;
-  z-index: calc(var(--z-overlay) - 1);
+  z-index: calc(var(--z-overlay) + 1);
   padding: var(--pd-sm);
   color: var(--col-tertiary);
 
-  @media (min-width: $bp-sm) {
-    width: auto;
-  }
-
-  &--blur {
-    &::after {
-      position: fixed;
-      z-index: -1;
-      content: '';
-      inset: 0;
-      background: var(--bg-primary);
-
-      /* stylelint-disable max-nesting-depth */
-      @supports (backdrop-filter: blur(var(--blur))) {
-        background: var(--bg-primary-alt-3);
-        backdrop-filter: blur(var(--blur));
-      }
-      /* stylelint-enable max-nesting-depth */
-    }
-  }
-
-  &--secondary {
-    justify-content: center;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    @media (min-width: $bp-sm) {
-      bottom: var(--mg-md);
-    }
-
-    @media (min-width: $bp-md) {
-      bottom: var(--mg-xl);
-    }
-  }
-
-  &--primary {
-    top: 0;
-    right: 0;
-  }
-
   &__wrapper {
     display: flex;
-    flex: 1;
     flex-direction: column;
     align-items: stretch;
     border: 1px solid var(--bdr-secondary);
-    border-radius: 7px;
+    border-radius: var(--bdr-radius-lg);
     padding: var(--pd-sm);
     background: var(--bg-secondary);
-
-    @media (min-width: $bp-sm) {
-      flex: none;
-      flex-direction: row;
-      align-items: center;
-    }
+    box-shadow: 0 0 var(--bdr-radius-lg) 2px var(--col-primary);
   }
 
   &__content {
@@ -147,7 +87,7 @@ export default {
     font-size: var(--font-size-sm);
     text-align: center;
 
-    @media (min-width: $bp-xs) {
+    @media (min-width: $bp-sm) {
       font-size: var(--font-size);
     }
   }

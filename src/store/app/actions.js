@@ -48,13 +48,14 @@ const actions = {
   setIsConnecting({ commit }, isConnecting) {
     commit('SET_IS_CONNECTING', isConnecting);
   },
-  checkVersion({ commit }) {
+  checkVersion({ dispatch }) {
     const appVersion = getVersion();
     const isVersionOutdated = checkVersionIsOutdated(appVersion, version);
 
     setVersion(version);
 
-    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
+    dispatch('updateApp');
+    dispatch('setVersionOutdated', isVersionOutdated);
   },
   getLatestVersion() {
     socketEmit('getLatestVersion');
@@ -64,6 +65,9 @@ const actions = {
     const isVersionLatest = checkVersionIsLatest(appVersion, latestVersion);
 
     commit('SET_IS_LATEST_VERSION', isVersionLatest);
+  },
+  setVersionOutdated({ commit }, isVersionOutdated) {
+    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
   async newGame({ dispatch, getters }) {
     const { uid, isCompletedGame } = getters;

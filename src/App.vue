@@ -52,11 +52,6 @@ export default {
       },
       deep: true,
     },
-    isOutdated(isOutdated) {
-      if (!isOutdated) return;
-
-      this.$router.replace('/updating');
-    },
     isLatest(isLatest) {
       if (isLatest) return;
 

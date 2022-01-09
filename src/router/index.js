@@ -6,7 +6,6 @@ import Pause from '@/pages/Pause.vue';
 import History from '@/pages/History.vue';
 import Stats from '@/pages/Stats.vue';
 import Leaderboards from '@/pages/Leaderboards.vue';
-import Updating from '@/pages/Updating.vue';
 
 const routes = [
   {
@@ -116,19 +115,6 @@ const routes = [
     },
     beforeEnter(to, from, next) {
       if (!store.getters.isLatest) {
-        next();
-      } else {
-        next('/');
-      }
-    },
-  },
-  {
-    path: '/updating',
-    components: {
-      main: Updating,
-    },
-    beforeEnter(to, from, next) {
-      if (store.getters.isOutdated) {
         next();
       } else {
         next('/');
