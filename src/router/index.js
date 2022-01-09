@@ -115,7 +115,7 @@ const routes = [
       overlay: () => import('@/pages/Update.vue'),
     },
     beforeEnter(to, from, next) {
-      if (!store.getters.version.isLatest) {
+      if (!store.getters.isLatest) {
         next();
       } else {
         next('/');
@@ -128,7 +128,7 @@ const routes = [
       main: Updating,
     },
     beforeEnter(to, from, next) {
-      if (store.getters.version.isOutdated) {
+      if (store.getters.isOutdated) {
         next();
       } else {
         next('/');
