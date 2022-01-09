@@ -21,7 +21,7 @@ export default {
     Alerts,
   },
   computed: {
-    ...mapGetters(['isGamePaused', 'gameOutcome', 'version']),
+    ...mapGetters(['isGamePaused', 'gameOutcome', 'isOutdated', 'isLatest']),
   },
   created() {
     this.initApp();
@@ -52,19 +52,15 @@ export default {
       },
       deep: true,
     },
-    version: {
-      handler({ isLatest, isOutdated }) {
-        console.log({ isLatest, isOutdated });
+    isOutdated(isOutdated) {
+      if (!isOutdated) return;
 
-        if (!isLatest) {
-          this.$router.replace('/update');
-        }
+      this.$router.replace('/updating');
+    },
+    isLatest(isLatest) {
+      if (isLatest) return;
 
-        if (isOutdated) {
-          this.$router.replace('/updating');
-        }
-      },
-      deep: true,
+      this.$router.replace('/update');
     },
   },
   methods: {
