@@ -20,7 +20,13 @@ export default {
     ...mapGetters(['isOutdated']),
   },
   mounted() {
+    const { isOutdated } = this;
+
     this.setVersionOutdated(false);
+
+    if (isOutdated && this.$route.path !== '/') {
+      this.$router.replace('/');
+    }
   },
   methods: {
     ...mapActions(['setVersionOutdated']),
