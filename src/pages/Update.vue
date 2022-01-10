@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import UpdateButton from '@/components/UpdateButton.vue';
 
@@ -17,6 +18,12 @@ export default {
   components: {
     GameOverlay,
     UpdateButton,
+  },
+  mounted() {
+    this.setVersionLatest(true);
+  },
+  methods: {
+    ...mapActions(['setVersionLatest']),
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <Toast
-    v-if="isOutdated"
+    v-if="isOutdated && userGameCount > 0"
     :msgs="['App has been updated to v2.3.0']"
     :duration="3000"
     data-test="updated-alert"
@@ -17,19 +17,13 @@ export default {
     Toast,
   },
   computed: {
-    ...mapGetters(['isOutdated']),
+    ...mapGetters(['isOutdated', 'userGameCount']),
   },
   mounted() {
-    const { isOutdated } = this;
-
-    this.setVersionOutdated(false);
-
-    if (isOutdated && this.$route.path !== '/') {
-      this.$router.replace('/');
-    }
+    this.setUpdateApp(false);
   },
   methods: {
-    ...mapActions(['setVersionOutdated']),
+    ...mapActions(['setUpdateApp']),
   },
 };
 </script>

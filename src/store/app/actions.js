@@ -21,7 +21,6 @@ const actions = {
     dispatch('setIsConnecting', true);
 
     socketConnect(() => {
-      dispatch('getLatestVersion');
       dispatch('setIsOnline', true);
       dispatch('setIsConnecting', false);
     });
@@ -37,10 +36,18 @@ const actions = {
   restartApp({ commit }) {
     commit('RESTART_APP');
   },
-  updateApp({ dispatch }) {
-    dispatch('restartApp');
-    dispatch('restartGame');
-    dispatch('initNewGame');
+  updateApp({ dispatch }, isVersionOutdated) {
+    if (isVersionOutdated) {
+      dispatch('restartApp');
+      dispatch('restartGame');
+    }
+
+    setVersion(version);
+
+    dispatch('setUpdateApp', isVersionOutdated);
+  },
+  setUpdateApp({ commit }, isVersionOutdated) {
+    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
   setIsOnline({ commit }, isOnline) {
     commit('SET_IS_ONLINE', isOnline);
@@ -52,22 +59,16 @@ const actions = {
     const appVersion = getVersion();
     const isVersionOutdated = checkVersionIsOutdated(appVersion, version);
 
-    setVersion(version);
-
-    dispatch('updateApp');
-    dispatch('setVersionOutdated', isVersionOutdated);
+    dispatch('updateApp', isVersionOutdated);
   },
-  getLatestVersion() {
-    socketEmit('getLatestVersion');
-  },
-  setVersion({ commit }, { latestVersion }) {
+  setVersion({ dispatch }, latestVersion) {
     const appVersion = getVersion();
     const isVersionLatest = checkVersionIsLatest(appVersion, latestVersion);
 
-    commit('SET_IS_LATEST_VERSION', isVersionLatest);
+    dispatch('setVersionLatest', isVersionLatest);
   },
-  setVersionOutdated({ commit }, isVersionOutdated) {
-    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
+  setVersionLatest({ commit }, isVersionLatest) {
+    commit('SET_IS_LATEST_VERSION', isVersionLatest);
   },
   async newGame({ dispatch, getters }) {
     const { uid, isCompletedGame } = getters;
