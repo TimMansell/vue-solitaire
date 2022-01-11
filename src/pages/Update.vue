@@ -1,16 +1,16 @@
 <template>
   <GameOverlay center-content show-logo data-test="game-update">
     <template #title>
-      <span v-if="!isLatest">New Update</span>
-      <span v-if="isLatest">No Updates Available</span>
+      <span v-if="!isLatestVersion">New Update</span>
+      <span v-if="isLatestVersion">No Updates Available</span>
     </template>
     <template #msg>
-      <p v-if="!isLatest">A new version of the game is available</p>
-      <p v-if="isLatest">You are on the latest version</p>
+      <p v-if="!isLatestVersion">A new version of the game is available</p>
+      <p v-if="isLatestVersion">You are on the latest version</p>
     </template>
     <template #buttons>
-      <UpdateButton v-if="!isLatest" />
-      <ContinueGameButton v-if="isLatest" />
+      <UpdateButton v-if="!isLatestVersion" />
+      <ContinueGameButton v-if="isLatestVersion" />
     </template>
   </GameOverlay>
 </template>
@@ -29,12 +29,12 @@ export default {
     ContinueGameButton,
   },
   computed: {
-    ...mapGetters(['isLatest']),
+    ...mapGetters(['isLatestVersion']),
   },
   beforeRouteLeave(to, from, next) {
-    const { isLatest } = this;
+    const { isLatestVersion } = this;
 
-    if (!isLatest) {
+    if (!isLatestVersion) {
       next(false);
     } else {
       next();
