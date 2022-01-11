@@ -113,13 +113,6 @@ const routes = [
       main: Home,
       overlay: () => import('@/pages/Update.vue'),
     },
-    beforeEnter(to, from, next) {
-      if (to.path === from.path) {
-        next(false);
-      } else {
-        next();
-      }
-    },
   },
   {
     path: '*',
@@ -131,14 +124,6 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  if (from.path === '/update' && !store.getters.isLatest) {
-    next(false);
-  } else {
-    next();
-  }
 });
 
 router.afterEach((to) => {

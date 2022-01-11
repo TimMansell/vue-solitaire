@@ -31,5 +31,14 @@ export default {
   computed: {
     ...mapGetters(['isLatest']),
   },
+  beforeRouteLeave(to, from, next) {
+    const { isLatest } = this;
+
+    if (!isLatest) {
+      next(false);
+    } else {
+      next();
+    }
+  },
 };
 </script>
