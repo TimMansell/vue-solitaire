@@ -63,7 +63,7 @@ export default {
       this.$router.replace('/update');
     },
     isGameUpdated(isGameUpdated) {
-      if (!isGameUpdated) return;
+      if (!isGameUpdated || this.$route.path === '/') return;
 
       this.$router.replace('/');
     },
