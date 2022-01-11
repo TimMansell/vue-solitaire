@@ -54,8 +54,15 @@ export default {
     },
     isLatest(isLatest) {
       if (isLatest) return;
+      if (this.$route.path === '/update') return;
 
       this.$router.replace('/update');
+    },
+    isOutdated(isOutdated) {
+      if (!isOutdated) return;
+      if (this.$route.path === '/') return;
+
+      this.$router.replace('/');
     },
   },
   methods: {

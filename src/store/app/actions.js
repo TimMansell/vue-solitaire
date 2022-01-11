@@ -53,11 +53,13 @@ const actions = {
   setIsConnecting({ commit }, isConnecting) {
     commit('SET_IS_CONNECTING', isConnecting);
   },
-  checkVersion({ dispatch }) {
+  checkVersion({ commit, dispatch }) {
     const appVersion = getVersion();
     const isVersionOutdated = checkVersionIsOutdated(appVersion, version);
 
     dispatch('updateApp', isVersionOutdated);
+
+    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
   checkVersionIsLatest({ commit }, latestVersion) {
     const appVersion = getVersion();
