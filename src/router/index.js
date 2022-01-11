@@ -74,7 +74,7 @@ const routes = [
       if (store.getters.gameOutcome.hasGameWon) {
         next();
       } else {
-        next('/');
+        next(false);
       }
     },
   },
@@ -88,7 +88,7 @@ const routes = [
       if (store.getters.gameOutcome.hasGameLost) {
         next();
       } else {
-        next('/');
+        next(false);
       }
     },
   },
@@ -103,7 +103,7 @@ const routes = [
       if (!store.getters.isOnline) {
         next();
       } else {
-        next('/');
+        next(false);
       }
     },
   },
@@ -114,10 +114,10 @@ const routes = [
       overlay: () => import('@/pages/Update.vue'),
     },
     beforeEnter(to, from, next) {
-      if (!store.getters.isLatest) {
-        next();
+      if (to.path === from.path) {
+        next(false);
       } else {
-        next('/');
+        next();
       }
     },
   },
@@ -131,6 +131,14 @@ const routes = [
 
 const router = new VueRouter({
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (from.path === '/update' && !store.getters.isLatest) {
+    next(false);
+  } else {
+    next();
+  }
 });
 
 router.afterEach((to) => {

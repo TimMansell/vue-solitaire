@@ -30,21 +30,19 @@ const actions = {
     });
 
     socketOn('getLatestVersion', (latestVersion) => {
-      dispatch('setVersion', latestVersion);
+      dispatch('checkVersionIsLatest', latestVersion);
     });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
   },
   updateApp({ dispatch }, isVersionOutdated) {
-    if (isVersionOutdated) {
-      dispatch('restartApp');
-      dispatch('restartGame');
-    }
-
     setVersion(version);
 
-    dispatch('setUpdateApp', isVersionOutdated);
+    if (!isVersionOutdated) return;
+
+    dispatch('restartApp');
+    dispatch('restartGame');
   },
   setUpdateApp({ commit }, isVersionOutdated) {
     commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
@@ -61,13 +59,10 @@ const actions = {
 
     dispatch('updateApp', isVersionOutdated);
   },
-  setVersion({ dispatch }, latestVersion) {
+  checkVersionIsLatest({ commit }, latestVersion) {
     const appVersion = getVersion();
     const isVersionLatest = checkVersionIsLatest(appVersion, latestVersion);
 
-    dispatch('setVersionLatest', isVersionLatest);
-  },
-  setVersionLatest({ commit }, isVersionLatest) {
     commit('SET_IS_LATEST_VERSION', isVersionLatest);
   },
   async newGame({ dispatch, getters }) {

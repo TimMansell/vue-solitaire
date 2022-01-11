@@ -1,29 +1,35 @@
 <template>
   <GameOverlay center-content show-logo data-test="game-update">
-    <template #title> New Update</template>
-    <template #msg> <p>A new version of the website is available</p></template>
+    <template #title>
+      <span v-if="!isLatest">New Update</span>
+      <span v-if="isLatest">No Updates Available</span>
+    </template>
+    <template #msg>
+      <p v-if="!isLatest">A new version of the game is available</p>
+      <p v-if="isLatest">You are on the latest version</p>
+    </template>
     <template #buttons>
-      <UpdateButton />
+      <UpdateButton v-if="!isLatest" />
+      <ContinueGameButton v-if="isLatest" />
     </template>
   </GameOverlay>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import UpdateButton from '@/components/UpdateButton.vue';
+import ContinueGameButton from '@/components/ContinueGameButton.vue';
 
 export default {
   name: 'UpdatePage',
   components: {
     GameOverlay,
     UpdateButton,
+    ContinueGameButton,
   },
-  mounted() {
-    this.setVersionLatest(true);
-  },
-  methods: {
-    ...mapActions(['setVersionLatest']),
+  computed: {
+    ...mapGetters(['isLatest']),
   },
 };
 </script>
