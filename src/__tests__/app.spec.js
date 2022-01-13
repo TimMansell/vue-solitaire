@@ -11,7 +11,7 @@ describe('App.vue', () => {
         isGamePaused: () => false,
         gameOutcome: () => {},
         hasGameUpdated: () => false,
-        isLatestVersion: () => true,
+        isOldVersion: () => false,
       },
       stubs: ['RouterView'],
     });
