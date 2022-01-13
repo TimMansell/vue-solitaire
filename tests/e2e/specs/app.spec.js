@@ -46,7 +46,7 @@ describe('App', () => {
     });
   });
 
-  describe('Offline', () => {
+  describe.skip('Offline', () => {
     it('it should show alert if offline', () => {
       cy.visit('/');
 
