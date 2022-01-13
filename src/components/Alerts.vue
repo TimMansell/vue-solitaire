@@ -2,21 +2,21 @@
   <div>
     <ConnectingAlert />
     <OfflineAlert />
-    <AppUpdatedAlert />
+    <UpdatedAlert />
   </div>
 </template>
 
 <script>
 import ConnectingAlert from '@/components/ConnectingAlert.vue';
 import OfflineAlert from '@/components/OfflineAlert.vue';
-import AppUpdatedAlert from '@/components/AppUpdatedAlert.vue';
+import UpdatedAlert from '@/components/UpdatedAlert.vue';
 
 export default {
   name: 'Alerts',
   components: {
     ConnectingAlert,
     OfflineAlert,
-    AppUpdatedAlert,
+    UpdatedAlert,
   },
 };
 </script>

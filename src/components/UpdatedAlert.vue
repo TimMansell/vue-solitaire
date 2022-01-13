@@ -12,7 +12,7 @@ import { mapGetters } from 'vuex';
 import Toast from '@/components/Toast.vue';
 
 export default {
-  name: 'AppUpdatedAlert',
+  name: 'UpdatedAlert',
   components: {
     Toast,
   },
