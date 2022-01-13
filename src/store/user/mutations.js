@@ -3,7 +3,7 @@ const mutations = {
     state.luid = luid;
   },
   SET_USER_NAME(state, user) {
-    state.name = user?.name;
+    state.name = user;
   },
   SET_USER_GAMES(state, gameHistory) {
     state.gameHistory = gameHistory;
