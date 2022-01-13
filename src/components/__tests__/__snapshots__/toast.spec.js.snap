@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Toast.vue matches snapshot 1`] = `
-<transition-stub duration="0" title="test title">
-  <div data-test="toast" class="toast toast--primary">
+<transition-stub>
+  <div data-test="toast" class="toast">
     <div class="toast__wrapper">
       <div class="toast__content">
         <div class="toast__msg">
@@ -28,8 +28,8 @@ exports[`Toast.vue matches snapshot 1`] = `
 `;
 
 exports[`Toast.vue should not show button 1`] = `
-<transition-stub duration="0" title="test title">
-  <div data-test="toast" class="toast toast--primary">
+<transition-stub>
+  <div data-test="toast" class="toast">
     <div class="toast__wrapper">
       <div class="toast__content">
         <div class="toast__msg">

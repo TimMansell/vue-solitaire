@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdatedAlert.vue matches snapshot 1`] = `<toast-stub msgs="Game has been updated to latest version" btntext="" btnclick="[Function]" duration="3000" data-test="updated-alert"></toast-stub>`;
