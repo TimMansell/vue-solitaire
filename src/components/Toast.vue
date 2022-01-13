@@ -1,5 +1,5 @@
 <template>
-  <transition :duration="duration" v-if="showIf">
+  <transition v-if="showIf">
     <div class="toast" data-test="toast">
       <div class="toast__wrapper">
         <div class="toast__content">
@@ -40,16 +40,9 @@ export default {
       type: Function,
       default: () => {},
     },
-    position: {
-      type: String,
-      validator(value) {
-        return ['primary', 'secondary'].includes(value);
-      },
-      default: 'primary',
-    },
     duration: {
       type: Number,
-      default: 0,
+      default: 5000,
     },
     show: {
       type: Boolean,
