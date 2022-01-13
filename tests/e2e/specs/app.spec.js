@@ -90,6 +90,8 @@ describe('App', () => {
         cy.checkCardIsNotSelected('4♠');
 
         cy.checkAppUpdated(true);
+
+        cy.waitForAppUpdatedToDisappear();
       });
 
       it('it should update to latest version if no appVersion is set in localStorage', () => {
@@ -138,15 +140,12 @@ describe('App', () => {
         cy.wait(1000);
         cy.reload();
 
-        cy.get('[data-test="update-title"]').should(
-          'contain',
-          'No New Updates'
-        );
+        cy.checkUpdateTitle('No New Updates');
 
         cy.checkAppUpdated(true);
       });
 
-      it('it should show update for an older version, then show game updated on page reload', () => {
+      it('it should show update for an older version, then show game updated on when update button is pressed', () => {
         cy.visitApp();
 
         cy.mockVersionUpdate();
@@ -173,6 +172,16 @@ describe('App', () => {
         cy.checkAppHasUpdated(true);
 
         cy.checkUpdateTitle('No New Updates');
+      });
+
+      it('it should not allow user to leave update page by changing url', () => {
+        cy.visitApp();
+
+        cy.mockVersionUpdate();
+
+        cy.visit('#/');
+
+        cy.url().should('include', '#/update');
       });
     });
   });

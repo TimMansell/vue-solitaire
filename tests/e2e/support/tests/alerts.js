@@ -15,3 +15,9 @@ Cypress.Commands.add('checkOfflineAlertIsVisible', (shouldExist) => {
 
   cy.get('[data-test="offline-alert"]').should(exist);
 });
+
+Cypress.Commands.add('waitForAppUpdatedToDisappear', () => {
+  cy.waitUntil(() => Cypress.$('[data-test="updated-alert"]').length === 0);
+
+  cy.get('[data-test="updated-alert"]').should('not.exist');
+});
