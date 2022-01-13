@@ -18,3 +18,4 @@ import './snapshots';
 import './paused';
 import './visibility';
 import './404';
+import './update';

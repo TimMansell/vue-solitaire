@@ -1,8 +1,10 @@
 <template>
   <GameOverlay center-content show-logo data-test="game-update">
     <template #title>
-      <span v-if="!isLatestVersion">New Update</span>
-      <span v-if="isLatestVersion">No New Updates</span>
+      <span v-if="!isLatestVersion" data-test="update-title">New Update</span>
+      <span v-if="isLatestVersion" data-test="update-title"
+        >No New Updates</span
+      >
     </template>
     <template #msg>
       <p v-if="!isLatestVersion">A new version of the game is available</p>

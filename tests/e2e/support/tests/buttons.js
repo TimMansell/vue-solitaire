@@ -78,3 +78,7 @@ Cypress.Commands.add('goHome', () => {
 
   cy.checkVisibilityHidden(false);
 });
+
+Cypress.Commands.add('update', () => {
+  cy.get('[data-test="update-btn"]').click();
+});

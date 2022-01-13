@@ -1,7 +1,7 @@
-Cypress.Commands.add('checkVersionAlertIsVisible', (shouldExist) => {
+Cypress.Commands.add('checkAppUpdated', (shouldExist) => {
   const exist = shouldExist ? 'exist' : 'not.exist';
 
-  cy.get('[data-test="version-alert"]').should(exist);
+  cy.get('[data-test="updated-alert"]', { timeout: 0 }).should(exist);
 });
 
 Cypress.Commands.add('checkConnectingAlertIsVisible', (shouldExist) => {
