@@ -47,8 +47,9 @@ const actions = {
       dispatch('restartGame');
     }
 
-    dispatch('setVersion', version);
+    setVersion(version);
 
+    commit('SET_VERSION', version);
     commit('SET_HAS_UPDATED', showUpdated);
   },
   setIsOnline({ commit }, isOnline) {
@@ -62,11 +63,6 @@ const actions = {
     const isVersionLatest = checkVersionIsLatest(appVersion, latestVersion);
 
     commit('SET_IS_LATEST_VERSION', isVersionLatest);
-  },
-  setVersion({ commit }, version) {
-    setVersion(version);
-
-    commit('SET_VERSION', version);
   },
   async newGame({ dispatch, getters }) {
     const { uid, isCompletedGame } = getters;
