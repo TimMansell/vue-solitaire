@@ -25,7 +25,7 @@ export default {
       'isGamePaused',
       'gameOutcome',
       'hasGameUpdated',
-      'isLatestVersion',
+      'isOldVersion',
     ]),
   },
   created() {
@@ -57,8 +57,8 @@ export default {
       },
       deep: true,
     },
-    isLatestVersion(isLatestVersion) {
-      if (isLatestVersion) return;
+    isOldVersion(isOldVersion) {
+      if (!isOldVersion) return;
 
       this.$router.replace('/update');
     },

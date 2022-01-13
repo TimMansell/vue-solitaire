@@ -14,8 +14,8 @@ const mutations = {
   SET_IS_CONNECTING(state, isConnecting) {
     state.connection.isConnecting = isConnecting;
   },
-  SET_IS_LATEST_VERSION(state, isLatestVersion) {
-    state.isLatestVersion = isLatestVersion;
+  SET_IS_OUTDATED_VERSION(state, isOldVersion) {
+    state.isOldVersion = isOldVersion;
   },
   SET_VERSION(state, version) {
     state.version = version;

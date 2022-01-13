@@ -2,10 +2,10 @@ import { shallowMount } from '@vue/test-utils';
 import Update from '@/pages/Update.vue';
 
 describe('Update.vue', () => {
-  it('matches snapshot', () => {
+  it('matches updates snapshot', () => {
     const wrapper = shallowMount(Update, {
       computed: {
-        isLatestVersion: () => false,
+        isOldVersion: () => true,
       },
     });
 
@@ -15,7 +15,7 @@ describe('Update.vue', () => {
   it('matches no updates snapshot', () => {
     const wrapper = shallowMount(Update, {
       computed: {
-        isLatestVersion: () => true,
+        isOldVersion: () => false,
       },
     });
 

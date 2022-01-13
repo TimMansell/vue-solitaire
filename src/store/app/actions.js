@@ -4,12 +4,7 @@ import {
   socketEmit,
   socketOn,
 } from '@/services/ws';
-import {
-  getVersion,
-  setVersion,
-  checkVersionIsOutdated,
-  checkVersionIsLatest,
-} from '@/services/version';
+import { getVersion, setVersion, checkVersion } from '@/services/version';
 
 const actions = {
   initApp({ dispatch }) {
@@ -28,8 +23,8 @@ const actions = {
       dispatch('setIsOnline', false);
     });
 
-    socketOn('getLatestVersion', (latestVersion) => {
-      dispatch('checkVersion', latestVersion);
+    socketOn('getLatestVersion', (version) => {
+      dispatch('checkVersion', version);
     });
   },
   restartApp({ commit }) {
@@ -39,7 +34,7 @@ const actions = {
     const { version, isEmptyBoard } = getters;
 
     const appVersion = getVersion();
-    const isVersionOutdated = checkVersionIsOutdated(appVersion, version);
+    const isVersionOutdated = checkVersion(appVersion, version);
     const showUpdated = isVersionOutdated && !isEmptyBoard;
 
     if (isVersionOutdated) {
@@ -58,11 +53,11 @@ const actions = {
   setIsConnecting({ commit }, isConnecting) {
     commit('SET_IS_CONNECTING', isConnecting);
   },
-  checkVersion({ commit }, latestVersion) {
+  checkVersion({ commit }, version) {
     const appVersion = getVersion();
-    const isVersionLatest = checkVersionIsLatest(appVersion, latestVersion);
+    const isVersionOutdated = checkVersion(appVersion, version);
 
-    commit('SET_IS_LATEST_VERSION', isVersionLatest);
+    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
   async newGame({ dispatch, getters }) {
     const { uid, isCompletedGame } = getters;

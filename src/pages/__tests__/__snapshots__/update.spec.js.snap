@@ -10,7 +10,7 @@ exports[`Update.vue matches no updates snapshot 1`] = `
 </gameoverlay-stub>
 `;
 
-exports[`Update.vue matches snapshot 1`] = `
+exports[`Update.vue matches updates snapshot 1`] = `
 <gameoverlay-stub centercontent="true" showlogo="true" data-test="game-update"><span data-test="update-title">New Update</span>
   <!---->
   <p>A new version of the game is available</p>

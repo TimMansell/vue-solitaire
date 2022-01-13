@@ -12,7 +12,7 @@ const state = (currentState) => ({
   },
   isGamePaused: false,
   isOverlayVisible: true,
-  isLatestVersion: true,
+  isOldVersion: false,
   hasGameUpdated: false,
   connection: {
     isConnecting: currentState?.connection.isConnecting ?? true,
