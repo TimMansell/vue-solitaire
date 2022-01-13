@@ -1,9 +1,9 @@
 <template>
   <Toast
-    v-if="isConnecting"
-    :msgs="['Connecting to game server']"
-    :duration="1000"
-    data-test="connecting-alert"
+    :show="hasGameUpdated"
+    :msgs="['Game has been updated to latest version']"
+    :duration="3000"
+    data-test="updated-alert"
   />
 </template>
 
@@ -12,12 +12,12 @@ import { mapGetters } from 'vuex';
 import Toast from '@/components/Toast.vue';
 
 export default {
-  name: 'ConnectingAlert',
+  name: 'UpdatedAlert',
   components: {
     Toast,
   },
   computed: {
-    ...mapGetters(['isConnecting']),
+    ...mapGetters(['hasGameUpdated']),
   },
 };
 </script>

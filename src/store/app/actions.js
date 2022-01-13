@@ -4,16 +4,17 @@ import {
   socketEmit,
   socketOn,
 } from '@/services/ws';
+import { getVersion, setVersion, checkVersion } from '@/services/version';
 
 const actions = {
   initApp({ dispatch }) {
     dispatch('initUser');
     dispatch('initGame');
     dispatch('initStats');
+    dispatch('updateApp');
     dispatch('setIsConnecting', true);
 
     socketConnect(() => {
-      dispatch('checkVersion');
       dispatch('setIsOnline', true);
       dispatch('setIsConnecting', false);
     });
@@ -22,12 +23,29 @@ const actions = {
       dispatch('setIsOnline', false);
     });
 
-    socketOn('checkVersion', (version) => {
-      dispatch('setVersion', version);
+    socketOn('getLatestVersion', (version) => {
+      dispatch('checkVersion', version);
     });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
+  },
+  updateApp({ commit, dispatch, getters }) {
+    const { version, isEmptyBoard } = getters;
+
+    const appVersion = getVersion();
+    const isVersionOutdated = checkVersion(appVersion, version);
+    const showUpdated = isVersionOutdated && !isEmptyBoard;
+
+    if (isVersionOutdated) {
+      dispatch('restartApp');
+      dispatch('restartGame');
+    }
+
+    setVersion(version);
+
+    commit('SET_VERSION', version);
+    commit('SET_HAS_UPDATED', showUpdated);
   },
   setIsOnline({ commit }, isOnline) {
     commit('SET_IS_ONLINE', isOnline);
@@ -35,15 +53,11 @@ const actions = {
   setIsConnecting({ commit }, isConnecting) {
     commit('SET_IS_CONNECTING', isConnecting);
   },
-  checkVersion() {
-    const version = localStorage.getItem('appVersion');
+  checkVersion({ commit }, version) {
+    const appVersion = getVersion();
+    const isVersionOutdated = checkVersion(appVersion, version);
 
-    socketEmit('checkVersion', version);
-  },
-  setVersion({ commit }, { version, matches }) {
-    localStorage.setItem('appVersion', version);
-
-    commit('SET_VERSION_MATCH', matches);
+    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
   async newGame({ dispatch, getters }) {
     const { uid, isCompletedGame } = getters;
@@ -63,9 +77,9 @@ const actions = {
     commit('SET_GAME_OUTCOME', hasWon);
   },
   saveGame({ dispatch, getters }) {
-    const { uid, game, gameOutcome } = getters;
+    const { uid, game } = getters;
 
-    socketEmit('saveGame', { uid, game, gameOutcome });
+    socketEmit('saveGame', { uid, game });
 
     dispatch('createUser');
   },

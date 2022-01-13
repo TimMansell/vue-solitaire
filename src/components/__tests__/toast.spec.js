@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import Toast from '@/components/Toast.vue';
 
 const propsData = {
-  title: 'test title',
   msgs: ['line 1', 'line 2', 'line 3'],
   btnText: 'btn text',
+  show: true,
 };
 
 describe('Toast.vue', () => {
@@ -14,44 +14,6 @@ describe('Toast.vue', () => {
     });
 
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('should render in primary position', () => {
-    const wrapper = shallowMount(Toast, {
-      propsData: {
-        ...propsData,
-      },
-    });
-
-    expect(wrapper.find('[data-test="toast"]').classes()).toContain(
-      'toast--primary'
-    );
-  });
-
-  it('should render in bottom/center position', () => {
-    const wrapper = shallowMount(Toast, {
-      propsData: {
-        ...propsData,
-        position: 'secondary',
-      },
-    });
-
-    expect(wrapper.find('[data-test="toast"]').classes()).toContain(
-      'toast--secondary'
-    );
-  });
-
-  it('should render a blurred background', () => {
-    const wrapper = shallowMount(Toast, {
-      propsData: {
-        ...propsData,
-        blurBackground: true,
-      },
-    });
-
-    expect(wrapper.find('[data-test="toast"]').classes()).toContain(
-      'toast--blur'
-    );
   });
 
   it('should not show button', () => {

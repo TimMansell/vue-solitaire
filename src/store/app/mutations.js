@@ -14,8 +14,14 @@ const mutations = {
   SET_IS_CONNECTING(state, isConnecting) {
     state.connection.isConnecting = isConnecting;
   },
-  SET_VERSION_MATCH(state, versionMatch) {
-    state.versionMatch = versionMatch;
+  SET_IS_OUTDATED_VERSION(state, isOldVersion) {
+    state.isOldVersion = isOldVersion;
+  },
+  SET_VERSION(state, version) {
+    state.version = version;
+  },
+  SET_HAS_UPDATED(state, hasGameUpdated) {
+    state.hasGameUpdated = hasGameUpdated;
   },
   SET_GAME_OUTCOME(state, hasGameWon) {
     state.gameOutcome = {

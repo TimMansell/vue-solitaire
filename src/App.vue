@@ -21,7 +21,12 @@ export default {
     Alerts,
   },
   computed: {
-    ...mapGetters(['isGamePaused', 'gameOutcome']),
+    ...mapGetters([
+      'isGamePaused',
+      'gameOutcome',
+      'hasGameUpdated',
+      'isOldVersion',
+    ]),
   },
   created() {
     this.initApp();
@@ -51,6 +56,16 @@ export default {
         }
       },
       deep: true,
+    },
+    isOldVersion(isOldVersion) {
+      if (!isOldVersion) return;
+
+      this.$router.replace('/update');
+    },
+    hasGameUpdated(hasGameUpdated) {
+      if (!hasGameUpdated || this.$route.path === '/') return;
+
+      this.$router.replace('/');
     },
   },
   methods: {

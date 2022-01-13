@@ -74,7 +74,7 @@ const routes = [
       if (store.getters.gameOutcome.hasGameWon) {
         next();
       } else {
-        next('/');
+        next(false);
       }
     },
   },
@@ -88,7 +88,7 @@ const routes = [
       if (store.getters.gameOutcome.hasGameLost) {
         next();
       } else {
-        next('/');
+        next(false);
       }
     },
   },
@@ -103,8 +103,15 @@ const routes = [
       if (!store.getters.isOnline) {
         next();
       } else {
-        next('/');
+        next(false);
       }
+    },
+  },
+  {
+    path: '/update',
+    components: {
+      main: Home,
+      overlay: () => import('@/pages/Update.vue'),
     },
   },
   {
