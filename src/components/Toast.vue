@@ -1,5 +1,5 @@
 <template>
-  <transition :duration="duration">
+  <transition :duration="duration" v-if="showIf">
     <div class="toast" data-test="toast">
       <div class="toast__wrapper">
         <div class="toast__content">
@@ -51,6 +51,20 @@ export default {
       type: Number,
       default: 0,
     },
+    show: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      showIf: this.show,
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.showIf = false;
+    }, this.duration);
   },
 };
 </script>

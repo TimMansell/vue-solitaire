@@ -1,3 +1,5 @@
+import { version } from '../../../package.json';
+
 // Return state as function so we can reset it.
 const state = (currentState) => ({
   game: {
@@ -11,11 +13,12 @@ const state = (currentState) => ({
   isGamePaused: false,
   isOverlayVisible: true,
   isLatestVersion: true,
-  isGameUpdated: false,
+  hasGameUpdated: false,
   connection: {
     isConnecting: currentState?.connection.isConnecting ?? true,
     isOnline: currentState?.connection.isOnline ?? true,
   },
+  version,
 });
 
 export default state;

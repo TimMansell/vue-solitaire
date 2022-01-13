@@ -17,8 +17,11 @@ const mutations = {
   SET_IS_LATEST_VERSION(state, isLatestVersion) {
     state.isLatestVersion = isLatestVersion;
   },
-  SET_IS_UPDATED(state, isGameUpdated) {
-    state.isGameUpdated = isGameUpdated;
+  SET_VERSION(state, version) {
+    state.version = version;
+  },
+  SET_HAS_UPDATED(state, hasGameUpdated) {
+    state.hasGameUpdated = hasGameUpdated;
   },
   SET_GAME_OUTCOME(state, hasGameWon) {
     state.gameOutcome = {

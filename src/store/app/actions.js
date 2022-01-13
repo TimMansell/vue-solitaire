@@ -10,7 +10,6 @@ import {
   checkVersionIsOutdated,
   checkVersionIsLatest,
 } from '@/services/version';
-import { version } from '../../../package.json';
 
 const actions = {
   initApp({ dispatch }) {
@@ -30,24 +29,27 @@ const actions = {
     });
 
     socketOn('getLatestVersion', (latestVersion) => {
-      dispatch('setVersion', latestVersion);
+      dispatch('checkVersion', latestVersion);
     });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
   },
-  updateApp({ commit, dispatch }) {
+  updateApp({ commit, dispatch, getters }) {
+    const { version, isEmptyBoard } = getters;
+
     const appVersion = getVersion();
     const isVersionOutdated = checkVersionIsOutdated(appVersion, version);
+    const showUpdated = isVersionOutdated && !isEmptyBoard;
 
     if (isVersionOutdated) {
       dispatch('restartApp');
       dispatch('restartGame');
     }
 
-    setVersion(version);
+    dispatch('setVersion', version);
 
-    commit('SET_IS_UPDATED', isVersionOutdated);
+    commit('SET_HAS_UPDATED', showUpdated);
   },
   setIsOnline({ commit }, isOnline) {
     commit('SET_IS_ONLINE', isOnline);
@@ -55,11 +57,16 @@ const actions = {
   setIsConnecting({ commit }, isConnecting) {
     commit('SET_IS_CONNECTING', isConnecting);
   },
-  setVersion({ commit }, latestVersion) {
+  checkVersion({ commit }, latestVersion) {
     const appVersion = getVersion();
     const isVersionLatest = checkVersionIsLatest(appVersion, latestVersion);
 
     commit('SET_IS_LATEST_VERSION', isVersionLatest);
+  },
+  setVersion({ commit }, version) {
+    setVersion(version);
+
+    commit('SET_VERSION', version);
   },
   async newGame({ dispatch, getters }) {
     const { uid, isCompletedGame } = getters;

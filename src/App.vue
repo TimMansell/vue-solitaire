@@ -24,7 +24,7 @@ export default {
     ...mapGetters([
       'isGamePaused',
       'gameOutcome',
-      'isGameUpdated',
+      'hasGameUpdated',
       'isLatestVersion',
     ]),
   },
@@ -62,8 +62,8 @@ export default {
 
       this.$router.replace('/update');
     },
-    isGameUpdated(isGameUpdated) {
-      if (!isGameUpdated || this.$route.path === '/') return;
+    hasGameUpdated(hasGameUpdated) {
+      if (!hasGameUpdated || this.$route.path === '/') return;
 
       this.$router.replace('/');
     },

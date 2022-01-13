@@ -1,14 +1,14 @@
 <template>
   <Toast
-    v-if="isOutdated && userGameCount > 0"
-    :msgs="['App has been updated to v2.3.0']"
+    :show="hasGameUpdated"
+    :msgs="['Game has been updated to latest version']"
     :duration="3000"
     data-test="updated-alert"
   />
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import Toast from '@/components/Toast.vue';
 
 export default {
@@ -17,13 +17,7 @@ export default {
     Toast,
   },
   computed: {
-    ...mapGetters(['isOutdated', 'userGameCount']),
-  },
-  mounted() {
-    this.setUpdateApp(false);
-  },
-  methods: {
-    ...mapActions(['setUpdateApp']),
+    ...mapGetters(['hasGameUpdated']),
   },
 };
 </script>
