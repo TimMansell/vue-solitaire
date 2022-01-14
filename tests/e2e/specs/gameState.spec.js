@@ -1,5 +1,6 @@
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
+import validMoveDeck from '../../fixtures/decks/validMove.json';
 
 describe('Game State', () => {
   afterEach(() => {
@@ -14,6 +15,21 @@ describe('Game State', () => {
     cy.triggerVisibilityChange();
 
     cy.checkGameIsPaused(true);
+  });
+
+  it('should show correct time, and moves on game summary', () => {
+    cy.setDeck(validMoveDeck).then(() => {
+      cy.visitApp();
+    });
+
+    cy.dragCardFromTo('6♦', '7♦');
+
+    cy.wait(2000);
+
+    cy.pauseGame();
+
+    cy.checkSummaryMoves(1);
+    cy.checkSummaryTime('0:00:02');
   });
 
   it('refreshing page shows same board state', () => {

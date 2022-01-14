@@ -72,3 +72,7 @@ Cypress.Commands.add('checkTimerIsPausedOnReload', () => {
 
   cy.checkTimerIsPaused();
 });
+
+Cypress.Commands.add('checkSummaryTime', (time) => {
+  cy.get('[data-test="game-summary-value"]').eq(0).text().should('equal', time);
+});
