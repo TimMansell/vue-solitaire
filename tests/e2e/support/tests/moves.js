@@ -11,3 +11,10 @@ Cypress.Commands.add('checkMoves', () => {
     cy.checkMoveCount(moves);
   });
 });
+
+Cypress.Commands.add('checkSummaryMoves', (moves) => {
+  cy.get('[data-test="game-summary-value"]')
+    .eq(1)
+    .formatNumber()
+    .should('equal', moves);
+});

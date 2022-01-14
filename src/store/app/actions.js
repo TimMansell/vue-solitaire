@@ -26,6 +26,15 @@ const actions = {
     socketOn('getLatestVersion', (version) => {
       dispatch('checkVersion', version);
     });
+
+    socketOn('saveGame', () => {
+      dispatch('createUser');
+      dispatch('getGameCounts');
+    });
+  },
+  restart({ dispatch }) {
+    dispatch('restartApp');
+    dispatch('restartGame');
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
@@ -38,8 +47,7 @@ const actions = {
     const showUpdated = isVersionOutdated && !isEmptyBoard;
 
     if (isVersionOutdated) {
-      dispatch('restartApp');
-      dispatch('restartGame');
+      dispatch('restart');
     }
 
     setVersion(version);
@@ -59,29 +67,25 @@ const actions = {
 
     commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
-  async newGame({ dispatch, getters }) {
-    const { uid, isCompletedGame } = getters;
-
-    dispatch('restartApp');
-    dispatch('restartGame');
+  newGame({ dispatch, getters }) {
+    const { isCompletedGame } = getters;
 
     if (!isCompletedGame) {
-      await dispatch('saveGame');
+      dispatch('saveGame');
     }
 
-    socketEmit('newGame', uid);
+    dispatch('restart');
+    dispatch('initNewGame');
   },
   setGameOutcome({ commit, dispatch }, hasWon) {
     dispatch('saveGame');
 
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  saveGame({ dispatch, getters }) {
+  saveGame({ getters }) {
     const { uid, game } = getters;
 
     socketEmit('saveGame', { uid, game });
-
-    dispatch('createUser');
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);

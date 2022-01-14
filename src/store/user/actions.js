@@ -2,23 +2,35 @@ import { socketConnect, socketEmit, socketOn } from '@/services/ws';
 import { initUser } from '@/services/user';
 
 const actions = {
-  initUser({ commit, state }) {
-    const { luid } = state;
-    const uid = luid || initUser();
+  initUser({ dispatch }) {
+    dispatch('setUser');
 
     socketConnect(() => {
-      socketEmit('setUser', uid);
+      dispatch('getUser');
     });
 
     socketOn('setUser', (user) => {
-      commit('SET_USER_NAME', user);
+      dispatch('setUserName', user);
+      dispatch('getPlayerCount');
     });
 
     socketOn('getUserHistory', (games) => {
-      commit('SET_USER_GAMES', games);
+      dispatch('setUserHistory', games);
     });
+  },
+  setUser({ commit, state }) {
+    const { luid } = state;
+    const uid = luid || initUser();
 
     commit('SET_USER_ID', uid);
+  },
+  getUser({ getters }) {
+    const { uid } = getters;
+
+    socketEmit('getUser', uid);
+  },
+  setUserName({ commit }, user) {
+    commit('SET_USER_NAME', user);
   },
   createUser({ getters }) {
     const { uid, name } = getters;
@@ -27,10 +39,13 @@ const actions = {
 
     socketEmit('createUser', uid);
   },
-  getAllGames({ commit, getters }, params) {
+  setUserHistory({ commit }, games) {
+    commit('SET_USER_GAMES', games);
+  },
+  getAllGames({ dispatch, getters }, params) {
     const { uid } = getters;
 
-    commit('SET_USER_GAMES', []);
+    dispatch('setUserHistory', []);
 
     socketEmit('getUserHistory', { uid, ...params });
   },

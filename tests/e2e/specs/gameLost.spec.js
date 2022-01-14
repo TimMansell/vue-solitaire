@@ -29,6 +29,8 @@ describe('Game Lost', () => {
 
       cy.checkGameLost(true);
 
+      cy.checkSummaryMoves(6);
+
       cy.testShowBoard();
 
       cy.checkTimerIsPausedOnReload();

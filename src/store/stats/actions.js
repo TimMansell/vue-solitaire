@@ -1,41 +1,66 @@
 import { socketConnect, socketEmit, socketOn } from '@/services/ws';
 
 const actions = {
-  initStats({ commit, getters }) {
-    const { uid } = getters;
-
+  initStats({ dispatch }) {
     socketConnect(() => {
-      socketEmit('getCounts', uid);
+      dispatch('getGameCounts');
+      dispatch('getPlayerCount');
     });
 
-    socketOn('getUserCounts', (userStats) => {
-      commit('SET_USER_GAME_COUNT', userStats);
+    socketOn('getUserGames', (userStats) => {
+      dispatch('setUserGames', userStats);
     });
 
-    socketOn('getGlobalCounts', (globalStats) => {
-      commit('SET_GLOBAL_GAME_COUNT', globalStats);
-      commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
+    socketOn('getGlobalGames', (globalStats) => {
+      dispatch('setGlobalGames', globalStats);
     });
 
-    socketOn('getStats', ({ userStats, globalStats }) => {
-      commit('SET_USER_STATS', userStats);
-      commit('SET_GLOBAL_STATS', globalStats);
+    socketOn('getPlayerCount', (globalStats) => {
+      dispatch('setPlayerCount', globalStats);
+    });
+
+    socketOn('getStats', (stats) => {
+      dispatch('setStats', stats);
     });
 
     socketOn('getLeaderboards', (leaderboards) => {
-      commit('SET_LEADERBOARDS', leaderboards);
+      dispatch('setLeaderboards', leaderboards);
     });
   },
-  getStats({ commit, getters }) {
+  getGameCounts({ getters }) {
     const { uid } = getters;
 
-    commit('SET_USER_STATS', []);
-    commit('SET_GLOBAL_STATS', []);
+    socketEmit('getGameCounts', uid);
+  },
+  getPlayerCount() {
+    socketEmit('getPlayerCount');
+  },
+  setUserGames({ commit }, userStats) {
+    commit('SET_USER_GAME_COUNT', userStats);
+  },
+  setGlobalGames({ commit }, globalStats) {
+    commit('SET_GLOBAL_GAME_COUNT', globalStats);
+  },
+  setPlayerCount({ commit }, globalStats) {
+    commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
+  },
+  setStats({ commit }, { userStats, globalStats }) {
+    commit('SET_USER_STATS', userStats);
+    commit('SET_GLOBAL_STATS', globalStats);
+  },
+  setLeaderboards({ commit }, leaderboards) {
+    commit('SET_LEADERBOARDS', leaderboards);
+  },
+  getStats({ dispatch, getters }) {
+    const { uid } = getters;
+    const stats = { userStats: [], globalStats: [] };
+
+    dispatch('setStats', stats);
 
     socketEmit('getStats', uid);
   },
-  getLeaderboards({ commit }, params) {
-    commit('SET_LEADERBOARDS', []);
+  getLeaderboards({ dispatch }, params) {
+    dispatch('setLeaderboards', []);
 
     socketEmit('getLeaderboards', params);
   },

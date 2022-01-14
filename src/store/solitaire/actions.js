@@ -26,9 +26,9 @@ const actions = {
   initNewGame({ getters }) {
     const { uid, isEmptyBoard } = getters;
 
-    if (isEmptyBoard) {
-      socketEmit('newGame', uid);
-    }
+    if (!isEmptyBoard) return;
+
+    socketEmit('newGame', uid);
   },
   restartGame({ commit }) {
     commit('RESTART_GAME');

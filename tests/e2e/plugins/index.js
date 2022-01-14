@@ -37,6 +37,9 @@ module.exports = (on, config) => {
           { upsert: true }
         );
     },
+    getGlobalCounts() {
+      return db.collection('globalStats').findOne({});
+    },
   });
 
   return {

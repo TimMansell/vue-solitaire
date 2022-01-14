@@ -18,10 +18,10 @@ describe('App', () => {
 
       cy.checkFoundations();
 
-      cy.getInitialData().then(({ userStats, globalStats }) => {
-        cy.checkGameNumber(userStats.completed);
-        cy.checkGlobalGameNumber(globalStats.completed);
-        cy.checkPlayerNumber(globalStats.players);
+      cy.task('getGlobalCounts').then(({ players, completed }) => {
+        cy.checkGameNumber(0);
+        cy.checkGlobalGameNumber(completed);
+        cy.checkPlayerNumber(players);
       });
     });
 
