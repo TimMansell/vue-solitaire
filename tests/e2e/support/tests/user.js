@@ -1,5 +1,5 @@
 Cypress.Commands.add('checkPlayerCount', () => {
-  cy.getPlayerCount().then(({ players }) => {
+  cy.task('getGlobalCounts').then(({ players }) => {
     cy.waitUntil(() =>
       cy
         .get('[data-test="player-count"]')
