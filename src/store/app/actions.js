@@ -67,11 +67,11 @@ const actions = {
 
     commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
-  async newGame({ dispatch, getters }) {
+  newGame({ dispatch, getters }) {
     const { uid, isCompletedGame } = getters;
 
     if (!isCompletedGame) {
-      await dispatch('saveGame');
+      dispatch('saveGame');
     }
 
     dispatch('restart');
