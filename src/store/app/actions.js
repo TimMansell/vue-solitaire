@@ -68,15 +68,14 @@ const actions = {
     commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
   newGame({ dispatch, getters }) {
-    const { uid, isCompletedGame } = getters;
+    const { isCompletedGame } = getters;
 
     if (!isCompletedGame) {
       dispatch('saveGame');
     }
 
     dispatch('restart');
-
-    socketEmit('newGame', uid);
+    dispatch('initNewGame');
   },
   setGameOutcome({ commit, dispatch }, hasWon) {
     dispatch('saveGame');
