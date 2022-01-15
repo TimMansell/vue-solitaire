@@ -16,9 +16,9 @@ const sizes = [
 describe('App', () => {
   sizes.forEach((size) => {
     it(`matches ${size} snapshot`, () => {
-      cy.setDeck(quitGameDeck).then(() => {
-        cy.visitApp();
-      });
+      cy.visitApp();
+
+      cy.setBoard(quitGameDeck);
 
       cy.runGameWithClicks(quitGameMoves);
 

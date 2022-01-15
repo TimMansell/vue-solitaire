@@ -2,9 +2,9 @@ import validMoveDeck from '../../fixtures/decks/validMove.json';
 
 describe('Dragged Cards', () => {
   beforeEach(() => {
-    cy.setDeck(validMoveDeck).then(() => {
-      cy.visitApp();
-    });
+    cy.visitApp();
+
+    cy.setBoard(validMoveDeck);
   });
 
   afterEach(() => {

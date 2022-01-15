@@ -28,14 +28,10 @@ module.exports = (on, config) => {
   });
 
   on('task', {
-    populateDeck(cards) {
+    mockServerDeck({ cards, uid }) {
       return db
         .collection('decks')
-        .findOneAndUpdate(
-          { isMocked: true },
-          { $set: { uid: null, cards, isMocked: true } },
-          { upsert: true }
-        );
+        .findOneAndUpdate({ uid }, { $set: { uid, cards } }, { upsert: true });
     },
     getGlobalCounts() {
       return db.collection('globalStats').findOne({});
