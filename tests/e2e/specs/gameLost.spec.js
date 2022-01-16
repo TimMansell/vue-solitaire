@@ -21,22 +21,6 @@ describe('Game Lost', () => {
 
       cy.checkGameLost(false);
     });
-
-    it('should lose game, keep state on page refresh', () => {
-      cy.setServerDeck(incompleteGameDeck);
-
-      cy.runGameWithClicks(incompleteGameMoves);
-
-      cy.checkGameLost(true);
-
-      cy.checkSummaryMoves(6);
-
-      cy.testShowBoard();
-
-      cy.checkTimerIsPausedOnReload();
-
-      cy.checkGameLost(true);
-    });
   });
 
   describe('Variations', () => {
@@ -50,6 +34,10 @@ describe('Game Lost', () => {
       cy.runGameWithClicks(noMovesKingColumnMoves);
 
       cy.checkGameLost(true);
+
+      cy.checkSummaryMoves(noMovesKingColumnMoves.length);
+
+      cy.testShowBoard();
     });
 
     it('should have A♦ as an available foundation move then no moves after that', () => {
@@ -58,6 +46,10 @@ describe('Game Lost', () => {
       cy.clickFromTo('A♦', 'foundation-0');
 
       cy.checkGameLost(true);
+
+      cy.checkSummaryMoves(1);
+
+      cy.testShowBoard();
     });
 
     it('should have 2♦ as an available foundation move then no moves after that', () => {
@@ -67,6 +59,10 @@ describe('Game Lost', () => {
       cy.clickFromTo('2♦', 'foundation-0');
 
       cy.checkGameLost(true);
+
+      cy.checkSummaryMoves(2);
+
+      cy.testShowBoard();
     });
   });
 
@@ -76,18 +72,15 @@ describe('Game Lost', () => {
 
       cy.setServerDeck(incompleteGameDeck);
 
-      cy.saveStats();
-
       cy.runGameWithClicks(incompleteGameMoves);
+
+      cy.checkGameLost(true);
+
+      cy.checkSummaryMoves(incompleteGameMoves.length);
 
       cy.confirmNewGame();
 
-      cy.checkStatsHaveIncremented({
-        completed: true,
-        lost: true,
-        won: false,
-        quit: false,
-      });
+      cy.checkStats();
     });
   });
 
@@ -99,18 +92,15 @@ describe('Game Lost', () => {
 
       cy.setServerDeck(incompleteGameDeck);
 
-      cy.saveStats();
-
       cy.runGameWithClicks(incompleteGameMoves);
+
+      cy.checkGameLost(true);
+
+      cy.checkSummaryMoves(incompleteGameMoves.length);
 
       cy.confirmNewGame();
 
-      cy.checkStatsHaveIncremented({
-        completed: true,
-        lost: true,
-        won: false,
-        quit: false,
-      });
+      cy.checkStats();
     });
   });
 });

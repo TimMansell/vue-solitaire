@@ -36,6 +36,12 @@ module.exports = (on, config) => {
     getGlobalCounts() {
       return db.collection('globalStats').findOne({});
     },
+    getUserStats(uid) {
+      return db.collection('users').findOne({ uid }, {});
+    },
+    getGlobalStats() {
+      return db.collection('globalStats').findOne({}, {});
+    },
   });
 
   return {
