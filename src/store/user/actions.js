@@ -11,10 +11,9 @@ const actions = {
 
     socketOn('setUser', (user) => {
       dispatch('setUserName', user);
-      dispatch('getPlayerCount');
     });
 
-    socketOn('getUserHistory', (games) => {
+    socketOn('setUserHistory', (games) => {
       dispatch('setUserHistory', games);
     });
   },

@@ -3,46 +3,42 @@ import { socketConnect, socketEmit, socketOn } from '@/services/ws';
 const actions = {
   initStats({ dispatch }) {
     socketConnect(() => {
-      dispatch('getGameCounts');
-      dispatch('getPlayerCount');
+      dispatch('getUsersGamesPlayed');
     });
 
-    socketOn('getUserGames', (userStats) => {
-      dispatch('setUserGames', userStats);
+    socketOn('setUserGamesPlayed', (games) => {
+      dispatch('setUserGamesPlayed', games);
     });
 
-    socketOn('getGlobalGames', (globalStats) => {
-      dispatch('setGlobalGames', globalStats);
+    socketOn('setGlobalGamesPlayed', (games) => {
+      dispatch('setGlobalGamesPlayed', games);
     });
 
-    socketOn('getPlayerCount', (globalStats) => {
-      dispatch('setPlayerCount', globalStats);
+    socketOn('setPlayerCount', (players) => {
+      dispatch('setPlayerCount', players);
     });
 
-    socketOn('getStats', (stats) => {
+    socketOn('setStats', (stats) => {
       dispatch('setStats', stats);
     });
 
-    socketOn('getLeaderboards', (leaderboards) => {
+    socketOn('setLeaderboards', (leaderboards) => {
       dispatch('setLeaderboards', leaderboards);
     });
   },
-  getGameCounts({ getters }) {
+  getUsersGamesPlayed({ getters }) {
     const { uid } = getters;
 
-    socketEmit('getGameCounts', uid);
+    socketEmit('getUsersGamesPlayed', uid);
   },
-  getPlayerCount() {
-    socketEmit('getPlayerCount');
+  setUserGamesPlayed({ commit }, games) {
+    commit('SET_USER_GAME_COUNT', games);
   },
-  setUserGames({ commit }, userStats) {
-    commit('SET_USER_GAME_COUNT', userStats);
+  setGlobalGamesPlayed({ commit }, games) {
+    commit('SET_GLOBAL_GAME_COUNT', games);
   },
-  setGlobalGames({ commit }, globalStats) {
-    commit('SET_GLOBAL_GAME_COUNT', globalStats);
-  },
-  setPlayerCount({ commit }, globalStats) {
-    commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
+  setPlayerCount({ commit }, players) {
+    commit('SET_GLOBAL_PLAYER_COUNT', players);
   },
   setStats({ commit }, { userStats, globalStats }) {
     commit('SET_USER_STATS', userStats);
