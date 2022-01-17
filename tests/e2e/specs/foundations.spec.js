@@ -2,9 +2,9 @@ import AcesDeck from '../../fixtures/decks/acesToFoundation.json';
 
 describe('Foundation moves', () => {
   beforeEach(() => {
-    cy.setDeck(AcesDeck).then(() => {
-      cy.visitApp();
-    });
+    cy.visitApp();
+
+    cy.setBoard(AcesDeck);
   });
 
   afterEach(() => {

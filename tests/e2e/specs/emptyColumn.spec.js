@@ -3,9 +3,9 @@ import emptyColumnMoves from '../../fixtures/moves/emptyColumn.json';
 
 describe('Special column moves', () => {
   beforeEach(() => {
-    cy.setDeck(emptyColumnDeck).then(() => {
-      cy.visitApp();
-    });
+    cy.visitApp();
+
+    cy.setBoard(emptyColumnDeck);
 
     cy.runGameWithClicks(emptyColumnMoves);
 

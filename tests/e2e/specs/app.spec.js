@@ -2,15 +2,15 @@ import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import { mockVersionNumber } from '../../../src/mockData';
 
 describe('App', () => {
+  beforeEach(() => {
+    cy.visitApp();
+  });
+
   afterEach(() => {
     cy.clearTest();
   });
 
   describe('Default', () => {
-    beforeEach(() => {
-      cy.visitApp();
-    });
-
     it('it successfully loads', () => {
       cy.checkConnectingAlertIsVisible(false);
 
@@ -48,8 +48,6 @@ describe('App', () => {
 
   describe.skip('Offline', () => {
     it('it should show alert if offline', () => {
-      cy.visit('/');
-
       cy.window()
         .its('solitaire.$store')
         .then((store) => {
@@ -71,15 +69,11 @@ describe('App', () => {
   describe('Version', () => {
     describe('Upgrading', () => {
       it('it should not show update app to new user', () => {
-        cy.visitApp();
-
         cy.checkAppUpdated(false);
       });
 
       it('it should update up to latest version', () => {
-        cy.setDeck(quitGameDeck).then(() => {
-          cy.visitApp();
-        });
+        cy.setBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 
@@ -87,7 +81,7 @@ describe('App', () => {
 
         cy.reload();
 
-        cy.checkCardIsNotSelected('4♠');
+        cy.checkCardIsNotSelected();
 
         cy.checkAppUpdated(true);
 
@@ -95,9 +89,7 @@ describe('App', () => {
       });
 
       it('it should update to latest version if no appVersion is set in localStorage', () => {
-        cy.setDeck(quitGameDeck).then(() => {
-          cy.visitApp();
-        });
+        cy.setBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 
@@ -105,15 +97,13 @@ describe('App', () => {
 
         cy.reload();
 
-        cy.checkCardIsNotSelected('4♠');
+        cy.checkCardIsNotSelected();
 
         cy.checkAppUpdated(true);
       });
 
       it('it should not update up to latest version', () => {
-        cy.setDeck(quitGameDeck).then(() => {
-          cy.visitApp();
-        });
+        cy.setBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 
@@ -127,8 +117,6 @@ describe('App', () => {
 
     describe('Show Update', () => {
       it('it should show update for an older version, then show no new updates & game updated on page reload', () => {
-        cy.visitApp();
-
         cy.mockVersionUpdate();
 
         cy.checkAppHasUpdated(true);
@@ -146,8 +134,6 @@ describe('App', () => {
       });
 
       it('it should show update for an older version, then show game updated on when update button is pressed', () => {
-        cy.visitApp();
-
         cy.mockVersionUpdate();
 
         cy.checkAppHasUpdated(true);
@@ -165,8 +151,6 @@ describe('App', () => {
       });
 
       it('it should not show no updates on update page', () => {
-        cy.visitApp();
-
         cy.visit('#/update');
 
         cy.checkAppHasUpdated(true);
@@ -175,8 +159,6 @@ describe('App', () => {
       });
 
       it('it should not allow user to leave update page by changing url', () => {
-        cy.visitApp();
-
         cy.mockVersionUpdate();
 
         cy.visit('#/');

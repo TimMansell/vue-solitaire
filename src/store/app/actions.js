@@ -27,9 +27,8 @@ const actions = {
       dispatch('checkVersion', version);
     });
 
-    socketOn('saveGame', () => {
+    socketOn('gameSaved', () => {
       dispatch('createUser');
-      dispatch('getGameCounts');
     });
   },
   restart({ dispatch }) {

@@ -24,9 +24,11 @@ describe('History', () => {
   });
 
   describe('New user', () => {
-    it('it shows no game message', () => {
+    beforeEach(() => {
       cy.visitApp();
+    });
 
+    it('it shows no game message', () => {
       cy.showHistory();
 
       cy.checkHistoryExists(false);
@@ -34,9 +36,7 @@ describe('History', () => {
     });
 
     it('it shows game history after first game played', () => {
-      cy.setDeck(quitGameDeck).then(() => {
-        cy.visitApp();
-      });
+      cy.setServerDeck(quitGameDeck);
 
       cy.runGameWithClicks(quitGameMoves);
 

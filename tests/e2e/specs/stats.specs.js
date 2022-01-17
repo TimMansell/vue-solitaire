@@ -26,21 +26,12 @@ describe('Stats', () => {
       cy.visitApp();
     });
 
-    it('it successfully retrieves 0 games played', () => {
+    it('it retrieves 0 games played and increments after a game has been played', () => {
       cy.checkUserStatsAreZero();
-    });
-
-    it('it successfully increments games played', () => {
-      cy.saveStats();
 
       cy.startNewGame();
 
-      cy.checkStatsHaveIncremented({
-        completed: true,
-        quit: true,
-        won: false,
-        lost: false,
-      });
+      cy.checkStats();
     });
   });
 
@@ -51,21 +42,12 @@ describe('Stats', () => {
       cy.visitApp();
     });
 
-    it('it successfully retrieves games played', () => {
-      cy.checkUserStatsAreNotZero();
-    });
-
-    it('it successfully increments games played', () => {
-      cy.saveStats();
+    it('it retrieves stats and increments after a game has been played', () => {
+      cy.checkStats();
 
       cy.startNewGame();
 
-      cy.checkStatsHaveIncremented({
-        completed: true,
-        quit: true,
-        won: false,
-        lost: false,
-      });
+      cy.checkStats();
     });
   });
 });

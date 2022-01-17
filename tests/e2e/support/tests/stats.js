@@ -30,112 +30,47 @@ Cypress.Commands.add('checkGameLost', (hasLost) => {
   cy.get('[data-test="game-won"]').should('not.exist');
 });
 
-Cypress.Commands.add('saveStats', () => {
+Cypress.Commands.add('checkStats', () => {
+  const uid = localStorage.getItem('luid');
+
+  cy.waitForTimerToStart();
+
   cy.showStats();
 
-  cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('userStats');
-  cy.get('[data-test="global-stats"] [data-test="table-cell"]').as(
-    'globalStats'
-  );
+  cy.task('getUserStats', uid).then(({ completed, won, lost, quit }) => {
+    cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('userStats');
 
-  cy.get('@userStats').eq(0).saveNumberAs('userCompleted');
-  cy.get('@userStats').eq(1).saveNumberAs('userWon');
-  cy.get('@userStats').eq(2).saveNumberAs('userLost');
-  cy.get('@userStats').eq(3).saveNumberAs('userQuit');
-  cy.get('@globalStats').eq(0).saveNumberAs('globalCompleted');
-  cy.get('@globalStats').eq(1).saveNumberAs('globalWon');
-  cy.get('@globalStats').eq(2).saveNumberAs('globalLost');
-  cy.get('@globalStats').eq(3).saveNumberAs('globalQuit');
+    cy.get('@userStats').eq(0).formatNumber().should('equal', completed);
+    cy.get('@userStats').eq(1).formatNumber().should('equal', won);
+    cy.get('@userStats').eq(2).formatNumber().should('equal', lost);
+    cy.get('@userStats').eq(3).formatNumber().should('equal', quit);
+  });
+
+  cy.task('getGlobalStats').then(({ completed, won, lost, quit }) => {
+    cy.get('[data-test="global-stats"] [data-test="table-cell"]').as(
+      'globalStats'
+    );
+
+    cy.get('@globalStats').eq(0).formatNumber().should('equal', completed);
+    cy.get('@globalStats').eq(1).formatNumber().should('equal', won);
+    cy.get('@globalStats').eq(2).formatNumber().should('equal', lost);
+    cy.get('@globalStats').eq(3).formatNumber().should('equal', quit);
+  });
 
   cy.closeOverlay();
 });
-
-Cypress.Commands.add(
-  'checkStatsHaveIncremented',
-  ({ completed, won, lost, quit }) => {
-    cy.waitForGameNumberToUpdate();
-
-    cy.showStats();
-
-    cy.get('@userCompleted').then((value) => {
-      const completedCount = completed ? value + 1 : value;
-
-      cy.get('@userStats').eq(0).formatNumber().should('equal', completedCount);
-    });
-
-    cy.get('@userWon').then((value) => {
-      const wonCount = won ? value + 1 : value;
-
-      cy.get('@userStats').eq(1).formatNumber().should('equal', wonCount);
-    });
-
-    cy.get('@userLost').then((value) => {
-      const lostCount = lost ? value + 1 : value;
-
-      cy.get('@userStats').eq(2).formatNumber().should('equal', lostCount);
-    });
-
-    cy.get('@userQuit').then((value) => {
-      const quitCount = quit ? value + 1 : value;
-
-      cy.get('@userStats').eq(3).formatNumber().should('equal', quitCount);
-    });
-
-    cy.get('@globalCompleted').then((value) => {
-      const completedCount = completed ? value + 1 : value;
-
-      cy.get('@globalStats')
-        .eq(0)
-        .formatNumber()
-        .should('equal', completedCount);
-    });
-
-    cy.get('@globalWon').then((value) => {
-      const wonCount = won ? value + 1 : value;
-
-      cy.get('@globalStats').eq(1).formatNumber().should('equal', wonCount);
-    });
-
-    cy.get('@globalLost').then((value) => {
-      const lostCount = lost ? value + 1 : value;
-
-      cy.get('@globalStats').eq(2).formatNumber().should('equal', lostCount);
-    });
-
-    cy.get('@globalQuit').then((value) => {
-      const quitCount = quit ? value + 1 : value;
-
-      cy.get('@globalStats').eq(3).formatNumber().should('equal', quitCount);
-    });
-  }
-);
 
 Cypress.Commands.add('checkUserStatsAreZero', () => {
   cy.showStats();
 
   cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('userStats');
 
-  cy.get('[data-test="stats"]').formatNumber().should('equal', 0);
+  cy.get('@userStats').eq(0).formatNumber().should('equal', 0);
+  cy.get('@userStats').eq(1).formatNumber().should('equal', 0);
+  cy.get('@userStats').eq(2).formatNumber().should('equal', 0);
+  cy.get('@userStats').eq(3).formatNumber().should('equal', 0);
 
-  cy.get('[data-test="stats"]').formatNumber().should('equal', 0);
-
-  cy.get('[data-test="stats"]').formatNumber().should('equal', 0);
-
-  cy.get('[data-test="stats"]').formatNumber().should('equal', 0);
-});
-
-Cypress.Commands.add('checkUserStatsAreNotZero', () => {
-  cy.showStats();
-
-  cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('userStats');
-
-  cy.get('[data-test="stats"]').formatNumber().should('not.equal', 0);
-
-  cy.get('[data-test="stats"]').formatNumber().should('not.equal', 0);
-
-  cy.get('[data-test="stats"]').formatNumber().should('not.equal', 0);
-
-  cy.get('[data-test="stats"]').formatNumber().should('not.equal', 0);
+  cy.closeOverlay();
 });
 
 Cypress.Commands.add('checkGameSummary', () => {

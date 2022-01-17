@@ -3,13 +3,15 @@ import quitGameMoves from '../../fixtures/moves/quitGame.json';
 import validMoveDeck from '../../fixtures/decks/validMove.json';
 
 describe('Game State', () => {
+  beforeEach(() => {
+    cy.visitApp();
+  });
+
   afterEach(() => {
     cy.clearTest();
   });
 
   it('should pause when page is automatically hidden', () => {
-    cy.visitApp();
-
     cy.setVisibilityHidden();
 
     cy.triggerVisibilityChange();
@@ -17,10 +19,8 @@ describe('Game State', () => {
     cy.checkGameIsPaused(true);
   });
 
-  it('should show correct time, and moves on game summary', () => {
-    cy.setDeck(validMoveDeck).then(() => {
-      cy.visitApp();
-    });
+  it.only('should show correct time, and moves on game summary', () => {
+    cy.setBoard(validMoveDeck);
 
     cy.dragCardFromTo('6♦', '7♦');
 
@@ -29,13 +29,12 @@ describe('Game State', () => {
     cy.pauseGame();
 
     cy.checkSummaryMoves(1);
-    cy.checkSummaryTime('0:00:02');
+
+    cy.checkSummaryTime('0:00:03');
   });
 
   it('refreshing page shows same board state', () => {
-    cy.setDeck(quitGameDeck).then(() => {
-      cy.visitApp();
-    });
+    cy.setBoard(quitGameDeck);
 
     cy.clickCard('4♠');
 
@@ -47,7 +46,7 @@ describe('Game State', () => {
 
     cy.clickCard('4♠');
 
-    cy.checkCardIsNotSelected('4♠');
+    cy.checkCardIsNotSelected();
 
     cy.checkCardPositions([
       { card: '4♣', column: 0, position: 6 },
@@ -57,9 +56,7 @@ describe('Game State', () => {
   });
 
   it('should show correct games, time, and moves on page refresh', () => {
-    cy.setDeck(quitGameDeck).then(() => {
-      cy.visitApp();
-    });
+    cy.setBoard(quitGameDeck);
 
     cy.runGameWithClicks(quitGameMoves);
 
