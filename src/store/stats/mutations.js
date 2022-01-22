@@ -17,6 +17,9 @@ const mutations = {
   SET_LEADERBOARDS(state, leaderboards) {
     state.leaderboards = leaderboards;
   },
+  CLEAR_LEADERBOARDS(state) {
+    state.leaderboards = [];
+  },
 };
 
 export default mutations;
