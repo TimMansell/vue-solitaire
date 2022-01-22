@@ -23,15 +23,23 @@ describe('Leaderboards', () => {
     it('it should display correct heading', () => {
       cy.showLeaderboards();
 
-      cy.checkLeaderboardHeading('Top 25 Best Moves');
+      cy.checkLeaderboardHeading('Top 25 Lowest Moves');
 
       cy.selectLeaderboardBest('Times');
 
-      cy.checkLeaderboardHeading('Top 25 Best Times');
+      cy.checkLeaderboardHeading('Top 25 Quickest Times');
+
+      cy.selectLeaderboardBest('Win %');
+
+      cy.checkLeaderboardHeading('Top 25 Best Win %');
+
+      cy.selectLeaderboardBest('Wins');
+
+      cy.checkLeaderboardHeading('Top 25 Most');
 
       cy.selectLeaderboardTop(50);
 
-      cy.checkLeaderboardHeading('Top 50 Best Times');
+      cy.checkLeaderboardHeading('Top 50 Most Wins');
     });
 
     it('it should display correct amount of table rows', () => {
@@ -52,6 +60,14 @@ describe('Leaderboards', () => {
       cy.selectLeaderboardBest('Times');
 
       cy.checkTableHeading({ cell: 3, heading: 'Times' });
+
+      cy.selectLeaderboardBest('Win %');
+
+      cy.checkTableHeading({ cell: 2, heading: 'Win %' });
+
+      cy.selectLeaderboardBest('Wins');
+
+      cy.checkTableHeading({ cell: 2, heading: 'Wins' });
     });
 
     it('should show correct data from url params', () => {
@@ -60,7 +76,7 @@ describe('Leaderboards', () => {
       cy.checkSelectLeaderboardBest('Times');
       cy.checkSelectLeaderboardTop('100');
 
-      cy.checkLeaderboardHeading('Top 100 Best Times');
+      cy.checkLeaderboardHeading('Top 100 Quickest Times');
 
       cy.checkTableHeading({ cell: 3, heading: 'Times' });
 
@@ -73,7 +89,7 @@ describe('Leaderboards', () => {
       cy.checkSelectLeaderboardBest('Moves');
       cy.checkSelectLeaderboardTop('25');
 
-      cy.checkLeaderboardHeading('Top 25 Best Moves');
+      cy.checkLeaderboardHeading('Top 25 Lowest Moves');
 
       cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
