@@ -6,6 +6,7 @@
           class="table__cell"
           v-for="(heading, headingIndex) in headings"
           :key="headingIndex"
+          data-test="table-header-cell"
         >
           {{ heading }}
         </th>

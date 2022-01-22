@@ -4,8 +4,8 @@ import Table, { isRowHighlighted } from '@/components/Table.vue';
 const propsData = {
   headings: ['Heading 1', 'Heading 2', 'Heading 3'],
   items: [
-    [1, 2, 3],
-    [4, 5, 6],
+    ['Cell 1', 'Cell 2', 'Cell 3'],
+    ['Cell 4', 'Cell 5', 'Cell 6'],
   ],
 };
 
@@ -27,6 +27,65 @@ describe('Table.vue', () => {
     });
 
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should add spacing class', () => {
+    const wrapper = shallowMount(Table, {
+      propsData: {
+        ...propsData,
+        spacing: true,
+      },
+    });
+
+    expect(wrapper.classes()).toContain('table--spacing');
+  });
+
+  it('should populate table headers correctly', () => {
+    const wrapper = shallowMount(Table, {
+      propsData,
+    });
+
+    expect(
+      wrapper.findAll('[data-test="table-header-cell"]').at(0).text()
+    ).toBe(propsData.headings[0]);
+
+    expect(
+      wrapper.findAll('[data-test="table-header-cell"]').at(1).text()
+    ).toBe(propsData.headings[1]);
+
+    expect(
+      wrapper.findAll('[data-test="table-header-cell"]').at(2).text()
+    ).toBe(propsData.headings[2]);
+  });
+
+  it('should populate table body cells correctly', () => {
+    const wrapper = shallowMount(Table, {
+      propsData,
+    });
+
+    expect(wrapper.findAll('[data-test="table-cell"]').at(0).text()).toBe(
+      propsData.items[0][0]
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]').at(1).text()).toBe(
+      propsData.items[0][1]
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]').at(2).text()).toBe(
+      propsData.items[0][2]
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]').at(3).text()).toBe(
+      propsData.items[1][0]
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]').at(4).text()).toBe(
+      propsData.items[1][1]
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]').at(5).text()).toBe(
+      propsData.items[1][2]
+    );
   });
 
   it('should return highlighted row', () => {
@@ -72,7 +131,7 @@ describe('Table.vue', () => {
     const wrapper = shallowMount(Table, {
       propsData: {
         ...propsData,
-        toHighlight: { key: '0', value: 1 },
+        toHighlight: { key: '0', value: 'Cell 1' },
       },
     });
 
