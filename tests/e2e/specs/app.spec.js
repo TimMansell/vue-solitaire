@@ -18,9 +18,12 @@ describe('App', () => {
 
       cy.checkFoundations();
 
-      cy.task('getGlobalCounts').then(({ players, completed }) => {
+      cy.task('getGlobalStats').then(({ completed }) => {
         cy.checkGameNumber(0);
         cy.checkGlobalGameNumber(completed);
+      });
+
+      cy.task('getPlayerCount').then((players) => {
         cy.checkPlayerNumber(players);
       });
     });

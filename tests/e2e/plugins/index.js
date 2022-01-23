@@ -33,14 +33,44 @@ module.exports = (on, config) => {
         .collection('decks')
         .findOneAndUpdate({ uid }, { $set: { uid, cards } }, { upsert: true });
     },
-    getGlobalCounts() {
-      return db.collection('globalStats').findOne({});
+    getPlayerCount() {
+      return db.collection('users').find({}, {}).count();
     },
-    getUserStats(uid) {
-      return db.collection('users').findOne({ uid }, {});
+    async getUserStats(uid) {
+      const { games } = await db.collection('users').findOne({ uid }, {});
+
+      return games;
     },
-    getGlobalStats() {
-      return db.collection('globalStats').findOne({}, {});
+    async getGlobalStats() {
+      const [counts] = await db
+        .collection('games')
+        .aggregate([
+          {
+            $facet: {
+              completed: [
+                { $match: { completed: true } },
+                { $count: 'completed' },
+              ],
+              won: [{ $match: { won: true } }, { $count: 'won' }],
+              lost: [{ $match: { lost: true } }, { $count: 'lost' }],
+              quit: [
+                { $match: { won: false, lost: false, completed: true } },
+                { $count: 'quit' },
+              ],
+            },
+          },
+          {
+            $project: {
+              completed: { $arrayElemAt: ['$completed.completed', 0] },
+              won: { $arrayElemAt: ['$won.won', 0] },
+              lost: { $arrayElemAt: ['$lost.lost', 0] },
+              quit: { $arrayElemAt: ['$quit.quit', 0] },
+            },
+          },
+        ])
+        .toArray();
+
+      return counts;
     },
   });
 
