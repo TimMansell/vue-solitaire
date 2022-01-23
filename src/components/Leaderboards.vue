@@ -35,9 +35,9 @@
       :to-highlight="{ key: 'player', value: name }"
     />
 
-    <small v-if="filters.showBest === 'winPercent'"
-      >* Minimum of 25 games played</small
-    >
+    <small v-if="filters.showBest === 'winPercent'">
+      * Minimum of 25 games played
+    </small>
   </div>
 </template>
 
@@ -152,8 +152,11 @@ export default {
     this.checkInitialFilters();
     this.displayGames();
   },
+  destroyed() {
+    this.clearLeaderboards();
+  },
   methods: {
-    ...mapActions(['getLeaderboards']),
+    ...mapActions(['getLeaderboards', 'clearLeaderboards']),
     checkInitialFilters() {
       const { limitItems, bestItems, limit, showBest } = this;
 

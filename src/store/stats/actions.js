@@ -56,9 +56,12 @@ const actions = {
     socketEmit('getStats', uid);
   },
   getLeaderboards({ commit }, params) {
-    commit('CLEAR_LEADERBOARDS');
+    commit('SET_LEADERBOARDS', []);
 
     socketEmit('getLeaderboards', params);
+  },
+  clearLeaderboards({ commit }) {
+    commit('SET_LEADERBOARDS', []);
   },
 };
 
