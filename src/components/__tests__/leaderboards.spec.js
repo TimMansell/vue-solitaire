@@ -1,6 +1,9 @@
+import tzMock from 'timezone-mock';
 import { shallowMount } from '@vue/test-utils';
 import Leaderboards from '@/components/Leaderboards.vue';
 import { mockUid, mockLeaderboardsMoves, mockPlayerName } from '@/mockData';
+
+tzMock.register('UTC');
 
 const mocks = {
   $store: { dispatch: jest.fn() },
@@ -83,7 +86,47 @@ describe('Leaderboards.vue', () => {
     });
 
     expect(wrapper.find('[data-test="leaderboards-heading"]').text()).toContain(
-      'Top 25 Best Moves'
+      'Top 25 Lowest Moves'
     );
+  });
+
+  it('should show correct table headings', () => {
+    const wrapper = shallowMount(Leaderboards, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.vm.tableHeadings).toStrictEqual([
+      '',
+      'Player',
+      'Date',
+      'Moves',
+    ]);
+  });
+
+  it('should show correct table items', () => {
+    const wrapper = shallowMount(Leaderboards, {
+      mocks,
+      computed: {
+        ...mockComputed,
+      },
+    });
+
+    expect(wrapper.vm.formattedLeaderboards).toStrictEqual([
+      {
+        date: '29-04-2021',
+        moves: 2,
+        player: 'Player 1',
+        rank: 1,
+      },
+      {
+        date: '29-04-2021',
+        moves: 2,
+        player: 'Player 2',
+        rank: 2,
+      },
+    ]);
   });
 });

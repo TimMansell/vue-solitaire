@@ -24,14 +24,20 @@
       </Filters>
     </div>
 
-    <p data-test="leaderboards-heading">Top {{ limit }} Best {{ best }}</p>
+    <h2 data-test="leaderboards-heading">
+      Top {{ limit }} {{ topHeading }} {{ best }}
+    </h2>
 
     <ResponsiveTable
-      :headings="['Rank', 'Date', 'Player', `${best}`]"
-      :items="leaderboardsUsingLocalTimeZone"
+      :headings="tableHeadings"
+      :items="formattedLeaderboards"
       :placeholder-rows="limit"
       :to-highlight="{ key: 'player', value: name }"
     />
+
+    <small v-if="filters.showBest === 'winPercent'">
+      * Minimum of 25 games played
+    </small>
   </div>
 </template>
 
@@ -55,6 +61,8 @@ export default {
       bestItems: [
         { text: 'Moves', value: 'moves' },
         { text: 'Times', value: 'time' },
+        { text: 'Win %', value: 'winPercent' },
+        { text: 'Wins', value: 'wins' },
       ],
       limitItems: [
         { text: '25', value: 25 },
@@ -74,20 +82,57 @@ export default {
         await this.displayGames();
 
         this.updateUrl();
-        this.scrollTo();
       },
       deep: true,
     },
   },
   computed: {
     ...mapGetters(['leaderboards', 'name']),
-    leaderboardsUsingLocalTimeZone() {
-      const { leaderboards } = this;
+    topHeading() {
+      const { showBest } = this;
 
-      return leaderboards.map((leaderboard) => ({
-        ...leaderboard,
-        date: formatDate(leaderboard.date),
-      }));
+      const heading = {
+        moves: 'Lowest',
+        time: 'Quickest',
+        winPercent: 'Best',
+        wins: 'Most',
+      };
+
+      return heading[showBest];
+    },
+    formattedLeaderboards() {
+      const { showBest, leaderboards } = this;
+
+      const formatLeaderboardsContainingDate = (leaderboardsWithDate) =>
+        leaderboardsWithDate.map((leaderboard) => ({
+          ...leaderboard,
+          date: formatDate(leaderboard.date),
+        }));
+
+      const format = {
+        moves: () => formatLeaderboardsContainingDate(leaderboards),
+        time: () => formatLeaderboardsContainingDate(leaderboards),
+        winPercent: () => leaderboards,
+        wins: () => leaderboards,
+      };
+
+      const formattedLeaderboard = format[showBest]?.() ?? leaderboards;
+
+      return formattedLeaderboard;
+    },
+    tableHeadings() {
+      const { showBest } = this;
+
+      const defaultHeadings = ['', 'Player'];
+
+      const headings = {
+        moves: [...defaultHeadings, 'Date', 'Moves'],
+        time: [...defaultHeadings, 'Date', 'Times'],
+        winPercent: [...defaultHeadings, 'Win %'],
+        wins: [...defaultHeadings, 'Wins'],
+      };
+
+      return headings[showBest];
     },
     showBest() {
       return this.filters.showBest;
@@ -107,8 +152,11 @@ export default {
     this.checkInitialFilters();
     this.displayGames();
   },
+  destroyed() {
+    this.clearLeaderboards();
+  },
   methods: {
-    ...mapActions(['getLeaderboards']),
+    ...mapActions(['getLeaderboards', 'clearLeaderboards']),
     checkInitialFilters() {
       const { limitItems, bestItems, limit, showBest } = this;
 
@@ -128,9 +176,6 @@ export default {
       const { filters } = this;
 
       this.getLeaderboards(filters);
-    },
-    scrollTo() {
-      this.$emit('scrollTo', this.$refs.scrollTo);
     },
     updateUrl() {
       const { limit, showBest } = this;

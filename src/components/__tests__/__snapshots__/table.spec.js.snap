@@ -4,13 +4,13 @@ exports[`Table.vue matches snapshot - placeholder rows 1`] = `
 <table class="table">
   <thead>
     <tr data-test="table-header-row">
-      <th class="table__cell">
+      <th data-test="table-header-cell" class="table__cell">
         Heading 1
       </th>
-      <th class="table__cell">
+      <th data-test="table-header-cell" class="table__cell">
         Heading 2
       </th>
-      <th class="table__cell">
+      <th data-test="table-header-cell" class="table__cell">
         Heading 3
       </th>
     </tr>
@@ -36,13 +36,13 @@ exports[`Table.vue matches snapshot 1`] = `
 <table class="table">
   <thead>
     <tr data-test="table-header-row">
-      <th class="table__cell">
+      <th data-test="table-header-cell" class="table__cell">
         Heading 1
       </th>
-      <th class="table__cell">
+      <th data-test="table-header-cell" class="table__cell">
         Heading 2
       </th>
-      <th class="table__cell">
+      <th data-test="table-header-cell" class="table__cell">
         Heading 3
       </th>
     </tr>
@@ -51,24 +51,24 @@ exports[`Table.vue matches snapshot 1`] = `
   <tbody>
     <tr data-test="table-row" class="table__row">
       <td data-test="table-cell" class="table__cell">
-        1
+        Cell 1
       </td>
       <td data-test="table-cell" class="table__cell">
-        2
+        Cell 2
       </td>
       <td data-test="table-cell" class="table__cell">
-        3
+        Cell 3
       </td>
     </tr>
     <tr data-test="table-row" class="table__row">
       <td data-test="table-cell" class="table__cell">
-        4
+        Cell 4
       </td>
       <td data-test="table-cell" class="table__cell">
-        5
+        Cell 5
       </td>
       <td data-test="table-cell" class="table__cell">
-        6
+        Cell 6
       </td>
     </tr>
   </tbody>

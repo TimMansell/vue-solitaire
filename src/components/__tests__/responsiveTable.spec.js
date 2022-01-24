@@ -18,17 +18,28 @@ describe('ResponsiveTable.vue', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('should add spacing class', () => {
+    const wrapper = shallowMount(ResponsiveTable, {
+      propsData: {
+        ...propsData,
+        spacing: true,
+      },
+    });
+
+    expect(wrapper.classes()).toContain('responsive-table--spacing');
+  });
+
   it('does not show table helper after first viewing of component', () => {
     shallowMount(ResponsiveTable, {
       propsData,
     }).destroy();
 
-    const wrapper2 = shallowMount(ResponsiveTable, {
+    const wrapper = shallowMount(ResponsiveTable, {
       propsData,
     });
 
-    expect(
-      wrapper2.find('[data-test="responsive-table-helper"]').exists()
-    ).toBe(false);
+    expect(wrapper.find('[data-test="responsive-table-helper"]').exists()).toBe(
+      false
+    );
   });
 });

@@ -173,11 +173,10 @@ export default {
   }
 
   &__container {
-    justify-self: center;
-
-    @media (min-width: $bp-md) {
+    @media (min-width: $bp-sm) {
+      justify-self: center;
       max-width: 90%;
-      min-width: 60%;
+      min-width: 70%;
     }
 
     @media (min-width: $bp-xl) {

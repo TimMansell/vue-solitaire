@@ -1,11 +1,12 @@
 <template>
-  <table class="table">
+  <table class="table" :class="tableClass">
     <thead>
       <tr data-test="table-header-row">
         <th
           class="table__cell"
           v-for="(heading, headingIndex) in headings"
           :key="headingIndex"
+          data-test="table-header-cell"
         >
           {{ heading }}
         </th>
@@ -74,6 +75,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    spacing: {
+      type: Boolean,
+      default: false,
+    },
     placeholderRows: {
       type: Number,
       default: 1,
@@ -84,6 +89,13 @@ export default {
     },
   },
   computed: {
+    tableClass() {
+      const { spacing } = this;
+
+      return {
+        'table--spacing': spacing,
+      };
+    },
     rows() {
       const { items, toHighlight } = this;
 
@@ -102,7 +114,10 @@ export default {
 .table {
   width: 100%;
   background: var(--bg-primary-alt-2);
-  margin-bottom: var(--mg-md);
+
+  &--spacing {
+    margin-bottom: var(--mg-md);
+  }
 
   &__row {
     background: transparent;

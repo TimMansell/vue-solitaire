@@ -7,11 +7,14 @@ exports[`Leaderboards.vue matches snapshot 1`] = `
   </p>
   <div>
     <filters-stub>
-      <select-stub label="Best" value="moves" items="[object Object],[object Object]" data-test="leaderboard-set-best"></select-stub>
+      <select-stub label="Best" value="moves" items="[object Object],[object Object],[object Object],[object Object]" data-test="leaderboard-set-best"></select-stub>
       <select-stub label="Top" value="25" items="[object Object],[object Object],[object Object],[object Object]" data-test="leaderboard-set-top"></select-stub>
     </filters-stub>
   </div>
-  <p data-test="leaderboards-heading">Top 25 Best Moves</p>
-  <responsivetable-stub headings="Rank,Date,Player,Moves" items="[object Object],[object Object]" placeholderrows="25" tohighlight="[object Object]"></responsivetable-stub>
+  <h2 data-test="leaderboards-heading">
+    Top 25 Lowest Moves
+  </h2>
+  <responsivetable-stub headings=",Player,Date,Moves" items="[object Object],[object Object]" placeholderrows="25" tohighlight="[object Object]"></responsivetable-stub>
+  <!---->
 </div>
 `;

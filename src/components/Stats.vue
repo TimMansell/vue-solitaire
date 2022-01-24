@@ -3,6 +3,7 @@
     <Table
       :headings="headings"
       :items="userStats"
+      :spacing="true"
       :placeholder-rows="2"
       data-test="user-stats"
     />
