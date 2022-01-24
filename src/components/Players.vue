@@ -2,6 +2,9 @@
   <div>
     Players:
     <Counter data-test="player-count" :number="playerCount" />
+    (<span :title="playersOnline" data-test="online-title">
+      <Counter data-test="online-count" :number="onlinePlayerCount" /> </span
+    >)
   </div>
 </template>
 
@@ -15,7 +18,14 @@ export default {
     Counter,
   },
   computed: {
-    ...mapGetters(['playerCount']),
+    ...mapGetters(['playerCount', 'onlinePlayerCount']),
+    playersOnline() {
+      const { onlinePlayerCount } = this;
+
+      const player = onlinePlayerCount > 1 ? 'players' : 'player';
+
+      return `${onlinePlayerCount} ${player} online`;
+    },
   },
 };
 </script>
