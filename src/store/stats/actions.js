@@ -18,6 +18,10 @@ const actions = {
       dispatch('setPlayerCount', players);
     });
 
+    socketOn('setOnlinePlayerCount', (players) => {
+      dispatch('setOnlinePlayerCount', players);
+    });
+
     socketOn('setStats', (stats) => {
       dispatch('setStats', stats);
     });
@@ -39,6 +43,9 @@ const actions = {
   },
   setPlayerCount({ commit }, players) {
     commit('SET_GLOBAL_PLAYER_COUNT', players);
+  },
+  setOnlinePlayerCount({ commit }, players) {
+    commit('SET_ONLINE_PLAYER_COUNT', players);
   },
   setStats({ commit }, { userStats, globalStats }) {
     commit('SET_USER_STATS', userStats);

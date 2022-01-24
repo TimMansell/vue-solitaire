@@ -3,6 +3,7 @@ const state = () => ({
   globalStats: [],
   userStats: [],
   playerCount: 0,
+  onlinePlayerCount: 0,
   userGameCount: 0,
   globalGameCount: 0,
   leaderboards: [],

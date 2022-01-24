@@ -14,6 +14,9 @@ const mutations = {
   SET_GLOBAL_PLAYER_COUNT(state, players) {
     state.playerCount = players;
   },
+  SET_ONLINE_PLAYER_COUNT(state, players) {
+    state.onlinePlayerCount = players;
+  },
   SET_LEADERBOARDS(state, leaderboards) {
     state.leaderboards = leaderboards;
   },
