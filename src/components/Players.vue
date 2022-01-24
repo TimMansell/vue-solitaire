@@ -2,7 +2,7 @@
   <div>
     Players:
     <Counter data-test="player-count" :number="playerCount" />
-    (<span :title="playersOnline">
+    (<span :title="playersOnline" data-test="online-title">
       <Counter data-test="online-count" :number="onlinePlayerCount" /> </span
     >)
   </div>
