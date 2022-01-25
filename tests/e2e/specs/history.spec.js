@@ -49,8 +49,6 @@ describe('History', () => {
 
       cy.checkTableHasRowLength(1);
 
-      cy.checkHistoryGames();
-
       cy.checkHistoryPages();
 
       cy.checkIsOnPage(1);
@@ -74,8 +72,6 @@ describe('History', () => {
 
       cy.checkTableHasRowLength(25);
 
-      cy.checkHistoryGames();
-
       cy.checkHistoryPages();
 
       cy.checkIsOnPage(1);
@@ -91,8 +87,6 @@ describe('History', () => {
 
       cy.setHistoryPage('>');
 
-      cy.checkHistoryGames();
-
       cy.checkHistoryPages();
 
       cy.checkIsOnPage(2);
@@ -107,8 +101,6 @@ describe('History', () => {
       cy.checkHistoryMessageExists(false);
 
       cy.setHistoryPage('2');
-
-      cy.checkHistoryGames();
 
       cy.checkHistoryPages();
 
@@ -129,8 +121,6 @@ describe('History', () => {
 
       cy.checkHistoryPages();
 
-      cy.checkHistoryGames();
-
       cy.checkIsLastPage();
 
       cy.checkHistoryShowingGames();
@@ -145,8 +135,6 @@ describe('History', () => {
       cy.setHistoryPage('2');
 
       cy.setHistoryPage('First');
-
-      cy.checkHistoryGames();
 
       cy.checkHistoryPages();
 
@@ -163,8 +151,6 @@ describe('History', () => {
 
       cy.setHistoryPage('2');
       cy.setHistoryPage('<');
-
-      cy.checkHistoryGames();
 
       cy.checkHistoryPages();
 
@@ -234,8 +220,6 @@ describe('History', () => {
 
       cy.checkSelectHistoryGames(games);
 
-      cy.checkHistoryGames();
-
       cy.checkHistoryPages();
 
       cy.checkIsOnPage(page);
@@ -247,8 +231,6 @@ describe('History', () => {
       cy.visit('#/history/abc/5000');
 
       cy.checkSelectHistoryGames(25);
-
-      cy.checkHistoryGames();
 
       cy.checkHistoryPages();
 
