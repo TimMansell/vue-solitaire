@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`OfflineAlert.vue matches snapshot 1`] = `<toast-stub msgs="Connection to the server has been lost." btntext="How can I fix this?" btnclick="[Function]" duration="5000" data-test="offline-alert"></toast-stub>`;
