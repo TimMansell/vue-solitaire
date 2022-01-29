@@ -26,6 +26,7 @@ export default {
       'gameOutcome',
       'hasGameUpdated',
       'isOldVersion',
+      'isOnline',
     ]),
   },
   created() {
@@ -66,6 +67,11 @@ export default {
       if (!hasGameUpdated || this.$route.path === '/') return;
 
       this.$router.replace('/');
+    },
+    isOnline(isOnline) {
+      if (isOnline) return;
+
+      this.$router.replace('/connection-error');
     },
   },
   methods: {

@@ -19,6 +19,12 @@ export const socketDisconnect = (callback) => {
   });
 };
 
+export const socketError = (callback) => {
+  socket.on('connect_error', (obj) => {
+    callback(obj);
+  });
+};
+
 export const socketEmit = (name, payload) => socket.emit(name, payload);
 
 export const socketOn = (name, callback) => {

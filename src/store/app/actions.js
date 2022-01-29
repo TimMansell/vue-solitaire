@@ -1,6 +1,7 @@
 import {
   socketConnect,
   socketDisconnect,
+  socketError,
   socketEmit,
   socketOn,
 } from '@/services/ws';
@@ -23,7 +24,12 @@ const actions = {
       dispatch('setIsOnline', false);
     });
 
-    socketOn('getLatestVersion', (version) => {
+    socketError(() => {
+      dispatch('setIsOnline', false);
+      dispatch('setIsConnecting', false);
+    });
+
+    socketOn('checkVersion', (version) => {
       dispatch('checkVersion', version);
     });
 
