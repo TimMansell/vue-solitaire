@@ -6,6 +6,7 @@ import Pause from '@/pages/Pause.vue';
 import History from '@/pages/History.vue';
 import Stats from '@/pages/Stats.vue';
 import Leaderboards from '@/pages/Leaderboards.vue';
+import ConnectionError from '@/pages/ConnectionError.vue';
 
 const routes = [
   {
@@ -93,11 +94,11 @@ const routes = [
     },
   },
   {
-    path: '/what-is-offline-mode',
-    name: 'what-is-offline-mode',
+    path: '/connection-error',
+    name: 'connection-error',
     components: {
       main: Home,
-      overlay: () => import('@/pages/OfflineMode.vue'),
+      overlay: ConnectionError,
     },
     beforeEnter(to, from, next) {
       if (!store.getters.isOnline) {
