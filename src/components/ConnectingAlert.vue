@@ -1,8 +1,8 @@
 <template>
   <Toast
-    v-if="isConnecting"
+    :show="isConnecting"
     :msgs="['Connecting to game server']"
-    :duration="1000"
+    :duration="500"
     data-test="connecting-alert"
   />
 </template>

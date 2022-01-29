@@ -9,42 +9,28 @@
             </div>
           </div>
         </div>
-        <div class="toast__button" v-if="btnText">
-          <Button type="alt" @click="btnClick">
-            {{ btnText }}
-          </Button>
-        </div>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
-import Button from '@/components/Button.vue';
-
 export default {
   name: 'Toast',
-  components: {
-    Button,
-  },
   props: {
     msgs: {
       type: Array,
       required: true,
-    },
-    btnText: {
-      type: String,
-      default: '',
-    },
-    btnClick: {
-      type: Function,
-      default: () => {},
     },
     duration: {
       type: Number,
       default: 5000,
     },
     show: {
+      type: Boolean,
+      default: false,
+    },
+    timer: {
       type: Boolean,
       default: false,
     },
@@ -55,9 +41,25 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.showIf = false;
-    }, this.duration);
+    const { timer } = this;
+
+    if (!timer) return;
+
+    this.setTimer();
+  },
+  watch: {
+    show() {
+      this.setTimer();
+    },
+  },
+  methods: {
+    setTimer() {
+      const { duration } = this;
+
+      setTimeout(() => {
+        this.showIf = false;
+      }, duration);
+    },
   },
 };
 </script>
@@ -96,17 +98,6 @@ export default {
 
     @media (min-width: $bp-sm) {
       font-size: var(--font-size);
-    }
-  }
-
-  &__button {
-    margin-top: var(--mg-xs);
-    display: flex;
-    justify-content: center;
-
-    @media (min-width: $bp-sm) {
-      margin-left: var(--mg-md);
-      margin-top: 0;
     }
   }
 }
