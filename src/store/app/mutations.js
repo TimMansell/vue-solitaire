@@ -3,16 +3,10 @@ import defaultState from './state';
 const mutations = {
   RESTART_APP(state) {
     const newState = {
-      ...defaultState(state),
+      ...defaultState(),
     };
 
     Object.assign(state, newState);
-  },
-  SET_IS_ONLINE(state, isOnline) {
-    state.connection.isOnline = isOnline;
-  },
-  SET_IS_CONNECTING(state, isConnecting) {
-    state.connection.isConnecting = isConnecting;
   },
   SET_IS_OUTDATED_VERSION(state, isOldVersion) {
     state.isOldVersion = isOldVersion;

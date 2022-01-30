@@ -1,33 +1,13 @@
-import {
-  socketConnect,
-  socketDisconnect,
-  socketError,
-  socketEmit,
-  socketOn,
-} from '@/services/ws';
+import { socketEmit, socketOn } from '@/services/ws';
 import { getVersion, setVersion, checkVersion } from '@/services/version';
 
 const actions = {
   initApp({ dispatch }) {
+    dispatch('initConnection');
     dispatch('initUser');
     dispatch('initGame');
     dispatch('initStats');
     dispatch('updateApp');
-    dispatch('setIsConnecting', true);
-
-    socketConnect(() => {
-      dispatch('setIsOnline', true);
-      dispatch('setIsConnecting', false);
-    });
-
-    socketDisconnect(() => {
-      dispatch('setIsOnline', false);
-    });
-
-    socketError(() => {
-      dispatch('setIsOnline', false);
-      dispatch('setIsConnecting', false);
-    });
 
     socketOn('checkVersion', (version) => {
       dispatch('checkVersion', version);
@@ -64,12 +44,7 @@ const actions = {
   setHasUpdated({ commit }, hasUpdated) {
     commit('SET_HAS_UPDATED', hasUpdated);
   },
-  setIsOnline({ commit }, isOnline) {
-    commit('SET_IS_ONLINE', isOnline);
-  },
-  setIsConnecting({ commit }, isConnecting) {
-    commit('SET_IS_CONNECTING', isConnecting);
-  },
+
   checkVersion({ commit }, version) {
     const appVersion = getVersion();
     const isVersionOutdated = checkVersion(appVersion, version);

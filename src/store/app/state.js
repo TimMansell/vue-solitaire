@@ -14,10 +14,6 @@ const state = () => ({
   isOverlayVisible: true,
   isOldVersion: false,
   hasGameUpdated: false,
-  connection: {
-    isConnecting: true,
-    isOnline: true,
-  },
   version,
 });
 

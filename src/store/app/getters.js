@@ -9,8 +9,6 @@ const getters = {
   hasGameUpdated: ({ hasGameUpdated }) => hasGameUpdated,
   isOldVersion: ({ isOldVersion }) => isOldVersion,
   version: ({ version }) => version,
-  isConnecting: ({ connection }) => connection.isConnecting,
-  isOnline: ({ connection }) => connection.isOnline,
   isCompletedGame: ({ gameOutcome }) =>
     gameOutcome.hasGameLost || gameOutcome.hasGameWon,
 };

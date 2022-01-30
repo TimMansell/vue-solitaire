@@ -26,7 +26,7 @@ export default {
       'gameOutcome',
       'hasGameUpdated',
       'isOldVersion',
-      'isOnline',
+      'hasConnectionError',
     ]),
   },
   created() {
@@ -68,8 +68,9 @@ export default {
 
       this.$router.replace('/');
     },
-    isOnline(isOnline) {
-      if (isOnline) return;
+    hasConnectionError(hasConnectionError) {
+      if (!hasConnectionError || this.$route.path === '/connection-error')
+        return;
 
       this.$router.replace('/connection-error');
     },

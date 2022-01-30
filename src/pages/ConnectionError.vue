@@ -22,11 +22,11 @@ export default {
     ReconnectButton,
   },
   computed: {
-    ...mapGetters(['isOnline']),
+    ...mapGetters(['hasConnectionError']),
   },
   watch: {
-    isOnline(isOnline) {
-      if (!isOnline) return;
+    hasConnectionError(hasConnectionError) {
+      if (hasConnectionError) return;
 
       this.$router.replace('/');
     },
