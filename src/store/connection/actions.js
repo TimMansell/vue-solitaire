@@ -7,6 +7,7 @@ const actions = {
     socketConnect(() => {
       dispatch('setIsOnline', true);
       dispatch('setIsConnecting', false);
+      dispatch('setHasConnected', true);
     });
 
     socketDisconnect(() => {
@@ -23,6 +24,9 @@ const actions = {
   },
   setIsConnecting({ commit }, isConnecting) {
     commit('SET_IS_CONNECTING', isConnecting);
+  },
+  setHasConnected({ commit }, hasConnected) {
+    commit('SET_HAS_CONNECTED', hasConnected);
   },
 };
 

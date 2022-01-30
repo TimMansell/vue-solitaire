@@ -1,5 +1,6 @@
 const state = () => ({
   isConnecting: false,
+  hasConnected: false,
   isOnline: false,
 });
 
