@@ -1,6 +1,6 @@
 <template>
-  <transition v-if="showIf">
-    <div class="toast" data-test="toast">
+  <transition :duration="1000">
+    <div class="toast" data-test="toast" v-if="show">
       <div class="toast__wrapper">
         <div class="toast__content">
           <div class="toast__msg">
@@ -22,43 +22,9 @@ export default {
       type: Array,
       required: true,
     },
-    duration: {
-      type: Number,
-      default: 5000,
-    },
     show: {
       type: Boolean,
       default: false,
-    },
-    timer: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      showIf: this.show,
-    };
-  },
-  mounted() {
-    const { timer } = this;
-
-    if (!timer) return;
-
-    this.setTimer();
-  },
-  watch: {
-    show() {
-      this.setTimer();
-    },
-  },
-  methods: {
-    setTimer() {
-      const { duration } = this;
-
-      setTimeout(() => {
-        this.showIf = false;
-      }, duration);
     },
   },
 };

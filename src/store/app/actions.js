@@ -57,8 +57,12 @@ const actions = {
 
     setVersion(version);
 
+    dispatch('setHasUpdated', showUpdated);
+
     commit('SET_VERSION', version);
-    commit('SET_HAS_UPDATED', showUpdated);
+  },
+  setHasUpdated({ commit }, hasUpdated) {
+    commit('SET_HAS_UPDATED', hasUpdated);
   },
   setIsOnline({ commit }, isOnline) {
     commit('SET_IS_ONLINE', isOnline);

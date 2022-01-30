@@ -2,7 +2,6 @@
   <Toast
     :show="isConnecting"
     :msgs="['Connecting to game server']"
-    :duration="500"
     data-test="connecting-alert"
   />
 </template>
