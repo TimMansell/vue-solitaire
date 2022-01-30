@@ -2,7 +2,7 @@
   <Button
     @click="$router.push('/rules')"
     :is-stacked="true"
-    :disabled="isGamePaused"
+    :check-disabled="true"
     data-test="game-rules-btn"
     title="How to Play"
   >
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Button from './Button.vue';
@@ -26,9 +25,6 @@ export default {
     return {
       rulesIcon: faQuestionCircle,
     };
-  },
-  computed: {
-    ...mapGetters(['isGamePaused']),
   },
 };
 </script>

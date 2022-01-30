@@ -2,7 +2,7 @@
   <Button
     @click="$router.push('/history')"
     :is-stacked="true"
-    :disabled="isEmptyBoard || !isOnline || isGamePaused"
+    :check-disabled="true"
     data-test="history-btn"
   >
     Games
@@ -10,16 +10,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
   name: 'HistoryButton',
   components: {
     Button,
-  },
-  computed: {
-    ...mapGetters(['isEmptyBoard', 'isOnline', 'isGamePaused']),
   },
 };
 </script>

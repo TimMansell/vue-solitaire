@@ -1,8 +1,8 @@
 <template>
   <Button
     @click="$router.push('/leaderboards')"
+    :check-disabled="true"
     :is-stacked="true"
-    :disabled="isEmptyBoard || !isOnline || isGamePaused"
     data-test="leaderboards-btn"
   >
     Ranks
@@ -10,16 +10,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import Button from './Button.vue';
 
 export default {
   name: 'LeaderboardsButton',
   components: {
     Button,
-  },
-  computed: {
-    ...mapGetters(['isEmptyBoard', 'isOnline', 'isGamePaused']),
   },
 };
 </script>
