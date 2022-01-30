@@ -75,7 +75,7 @@ export default {
     isDisabled() {
       const { isGamePaused, hasConnectionError } = this;
 
-      return isGamePaused && hasConnectionError;
+      return isGamePaused || hasConnectionError;
     },
     cardValue() {
       const { value, suit } = this;
