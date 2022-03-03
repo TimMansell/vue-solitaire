@@ -101,10 +101,10 @@ const routes = [
       overlay: ConnectionError,
     },
     beforeEnter(to, from, next) {
-      if (!store.getters.isOnline) {
+      if (store.getters.hasConnectionError) {
         next();
       } else {
-        next(false);
+        next('/');
       }
     },
   },
