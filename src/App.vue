@@ -2,7 +2,6 @@
   <div id="app">
     <RouterView name="main" />
     <RouterView name="overlay" />
-    <Alerts />
   </div>
 </template>
 
@@ -13,13 +12,9 @@ import {
   addEventListener,
   removeEventListener,
 } from '@/helpers/eventListeners';
-import Alerts from '@/components/Alerts.vue';
 
 export default {
   name: 'App',
-  components: {
-    Alerts,
-  },
   computed: {
     ...mapGetters([
       'isGamePaused',
