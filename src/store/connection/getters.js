@@ -1,8 +1,6 @@
 const getters = {
-  isConnecting: ({ isConnecting }) => isConnecting,
-  hasConnectionError: ({ isConnecting, isOnline }) =>
+  hasConnectionError: ({ isOnline, isConnecting }) =>
     !isOnline && !isConnecting,
-  hasConnected: ({ hasConnected, isOnline }) => hasConnected && isOnline,
 };
 
 export default getters;

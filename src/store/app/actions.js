@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { socketEmit, socketOn } from '@/services/ws';
 import { getVersion, setVersion, checkVersion } from '@/services/version';
 
@@ -41,10 +42,13 @@ const actions = {
 
     commit('SET_VERSION', version);
   },
-  setHasUpdated({ commit }, hasUpdated) {
-    commit('SET_HAS_UPDATED', hasUpdated);
-  },
+  setHasUpdated({ commit }, showUpdated) {
+    if (showUpdated) {
+      Vue.$toast('Game has been updated to latest version', { timeout: 3000 });
+    }
 
+    commit('SET_HAS_UPDATED', showUpdated);
+  },
   checkVersion({ commit }, version) {
     const appVersion = getVersion();
     const isVersionOutdated = checkVersion(appVersion, version);
