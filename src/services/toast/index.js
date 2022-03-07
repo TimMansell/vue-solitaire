@@ -6,6 +6,7 @@ export const toast = createToastInterface({
   position: 'bottom-center',
   closeButton: false,
   timeout: 2000,
+  closeOnClick: false,
   draggable: false,
   pauseOnHover: false,
   pauseOnFocusLoss: false,
