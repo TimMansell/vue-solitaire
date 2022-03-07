@@ -1,17 +1,17 @@
-import Vue from 'vue';
 import { socketConnect, socketDisconnect, socketError } from '@/services/ws';
+import { toast } from '@/services/toast';
 
 const actions = {
   initConnection({ dispatch }) {
-    dispatch('setIsConnecting', true);
+    const toastId = toast('Connecting to game server');
 
-    const toastId = Vue.$toast('Connecting to game server');
+    dispatch('setIsConnecting', true);
 
     socketConnect(() => {
       dispatch('setIsOnline', true);
       dispatch('setIsConnecting', false);
 
-      Vue.$toast.update(toastId, { content: 'Connected to game server' }, true);
+      toast.update(toastId, { content: 'Connected to game server' }, true);
     });
 
     socketDisconnect(() => {

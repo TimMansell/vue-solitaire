@@ -1,6 +1,6 @@
-import Vue from 'vue';
 import { socketEmit, socketOn } from '@/services/ws';
 import { getVersion, setVersion, checkVersion } from '@/services/version';
+import { toast } from '@/services/toast';
 
 const actions = {
   initApp({ dispatch }) {
@@ -44,7 +44,9 @@ const actions = {
   },
   setHasUpdated({ commit }, showUpdated) {
     if (showUpdated) {
-      Vue.$toast('Game has been updated to latest version', { timeout: 3000 });
+      toast('Game has been updated to latest version', {
+        timeout: 3000,
+      });
     }
 
     commit('SET_HAS_UPDATED', showUpdated);
