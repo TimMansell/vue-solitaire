@@ -46,6 +46,7 @@ const actions = {
     if (showUpdated) {
       toast('Game has been updated to latest version', {
         timeout: 3000,
+        bodyClassName: ['toast-updated-alert'],
       });
     }
 

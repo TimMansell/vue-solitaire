@@ -3,7 +3,10 @@ import { toast } from '@/services/toast';
 
 const actions = {
   initConnection({ dispatch }) {
-    const toastId = toast('Connecting to game server');
+    toast('Connecting to game server', {
+      id: 'connecting',
+      bodyClassName: ['toast-connection-alert'],
+    });
 
     dispatch('setIsConnecting', true);
 
@@ -11,7 +14,7 @@ const actions = {
       dispatch('setIsOnline', true);
       dispatch('setIsConnecting', false);
 
-      toast.update(toastId, { content: 'Connected to game server' }, true);
+      toast.update('connecting', { content: 'Connected to game server' }, true);
     });
 
     socketDisconnect(() => {
