@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay center-content show-logo data-test="connection-lost">
+  <GameOverlay center-content show-logo data-test="connection-error">
     <template #title>No Server Connection</template>
     <template #msg>
       <p>You can wait for the server to come back online or try reconnecting</p>
@@ -30,6 +30,15 @@ export default {
 
       this.$router.replace('/');
     },
+  },
+  beforeRouteLeave(to, from, next) {
+    const { hasConnectionError } = this;
+
+    if (hasConnectionError) {
+      next(false);
+    } else {
+      next();
+    }
   },
 };
 </script>
