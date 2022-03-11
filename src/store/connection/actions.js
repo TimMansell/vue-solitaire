@@ -3,18 +3,11 @@ import { toast } from '@/services/toast';
 
 const actions = {
   initConnection({ dispatch }) {
-    toast('Connecting to game server', {
-      id: 'connecting',
-      bodyClassName: ['toast-connection-alert'],
-    });
-
     dispatch('setIsConnecting', true);
 
     socketConnect(() => {
       dispatch('setIsOnline', true);
       dispatch('setIsConnecting', false);
-
-      toast.update('connecting', { content: 'Connected to game server' }, true);
     });
 
     socketDisconnect(() => {
@@ -28,9 +21,20 @@ const actions = {
     });
   },
   setIsOnline({ commit }, isOnline) {
+    if (isOnline) {
+      toast.update('connecting', { content: 'Connected to game server' }, true);
+    }
+
     commit('SET_IS_ONLINE', isOnline);
   },
   setIsConnecting({ commit }, isConnecting) {
+    if (isConnecting) {
+      toast('Connecting to game server', {
+        id: 'connecting',
+        bodyClassName: ['toast-connection-alert'],
+      });
+    }
+
     commit('SET_IS_CONNECTING', isConnecting);
   },
 };
