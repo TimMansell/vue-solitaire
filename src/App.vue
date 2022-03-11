@@ -64,10 +64,13 @@ export default {
       this.$router.replace('/');
     },
     hasConnectionError(hasConnectionError) {
-      if (!hasConnectionError || this.$route.path === '/connection-error')
-        return;
+      if (!hasConnectionError && this.$route.path === '/connection-error') {
+        this.$router.replace('/');
+      }
 
-      this.$router.replace('/connection-error');
+      if (hasConnectionError && this.$route.path !== '/connection-error') {
+        this.$router.replace('/connection-error');
+      }
     },
   },
   methods: {

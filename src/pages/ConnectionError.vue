@@ -24,16 +24,6 @@ export default {
   computed: {
     ...mapGetters(['hasConnectionError']),
   },
-  watch: {
-    hasConnectionError(hasConnectionError) {
-      if (hasConnectionError) return;
-
-      this.$router.replace('/');
-    },
-  },
-  mounted() {
-    this.checkStatus();
-  },
   beforeRouteLeave(to, from, next) {
     const { hasConnectionError } = this;
 
@@ -42,15 +32,6 @@ export default {
     } else {
       next();
     }
-  },
-  methods: {
-    checkStatus() {
-      const { hasConnectionError } = this;
-
-      if (hasConnectionError) return;
-
-      this.$router.replace('/');
-    },
   },
 };
 </script>
