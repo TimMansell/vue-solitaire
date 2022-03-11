@@ -1,13 +1,21 @@
 import { createToastInterface } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 
-// eslint-disable-next-line import/prefer-default-export
-export const toast = createToastInterface({
+const toast = createToastInterface({
   position: 'bottom-center',
   closeButton: false,
-  timeout: 2000,
   closeOnClick: false,
   draggable: false,
   pauseOnHover: false,
   pauseOnFocusLoss: false,
 });
+
+export const createToast = ({ id, content, timeout = 2000 }) =>
+  toast(content, {
+    id,
+    timeout,
+    bodyClassName: [`${id}-toast`],
+  });
+
+export const updateToast = ({ id, content }) =>
+  toast.update(id, { content }, true);

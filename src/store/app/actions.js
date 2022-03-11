@@ -1,6 +1,6 @@
 import { socketEmit, socketOn } from '@/services/ws';
 import { getVersion, setVersion, checkVersion } from '@/services/version';
-import { toast } from '@/services/toast';
+import { createToast } from '@/services/toast';
 
 const actions = {
   initApp({ dispatch }) {
@@ -44,9 +44,9 @@ const actions = {
   },
   setHasUpdated({ commit }, showUpdated) {
     if (showUpdated) {
-      toast('Game has been updated to latest version', {
-        timeout: 3000,
-        bodyClassName: ['toast-updated-alert'],
+      createToast({
+        id: 'updated',
+        content: 'Game has been updated to latest version',
       });
     }
 

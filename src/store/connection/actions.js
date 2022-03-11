@@ -1,5 +1,5 @@
 import { socketConnect, socketDisconnect, socketError } from '@/services/ws';
-import { toast } from '@/services/toast';
+import { createToast, updateToast } from '@/services/toast';
 
 const actions = {
   initConnection({ dispatch }) {
@@ -22,16 +22,19 @@ const actions = {
   },
   setIsOnline({ commit }, isOnline) {
     if (isOnline) {
-      toast.update('connecting', { content: 'Connected to game server' }, true);
+      updateToast({
+        id: 'connection',
+        content: 'Connected to game server',
+      });
     }
 
     commit('SET_IS_ONLINE', isOnline);
   },
   setIsConnecting({ commit }, isConnecting) {
     if (isConnecting) {
-      toast('Connecting to game server', {
-        id: 'connecting',
-        bodyClassName: ['toast-connection-alert'],
+      createToast({
+        id: 'connection',
+        content: 'Connecting to game server',
       });
     }
 
