@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectionError.vue matches snapshot 1`] = `
+<gameoverlay-stub centercontent="true" showlogo="true" data-test="connection-error">No Server Connection<p>You can wait for the server to come back online or try reconnecting</p>
+  <reconnectbutton-stub></reconnectbutton-stub>
+</gameoverlay-stub>
+`;
