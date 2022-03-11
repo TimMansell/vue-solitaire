@@ -11,7 +11,7 @@ const toast = createToastInterface({
 });
 
 export const createToast = ({ id, content, timeout = 2000 }) =>
-  toast(content, {
+  toast.success(content, {
     id,
     timeout,
     bodyClassName: [`${id}-toast`],
