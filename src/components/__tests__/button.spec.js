@@ -1,9 +1,13 @@
 import { shallowMount } from '@vue/test-utils';
 import Button from '@/components/Button.vue';
 
+const computed = {
+  isDisabledGame: () => false,
+};
+
 describe('Button.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(Button);
+    const wrapper = shallowMount(Button, { computed });
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -13,6 +17,7 @@ describe('Button.vue', () => {
       propsData: {
         type: 'alt',
       },
+      computed,
     });
 
     expect(wrapper.classes()).toContain('btn--alt');
@@ -23,6 +28,7 @@ describe('Button.vue', () => {
       propsData: {
         type: 'link',
       },
+      computed,
     });
 
     expect(wrapper.classes()).toContain('btn--link');
@@ -33,6 +39,7 @@ describe('Button.vue', () => {
       propsData: {
         type: 'icon',
       },
+      computed,
     });
 
     expect(wrapper.classes()).toContain('btn--icon');
@@ -43,6 +50,7 @@ describe('Button.vue', () => {
       propsData: {
         isStacked: true,
       },
+      computed,
     });
 
     expect(wrapper.classes()).toContain('btn--is-stacked');
@@ -53,6 +61,7 @@ describe('Button.vue', () => {
       propsData: {
         size: 'sm',
       },
+      computed,
     });
 
     expect(wrapper.classes()).toContain('btn--small');
@@ -63,6 +72,7 @@ describe('Button.vue', () => {
       propsData: {
         size: 'lg',
       },
+      computed,
     });
 
     expect(wrapper.classes()).toContain('btn--large');
@@ -71,7 +81,10 @@ describe('Button.vue', () => {
   it('renders a disabled button', () => {
     const wrapper = shallowMount(Button, {
       propsData: {
-        disabled: true,
+        checkDisabled: true,
+      },
+      computed: {
+        isDisabledGame: () => true,
       },
     });
 
@@ -79,7 +92,7 @@ describe('Button.vue', () => {
   });
 
   it('should call click method', () => {
-    const wrapper = shallowMount(Button);
+    const wrapper = shallowMount(Button, { computed });
 
     wrapper.trigger('click');
 
@@ -89,7 +102,10 @@ describe('Button.vue', () => {
   it('should not call click method', () => {
     const wrapper = shallowMount(Button, {
       propsData: {
-        disabled: true,
+        checkDisabled: true,
+      },
+      computed: {
+        isDisabledGame: () => true,
       },
     });
 

@@ -4,6 +4,5 @@ exports[`App.vue matches snapshot 1`] = `
 <div id="app">
   <routerview-stub name="main"></routerview-stub>
   <routerview-stub name="overlay"></routerview-stub>
-  <alerts-stub></alerts-stub>
 </div>
 `;
