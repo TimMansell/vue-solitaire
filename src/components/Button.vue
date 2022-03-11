@@ -34,14 +34,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isEmptyBoard', 'isGamePaused', 'hasConnectionError']),
+    ...mapGetters(['isDisabledGame']),
     isDisabled() {
-      const { isEmptyBoard, isGamePaused, hasConnectionError, checkDisabled } =
-        this;
+      const { isDisabledGame, checkDisabled } = this;
 
-      if (!checkDisabled) return false;
+      if (checkDisabled) return isDisabledGame;
 
-      return isEmptyBoard || isGamePaused || hasConnectionError;
+      return false;
     },
     classes() {
       const { type, isStacked, size, isDisabled } = this;

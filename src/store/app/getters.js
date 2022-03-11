@@ -11,6 +11,8 @@ const getters = {
   version: ({ version }) => version,
   isCompletedGame: ({ gameOutcome }) =>
     gameOutcome.hasGameLost || gameOutcome.hasGameWon,
+  isDisabledGame: (_, { isEmptyBoard, isGamePaused, hasConnectionError }) =>
+    isEmptyBoard || isGamePaused || hasConnectionError,
 };
 
 export default getters;
