@@ -1,21 +1,44 @@
 import { createToastInterface } from 'vue-toastification';
-import 'vue-toastification/dist/index.css';
+import Toast from '@/components/Toast.vue';
 
 const toast = createToastInterface({
   position: 'bottom-center',
   closeButton: false,
   closeOnClick: false,
   draggable: false,
+  hideProgressBar: true,
   pauseOnHover: false,
   pauseOnFocusLoss: false,
+  icon: false,
 });
 
-export const createToast = ({ id, content, timeout = 2000 }) =>
-  toast.success(content, {
-    id,
-    timeout,
-    bodyClassName: [`${id}-toast`],
-  });
+const createComponent = ({ content, icon }) => ({
+  component: Toast,
+  props: {
+    content,
+    icon,
+  },
+});
 
-export const updateToast = ({ id, content }) =>
-  toast.update(id, { content }, true);
+export const createToast = ({ id, content, timeout = false, icon }) =>
+  toast(
+    { ...createComponent({ content, icon }) },
+    {
+      id,
+      timeout,
+    }
+  );
+
+export const updateToast = ({ id, content, timeout = false, icon }) =>
+  toast.update(
+    id,
+    {
+      content: {
+        ...createComponent({ content, icon }),
+      },
+      options: { timeout },
+    },
+    true
+  );
+
+export const dismissToast = ({ id }) => toast.dismiss(id);

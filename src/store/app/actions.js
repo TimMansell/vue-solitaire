@@ -47,6 +47,7 @@ const actions = {
       createToast({
         id: 'updated',
         content: 'Game has been updated to latest version',
+        icon: 'check-circle',
       });
     }
 

@@ -1,5 +1,5 @@
 import { socketConnect, socketDisconnect, socketError } from '@/services/ws';
-import { createToast, updateToast } from '@/services/toast';
+import { createToast, updateToast, dismissToast } from '@/services/toast';
 
 const actions = {
   initConnection({ dispatch }) {
@@ -18,6 +18,8 @@ const actions = {
     socketError(() => {
       dispatch('setIsOnline', false);
       dispatch('setIsConnecting', false);
+
+      dismissToast({ id: 'connection' });
     });
   },
   setIsOnline({ commit }, isOnline) {
@@ -25,6 +27,8 @@ const actions = {
       updateToast({
         id: 'connection',
         content: 'Connected to game server',
+        icon: 'check-circle',
+        timeout: 2000,
       });
     }
 
@@ -35,6 +39,7 @@ const actions = {
       createToast({
         id: 'connection',
         content: 'Connecting to game server',
+        icon: 'clock',
       });
     }
 
