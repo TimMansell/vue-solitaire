@@ -25,7 +25,7 @@ describe('App', () => {
 
       cy.task('getPlayerCount').then((players) => {
         cy.checkPlayerNumber(players);
-        cy.checkOnlinePlayerNumber(1);
+        cy.checkOnlinePlayerNumber();
       });
     });
 
