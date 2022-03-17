@@ -21,19 +21,13 @@ const actions = {
     socketOn('setOnlinePlayerCount', (players) => {
       dispatch('setOnlinePlayerCount', players);
     });
-
-    socketOn('setStats', (stats) => {
-      dispatch('setStats', stats);
-    });
-
-    socketOn('setLeaderboards', (leaderboards) => {
-      dispatch('setLeaderboards', leaderboards);
-    });
   },
-  getUsersGamesPlayed({ getters }) {
+  getUsersGamesPlayed({ dispatch, getters }) {
     const { uid } = getters;
 
-    socketEmit('getUsersGamesPlayed', uid);
+    socketEmit('getUsersGamesPlayed', uid, (games) => {
+      dispatch('setUserGamesPlayed', games);
+    });
   },
   setUserGamesPlayed({ commit }, games) {
     commit('SET_USER_GAME_COUNT', games);
@@ -47,25 +41,23 @@ const actions = {
   setOnlinePlayerCount({ commit }, players) {
     commit('SET_ONLINE_PLAYER_COUNT', players);
   },
-  setStats({ commit }, { userStats, globalStats }) {
-    commit('SET_USER_STATS', userStats);
-    commit('SET_GLOBAL_STATS', globalStats);
-  },
-  setLeaderboards({ commit }, leaderboards) {
-    commit('SET_LEADERBOARDS', leaderboards);
-  },
-  getStats({ dispatch, getters }) {
+  getStats({ commit, getters }) {
     const { uid } = getters;
-    const stats = { userStats: [], globalStats: [] };
 
-    dispatch('setStats', stats);
+    commit('SET_USER_STATS', []);
+    commit('SET_GLOBAL_STATS', []);
 
-    socketEmit('getStats', uid);
+    socketEmit('getStats', uid, ({ userStats, globalStats }) => {
+      commit('SET_USER_STATS', userStats);
+      commit('SET_GLOBAL_STATS', globalStats);
+    });
   },
   getLeaderboards({ commit }, params) {
     commit('SET_LEADERBOARDS', []);
 
-    socketEmit('getLeaderboards', params);
+    socketEmit('getLeaderboards', params, (leaderboards) => {
+      commit('SET_LEADERBOARDS', leaderboards);
+    });
   },
   clearLeaderboards({ commit }) {
     commit('SET_LEADERBOARDS', []);

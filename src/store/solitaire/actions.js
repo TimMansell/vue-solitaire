@@ -1,4 +1,4 @@
-import { socketConnect, socketOn, socketEmit } from '@/services/ws';
+import { socketConnect, socketEmit } from '@/services/ws';
 import {
   initBoard,
   initFoundation,
@@ -17,18 +17,16 @@ const actions = {
     socketConnect(() => {
       dispatch('initNewGame');
     });
-
-    socketOn('newGame', (deck) => {
-      dispatch('initBoard', deck);
-      dispatch('initFoundation');
-    });
   },
-  initNewGame({ getters }) {
+  initNewGame({ dispatch, getters }) {
     const { uid, isEmptyBoard } = getters;
 
     if (!isEmptyBoard) return;
 
-    socketEmit('newGame', uid);
+    socketEmit('newGame', uid, (deck) => {
+      dispatch('initBoard', deck);
+      dispatch('initFoundation');
+    });
   },
   restartGame({ commit }) {
     commit('RESTART_GAME');

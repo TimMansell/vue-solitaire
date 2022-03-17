@@ -13,10 +13,6 @@ const actions = {
     socketOn('checkVersion', (version) => {
       dispatch('checkVersion', version);
     });
-
-    socketOn('gameSaved', () => {
-      dispatch('createUser');
-    });
   },
   restart({ dispatch }) {
     dispatch('restartApp');
@@ -74,10 +70,12 @@ const actions = {
 
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  saveGame({ getters }) {
+  saveGame({ dispatch, getters }) {
     const { uid, game } = getters;
 
-    socketEmit('saveGame', { uid, game });
+    socketEmit('saveGame', { uid, game }, () => {
+      dispatch('createUser');
+    });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
