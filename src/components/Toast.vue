@@ -38,8 +38,9 @@ export default {
   computed: {
     displayIcon() {
       const { icon } = this;
-      const icons = [faClock, faCheckCircle, faExclamationCircle];
-      const iconToUse = icons.find(({ iconName }) => iconName === icon);
+      const iconToUse = [faClock, faCheckCircle, faExclamationCircle].find(
+        ({ iconName }) => iconName === icon
+      );
 
       return iconToUse;
     },
