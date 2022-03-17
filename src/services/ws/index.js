@@ -24,7 +24,8 @@ export const socketError = (callback) => {
   });
 };
 
-export const socketEmit = (name, payload) => socket.emit(name, payload);
+export const socketEmit = (name, payload, callback) =>
+  socket.emit(name, payload, callback);
 
 export const socketOn = (name, callback) => {
   socket.on(name, (obj) => {
