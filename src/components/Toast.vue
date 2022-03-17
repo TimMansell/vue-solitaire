@@ -6,7 +6,11 @@
 </template>
 
 <script>
-import { faCheckCircle, faClock } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheckCircle,
+  faClock,
+  faExclamationCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
@@ -26,15 +30,15 @@ export default {
     icon: {
       type: String,
       validator(value) {
-        return ['clock', 'check-circle'].includes(value);
+        return ['clock', 'check-circle', 'exclamation-circle'].includes(value);
       },
-      required: true,
+      default: 'exclamation-circle',
     },
   },
   computed: {
     displayIcon() {
       const { icon } = this;
-      const icons = [faClock, faCheckCircle];
+      const icons = [faClock, faCheckCircle, faExclamationCircle];
       const iconToUse = icons.find(({ iconName }) => iconName === icon);
 
       return iconToUse;
