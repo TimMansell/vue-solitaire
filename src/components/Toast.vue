@@ -1,5 +1,5 @@
 <template>
-  <div data-test="toast">
+  <div :data-test="testId">
     <FontAwesomeIcon :icon="displayIcon" />
     {{ content }}
   </div>
@@ -15,6 +15,10 @@ export default {
     FontAwesomeIcon,
   },
   props: {
+    id: {
+      type: [String, Number],
+      required: true,
+    },
     content: {
       type: String,
       required: true,
@@ -34,6 +38,11 @@ export default {
       const iconToUse = icons.find(({ iconName }) => iconName === icon);
 
       return iconToUse;
+    },
+    testId() {
+      const { id } = this;
+
+      return `toast-${id}`;
     },
   },
 };

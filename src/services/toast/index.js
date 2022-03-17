@@ -12,17 +12,14 @@ const toast = createToastInterface({
   icon: false,
 });
 
-const createComponent = ({ content, icon }) => ({
+const createComponent = (props) => ({
   component: Toast,
-  props: {
-    content,
-    icon,
-  },
+  props,
 });
 
 export const createToast = ({ id, content, timeout = false, icon }) =>
   toast(
-    { ...createComponent({ content, icon }) },
+    { ...createComponent({ id, content, icon }) },
     {
       id,
       timeout,
@@ -34,7 +31,7 @@ export const updateToast = ({ id, content, timeout = false, icon }) =>
     id,
     {
       content: {
-        ...createComponent({ content, icon }),
+        ...createComponent({ id, content, icon }),
       },
       options: { timeout },
     },

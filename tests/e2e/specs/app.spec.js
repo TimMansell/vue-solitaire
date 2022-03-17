@@ -75,6 +75,8 @@ describe('App', () => {
       cy.reload();
 
       cy.checkConnectionPageIsVisible(false);
+
+      cy.checkConnectedAlert();
     });
 
     it('it should show alert if offline and then hide when reconnect button is clicked', () => {
