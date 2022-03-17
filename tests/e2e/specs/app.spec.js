@@ -12,7 +12,7 @@ describe('App', () => {
 
   describe('Default', () => {
     it('it successfully loads', () => {
-      cy.checkConnectingAlertIsVisible(false);
+      cy.checkConnectedAlert();
 
       cy.checkBoard();
 
@@ -25,7 +25,7 @@ describe('App', () => {
 
       cy.task('getPlayerCount').then((players) => {
         cy.checkPlayerNumber(players);
-        cy.checkOnlinePlayerNumber(1);
+        cy.checkOnlinePlayerNumber();
       });
     });
 
@@ -50,27 +50,57 @@ describe('App', () => {
     });
   });
 
-  describe.skip('Offline', () => {
-    it('it should show alert if offline', () => {
-      cy.window()
-        .its('solitaire.$store')
-        .then((store) => {
-          store.dispatch('setIsOnline', false);
-        });
+  describe('Offline', () => {
+    it('it should show alert if offline and then hide once online', () => {
+      cy.checkConnectedAlert();
 
-      cy.checkOfflineAlertIsVisible(true);
+      cy.mockIsOnline(false);
 
-      cy.window()
-        .its('solitaire.$store')
-        .then((store) => {
-          store.dispatch('setIsOnline', true);
-        });
+      cy.checkConnectionPageIsVisible(true);
 
-      cy.checkOfflineAlertIsVisible(false);
+      cy.mockIsOnline(true);
+
+      cy.checkConnectionPageIsVisible(false);
+
+      cy.checkConnectedAlert();
+    });
+
+    it('it should show alert if offline and then hide when page is reloaded', () => {
+      cy.checkConnectedAlert();
+
+      cy.mockIsOnline(false);
+
+      cy.checkConnectionPageIsVisible(true);
+
+      cy.reload();
+
+      cy.checkConnectionPageIsVisible(false);
+
+      cy.checkConnectedAlert();
+    });
+
+    it('it should show alert if offline and then hide when reconnect button is clicked', () => {
+      cy.checkConnectedAlert();
+
+      cy.mockIsOnline(false);
+
+      cy.checkConnectionPageIsVisible(true);
+
+      cy.reconnect();
+
+      cy.checkConnectionPageIsVisible(false);
+    });
+
+    it('it should not allow loading of connection error page if connected', () => {
+      cy.checkConnectedAlert();
+
+      cy.visit('#/connection-error');
+
+      cy.checkConnectionPageIsVisible(false);
     });
   });
 
-  describe('Version', () => {
+  describe.skip('Version', () => {
     describe('Upgrading', () => {
       it('it should not show update app to new user', () => {
         cy.checkAppUpdated(false);

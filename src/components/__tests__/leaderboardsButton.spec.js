@@ -3,13 +3,7 @@ import LeaderboardsButton from '@/components/LeaderboardsButton.vue';
 
 describe('LeaderboardsButton.vue', () => {
   it('matches snapshot', () => {
-    const wrapper = shallowMount(LeaderboardsButton, {
-      computed: {
-        isEmptyBoard: () => false,
-        isOnline: () => true,
-        isGamePaused: () => false,
-      },
-    });
+    const wrapper = shallowMount(LeaderboardsButton);
 
     expect(wrapper).toMatchSnapshot();
   });

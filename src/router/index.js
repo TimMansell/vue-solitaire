@@ -93,17 +93,17 @@ const routes = [
     },
   },
   {
-    path: '/what-is-offline-mode',
-    name: 'what-is-offline-mode',
+    path: '/connection-error',
+    name: 'connection-error',
     components: {
       main: Home,
-      overlay: () => import('@/pages/OfflineMode.vue'),
+      overlay: () => import('@/pages/ConnectionError.vue'),
     },
     beforeEnter(to, from, next) {
-      if (!store.getters.isOnline) {
+      if (store.getters.hasConnectionError) {
         next();
       } else {
-        next(false);
+        next('/');
       }
     },
   },

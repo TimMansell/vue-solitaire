@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import BottomCard from '@/components/BottomCard.vue';
 
 const computed = {
-  isGamePaused: () => false,
+  isDisabledGame: () => false,
 };
 
 describe('BottomCard.vue', () => {
@@ -33,9 +33,6 @@ describe('BottomCard.vue', () => {
       mocks: {
         $store: mockStore,
       },
-      propsData: {
-        disabled: false,
-      },
       computed,
     });
 
@@ -51,11 +48,8 @@ describe('BottomCard.vue', () => {
       mocks: {
         $store: mockStore,
       },
-      propsData: {
-        disabled: false,
-      },
       computed: {
-        isGamePaused: () => true,
+        isDisabledGame: () => true,
       },
     });
 

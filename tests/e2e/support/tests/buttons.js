@@ -82,3 +82,7 @@ Cypress.Commands.add('goHome', () => {
 Cypress.Commands.add('update', () => {
   cy.get('[data-test="update-btn"]').click();
 });
+
+Cypress.Commands.add('reconnect', () => {
+  cy.get('[data-test="reconnect-btn"]').click();
+});

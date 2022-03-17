@@ -12,6 +12,7 @@ describe('App.vue', () => {
         gameOutcome: () => {},
         hasGameUpdated: () => false,
         isOldVersion: () => false,
+        hasConnectionError: () => false,
       },
       stubs: ['RouterView'],
     });

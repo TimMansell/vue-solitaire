@@ -2,7 +2,6 @@
   <div id="app">
     <RouterView name="main" />
     <RouterView name="overlay" />
-    <Alerts />
   </div>
 </template>
 
@@ -13,19 +12,16 @@ import {
   addEventListener,
   removeEventListener,
 } from '@/helpers/eventListeners';
-import Alerts from '@/components/Alerts.vue';
 
 export default {
   name: 'App',
-  components: {
-    Alerts,
-  },
   computed: {
     ...mapGetters([
       'isGamePaused',
       'gameOutcome',
       'hasGameUpdated',
       'isOldVersion',
+      'hasConnectionError',
     ]),
   },
   created() {
@@ -66,6 +62,15 @@ export default {
       if (!hasGameUpdated || this.$route.path === '/') return;
 
       this.$router.replace('/');
+    },
+    hasConnectionError(hasConnectionError) {
+      if (!hasConnectionError && this.$route.path === '/connection-error') {
+        this.$router.replace('/');
+      }
+
+      if (hasConnectionError && this.$route.path !== '/connection-error') {
+        this.$router.replace('/connection-error');
+      }
     },
   },
   methods: {

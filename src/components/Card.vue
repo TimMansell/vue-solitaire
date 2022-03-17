@@ -5,7 +5,7 @@
     @click="selectCard($event, id)"
     @dragstart="dragCard($event, id)"
     @dragend.prevent
-    :draggable="visible && !isGamePaused"
+    :draggable="visible && !isDisabledGame"
     :data-test="cardTestName"
     :data-card-selected="cardIsSelected"
   >
@@ -69,7 +69,7 @@ export default {
       'selectedCardId',
       'draggedCards',
       'isCardDragged',
-      'isGamePaused',
+      'isDisabledGame',
     ]),
     cardValue() {
       const { value, suit } = this;
@@ -106,9 +106,9 @@ export default {
   methods: {
     ...mapActions(['setCard', 'setDraggedCards']),
     selectCard(e, id) {
-      const { selectedCardId, clickable, visible, isGamePaused } = this;
+      const { selectedCardId, clickable, visible, isDisabledGame } = this;
 
-      if (!selectedCardId && !isGamePaused) {
+      if (!selectedCardId && !isDisabledGame) {
         e.stopPropagation();
 
         if (clickable && visible) {

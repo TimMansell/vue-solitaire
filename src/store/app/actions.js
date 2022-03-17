@@ -1,29 +1,16 @@
-import {
-  socketConnect,
-  socketDisconnect,
-  socketEmit,
-  socketOn,
-} from '@/services/ws';
+import { socketEmit, socketOn } from '@/services/ws';
 import { getVersion, setVersion, checkVersion } from '@/services/version';
+import { createToast } from '@/services/toast';
 
 const actions = {
   initApp({ dispatch }) {
+    dispatch('initConnection');
     dispatch('initUser');
     dispatch('initGame');
     dispatch('initStats');
     dispatch('updateApp');
-    dispatch('setIsConnecting', true);
 
-    socketConnect(() => {
-      dispatch('setIsOnline', true);
-      dispatch('setIsConnecting', false);
-    });
-
-    socketDisconnect(() => {
-      dispatch('setIsOnline', false);
-    });
-
-    socketOn('getLatestVersion', (version) => {
+    socketOn('checkVersion', (version) => {
       dispatch('checkVersion', version);
     });
 
@@ -51,14 +38,20 @@ const actions = {
 
     setVersion(version);
 
+    dispatch('setHasUpdated', showUpdated);
+
     commit('SET_VERSION', version);
+  },
+  setHasUpdated({ commit }, showUpdated) {
+    if (showUpdated) {
+      createToast({
+        id: 'updated',
+        content: 'Game has been updated to latest version',
+        icon: 'check-circle',
+      });
+    }
+
     commit('SET_HAS_UPDATED', showUpdated);
-  },
-  setIsOnline({ commit }, isOnline) {
-    commit('SET_IS_ONLINE', isOnline);
-  },
-  setIsConnecting({ commit }, isConnecting) {
-    commit('SET_IS_CONNECTING', isConnecting);
   },
   checkVersion({ commit }, version) {
     const appVersion = getVersion();

@@ -19,7 +19,7 @@ describe('Game State', () => {
     cy.checkGameIsPaused(true);
   });
 
-  it.only('should show correct time, and moves on game summary', () => {
+  it('should show correct time, and moves on game summary', () => {
     cy.setBoard(validMoveDeck);
 
     cy.dragCardFromTo('6♦', '7♦');

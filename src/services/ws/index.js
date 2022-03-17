@@ -2,8 +2,7 @@ import { io } from 'socket.io-client';
 
 const { VITE_WEBSOCKETS_URL } = import.meta.env;
 
-// eslint-disable-next-line import/prefer-default-export
-export const socket = io(VITE_WEBSOCKETS_URL, {
+const socket = io(VITE_WEBSOCKETS_URL, {
   transports: ['websocket'],
 });
 
@@ -15,6 +14,12 @@ export const socketConnect = (callback) => {
 
 export const socketDisconnect = (callback) => {
   socket.on('disconnect', (obj) => {
+    callback(obj);
+  });
+};
+
+export const socketError = (callback) => {
+  socket.on('connect_error', (obj) => {
     callback(obj);
   });
 };

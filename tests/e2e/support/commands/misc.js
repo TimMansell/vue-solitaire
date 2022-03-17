@@ -4,6 +4,4 @@ Cypress.Commands.add('clearTest', () => {
     .then((store) => {
       store.dispatch('setGamePaused', true);
     });
-
-  cy.clearLocalStorage();
 });

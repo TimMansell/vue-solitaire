@@ -1,10 +1,12 @@
 <template>
-  <button class="btn" :class="classes" @click="click" :disabled="disabled">
+  <button class="btn" :class="classes" @click="click" :disabled="isDisabled">
     <slot />
   </button>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Button',
   props: {
@@ -19,7 +21,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    disabled: {
+    checkDisabled: {
       type: Boolean,
       default: false,
     },
@@ -32,8 +34,16 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['isDisabledGame']),
+    isDisabled() {
+      const { isDisabledGame, checkDisabled } = this;
+
+      if (checkDisabled) return isDisabledGame;
+
+      return false;
+    },
     classes() {
-      const { type, isStacked, size, disabled } = this;
+      const { type, isStacked, size, isDisabled } = this;
 
       return {
         'btn--alt': type === 'alt',
@@ -42,7 +52,7 @@ export default {
         'btn--icon': type === 'icon',
         'btn--small': size === 'sm',
         'btn--large': size === 'lg',
-        'btn--disabled': disabled,
+        'btn--disabled': isDisabled,
       };
     },
   },

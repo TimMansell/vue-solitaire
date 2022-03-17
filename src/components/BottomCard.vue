@@ -29,14 +29,14 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isGamePaused']),
+    ...mapGetters(['isDisabledGame']),
   },
   methods: {
     ...mapActions(['autoMoveCardToFoundation']),
     autoMoveCard(e, id) {
-      const { isGamePaused } = this;
+      const { isDisabledGame } = this;
 
-      if (isGamePaused) return;
+      if (isDisabledGame) return;
 
       this.autoMoveCardToFoundation(id);
     },

@@ -12,7 +12,7 @@ const defaultProps = {
 
 const computed = {
   selectedCardId: () => null,
-  isGamePaused: () => false,
+  isDisabledGame: () => false,
 };
 
 describe('Card.vue', () => {
@@ -263,7 +263,7 @@ describe('Card.vue', () => {
       expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
     });
 
-    it('should not call store action when clicked when game is paued', () => {
+    it('should not call store action when clicked when game is disabled', () => {
       const wrapper = shallowMount(Card, {
         mocks,
         propsData: {
@@ -272,7 +272,7 @@ describe('Card.vue', () => {
         },
         computed: {
           ...computed,
-          isGamePaused: () => false,
+          isDisabledGame: () => true,
         },
       });
 
