@@ -1,10 +1,4 @@
-import {
-  createConnection,
-  connect,
-  on,
-  disconnect,
-  error,
-} from '@/services/ws';
+import { createConnection, connect, on, disconnect } from '@/services/ws';
 import { createToast, updateToast, dismissToast } from '@/services/toast';
 
 const actions = {
@@ -13,27 +7,17 @@ const actions = {
 
     dispatch('setIsConnecting', true);
     dispatch('initWatchers');
-
+  },
+  initWatchers({ dispatch }) {
     connect(() => {
-      dispatch('setIsOnline', true);
-      dispatch('setIsConnecting', false);
-
+      dispatch('connected');
       // dispatch('initNewGame');
     });
 
     disconnect(() => {
-      dispatch('setIsOnline', false);
-      dispatch('setIsConnecting', false);
-      dispatch('setIsDisconnected', true);
+      dispatch('disconnected');
     });
 
-    error(() => {
-      dispatch('setIsOnline', false);
-      dispatch('setIsConnecting', false);
-      dispatch('setIsDisconnected', true);
-    });
-  },
-  initWatchers({ dispatch }) {
     on('checkVersion', (version) => {
       dispatch('checkVersion', version);
     });
@@ -75,6 +59,16 @@ const actions = {
       dispatch('setUserGames', games);
     });
   },
+  connected({ dispatch }) {
+    dispatch('setIsOnline', true);
+    dispatch('setIsConnecting', false);
+  },
+  disconnected({ dispatch }) {
+    dispatch('setIsOnline', false);
+    dispatch('setIsConnecting', false);
+
+    dismissToast({ id: 'connection' });
+  },
   setIsOnline({ commit }, isOnline) {
     if (isOnline) {
       updateToast({
@@ -97,11 +91,6 @@ const actions = {
     }
 
     commit('SET_IS_CONNECTING', isConnecting);
-  },
-  setIsDisconnected(_, isDisconnected) {
-    if (isDisconnected) {
-      dismissToast({ id: 'connection' });
-    }
   },
 };
 

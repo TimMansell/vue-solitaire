@@ -22,6 +22,7 @@ export const on = (name, callback) =>
 
 export const connect = (callback) => on('connect', callback);
 
-export const disconnect = (callback) => on('disconnect', callback);
-
-export const error = (callback) => on('connect_error', callback);
+export const disconnect = (callback) => {
+  on('disconnect', callback);
+  on('connect_error', callback);
+};
