@@ -1,22 +1,18 @@
-import { socketEmit, socketOn } from '@/services/ws';
 import { getVersion, setVersion, checkVersion } from '@/services/version';
 import { createToast } from '@/services/toast';
+import { emit } from '@/services/ws';
 
 const actions = {
   initApp({ dispatch }) {
-    dispatch('initConnection');
     dispatch('initUser');
-    dispatch('initGame');
-    dispatch('initStats');
+    dispatch('initConnection');
     dispatch('updateApp');
-
-    socketOn('checkVersion', (version) => {
-      dispatch('checkVersion', version);
-    });
   },
   restart({ dispatch }) {
     dispatch('restartApp');
     dispatch('restartGame');
+
+    emit('newGame');
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
@@ -55,27 +51,19 @@ const actions = {
 
     commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
-  newGame({ dispatch, getters }) {
-    const { isCompletedGame } = getters;
-
-    if (!isCompletedGame) {
-      dispatch('saveGame');
-    }
-
+  newGame({ dispatch }) {
+    dispatch('saveGame');
     dispatch('restart');
-    dispatch('initNewGame');
   },
   setGameOutcome({ commit, dispatch }, hasWon) {
     dispatch('saveGame');
 
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  saveGame({ dispatch, getters }) {
-    const { uid, game } = getters;
+  saveGame({ getters }) {
+    const { game } = getters;
 
-    socketEmit('saveGame', { uid, game }, () => {
-      dispatch('createUser');
-    });
+    emit('saveGame', game);
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);

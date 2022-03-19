@@ -1,34 +1,27 @@
 import { io } from 'socket.io-client';
 
-const { VITE_WEBSOCKETS_URL } = import.meta.env;
+let socket;
 
-const socket = io(VITE_WEBSOCKETS_URL, {
-  transports: ['websocket'],
-});
+export const createConnection = (uid) => {
+  const { VITE_WEBSOCKETS_URL } = import.meta.env;
 
-export const socketConnect = (callback) => {
-  socket.on('connect', (obj) => {
-    callback(obj);
+  socket = io(VITE_WEBSOCKETS_URL, {
+    transports: ['websocket'],
+    query: {
+      uid,
+    },
   });
 };
 
-export const socketDisconnect = (callback) => {
-  socket.on('disconnect', (obj) => {
-    callback(obj);
-  });
-};
+export const emit = (name, payload) => socket.emit(name, payload);
 
-export const socketError = (callback) => {
-  socket.on('connect_error', (obj) => {
-    callback(obj);
-  });
-};
-
-export const socketEmit = (name, payload, callback) =>
-  socket.emit(name, payload, callback);
-
-export const socketOn = (name, callback) => {
+export const on = (name, callback) =>
   socket.on(name, (obj) => {
     callback(obj);
   });
-};
+
+export const connect = (callback) => on('connect', callback);
+
+export const disconnect = (callback) => on('disconnect', callback);
+
+export const error = (callback) => on('connect_error', callback);

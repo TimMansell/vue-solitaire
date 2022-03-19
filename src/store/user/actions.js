@@ -1,44 +1,23 @@
-import { socketConnect, socketEmit } from '@/services/ws';
 import { initUser } from '@/services/user';
+import { emit } from '@/services/ws';
 
 const actions = {
-  initUser({ dispatch }) {
-    dispatch('setUser');
-
-    socketConnect(() => {
-      dispatch('getUser');
-    });
-  },
-  setUser({ commit, state }) {
+  initUser({ commit, state }) {
     const { luid } = state;
     const uid = luid || initUser();
 
     commit('SET_USER_ID', uid);
   },
-  getUser({ commit, getters }) {
-    const { uid } = getters;
-
-    socketEmit('getUser', uid, (user) => {
-      commit('SET_USER_NAME', user);
-    });
+  setUser({ commit }, user) {
+    commit('SET_USER_NAME', user);
   },
-  createUser({ commit, getters }) {
-    const { uid, name } = getters;
-
-    if (name) return;
-
-    socketEmit('createUser', uid, (user) => {
-      commit('SET_USER_NAME', user);
-    });
+  setUserGames({ commit }, games) {
+    commit('SET_USER_GAMES', games);
   },
-  getAllGames({ commit, getters }, params) {
-    const { uid } = getters;
+  getAllGames({ dispatch }, params) {
+    dispatch('setUserGames', []);
 
-    commit('SET_USER_GAMES', []);
-
-    socketEmit('getUserHistory', { uid, ...params }, (games) => {
-      commit('SET_USER_GAMES', games);
-    });
+    emit('getUserHistory', params);
   },
 };
 

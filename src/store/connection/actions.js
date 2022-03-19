@@ -1,25 +1,78 @@
-import { socketConnect, socketDisconnect, socketError } from '@/services/ws';
+import {
+  createConnection,
+  connect,
+  on,
+  disconnect,
+  error,
+} from '@/services/ws';
 import { createToast, updateToast, dismissToast } from '@/services/toast';
 
 const actions = {
-  initConnection({ dispatch }) {
-    dispatch('setIsConnecting', true);
+  initConnection({ dispatch, getters }) {
+    createConnection(getters.uid);
 
-    socketConnect(() => {
+    dispatch('setIsConnecting', true);
+    dispatch('initWatchers');
+
+    connect(() => {
       dispatch('setIsOnline', true);
       dispatch('setIsConnecting', false);
+
+      // dispatch('initNewGame');
     });
 
-    socketDisconnect(() => {
+    disconnect(() => {
       dispatch('setIsOnline', false);
       dispatch('setIsConnecting', false);
+      dispatch('setIsDisconnected', true);
     });
 
-    socketError(() => {
+    error(() => {
       dispatch('setIsOnline', false);
       dispatch('setIsConnecting', false);
+      dispatch('setIsDisconnected', true);
+    });
+  },
+  initWatchers({ dispatch }) {
+    on('checkVersion', (version) => {
+      dispatch('checkVersion', version);
+    });
 
-      dismissToast({ id: 'connection' });
+    on('setUserGamesPlayed', (games) => {
+      dispatch('setUserGamesPlayed', games);
+    });
+
+    on('setGlobalGamesPlayed', (games) => {
+      dispatch('setGlobalGamesPlayed', games);
+    });
+
+    on('setPlayerCount', (players) => {
+      dispatch('setPlayerCount', players);
+    });
+
+    on('setOnlinePlayerCount', (players) => {
+      dispatch('setOnlinePlayerCount', players);
+    });
+
+    on('getUser', (user) => {
+      dispatch('setUser', user);
+    });
+
+    on('newGame', (deck) => {
+      dispatch('initBoard', deck);
+      dispatch('initFoundation');
+    });
+
+    on('setStats', (stats) => {
+      dispatch('setStats', stats);
+    });
+
+    on('setLeaderboards', (leaderboards) => {
+      dispatch('setLeaderboards', leaderboards);
+    });
+
+    on('setUserGames', (games) => {
+      dispatch('setUserGames', games);
     });
   },
   setIsOnline({ commit }, isOnline) {
@@ -44,6 +97,11 @@ const actions = {
     }
 
     commit('SET_IS_CONNECTING', isConnecting);
+  },
+  setIsDisconnected(_, isDisconnected) {
+    if (isDisconnected) {
+      dismissToast({ id: 'connection' });
+    }
   },
 };
 
