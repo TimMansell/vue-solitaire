@@ -22,34 +22,15 @@ const actions = {
     const { socket } = state;
 
     socket.on('checkVersion', (version) => dispatch('checkVersion', version));
-
-    socket.on('setUserGamesPlayed', (games) =>
-      dispatch('setUserGamesPlayed', games)
-    );
-
-    socket.on('setGlobalGamesPlayed', (games) =>
-      dispatch('setGlobalGamesPlayed', games)
-    );
-
-    socket.on('setPlayerCount', (players) =>
-      dispatch('setPlayerCount', players)
-    );
-
-    socket.on('setOnlinePlayerCount', (players) =>
-      dispatch('setOnlinePlayerCount', players)
-    );
-
-    socket.on('getUser', (user) => dispatch('setUser', user));
-
-    socket.on('newGame', (deck) => dispatch('newBoard', deck));
-
-    socket.on('setStats', (stats) => dispatch('setStats', stats));
-
-    socket.on('setLeaderboards', (leaderboards) =>
-      dispatch('setLeaderboards', leaderboards)
-    );
-
-    socket.on('setUserGames', (games) => dispatch('setUserGames', games));
+    socket.on('userPlayed', (games) => dispatch('setUserPlayed', games));
+    socket.on('globalPlayed', (games) => dispatch('setGlobalPlayed', games));
+    socket.on('playerCount', (players) => dispatch('setPlayerCount', players));
+    socket.on('onlineCount', (players) => dispatch('setOnlineCount', players));
+    socket.on('user', (user) => dispatch('setUser', user));
+    socket.on('newGame', (deck) => dispatch('setNewGame', deck));
+    socket.on('stats', (stats) => dispatch('setStats', stats));
+    socket.on('userGames', (games) => dispatch('setUserGames', games));
+    socket.on('leaderboards', (games) => dispatch('setLeaderboards', games));
   },
   emit({ state }, { name, params }) {
     const { socket } = state;

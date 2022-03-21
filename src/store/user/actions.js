@@ -17,7 +17,7 @@ const actions = {
     dispatch('setUserGames', []);
 
     dispatch('emit', {
-      name: 'getUserHistory',
+      name: 'userHistory',
       params,
     });
   },

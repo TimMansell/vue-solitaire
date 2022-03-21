@@ -1,14 +1,14 @@
 const actions = {
-  setUserGamesPlayed({ commit }, games) {
+  setUserPlayed({ commit }, games) {
     commit('SET_USER_GAME_COUNT', games);
   },
-  setGlobalGamesPlayed({ commit }, games) {
+  setGlobalPlayed({ commit }, games) {
     commit('SET_GLOBAL_GAME_COUNT', games);
   },
   setPlayerCount({ commit }, players) {
     commit('SET_GLOBAL_PLAYER_COUNT', players);
   },
-  setOnlinePlayerCount({ commit }, players) {
+  setOnlineCount({ commit }, players) {
     commit('SET_ONLINE_PLAYER_COUNT', players);
   },
   setStats({ commit }, { userStats, globalStats }) {
@@ -19,7 +19,7 @@ const actions = {
     dispatch('setStats', { userStats: [], globalStats: [] });
 
     dispatch('emit', {
-      name: 'getStats',
+      name: 'stats',
     });
   },
   setLeaderboards({ commit }, leaderboards) {
@@ -29,7 +29,7 @@ const actions = {
     dispatch('clearLeaderboards');
 
     dispatch('emit', {
-      name: 'getLeaderboards',
+      name: 'leaderboards',
       params,
     });
   },

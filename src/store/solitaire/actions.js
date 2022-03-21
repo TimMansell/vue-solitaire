@@ -15,10 +15,6 @@ const actions = {
   restartGame({ commit }) {
     commit('RESTART_GAME');
   },
-  newBoard({ dispatch }, deck) {
-    dispatch('initBoard', deck);
-    dispatch('initFoundation');
-  },
   checkGameState({ dispatch, state }) {
     const hasMoves = checkHasMoves(state);
     const isEmptyBoard = isBoardEmpty(state);
@@ -36,6 +32,10 @@ const actions = {
     const board = initBoard(cards);
 
     dispatch('setBoard', board);
+  },
+  setNewGame({ dispatch }, deck) {
+    dispatch('initBoard', deck);
+    dispatch('initFoundation');
   },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);
