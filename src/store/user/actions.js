@@ -1,5 +1,4 @@
 import { initUser } from '@/services/user';
-import { emit } from '@/services/ws';
 
 const actions = {
   initUser({ commit, state }) {
@@ -17,7 +16,10 @@ const actions = {
   getAllGames({ dispatch }, params) {
     dispatch('setUserGames', []);
 
-    emit('getUserHistory', params);
+    dispatch('emit', {
+      name: 'getUserHistory',
+      params,
+    });
   },
 };
 

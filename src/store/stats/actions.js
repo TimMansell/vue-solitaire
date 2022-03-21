@@ -1,5 +1,3 @@
-import { emit } from '@/services/ws';
-
 const actions = {
   setUserGamesPlayed({ commit }, games) {
     commit('SET_USER_GAME_COUNT', games);
@@ -20,7 +18,9 @@ const actions = {
   getStats({ dispatch }) {
     dispatch('setStats', { userStats: [], globalStats: [] });
 
-    emit('getStats');
+    dispatch('emit', {
+      name: 'getStats',
+    });
   },
   setLeaderboards({ commit }, leaderboards) {
     commit('SET_LEADERBOARDS', leaderboards);
@@ -28,7 +28,10 @@ const actions = {
   getLeaderboards({ dispatch }, params) {
     dispatch('clearLeaderboards');
 
-    emit('getLeaderboards', params);
+    dispatch('emit', {
+      name: 'getLeaderboards',
+      params,
+    });
   },
   clearLeaderboards({ dispatch }) {
     dispatch('setLeaderboards', []);

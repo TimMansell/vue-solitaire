@@ -1,63 +1,60 @@
-import { createConnection, connect, on, disconnect } from '@/services/ws';
+import { connect } from '@/services/ws';
 import { createToast, updateToast, dismissToast } from '@/services/toast';
 
 const actions = {
-  initConnection({ dispatch, getters }) {
-    createConnection(getters.uid);
+  initConnection({ commit, dispatch, getters }) {
+    const socket = connect({ uid: getters.uid });
+
+    commit('SET_CONNECTION', socket);
+
+    dispatch('initConnectionEvents');
+    dispatch('initOnEvents');
+  },
+  initConnectionEvents({ state, dispatch }) {
+    const { socket } = state;
 
     dispatch('setIsConnecting', true);
-    dispatch('initWatchers');
+
+    socket.onConnect(() => dispatch('connected'));
+    socket.onDisconnect(() => dispatch('disconnected'));
   },
-  initWatchers({ dispatch }) {
-    connect(() => {
-      dispatch('connected');
-      // dispatch('initNewGame');
-    });
+  initOnEvents({ state, dispatch }) {
+    const { socket } = state;
 
-    disconnect(() => {
-      dispatch('disconnected');
-    });
+    socket.on('checkVersion', (version) => dispatch('checkVersion', version));
 
-    on('checkVersion', (version) => {
-      dispatch('checkVersion', version);
-    });
+    socket.on('setUserGamesPlayed', (games) =>
+      dispatch('setUserGamesPlayed', games)
+    );
 
-    on('setUserGamesPlayed', (games) => {
-      dispatch('setUserGamesPlayed', games);
-    });
+    socket.on('setGlobalGamesPlayed', (games) =>
+      dispatch('setGlobalGamesPlayed', games)
+    );
 
-    on('setGlobalGamesPlayed', (games) => {
-      dispatch('setGlobalGamesPlayed', games);
-    });
+    socket.on('setPlayerCount', (players) =>
+      dispatch('setPlayerCount', players)
+    );
 
-    on('setPlayerCount', (players) => {
-      dispatch('setPlayerCount', players);
-    });
+    socket.on('setOnlinePlayerCount', (players) =>
+      dispatch('setOnlinePlayerCount', players)
+    );
 
-    on('setOnlinePlayerCount', (players) => {
-      dispatch('setOnlinePlayerCount', players);
-    });
+    socket.on('getUser', (user) => dispatch('setUser', user));
 
-    on('getUser', (user) => {
-      dispatch('setUser', user);
-    });
+    socket.on('newGame', (deck) => dispatch('newBoard', deck));
 
-    on('newGame', (deck) => {
-      dispatch('initBoard', deck);
-      dispatch('initFoundation');
-    });
+    socket.on('setStats', (stats) => dispatch('setStats', stats));
 
-    on('setStats', (stats) => {
-      dispatch('setStats', stats);
-    });
+    socket.on('setLeaderboards', (leaderboards) =>
+      dispatch('setLeaderboards', leaderboards)
+    );
 
-    on('setLeaderboards', (leaderboards) => {
-      dispatch('setLeaderboards', leaderboards);
-    });
+    socket.on('setUserGames', (games) => dispatch('setUserGames', games));
+  },
+  emit({ state }, { name, params }) {
+    const { socket } = state;
 
-    on('setUserGames', (games) => {
-      dispatch('setUserGames', games);
-    });
+    socket.emit(`${name}`, params);
   },
   connected({ dispatch }) {
     dispatch('setIsOnline', true);

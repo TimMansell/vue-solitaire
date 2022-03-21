@@ -15,6 +15,10 @@ const actions = {
   restartGame({ commit }) {
     commit('RESTART_GAME');
   },
+  newBoard({ dispatch }, deck) {
+    dispatch('initBoard', deck);
+    dispatch('initFoundation');
+  },
   checkGameState({ dispatch, state }) {
     const hasMoves = checkHasMoves(state);
     const isEmptyBoard = isBoardEmpty(state);

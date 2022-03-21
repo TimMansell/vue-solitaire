@@ -1,6 +1,5 @@
 import { getVersion, setVersion, checkVersion } from '@/services/version';
 import { createToast } from '@/services/toast';
-import { emit } from '@/services/ws';
 
 const actions = {
   initApp({ dispatch }) {
@@ -12,7 +11,9 @@ const actions = {
     dispatch('restartApp');
     dispatch('restartGame');
 
-    emit('newGame');
+    dispatch('emit', {
+      name: 'newGame',
+    });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
@@ -60,10 +61,13 @@ const actions = {
 
     commit('SET_GAME_OUTCOME', hasWon);
   },
-  saveGame({ getters }) {
+  saveGame({ dispatch, getters }) {
     const { game } = getters;
 
-    emit('saveGame', game);
+    dispatch('emit', {
+      name: 'saveGame',
+      params: game,
+    });
   },
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
