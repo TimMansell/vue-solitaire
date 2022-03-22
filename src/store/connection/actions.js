@@ -18,6 +18,12 @@ const actions = {
     socket.on('userGames', (games) => dispatch('setUserGames', games));
     socket.on('leaderboards', (games) => dispatch('setLeaderboards', games));
 
+    createToast({
+      id: 'connection',
+      content: 'Connecting to game server',
+      icon: 'clock',
+    });
+
     commit('SET_CONNECTION', socket);
   },
   emit({ state }, { name, params }) {
@@ -26,36 +32,26 @@ const actions = {
     socket.emit(`${name}`, params);
   },
   connected({ dispatch }) {
+    updateToast({
+      id: 'connection',
+      content: 'Connected to game server',
+      icon: 'check-circle',
+      timeout: 2000,
+    });
+
     dispatch('setIsOnline', true);
     dispatch('setIsConnecting', false);
   },
   disconnected({ dispatch }) {
+    dismissToast({ id: 'connection' });
+
     dispatch('setIsOnline', false);
     dispatch('setIsConnecting', false);
-
-    dismissToast({ id: 'connection' });
   },
   setIsOnline({ commit }, isOnline) {
-    if (isOnline) {
-      updateToast({
-        id: 'connection',
-        content: 'Connected to game server',
-        icon: 'check-circle',
-        timeout: 2000,
-      });
-    }
-
     commit('SET_IS_ONLINE', isOnline);
   },
   setIsConnecting({ commit }, isConnecting) {
-    if (isConnecting) {
-      createToast({
-        id: 'connection',
-        content: 'Connecting to game server',
-        icon: 'clock',
-      });
-    }
-
     commit('SET_IS_CONNECTING', isConnecting);
   },
 };

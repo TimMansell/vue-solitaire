@@ -1,5 +1,5 @@
 const state = () => ({
-  isConnecting: false,
+  isConnecting: true,
   isOnline: false,
   socket: {},
 });
