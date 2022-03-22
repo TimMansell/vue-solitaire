@@ -5,22 +5,8 @@ const actions = {
   initConnection({ commit, dispatch, getters }) {
     const socket = connect({ uid: getters.uid });
 
-    commit('SET_CONNECTION', socket);
-
-    dispatch('initConnectionEvents');
-    dispatch('initOnEvents');
-  },
-  initConnectionEvents({ state, dispatch }) {
-    const { socket } = state;
-
-    dispatch('setIsConnecting', true);
-
     socket.onConnect(() => dispatch('connected'));
     socket.onDisconnect(() => dispatch('disconnected'));
-  },
-  initOnEvents({ state, dispatch }) {
-    const { socket } = state;
-
     socket.on('checkVersion', (version) => dispatch('checkVersion', version));
     socket.on('userPlayed', (games) => dispatch('setUserPlayed', games));
     socket.on('globalPlayed', (games) => dispatch('setGlobalPlayed', games));
@@ -31,6 +17,8 @@ const actions = {
     socket.on('stats', (stats) => dispatch('setStats', stats));
     socket.on('userGames', (games) => dispatch('setUserGames', games));
     socket.on('leaderboards', (games) => dispatch('setLeaderboards', games));
+
+    commit('SET_CONNECTION', socket);
   },
   emit({ state }, { name, params }) {
     const { socket } = state;
