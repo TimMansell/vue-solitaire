@@ -54,10 +54,12 @@ const actions = {
   },
   newGame({ dispatch }) {
     dispatch('saveGame');
+    dispatch('createUser');
     dispatch('restart');
   },
   setGameOutcome({ commit, dispatch }, hasWon) {
     dispatch('saveGame');
+    dispatch('createUser');
 
     commit('SET_GAME_OUTCOME', hasWon);
   },
