@@ -22,7 +22,7 @@ const actions = {
     dispatch('setUserGames', []);
 
     dispatch('emit', {
-      name: 'userHistory',
+      name: 'userGames',
       params,
     });
   },
