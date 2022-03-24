@@ -1,4 +1,3 @@
-import { socketConnect, socketOn, socketEmit } from '@/services/ws';
 import {
   initBoard,
   initFoundation,
@@ -13,23 +12,6 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
-  initGame({ dispatch }) {
-    socketConnect(() => {
-      dispatch('initNewGame');
-    });
-
-    socketOn('newGame', (deck) => {
-      dispatch('initBoard', deck);
-      dispatch('initFoundation');
-    });
-  },
-  initNewGame({ getters }) {
-    const { uid, isEmptyBoard } = getters;
-
-    if (!isEmptyBoard) return;
-
-    socketEmit('newGame', uid);
-  },
   restartGame({ commit }) {
     commit('RESTART_GAME');
   },
@@ -50,6 +32,10 @@ const actions = {
     const board = initBoard(cards);
 
     dispatch('setBoard', board);
+  },
+  setNewGame({ dispatch }, deck) {
+    dispatch('initBoard', deck);
+    dispatch('initFoundation');
   },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);

@@ -1,33 +1,31 @@
 import { io } from 'socket.io-client';
 
-const { VITE_WEBSOCKETS_URL } = import.meta.env;
+const on = (socket, name, callback) => socket.on(name, (obj) => callback(obj));
 
-const socket = io(VITE_WEBSOCKETS_URL, {
-  transports: ['websocket'],
-});
+const emit = (socket, name, payload) => socket.emit(name, payload);
 
-export const socketConnect = (callback) => {
-  socket.on('connect', (obj) => {
-    callback(obj);
-  });
+const onConnect = (socket, callback) => on(socket, 'connect', callback);
+
+const onDisconnect = (socket, callback) => {
+  on(socket, 'disconnect', callback);
+  on(socket, 'connect_error', callback);
 };
 
-export const socketDisconnect = (callback) => {
-  socket.on('disconnect', (obj) => {
-    callback(obj);
-  });
-};
+// eslint-disable-next-line import/prefer-default-export
+export const connect = (params) => {
+  const { VITE_WEBSOCKETS_URL } = import.meta.env;
 
-export const socketError = (callback) => {
-  socket.on('connect_error', (obj) => {
-    callback(obj);
+  const socket = io(VITE_WEBSOCKETS_URL, {
+    transports: ['websocket'],
+    query: {
+      ...params,
+    },
   });
-};
 
-export const socketEmit = (name, payload) => socket.emit(name, payload);
-
-export const socketOn = (name, callback) => {
-  socket.on(name, (obj) => {
-    callback(obj);
-  });
+  return {
+    on: (name, callback) => on(socket, name, callback),
+    emit: (name, payload) => emit(socket, name, payload),
+    onConnect: (callback) => onConnect(socket, callback),
+    onDisconnect: (callback) => onDisconnect(socket, callback),
+  };
 };

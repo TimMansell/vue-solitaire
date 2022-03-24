@@ -1,74 +1,40 @@
-import { socketConnect, socketEmit, socketOn } from '@/services/ws';
-
 const actions = {
-  initStats({ dispatch }) {
-    socketConnect(() => {
-      dispatch('getUsersGamesPlayed');
-    });
-
-    socketOn('setUserGamesPlayed', (games) => {
-      dispatch('setUserGamesPlayed', games);
-    });
-
-    socketOn('setGlobalGamesPlayed', (games) => {
-      dispatch('setGlobalGamesPlayed', games);
-    });
-
-    socketOn('setPlayerCount', (players) => {
-      dispatch('setPlayerCount', players);
-    });
-
-    socketOn('setOnlinePlayerCount', (players) => {
-      dispatch('setOnlinePlayerCount', players);
-    });
-
-    socketOn('setStats', (stats) => {
-      dispatch('setStats', stats);
-    });
-
-    socketOn('setLeaderboards', (leaderboards) => {
-      dispatch('setLeaderboards', leaderboards);
-    });
-  },
-  getUsersGamesPlayed({ getters }) {
-    const { uid } = getters;
-
-    socketEmit('getUsersGamesPlayed', uid);
-  },
-  setUserGamesPlayed({ commit }, games) {
+  setUserPlayed({ commit }, games) {
     commit('SET_USER_GAME_COUNT', games);
   },
-  setGlobalGamesPlayed({ commit }, games) {
+  setGlobalPlayed({ commit }, games) {
     commit('SET_GLOBAL_GAME_COUNT', games);
   },
   setPlayerCount({ commit }, players) {
     commit('SET_GLOBAL_PLAYER_COUNT', players);
   },
-  setOnlinePlayerCount({ commit }, players) {
+  setOnlineCount({ commit }, players) {
     commit('SET_ONLINE_PLAYER_COUNT', players);
   },
   setStats({ commit }, { userStats, globalStats }) {
     commit('SET_USER_STATS', userStats);
     commit('SET_GLOBAL_STATS', globalStats);
   },
+  getStats({ dispatch }) {
+    dispatch('setStats', { userStats: [], globalStats: [] });
+
+    dispatch('emit', {
+      name: 'stats',
+    });
+  },
   setLeaderboards({ commit }, leaderboards) {
     commit('SET_LEADERBOARDS', leaderboards);
   },
-  getStats({ dispatch, getters }) {
-    const { uid } = getters;
-    const stats = { userStats: [], globalStats: [] };
+  getLeaderboards({ dispatch }, params) {
+    dispatch('clearLeaderboards');
 
-    dispatch('setStats', stats);
-
-    socketEmit('getStats', uid);
+    dispatch('emit', {
+      name: 'leaderboards',
+      params,
+    });
   },
-  getLeaderboards({ commit }, params) {
-    commit('SET_LEADERBOARDS', []);
-
-    socketEmit('getLeaderboards', params);
-  },
-  clearLeaderboards({ commit }) {
-    commit('SET_LEADERBOARDS', []);
+  clearLeaderboards({ dispatch }) {
+    dispatch('setLeaderboards', []);
   },
 };
 

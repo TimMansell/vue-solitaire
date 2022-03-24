@@ -1,7 +1,7 @@
 import { mockUid } from '@/mockData';
 import actions from '../actions';
 
-const { setUser } = actions;
+const { initUser } = actions;
 
 jest.mock('@/services/ws');
 
@@ -14,13 +14,13 @@ describe('User Store', () => {
     commit = jest.fn();
   });
 
-  describe('setUser', () => {
+  describe('initUser', () => {
     it('should create a new user id', () => {
       const state = {
         luid: mockUid,
       };
 
-      setUser({ commit, state });
+      initUser({ commit, state });
 
       expect(commit).toHaveBeenCalledWith('SET_USER_ID', mockUid);
     });
@@ -30,7 +30,7 @@ describe('User Store', () => {
 
       localStorage.setItem('luid', mockUid);
 
-      setUser({ commit, state });
+      initUser({ commit, state });
 
       expect(commit).toHaveBeenCalledWith('SET_USER_ID', mockUid);
     });
