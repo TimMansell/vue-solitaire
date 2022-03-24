@@ -2,7 +2,7 @@ import { mockUid } from '../../../src/mockData';
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
-describe.skip('History', () => {
+describe('History', () => {
   afterEach(() => {
     cy.clearTest();
   });
