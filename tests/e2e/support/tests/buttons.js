@@ -36,6 +36,8 @@ Cypress.Commands.add('continueGame', () => {
 Cypress.Commands.add('showStats', () => {
   cy.get('[data-test="stats-btn"]').click();
 
+  cy.waitForSkeleton();
+
   cy.checkVisibilityHidden(true);
 });
 
@@ -45,16 +47,18 @@ Cypress.Commands.add('showRules', () => {
   cy.checkVisibilityHidden(true);
 });
 
-Cypress.Commands.add('showHistory', ({ wait } = { wait: false }) => {
+Cypress.Commands.add('showHistory', () => {
   cy.get('[data-test="history-btn"]').click();
 
-  cy.waitforInitialHistoryPageToLoad(wait);
+  cy.waitForSkeleton();
 
   cy.checkVisibilityHidden(true);
 });
 
 Cypress.Commands.add('showLeaderboards', () => {
   cy.get('[data-test="leaderboards-btn"]').click();
+
+  cy.waitForSkeleton();
 
   cy.checkVisibilityHidden(true);
 });

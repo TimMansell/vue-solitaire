@@ -1,5 +1,7 @@
 Cypress.Commands.add('setHistoryPage', (pageText) => {
   cy.setPage(pageText);
+
+  cy.waitForSkeleton();
 });
 
 Cypress.Commands.add('selectHistoryGames', (value) => {
@@ -72,12 +74,4 @@ Cypress.Commands.add('checkHistoryShowingGames', () => {
 
 Cypress.Commands.add('checkHistoryHasFirstGameShowing', () => {
   cy.checkTableCell({ row: -1, cell: 0, value: '1' });
-});
-
-Cypress.Commands.add('waitforInitialHistoryPageToLoad', (shouldWait) => {
-  if (shouldWait) {
-    cy.getHistoryTotalGames().then((games) => {
-      cy.waitUntil(() => cy.checkTableCell({ row: 0, cell: 0, value: games }));
-    });
-  }
 });

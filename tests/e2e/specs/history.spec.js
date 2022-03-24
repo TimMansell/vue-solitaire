@@ -42,7 +42,7 @@ describe('History', () => {
 
       cy.startNewGame();
 
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -65,7 +65,7 @@ describe('History', () => {
     });
 
     it('it shows 1st page results', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -80,7 +80,7 @@ describe('History', () => {
     });
 
     it('it shows 2nd page results using > button', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -95,7 +95,7 @@ describe('History', () => {
     });
 
     it('it shows 2nd page results using page 2 number button', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -110,7 +110,7 @@ describe('History', () => {
     });
 
     it('it shows last page results using Last button', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -127,7 +127,7 @@ describe('History', () => {
     });
 
     it('it shows 1st page results using First button', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -144,7 +144,7 @@ describe('History', () => {
     });
 
     it('it shows 1st page results using < button', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -160,7 +160,7 @@ describe('History', () => {
     });
 
     it('it shows 50 games per page and correct page numbers', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -179,7 +179,7 @@ describe('History', () => {
     });
 
     it('it shows page one when games per page is changed', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
@@ -196,7 +196,7 @@ describe('History', () => {
     });
 
     it('it should scroll to correct position on page after clicking on page', () => {
-      cy.showHistory({ wait: true });
+      cy.showHistory();
 
       cy.checkHistoryExists(true);
       cy.checkHistoryMessageExists(false);
