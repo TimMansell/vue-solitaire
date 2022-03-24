@@ -1,12 +1,3 @@
-Cypress.Commands.add('waitForTimerToStart', () =>
-  cy.waitUntil(() =>
-    cy
-      .get('[data-test="timer"]')
-      .text()
-      .then((timer) => timer === '0:00:01')
-  )
-);
-
 Cypress.Commands.add('checkTimerIs', (time) => {
   cy.get('[data-test="timer"]').saveTextAs('timer');
 

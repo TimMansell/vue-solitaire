@@ -23,20 +23,14 @@ describe('User', () => {
       cy.visitApp();
     });
 
-    it('it creates a new user on server after first game has been played', () => {
+    it('it only creates a new user on server after first completed game, not following games', () => {
       cy.startNewGame();
 
-      cy.checkPlayerCount();
-    });
-
-    it('it does not create a new user on server after second game has been played', () => {
-      cy.startNewGame();
-
-      cy.checkPlayerCount();
+      cy.checkPlayerCountHasIncremented(true);
 
       cy.startNewGame();
 
-      cy.checkPlayerCount();
+      cy.checkPlayerCountHasIncremented(false);
     });
   });
 
@@ -53,10 +47,10 @@ describe('User', () => {
       expect(luid).to.equal(mockUid);
     });
 
-    it('it does not create a new user on server after first game has been played', () => {
+    it('it does not create a new server user after first game has been played', () => {
       cy.startNewGame();
 
-      cy.checkPlayerCount();
+      cy.checkPlayerCountHasIncremented(false);
     });
   });
 });

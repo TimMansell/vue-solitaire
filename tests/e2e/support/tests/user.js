@@ -1,14 +1,9 @@
-Cypress.Commands.add('checkPlayerCount', () => {
-  cy.task('getPlayerCount').then((players) => {
-    cy.waitUntil(() =>
-      cy
-        .get('[data-test="player-count"]')
-        .formatNumber()
-        .then((count) => count === players)
-    );
+Cypress.Commands.add('checkPlayerCountHasIncremented', (shouldIncrement) => {
+  if (shouldIncrement) {
+    cy.waitForPlayerCountToIncrement();
+  }
 
-    cy.checkPlayerNumber(players);
-  });
+  cy.task('getPlayerCount').then((players) => cy.checkPlayerNumber(players));
 });
 
 Cypress.Commands.add('checkPlayerNumber', (players) =>
