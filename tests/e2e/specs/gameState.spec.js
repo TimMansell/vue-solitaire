@@ -30,7 +30,7 @@ describe('Game State', () => {
 
     cy.checkSummaryMoves(1);
 
-    cy.checkSummaryTime('0:00:03');
+    cy.checkSummaryTime(3);
   });
 
   it('refreshing page shows same board state', () => {
