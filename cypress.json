@@ -3,10 +3,6 @@
   "pluginsFile": "tests/e2e/plugins/index.js",
   "video": false,
   "retries": 1,
-  "requestTimeout": 10000,
-  "defaultCommandTimeout": 20000,
   "experimentalInteractiveRunEvents": true,
-  "env": {
-    "graphql": ".netlify/functions/graphql"
-  }
+  "numTestsKeptInMemory": 1
 }
