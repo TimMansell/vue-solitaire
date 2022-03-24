@@ -1,10 +1,10 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
+import invalidMovesDeck from '../../fixtures/decks/invalidMoves.json';
 
 describe('Invalid moves', () => {
   beforeEach(() => {
     cy.visitApp();
 
-    cy.setBoard(fullGameDeck);
+    cy.setBoard(invalidMovesDeck);
   });
 
   afterEach(() => {
