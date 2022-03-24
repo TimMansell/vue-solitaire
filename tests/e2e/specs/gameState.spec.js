@@ -55,19 +55,17 @@ describe('Game State', () => {
     ]);
   });
 
-  it('should show correct games, time, and moves on page refresh', () => {
+  it('should show correct games and moves on page refresh', () => {
     cy.setBoard(quitGameDeck);
 
     cy.runGameWithClicks(quitGameMoves);
 
     cy.saveGames();
-    cy.saveTimer();
     cy.saveMoves();
 
     cy.reload();
 
     cy.checkGames();
-    cy.checkTimer();
     cy.checkMoves();
 
     cy.pauseGame();

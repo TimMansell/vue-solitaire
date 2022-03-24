@@ -74,15 +74,6 @@ Cypress.Commands.add('checkUserStatsAreZero', () => {
 });
 
 Cypress.Commands.add('checkGameSummary', () => {
-  const [timer] = JSON.parse(localStorage.getItem('timers'));
-
-  cy.get(`@${timer}`).then((time) => {
-    cy.get('[data-test="game-summary-value"]')
-      .eq(0)
-      .text()
-      .should('equal', time);
-  });
-
   cy.get('@moves').then((moves) => {
     cy.get('[data-test="game-summary-value"]')
       .eq(1)
