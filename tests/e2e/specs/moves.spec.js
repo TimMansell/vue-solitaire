@@ -4,14 +4,10 @@ import validMoveDeck from '../../fixtures/decks/validMove.json';
 describe('Moves', () => {
   beforeEach(() => {
     cy.visitApp();
-
-    // cy.setBoard(validMoveDeck);
   });
 
   describe('Valid moves', () => {
     beforeEach(() => {
-      // cy.visitApp();
-
       cy.setBoard(validMoveDeck);
     });
 
@@ -70,8 +66,6 @@ describe('Moves', () => {
 
   describe('Invalid moves', () => {
     beforeEach(() => {
-      // cy.visitApp();
-
       cy.setBoard(invalidMovesDeck);
     });
 

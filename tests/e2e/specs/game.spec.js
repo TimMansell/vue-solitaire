@@ -160,10 +160,6 @@ describe('Game', () => {
 
   describe('Game Quit', () => {
     describe('New User', () => {
-      // beforeEach(() => {
-      //   cy.visitApp();
-      // });
-
       it('should quit game and increment quit game stats', () => {
         cy.visitApp();
 
@@ -176,12 +172,6 @@ describe('Game', () => {
     });
 
     describe('Existing User', () => {
-      // beforeEach(() => {
-      //   cy.setUser(mockUid);
-
-      //   cy.visitApp();
-      // });
-
       it('should quit game and increment quit game stats', () => {
         cy.setUser(mockUid);
 
