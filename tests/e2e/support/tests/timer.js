@@ -13,4 +13,4 @@ Cypress.Commands.add('checkSummaryTime', (time) => {
     .should('equal', `0:00:0${time}`);
 });
 
-Cypress.Commands.add('checkTimerHasReset', () => cy.checkTimerIs(0));
+Cypress.Commands.add('checkTimerHasReset', () => cy.checkTimerIs(1));

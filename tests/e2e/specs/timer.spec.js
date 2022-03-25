@@ -34,13 +34,15 @@ describe('Timer', () => {
     });
 
     it('it should reset timer when a new game is started', () => {
+      cy.wait(wait);
+
       cy.startNewGame();
 
       cy.checkTimerHasReset();
 
       cy.wait(wait);
 
-      cy.checkTimerIs(2);
+      cy.checkTimerIs(3);
     });
 
     it('timer should pause when page is automatically hidden', () => {
