@@ -1,16 +1,15 @@
-Cypress.Commands.add('checkPlayerCountHasIncremented', (shouldIncrement) => {
-  if (shouldIncrement) {
-    cy.waitForPlayerCountToIncrement();
-  }
-
-  cy.task('getPlayerCount').then((players) => cy.checkPlayerNumber(players));
-});
-
-Cypress.Commands.add('checkPlayerNumber', (players) =>
-  cy.get('[data-test="player-count"]').formatNumber().should('equal', players)
+Cypress.Commands.add('checkPlayerCount', () =>
+  cy
+    .task('getPlayerCount')
+    .then((players) =>
+      cy
+        .get('[data-test="player-count"]')
+        .formatNumber()
+        .should('equal', players)
+    )
 );
 
-Cypress.Commands.add('checkOnlinePlayerNumber', () =>
+Cypress.Commands.add('checkOnlinePlayerCount', () =>
   cy.get('[data-test="online-count"]').formatNumber().should('be.gt', 0)
 );
 

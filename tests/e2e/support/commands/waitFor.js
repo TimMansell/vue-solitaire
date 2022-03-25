@@ -30,17 +30,3 @@ Cypress.Commands.add('waitForToast', (id) => {
 
   cy.get(`[data-test="toast-${id}"]`).should('not.exist');
 });
-
-Cypress.Commands.add('waitForPlayerCountToIncrement', () =>
-  cy
-    .get('[data-test="player-count"]')
-    .formatNumber()
-    .then((number) => {
-      cy.waitUntil(() =>
-        cy
-          .get('[data-test="player-count"]')
-          .formatNumber()
-          .then((number2) => number2 !== number)
-      );
-    })
-);

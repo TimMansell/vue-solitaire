@@ -19,14 +19,12 @@ describe('App', () => {
       cy.checkFoundations();
 
       cy.task('getGlobalStats').then(({ completed }) => {
-        cy.checkGameNumber(0);
-        cy.checkGlobalGameNumber(completed);
+        cy.checkGameCount(0);
+        cy.checkGlobalGameCount(completed);
       });
 
-      cy.task('getPlayerCount').then((players) => {
-        cy.checkPlayerNumber(players);
-        cy.checkOnlinePlayerNumber();
-      });
+      cy.checkPlayerCount();
+      cy.checkOnlinePlayerCount();
     });
 
     it('show pause page if url is changed manually', () => {

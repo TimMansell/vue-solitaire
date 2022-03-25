@@ -1,8 +1,8 @@
-Cypress.Commands.add('checkGameNumber', (number) => {
+Cypress.Commands.add('checkGameCount', (number) => {
   cy.get('[data-test="stats"]').formatNumber().should('equal', number);
 });
 
-Cypress.Commands.add('checkGlobalGameNumber', (number) => {
+Cypress.Commands.add('checkGlobalGameCount', (number) => {
   cy.get('[data-test="global-stats"]').formatNumber().should('equal', number);
 });
 
