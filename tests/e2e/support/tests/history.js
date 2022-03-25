@@ -1,7 +1,13 @@
-Cypress.Commands.add('setHistoryPage', (pageText) => {
+Cypress.Commands.add('testHistoryPage', (pageText) => {
   cy.setPage(pageText);
 
   cy.waitForSkeleton();
+
+  cy.checkFilterAtTopOfPage();
+
+  cy.checkHistoryPages();
+
+  cy.checkHistoryShowingGames();
 });
 
 Cypress.Commands.add('selectHistoryGames', (value) => {

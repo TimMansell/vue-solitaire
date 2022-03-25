@@ -5,22 +5,6 @@ describe('Stats', () => {
     cy.clearTest();
   });
 
-  describe('Default', () => {
-    beforeEach(() => {
-      cy.visitApp();
-    });
-
-    it('should not show game paused if user stats overlay is visible', () => {
-      cy.setVisibilityHidden();
-
-      cy.showStats();
-
-      cy.triggerVisibilityChange();
-
-      cy.checkGameIsPaused(false);
-    });
-  });
-
   describe('New User', () => {
     beforeEach(() => {
       cy.visitApp();

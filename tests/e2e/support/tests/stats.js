@@ -1,13 +1,3 @@
-Cypress.Commands.add('saveGames', () =>
-  cy.get('[data-test="stats"]').saveNumberAs('games')
-);
-
-Cypress.Commands.add('checkGames', () => {
-  cy.get('@games').then((stats) => {
-    cy.get('[data-test="stats"]').formatNumber().should('equal', stats);
-  });
-});
-
 Cypress.Commands.add('checkGameNumber', (number) => {
   cy.get('[data-test="stats"]').formatNumber().should('equal', number);
 });
@@ -71,13 +61,4 @@ Cypress.Commands.add('checkUserStatsAreZero', () => {
   cy.get('@userStats').eq(3).formatNumber().should('equal', 0);
 
   cy.closeOverlay();
-});
-
-Cypress.Commands.add('checkGameSummary', () => {
-  cy.get('@moves').then((moves) => {
-    cy.get('[data-test="game-summary-value"]')
-      .eq(1)
-      .text()
-      .should('equal', `${moves}`);
-  });
 });

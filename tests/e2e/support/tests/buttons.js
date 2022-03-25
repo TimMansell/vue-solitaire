@@ -36,8 +36,6 @@ Cypress.Commands.add('continueGame', () => {
 Cypress.Commands.add('showStats', () => {
   cy.get('[data-test="stats-btn"]').click();
 
-  cy.waitForSkeleton();
-
   cy.checkVisibilityHidden(true);
 });
 

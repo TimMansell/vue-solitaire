@@ -14,7 +14,7 @@ Cypress.Commands.add('checkIsOnPage', (activePage) => {
     .should('contain', activePage);
 });
 
-Cypress.Commands.add('checkIsLastPage', () => {
+Cypress.Commands.add('checkIsOnLastPage', () => {
   cy.get('[data-test="pagination"]')
     .children()
     .eq(-3)
