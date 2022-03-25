@@ -28,6 +28,8 @@ describe('Game State', () => {
     cy.triggerVisibilityChange();
 
     cy.checkGameIsPaused(true);
+
+    cy.checkSummaryMoves(1);
   });
 
   it('should not show game paused if overlay is visible', () => {
@@ -47,6 +49,10 @@ describe('Game State', () => {
 
     cy.runGameWithClicks([firstMove]);
 
+    cy.clickCard('4♠');
+
+    cy.checkCardIsSelected('4♠');
+
     cy.testContinueGame();
 
     cy.testPause();
@@ -58,6 +64,8 @@ describe('Game State', () => {
     cy.testStats();
 
     cy.testLeaderboards();
+
+    cy.checkCardIsSelected('4♠');
   });
 
   it('refreshing page shows same board state', () => {

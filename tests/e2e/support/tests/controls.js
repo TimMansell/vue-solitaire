@@ -1,7 +1,4 @@
 Cypress.Commands.add('testContinueGame', () => {
-  cy.clickCard('4♠');
-  cy.checkCardIsSelected('4♠');
-
   cy.newGame();
 
   cy.get('[data-test="game-new"]').should('exist');
@@ -13,8 +10,6 @@ Cypress.Commands.add('testContinueGame', () => {
   cy.continueGame();
 
   cy.get('[data-test="game-new"]').should('not.exist');
-
-  cy.checkCardIsSelected('4♠');
 });
 
 Cypress.Commands.add('testPause', () => {
@@ -22,13 +17,9 @@ Cypress.Commands.add('testPause', () => {
 
   cy.checkGameIsPaused(true);
 
-  cy.checkSummaryMoves(1);
-
   cy.reload();
 
   cy.checkGameIsPaused(true);
-
-  cy.checkSummaryMoves(1);
 
   cy.resumeGame();
 
