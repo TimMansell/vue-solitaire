@@ -6,10 +6,6 @@ describe('Game State', () => {
     cy.visitApp();
   });
 
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   it('it should start a new game and reset board', () => {
     cy.setBoard(quitGameDeck);
 

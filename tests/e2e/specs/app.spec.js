@@ -6,10 +6,6 @@ describe('App', () => {
     cy.visitApp();
   });
 
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('Default', () => {
     it('it successfully loads', () => {
       cy.checkConnectedAlert();

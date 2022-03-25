@@ -1,10 +1,6 @@
 import { mockUid } from '../../../src/mockData';
 
 describe('History', () => {
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('New user', () => {
     beforeEach(() => {
       cy.visitApp();

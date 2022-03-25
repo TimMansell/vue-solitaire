@@ -9,10 +9,6 @@ import initialAceAnd2MoveDeck from '../../fixtures/decks/initialAceAnd2Move.json
 import { mockUid } from '../../../src/mockData';
 
 describe('Game', () => {
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('Default', () => {
     beforeEach(() => {
       cy.visitApp();

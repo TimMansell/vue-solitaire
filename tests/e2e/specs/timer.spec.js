@@ -8,10 +8,6 @@ describe('Timer', () => {
     cy.waitForTimerToStart();
   });
 
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('Default Functionality', () => {
     it('it should increment timer correctly', () => {
       cy.wait(wait);

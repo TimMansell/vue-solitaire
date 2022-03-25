@@ -7,10 +7,6 @@ describe('Foundation moves', () => {
     cy.setBoard(AcesDeck);
   });
 
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('using drag and drop', () => {
     it('should move A♠ to 1st foundation', () => {
       cy.dragCardFromTo('A♠', 'foundation-0');

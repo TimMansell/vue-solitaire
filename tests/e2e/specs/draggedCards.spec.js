@@ -7,10 +7,6 @@ describe('Dragged Cards', () => {
     cy.setBoard(validMoveDeck);
   });
 
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   it('should drag single card', () => {
     cy.dragCardToPosition('7♦', { x: 200, y: -200 });
 

@@ -8,20 +8,12 @@ describe('Moves', () => {
     // cy.setBoard(validMoveDeck);
   });
 
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('Valid moves', () => {
     beforeEach(() => {
       // cy.visitApp();
 
       cy.setBoard(validMoveDeck);
     });
-
-    // afterEach(() => {
-    //   cy.clearTest();
-    // });
 
     describe('using drag and drop', () => {
       it('should move 6♦ in middle of column to 7♦', () => {
@@ -82,10 +74,6 @@ describe('Moves', () => {
 
       cy.setBoard(invalidMovesDeck);
     });
-
-    // afterEach(() => {
-    //   cy.clearTest();
-    // });
 
     describe('using drag and drop', () => {
       it('should not move 9♥ to 4♣ (invalid value & suit)', () => {

@@ -1,10 +1,6 @@
 import { mockUid } from '../../../src/mockData';
 
 describe('Leaderboards', () => {
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('Default', () => {
     beforeEach(() => {
       cy.visitApp();
