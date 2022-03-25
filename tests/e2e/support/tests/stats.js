@@ -23,8 +23,6 @@ Cypress.Commands.add('checkGameLost', (hasLost) => {
 Cypress.Commands.add('checkStats', () => {
   const uid = localStorage.getItem('luid');
 
-  cy.waitForTimerToStart();
-
   cy.showStats();
 
   cy.task('getUserStats', uid).then(({ completed, won, lost, quit }) => {

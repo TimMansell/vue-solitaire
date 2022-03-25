@@ -12,6 +12,8 @@ Cypress.Commands.add('newGame', () => {
 Cypress.Commands.add('confirmNewGame', () => {
   cy.get('[data-test="start-new-game-btn"]').click();
 
+  cy.waitForTimerToStart();
+
   cy.checkVisibilityHidden(false);
 });
 
@@ -35,6 +37,8 @@ Cypress.Commands.add('continueGame', () => {
 
 Cypress.Commands.add('showStats', () => {
   cy.get('[data-test="stats-btn"]').click();
+
+  cy.waitForSkeleton();
 
   cy.checkVisibilityHidden(true);
 });
