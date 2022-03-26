@@ -9,6 +9,8 @@ Cypress.Commands.add('newGame', () => {
 
 Cypress.Commands.add('confirmNewGame', () => {
   cy.get('[data-test="start-new-game-btn"]').click();
+
+  cy.waitForBoard();
 });
 
 Cypress.Commands.add('pauseGame', () => {
