@@ -3,7 +3,7 @@
     ref="historyOverlay"
     center-content
     show-close
-    data-test="history-overlay"
+    data-test="history"
   >
     <template #title> History </template>
     <template #msg>

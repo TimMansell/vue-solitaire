@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Lost.vue matches snapshot 1`] = `
-<gameoverlay-stub centercontent="true" showlogo="true" data-test="game-lost"> Sorry, no more Moves! <gamesummary-stub></gamesummary-stub>
+<gameoverlay-stub centercontent="true" showlogo="true" data-test="lost"> Sorry, no more Moves! <gamesummary-stub></gamesummary-stub>
   <startnewgamebutton-stub></startnewgamebutton-stub>
   <showboardbutton-stub></showboardbutton-stub>
 </gameoverlay-stub>

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`New.vue matches snapshot 1`] = `
-<gameoverlay-stub centercontent="true" showlogo="true" data-test="game-new"> Are you sure?<p>This game will still count towards your statistics</p>
+<gameoverlay-stub centercontent="true" showlogo="true" data-test="new"> Are you sure?<p>This game will still count towards your statistics</p>
   <startnewgamebutton-stub></startnewgamebutton-stub>
   <continuegamebutton-stub></continuegamebutton-stub>
 </gameoverlay-stub>

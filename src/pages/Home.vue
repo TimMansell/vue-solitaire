@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div data-test="home">
     <Header />
     <Solitaire />
     <Footer />

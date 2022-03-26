@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay center-content show-logo data-test="game-update">
+  <GameOverlay center-content show-logo data-test="update">
     <template #title>
       <span v-if="isOldVersion" data-test="update-title">New Update</span>
       <span v-if="!isOldVersion" data-test="update-title">No New Updates</span>
