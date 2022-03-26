@@ -25,8 +25,6 @@ Cypress.Commands.add('waitForGameNumberToUpdate', () =>
     })
 );
 
-Cypress.Commands.add('waitForToast', (id) => {
-  cy.waitUntil(() => Cypress.$(`[data-test="toast-${id}"]`).length === 0);
-
-  cy.get(`[data-test="toast-${id}"]`).should('not.exist');
-});
+Cypress.Commands.add('waitForToast', (id) =>
+  cy.waitUntil(() => Cypress.$(`[data-test="toast-${id}"]`).length === 0)
+);

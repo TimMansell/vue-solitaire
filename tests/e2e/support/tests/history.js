@@ -10,20 +10,6 @@ Cypress.Commands.add('testHistoryPage', (pageText) => {
   cy.checkHistoryShowingGames();
 });
 
-Cypress.Commands.add('selectHistoryGames', (value) => {
-  cy.get('[data-test="game-history"] [data-test="select"]').select(`${value}`);
-});
-
-Cypress.Commands.add('getSelectHistoryGames', () => {
-  cy.get(
-    '[data-test="game-history"] [data-test="select"] :selected'
-  ).formatNumber();
-});
-
-Cypress.Commands.add('getHistoryTotalGames', () => {
-  cy.get('[data-test="game-history-total-games"]').getData('games');
-});
-
 Cypress.Commands.add('checkSelectHistoryGames', (value) => {
   cy.getSelectHistoryGames().should('equal', value);
 });

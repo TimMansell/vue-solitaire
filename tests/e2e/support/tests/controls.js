@@ -1,91 +1,91 @@
 Cypress.Commands.add('testContinueGame', () => {
   cy.newGame();
 
-  cy.get('[data-test="game-new"]').should('exist');
+  cy.checkNewPage(true);
 
   cy.reload();
 
-  cy.get('[data-test="game-new"]').should('exist');
+  cy.checkNewPage(true);
 
   cy.continueGame();
 
-  cy.get('[data-test="game-new"]').should('not.exist');
+  cy.checkNewPage(false);
 });
 
 Cypress.Commands.add('testPause', () => {
   cy.pauseGame();
 
-  cy.checkGameIsPaused(true);
+  cy.checkPausedPage(true);
 
   cy.reload();
 
-  cy.checkGameIsPaused(true);
+  cy.checkPausedPage(true);
 
   cy.resumeGame();
 
-  cy.checkGameIsPaused(false);
+  cy.checkPausedPage(false);
 });
 
 Cypress.Commands.add('testRules', () => {
   cy.showRules();
 
-  cy.get('[data-test="rules-overlay"]').should('exist');
+  cy.checkRulesPage(true);
 
   cy.reload();
 
-  cy.get('[data-test="rules-overlay"]').should('exist');
+  cy.checkRulesPage(true);
 
   cy.closeOverlay();
 
-  cy.get('[data-test="rules-overlay"]').should('not.exist');
+  cy.checkRulesPage(false);
 });
 
 Cypress.Commands.add('testHistory', () => {
   cy.showHistory();
 
-  cy.get('[data-test="history-overlay"]').should('exist');
+  cy.checkHistoryPage(true);
 
   cy.reload();
 
-  cy.get('[data-test="history-overlay"]').should('exist');
+  cy.checkHistoryPage(true);
 
   cy.closeOverlay();
 
-  cy.get('[data-test="history-overlay"]').should('not.exist');
+  cy.checkHistoryPage(false);
 });
 
 Cypress.Commands.add('testStats', () => {
   cy.showStats();
 
-  cy.get('[data-test="stats-overlay"]').should('exist');
+  cy.checkStatsPage(true);
 
   cy.reload();
 
-  cy.get('[data-test="stats-overlay"]').should('exist');
+  cy.checkStatsPage(true);
 
   cy.closeOverlay();
 
-  cy.get('[data-test="stats-overlay"]').should('not.exist');
+  cy.checkStatsPage(false);
 });
 
 Cypress.Commands.add('testLeaderboards', () => {
   cy.showLeaderboards();
 
-  cy.get('[data-test="leaderboards-overlay"]').should('exist');
+  cy.checkLeaderboardsPage(true);
 
   cy.reload();
 
-  cy.get('[data-test="leaderboards-overlay"]').should('exist');
+  cy.checkLeaderboardsPage(true);
 
   cy.closeOverlay();
 
-  cy.get('[data-test="leaderboards-overlay"]').should('not.exist');
+  cy.checkLeaderboardsPage(false);
 });
 
 Cypress.Commands.add('testShowBoard', () => {
   cy.showBoard();
 
-  cy.get('[data-test="game-lost"]').should(
+  cy.get('[data-test="lost"]').should(
     'have.class',
     'game-overlay--see-through'
   );
@@ -96,7 +96,7 @@ Cypress.Commands.add('testShowBoard', () => {
 
   cy.showBoard();
 
-  cy.get('[data-test="game-lost"]').should(
+  cy.get('[data-test="lost"]').should(
     'not.have.class',
     'game-overlay--see-through'
   );

@@ -12,5 +12,3 @@ Cypress.Commands.add('checkPlayerCount', () =>
 Cypress.Commands.add('checkOnlinePlayerCount', () =>
   cy.get('[data-test="online-count"]').formatNumber().should('be.gt', 0)
 );
-
-Cypress.Commands.add('setUser', (uid) => localStorage.setItem('luid', uid));

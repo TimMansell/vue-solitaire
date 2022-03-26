@@ -1,23 +1,9 @@
 Cypress.Commands.add('checkGameCount', (number) => {
-  cy.get('[data-test="stats"]').formatNumber().should('equal', number);
+  cy.get('[data-test="user-games"]').formatNumber().should('equal', number);
 });
 
 Cypress.Commands.add('checkGlobalGameCount', (number) => {
   cy.get('[data-test="global-stats"]').formatNumber().should('equal', number);
-});
-
-Cypress.Commands.add('checkGameWon', (hasWon) => {
-  const wonExist = hasWon ? 'exist' : 'not.exist';
-
-  cy.get('[data-test="game-won"]').should(wonExist);
-  cy.get('[data-test="game-lost"]').should('not.exist');
-});
-
-Cypress.Commands.add('checkGameLost', (hasLost) => {
-  const lostExist = hasLost ? 'exist' : 'not.exist';
-
-  cy.get('[data-test="game-lost"]').should(lostExist);
-  cy.get('[data-test="game-won"]').should('not.exist');
 });
 
 Cypress.Commands.add('checkStats', () => {

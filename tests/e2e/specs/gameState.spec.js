@@ -27,9 +27,9 @@ describe('Game State', () => {
 
     cy.triggerVisibilityChange();
 
-    cy.checkGameIsPaused(true);
+    cy.checkPausedPage(true);
 
-    cy.checkSummaryMoves(1);
+    cy.checkBodyOverflow(true);
   });
 
   it('should not show game paused if overlay is visible', () => {
@@ -39,7 +39,7 @@ describe('Game State', () => {
 
     cy.triggerVisibilityChange();
 
-    cy.checkGameIsPaused(false);
+    cy.checkPausedPage(false);
   });
 
   it('it should new/continue, pause/resume, open/close: rules, history, stats and leaderboards', () => {

@@ -16,13 +16,13 @@ describe('Game', () => {
     it('it should not show won page if game is not won', () => {
       cy.visit('#/won');
 
-      cy.checkGameWon(false);
+      cy.checkWonPage(false);
     });
 
     it('it should not show lost page if game is not lost', () => {
       cy.visit('#/lost');
 
-      cy.checkGameLost(false);
+      cy.checkLostPage(false);
     });
   });
 
@@ -37,7 +37,7 @@ describe('Game', () => {
 
         cy.runGameWithClicks(fullGameMoves);
 
-        cy.checkGameWon(true);
+        cy.checkWonPage(true);
 
         cy.checkSummaryMoves(fullGameMoves.length);
 
@@ -59,7 +59,7 @@ describe('Game', () => {
 
         cy.runGameWithClicks(fullGameMoves);
 
-        cy.checkGameWon(true);
+        cy.checkWonPage(true);
 
         cy.checkSummaryMoves(fullGameMoves.length);
 
@@ -81,7 +81,7 @@ describe('Game', () => {
 
         cy.runGameWithClicks(noMovesKingColumnMoves);
 
-        cy.checkGameLost(true);
+        cy.checkLostPage(true);
 
         cy.checkSummaryMoves(noMovesKingColumnMoves.length);
 
@@ -93,7 +93,7 @@ describe('Game', () => {
 
         cy.clickFromTo('A♦', 'foundation-0');
 
-        cy.checkGameLost(true);
+        cy.checkLostPage(true);
 
         cy.checkSummaryMoves(1);
 
@@ -106,7 +106,7 @@ describe('Game', () => {
         cy.clickFromTo('A♦', 'foundation-0');
         cy.clickFromTo('2♦', 'foundation-0');
 
-        cy.checkGameLost(true);
+        cy.checkLostPage(true);
 
         cy.checkSummaryMoves(2);
 
@@ -124,7 +124,7 @@ describe('Game', () => {
 
         cy.runGameWithClicks(incompleteGameMoves);
 
-        cy.checkGameLost(true);
+        cy.checkLostPage(true);
 
         cy.checkSummaryMoves(incompleteGameMoves.length);
 
@@ -146,7 +146,7 @@ describe('Game', () => {
 
         cy.runGameWithClicks(incompleteGameMoves);
 
-        cy.checkGameLost(true);
+        cy.checkLostPage(true);
 
         cy.checkSummaryMoves(incompleteGameMoves.length);
 

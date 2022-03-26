@@ -1,11 +1,5 @@
 import numeral from 'numeral';
 
-Cypress.Commands.add('saveTextAs', { prevSubject: true }, (subject, alias) => {
-  cy.get(subject)
-    .then(($value) => $value.text())
-    .then(($value) => cy.wrap($value).as(alias));
-});
-
 Cypress.Commands.add(
   'saveNumberAs',
   { prevSubject: true },
