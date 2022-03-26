@@ -1,5 +1,3 @@
-import { mockUid } from '../../../src/mockData';
-
 describe('Leaderboards', () => {
   describe('Default', () => {
     beforeEach(() => {
@@ -91,7 +89,7 @@ describe('Leaderboards', () => {
 
   describe('Existing User', () => {
     beforeEach(() => {
-      cy.setUser(mockUid);
+      cy.mockUser();
 
       cy.visitApp();
     });

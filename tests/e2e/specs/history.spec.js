@@ -1,5 +1,3 @@
-import { mockUid } from '../../../src/mockData';
-
 describe('History', () => {
   describe('New user', () => {
     beforeEach(() => {
@@ -33,7 +31,7 @@ describe('History', () => {
 
   describe('Existing user', () => {
     beforeEach(() => {
-      cy.setUser(mockUid);
+      cy.mockUser();
 
       cy.visitApp();
     });
@@ -97,7 +95,7 @@ describe('History', () => {
       const page = 2;
       const games = 50;
 
-      cy.setUser(mockUid);
+      cy.mockUser();
 
       cy.visit(`#/history/${page}/${games}`);
 
@@ -109,7 +107,7 @@ describe('History', () => {
     });
 
     it('it should set filters to default params', () => {
-      cy.setUser(mockUid);
+      cy.mockUser();
 
       cy.visit('#/history/abc/5000');
 

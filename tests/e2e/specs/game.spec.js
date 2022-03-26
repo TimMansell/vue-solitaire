@@ -6,7 +6,6 @@ import noMovesKingColumnDeck from '../../fixtures/decks/noMovesKingColumn.json';
 import noMovesKingColumnMoves from '../../fixtures/moves/noMovesKingColumn.json';
 import initialAceMoveDeck from '../../fixtures/decks/initialAceMove.json';
 import initialAceAnd2MoveDeck from '../../fixtures/decks/initialAceAnd2Move.json';
-import { mockUid } from '../../../src/mockData';
 
 describe('Game', () => {
   describe('Default', () => {
@@ -50,7 +49,7 @@ describe('Game', () => {
 
     describe('Existing User', () => {
       it('should win game and increment won game stats', () => {
-        cy.setUser(mockUid);
+        cy.mockUser();
 
         cy.visitApp();
 
@@ -137,7 +136,7 @@ describe('Game', () => {
 
     describe('Existing User', () => {
       it('should lose game and increment lost game stats', () => {
-        cy.setUser(mockUid);
+        cy.mockUser();
 
         cy.visitApp();
 
@@ -173,7 +172,7 @@ describe('Game', () => {
 
     describe('Existing User', () => {
       it('should quit game and increment quit game stats', () => {
-        cy.setUser(mockUid);
+        cy.mockUser();
 
         cy.visitApp();
 

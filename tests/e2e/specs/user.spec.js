@@ -32,7 +32,7 @@ describe('User', () => {
 
   describe('Existing User', () => {
     beforeEach(() => {
-      cy.setUser(mockUid);
+      cy.mockUser();
 
       cy.visitApp();
     });

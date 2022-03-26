@@ -1,5 +1,6 @@
 import semver from 'semver';
 import { version } from '../../../../package.json';
+import { mockUid } from '../../../../src/mockData';
 
 Cypress.Commands.add('mockVersionUpdate', () =>
   cy
@@ -18,3 +19,5 @@ Cypress.Commands.add('mockIsOnline', (isOnline) =>
       store.dispatch('setIsOnline', isOnline);
     })
 );
+
+Cypress.Commands.add('mockUser', () => localStorage.setItem('luid', mockUid));
