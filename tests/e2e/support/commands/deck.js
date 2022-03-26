@@ -1,23 +1,15 @@
 Cypress.Commands.add('setServerDeck', (cards) => {
-  cy.waitForTimerToStart();
+  const uid = localStorage.getItem('luid');
 
-  cy.window()
-    .its('solitaire.$store')
-    .then((store) => {
-      const uid = localStorage.getItem('luid');
+  cy.waitForBoard();
 
-      cy.task('mockServerDeck', { cards, uid }).then(() => {
-        store.dispatch('initBoard', cards);
-      });
-    });
+  cy.mockBoard(cards);
+
+  cy.task('mockServerDeck', { cards, uid });
 });
 
 Cypress.Commands.add('setBoard', (cards) => {
-  cy.waitForTimerToStart();
+  cy.waitForBoard();
 
-  cy.window()
-    .its('solitaire.$store')
-    .then((store) => {
-      store.dispatch('initBoard', cards);
-    });
+  cy.mockBoard(cards);
 });

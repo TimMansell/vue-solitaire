@@ -1,28 +1,13 @@
-Cypress.Commands.add('waitForTimerToStart', () =>
+Cypress.Commands.add('waitForBoard', () =>
   cy.waitUntil(() =>
     cy
-      .get('[data-test="timer"]')
-      .text()
-      .then((timer) => timer === '0:00:01')
+      .get('[data-test="columns"] [data-test^="card-"]')
+      .then((cards) => cards.length === 52)
   )
 );
 
 Cypress.Commands.add('waitForSkeleton', () =>
   cy.waitUntil(() => Cypress.$('[data-test="skeleton"]').length === 0)
-);
-
-Cypress.Commands.add('waitForGameNumberToUpdate', () =>
-  cy
-    .get('[data-test="global-stats"]')
-    .formatNumber()
-    .then((number) => {
-      cy.waitUntil(() =>
-        cy
-          .get('[data-test="global-stats"]')
-          .formatNumber()
-          .then((number2) => number2 !== number)
-      );
-    })
 );
 
 Cypress.Commands.add('waitForToast', (id) =>

@@ -5,32 +5,30 @@ describe('Timer', () => {
   beforeEach(() => {
     cy.visitApp();
 
-    cy.waitForTimerToStart();
+    cy.waitForBoard();
   });
 
   describe('Default Functionality', () => {
-    it('it should increment timer correctly', () => {
+    it('it should increment timer correctly when pausing and resuming', () => {
       cy.wait(wait);
 
-      cy.checkTimerIs(3);
-    });
+      cy.checkTimerIs(2);
 
-    it('it should increment timer correctly when pausing and resuming', () => {
       cy.pauseGame();
 
       cy.wait(waitSmall);
 
-      cy.checkTimerIs(1);
+      cy.checkTimerIs(2);
 
       cy.resumeGame();
 
       cy.wait(wait);
 
-      cy.checkTimerIs(3);
+      cy.checkTimerIs(4);
     });
 
     it('it should reset timer when a new game is started', () => {
-      cy.wait(wait);
+      cy.wait(waitSmall);
 
       cy.startNewGame();
 
@@ -38,10 +36,12 @@ describe('Timer', () => {
 
       cy.wait(wait);
 
-      cy.checkTimerIs(3);
+      cy.checkTimerIs(2);
     });
 
     it('timer should pause when page is automatically hidden', () => {
+      cy.wait(waitSmall);
+
       cy.setVisibilityHidden();
 
       cy.triggerVisibilityChange();
@@ -54,6 +54,8 @@ describe('Timer', () => {
     });
 
     it('timer should pause/unpause if url is changed manually', () => {
+      cy.wait(waitSmall);
+
       cy.visit('#/pause');
 
       cy.wait(waitSmall);
@@ -66,6 +68,8 @@ describe('Timer', () => {
     });
 
     it('timer should pause on 404 page', () => {
+      cy.wait(waitSmall);
+
       cy.visit('#/abc');
 
       cy.wait(waitSmall);
@@ -84,10 +88,12 @@ describe('Timer', () => {
 
       cy.reload();
 
-      cy.checkTimerIs(3);
+      cy.checkTimerIs(2);
     });
 
     it('timer should continue from correct time when game is paused and page is refreshed', () => {
+      cy.wait(waitSmall);
+
       cy.pauseGame();
 
       cy.wait(waitSmall);
