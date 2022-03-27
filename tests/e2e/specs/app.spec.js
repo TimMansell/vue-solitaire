@@ -6,10 +6,6 @@ describe('App', () => {
     cy.visitApp();
   });
 
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('Default', () => {
     it('it successfully loads', () => {
       cy.checkConnectedAlert();
@@ -19,34 +15,32 @@ describe('App', () => {
       cy.checkFoundations();
 
       cy.task('getGlobalStats').then(({ completed }) => {
-        cy.checkGameNumber(0);
-        cy.checkGlobalGameNumber(completed);
+        cy.checkGameCount(0);
+        cy.checkGlobalGameCount(completed);
       });
 
-      cy.task('getPlayerCount').then((players) => {
-        cy.checkPlayerNumber(players);
-        cy.checkOnlinePlayerNumber();
-      });
+      cy.checkPlayerCount();
+      cy.checkOnlinePlayerCount();
     });
 
     it('show pause page if url is changed manually', () => {
       cy.visit('#/pause');
 
-      cy.checkGameIsPaused(true);
+      cy.checkPausedPage(true);
 
       cy.resumeGame();
 
-      cy.checkBoard();
+      cy.checkPausedPage(false);
     });
 
     it('it should show 404 page', () => {
       cy.visit('#/abc');
 
-      cy.check404();
+      cy.check404Page(true);
 
       cy.goHome();
 
-      cy.checkBoard();
+      cy.check404Page(false);
     });
   });
 
@@ -56,11 +50,11 @@ describe('App', () => {
 
       cy.mockIsOnline(false);
 
-      cy.checkConnectionPageIsVisible(true);
+      cy.checkConnectionPage(true);
 
       cy.mockIsOnline(true);
 
-      cy.checkConnectionPageIsVisible(false);
+      cy.checkConnectionPage(false);
 
       cy.checkConnectedAlert();
     });
@@ -70,11 +64,11 @@ describe('App', () => {
 
       cy.mockIsOnline(false);
 
-      cy.checkConnectionPageIsVisible(true);
+      cy.checkConnectionPage(true);
 
       cy.reload();
 
-      cy.checkConnectionPageIsVisible(false);
+      cy.checkConnectionPage(false);
 
       cy.checkConnectedAlert();
     });
@@ -84,11 +78,11 @@ describe('App', () => {
 
       cy.mockIsOnline(false);
 
-      cy.checkConnectionPageIsVisible(true);
+      cy.checkConnectionPage(true);
 
       cy.reconnect();
 
-      cy.checkConnectionPageIsVisible(false);
+      cy.checkConnectionPage(false);
     });
 
     it('it should not allow loading of connection error page if connected', () => {
@@ -96,7 +90,7 @@ describe('App', () => {
 
       cy.visit('#/connection-error');
 
-      cy.checkConnectionPageIsVisible(false);
+      cy.checkConnectionPage(false);
     });
   });
 
@@ -153,7 +147,7 @@ describe('App', () => {
       it('it should show update for an older version, then show no new updates & game updated on page reload', () => {
         cy.mockVersionUpdate();
 
-        cy.checkAppHasUpdated(true);
+        cy.checkUpdatePage(true);
 
         cy.checkUpdateTitle('New Update');
 
@@ -170,7 +164,7 @@ describe('App', () => {
       it('it should show update for an older version, then show game updated on when update button is pressed', () => {
         cy.mockVersionUpdate();
 
-        cy.checkAppHasUpdated(true);
+        cy.checkUpdatePage(true);
 
         cy.checkUpdateTitle('New Update');
 
@@ -179,7 +173,7 @@ describe('App', () => {
         cy.wait(1000);
         cy.update();
 
-        cy.checkAppHasUpdated(false);
+        cy.checkUpdatePage(false);
 
         cy.checkAppUpdated(true);
       });
@@ -187,7 +181,7 @@ describe('App', () => {
       it('it should not show no updates on update page', () => {
         cy.visit('#/update');
 
-        cy.checkAppHasUpdated(true);
+        cy.checkUpdatePage(true);
 
         cy.checkUpdateTitle('No New Updates');
       });

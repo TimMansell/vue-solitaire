@@ -3,7 +3,7 @@
     ref="leaderboardOverlay"
     center-content
     show-close
-    data-test="leaderboards-overlay"
+    data-test="leaderboards"
   >
     <template #title> Leaderboards </template>
     <template #msg>

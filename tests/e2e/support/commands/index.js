@@ -1,6 +1,9 @@
 import './formatting';
 import './deck';
+import './clicks';
 import './localStorage';
 import './mocks';
-import './update';
-import './misc';
+import './waitFor';
+import './visibility';
+import './forms';
+import './pagination';

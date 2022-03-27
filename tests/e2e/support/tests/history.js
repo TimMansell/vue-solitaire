@@ -1,19 +1,13 @@
-Cypress.Commands.add('setHistoryPage', (pageText) => {
+Cypress.Commands.add('testHistoryPage', (pageText) => {
   cy.setPage(pageText);
-});
 
-Cypress.Commands.add('selectHistoryGames', (value) => {
-  cy.get('[data-test="game-history"] [data-test="select"]').select(`${value}`);
-});
+  cy.waitForSkeleton();
 
-Cypress.Commands.add('getSelectHistoryGames', () => {
-  cy.get(
-    '[data-test="game-history"] [data-test="select"] :selected'
-  ).formatNumber();
-});
+  cy.checkFilterAtTopOfPage();
 
-Cypress.Commands.add('getHistoryTotalGames', () => {
-  cy.get('[data-test="game-history-total-games"]').getData('games');
+  cy.checkHistoryPages();
+
+  cy.checkHistoryShowingGames();
 });
 
 Cypress.Commands.add('checkSelectHistoryGames', (value) => {
@@ -72,12 +66,4 @@ Cypress.Commands.add('checkHistoryShowingGames', () => {
 
 Cypress.Commands.add('checkHistoryHasFirstGameShowing', () => {
   cy.checkTableCell({ row: -1, cell: 0, value: '1' });
-});
-
-Cypress.Commands.add('waitforInitialHistoryPageToLoad', (shouldWait) => {
-  if (shouldWait) {
-    cy.getHistoryTotalGames().then((games) => {
-      cy.waitUntil(() => cy.checkTableCell({ row: 0, cell: 0, value: games }));
-    });
-  }
 });

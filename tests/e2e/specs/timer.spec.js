@@ -1,62 +1,47 @@
 const wait = 2000;
+const waitSmall = 1000;
 
 describe('Timer', () => {
   beforeEach(() => {
     cy.visitApp();
 
-    cy.waitForTimerToStart();
-  });
-
-  afterEach(() => {
-    cy.clearTest();
+    cy.waitForBoard();
   });
 
   describe('Default Functionality', () => {
-    it('timer stops when game is paused and starts when resumed', () => {
-      cy.saveTimer();
+    it('it should increment timer correctly when pausing and resuming', () => {
+      cy.wait(wait);
+
+      cy.checkTimerIs(2);
 
       cy.pauseGame();
 
-      cy.saveTimer({ wait });
+      cy.wait(waitSmall);
+
+      cy.checkTimerIs(2);
 
       cy.resumeGame();
 
-      cy.saveTimer({ wait });
-
-      cy.checkTimerHasResumed();
-    });
-
-    it('it should increment timer correctly', () => {
       cy.wait(wait);
 
-      cy.checkTimerIs('0:00:03');
+      cy.checkTimerIs(4);
     });
 
-    it('it should pause timer after new game then pause game', () => {
+    it('it should reset timer when a new game is started', () => {
+      cy.wait(waitSmall);
+
       cy.startNewGame();
 
-      cy.pauseGame();
-
-      cy.saveTimer({ wait });
-
-      cy.saveTimer({ wait });
-
-      cy.checkTimerIsPaused();
-    });
-
-    it('it should increment timer correctly after pausing', () => {
-      cy.pauseGame();
+      cy.checkTimerHasReset();
 
       cy.wait(wait);
 
-      cy.resumeGame();
-
-      cy.wait(wait);
-
-      cy.checkTimerIs('0:00:03');
+      cy.checkTimerIs(2);
     });
 
     it('timer should pause when page is automatically hidden', () => {
+      cy.wait(waitSmall);
+
       cy.setVisibilityHidden();
 
       cy.triggerVisibilityChange();
@@ -65,131 +50,63 @@ describe('Timer', () => {
 
       cy.resumeGame();
 
-      cy.checkTimerIs('0:00:03');
+      cy.checkTimerIs(3);
     });
 
     it('timer should pause/unpause if url is changed manually', () => {
-      cy.saveTimer();
+      cy.wait(waitSmall);
 
       cy.visit('#/pause');
 
-      cy.saveTimer({ wait });
-
-      cy.checkTimerIsPaused();
+      cy.wait(waitSmall);
 
       cy.visit('#/');
 
       cy.wait(wait);
 
-      cy.checkTimerIs('0:00:03');
+      cy.checkTimerIs(3);
     });
 
     it('timer should pause on 404 page', () => {
+      cy.wait(waitSmall);
+
       cy.visit('#/abc');
 
-      cy.wait(wait);
+      cy.wait(waitSmall);
 
       cy.goHome();
 
-      cy.checkTimerIs('0:00:01');
+      cy.wait(wait);
+
+      cy.checkTimerIs(3);
     });
   });
 
   describe('Refreshing page', () => {
-    it('timer should continue when page is refreshed', () => {
+    it('timer should continue from correct time when page is refreshed', () => {
+      cy.wait(wait);
+
       cy.reload();
 
-      cy.saveTimer({ wait });
-
-      cy.checkTimerIs('0:00:03');
+      cy.checkTimerIs(2);
     });
 
-    it('timer should start paused when game is paused and page is refreshed', () => {
-      cy.saveTimer();
+    it('timer should continue from correct time when game is paused and page is refreshed', () => {
+      cy.wait(waitSmall);
 
       cy.pauseGame();
 
-      cy.reload();
-
-      cy.saveTimer({ wait });
-
-      cy.checkTimerIsPaused();
-    });
-
-    it('timer should start paused when stats overlay is open and page is refreshed', () => {
-      cy.saveTimer();
-
-      cy.showStats();
+      cy.wait(waitSmall);
 
       cy.reload();
 
-      cy.saveTimer({ wait });
+      cy.checkTimerIs(1);
 
-      cy.checkTimerIsPaused();
-    });
+      cy.resumeGame();
 
-    it('timer should start paused when how to play overlay is open and page is refreshed', () => {
-      cy.saveTimer();
+      cy.wait(wait);
 
-      cy.showRules();
-
-      cy.reload();
-
-      cy.saveTimer({ wait });
-
-      cy.checkTimerIsPaused();
-    });
-
-    it('timer should start paused when new game overlay is open and page is refreshed', () => {
-      cy.saveTimer();
-
-      cy.newGame();
-
-      cy.reload();
-
-      cy.saveTimer({ wait });
-
-      cy.checkTimerIsPaused();
-    });
-  });
-
-  describe('Resuming Timer', () => {
-    it('timer stops when stats overlay is open and starts when resumed', () => {
-      cy.saveTimer();
-
-      cy.showStats();
-
-      cy.saveTimer({ wait });
-
-      cy.closeOverlay();
-
-      cy.saveTimer({ wait });
-
-      cy.checkTimerHasResumed();
-    });
-
-    it('timer stops when new game overlay is open and starts when resumed', () => {
-      cy.saveTimer();
-
-      cy.newGame();
-
-      cy.saveTimer({ wait });
-
-      cy.continueGame();
-
-      cy.saveTimer({ wait });
-
-      cy.checkTimerHasResumed();
-    });
-  });
-
-  describe('Resetting timer', () => {
-    it('it should reset timer when new game is pressed', () => {
-      cy.wait(1000);
-
-      cy.startNewGame();
-
-      cy.checkTimerHasReset();
+      cy.checkTimerIs(3);
     });
   });
 });

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Leaderboards.vue matches snapshot 1`] = `
-<div data-test="leaderboards">
+<div data-test="leaderboard">
   <p data-test="leaderboard-name">
     Your player name is: Player Name
   </p>

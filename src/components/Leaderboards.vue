@@ -1,5 +1,5 @@
 <template>
-  <div data-test="leaderboards">
+  <div data-test="leaderboard">
     <p v-if="name" data-test="leaderboard-name">
       Your player name is: {{ name }}
     </p>

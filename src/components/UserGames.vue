@@ -1,7 +1,7 @@
 <template>
   <div>
     Games:
-    <Counter data-test="stats" :number="userGameCount" />
+    <Counter data-test="user-games" :number="userGameCount" />
   </div>
 </template>
 

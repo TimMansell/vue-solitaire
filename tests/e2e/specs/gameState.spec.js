@@ -1,14 +1,25 @@
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
-import validMoveDeck from '../../fixtures/decks/validMove.json';
 
 describe('Game State', () => {
   beforeEach(() => {
     cy.visitApp();
   });
 
-  afterEach(() => {
-    cy.clearTest();
+  it('it should start a new game and reset board', () => {
+    cy.setBoard(quitGameDeck);
+
+    cy.runGameWithClicks(quitGameMoves);
+
+    cy.clickCard('4♠');
+
+    cy.startNewGame();
+
+    cy.checkCardsNotExistOn(['A♣'], 'foundation-1');
+
+    cy.checkCardIsNotSelected();
+
+    cy.checkPlaceholderCardExists(false);
   });
 
   it('should pause when page is automatically hidden', () => {
@@ -16,21 +27,45 @@ describe('Game State', () => {
 
     cy.triggerVisibilityChange();
 
-    cy.checkGameIsPaused(true);
+    cy.checkPausedPage(true);
+
+    cy.checkBodyOverflow(true);
   });
 
-  it('should show correct time, and moves on game summary', () => {
-    cy.setBoard(validMoveDeck);
+  it('should not show game paused if overlay is visible', () => {
+    cy.setVisibilityHidden();
 
-    cy.dragCardFromTo('6♦', '7♦');
+    cy.showRules();
 
-    cy.wait(2000);
+    cy.triggerVisibilityChange();
 
-    cy.pauseGame();
+    cy.checkPausedPage(false);
+  });
 
-    cy.checkSummaryMoves(1);
+  it('it should new/continue, pause/resume, open/close: rules, history, stats and leaderboards', () => {
+    const [firstMove] = quitGameMoves;
 
-    cy.checkSummaryTime('0:00:03');
+    cy.setBoard(quitGameDeck);
+
+    cy.runGameWithClicks([firstMove]);
+
+    cy.clickCard('4♠');
+
+    cy.checkCardIsSelected('4♠');
+
+    cy.testContinueGame();
+
+    cy.testPause();
+
+    cy.testRules();
+
+    cy.testHistory();
+
+    cy.testStats();
+
+    cy.testLeaderboards();
+
+    cy.checkCardIsSelected('4♠');
   });
 
   it('refreshing page shows same board state', () => {
@@ -53,25 +88,5 @@ describe('Game State', () => {
       { card: 'Q♣', column: 2, position: 4 },
       { card: 'A♥', column: 5, position: 1 },
     ]);
-  });
-
-  it('should show correct games, time, and moves on page refresh', () => {
-    cy.setBoard(quitGameDeck);
-
-    cy.runGameWithClicks(quitGameMoves);
-
-    cy.saveGames();
-    cy.saveTimer();
-    cy.saveMoves();
-
-    cy.reload();
-
-    cy.checkGames();
-    cy.checkTimer();
-    cy.checkMoves();
-
-    cy.pauseGame();
-
-    cy.checkGameSummary();
   });
 });

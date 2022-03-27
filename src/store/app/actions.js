@@ -52,14 +52,18 @@ const actions = {
 
     commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
-  newGame({ dispatch }) {
-    dispatch('saveGame');
+  newGame({ dispatch, getters }) {
+    const { isCompletedGame } = getters;
+
+    if (!isCompletedGame) {
+      dispatch('saveGame');
+    }
+
     dispatch('createUser');
     dispatch('restart');
   },
   setGameOutcome({ commit, dispatch }, hasWon) {
     dispatch('saveGame');
-    dispatch('createUser');
 
     commit('SET_GAME_OUTCOME', hasWon);
   },

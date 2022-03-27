@@ -1,41 +1,29 @@
-import { mockUid } from '../../../src/mockData';
-
 describe('Leaderboards', () => {
-  afterEach(() => {
-    cy.clearTest();
-  });
-
   describe('Default', () => {
     beforeEach(() => {
       cy.visitApp();
     });
 
-    it('should not show game paused if leaderboards overlay is visible', () => {
-      cy.setVisibilityHidden();
-
-      cy.showLeaderboards();
-
-      cy.triggerVisibilityChange();
-
-      cy.checkGameIsPaused(false);
-    });
-
-    it('it should display correct heading', () => {
+    it('it should display correct headings', () => {
       cy.showLeaderboards();
 
       cy.checkLeaderboardHeading('Top 25 Lowest Moves');
+      cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
       cy.selectLeaderboardBest('Times');
 
       cy.checkLeaderboardHeading('Top 25 Quickest Times');
+      cy.checkTableHeading({ cell: 3, heading: 'Times' });
 
       cy.selectLeaderboardBest('Win %');
 
       cy.checkLeaderboardHeading('Top 25 Best Win %');
+      cy.checkTableHeading({ cell: 2, heading: 'Win %' });
 
       cy.selectLeaderboardBest('Wins');
 
-      cy.checkLeaderboardHeading('Top 25 Most');
+      cy.checkLeaderboardHeading('Top 25 Most Wins');
+      cy.checkTableHeading({ cell: 2, heading: 'Wins' });
 
       cy.selectLeaderboardTop(50);
 
@@ -50,24 +38,6 @@ describe('Leaderboards', () => {
       cy.selectLeaderboardTop(50);
 
       cy.checkLeaderboardGameRange();
-    });
-
-    it('it should display correct table heading', () => {
-      cy.showLeaderboards();
-
-      cy.checkTableHeading({ cell: 3, heading: 'Moves' });
-
-      cy.selectLeaderboardBest('Times');
-
-      cy.checkTableHeading({ cell: 3, heading: 'Times' });
-
-      cy.selectLeaderboardBest('Win %');
-
-      cy.checkTableHeading({ cell: 2, heading: 'Win %' });
-
-      cy.selectLeaderboardBest('Wins');
-
-      cy.checkTableHeading({ cell: 2, heading: 'Wins' });
     });
 
     it('should show correct data from url params', () => {
@@ -119,7 +89,7 @@ describe('Leaderboards', () => {
 
   describe('Existing User', () => {
     beforeEach(() => {
-      cy.setUser(mockUid);
+      cy.mockUser();
 
       cy.visitApp();
     });

@@ -1,6 +1,5 @@
 import './card';
 import './buttons';
-import './clicks';
 import './drags';
 import './board';
 import './controls';
@@ -15,8 +14,6 @@ import './user';
 import './timer';
 import './alerts';
 import './snapshots';
-import './paused';
 import './visibility';
-import './404';
 import './update';
 import './pages';

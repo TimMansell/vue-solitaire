@@ -1,23 +1,3 @@
-Cypress.Commands.add('selectLeaderboardTop', (value) => {
-  cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
-    `${value}`
-  );
-});
-
-Cypress.Commands.add('selectLeaderboardBest', (value) => {
-  cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
-    value
-  );
-});
-
-Cypress.Commands.add('getSelectLeaderboardTop', () => {
-  cy.get('[data-test="leaderboard-set-top"] [data-test="select"] :selected');
-});
-
-Cypress.Commands.add('getSelectLeaderboardBest', () => {
-  cy.get('[data-test="leaderboard-set-best"] [data-test="select"] :selected');
-});
-
 Cypress.Commands.add('checkSelectLeaderboardBest', (value) => {
   cy.getSelectLeaderboardBest().text().should('equal', value);
 });

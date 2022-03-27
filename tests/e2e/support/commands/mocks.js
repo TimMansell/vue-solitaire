@@ -1,5 +1,6 @@
 import semver from 'semver';
 import { version } from '../../../../package.json';
+import { mockUid } from '../../../../src/mockData';
 
 Cypress.Commands.add('mockVersionUpdate', () =>
   cy
@@ -16,5 +17,25 @@ Cypress.Commands.add('mockIsOnline', (isOnline) =>
     .its('solitaire.$store')
     .then((store) => {
       store.dispatch('setIsOnline', isOnline);
+    })
+);
+
+Cypress.Commands.add('mockUser', () => localStorage.setItem('luid', mockUid));
+
+Cypress.Commands.add('mockBoard', (cards) =>
+  cy
+    .window()
+    .its('solitaire.$store')
+    .then((store) => {
+      store.dispatch('initBoard', cards);
+    })
+);
+
+Cypress.Commands.add('mockPaused', (isPaused) =>
+  cy
+    .window()
+    .its('solitaire.$store')
+    .then((store) => {
+      store.dispatch('setGamePaused', isPaused);
     })
 );

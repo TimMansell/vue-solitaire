@@ -1,5 +1,5 @@
 <template>
-  <GameOverlay center-content show-logo data-test="game-won">
+  <GameOverlay center-content show-logo data-test="won">
     <template #title> Congratulations, you win! </template>
     <template #msg>
       <GameSummary />
