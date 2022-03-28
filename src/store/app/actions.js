@@ -10,10 +10,6 @@ const actions = {
   restart({ dispatch }) {
     dispatch('restartApp');
     dispatch('restartGame');
-
-    dispatch('emit', {
-      name: 'newGame',
-    });
   },
   restartApp({ commit }) {
     commit('RESTART_APP');
@@ -52,19 +48,12 @@ const actions = {
 
     commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
-  newGame({ dispatch, getters }) {
-    const { isCompletedGame } = getters;
-
-    if (!isCompletedGame) {
-      dispatch('saveGame');
-    }
-
+  newGame({ dispatch }) {
+    dispatch('saveGame');
     dispatch('createUser');
     dispatch('restart');
   },
-  setGameOutcome({ commit, dispatch }, hasWon) {
-    dispatch('saveGame');
-
+  setGameOutcome({ commit }, hasWon) {
     commit('SET_GAME_OUTCOME', hasWon);
   },
   saveGame({ dispatch, getters }) {

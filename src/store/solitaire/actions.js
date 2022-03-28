@@ -12,6 +12,10 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
+  initGame({ dispatch }, deck) {
+    dispatch('initBoard', deck);
+    dispatch('initFoundation');
+  },
   restartGame({ commit }) {
     commit('RESTART_GAME');
   },
@@ -32,10 +36,6 @@ const actions = {
     const board = initBoard(cards);
 
     dispatch('setBoard', board);
-  },
-  setNewGame({ dispatch }, deck) {
-    dispatch('initBoard', deck);
-    dispatch('initFoundation');
   },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);
