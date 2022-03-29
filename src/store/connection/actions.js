@@ -3,8 +3,8 @@ import { createToast, updateToast, dismissToast } from '@/services/toast';
 
 const actions = {
   initConnection({ commit, dispatch, getters }) {
-    const { uid, userGameCount, timer } = getters;
-    const socket = connect({ uid, userGameCount, timer });
+    const { uid, timer } = getters;
+    const socket = connect({ uid, timer });
 
     socket.onConnect(() => dispatch('connected'));
     socket.onDisconnect(() => dispatch('disconnected'));
