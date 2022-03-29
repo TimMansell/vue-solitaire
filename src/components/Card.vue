@@ -6,6 +6,7 @@
     @dragstart="dragCard($event, id)"
     @dragend.prevent
     :draggable="visible && !isDisabledGame"
+    :data-card="cardName"
     :data-test="cardTestName"
     :data-card-selected="cardIsSelected"
   >
@@ -88,11 +89,20 @@ export default {
         'card--is-dragged': isDragged,
       };
     },
-    cardTestName() {
+    cardName() {
       const { value, suit, visible } = this;
 
       if (visible) {
-        return `card-${value}${suit}`;
+        return `${value}${suit}`;
+      }
+
+      return '';
+    },
+    cardTestName() {
+      const { cardName, visible } = this;
+
+      if (visible) {
+        return `card-${cardName}`;
       }
 
       return 'card-hidden';

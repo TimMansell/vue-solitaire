@@ -1,3 +1,4 @@
+import './alias';
 import './formatting';
 import './clicks';
 import './localStorage';

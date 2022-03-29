@@ -8,9 +8,9 @@ describe('App', () => {
 
   describe('Default', () => {
     it('it successfully loads', () => {
-      cy.checkBoard();
+      cy.checkBoardLayout();
 
-      cy.checkFoundations();
+      cy.checkFoundationLayout();
 
       cy.task('getGlobalStats').then(({ completed }) => {
         cy.checkGameCount(0);
