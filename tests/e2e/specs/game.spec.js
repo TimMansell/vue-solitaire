@@ -166,8 +166,6 @@ describe('Game', () => {
 
         cy.startNewGame();
 
-        cy.waitForGameCount();
-
         cy.checkStats();
       });
     });
@@ -181,8 +179,6 @@ describe('Game', () => {
         cy.checkStats();
 
         cy.startNewGame();
-
-        cy.waitForGameCount();
 
         cy.checkStats();
       });

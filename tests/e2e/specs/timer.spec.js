@@ -4,8 +4,6 @@ const waitSmall = 1000;
 describe('Timer', () => {
   beforeEach(() => {
     cy.visitApp();
-
-    cy.waitForBoard();
   });
 
   describe('Default Functionality', () => {

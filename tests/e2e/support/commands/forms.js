@@ -1,5 +1,7 @@
 Cypress.Commands.add('selectHistoryGames', (value) => {
   cy.get('[data-test="game-history"] [data-test="select"]').select(`${value}`);
+
+  cy.waitForSkeleton();
 });
 
 Cypress.Commands.add('getSelectHistoryGames', () => {
@@ -16,12 +18,16 @@ Cypress.Commands.add('selectLeaderboardTop', (value) => {
   cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
     `${value}`
   );
+
+  cy.waitForSkeleton();
 });
 
 Cypress.Commands.add('selectLeaderboardBest', (value) => {
   cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
     value
   );
+
+  cy.waitForSkeleton();
 });
 
 Cypress.Commands.add('getSelectLeaderboardTop', () => {
