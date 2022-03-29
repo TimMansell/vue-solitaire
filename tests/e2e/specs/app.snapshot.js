@@ -18,7 +18,7 @@ describe('App', () => {
     it(`matches ${size} snapshot`, () => {
       cy.visitApp();
 
-      cy.setBoard(quitGameDeck);
+      cy.mockBoard(quitGameDeck);
 
       cy.runGameWithClicks(quitGameMoves);
 

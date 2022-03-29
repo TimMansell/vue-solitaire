@@ -31,7 +31,7 @@ describe('Game', () => {
       it('should win game and increment won game stats', () => {
         cy.visitApp();
 
-        cy.setServerDeck(fullGameDeck);
+        cy.mockBoard(fullGameDeck);
 
         cy.checkUserStatsAreZero();
 
@@ -53,7 +53,7 @@ describe('Game', () => {
 
         cy.visitApp();
 
-        cy.setServerDeck(fullGameDeck);
+        cy.mockBoard(fullGameDeck);
 
         cy.checkStats();
 
@@ -77,7 +77,7 @@ describe('Game', () => {
       });
 
       it('should have K♣ as an available move then no moves after that', () => {
-        cy.setServerDeck(noMovesKingColumnDeck);
+        cy.mockBoard(noMovesKingColumnDeck);
 
         cy.runGameWithClicks(noMovesKingColumnMoves);
 
@@ -89,7 +89,7 @@ describe('Game', () => {
       });
 
       it('should have A♦ as an available foundation move then no moves after that', () => {
-        cy.setServerDeck(initialAceMoveDeck);
+        cy.mockBoard(initialAceMoveDeck);
 
         cy.clickFromTo('A♦', 'foundation-0');
 
@@ -101,7 +101,7 @@ describe('Game', () => {
       });
 
       it('should have 2♦ as an available foundation move then no moves after that', () => {
-        cy.setServerDeck(initialAceAnd2MoveDeck);
+        cy.mockBoard(initialAceAnd2MoveDeck);
 
         cy.clickFromTo('A♦', 'foundation-0');
         cy.clickFromTo('2♦', 'foundation-0');
@@ -118,7 +118,7 @@ describe('Game', () => {
       it('should lose game and increment lost game stats', () => {
         cy.visitApp();
 
-        cy.setServerDeck(incompleteGameDeck);
+        cy.mockBoard(incompleteGameDeck);
 
         cy.checkUserStatsAreZero();
 
@@ -140,7 +140,7 @@ describe('Game', () => {
 
         cy.visitApp();
 
-        cy.setServerDeck(incompleteGameDeck);
+        cy.mockBoard(incompleteGameDeck);
 
         cy.checkStats();
 

@@ -8,7 +8,7 @@ describe('Moves', () => {
 
   describe('Valid moves', () => {
     beforeEach(() => {
-      cy.setBoard(validMoveDeck);
+      cy.mockBoard(validMoveDeck);
     });
 
     describe('using drag and drop', () => {
@@ -66,7 +66,7 @@ describe('Moves', () => {
 
   describe('Invalid moves', () => {
     beforeEach(() => {
-      cy.setBoard(invalidMovesDeck);
+      cy.mockBoard(invalidMovesDeck);
     });
 
     describe('using drag and drop', () => {

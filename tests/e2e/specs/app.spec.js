@@ -8,8 +8,6 @@ describe('App', () => {
 
   describe('Default', () => {
     it('it successfully loads', () => {
-      cy.checkConnectedAlert();
-
       cy.checkBoard();
 
       cy.checkFoundations();
@@ -83,6 +81,8 @@ describe('App', () => {
       cy.reconnect();
 
       cy.checkConnectionPage(false);
+
+      cy.checkConnectedAlert();
     });
 
     it('it should not allow loading of connection error page if connected', () => {
@@ -101,7 +101,7 @@ describe('App', () => {
       });
 
       it('it should update up to latest version', () => {
-        cy.setBoard(quitGameDeck);
+        cy.mockBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 
@@ -117,7 +117,7 @@ describe('App', () => {
       });
 
       it('it should update to latest version if no appVersion is set in localStorage', () => {
-        cy.setBoard(quitGameDeck);
+        cy.mockBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 
@@ -131,7 +131,7 @@ describe('App', () => {
       });
 
       it('it should not update up to latest version', () => {
-        cy.setBoard(quitGameDeck);
+        cy.mockBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 

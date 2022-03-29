@@ -7,7 +7,7 @@ describe('Game State', () => {
   });
 
   it('it should start a new game and reset board', () => {
-    cy.setBoard(quitGameDeck);
+    cy.mockBoard(quitGameDeck);
 
     cy.runGameWithClicks(quitGameMoves);
 
@@ -45,7 +45,7 @@ describe('Game State', () => {
   it('it should new/continue, pause/resume, open/close: rules, history, stats and leaderboards', () => {
     const [firstMove] = quitGameMoves;
 
-    cy.setBoard(quitGameDeck);
+    cy.mockBoard(quitGameDeck);
 
     cy.runGameWithClicks([firstMove]);
 
@@ -69,7 +69,7 @@ describe('Game State', () => {
   });
 
   it('refreshing page shows same board state', () => {
-    cy.setBoard(quitGameDeck);
+    cy.mockBoard(quitGameDeck);
 
     cy.clickCard('4♠');
 

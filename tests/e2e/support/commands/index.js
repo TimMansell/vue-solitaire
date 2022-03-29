@@ -1,5 +1,4 @@
 import './formatting';
-import './deck';
 import './clicks';
 import './localStorage';
 import './mocks';

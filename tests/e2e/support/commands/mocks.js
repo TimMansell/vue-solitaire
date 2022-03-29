@@ -22,14 +22,17 @@ Cypress.Commands.add('mockIsOnline', (isOnline) =>
 
 Cypress.Commands.add('mockUser', () => localStorage.setItem('luid', mockUid));
 
-Cypress.Commands.add('mockBoard', (cards) =>
-  cy
-    .window()
+Cypress.Commands.add('mockBoard', (cards) => {
+  const uid = localStorage.getItem('luid');
+
+  cy.window()
     .its('solitaire.$store')
     .then((store) => {
       store.dispatch('initBoard', cards);
-    })
-);
+    });
+
+  cy.task('mockServerDeck', { cards, uid });
+});
 
 Cypress.Commands.add('mockPaused', (isPaused) =>
   cy
