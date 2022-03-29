@@ -16,6 +16,18 @@ describe('Game State', () => {
     cy.checkBoardIs(quitGameDeck);
   });
 
+  it('should use same deck if localStorage is cleared', () => {
+    cy.mockBoard(quitGameDeck);
+
+    cy.mockPaused(true);
+
+    cy.clearLocalStorage('vuex');
+
+    cy.reload();
+
+    cy.checkBoardIs(quitGameDeck);
+  });
+
   it('it should start a new game and reset board', () => {
     cy.mockBoard(quitGameDeck);
 
