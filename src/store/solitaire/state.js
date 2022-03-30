@@ -4,6 +4,10 @@ import { columns } from '../../config/settings.json';
 const state = () => ({
   cards: [[], [], [], [], [], [], [], []],
   foundation: [[], [], [], []],
+  moves: [],
+  time: 0,
+  hasGameWon: false,
+  hasGameLost: false,
   placeholders: columns,
   selectedCardId: null,
   draggedCards: [],

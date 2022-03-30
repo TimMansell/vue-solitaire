@@ -14,6 +14,18 @@ const mutations = {
   SET_FOUNDATIONS(state, foundation) {
     state.foundation = foundation;
   },
+  SET_GAME_OUTCOME(state, { hasGameWon, hasGameLost }) {
+    console.log({ hasGameWon, hasGameLost });
+
+    state.hasGameWon = hasGameWon;
+    state.hasGameLost = hasGameLost;
+  },
+  SET_MOVES(state, move) {
+    state.moves = [...state.moves, move];
+  },
+  UPDATE_GAME_TIME(state) {
+    state.time += 1;
+  },
   SELECT_CARD(state, id) {
     state.selectedCardId = id;
   },
