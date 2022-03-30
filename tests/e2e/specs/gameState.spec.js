@@ -53,8 +53,6 @@ describe('Game State', () => {
 
     cy.clickCard('4♠');
 
-    cy.checkCardIsSelected('4♠');
-
     cy.reload();
 
     cy.checkCardsExistOn(['A♣'], 'foundation-0');
@@ -80,25 +78,5 @@ describe('Game State', () => {
     cy.checkCardIsNotSelected();
 
     cy.checkBoardIsNot(quitGameDeck);
-  });
-
-  it('should pause when page is automatically hidden', () => {
-    cy.setVisibilityHidden();
-
-    cy.triggerVisibilityChange();
-
-    cy.checkPausedPage(true);
-
-    cy.checkBodyOverflow(true);
-  });
-
-  it('should not show game paused if overlay is visible', () => {
-    cy.setVisibilityHidden();
-
-    cy.showRules();
-
-    cy.triggerVisibilityChange();
-
-    cy.checkPausedPage(false);
   });
 });
