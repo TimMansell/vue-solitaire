@@ -1,12 +1,7 @@
 import { mockBoard } from '@/mockData';
 import actions from '../actions';
 
-const {
-  checkGameState,
-  moveCardsToColumn,
-  moveCardToFoundation,
-  setDraggedCards,
-} = actions;
+const { moveCardsToColumn, moveCardToFoundation, setDraggedCards } = actions;
 
 jest.mock('@/services/solitaire');
 jest.mock('@/services/ws');
@@ -18,22 +13,6 @@ describe('Solitaire Store', () => {
   beforeEach(() => {
     commit = jest.fn();
     dispatch = jest.fn();
-  });
-
-  it('should have no moves for game state', () => {
-    const state = { hasMoves: false };
-
-    checkGameState({ dispatch, state });
-
-    expect(dispatch).toHaveBeenCalledWith('setGameOutcome', true);
-  });
-
-  it('should have moves for game state', () => {
-    const state = { hasMoves: true };
-
-    checkGameState({ dispatch, state });
-
-    expect(dispatch).not.toHaveBeenCalledWith('setGameOutcome');
   });
 
   it('should move cards to column', () => {
