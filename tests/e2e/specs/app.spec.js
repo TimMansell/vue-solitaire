@@ -21,6 +21,16 @@ describe('App', () => {
       cy.checkOnlinePlayerCount();
     });
 
+    it('should pause when page is automatically hidden', () => {
+      cy.setVisibilityHidden();
+
+      cy.triggerVisibilityChange();
+
+      cy.checkPausedPage(true);
+
+      cy.checkBodyOverflow(true);
+    });
+
     it('show pause page if url is changed manually', () => {
       cy.visit('#/pause');
 
@@ -39,6 +49,16 @@ describe('App', () => {
       cy.goHome();
 
       cy.check404Page(false);
+    });
+
+    it('should not show game paused if overlay is visible', () => {
+      cy.setVisibilityHidden();
+
+      cy.showRules();
+
+      cy.triggerVisibilityChange();
+
+      cy.checkPausedPage(false);
     });
   });
 
