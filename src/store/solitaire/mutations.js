@@ -15,8 +15,6 @@ const mutations = {
     state.foundation = foundation;
   },
   SET_GAME_OUTCOME(state, { hasGameWon, hasGameLost }) {
-    console.log({ hasGameWon, hasGameLost });
-
     state.hasGameWon = hasGameWon;
     state.hasGameLost = hasGameLost;
   },
