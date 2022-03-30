@@ -6,6 +6,8 @@ import Pause from '@/pages/Pause.vue';
 import History from '@/pages/History.vue';
 import Stats from '@/pages/Stats.vue';
 import Leaderboards from '@/pages/Leaderboards.vue';
+import Won from '@/pages/Won.vue';
+import Lost from '@/pages/Lost.vue';
 
 const routes = [
   {
@@ -68,10 +70,10 @@ const routes = [
     path: '/won',
     components: {
       main: Home,
-      overlay: () => import('@/pages/Won.vue'),
+      overlay: Won,
     },
     beforeEnter(to, from, next) {
-      if (store.getters.gameOutcome.hasGameWon) {
+      if (store.getters.hasGameWon) {
         next();
       } else {
         next(false);
@@ -82,10 +84,10 @@ const routes = [
     path: '/lost',
     components: {
       main: Home,
-      overlay: () => import('@/pages/Lost.vue'),
+      overlay: Lost,
     },
     beforeEnter(to, from, next) {
-      if (store.getters.gameOutcome.hasGameLost) {
+      if (store.getters.hasGameLost) {
         next();
       } else {
         next(false);

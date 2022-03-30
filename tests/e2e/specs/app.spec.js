@@ -8,11 +8,9 @@ describe('App', () => {
 
   describe('Default', () => {
     it('it successfully loads', () => {
-      cy.checkConnectedAlert();
+      cy.checkBoardLayout();
 
-      cy.checkBoard();
-
-      cy.checkFoundations();
+      cy.checkFoundationLayout();
 
       cy.task('getGlobalStats').then(({ completed }) => {
         cy.checkGameCount(0);
@@ -21,6 +19,16 @@ describe('App', () => {
 
       cy.checkPlayerCount();
       cy.checkOnlinePlayerCount();
+    });
+
+    it('should pause when page is automatically hidden', () => {
+      cy.setVisibilityHidden();
+
+      cy.triggerVisibilityChange();
+
+      cy.checkPausedPage(true);
+
+      cy.checkBodyOverflow(true);
     });
 
     it('show pause page if url is changed manually', () => {
@@ -41,6 +49,16 @@ describe('App', () => {
       cy.goHome();
 
       cy.check404Page(false);
+    });
+
+    it('should not show game paused if overlay is visible', () => {
+      cy.setVisibilityHidden();
+
+      cy.showRules();
+
+      cy.triggerVisibilityChange();
+
+      cy.checkPausedPage(false);
     });
   });
 
@@ -83,6 +101,8 @@ describe('App', () => {
       cy.reconnect();
 
       cy.checkConnectionPage(false);
+
+      cy.checkConnectedAlert();
     });
 
     it('it should not allow loading of connection error page if connected', () => {
@@ -101,7 +121,7 @@ describe('App', () => {
       });
 
       it('it should update up to latest version', () => {
-        cy.setBoard(quitGameDeck);
+        cy.mockBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 
@@ -117,7 +137,7 @@ describe('App', () => {
       });
 
       it('it should update to latest version if no appVersion is set in localStorage', () => {
-        cy.setBoard(quitGameDeck);
+        cy.mockBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 
@@ -131,7 +151,7 @@ describe('App', () => {
       });
 
       it('it should not update up to latest version', () => {
-        cy.setBoard(quitGameDeck);
+        cy.mockBoard(quitGameDeck);
 
         cy.clickCard('4♠');
 

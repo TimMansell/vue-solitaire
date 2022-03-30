@@ -4,7 +4,7 @@ describe('Dragged Cards', () => {
   beforeEach(() => {
     cy.visitApp();
 
-    cy.setBoard(validMoveDeck);
+    cy.mockBoard(validMoveDeck);
   });
 
   it('should drag single card', () => {

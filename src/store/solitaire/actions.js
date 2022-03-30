@@ -12,16 +12,12 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
+  initGame({ dispatch }, deck) {
+    dispatch('initBoard', deck);
+    dispatch('initFoundation');
+  },
   restartGame({ commit }) {
     commit('RESTART_GAME');
-  },
-  checkGameState({ dispatch, state }) {
-    const hasMoves = checkHasMoves(state);
-    const isEmptyBoard = isBoardEmpty(state);
-
-    if (!hasMoves) {
-      dispatch('setGameOutcome', isEmptyBoard);
-    }
   },
   initFoundation({ dispatch }) {
     const foundationCards = initFoundation();
@@ -33,10 +29,6 @@ const actions = {
 
     dispatch('setBoard', board);
   },
-  setNewGame({ dispatch }, deck) {
-    dispatch('initBoard', deck);
-    dispatch('initFoundation');
-  },
   setFoundation({ commit }, foundation) {
     commit('SET_FOUNDATIONS', foundation);
   },
@@ -45,6 +37,26 @@ const actions = {
   },
   setCard({ commit }, id) {
     commit('SELECT_CARD', id);
+  },
+  checkGameState({ commit, state }) {
+    const hasMoves = checkHasMoves(state);
+    const isEmptyBoard = isBoardEmpty(state);
+
+    const hasGameWon = !hasMoves && isEmptyBoard;
+    const hasGameLost = !hasMoves && !isEmptyBoard;
+
+    commit('SET_GAME_OUTCOME', { hasGameWon, hasGameLost });
+  },
+  updateTimer({ commit }) {
+    commit('UPDATE_GAME_TIME');
+  },
+  saveMove({ commit, getters }, move) {
+    const { selectedCardId } = getters;
+
+    commit('SET_MOVES', {
+      selectedCardId,
+      ...move,
+    });
   },
   moveCardsToColumn({ dispatch, state }, selectedColumn) {
     const isValidMove = checkValidCardMove(state, selectedColumn);

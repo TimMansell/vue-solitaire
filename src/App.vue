@@ -18,7 +18,8 @@ export default {
   computed: {
     ...mapGetters([
       'isGamePaused',
-      'gameOutcome',
+      'hasGameWon',
+      'hasGameLost',
       'hasGameUpdated',
       'isOldVersion',
       'hasConnectionError',
@@ -41,17 +42,15 @@ export default {
     removeEventListener(events);
   },
   watch: {
-    gameOutcome: {
-      handler({ hasGameWon, hasGameLost }) {
-        if (hasGameWon) {
-          this.$router.push('/won');
-        }
+    hasGameWon(hasGameWon) {
+      if (!hasGameWon) return;
 
-        if (hasGameLost) {
-          this.$router.push('/lost');
-        }
-      },
-      deep: true,
+      this.$router.replace('/won');
+    },
+    hasGameLost(hasGameLost) {
+      if (!hasGameLost) return;
+
+      this.$router.replace('/lost');
     },
     isOldVersion(isOldVersion) {
       if (!isOldVersion) return;

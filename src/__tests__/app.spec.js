@@ -9,7 +9,8 @@ describe('App.vue', () => {
       },
       computed: {
         isGamePaused: () => false,
-        gameOutcome: () => {},
+        hasGameWon: () => false,
+        hasGameLost: () => false,
         hasGameUpdated: () => false,
         isOldVersion: () => false,
         hasConnectionError: () => false,

@@ -7,14 +7,6 @@ const actions = {
     dispatch('initConnection');
     dispatch('updateApp');
   },
-  restart({ dispatch }) {
-    dispatch('restartApp');
-    dispatch('restartGame');
-
-    dispatch('emit', {
-      name: 'newGame',
-    });
-  },
   restartApp({ commit }) {
     commit('RESTART_APP');
   },
@@ -26,7 +18,7 @@ const actions = {
     const showUpdated = isVersionOutdated && !isEmptyBoard;
 
     if (isVersionOutdated) {
-      dispatch('restart');
+      dispatch('restartApp');
     }
 
     setVersion(version);
@@ -52,20 +44,10 @@ const actions = {
 
     commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
   },
-  newGame({ dispatch, getters }) {
-    const { isCompletedGame } = getters;
-
-    if (!isCompletedGame) {
-      dispatch('saveGame');
-    }
-
-    dispatch('createUser');
-    dispatch('restart');
-  },
-  setGameOutcome({ commit, dispatch }, hasWon) {
+  newGame({ dispatch }) {
     dispatch('saveGame');
-
-    commit('SET_GAME_OUTCOME', hasWon);
+    dispatch('createUser');
+    dispatch('restartGame');
   },
   saveGame({ dispatch, getters }) {
     const { game } = getters;
@@ -78,19 +60,8 @@ const actions = {
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  updateTimer({ commit }) {
-    commit('UPDATE_GAME_TIME');
-  },
   toggleOverlayVisibility({ commit }) {
     commit('SET_OVERLAY_VISIBLE');
-  },
-  saveMove({ commit, getters }, move) {
-    const { selectedCardId } = getters;
-
-    commit('SET_MOVES', {
-      selectedCardId,
-      ...move,
-    });
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);

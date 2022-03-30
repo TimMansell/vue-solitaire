@@ -1,13 +1,10 @@
-Cypress.Commands.add('checkBoard', () => {
+Cypress.Commands.add('checkBoardLayout', () => {
   cy.get('[data-test="board"]').should('be.visible');
 
-  cy.get('[data-test="columns"] [data-test^="card-"]').should(
-    'have.length',
-    52
-  );
+  cy.getBoardCards().should('have.length', 52);
 });
 
-Cypress.Commands.add('checkFoundations', () => {
+Cypress.Commands.add('checkFoundationLayout', () => {
   cy.get('[data-test="foundations"] [data-test^="foundation-"]').should(
     'have.length',
     4
@@ -26,4 +23,31 @@ Cypress.Commands.add('checkPlaceholderCardAtColumn', (column) => {
   cy.get(
     `[data-test="column-${column}"] [data-test="column-card-placeholder"]`
   ).should('be.visible');
+});
+
+Cypress.Commands.add('checkBoardIs', (deck) => {
+  cy.getBoardCards().each(([currentCard], index) => {
+    const { card, test } = currentCard.dataset;
+    const { value, suit } = deck[index];
+
+    if (!test.includes('hidden')) {
+      expect(card).to.equal(`${value}${suit}`);
+    }
+  });
+});
+
+Cypress.Commands.add('checkBoardIsNot', (deck) => {
+  cy.getBoardCards().should((cards) => {
+    const values = [...cards].map(({ dataset }) => dataset.card);
+
+    const testMatchingDeck = deck.every(({ value, suit }, index) => {
+      const card = values[index];
+
+      if (!card) return true;
+
+      return card === `${value}${suit}`;
+    });
+
+    expect(testMatchingDeck).to.equal(false);
+  });
 });

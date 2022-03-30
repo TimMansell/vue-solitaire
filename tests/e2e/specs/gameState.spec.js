@@ -6,8 +6,30 @@ describe('Game State', () => {
     cy.visitApp();
   });
 
+  it('it should start a new game using deck from server', () => {
+    cy.mockBoard(quitGameDeck);
+
+    cy.checkBoardIs(quitGameDeck);
+
+    cy.reload();
+
+    cy.checkBoardIs(quitGameDeck);
+  });
+
+  it('should use same deck if localStorage is cleared', () => {
+    cy.mockBoard(quitGameDeck);
+
+    cy.mockPaused(true);
+
+    cy.clearLocalStorage('vuex');
+
+    cy.reload();
+
+    cy.checkBoardIs(quitGameDeck);
+  });
+
   it('it should start a new game and reset board', () => {
-    cy.setBoard(quitGameDeck);
+    cy.mockBoard(quitGameDeck);
 
     cy.runGameWithClicks(quitGameMoves);
 
@@ -15,41 +37,25 @@ describe('Game State', () => {
 
     cy.startNewGame();
 
-    cy.checkCardsNotExistOn(['A♣'], 'foundation-1');
+    cy.checkCardsNotExistOn(['A♣'], 'foundation-0');
 
     cy.checkCardIsNotSelected();
 
     cy.checkPlaceholderCardExists(false);
+
+    cy.checkBoardIsNot(quitGameDeck);
   });
 
-  it('should pause when page is automatically hidden', () => {
-    cy.setVisibilityHidden();
+  it('should keep board state when refreshing page', () => {
+    cy.mockBoard(quitGameDeck);
 
-    cy.triggerVisibilityChange();
-
-    cy.checkPausedPage(true);
-
-    cy.checkBodyOverflow(true);
-  });
-
-  it('should not show game paused if overlay is visible', () => {
-    cy.setVisibilityHidden();
-
-    cy.showRules();
-
-    cy.triggerVisibilityChange();
-
-    cy.checkPausedPage(false);
-  });
-
-  it('it should new/continue, pause/resume, open/close: rules, history, stats and leaderboards', () => {
-    const [firstMove] = quitGameMoves;
-
-    cy.setBoard(quitGameDeck);
-
-    cy.runGameWithClicks([firstMove]);
+    cy.runGameWithClicks(quitGameMoves);
 
     cy.clickCard('4♠');
+
+    cy.reload();
+
+    cy.checkCardsExistOn(['A♣'], 'foundation-0');
 
     cy.checkCardIsSelected('4♠');
 
@@ -65,28 +71,12 @@ describe('Game State', () => {
 
     cy.testLeaderboards();
 
-    cy.checkCardIsSelected('4♠');
-  });
-
-  it('refreshing page shows same board state', () => {
-    cy.setBoard(quitGameDeck);
-
-    cy.clickCard('4♠');
-
-    cy.checkCardIsSelected('4♠');
-
-    cy.reload();
-
-    cy.checkCardIsSelected('4♠');
+    cy.checkCardsExistOn(['A♣'], 'foundation-0');
 
     cy.clickCard('4♠');
 
     cy.checkCardIsNotSelected();
 
-    cy.checkCardPositions([
-      { card: '4♣', column: 0, position: 6 },
-      { card: 'Q♣', column: 2, position: 4 },
-      { card: 'A♥', column: 5, position: 1 },
-    ]);
+    cy.checkBoardIsNot(quitGameDeck);
   });
 });

@@ -17,5 +17,5 @@ export default new Vuex.Store({
     user,
     stats,
   },
-  plugins: [createPersistedState({ paths: ['app', 'solitaire'] })],
+  plugins: [createPersistedState({ paths: ['solitaire'] })],
 });

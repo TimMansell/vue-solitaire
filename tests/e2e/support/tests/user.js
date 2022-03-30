@@ -1,6 +1,4 @@
 Cypress.Commands.add('checkPlayerCount', () => {
-  cy.waitForPlayerCount();
-
   cy.task('getPlayerCount').then((players) =>
     cy.get('[data-test="player-count"]').formatNumber().should('equal', players)
   );

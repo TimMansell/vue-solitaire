@@ -2,7 +2,6 @@
 const state = () => ({
   luid: '',
   name: '',
-  existsOnServer: false,
   gameHistory: [],
 });
 

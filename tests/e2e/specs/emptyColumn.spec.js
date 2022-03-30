@@ -5,7 +5,7 @@ describe('Special column moves', () => {
   beforeEach(() => {
     cy.visitApp();
 
-    cy.setBoard(emptyColumnDeck);
+    cy.mockBoard(emptyColumnDeck);
 
     cy.runGameWithClicks(emptyColumnMoves);
 

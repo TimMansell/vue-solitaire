@@ -4,7 +4,7 @@ describe('Foundation moves', () => {
   beforeEach(() => {
     cy.visitApp();
 
-    cy.setBoard(AcesDeck);
+    cy.mockBoard(AcesDeck);
   });
 
   describe('using drag and drop', () => {
