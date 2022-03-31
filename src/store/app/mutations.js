@@ -14,6 +14,9 @@ const mutations = {
   SET_VERSION(state, version) {
     state.version = version;
   },
+  SET_LATEST_VERSION(state, version) {
+    state.latestVersion = version;
+  },
   SET_HAS_UPDATED(state, hasGameUpdated) {
     state.hasGameUpdated = hasGameUpdated;
   },

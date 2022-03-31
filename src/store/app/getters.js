@@ -4,6 +4,7 @@ const getters = {
   hasGameUpdated: ({ hasGameUpdated }) => hasGameUpdated,
   isOldVersion: ({ isOldVersion }) => isOldVersion,
   version: ({ version }) => version,
+  latestVersion: ({ latestVersion }) => latestVersion,
   isDisabledGame: (_, { isEmptyBoard, isGamePaused, hasConnectionError }) =>
     isEmptyBoard || isGamePaused || hasConnectionError,
 };
