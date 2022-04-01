@@ -7,7 +7,6 @@ const state = () => ({
   isOldVersion: false,
   hasGameUpdated: false,
   version,
-  latestVersion: version,
 });
 
 export default state;

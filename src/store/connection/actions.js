@@ -9,7 +9,7 @@ const actions = {
 
     socket.onConnect(() => dispatch('connected'));
     socket.onDisconnect(() => dispatch('disconnected'));
-    socket.on('setVersion', (update) => dispatch('setVersion', update));
+    socket.on('newUpdate', (update) => dispatch('newUpdate', update));
     socket.on('userPlayed', (games) => dispatch('setUserPlayed', games));
     socket.on('globalPlayed', (games) => dispatch('setGlobalPlayed', games));
     socket.on('playerCount', (players) => dispatch('setPlayerCount', players));

@@ -2,20 +2,11 @@ import { createToast } from '@/services/toast';
 
 const actions = {
   initApp({ dispatch }) {
-    dispatch('checkVersion');
+    dispatch('checkUpdate');
     dispatch('initUser');
     dispatch('initConnection');
   },
-  restartApp({ commit, dispatch }) {
-    dispatch('restartGame');
-
-    commit('RESTART_APP');
-  },
-  checkVersion({ commit, dispatch, getters }) {
-    const { version, latestVersion } = getters;
-
-    if (version === latestVersion) return;
-
+  update({ dispatch }) {
     createToast({
       id: 'updated',
       content: 'Game has been updated to latest version',
@@ -23,12 +14,18 @@ const actions = {
       timeout: 3000,
     });
 
-    dispatch('restartApp');
-
-    commit('SET_VERSION', latestVersion);
+    dispatch('restartGame');
   },
-  setVersion({ commit }, { latestVersion, isOutdated }) {
-    commit('SET_LATEST_VERSION', latestVersion);
+  checkUpdate({ commit, dispatch, state }) {
+    const { version } = state;
+
+    commit('RESTART_APP');
+
+    if (state.version === version) return;
+
+    dispatch('update');
+  },
+  newUpdate({ commit }, isOutdated) {
     commit('SET_IS_OUTDATED_VERSION', isOutdated);
   },
   newGame({ dispatch }) {
