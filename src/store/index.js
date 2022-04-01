@@ -7,6 +7,8 @@ import solitaire from './solitaire';
 import user from './user';
 import stats from './stats';
 
+import { version } from '../../package.json';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -17,5 +19,10 @@ export default new Vuex.Store({
     user,
     stats,
   },
-  plugins: [createPersistedState({ paths: ['app', 'solitaire'] })],
+  plugins: [
+    createPersistedState({
+      key: `v${version}`,
+      paths: ['solitaire'],
+    }),
+  ],
 });

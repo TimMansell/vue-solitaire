@@ -1,4 +1,5 @@
 import { createToast } from '@/services/toast';
+import { version } from '../../../package.json';
 
 const actions = {
   initApp({ dispatch }) {
@@ -6,7 +7,7 @@ const actions = {
     dispatch('initUser');
     dispatch('initConnection');
   },
-  update({ dispatch }) {
+  update({ commit }) {
     createToast({
       id: 'updated',
       content: 'Game has been updated to latest version',
@@ -14,14 +15,19 @@ const actions = {
       timeout: 3000,
     });
 
-    dispatch('restartGame');
+    commit('SET_HAS_UPDATED', true);
   },
-  checkUpdate({ commit, dispatch, state }) {
-    const { version } = state;
+  checkUpdate({ dispatch }) {
+    const olderVersions = Object.keys(localStorage).filter(
+      (key) =>
+        key !== `v${version}` && (key.includes('.') || key.includes('vuex'))
+    );
 
-    commit('RESTART_APP');
+    if (!olderVersions.length) return;
 
-    if (state.version === version) return;
+    olderVersions.forEach((olderVersion) =>
+      localStorage.removeItem(olderVersion)
+    );
 
     dispatch('update');
   },
