@@ -30,6 +30,7 @@ const actions = {
     );
 
     dispatch('update');
+    dispatch('restartGame');
   },
   newUpdate({ commit }, isOutdated) {
     commit('SET_IS_OUTDATED_VERSION', isOutdated);
