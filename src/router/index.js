@@ -128,6 +128,22 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const { isOldVersion } = store.getters;
+
+  if (!isOldVersion && to.path.includes('update')) {
+    next('/');
+    return;
+  }
+
+  if (isOldVersion && from.path.includes('update')) {
+    next(false);
+    return;
+  }
+
+  next();
+});
+
 router.afterEach((to) => {
   store.dispatch('setGamePaused', true);
 
