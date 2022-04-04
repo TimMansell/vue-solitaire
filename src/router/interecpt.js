@@ -7,9 +7,13 @@ export const checkUpdate = ([toPath, fromPath], next) => {
 
   if (!isOldVersion && toPath.includes(updatePath)) {
     next('/');
+    return true;
   }
 
   if (isOldVersion && fromPath.includes(updatePath)) {
     next(false);
+    return true;
   }
+
+  return false;
 };

@@ -13,6 +13,8 @@ describe('Update', () => {
 
       cy.visit('#/');
 
+      cy.url().should('include', '#/update');
+
       cy.wait(1000);
 
       cy.visit('#/pause');

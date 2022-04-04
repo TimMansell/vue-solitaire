@@ -130,9 +130,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const interceptUpdate = checkUpdate([to.path, from.path], next);
+  const updateRedirect = checkUpdate([to.path, from.path], next);
 
-  if (interceptUpdate) return;
+  if (updateRedirect) return;
 
   next();
 });
