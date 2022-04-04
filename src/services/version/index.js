@@ -1,6 +1,8 @@
 import { valid, lt } from 'semver';
 import { version } from '../../../package.json';
 
+export const getVersion = () => version;
+
 export const getOldVersion = () => {
   const keys = Object.keys(localStorage);
   const legacyVersion = keys.filter((key) => key.includes('vuex'));
