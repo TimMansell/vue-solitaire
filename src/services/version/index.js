@@ -16,7 +16,10 @@ export const getOldVersion = () => {
 export const updateVersion = () => {
   const oldVersion = getOldVersion();
 
-  localStorage.removeItem(oldVersion);
+  if (oldVersion) {
+    localStorage.removeItem(oldVersion);
+    return true;
+  }
 
-  return true;
+  return false;
 };
