@@ -1,15 +1,20 @@
-import semver from 'semver';
-import { version } from '../../../../package.json';
-import { mockUid } from '../../../../src/mockData';
+import { mockUid, mockVersionNumber } from '../../../../src/mockData';
 
-Cypress.Commands.add('mockVersionUpdate', () =>
-  cy
-    .window()
+Cypress.Commands.add('mockVersionUpdate', () => {
+  cy.mockVersion();
+
+  cy.window()
     .its('solitaire.$store')
     .then((store) => {
-      store.dispatch('checkVersion', semver.inc(version, 'patch'));
-    })
-);
+      store.dispatch('newUpdate', true);
+    });
+});
+
+Cypress.Commands.add('mockVersion', (version = '') => {
+  const mockVersion = version || mockVersionNumber;
+
+  localStorage.setItem(mockVersion, 'value');
+});
 
 Cypress.Commands.add('mockIsOnline', (isOnline) =>
   cy

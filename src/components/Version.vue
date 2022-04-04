@@ -12,14 +12,12 @@
 </template>
 
 <script>
-import { version } from '../../package.json';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Version',
-  data() {
-    return {
-      version,
-    };
+  computed: {
+    ...mapGetters(['version']),
   },
 };
 </script>

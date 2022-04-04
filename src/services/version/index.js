@@ -1,13 +1,25 @@
-import semver from 'semver';
+import { valid, lt } from 'semver';
+import { version } from '../../../package.json';
 
-export const getVersion = () => localStorage.getItem('appVersion') || '0.0.1';
+export const getVersion = () => version;
 
-export const setVersion = (version) =>
-  localStorage.setItem('appVersion', version);
+export const getOldVersion = () => {
+  const keys = Object.keys(localStorage);
+  const legacyVersion = keys.filter((key) => key.includes('vuex'));
+  const olderVersion = keys.filter((key) => valid(key) && lt(key, version));
 
-export const checkVersion = (version, comparteToVersion) => {
-  const isValid = semver.valid(version);
-  const compareVersion = isValid ? version : '0.0.1';
+  const [oldVersion] = [...legacyVersion, ...olderVersion];
 
-  return semver.lt(compareVersion, comparteToVersion);
+  return oldVersion;
+};
+
+export const updateVersion = () => {
+  const oldVersion = getOldVersion();
+
+  if (oldVersion) {
+    localStorage.removeItem(oldVersion);
+    return true;
+  }
+
+  return false;
 };

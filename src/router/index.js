@@ -8,6 +8,7 @@ import Stats from '@/pages/Stats.vue';
 import Leaderboards from '@/pages/Leaderboards.vue';
 import Won from '@/pages/Won.vue';
 import Lost from '@/pages/Lost.vue';
+import { checkUpdate } from './interecpt';
 
 const routes = [
   {
@@ -126,6 +127,14 @@ const routes = [
 
 const router = new VueRouter({
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const updateRedirect = checkUpdate([to.path, from.path], next);
+
+  if (updateRedirect) return;
+
+  next();
 });
 
 router.afterEach((to) => {

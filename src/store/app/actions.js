@@ -1,48 +1,34 @@
-import { getVersion, setVersion, checkVersion } from '@/services/version';
 import { createToast } from '@/services/toast';
+import { getOldVersion, updateVersion } from '@/services/version';
 
 const actions = {
   initApp({ dispatch }) {
+    dispatch('checkUpdate');
     dispatch('initUser');
     dispatch('initConnection');
-    dispatch('updateApp');
   },
-  restartApp({ commit }) {
-    commit('RESTART_APP');
+  update({ commit }) {
+    const hasUpdated = updateVersion();
+
+    createToast({
+      id: 'updated',
+      content: 'Game has been updated to latest version',
+      position: 'top-center',
+      icon: 'check-circle',
+      timeout: 3000,
+    });
+
+    commit('SET_HAS_UPDATED', hasUpdated);
   },
-  updateApp({ commit, dispatch, getters }) {
-    const { version, isEmptyBoard } = getters;
+  checkUpdate({ dispatch }) {
+    const isOldVersion = getOldVersion();
 
-    const appVersion = getVersion();
-    const isVersionOutdated = checkVersion(appVersion, version);
-    const showUpdated = isVersionOutdated && !isEmptyBoard;
+    if (!isOldVersion) return;
 
-    if (isVersionOutdated) {
-      dispatch('restartApp');
-    }
-
-    setVersion(version);
-
-    dispatch('setHasUpdated', showUpdated);
-
-    commit('SET_VERSION', version);
+    dispatch('update');
   },
-  setHasUpdated({ commit }, showUpdated) {
-    if (showUpdated) {
-      createToast({
-        id: 'updated',
-        content: 'Game has been updated to latest version',
-        icon: 'check-circle',
-      });
-    }
-
-    commit('SET_HAS_UPDATED', showUpdated);
-  },
-  checkVersion({ commit }, version) {
-    const appVersion = getVersion();
-    const isVersionOutdated = checkVersion(appVersion, version);
-
-    commit('SET_IS_OUTDATED_VERSION', isVersionOutdated);
+  newUpdate({ commit }, isOutdated) {
+    commit('SET_IS_OUTDATED_VERSION', isOutdated);
   },
   newGame({ dispatch }) {
     dispatch('saveGame');

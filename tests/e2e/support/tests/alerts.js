@@ -1,7 +1,7 @@
-Cypress.Commands.add('checkAppUpdated', (shouldExist) => {
-  const exist = shouldExist ? 'exist' : 'not.exist';
+Cypress.Commands.add('checkUpdatedAlertVisible', (isVisible) => {
+  const exist = isVisible ? 'exist' : 'not.exist';
 
-  cy.get('[data-test="updated-alert"]', { timeout: 0 }).should(exist);
+  cy.get('[data-test="toast-updated"]').should(exist);
 });
 
 Cypress.Commands.add('checkConnectedAlert', () => {
@@ -10,8 +10,10 @@ Cypress.Commands.add('checkConnectedAlert', () => {
   cy.get('[data-test="toast-connection"]').should('not.exist');
 });
 
-Cypress.Commands.add('waitForAppUpdatedToDisappear', () => {
-  cy.waitUntil(() => Cypress.$('[data-test="updated-alert"]').length === 0);
+Cypress.Commands.add('checkUpdatedAlert', () => {
+  cy.checkUpdatedAlertVisible(true);
 
-  cy.get('[data-test="updated-alert"]').should('not.exist');
+  cy.waitForToast('updated');
+
+  cy.checkUpdatedAlertVisible(false);
 });

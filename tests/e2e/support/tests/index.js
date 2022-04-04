@@ -1,3 +1,4 @@
+import './app';
 import './card';
 import './buttons';
 import './drags';
@@ -15,5 +16,4 @@ import './timer';
 import './alerts';
 import './snapshots';
 import './visibility';
-import './update';
 import './pages';

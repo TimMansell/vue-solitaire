@@ -1,48 +1,59 @@
 import { mockVersionNumber } from '@/mockData';
-import { getVersion, setVersion, checkVersion } from '../index';
+import { getVersion, getOldVersion, updateVersion } from '../index';
+import { version } from '../../../../package.json';
 
 describe('Version', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  it('should get default version from localStorage', () => {
-    const version = getVersion();
+  it('should get correct version', () => {
+    const currentVersion = getVersion();
 
-    expect(version).toBe('0.0.1');
+    expect(currentVersion).toBe(version);
   });
 
-  it('should get version from localStorage', () => {
-    localStorage.setItem('appVersion', mockVersionNumber);
+  it('should return an old version', () => {
+    localStorage.setItem(mockVersionNumber, '');
 
-    const version = getVersion();
+    const oldVersion = getOldVersion();
 
-    expect(version).toBe(mockVersionNumber);
+    expect(oldVersion).toBe(mockVersionNumber);
   });
 
-  it('should set version in localStorage', () => {
-    setVersion(mockVersionNumber);
+  it('should return a legacy version', () => {
+    localStorage.setItem('vuex', '');
 
-    const appVersion = localStorage.getItem('appVersion');
+    const oldVersion = getOldVersion();
 
-    expect(appVersion).toBe(mockVersionNumber);
+    expect(oldVersion).toBe('vuex');
   });
 
-  it('should convert an invalid version to a lower version', () => {
-    const result = checkVersion('abc', mockVersionNumber);
+  it('should update version', () => {
+    localStorage.setItem(mockVersionNumber, '');
 
-    expect(result).toBe(true);
+    const update = updateVersion();
+    const oldVersion = getOldVersion();
+
+    expect(update).toBeTruthy();
+    expect(oldVersion).toBeUndefined();
   });
 
-  it('should be a lower version', () => {
-    const result = checkVersion('0.0.1', mockVersionNumber);
+  it('should update legacy version', () => {
+    localStorage.setItem('vuex', '');
 
-    expect(result).toBe(true);
+    const update = updateVersion();
+    const oldVersion = getOldVersion();
+
+    expect(update).toBeTruthy();
+    expect(oldVersion).toBeUndefined();
   });
 
-  it('should not be a lower version', () => {
-    const result = checkVersion(mockVersionNumber, mockVersionNumber);
+  it('should not update version', () => {
+    localStorage.setItem(`v${version}`, '');
 
-    expect(result).toBe(false);
+    const update = updateVersion();
+
+    expect(update).toBeFalsy();
   });
 });

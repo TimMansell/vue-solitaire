@@ -1,4 +1,4 @@
-import { version } from '../../../package.json';
+import { getVersion } from '@/services/version';
 
 // Return state as function so we can reset it.
 const state = () => ({
@@ -6,7 +6,7 @@ const state = () => ({
   isOverlayVisible: true,
   isOldVersion: false,
   hasGameUpdated: false,
-  version,
+  version: getVersion(),
 });
 
 export default state;
