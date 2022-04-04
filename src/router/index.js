@@ -8,6 +8,7 @@ import Stats from '@/pages/Stats.vue';
 import Leaderboards from '@/pages/Leaderboards.vue';
 import Won from '@/pages/Won.vue';
 import Lost from '@/pages/Lost.vue';
+import { checkUpdate } from './interecpt';
 
 const routes = [
   {
@@ -129,17 +130,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const { isOldVersion } = store.getters;
+  const interceptUpdate = checkUpdate([to.path, from.path], next);
 
-  if (!isOldVersion && to.path.includes('update')) {
-    next('/');
-    return;
-  }
-
-  if (isOldVersion && from.path.includes('update')) {
-    next(false);
-    return;
-  }
+  if (interceptUpdate) return;
 
   next();
 });
