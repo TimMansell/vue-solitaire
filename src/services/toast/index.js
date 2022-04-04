@@ -1,7 +1,14 @@
 import { createToastInterface } from 'vue-toastification';
 import Toast from '@/components/Toast.vue';
 
-const toast = createToastInterface({
+const toast = createToastInterface();
+
+const createComponent = (props) => ({
+  component: Toast,
+  props,
+});
+
+const config = {
   closeButton: false,
   closeOnClick: false,
   draggable: false,
@@ -9,12 +16,7 @@ const toast = createToastInterface({
   pauseOnHover: false,
   pauseOnFocusLoss: false,
   icon: false,
-});
-
-const createComponent = (props) => ({
-  component: Toast,
-  props,
-});
+};
 
 export const createToast = ({
   id,
@@ -26,20 +28,27 @@ export const createToast = ({
   toast(
     { ...createComponent({ id, content, icon }) },
     {
+      ...config,
       id,
       timeout,
       position,
     }
   );
 
-export const updateToast = ({ id, content, timeout = false, icon }) =>
+export const updateToast = ({
+  id,
+  content,
+  timeout = false,
+  icon,
+  position = 'bottom-center',
+}) =>
   toast.update(
     id,
     {
       content: {
         ...createComponent({ id, content, icon }),
       },
-      options: { timeout },
+      options: { ...config, timeout, position },
     },
     true
   );
