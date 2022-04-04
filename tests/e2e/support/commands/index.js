@@ -1,7 +1,6 @@
 import './alias';
 import './formatting';
 import './clicks';
-import './localStorage';
 import './mocks';
 import './waitFor';
 import './visibility';
