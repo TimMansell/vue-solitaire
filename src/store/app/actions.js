@@ -1,5 +1,5 @@
 import { createToast } from '@/services/toast';
-import { checkIsOldVersion, updateVersion } from '@/services/version';
+import { getOldVersion, updateVersion } from '@/services/version';
 
 const actions = {
   initApp({ dispatch }) {
@@ -8,6 +8,8 @@ const actions = {
     dispatch('initConnection');
   },
   update({ commit }) {
+    const hasUpdated = updateVersion();
+
     createToast({
       id: 'updated',
       content: 'Game has been updated to latest version',
@@ -15,12 +17,10 @@ const actions = {
       timeout: 3000,
     });
 
-    const hasUpdated = updateVersion();
-
     commit('SET_HAS_UPDATED', hasUpdated);
   },
   checkUpdate({ dispatch }) {
-    const isOldVersion = checkIsOldVersion();
+    const isOldVersion = getOldVersion();
 
     if (!isOldVersion) return;
 

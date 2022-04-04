@@ -1,15 +1,20 @@
-import { getOldVersions, removeVersions } from './helpers';
+import { valid, lt } from 'semver';
+import { version } from '../../../package.json';
 
-export const checkIsOldVersion = () => {
-  const oldVersions = getOldVersions();
-  const isOldVersion = oldVersions.length > 0;
+export const getOldVersion = () => {
+  const keys = Object.keys(localStorage);
+  const legacyVersion = keys.filter((key) => key.includes('vuex'));
+  const olderVersion = keys.filter((key) => valid(key) && lt(key, version));
 
-  return isOldVersion;
+  const [oldVersion] = [...legacyVersion, ...olderVersion];
+
+  return oldVersion;
 };
 
 export const updateVersion = () => {
-  const oldVersions = getOldVersions();
-  const hasUpdated = removeVersions(oldVersions);
+  const oldVersion = getOldVersion();
 
-  return hasUpdated;
+  localStorage.removeItem(oldVersion);
+
+  return true;
 };
