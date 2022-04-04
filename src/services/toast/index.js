@@ -2,7 +2,6 @@ import { createToastInterface } from 'vue-toastification';
 import Toast from '@/components/Toast.vue';
 
 const toast = createToastInterface({
-  position: 'bottom-center',
   closeButton: false,
   closeOnClick: false,
   draggable: false,
@@ -17,12 +16,19 @@ const createComponent = (props) => ({
   props,
 });
 
-export const createToast = ({ id, content, timeout = false, icon }) =>
+export const createToast = ({
+  id,
+  content,
+  timeout = false,
+  icon,
+  position = 'bottom-center',
+}) =>
   toast(
     { ...createComponent({ id, content, icon }) },
     {
       id,
       timeout,
+      position,
     }
   );
 

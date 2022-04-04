@@ -13,6 +13,7 @@ const actions = {
     createToast({
       id: 'updated',
       content: 'Game has been updated to latest version',
+      position: 'top-center',
       icon: 'check-circle',
       timeout: 3000,
     });
