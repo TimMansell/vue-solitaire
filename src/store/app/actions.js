@@ -32,7 +32,6 @@ const actions = {
   },
   newGame({ dispatch }) {
     dispatch('saveGame');
-    dispatch('createUser');
     dispatch('restartGame');
   },
   saveGame({ dispatch, getters }) {
