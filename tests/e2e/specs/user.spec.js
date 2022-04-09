@@ -6,6 +6,8 @@ describe('User', () => {
       cy.visitApp();
     });
 
+    afterEach(() => cy.cleanUp());
+
     it('it creates a new local user on initial page load', () => {
       const luid = localStorage.getItem('luid');
 

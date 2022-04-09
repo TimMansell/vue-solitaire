@@ -4,6 +4,8 @@ describe('Leaderboards', () => {
       cy.visitApp();
     });
 
+    afterEach(() => cy.cleanUp());
+
     it('it should display correct headings', () => {
       cy.showLeaderboards();
 

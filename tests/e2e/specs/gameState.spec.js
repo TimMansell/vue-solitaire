@@ -6,6 +6,8 @@ describe('Game State', () => {
     cy.visitApp();
   });
 
+  afterEach(() => cy.cleanUp());
+
   it('it should start a new game using deck from server', () => {
     cy.mockBoard(quitGameDeck);
 
