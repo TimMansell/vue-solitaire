@@ -8,6 +8,8 @@ import initialAceMoveDeck from '../../fixtures/decks/initialAceMove.json';
 import initialAceAnd2MoveDeck from '../../fixtures/decks/initialAceAnd2Move.json';
 
 describe('Game', () => {
+  afterEach(() => cy.cleanUp());
+
   describe('Default', () => {
     beforeEach(() => {
       cy.visitApp();

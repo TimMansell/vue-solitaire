@@ -11,7 +11,7 @@ Cypress.Commands.add('checkStats', () => {
 
   cy.showStats();
 
-  cy.task('getUserStats', uid).then(({ completed, won, lost, quit }) => {
+  cy.task('getStats', { uid }).then(({ completed, won, lost, quit }) => {
     cy.get('[data-test="user-stats"] [data-test="table-cell"]').as('userStats');
 
     cy.get('@userStats').eq(0).formatNumber().should('equal', completed);
@@ -20,7 +20,7 @@ Cypress.Commands.add('checkStats', () => {
     cy.get('@userStats').eq(3).formatNumber().should('equal', quit);
   });
 
-  cy.task('getGlobalStats').then(({ completed, won, lost, quit }) => {
+  cy.task('getStats').then(({ completed, won, lost, quit }) => {
     cy.get('[data-test="global-stats"] [data-test="table-cell"]').as(
       'globalStats'
     );

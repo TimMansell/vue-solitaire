@@ -12,6 +12,8 @@ describe('Special column moves', () => {
     cy.checkPlaceholderCardAtColumn(1);
   });
 
+  afterEach(() => cy.cleanUp());
+
   describe('using drag and drop', () => {
     it('should move K♣ to an empty column', () => {
       cy.dragCardFromTo('K♣', 'column-1');

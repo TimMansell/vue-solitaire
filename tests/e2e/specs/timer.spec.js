@@ -6,6 +6,8 @@ describe('Timer', () => {
     cy.visitApp();
   });
 
+  afterEach(() => cy.cleanUp());
+
   describe('Default Functionality', () => {
     it('it should increment timer correctly when pausing and resuming', () => {
       cy.wait(wait);

@@ -3,13 +3,15 @@ describe('App', () => {
     cy.visitApp();
   });
 
+  afterEach(() => cy.cleanUp());
+
   describe('Default', () => {
     it('it successfully loads', () => {
       cy.checkBoardLayout();
 
       cy.checkFoundationLayout();
 
-      cy.task('getGlobalStats').then(({ completed }) => {
+      cy.task('getStats').then(({ completed }) => {
         cy.checkGameCount(0);
         cy.checkGlobalGameCount(completed);
       });

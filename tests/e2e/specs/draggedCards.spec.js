@@ -7,6 +7,8 @@ describe('Dragged Cards', () => {
     cy.mockBoard(validMoveDeck);
   });
 
+  afterEach(() => cy.cleanUp());
+
   it('should drag single card', () => {
     cy.dragCardToPosition('7♦', { x: 200, y: -200 });
 

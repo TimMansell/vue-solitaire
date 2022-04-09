@@ -4,6 +4,8 @@ describe('History', () => {
       cy.visitApp();
     });
 
+    afterEach(() => cy.cleanUp());
+
     it('it shows no game message', () => {
       cy.showHistory();
 

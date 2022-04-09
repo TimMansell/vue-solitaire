@@ -4,6 +4,8 @@ describe('Update', () => {
       cy.visitApp();
     });
 
+    afterEach(() => cy.cleanUp());
+
     it('it should not update up to latest version', () => {
       cy.checkUpdatedAlertVisible(false);
     });

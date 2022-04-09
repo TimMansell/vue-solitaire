@@ -6,6 +6,8 @@ describe('Moves', () => {
     cy.visitApp();
   });
 
+  afterEach(() => cy.cleanUp());
+
   describe('Valid moves', () => {
     beforeEach(() => {
       cy.mockBoard(validMoveDeck);

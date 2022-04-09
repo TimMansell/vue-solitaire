@@ -36,35 +36,48 @@ module.exports = (on, config) => {
     getPlayerCount() {
       return db.collection('users').find({}, {}).count();
     },
-    async getUserStats(uid) {
-      const { games } = await db.collection('users').findOne({ uid }, {});
-
-      return games;
-    },
-    async getGlobalStats() {
+    async getStats(filter) {
       const [counts] = await db
         .collection('games')
         .aggregate([
           {
             $facet: {
               completed: [
-                { $match: { completed: true } },
-                { $count: 'completed' },
+                { $match: { ...filter, completed: true } },
+                { $count: 'count' },
               ],
-              won: [{ $match: { won: true } }, { $count: 'won' }],
-              lost: [{ $match: { lost: true } }, { $count: 'lost' }],
+              won: [{ $match: { ...filter, won: true } }, { $count: 'count' }],
+              lost: [
+                { $match: { ...filter, lost: true } },
+                { $count: 'count' },
+              ],
               quit: [
-                { $match: { won: false, lost: false, completed: true } },
-                { $count: 'quit' },
+                {
+                  $match: {
+                    ...filter,
+                    won: false,
+                    lost: false,
+                    completed: true,
+                  },
+                },
+                { $count: 'count' },
               ],
             },
           },
           {
             $project: {
-              completed: { $arrayElemAt: ['$completed.completed', 0] },
-              won: { $arrayElemAt: ['$won.won', 0] },
-              lost: { $arrayElemAt: ['$lost.lost', 0] },
-              quit: { $arrayElemAt: ['$quit.quit', 0] },
+              completed: {
+                $ifNull: [{ $first: '$completed.count' }, 0],
+              },
+              won: {
+                $ifNull: [{ $first: '$won.count' }, 0],
+              },
+              lost: {
+                $ifNull: [{ $first: '$lost.count' }, 0],
+              },
+              quit: {
+                $ifNull: [{ $first: '$quit.count' }, 0],
+              },
             },
           },
         ])
