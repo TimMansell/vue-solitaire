@@ -69,7 +69,7 @@ describe('Leaderboards', () => {
     });
   });
 
-  describe('New User', () => {
+  describe.skip('New User', () => {
     beforeEach(() => {
       cy.visitApp();
     });

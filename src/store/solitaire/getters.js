@@ -7,6 +7,7 @@ const getters = {
   }),
   hasGameWon: ({ hasGameWon }) => hasGameWon,
   hasGameLost: ({ hasGameLost }) => hasGameLost,
+  hasGameStarted: ({ time }) => time > 0,
   timer: ({ time }) => time,
   moves: ({ moves }) => moves.length,
   placeholders: ({ placeholders }) => placeholders,

@@ -3,12 +3,12 @@ import { createToast, updateToast, dismissToast } from '@/services/toast';
 
 const actions = {
   initConnection({ commit, dispatch, getters }) {
-    const { uid, timer, version } = getters;
+    const { uid, hasGameStarted, version } = getters;
 
-    const socket = connect({ uid, timer, version });
+    const socket = connect({ uid, hasGameStarted, version });
 
-    socket.onConnect(() => dispatch('connected'));
-    socket.onDisconnect(() => dispatch('disconnected'));
+    socket.on('connect', () => dispatch('connected'));
+    socket.on('disconnect', () => dispatch('disconnected'));
     socket.on('newUpdate', (update) => dispatch('newUpdate', update));
     socket.on('userPlayed', (games) => dispatch('setUserPlayed', games));
     socket.on('globalPlayed', (games) => dispatch('setGlobalPlayed', games));

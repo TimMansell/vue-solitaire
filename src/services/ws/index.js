@@ -1,31 +1,48 @@
-import { io } from 'socket.io-client';
+import queryString from 'query-string';
+import EventEmitter from 'eventemitter3';
 
-const on = (socket, name, callback) => socket.on(name, (obj) => callback(obj));
-
-const emit = (socket, name, payload) => socket.emit(name, payload);
-
-const onConnect = (socket, callback) => on(socket, 'connect', callback);
-
-const onDisconnect = (socket, callback) => {
-  on(socket, 'disconnect', callback);
-  on(socket, 'connect_error', callback);
-};
+const emitter = new EventEmitter();
 
 // eslint-disable-next-line import/prefer-default-export
-export const connect = (params) => {
+export const connect = ({ uid, hasGameStarted, version }) => {
   const { VITE_WEBSOCKETS_URL } = import.meta.env;
+  const query = queryString.stringify({ uid, version });
 
-  const socket = io(VITE_WEBSOCKETS_URL, {
-    transports: ['websocket'],
-    query: {
-      ...params,
-    },
+  const socket = new WebSocket(`ws://${VITE_WEBSOCKETS_URL}?${query}`, []);
+
+  const on = (name, callback) =>
+    emitter.on(name, (payload) => callback(payload));
+
+  const emit = (name, payload) =>
+    socket.send(JSON.stringify({ name, payload }));
+
+  socket.addEventListener('open', () => {
+    emitter.emit('connect');
+
+    emit('user');
+    emit('userPlayed');
+    emit('playerCount');
+    emit('globalPlayed');
+
+    if (hasGameStarted) return;
+
+    emit('initGame');
+  });
+
+  socket.addEventListener('close', () => emitter.emit('disconnect'));
+
+  socket.addEventListener('message', ({ data }) => {
+    try {
+      const { name, payload } = JSON.parse(data);
+
+      emitter.emit(name, payload);
+    } catch (error) {
+      console.log({ error });
+    }
   });
 
   return {
-    on: (name, callback) => on(socket, name, callback),
-    emit: (name, payload) => emit(socket, name, payload),
-    onConnect: (callback) => onConnect(socket, callback),
-    onDisconnect: (callback) => onDisconnect(socket, callback),
+    on,
+    emit,
   };
 };
