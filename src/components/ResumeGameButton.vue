@@ -1,5 +1,5 @@
 <template>
-  <Button @click="$router.push('/')" data-test="resume-game-btn">
+  <Button @click="$router.replace('/')" data-test="resume-game-btn">
     Resume
   </Button>
 </template>

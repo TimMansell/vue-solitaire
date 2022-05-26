@@ -1,6 +1,6 @@
 <template>
   <Button
-    @click="$router.push('/leaderboards')"
+    @click="$router.replace('/leaderboards')"
     :is-stacked="true"
     :check-disabled="true"
     data-test="leaderboards-btn"

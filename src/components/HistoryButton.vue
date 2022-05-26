@@ -1,6 +1,6 @@
 <template>
   <Button
-    @click="$router.push('/history')"
+    @click="$router.replace('/history')"
     :is-stacked="true"
     :check-disabled="true"
     data-test="history-btn"

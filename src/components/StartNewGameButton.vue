@@ -17,7 +17,7 @@ export default {
     playNewGame() {
       this.newGame();
 
-      this.$router.push('/');
+      this.$router.replace('/');
     },
   },
 };

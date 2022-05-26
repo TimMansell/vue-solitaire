@@ -1,6 +1,6 @@
 <template>
   <Button
-    @click="$router.push('/stats')"
+    @click="$router.replace('/stats')"
     :is-stacked="true"
     :check-disabled="true"
     data-test="stats-btn"

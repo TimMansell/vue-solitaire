@@ -7,7 +7,7 @@
       data-test="game-overlay-close"
     >
       <Button
-        @click="$router.push('/')"
+        @click="$router.replace('/')"
         type="icon"
         size="lg"
         data-test="game-overlay-close-btn"

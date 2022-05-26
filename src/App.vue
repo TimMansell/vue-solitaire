@@ -80,7 +80,7 @@ export default {
       if (isGamePaused) return;
 
       if (visibilityState === 'hidden') {
-        this.$router.push('/pause');
+        this.$router.replace('/pause');
       }
     },
   },

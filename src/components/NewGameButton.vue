@@ -1,6 +1,6 @@
 <template>
   <Button
-    @click="$router.push('/new')"
+    @click="$router.replace('/new')"
     :is-stacked="true"
     :check-disabled="true"
     data-test="new-game-btn"
