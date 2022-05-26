@@ -6,8 +6,9 @@
 </template>
 
 <script>
-import Controls from '@/components/Controls.vue';
 import GameStats from '@/components/GameStats.vue';
+
+const Controls = () => import('@/components/Controls.vue');
 
 export default {
   name: 'Header',

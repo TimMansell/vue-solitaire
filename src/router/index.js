@@ -1,14 +1,19 @@
 import VueRouter from 'vue-router';
 import store from '@/store';
 import Home from '@/pages/Home.vue';
-import New from '@/pages/New.vue';
-import Pause from '@/pages/Pause.vue';
-import History from '@/pages/History.vue';
-import Stats from '@/pages/Stats.vue';
-import Leaderboards from '@/pages/Leaderboards.vue';
-import Won from '@/pages/Won.vue';
-import Lost from '@/pages/Lost.vue';
 import { checkUpdate } from './interecpt';
+
+const New = () => import('@/pages/New.vue');
+const Pause = () => import('@/pages/Pause.vue');
+const History = () => import('@/pages/History.vue');
+const Stats = () => import('@/pages/Stats.vue');
+const Leaderboards = () => import('@/pages/Leaderboards.vue');
+const Won = () => import('@/pages/Won.vue');
+const Lost = () => import('@/pages/Lost.vue');
+const Rules = () => import('@/pages/Rules.vue');
+const Update = () => import('@/pages/Update.vue');
+const PageNotFound = () => import('@/pages/PageNotFound.vue');
+const ConnectionError = () => import('@/pages/ConnectionError.vue');
 
 const routes = [
   {
@@ -64,7 +69,7 @@ const routes = [
     path: '/rules',
     components: {
       main: Home,
-      overlay: () => import('@/pages/Rules.vue'),
+      overlay: Rules,
     },
   },
   {
@@ -100,7 +105,7 @@ const routes = [
     name: 'connection-error',
     components: {
       main: Home,
-      overlay: () => import('@/pages/ConnectionError.vue'),
+      overlay: ConnectionError,
     },
     beforeEnter(to, from, next) {
       if (store.getters.hasConnectionError) {
@@ -114,13 +119,13 @@ const routes = [
     path: '/update',
     components: {
       main: Home,
-      overlay: () => import('@/pages/Update.vue'),
+      overlay: Update,
     },
   },
   {
     path: '*',
     components: {
-      main: () => import('@/pages/PageNotFound.vue'),
+      main: PageNotFound,
     },
   },
 ];

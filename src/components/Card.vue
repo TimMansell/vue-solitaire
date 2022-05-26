@@ -21,8 +21,9 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import DefaultCard from '@/components/DefaultCard.vue';
-import BottomCard from '@/components/BottomCard.vue';
 import CardPlaceholder from '@/components/CardPlaceholder.vue';
+
+const BottomCard = () => import('@/components/BottomCard.vue');
 
 export default {
   name: 'Card',
