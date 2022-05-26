@@ -1,7 +1,6 @@
 import VueRouter from 'vue-router';
 import store from '@/store';
 import Home from '@/pages/Home.vue';
-import { checkUpdate } from './interecpt';
 
 const New = () => import('@/pages/New.vue');
 const Pause = () => import('@/pages/Pause.vue');
@@ -121,6 +120,13 @@ const routes = [
       main: Home,
       overlay: Update,
     },
+    beforeEnter(to, from, next) {
+      if (store.getters.isOldVersion) {
+        next();
+      } else {
+        next('/');
+      }
+    },
   },
   {
     path: '*',
@@ -133,14 +139,6 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  const updateRedirect = checkUpdate([to.path, from.path], next);
-
-  if (updateRedirect) return;
-
-  next();
 });
 
 router.afterEach((to) => {
