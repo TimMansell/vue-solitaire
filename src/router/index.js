@@ -81,7 +81,7 @@ const routes = [
       if (store.getters.hasGameWon) {
         next();
       } else {
-        next(false);
+        next('/');
       }
     },
   },
@@ -95,7 +95,7 @@ const routes = [
       if (store.getters.hasGameLost) {
         next();
       } else {
-        next(false);
+        next('/');
       }
     },
   },
