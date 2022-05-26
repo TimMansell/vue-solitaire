@@ -9,7 +9,8 @@
 <script>
 import Header from '@/components/Header.vue';
 import Solitaire from '@/components/Solitaire.vue';
-import Footer from '@/components/Footer.vue';
+
+const Footer = () => import('@/components/Footer.vue');
 
 export default {
   name: 'HomePage',

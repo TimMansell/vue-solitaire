@@ -10,9 +10,6 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   plugins: ['jest', 'prettier'],
-  parserOptions: {
-    parser: 'babel-eslint',
-  },
   ignorePatterns: ['server/dist/'],
   rules: {
     'import/no-cycle': 'off',

@@ -19,7 +19,7 @@ export const formatLeaderboardGames = (games, players, sortBy) =>
     const defaultItems = {
       rank: index + 1,
       date,
-      player: player?.name ?? 'Unknown Player',
+      player: player.name,
     };
 
     if (sortBy === 'moves') {
