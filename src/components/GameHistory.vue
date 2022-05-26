@@ -80,14 +80,13 @@ export default {
   },
   watch: {
     filters: {
-      async handler() {
-        await this.displayGames();
-
+      handler() {
         this.updateUrl();
         this.scrollTo();
       },
       deep: true,
     },
+    $route: 'displayGames',
   },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),

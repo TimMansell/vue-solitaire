@@ -78,13 +78,12 @@ export default {
   },
   watch: {
     filters: {
-      async handler() {
-        await this.displayGames();
-
+      handler() {
         this.updateUrl();
       },
       deep: true,
     },
+    $route: 'displayGames',
   },
   computed: {
     ...mapGetters(['leaderboards', 'name']),
