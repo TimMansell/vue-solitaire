@@ -45,31 +45,30 @@ export default {
     hasGameWon(hasGameWon) {
       if (!hasGameWon) return;
 
-      this.$router.replace('/won');
+      this.goToPage('/won');
     },
     hasGameLost(hasGameLost) {
       if (!hasGameLost) return;
 
-      this.$router.replace('/lost');
+      this.goToPage('/lost');
     },
     isOldVersion(isOldVersion) {
       if (!isOldVersion) return;
 
-      this.$router.replace('/update');
+      this.goToPage('/update');
     },
     hasGameUpdated(hasGameUpdated) {
-      if (!hasGameUpdated || this.$route.path === '/') return;
+      if (!hasGameUpdated) return;
 
-      this.$router.replace('/');
+      this.goToPage('/');
     },
     hasConnectionError(hasConnectionError) {
-      if (!hasConnectionError && this.$route.path === '/connection-error') {
-        this.$router.replace('/');
+      if (!hasConnectionError) {
+        this.goToPage('/');
+        return;
       }
 
-      if (hasConnectionError && this.$route.path !== '/connection-error') {
-        this.$router.replace('/connection-error');
-      }
+      this.goToPage('/connection-error');
     },
   },
   methods: {
@@ -80,8 +79,11 @@ export default {
       if (isGamePaused) return;
 
       if (visibilityState === 'hidden') {
-        this.$router.replace('/pause');
+        this.goToPage('/pause');
       }
+    },
+    goToPage(page) {
+      this.$router.replace(page).catch(() => {});
     },
   },
 };
