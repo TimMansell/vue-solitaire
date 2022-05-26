@@ -43,7 +43,7 @@ describe('Leaderboards', () => {
     });
 
     it('should show correct data from url params', () => {
-      cy.visit(`#/leaderboards/time/100`);
+      cy.visit('/leaderboards/time/100');
 
       cy.checkSelectLeaderboardBest('Times');
       cy.checkSelectLeaderboardTop('100');
@@ -56,7 +56,7 @@ describe('Leaderboards', () => {
     });
 
     it('it should set filters to default params', () => {
-      cy.visit('#/leaderboards/abc/5000');
+      cy.visit('/leaderboards/abc/5000');
 
       cy.checkSelectLeaderboardBest('Moves');
       cy.checkSelectLeaderboardTop('25');
@@ -65,7 +65,7 @@ describe('Leaderboards', () => {
 
       cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
-      cy.url().should('include', '#/leaderboards/moves/25');
+      cy.url().should('include', '/moves/25');
     });
   });
 

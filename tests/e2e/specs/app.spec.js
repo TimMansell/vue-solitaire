@@ -31,7 +31,7 @@ describe('App', () => {
     });
 
     it('show pause page if url is changed manually', () => {
-      cy.visit('#/pause');
+      cy.visit('/pause');
 
       cy.checkPausedPage(true);
 
@@ -41,7 +41,7 @@ describe('App', () => {
     });
 
     it('it should show 404 page', () => {
-      cy.visit('#/abc');
+      cy.visit('/abc');
 
       cy.check404Page(true);
 
@@ -107,7 +107,7 @@ describe('App', () => {
     it('it should not allow loading of connection error page if connected', () => {
       cy.checkConnectedAlert();
 
-      cy.visit('#/connection-error');
+      cy.visit('/connection-error');
 
       cy.checkConnectionPage(false);
     });

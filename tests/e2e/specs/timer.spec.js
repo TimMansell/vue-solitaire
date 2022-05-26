@@ -56,11 +56,11 @@ describe('Timer', () => {
     it('timer should pause/unpause if url is changed manually', () => {
       cy.wait(waitSmall);
 
-      cy.visit('#/pause');
+      cy.visit('/pause');
 
       cy.wait(waitSmall);
 
-      cy.visit('#/');
+      cy.visit('/');
 
       cy.wait(wait);
 
@@ -70,7 +70,7 @@ describe('Timer', () => {
     it('timer should pause on 404 page', () => {
       cy.wait(waitSmall);
 
-      cy.visit('#/abc');
+      cy.visit('/abc');
 
       cy.wait(waitSmall);
 
