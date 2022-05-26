@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import GameOverlay from '@/components/GameOverlay.vue';
 import ReconnectButton from '@/components/ReconnectButton.vue';
 
@@ -20,18 +19,6 @@ export default {
   components: {
     GameOverlay,
     ReconnectButton,
-  },
-  computed: {
-    ...mapGetters(['hasConnectionError']),
-  },
-  beforeRouteLeave(to, from, next) {
-    const { hasConnectionError } = this;
-
-    if (hasConnectionError) {
-      next(false);
-    } else {
-      next();
-    }
   },
 };
 </script>
