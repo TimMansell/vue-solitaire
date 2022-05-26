@@ -3,7 +3,7 @@
 exports[`Card.vue matches bottom card snapshot 1`] = `
 <div draggable="true" data-card="K♦" data-test="card-K♦" class="card card--is-draggable">
   <!---->
-  <bottomcard-stub id="2" value="K♦"></bottomcard-stub>
+  <!---->
   <!---->
 </div>
 `;
