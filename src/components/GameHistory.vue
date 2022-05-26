@@ -46,11 +46,10 @@ import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
+import Pagination from '@/components/Pagination.vue';
 import { formatNumber } from '@/helpers/numbers';
 import { formatDate } from '@/helpers/dates';
 import { formatTimeFromDate } from '@/helpers/times';
-
-const Pagination = () => import('@/components/Pagination.vue');
 
 export default {
   name: 'GameHistory',
