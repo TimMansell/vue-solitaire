@@ -45,41 +45,41 @@ export default {
     hasGameWon(hasGameWon) {
       if (!hasGameWon) return;
 
-      this.goToPage('won');
+      this.goToRoute('won');
     },
     hasGameLost(hasGameLost) {
       if (!hasGameLost) return;
 
-      this.goToPage('lost');
+      this.goToRoute('lost');
     },
     isOldVersion(isOldVersion) {
       if (!isOldVersion) return;
 
-      this.goToPage('update');
+      this.goToRoute('update');
     },
     hasGameUpdated(hasGameUpdated) {
       if (!hasGameUpdated) return;
 
-      this.goToPage('home');
+      this.goToRoute('home');
     },
     hasConnectionError(hasConnectionError) {
       if (!hasConnectionError) {
-        this.goToPage('home');
+        this.goToRoute('home');
         return;
       }
 
-      this.goToPage('connection-error');
+      this.goToRoute('connection-error');
     },
   },
   methods: {
-    ...mapActions(['initApp', 'goToPage']),
+    ...mapActions(['initApp', 'goToRoute']),
     checkGameFocused({ visibilityState }) {
       const { isGamePaused } = this;
 
       if (isGamePaused) return;
 
       if (visibilityState === 'hidden') {
-        this.goToPage('pause');
+        this.goToRoute('pause');
       }
     },
   },

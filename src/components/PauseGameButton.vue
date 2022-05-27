@@ -2,7 +2,7 @@
   <Button
     :is-stacked="true"
     :check-disabled="true"
-    to-page="pause"
+    route="pause"
     data-test="pause-game-btn"
   >
     Pause

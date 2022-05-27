@@ -52,10 +52,10 @@ const actions = {
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
   },
-  goToPage(_, name) {
+  goToRoute(_, name) {
     router.replace({ name }).catch((e) => console.log({ e }));
   },
-  updatePage(_, params) {
+  updateRoute(_, params) {
     router.replace({ params }).catch((e) => console.log({ e }));
   },
 };

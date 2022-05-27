@@ -2,7 +2,7 @@
   <Button
     :is-stacked="true"
     :check-disabled="true"
-    to-page="history"
+    route="history"
     data-test="history-btn"
   >
     Games

@@ -7,7 +7,7 @@
       data-test="game-overlay-close"
     >
       <Button
-        to-page="home"
+        route="home"
         type="icon"
         size="lg"
         data-test="game-overlay-close-btn"

@@ -2,7 +2,7 @@
   <Button
     :is-stacked="true"
     :check-disabled="true"
-    to-page="rules"
+    route="rules"
     data-test="game-rules-btn"
     title="How to Play"
   >

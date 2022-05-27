@@ -91,17 +91,25 @@ describe('Button.vue', () => {
     expect(wrapper.classes()).toContain('btn--disabled');
   });
 
-  it('should call click method', () => {
-    const wrapper = shallowMount(Button, { computed });
-
-    wrapper.trigger('click');
-
-    expect(wrapper.emitted().click).toBeTruthy();
-  });
-
-  it('should not call click method', () => {
+  it('should call @click function', async () => {
+    const spy = jest.fn();
     const wrapper = shallowMount(Button, {
       propsData: {
+        click: spy,
+      },
+      computed,
+    });
+
+    await wrapper.trigger('click');
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should not call @click function when button is disabled', async () => {
+    const spy = jest.fn();
+    const wrapper = shallowMount(Button, {
+      propsData: {
+        click: spy,
         checkDisabled: true,
       },
       computed: {
@@ -109,8 +117,8 @@ describe('Button.vue', () => {
       },
     });
 
-    wrapper.trigger('click');
+    await wrapper.trigger('click');
 
-    expect(wrapper.emitted().click).toBeFalsy();
+    expect(spy).not.toHaveBeenCalled();
   });
 });

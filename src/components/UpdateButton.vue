@@ -1,5 +1,5 @@
 <template>
-  <Button @click="updateApp()" data-test="update-btn"> Update </Button>
+  <Button :click="updateApp" data-test="update-btn"> Update </Button>
 </template>
 
 <script>

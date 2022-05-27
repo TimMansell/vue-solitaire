@@ -1,5 +1,5 @@
 <template>
-  <Button to-page="home" data-test="home-btn"> Go Home </Button>
+  <Button route="home" data-test="home-btn"> Go Home </Button>
 </template>
 
 <script>

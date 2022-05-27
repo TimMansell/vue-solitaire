@@ -2,7 +2,7 @@
   <Button
     :is-stacked="true"
     :check-disabled="true"
-    to-page="new"
+    route="new"
     data-test="new-game-btn"
   >
     New

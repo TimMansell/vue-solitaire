@@ -1,5 +1,5 @@
 <template>
-  <Button to-page="home" data-test="continue-game-btn"> Continue </Button>
+  <Button route="home" data-test="continue-game-btn"> Continue </Button>
 </template>
 
 <script>

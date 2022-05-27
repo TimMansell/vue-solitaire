@@ -1,5 +1,5 @@
 <template>
-  <Button @click="reconnect()" data-test="reconnect-btn"> Reconnect </Button>
+  <Button :click="reconnect" data-test="reconnect-btn"> Reconnect </Button>
 </template>
 
 <script>

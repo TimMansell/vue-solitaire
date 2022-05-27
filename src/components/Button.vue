@@ -1,13 +1,5 @@
 <template>
-  <button
-    class="btn"
-    :class="classes"
-    @click="
-      redirect(toPage);
-      $emit('click');
-    "
-    :disabled="isDisabled"
-  >
+  <button class="btn" :class="classes" @click="onClick" :disabled="isDisabled">
     <slot />
   </button>
 </template>
@@ -40,7 +32,11 @@ export default {
       },
       default: 'md',
     },
-    toPage: {
+    click: {
+      type: Function,
+      default: () => {},
+    },
+    route: {
       type: String,
       default: '',
     },
@@ -69,9 +65,15 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['goToPage']),
-    redirect(page) {
-      if (page) this.goToPage(page);
+    ...mapActions(['goToRoute']),
+    onClick() {
+      const { route, goToRoute, click } = this;
+
+      if (route) {
+        goToRoute(route);
+      }
+
+      click();
     },
   },
 };

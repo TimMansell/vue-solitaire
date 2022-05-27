@@ -2,7 +2,7 @@
   <Button
     :is-stacked="true"
     :check-disabled="true"
-    to-page="leaderboards"
+    route="leaderboards"
     data-test="leaderboards-btn"
   >
     Ranks

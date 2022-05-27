@@ -1,5 +1,5 @@
 <template>
-  <Button @click="newGame" to-page="home" data-test="start-new-game-btn">
+  <Button :click="newGame" route="home" data-test="start-new-game-btn">
     New
   </Button>
 </template>

@@ -2,7 +2,7 @@
   <Button
     :is-stacked="true"
     :check-disabled="true"
-    to-page="stats"
+    route="stats"
     data-test="stats-btn"
   >
     Stats
