@@ -1,12 +1,12 @@
 import VueRouter from 'vue-router';
 import store from '@/store';
 import Home from '@/pages/Home.vue';
+import New from '@/pages/New.vue';
+import Pause from '@/pages/Pause.vue';
+import History from '@/pages/History.vue';
+import Stats from '@/pages/Stats.vue';
+import Leaderboards from '@/pages/Leaderboards.vue';
 
-const New = () => import('@/pages/New.vue');
-const Pause = () => import('@/pages/Pause.vue');
-const History = () => import('@/pages/History.vue');
-const Stats = () => import('@/pages/Stats.vue');
-const Leaderboards = () => import('@/pages/Leaderboards.vue');
 const Won = () => import('@/pages/Won.vue');
 const Lost = () => import('@/pages/Lost.vue');
 const Rules = () => import('@/pages/Rules.vue');
