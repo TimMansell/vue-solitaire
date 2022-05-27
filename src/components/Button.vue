@@ -1,11 +1,19 @@
 <template>
-  <button class="btn" :class="classes" @click="click" :disabled="isDisabled">
+  <button
+    class="btn"
+    :class="classes"
+    @click="
+      redirect(toPage);
+      $emit('click');
+    "
+    :disabled="isDisabled"
+  >
     <slot />
   </button>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Button',
@@ -32,6 +40,10 @@ export default {
       },
       default: 'md',
     },
+    toPage: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     ...mapGetters(['isDisabledGame']),
@@ -57,8 +69,9 @@ export default {
     },
   },
   methods: {
-    click() {
-      this.$emit('click');
+    ...mapActions(['goToPage']),
+    redirect(page) {
+      if (page) this.goToPage(page);
     },
   },
 };

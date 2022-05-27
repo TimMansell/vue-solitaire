@@ -157,7 +157,7 @@ export default {
     this.displayGames();
   },
   methods: {
-    ...mapActions(['getAllGames']),
+    ...mapActions(['getAllGames', 'updatePage']),
     checkInitialFilters() {
       const { limitItems, filters, totalPages } = this;
       const { limit, page } = filters;
@@ -185,7 +185,7 @@ export default {
     updateUrl() {
       const { page, limit } = this;
 
-      this.$router.replace(`/history/${page}/${limit}`);
+      this.updatePage({ page, limit });
     },
   },
 };

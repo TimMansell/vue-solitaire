@@ -1,3 +1,4 @@
+import router from '@/router';
 import { createToast } from '@/services/toast';
 import { getOldVersion, updateVersion } from '@/services/version';
 
@@ -50,6 +51,12 @@ const actions = {
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
+  },
+  goToPage(_, name) {
+    router.replace({ name }).catch((e) => console.log({ e }));
+  },
+  updatePage(_, params) {
+    router.replace({ params }).catch((e) => console.log({ e }));
   },
 };
 

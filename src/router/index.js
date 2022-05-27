@@ -17,12 +17,14 @@ const ConnectionError = () => import('@/pages/ConnectionError.vue');
 const routes = [
   {
     path: '/',
+    name: 'home',
     components: {
       main: Home,
     },
   },
   {
     path: '/new',
+    name: 'new',
     components: {
       main: Home,
       overlay: New,
@@ -30,6 +32,7 @@ const routes = [
   },
   {
     path: '/pause',
+    name: 'pause',
     components: {
       main: Home,
       overlay: Pause,
@@ -37,6 +40,7 @@ const routes = [
   },
   {
     path: '/history',
+    name: 'history',
     redirect: '/history/1/25',
   },
   {
@@ -48,6 +52,7 @@ const routes = [
   },
   {
     path: '/stats',
+    name: 'stats',
     components: {
       main: Home,
       overlay: Stats,
@@ -55,6 +60,7 @@ const routes = [
   },
   {
     path: '/leaderboards',
+    name: 'leaderboards',
     redirect: '/leaderboards/moves/25',
   },
   {
@@ -66,6 +72,7 @@ const routes = [
   },
   {
     path: '/rules',
+    name: 'rules',
     components: {
       main: Home,
       overlay: Rules,
@@ -73,6 +80,7 @@ const routes = [
   },
   {
     path: '/won',
+    name: 'won',
     components: {
       main: Home,
       overlay: Won,
@@ -87,6 +95,7 @@ const routes = [
   },
   {
     path: '/lost',
+    name: 'lost',
     components: {
       main: Home,
       overlay: Lost,
@@ -116,6 +125,7 @@ const routes = [
   },
   {
     path: '/update',
+    name: 'update',
     components: {
       main: Home,
       overlay: Update,

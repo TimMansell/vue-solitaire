@@ -1,8 +1,8 @@
 <template>
   <Button
-    @click="$router.replace('/new')"
     :is-stacked="true"
     :check-disabled="true"
+    to-page="new"
     data-test="new-game-btn"
   >
     New

@@ -155,7 +155,7 @@ export default {
     this.clearLeaderboards();
   },
   methods: {
-    ...mapActions(['getLeaderboards', 'clearLeaderboards']),
+    ...mapActions(['getLeaderboards', 'clearLeaderboards', 'updatePage']),
     checkInitialFilters() {
       const { limitItems, bestItems, limit, showBest } = this;
 
@@ -179,7 +179,7 @@ export default {
     updateUrl() {
       const { limit, showBest } = this;
 
-      this.$router.replace(`/leaderboards/${showBest}/${limit}`);
+      this.updatePage({ limit, showBest });
     },
   },
 };

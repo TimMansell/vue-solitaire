@@ -1,8 +1,8 @@
 <template>
   <Button
-    @click="$router.replace('/pause')"
     :is-stacked="true"
     :check-disabled="true"
+    to-page="pause"
     data-test="pause-game-btn"
   >
     Pause

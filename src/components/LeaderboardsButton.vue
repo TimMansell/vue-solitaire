@@ -1,8 +1,8 @@
 <template>
   <Button
-    @click="$router.replace('/leaderboards')"
     :is-stacked="true"
     :check-disabled="true"
+    to-page="leaderboards"
     data-test="leaderboards-btn"
   >
     Ranks
