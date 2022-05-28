@@ -10,24 +10,10 @@ describe('Update', () => {
       cy.checkUpdatedAlertVisible(false);
     });
 
-    it('it should not allow user to leave update page by changing url', () => {
-      cy.mockVersionUpdate();
-
-      cy.visit('#/');
-
-      cy.url().should('include', '#/update');
-
-      cy.wait(1000);
-
-      cy.visit('#/pause');
-
-      cy.url().should('include', '#/update');
-    });
-
     it('it should not allow user to go to update page', () => {
-      cy.visit('#/update');
+      cy.visit('/update');
 
-      cy.url().should('not.include', '#/update');
+      cy.url().should('not.include', '/update');
     });
   });
 

@@ -1,8 +1,8 @@
 <template>
   <Button
-    @click="$router.push('/history')"
     :is-stacked="true"
     :check-disabled="true"
+    route="history"
     data-test="history-btn"
   >
     Games

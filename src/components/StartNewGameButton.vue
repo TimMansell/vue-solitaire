@@ -1,5 +1,7 @@
 <template>
-  <Button @click="playNewGame" data-test="start-new-game-btn"> New </Button>
+  <Button :click="newGame" route="home" data-test="start-new-game-btn">
+    New
+  </Button>
 </template>
 
 <script>
@@ -14,11 +16,6 @@ export default {
 
   methods: {
     ...mapActions(['newGame']),
-    playNewGame() {
-      this.newGame();
-
-      this.$router.push('/');
-    },
   },
 };
 </script>

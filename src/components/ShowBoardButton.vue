@@ -1,5 +1,5 @@
 <template>
-  <Button @click="toggleOverlayVisibility" data-test="show-board-btn">
+  <Button :click="toggleOverlayVisibility" data-test="show-board-btn">
     {{ text }} Board
   </Button>
 </template>

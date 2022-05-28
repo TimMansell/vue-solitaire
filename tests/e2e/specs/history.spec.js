@@ -99,7 +99,7 @@ describe('History', () => {
 
       cy.mockUser();
 
-      cy.visit(`#/history/${page}/${games}`);
+      cy.visit(`/history/${page}/${games}`);
 
       cy.checkSelectHistoryGames(games);
 
@@ -111,7 +111,7 @@ describe('History', () => {
     it('it should set filters to default params', () => {
       cy.mockUser();
 
-      cy.visit('#/history/abc/5000');
+      cy.visit('/history/abc/5000');
 
       cy.checkSelectHistoryGames(25);
 
@@ -119,7 +119,7 @@ describe('History', () => {
 
       cy.checkIsOnPage(1);
 
-      cy.url().should('include', '#/history/1/25');
+      cy.url().should('include', '/1/25');
     });
   });
 });

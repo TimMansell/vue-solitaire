@@ -16,13 +16,13 @@ describe('Game', () => {
     });
 
     it('it should not show won page if game is not won', () => {
-      cy.visit('#/won');
+      cy.visit('/won');
 
       cy.checkWonPage(false);
     });
 
     it('it should not show lost page if game is not lost', () => {
-      cy.visit('#/lost');
+      cy.visit('/lost');
 
       cy.checkLostPage(false);
     });

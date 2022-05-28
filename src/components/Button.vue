@@ -1,11 +1,11 @@
 <template>
-  <button class="btn" :class="classes" @click="click" :disabled="isDisabled">
+  <button class="btn" :class="classes" @click="onClick" :disabled="isDisabled">
     <slot />
   </button>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Button',
@@ -32,6 +32,14 @@ export default {
       },
       default: 'md',
     },
+    click: {
+      type: Function,
+      default: () => {},
+    },
+    route: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     ...mapGetters(['isDisabledGame']),
@@ -57,8 +65,15 @@ export default {
     },
   },
   methods: {
-    click() {
-      this.$emit('click');
+    ...mapActions(['goToRoute']),
+    onClick() {
+      const { route, goToRoute, click } = this;
+
+      if (route) {
+        goToRoute(route);
+      }
+
+      click();
     },
   },
 };

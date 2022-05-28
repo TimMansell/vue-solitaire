@@ -1,7 +1,7 @@
 <template>
   <Button
     :is-stacked="true"
-    @click="gotoUrl"
+    :click="gotoUrl"
     data-test="github-btn"
     title="Visit my Portfolio"
   >

@@ -80,14 +80,13 @@ export default {
   },
   watch: {
     filters: {
-      async handler() {
-        await this.displayGames();
-
-        this.updateUrl();
-        this.scrollTo();
+      handler() {
+        this.updateRoute(this.filters);
+        this.$emit('scrollTo', this.$refs.scrollTo);
       },
       deep: true,
     },
+    $route: 'displayGames',
   },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
@@ -158,7 +157,7 @@ export default {
     this.displayGames();
   },
   methods: {
-    ...mapActions(['getAllGames']),
+    ...mapActions(['getAllGames', 'updateRoute']),
     checkInitialFilters() {
       const { limitItems, filters, totalPages } = this;
       const { limit, page } = filters;
@@ -179,14 +178,6 @@ export default {
       const { offset, limit } = this;
 
       this.getAllGames({ offset, limit });
-    },
-    scrollTo() {
-      this.$emit('scrollTo', this.$refs.scrollTo);
-    },
-    updateUrl() {
-      const { page, limit } = this;
-
-      this.$router.replace(`/history/${page}/${limit}`);
     },
   },
 };

@@ -1,8 +1,8 @@
 <template>
   <Button
-    @click="$router.push('/rules')"
     :is-stacked="true"
     :check-disabled="true"
+    route="rules"
     data-test="game-rules-btn"
     title="How to Play"
   >

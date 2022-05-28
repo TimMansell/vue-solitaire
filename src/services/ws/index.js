@@ -5,16 +5,28 @@ const emitter = new EventEmitter();
 
 // eslint-disable-next-line import/prefer-default-export
 export const connect = ({ uid, hasGameStarted, version }) => {
+  const { OPEN, CONNECTING } = WebSocket;
   const { VITE_WEBSOCKETS_URL } = import.meta.env;
   const query = queryString.stringify({ uid, version });
 
-  const socket = new WebSocket(`ws://${VITE_WEBSOCKETS_URL}?${query}`, []);
+  const socket = new WebSocket(`${VITE_WEBSOCKETS_URL}?${query}`, []);
 
   const on = (name, callback) =>
     emitter.on(name, (payload) => callback(payload));
 
-  const emit = (name, payload) =>
-    socket.send(JSON.stringify({ name, payload }));
+  const send = (message) => {
+    const { readyState } = socket;
+
+    if (readyState === OPEN) {
+      socket.send(message);
+    } else if (readyState === CONNECTING) {
+      socket.addEventListener('open', () => send(message), {
+        once: true,
+      });
+    }
+  };
+
+  const emit = (name, payload) => send(JSON.stringify({ name, payload }));
 
   socket.addEventListener('open', () => {
     emitter.emit('connect');

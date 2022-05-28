@@ -78,13 +78,12 @@ export default {
   },
   watch: {
     filters: {
-      async handler() {
-        await this.displayGames();
-
-        this.updateUrl();
+      handler() {
+        this.updateRoute(this.filters);
       },
       deep: true,
     },
+    $route: 'displayGames',
   },
   computed: {
     ...mapGetters(['leaderboards', 'name']),
@@ -156,7 +155,7 @@ export default {
     this.clearLeaderboards();
   },
   methods: {
-    ...mapActions(['getLeaderboards', 'clearLeaderboards']),
+    ...mapActions(['getLeaderboards', 'clearLeaderboards', 'updateRoute']),
     checkInitialFilters() {
       const { limitItems, bestItems, limit, showBest } = this;
 
@@ -176,11 +175,6 @@ export default {
       const { filters } = this;
 
       this.getLeaderboards(filters);
-    },
-    updateUrl() {
-      const { limit, showBest } = this;
-
-      this.$router.replace(`/leaderboards/${showBest}/${limit}`);
     },
   },
 };

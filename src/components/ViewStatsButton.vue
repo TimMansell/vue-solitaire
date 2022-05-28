@@ -1,8 +1,8 @@
 <template>
   <Button
-    @click="$router.push('/stats')"
     :is-stacked="true"
     :check-disabled="true"
+    route="stats"
     data-test="stats-btn"
   >
     Stats

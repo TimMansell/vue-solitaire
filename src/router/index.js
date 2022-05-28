@@ -1,13 +1,12 @@
 import VueRouter from 'vue-router';
 import store from '@/store';
 import Home from '@/pages/Home.vue';
-import { checkUpdate } from './interecpt';
+import New from '@/pages/New.vue';
+import Pause from '@/pages/Pause.vue';
+import History from '@/pages/History.vue';
+import Stats from '@/pages/Stats.vue';
+import Leaderboards from '@/pages/Leaderboards.vue';
 
-const New = () => import('@/pages/New.vue');
-const Pause = () => import('@/pages/Pause.vue');
-const History = () => import('@/pages/History.vue');
-const Stats = () => import('@/pages/Stats.vue');
-const Leaderboards = () => import('@/pages/Leaderboards.vue');
 const Won = () => import('@/pages/Won.vue');
 const Lost = () => import('@/pages/Lost.vue');
 const Rules = () => import('@/pages/Rules.vue');
@@ -18,12 +17,14 @@ const ConnectionError = () => import('@/pages/ConnectionError.vue');
 const routes = [
   {
     path: '/',
+    name: 'home',
     components: {
       main: Home,
     },
   },
   {
     path: '/new',
+    name: 'new',
     components: {
       main: Home,
       overlay: New,
@@ -31,6 +32,7 @@ const routes = [
   },
   {
     path: '/pause',
+    name: 'pause',
     components: {
       main: Home,
       overlay: Pause,
@@ -38,6 +40,7 @@ const routes = [
   },
   {
     path: '/history',
+    name: 'history',
     redirect: '/history/1/25',
   },
   {
@@ -49,6 +52,7 @@ const routes = [
   },
   {
     path: '/stats',
+    name: 'stats',
     components: {
       main: Home,
       overlay: Stats,
@@ -56,6 +60,7 @@ const routes = [
   },
   {
     path: '/leaderboards',
+    name: 'leaderboards',
     redirect: '/leaderboards/moves/25',
   },
   {
@@ -67,6 +72,7 @@ const routes = [
   },
   {
     path: '/rules',
+    name: 'rules',
     components: {
       main: Home,
       overlay: Rules,
@@ -74,6 +80,7 @@ const routes = [
   },
   {
     path: '/won',
+    name: 'won',
     components: {
       main: Home,
       overlay: Won,
@@ -82,12 +89,13 @@ const routes = [
       if (store.getters.hasGameWon) {
         next();
       } else {
-        next(false);
+        next('/');
       }
     },
   },
   {
     path: '/lost',
+    name: 'lost',
     components: {
       main: Home,
       overlay: Lost,
@@ -96,7 +104,7 @@ const routes = [
       if (store.getters.hasGameLost) {
         next();
       } else {
-        next(false);
+        next('/');
       }
     },
   },
@@ -117,9 +125,17 @@ const routes = [
   },
   {
     path: '/update',
+    name: 'update',
     components: {
       main: Home,
       overlay: Update,
+    },
+    beforeEnter(to, from, next) {
+      if (store.getters.isOldVersion) {
+        next();
+      } else {
+        next('/');
+      }
     },
   },
   {
@@ -131,15 +147,8 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  const updateRedirect = checkUpdate([to.path, from.path], next);
-
-  if (updateRedirect) return;
-
-  next();
 });
 
 router.afterEach((to) => {
