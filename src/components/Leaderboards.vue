@@ -79,7 +79,7 @@ export default {
   watch: {
     filters: {
       handler() {
-        this.updateUrl();
+        this.updateRoute(this.filters);
       },
       deep: true,
     },
@@ -155,7 +155,7 @@ export default {
     this.clearLeaderboards();
   },
   methods: {
-    ...mapActions(['getLeaderboards', 'clearLeaderboards', 'updatePage']),
+    ...mapActions(['getLeaderboards', 'clearLeaderboards', 'updateRoute']),
     checkInitialFilters() {
       const { limitItems, bestItems, limit, showBest } = this;
 
@@ -175,11 +175,6 @@ export default {
       const { filters } = this;
 
       this.getLeaderboards(filters);
-    },
-    updateUrl() {
-      const { limit, showBest } = this;
-
-      this.updatePage({ limit, showBest });
     },
   },
 };

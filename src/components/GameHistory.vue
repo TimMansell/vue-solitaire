@@ -81,8 +81,8 @@ export default {
   watch: {
     filters: {
       handler() {
-        this.updateUrl();
-        this.scrollTo();
+        this.updateRoute(this.filters);
+        this.$emit('scrollTo', this.$refs.scrollTo);
       },
       deep: true,
     },
@@ -157,7 +157,7 @@ export default {
     this.displayGames();
   },
   methods: {
-    ...mapActions(['getAllGames', 'updatePage']),
+    ...mapActions(['getAllGames', 'updateRoute']),
     checkInitialFilters() {
       const { limitItems, filters, totalPages } = this;
       const { limit, page } = filters;
@@ -178,14 +178,6 @@ export default {
       const { offset, limit } = this;
 
       this.getAllGames({ offset, limit });
-    },
-    scrollTo() {
-      this.$emit('scrollTo', this.$refs.scrollTo);
-    },
-    updateUrl() {
-      const { page, limit } = this;
-
-      this.updatePage({ page, limit });
     },
   },
 };
