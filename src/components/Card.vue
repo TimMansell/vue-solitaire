@@ -19,11 +19,14 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import DefaultCard from '@/components/DefaultCard.vue';
 import CardPlaceholder from '@/components/CardPlaceholder.vue';
 
-const BottomCard = () => import('@/components/BottomCard.vue');
+const BottomCard = defineAsyncComponent(() =>
+  import('@/components/BottomCard.vue')
+);
 
 export default {
   name: 'Card',

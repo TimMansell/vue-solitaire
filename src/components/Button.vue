@@ -106,6 +106,10 @@ export default {
     cursor: pointer;
   }
 
+  & + & {
+    margin-left: var(--mg-sm);
+  }
+
   &--disabled {
     cursor: not-allowed !important;
   }
@@ -126,6 +130,7 @@ export default {
 
     & + & {
       border-left: 0;
+      margin: 0;
 
       &:not(:last-of-type) {
         border-radius: 0;

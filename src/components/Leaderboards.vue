@@ -10,15 +10,13 @@
           v-model="filters.showBest"
           label="Best"
           :items="bestItems"
-          @select="setBest"
           data-test="leaderboard-set-best"
         />
 
         <Select
-          v-model="filters.limit"
+          v-model.number="filters.limit"
           label="Top"
           :items="limitItems"
-          @select="displayLimit"
           data-test="leaderboard-set-top"
         />
       </Filters>
@@ -35,7 +33,7 @@
       :to-highlight="{ key: 'player', value: name }"
     />
 
-    <small v-if="filters.showBest === 'winPercent'">
+    <small v-if="showBest === 'winPercent'">
       * Minimum of 25 games played
     </small>
   </div>
@@ -141,14 +139,16 @@ export default {
     },
     best() {
       const [showBest] = this.bestItems.filter(
-        ({ value }) => value === this.filters.showBest
+        ({ value }) => value === this.showBest
       );
 
       return showBest?.text;
     },
   },
-  mounted() {
+  created() {
     this.checkInitialFilters();
+  },
+  mounted() {
     this.displayGames();
   },
   destroyed() {
@@ -164,12 +164,6 @@ export default {
 
       this.filters.limit = validLimit ? limit : limitItems[0].value;
       this.filters.showBest = validBest ? showBest : bestItems[0].value;
-    },
-    displayLimit(limit) {
-      this.filters.limit = parseInt(limit, 10);
-    },
-    setBest(best) {
-      this.filters.showBest = best;
     },
     displayGames() {
       const { filters } = this;

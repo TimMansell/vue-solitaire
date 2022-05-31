@@ -7,10 +7,11 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import Header from '@/components/Header.vue';
 import Solitaire from '@/components/Solitaire.vue';
 
-const Footer = () => import('@/components/Footer.vue');
+const Footer = defineAsyncComponent(() => import('@/components/Footer.vue'));
 
 export default {
   name: 'HomePage',
