@@ -29,7 +29,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/vue-fontawesome": "^2.0.2",
+    "@fortawesome/vue-fontawesome": "3.0.0-5",
     "@graphql-tools/mock": "6.0.18",
     "@graphql-tools/schema": "6.0.18",
     "apollo-server-lambda": "2.25.1",
@@ -54,12 +54,12 @@
     "throttle-debounce": "3.0.1",
     "unique-names-generator": "^4.6.0",
     "uuid": "8.3.2",
-    "vue": "2.6.12",
-    "vue-router": "^3.5.2",
+    "vue": "3.2.36",
+    "vue-router": "4.0.15",
     "vue-scrollto": "2.20.0",
-    "vue-toastification": "1.7.14",
-    "vuejs-paginate": "2.1.0",
-    "vuex": "3.6.2",
+    "vue-toastification": "2.0.0-rc.5",
+    "vuejs-paginate-next": "1.0.2",
+    "vuex": "4.0.2",
     "vuex-persistedstate": "3.2.0",
     "webpack-node-externals": "2.5.1",
     "xss": "^1.0.9"
@@ -67,6 +67,7 @@
   "devDependencies": {
     "@babel/core": "7.17.9",
     "@babel/preset-env": "^7.15.6",
+    "@vitejs/plugin-vue": "2.3.3",
     "@vue/test-utils": "1.2.1",
     "@vue/vue2-jest": "27",
     "babel-core": "^7.0.0-bridge.0",
@@ -99,8 +100,6 @@
     "timezone-mock": "^1.2.1",
     "vite": "2.9.9",
     "vite-plugin-svg-icons": "1.0.4",
-    "vite-plugin-vue2": "1.8.2",
-    "vue-template-compiler": "2.6.12",
     "yorkie": "^2.0.0"
   },
   "gitHooks": {
