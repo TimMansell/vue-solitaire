@@ -14,5 +14,5 @@ app.mount('#app');
 
 // Give access to cypress.
 if (import.meta.env.DEV) {
-  window.solitaire = app;
+  window.solitaire = { store };
 }

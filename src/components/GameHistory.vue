@@ -14,7 +14,7 @@
           v-model.number="filters.limit"
           label="Games"
           :items="limitItems"
-          @select="displayLimit"
+          @select="displayPage(1)"
         />
       </Filters>
     </div>
@@ -168,10 +168,6 @@ export default {
     },
     displayPage(page) {
       this.filters.page = page;
-    },
-    displayLimit(limit) {
-      this.filters.page = 1;
-      this.filters.limit = parseInt(limit, 10);
     },
     displayGames() {
       const { offset, limit } = this;

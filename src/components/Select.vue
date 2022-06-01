@@ -5,7 +5,7 @@
       class="select__dropdown"
       :id="id"
       :value="modelValue"
-      @change="$emit('update:modelValue', $event.target.value)"
+      @change="change($event.target.value)"
       data-test="select"
     >
       <option v-for="(item, index) in items" :value="item.value" :key="index">
@@ -32,12 +32,18 @@ export default {
       default: () => [],
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'select'],
   computed: {
     id() {
       const { label } = this;
 
       return label.split(' ').join('-');
+    },
+  },
+  methods: {
+    change(value) {
+      this.$emit('select');
+      this.$emit('update:modelValue', value);
     },
   },
 };
