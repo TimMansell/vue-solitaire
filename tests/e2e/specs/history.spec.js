@@ -10,7 +10,6 @@ describe('History', () => {
       cy.showHistory();
 
       cy.checkHistoryExists(false);
-      cy.checkHistoryMessageExists(true);
     });
 
     it('it shows game history after first game played', () => {
@@ -19,7 +18,6 @@ describe('History', () => {
       cy.showHistory();
 
       cy.checkHistoryExists(true);
-      cy.checkHistoryMessageExists(false);
 
       cy.checkTableHasRowLength(1);
 
@@ -40,9 +38,6 @@ describe('History', () => {
 
     it('it shows correct results using pagingation', () => {
       cy.showHistory();
-
-      cy.checkHistoryExists(true);
-      cy.checkHistoryMessageExists(false);
 
       cy.checkTableHasRowLength(25);
 

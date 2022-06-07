@@ -1,6 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Moves.vue matches snapshot 1`] = `
-<div>
-  Moves: <span data-test="moves">1</span></div>
-`;

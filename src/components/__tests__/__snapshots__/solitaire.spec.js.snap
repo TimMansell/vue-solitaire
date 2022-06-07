@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Solitaire.vue matches snapshot 1`] = `
-<div class="solitaire">
-  <board-stub></board-stub>
-</div>
-`;

@@ -29,16 +29,12 @@ Cypress.Commands.add('checkHistoryPages', () => {
   });
 });
 
-Cypress.Commands.add('checkHistoryExists', (exists) => {
-  const shouldExist = exists ? 'exist' : 'not.exist';
+Cypress.Commands.add('checkHistoryExists', (shouldExist) => {
+  const shouldHistoryExist = shouldExist ? 'exist' : 'not.exist';
+  const shouldMsgExist = shouldExist ? 'not.exist' : 'exist';
 
-  cy.get('[data-test="game-history"]').should(shouldExist);
-});
-
-Cypress.Commands.add('checkHistoryMessageExists', (exists) => {
-  const shouldExist = exists ? 'exist' : 'not.exist';
-
-  cy.get('[data-test="game-history-no-games-msg"]').should(shouldExist);
+  cy.get('[data-test="game-history"]').should(shouldHistoryExist);
+  cy.get('[data-test="game-history-no-games-msg"]').should(shouldMsgExist);
 });
 
 Cypress.Commands.add('checkHistoryShowingGames', () => {

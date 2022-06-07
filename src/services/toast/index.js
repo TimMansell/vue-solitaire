@@ -1,3 +1,4 @@
+import { nextTick } from 'vue';
 import { createToastInterface } from 'vue-toastification';
 import Toast from '@/components/Toast.vue';
 
@@ -18,14 +19,16 @@ const config = {
   icon: false,
 };
 
-export const createToast = ({
+export const createToast = async ({
   id,
   content,
   timeout = false,
   icon,
   position = 'bottom-center',
-}) =>
-  toast(
+}) => {
+  await nextTick();
+
+  return toast(
     { ...createComponent({ id, content, icon }) },
     {
       ...config,
@@ -34,6 +37,7 @@ export const createToast = ({
       position,
     }
   );
+};
 
 export const updateToast = ({
   id,

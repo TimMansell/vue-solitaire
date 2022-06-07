@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import Table, { isRowHighlighted } from '@/components/Table.vue';
 
-const propsData = {
+const props = {
   headings: ['Heading 1', 'Heading 2', 'Heading 3'],
   items: [
     ['Cell 1', 'Cell 2', 'Cell 3'],
@@ -10,29 +10,29 @@ const propsData = {
 };
 
 describe('Table.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Table, {
-      propsData,
+      props,
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
-  it('matches snapshot - placeholder rows', () => {
+  it('renders the component without crashing - placeholder rows', () => {
     const wrapper = shallowMount(Table, {
-      propsData: {
-        ...propsData,
+      props: {
+        ...props,
         items: [],
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('should add spacing class', () => {
     const wrapper = shallowMount(Table, {
-      propsData: {
-        ...propsData,
+      props: {
+        ...props,
         spacing: true,
       },
     });
@@ -42,49 +42,49 @@ describe('Table.vue', () => {
 
   it('should populate table headers correctly', () => {
     const wrapper = shallowMount(Table, {
-      propsData,
+      props,
     });
 
-    expect(
-      wrapper.findAll('[data-test="table-header-cell"]').at(0).text()
-    ).toBe(propsData.headings[0]);
+    expect(wrapper.findAll('[data-test="table-header-cell"]')[0].text()).toBe(
+      props.headings[0]
+    );
 
-    expect(
-      wrapper.findAll('[data-test="table-header-cell"]').at(1).text()
-    ).toBe(propsData.headings[1]);
+    expect(wrapper.findAll('[data-test="table-header-cell"]')[1].text()).toBe(
+      props.headings[1]
+    );
 
-    expect(
-      wrapper.findAll('[data-test="table-header-cell"]').at(2).text()
-    ).toBe(propsData.headings[2]);
+    expect(wrapper.findAll('[data-test="table-header-cell"]')[2].text()).toBe(
+      props.headings[2]
+    );
   });
 
   it('should populate table body cells correctly', () => {
     const wrapper = shallowMount(Table, {
-      propsData,
+      props,
     });
 
-    expect(wrapper.findAll('[data-test="table-cell"]').at(0).text()).toBe(
-      propsData.items[0][0]
+    expect(wrapper.findAll('[data-test="table-cell"]')[0].text()).toBe(
+      props.items[0][0]
     );
 
-    expect(wrapper.findAll('[data-test="table-cell"]').at(1).text()).toBe(
-      propsData.items[0][1]
+    expect(wrapper.findAll('[data-test="table-cell"]')[1].text()).toBe(
+      props.items[0][1]
     );
 
-    expect(wrapper.findAll('[data-test="table-cell"]').at(2).text()).toBe(
-      propsData.items[0][2]
+    expect(wrapper.findAll('[data-test="table-cell"]')[2].text()).toBe(
+      props.items[0][2]
     );
 
-    expect(wrapper.findAll('[data-test="table-cell"]').at(3).text()).toBe(
-      propsData.items[1][0]
+    expect(wrapper.findAll('[data-test="table-cell"]')[3].text()).toBe(
+      props.items[1][0]
     );
 
-    expect(wrapper.findAll('[data-test="table-cell"]').at(4).text()).toBe(
-      propsData.items[1][1]
+    expect(wrapper.findAll('[data-test="table-cell"]')[4].text()).toBe(
+      props.items[1][1]
     );
 
-    expect(wrapper.findAll('[data-test="table-cell"]').at(5).text()).toBe(
-      propsData.items[1][2]
+    expect(wrapper.findAll('[data-test="table-cell"]')[5].text()).toBe(
+      props.items[1][2]
     );
   });
 
@@ -102,8 +102,8 @@ describe('Table.vue', () => {
 
   it('should show placeholder rows', () => {
     const wrapper = shallowMount(Table, {
-      propsData: {
-        ...propsData,
+      props: {
+        ...props,
         items: [],
       },
     });
@@ -117,7 +117,7 @@ describe('Table.vue', () => {
 
   it('should not show placeholder rows', () => {
     const wrapper = shallowMount(Table, {
-      propsData,
+      props,
     });
 
     expect(wrapper.find('[data-test="table-placeholder-row"]').exists()).toBe(
@@ -129,14 +129,14 @@ describe('Table.vue', () => {
 
   it('should show highlight correct row', () => {
     const wrapper = shallowMount(Table, {
-      propsData: {
-        ...propsData,
+      props: {
+        ...props,
         toHighlight: { key: '0', value: 'Cell 1' },
       },
     });
 
-    expect(
-      wrapper.findAll('[data-test="table-row"]').at(0).classes()
-    ).toContain('table__row--highlighted');
+    expect(wrapper.findAll('[data-test="table-row"]')[0].classes()).toContain(
+      'table__row--highlighted'
+    );
   });
 });

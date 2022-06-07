@@ -2,14 +2,14 @@ import { shallowMount } from '@vue/test-utils';
 import Toast from '@/components/Toast.vue';
 
 describe('Toast.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Toast, {
-      propsData: {
+      props: {
         id: 'toast',
         content: 'content',
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

@@ -36,7 +36,7 @@ export default {
 
     this.events = addEventListener(events);
   },
-  destroyed() {
+  unmounted() {
     const { events } = this;
 
     removeEventListener(events);

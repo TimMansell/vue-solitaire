@@ -24,7 +24,7 @@ export default {
     this.gameTimer = pauseMe(() => this.updateTimer(), 1000, true);
     this.checkInitialState();
   },
-  destroyed() {
+  unmounted() {
     this.gameTimer.stop();
   },
   watch: {

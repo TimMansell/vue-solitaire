@@ -1,14 +1,19 @@
 import { shallowMount } from '@vue/test-utils';
 import GlobalGames from '@/components/GlobalGames.vue';
+import { setupStore } from '@@/tests/helpers';
 
 describe('GlobalGames.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(GlobalGames, {
-      computed: {
-        globalGameCount: () => 1,
+      global: {
+        mocks: {
+          $store: setupStore({
+            globalGameCount: 1,
+          }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

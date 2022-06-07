@@ -1,5 +1,5 @@
-import VueRouter from 'vue-router';
-import store from '@/store';
+import { createRouter, createWebHistory } from 'vue-router';
+import { store } from '@/store';
 import Home from '@/pages/Home.vue';
 import New from '@/pages/New.vue';
 import Pause from '@/pages/Pause.vue';
@@ -139,15 +139,15 @@ const routes = [
     },
   },
   {
-    path: '*',
+    path: '/:pathMatch(.*)*',
     components: {
       main: PageNotFound,
     },
   },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes,
 });
 

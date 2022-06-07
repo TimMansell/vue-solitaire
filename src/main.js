@@ -1,23 +1,18 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createApp } from 'vue';
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register';
 
 import App from '@/App.vue';
-import store from '@/store';
+import { store } from '@/store';
 import router from '@/router';
 
-Vue.config.productionTip = false;
+const app = createApp(App);
 
-Vue.use(VueRouter);
-
-const solitaire = new Vue({
-  store,
-  router,
-  render: (h) => h(App),
-}).$mount('#app');
+app.use(router);
+app.use(store);
+app.mount('#app');
 
 // Give access to cypress.
 if (import.meta.env.DEV) {
-  window.solitaire = solitaire;
+  window.solitaire = { store };
 }

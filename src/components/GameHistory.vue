@@ -1,27 +1,27 @@
 <template>
   <div data-test="game-history">
     <p data-test="game-history-total-games" :data-games="userGameCount">
-      You have played a total of {{ userGameCount | formatNumber }} games
+      You have played a total of {{ formatNumber(userGameCount) }} games
     </p>
 
     <div ref="scrollTo">
       <Filters>
         <div data-test="game-history-pages">
-          Page: {{ page | formatNumber }} / {{ totalPages | formatNumber }}
+          Page: {{ formatNumber(page) }} / {{ formatNumber(totalPages) }}
         </div>
 
         <Select
-          v-model="filters.limit"
+          v-model.number="filters.limit"
           label="Games"
           :items="limitItems"
-          @select="displayLimit"
+          @select="displayPage(1)"
         />
       </Filters>
     </div>
 
     <p data-test="game-history-showing-games">
-      Showing games {{ showingFrom | formatNumber }} to
-      {{ showingTo | formatNumber }}
+      Showing games {{ formatNumber(showingFrom) }} to
+      {{ formatNumber(showingTo) }}
     </p>
 
     <ResponsiveTable
@@ -72,11 +72,6 @@ export default {
         limit: parseInt(xss(this.$route.params.limit), 10),
       },
     };
-  },
-  filters: {
-    formatNumber(value) {
-      return formatNumber(value);
-    },
   },
   watch: {
     filters: {
@@ -152,27 +147,27 @@ export default {
       return lastPageRows;
     },
   },
-  mounted() {
+  created() {
     this.checkInitialFilters();
+  },
+  mounted() {
     this.displayGames();
   },
   methods: {
     ...mapActions(['getAllGames', 'updateRoute']),
     checkInitialFilters() {
-      const { limitItems, filters, totalPages } = this;
-      const { limit, page } = filters;
+      const { limitItems, limit, page, totalPages } = this;
 
       const validLimit = limitItems.map(({ value }) => value).includes(limit);
 
       this.filters.limit = validLimit ? limit : limitItems[0].value;
       this.filters.page = page <= totalPages ? page : 1;
     },
+    formatNumber(number) {
+      return formatNumber(number);
+    },
     displayPage(page) {
       this.filters.page = page;
-    },
-    displayLimit(limit) {
-      this.filters.page = 1;
-      this.filters.limit = parseInt(limit, 10);
     },
     displayGames() {
       const { offset, limit } = this;

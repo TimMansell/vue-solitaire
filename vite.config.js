@@ -1,11 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig } from 'vite';
-import { createVuePlugin } from 'vite-plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import viteSvgIcons from 'vite-plugin-svg-icons';
 import path from 'path';
 
 export default defineConfig({
   plugins: [
-    createVuePlugin(),
+    vue(),
     viteSvgIcons({
       iconDirs: [path.resolve(process.cwd(), 'src/assets/cards')],
       symbolId: 'card-[dir]-[name]',
@@ -21,7 +22,7 @@ export default defineConfig({
     alias: [
       {
         find: '@',
-        replacement: path.resolve(__dirname, 'src'),
+        replacement: path.resolve(__dirname, './src'),
       },
     ],
   },

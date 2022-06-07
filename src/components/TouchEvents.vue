@@ -14,24 +14,18 @@ export default {
       hammer: '',
     };
   },
+  emits: ['swipe'],
   mounted() {
     this.init();
   },
-  destroyed() {
+  unmounted() {
     this.hammer.stop();
     this.hammer.destroy();
   },
   methods: {
     init() {
       this.hammer = new Hammer.Manager(this.$refs.swipe);
-      this.hammer.add(
-        new Hammer.Tap({
-          event: 'doubletap',
-          taps: 2,
-          threshold: 10,
-          interval: 200,
-        })
-      );
+
       this.hammer.add(
         new Hammer.Swipe({
           direction: Hammer.DIRECTION_VERTICAL,
@@ -40,19 +34,7 @@ export default {
         })
       );
 
-      this.hammer.on('swipe', () => {
-        this.swipe();
-      });
-
-      this.hammer.on('doubletap', () => {
-        this.doubleTap();
-      });
-    },
-    swipe() {
-      this.$emit('swipe');
-    },
-    doubleTap() {
-      this.$emit('doubletap');
+      this.hammer.on('swipe', () => this.$emit('swipe'));
     },
   },
 };

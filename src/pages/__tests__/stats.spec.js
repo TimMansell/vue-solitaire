@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import Stats from '@/pages/Stats.vue';
 
 describe('Stats.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Stats);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

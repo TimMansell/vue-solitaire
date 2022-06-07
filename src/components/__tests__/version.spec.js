@@ -1,14 +1,19 @@
 import { shallowMount } from '@vue/test-utils';
 import Version from '@/components/Version.vue';
+import { setupStore } from '@@/tests/helpers';
 
 describe('Version.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Version, {
-      computed: {
-        version: () => '1.0.0',
+      global: {
+        mocks: {
+          $store: setupStore({
+            version: '1.0.0',
+          }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

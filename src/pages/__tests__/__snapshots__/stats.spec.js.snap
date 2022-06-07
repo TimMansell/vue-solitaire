@@ -1,6 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Stats.vue matches snapshot 1`] = `
-<gameoverlay-stub centercontent="true" showclose="true" data-test="stats"> Your Stats <stats-stub></stats-stub>
-</gameoverlay-stub>
-`;

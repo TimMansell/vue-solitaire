@@ -1,58 +1,57 @@
 import { shallowMount } from '@vue/test-utils';
 import DraggedCards from '@/components/DraggedCards.vue';
+import { setupStore } from '@@/tests/helpers';
 
-const defaultProps = {
+const props = {
   width: 100,
 };
 
-const computed = {
-  draggedCards: () => [
-    {
-      id: 0,
-      value: 'A',
-      order: 1,
-      suit: '♠',
-      visible: true,
-    },
-    {
-      id: 1,
-      value: 'A',
-      order: 1,
-      suit: '♦',
-      visible: true,
-    },
-  ],
+const global = {
+  mocks: {
+    $store: setupStore({
+      draggedCards: [
+        {
+          id: 0,
+          value: 'A',
+          order: 1,
+          suit: '♠',
+          visible: true,
+        },
+        {
+          id: 1,
+          value: 'A',
+          order: 1,
+          suit: '♦',
+          visible: true,
+        },
+      ],
+    }),
+  },
 };
 
 describe('DraggedCards.vue', () => {
   it('matches visible snapshot', () => {
     const wrapper = shallowMount(DraggedCards, {
-      propsData: {
-        ...defaultProps,
-      },
-      computed,
+      global,
+      props,
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('should have correct props', () => {
     const wrapper = shallowMount(DraggedCards, {
-      propsData: {
-        ...defaultProps,
-      },
-      computed,
+      global,
+      props,
     });
 
-    expect(wrapper.props().width).toBe(defaultProps.width);
+    expect(wrapper.props().width).toBe(props.width);
   });
 
   it('should calculate card offset correctly', () => {
     const wrapper = shallowMount(DraggedCards, {
-      propsData: {
-        ...defaultProps,
-      },
-      computed,
+      global,
+      props,
     });
 
     expect(wrapper.vm.cardOffset).toBe(50);
@@ -60,10 +59,8 @@ describe('DraggedCards.vue', () => {
 
   it('should calculate card position correctly', async () => {
     const wrapper = shallowMount(DraggedCards, {
-      propsData: {
-        ...defaultProps,
-      },
-      computed,
+      global,
+      props,
     });
 
     await wrapper.setData({ x: 50, y: 100 });

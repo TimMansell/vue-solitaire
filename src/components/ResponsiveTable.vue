@@ -53,7 +53,7 @@ export default {
       default: () => {},
     },
   },
-  destroyed() {
+  unmounted() {
     localStorage.setItem('showTableHelper', 'false');
   },
   computed: {

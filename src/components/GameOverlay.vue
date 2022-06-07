@@ -117,7 +117,7 @@ export default {
     // Stop body from scrolling when overlay is open.
     this.setHideBody(true);
   },
-  destroyed() {
+  unmounted() {
     // Enable body scrolling.
     this.setHideBody(false);
   },
@@ -211,8 +211,6 @@ export default {
   }
 
   &__btns {
-    display: inline-flex;
-    justify-content: center;
     padding: var(--mg-sm);
 
     &--is-visible {
@@ -222,10 +220,6 @@ export default {
         border: 1px solid var(--col-primary-alt-2);
         border-radius: var(--bdr-radius-lg);
       }
-    }
-
-    > * + * {
-      margin-left: var(--mg-sm);
     }
   }
 }

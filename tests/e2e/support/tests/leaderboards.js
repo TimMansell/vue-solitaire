@@ -17,10 +17,13 @@ Cypress.Commands.add('checkLeaderboardNameExists', (shouldExist) => {
 });
 
 Cypress.Commands.add('checkLeaderboardGameRange', () => {
-  cy.getSelectLeaderboardTop().then((selectedLimit) => {
-    const limit = parseInt(selectedLimit[0].value, 10);
+  cy.getSelectLeaderboardTop()
+    .text()
+    .then((value) => {
+      const limit = parseInt(value, 10);
 
-    cy.checkTableCell({ row: 0, cell: 0, value: 1 });
-    cy.checkTableCell({ row: -1, cell: 0, value: limit });
-  });
+      cy.checkTableCell({ row: 0, cell: 0, value: 1 });
+
+      cy.checkTableHasRowLength(limit);
+    });
 });

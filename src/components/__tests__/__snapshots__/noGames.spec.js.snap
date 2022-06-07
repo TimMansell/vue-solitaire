@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`NoGames.vue matches snapshot 1`] = `<p>You have not played any games yet</p>`;

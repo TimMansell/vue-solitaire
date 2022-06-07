@@ -1,56 +1,62 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount, shallowMount } from '@vue/test-utils';
 import History from '@/pages/History.vue';
-
-const mocks = {
-  $store: { dispatch: jest.fn() },
-};
+import { setupStore } from '@@/tests/helpers';
 
 describe('History.vue', () => {
-  it('matches snapshot - no games', () => {
-    const wrapper = shallowMount(History, {
-      mocks,
-      computed: {
-        userGameCount: () => 0,
+  describe('no games', () => {
+    const global = {
+      mocks: {
+        $store: setupStore({
+          userGameCount: 0,
+          isOverlayVisible: true,
+        }),
       },
+      stubs: { GameOverlay: false },
+    };
+
+    it('renders the component without crashing', () => {
+      const wrapper = shallowMount(History, {
+        global,
+      });
+
+      expect(wrapper.isVisible()).toBe(true);
     });
 
-    expect(wrapper).toMatchSnapshot();
+    it('should show no games message', () => {
+      const wrapper = mount(History, {
+        shallow: true,
+        global,
+      });
+
+      expect(wrapper.findComponent({ name: 'NoGames' }).exists()).toBe(true);
+    });
   });
 
-  it('matches snapshot - with games', () => {
-    const wrapper = shallowMount(History, {
-      mocks,
-      computed: {
-        userGameCount: () => 4,
+  describe('games', () => {
+    const global = {
+      mocks: {
+        $store: setupStore({
+          userGameCount: 4,
+          isOverlayVisible: true,
+        }),
       },
+    };
+
+    it('renders the component without crashings', () => {
+      const wrapper = shallowMount(History, {
+        global,
+      });
+
+      expect(wrapper.isVisible()).toBe(true);
     });
 
-    expect(wrapper).toMatchSnapshot();
-  });
+    it('should not show no games message', () => {
+      const wrapper = mount(History, {
+        shallow: true,
+        global,
+      });
 
-  it('should not show no games message', () => {
-    const wrapper = shallowMount(History, {
-      mocks,
-      computed: {
-        userGameCount: () => 4,
-      },
+      expect(wrapper.findComponent({ name: 'NoGames' }).exists()).toBe(false);
     });
-
-    expect(
-      wrapper.find('[data-test="game-history-no-games-msg"]').exists()
-    ).toBe(false);
-  });
-
-  it('should show no games message', () => {
-    const wrapper = shallowMount(History, {
-      mocks,
-      computed: {
-        userGameCount: () => 0,
-      },
-    });
-
-    expect(
-      wrapper.find('[data-test="game-history-no-games-msg"]').exists()
-    ).toBe(true);
   });
 });
