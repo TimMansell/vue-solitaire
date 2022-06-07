@@ -1,60 +1,55 @@
 import { shallowMount } from '@vue/test-utils';
 import BottomCard from '@/components/BottomCard.vue';
-
-const computed = {
-  isDisabledGame: () => false,
-};
+import { setupStore } from '@@/tests/helpers';
 
 describe('BottomCard.vue', () => {
-  it('matches snapshot', () => {
-    const wrapper = shallowMount(BottomCard, { computed });
+  it('renders the component without crashing', () => {
+    const wrapper = shallowMount(BottomCard);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('should have correct props', () => {
-    const propsData = {
+    const props = {
       id: 1,
       value: 'J♣',
     };
 
     const wrapper = shallowMount(BottomCard, {
-      propsData,
+      props,
     });
 
     expect(wrapper.props().id).toBe(1);
-    expect(wrapper.props().value).toBe(propsData.value);
+    expect(wrapper.props().value).toBe(props.value);
   });
 
   it('should call autoMoveCard method', () => {
-    const mockStore = { dispatch: jest.fn() };
-
+    const spy = jest.fn();
     const wrapper = shallowMount(BottomCard, {
-      mocks: {
-        $store: mockStore,
+      global: {
+        mocks: {
+          $store: setupStore({ dispatch: spy, isDisabledGame: false }),
+        },
       },
-      computed,
     });
 
     wrapper.vm.autoMoveCard();
 
-    expect(mockStore.dispatch).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('should not call autoMoveCard method when game is paused', () => {
-    const mockStore = { dispatch: jest.fn() };
-
+    const spy = jest.fn();
     const wrapper = shallowMount(BottomCard, {
-      mocks: {
-        $store: mockStore,
-      },
-      computed: {
-        isDisabledGame: () => true,
+      global: {
+        mocks: {
+          $store: setupStore({ dispatch: spy, isDisabledGame: true }),
+        },
       },
     });
 
     wrapper.vm.autoMoveCard();
 
-    expect(mockStore.dispatch).toHaveBeenCalledTimes(0);
+    expect(spy).toHaveBeenCalledTimes(0);
   });
 });

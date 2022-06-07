@@ -2,15 +2,15 @@ import { shallowMount } from '@vue/test-utils';
 import CardPlaceholder from '@/components/CardPlaceholder.vue';
 
 describe('CardPlaceholder.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(CardPlaceholder);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('should have correct props', () => {
     const wrapper = shallowMount(CardPlaceholder, {
-      propsData: {
+      props: {
         seeThrough: true,
       },
     });
@@ -20,7 +20,7 @@ describe('CardPlaceholder.vue', () => {
 
   it('should render a see-through card', () => {
     const wrapper = shallowMount(CardPlaceholder, {
-      propsData: {
+      props: {
         seeThrough: true,
       },
     });
@@ -30,7 +30,7 @@ describe('CardPlaceholder.vue', () => {
 
   it('should show 1 placeholder card', () => {
     const wrapper = shallowMount(CardPlaceholder, {
-      propsData: {
+      props: {
         seeThrough: true,
       },
     });
@@ -40,7 +40,7 @@ describe('CardPlaceholder.vue', () => {
 
   it('should show multiple column placeholder cards', () => {
     const wrapper = shallowMount(CardPlaceholder, {
-      propsData: {
+      props: {
         cards: 5,
       },
     });

@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
 
 describe('SkeletonLoader.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(SkeletonLoader);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

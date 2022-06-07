@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import Home from '@/pages/Home.vue';
 
 describe('Home.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Home);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

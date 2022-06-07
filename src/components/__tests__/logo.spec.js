@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import Logo from '@/components/Logo.vue';
 
 describe('Logo.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Logo);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

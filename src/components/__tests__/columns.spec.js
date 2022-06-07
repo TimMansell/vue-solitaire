@@ -1,14 +1,20 @@
 import { shallowMount } from '@vue/test-utils';
 import Columns from '@/components/Columns.vue';
+import { setupStore } from '@@/tests/helpers';
 
 describe('Columns.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Columns, {
-      computed: {
-        formattedCards: () => [[], [], [], [], [], [], [], []],
+      global: {
+        mocks: {
+          $store: setupStore({
+            cards: [[], [], [], [], [], [], [], []],
+            draggedCardsIDs: [],
+          }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import Leaderboards from '@/pages/Leaderboards.vue';
 
 describe('Leaderboards.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Leaderboards);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

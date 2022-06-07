@@ -1,124 +1,133 @@
 import { shallowMount } from '@vue/test-utils';
 import Button from '@/components/Button.vue';
-
-const computed = {
-  isDisabledGame: () => false,
-};
+import { setupStore } from '@@/tests/helpers';
 
 describe('Button.vue', () => {
-  it('matches snapshot', () => {
-    const wrapper = shallowMount(Button, { computed });
-
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders an alternate button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        type: 'alt',
+  describe('Default', () => {
+    const global = {
+      mocks: {
+        $store: setupStore({ isDisabledGame: false }),
       },
-      computed,
+    };
+
+    it('renders the component without crashing', () => {
+      const wrapper = shallowMount(Button, { global });
+
+      expect(wrapper.isVisible()).toBe(true);
     });
 
-    expect(wrapper.classes()).toContain('btn--alt');
-  });
+    it('renders an alternate button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          type: 'alt',
+        },
+      });
 
-  it('renders a link button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        type: 'link',
-      },
-      computed,
+      expect(wrapper.classes()).toContain('btn--alt');
     });
 
-    expect(wrapper.classes()).toContain('btn--link');
-  });
+    it('renders a link button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          type: 'link',
+        },
+      });
 
-  it('renders an icon button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        type: 'icon',
-      },
-      computed,
+      expect(wrapper.classes()).toContain('btn--link');
     });
 
-    expect(wrapper.classes()).toContain('btn--icon');
-  });
+    it('renders an icon button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          type: 'icon',
+        },
+      });
 
-  it('renders a stacked button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        isStacked: true,
-      },
-      computed,
+      expect(wrapper.classes()).toContain('btn--icon');
     });
 
-    expect(wrapper.classes()).toContain('btn--is-stacked');
-  });
+    it('renders a stacked button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          isStacked: true,
+        },
+      });
 
-  it('renders a small button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        size: 'sm',
-      },
-      computed,
+      expect(wrapper.classes()).toContain('btn--is-stacked');
     });
 
-    expect(wrapper.classes()).toContain('btn--small');
-  });
+    it('renders a small button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          size: 'sm',
+        },
+      });
 
-  it('renders a large button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        size: 'lg',
-      },
-      computed,
+      expect(wrapper.classes()).toContain('btn--small');
     });
 
-    expect(wrapper.classes()).toContain('btn--large');
-  });
+    it('renders a large button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          size: 'lg',
+        },
+      });
 
-  it('renders a disabled button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        checkDisabled: true,
-      },
-      computed: {
-        isDisabledGame: () => true,
-      },
+      expect(wrapper.classes()).toContain('btn--large');
     });
 
-    expect(wrapper.classes()).toContain('btn--disabled');
+    it('should call @click function', async () => {
+      const spy = jest.fn();
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          click: spy,
+        },
+      });
+
+      await wrapper.trigger('click');
+
+      expect(spy).toHaveBeenCalled();
+    });
   });
 
-  it('should call @click function', async () => {
-    const spy = jest.fn();
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        click: spy,
+  describe('Disabled', () => {
+    const global = {
+      mocks: {
+        $store: setupStore({ isDisabledGame: true }),
       },
-      computed,
+    };
+
+    it('renders a disabled button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          checkDisabled: true,
+        },
+      });
+
+      expect(wrapper.classes()).toContain('btn--disabled');
     });
 
-    await wrapper.trigger('click');
+    it('should not call @click function when button is disabled', async () => {
+      const spy = jest.fn();
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          click: spy,
+          checkDisabled: true,
+        },
+      });
 
-    expect(spy).toHaveBeenCalled();
-  });
+      await wrapper.trigger('click');
 
-  it('should not call @click function when button is disabled', async () => {
-    const spy = jest.fn();
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        click: spy,
-        checkDisabled: true,
-      },
-      computed: {
-        isDisabledGame: () => true,
-      },
+      expect(spy).not.toHaveBeenCalled();
     });
-
-    await wrapper.trigger('click');
-
-    expect(spy).not.toHaveBeenCalled();
   });
 });

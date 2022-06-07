@@ -1,25 +1,31 @@
 import { shallowMount } from '@vue/test-utils';
 import Timer from '@/components/Timer.vue';
+import { setupStore } from '@@/tests/helpers';
+
+const defaultGetters = {
+  isGamePaused: true,
+  isEmptyBoard: false,
+};
 
 describe('Timer.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Timer, {
-      computed: {
-        timer: () => 1,
-        isGamePaused: () => true,
-        isEmptyBoard: () => false,
+      global: {
+        mocks: {
+          $store: setupStore({ timer: 1, ...defaultGetters }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('should show 10 seconds on the timer', () => {
     const wrapper = shallowMount(Timer, {
-      computed: {
-        timer: () => 10,
-        isGamePaused: () => true,
-        isEmptyBoard: () => false,
+      global: {
+        mocks: {
+          $store: setupStore({ timer: 10, ...defaultGetters }),
+        },
       },
     });
 
@@ -28,10 +34,10 @@ describe('Timer.vue', () => {
 
   it('should show 1m 15s seconds on the timer', () => {
     const wrapper = shallowMount(Timer, {
-      computed: {
-        timer: () => 75,
-        isGamePaused: () => true,
-        isEmptyBoard: () => false,
+      global: {
+        mocks: {
+          $store: setupStore({ timer: 75, ...defaultGetters }),
+        },
       },
     });
 

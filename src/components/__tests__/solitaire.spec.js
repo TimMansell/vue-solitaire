@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import Solitaire from '@/components/Solitaire.vue';
 
 describe('Solitaire.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Solitaire);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

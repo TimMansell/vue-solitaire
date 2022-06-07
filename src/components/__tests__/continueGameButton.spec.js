@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import ContinueGameButton from '@/components/ContinueGameButton.vue';
 
 describe('ContinueGameButton.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(ContinueGameButton);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });
