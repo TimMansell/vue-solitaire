@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Header.vue matches snapshot 1`] = `
-<header class="header">
-  <controls-stub></controls-stub>
-  <gamestats-stub></gamestats-stub>
-</header>
-`;

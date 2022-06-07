@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`PauseGameButton.vue matches snapshot 1`] = `
-<button-stub type="default" isstacked="true" checkdisabled="true" size="md" click="[Function]" route="pause" data-test="pause-game-btn">
-  Pause
-</button-stub>
-`;

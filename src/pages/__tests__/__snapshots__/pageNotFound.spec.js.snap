@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`PageNotFound.vue matches snapshot 1`] = `
-<gameoverlay-stub centercontent="true" showlogo="true" data-test="404"> Page Not Found :(<p>Click the button below to be taken back to the game</p>
-  <homebutton-stub></homebutton-stub>
-</gameoverlay-stub>
-`;

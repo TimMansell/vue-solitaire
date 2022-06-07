@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`BottomCard.vue matches snapshot 1`] = `
-<touchevents-stub>
-  <defaultcard-stub value="A♣"></defaultcard-stub>
-</touchevents-stub>
-`;

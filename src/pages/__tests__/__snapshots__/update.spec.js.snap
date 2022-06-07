@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Update.vue matches updates snapshot 1`] = `
-<gameoverlay-stub centercontent="true" showlogo="true" data-test="update"><span>New Update</span>
-  <p>A new version of the game is available</p>
-  <updatebutton-stub></updatebutton-stub>
-</gameoverlay-stub>
-`;

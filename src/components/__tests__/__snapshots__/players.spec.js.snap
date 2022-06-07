@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Players.vue matches snapshot 1`] = `
-<div>
-  Players:
-  <counter-stub number="1" data-test="player-count"></counter-stub>
-  (<span title="1 player online" data-test="online-title"><counter-stub number="1" data-test="online-count"></counter-stub></span>)
-</div>
-`;

@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Toast.vue matches snapshot 1`] = `
-<div data-test="toast-toast">
-  <fontawesomeicon-stub icon="[object Object]"></fontawesomeicon-stub>
-  content
-</div>
-`;
