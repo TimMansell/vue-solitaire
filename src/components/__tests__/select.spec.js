@@ -25,4 +25,16 @@ describe('Select.vue', () => {
 
     expect(wrapper.isVisible()).toBe(true);
   });
+
+  it('renders formats id from label correctly', () => {
+    const wrapper = shallowMount(Select, {
+      props: {
+        label: 'Label 1',
+      },
+    });
+
+    expect(wrapper.find('[data-test="select"]').attributes('id')).toBe(
+      'Label-1'
+    );
+  });
 });
