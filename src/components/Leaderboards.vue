@@ -151,7 +151,7 @@ export default {
   mounted() {
     this.displayGames();
   },
-  destroyed() {
+  unmounted() {
     this.clearLeaderboards();
   },
   methods: {

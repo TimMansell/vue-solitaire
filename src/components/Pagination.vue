@@ -57,7 +57,7 @@ export default {
 
     this.setRange();
   },
-  destroyed() {
+  unmounted() {
     const { events } = this;
 
     removeEventListener(events);

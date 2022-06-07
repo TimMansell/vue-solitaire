@@ -59,7 +59,7 @@ export default {
 
     this.getColumnWidth();
   },
-  destroyed() {
+  unmounted() {
     const { events } = this;
 
     removeEventListener(events);

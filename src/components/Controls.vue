@@ -57,7 +57,7 @@ export default {
 
     this.setGithubButton();
   },
-  destroyed() {
+  unmounted() {
     const { events } = this;
 
     removeEventListener(events);

@@ -18,7 +18,7 @@ export default {
   mounted() {
     this.init();
   },
-  destroyed() {
+  unmounted() {
     this.hammer.stop();
     this.hammer.destroy();
   },

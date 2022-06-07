@@ -117,7 +117,7 @@ export default {
     // Stop body from scrolling when overlay is open.
     this.setHideBody(true);
   },
-  destroyed() {
+  unmounted() {
     // Enable body scrolling.
     this.setHideBody(false);
   },
