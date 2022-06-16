@@ -100,6 +100,7 @@
     "timezone-mock": "1.2.1",
     "vite": "2.9.9",
     "vite-plugin-svg-icons": "1.0.4",
+    "ws": "8.7.0",
     "yorkie": "2.0.0"
   },
   "gitHooks": {
