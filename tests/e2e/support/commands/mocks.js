@@ -30,13 +30,16 @@ Cypress.Commands.add('mockUser', () => localStorage.setItem('luid', mockUid));
 Cypress.Commands.add('mockBoard', (cards) => {
   const uid = localStorage.getItem('luid');
 
-  cy.window()
-    .its('solitaire.store')
-    .then((store) => {
-      store.dispatch('initBoard', cards);
-    });
-
-  cy.task('mockServerDeck', { cards, uid });
+  cy.task(
+    'sendMsg',
+    JSON.stringify({ name: 'mockDeck', payload: { uid, cards } })
+  ).then(() => {
+    cy.window()
+      .its('solitaire.store')
+      .then((store) => {
+        store.dispatch('initBoard', cards);
+      });
+  });
 });
 
 Cypress.Commands.add('mockPaused', (isPaused) =>

@@ -35,17 +35,19 @@ describe('Game', () => {
 
         cy.mockBoard(fullGameDeck);
 
-        cy.checkUserStatsAreZero();
+        cy.getStats().then((stats) => {
+          cy.checkStatsAre(stats);
 
-        cy.runGameWithClicks(fullGameMoves);
+          cy.runGameWithClicks(fullGameMoves);
 
-        cy.checkWonPage(true);
+          cy.checkWonPage(true);
 
-        cy.checkSummaryMoves(fullGameMoves.length);
+          cy.checkSummaryMoves(fullGameMoves.length);
 
-        cy.confirmNewGame();
+          cy.confirmNewGame();
 
-        cy.checkStats();
+          cy.checkStatsAre(stats, [1, 1, 0, 0]);
+        });
       });
     });
 
@@ -57,17 +59,19 @@ describe('Game', () => {
 
         cy.mockBoard(fullGameDeck);
 
-        cy.checkStats();
+        cy.getStats().then((stats) => {
+          cy.checkStatsAre(stats);
 
-        cy.runGameWithClicks(fullGameMoves);
+          cy.runGameWithClicks(fullGameMoves);
 
-        cy.checkWonPage(true);
+          cy.checkWonPage(true);
 
-        cy.checkSummaryMoves(fullGameMoves.length);
+          cy.checkSummaryMoves(fullGameMoves.length);
 
-        cy.confirmNewGame();
+          cy.confirmNewGame();
 
-        cy.checkStats();
+          cy.checkStatsAre(stats, [1, 1, 0, 0]);
+        });
       });
     });
   });
@@ -122,17 +126,19 @@ describe('Game', () => {
 
         cy.mockBoard(incompleteGameDeck);
 
-        cy.checkUserStatsAreZero();
+        cy.getStats().then((stats) => {
+          cy.checkStatsAre(stats);
 
-        cy.runGameWithClicks(incompleteGameMoves);
+          cy.runGameWithClicks(incompleteGameMoves);
 
-        cy.checkLostPage(true);
+          cy.checkLostPage(true);
 
-        cy.checkSummaryMoves(incompleteGameMoves.length);
+          cy.checkSummaryMoves(incompleteGameMoves.length);
 
-        cy.confirmNewGame();
+          cy.confirmNewGame();
 
-        cy.checkStats();
+          cy.checkStatsAre(stats, [1, 0, 1, 0]);
+        });
       });
     });
 
@@ -144,17 +150,19 @@ describe('Game', () => {
 
         cy.mockBoard(incompleteGameDeck);
 
-        cy.checkStats();
+        cy.getStats().then((stats) => {
+          cy.checkStatsAre(stats);
 
-        cy.runGameWithClicks(incompleteGameMoves);
+          cy.runGameWithClicks(incompleteGameMoves);
 
-        cy.checkLostPage(true);
+          cy.checkLostPage(true);
 
-        cy.checkSummaryMoves(incompleteGameMoves.length);
+          cy.checkSummaryMoves(incompleteGameMoves.length);
 
-        cy.confirmNewGame();
+          cy.confirmNewGame();
 
-        cy.checkStats();
+          cy.checkStatsAre(stats, [1, 0, 1, 0]);
+        });
       });
     });
   });
@@ -164,11 +172,13 @@ describe('Game', () => {
       it('should quit game and increment quit game stats', () => {
         cy.visitApp();
 
-        cy.checkUserStatsAreZero();
+        cy.getStats().then((stats) => {
+          cy.checkStatsAre(stats);
 
-        cy.startNewGame();
+          cy.startNewGame();
 
-        cy.checkStats();
+          cy.checkStatsAre(stats, [1, 0, 0, 1]);
+        });
       });
     });
 
@@ -178,11 +188,13 @@ describe('Game', () => {
 
         cy.visitApp();
 
-        cy.checkStats();
+        cy.getStats().then((stats) => {
+          cy.checkStatsAre(stats);
 
-        cy.startNewGame();
+          cy.startNewGame();
 
-        cy.checkStats();
+          cy.checkStatsAre(stats, [1, 0, 0, 1]);
+        });
       });
     });
   });
