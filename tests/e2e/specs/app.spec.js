@@ -11,12 +11,16 @@ describe('App', () => {
 
       cy.checkFoundationLayout();
 
-      cy.task('getStats').then(({ completed }) => {
-        cy.checkGameCount(0);
-        cy.checkGlobalGameCount(completed);
+      cy.getStats().then(({ user, global }) => {
+        const [completed] = user;
+        const [completedGlobal] = global;
+
+        cy.checkGameCount(completed);
+        cy.checkGlobalGameCount(completedGlobal);
       });
 
-      cy.checkPlayerCount();
+      cy.getPlayerCount().then((count) => cy.checkPlayerCountIs(count));
+
       cy.checkOnlinePlayerCount();
     });
 

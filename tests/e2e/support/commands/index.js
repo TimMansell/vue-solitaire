@@ -1,3 +1,4 @@
+import './sockets';
 import './alias';
 import './formatting';
 import './clicks';

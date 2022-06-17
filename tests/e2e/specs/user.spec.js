@@ -21,14 +21,18 @@ describe('User', () => {
       cy.visitApp();
     });
 
-    it('it only creates a new user on server after first completed game, not following games', () => {
-      cy.startNewGame();
+    it('it only activates a new user on server after first completed game, not following games', () => {
+      cy.getPlayerCount().then((count) => {
+        cy.checkPlayerCountIs(count);
 
-      cy.checkPlayerCount();
+        cy.startNewGame();
 
-      cy.startNewGame();
+        cy.checkPlayerCountIs(count + 1);
 
-      cy.checkPlayerCount();
+        cy.startNewGame();
+
+        cy.checkPlayerCountIs(count + 1);
+      });
     });
   });
 
@@ -46,9 +50,13 @@ describe('User', () => {
     });
 
     it('it does not create a new server user after first game has been played', () => {
-      cy.startNewGame();
+      cy.getPlayerCount().then((count) => {
+        cy.checkPlayerCountIs(count);
 
-      cy.checkPlayerCount();
+        cy.startNewGame();
+
+        cy.checkPlayerCountIs(count);
+      });
     });
   });
 });

@@ -69,20 +69,12 @@ describe('Leaderboards', () => {
     });
   });
 
-  describe.skip('New User', () => {
+  describe('New User', () => {
     beforeEach(() => {
       cy.visitApp();
     });
 
-    it('it should display player name after first game', () => {
-      cy.showLeaderboards();
-
-      cy.checkLeaderboardNameExists(false);
-
-      cy.closeOverlay();
-
-      cy.startNewGame();
-
+    it('it should display player name', () => {
       cy.showLeaderboards();
 
       cy.checkLeaderboardNameExists(true);

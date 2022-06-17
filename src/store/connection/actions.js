@@ -14,11 +14,14 @@ const actions = {
     socket.on('globalPlayed', (games) => dispatch('setGlobalPlayed', games));
     socket.on('playerCount', (players) => dispatch('setPlayerCount', players));
     socket.on('onlineCount', (players) => dispatch('setOnlineCount', players));
-    socket.on('user', (user) => dispatch('setUser', user));
     socket.on('newGame', (deck) => dispatch('initGame', deck));
     socket.on('stats', (stats) => dispatch('setStats', stats));
     socket.on('userGames', (games) => dispatch('setUserGames', games));
     socket.on('leaderboards', (games) => dispatch('setLeaderboards', games));
+    socket.on('initGame', ({ user, cards }) => {
+      dispatch('setUser', user);
+      dispatch('initGame', cards);
+    });
 
     createToast({
       id: 'connection',

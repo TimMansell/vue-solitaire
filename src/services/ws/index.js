@@ -31,7 +31,6 @@ export const connect = ({ uid, hasGameStarted, version }) => {
   socket.addEventListener('open', () => {
     emitter.emit('connect');
 
-    emit('user');
     emit('userPlayed');
     emit('playerCount');
     emit('globalPlayed');
