@@ -6,37 +6,42 @@ const {
 
 const WebSocket = require('ws');
 
+const newMsg = ({ socket, msgName, msgPayload }) =>
+  new Promise((resolve, reject) => {
+    const messageFunction = (responseMsg) => {
+      try {
+        const { name, payload } = JSON.parse(Buffer.from(responseMsg));
+
+        if (name === msgName) {
+          socket.removeListener('message', messageFunction);
+
+          resolve(payload);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    socket.on('message', messageFunction);
+    socket.send(msgPayload);
+  });
+
 module.exports = (on, config) => {
   addMatchImageSnapshotPlugin(on, config);
 
   let socket;
 
-  on('before:spec', async () => {
+  on('before:run', async () => {
     socket = new WebSocket(process.env.VITE_WEBSOCKETS_URL);
   });
 
   on('task', {
-    sendMsg(msgPayload) {
-      const msgPromise = new Promise((resolve, reject) => {
-        const messageFunction = (msg) => {
-          try {
-            const data = Buffer.from(msg);
-            const { payload } = JSON.parse(data);
+    sendMsg({ name, payload, responseName }) {
+      const msgPayload = JSON.stringify({ name, payload });
+      const msgName = responseName || name;
+      const msg = newMsg({ socket, msgName, msgPayload });
 
-            resolve(payload);
-          } catch (error) {
-            reject(error);
-          }
-
-          socket.removeListener('message', messageFunction);
-        };
-
-        socket.on('message', messageFunction);
-      });
-
-      socket.send(msgPayload);
-
-      return msgPromise;
+      return msg;
     },
   });
 

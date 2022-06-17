@@ -30,10 +30,11 @@ Cypress.Commands.add('mockUser', () => localStorage.setItem('luid', mockUid));
 Cypress.Commands.add('mockBoard', (cards) => {
   const uid = localStorage.getItem('luid');
 
-  cy.task(
-    'sendMsg',
-    JSON.stringify({ name: 'mockDeck', payload: { uid, cards } })
-  ).then(() => {
+  cy.task('sendMsg', {
+    name: 'mockDeck',
+    payload: { uid, cards },
+    responseName: 'newGame',
+  }).then(() => {
     cy.window()
       .its('solitaire.store')
       .then((store) => {
