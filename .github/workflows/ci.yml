@@ -25,6 +25,7 @@ jobs:
       GQL_INTROSPECTION: ${{ secrets.GQL_INTROSPECTION }}
       GQL_PLAYGROUND: ${{ secrets.GQL_PLAYGROUND }}
       VITE_WEBSOCKETS_URL: ${{ secrets.VITE_WEBSOCKETS_URL }}
+      VITE_WEBSOCKETS_VERSION: ${{ secrets.VITE_WEBSOCKETS_VERSION }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
