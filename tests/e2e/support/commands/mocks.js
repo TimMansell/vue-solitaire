@@ -27,18 +27,18 @@ Cypress.Commands.add('mockIsOnline', (isOnline) =>
 
 Cypress.Commands.add('mockUser', () => localStorage.setItem('luid', mockUid));
 
-Cypress.Commands.add('mockBoard', (cards) => {
+Cypress.Commands.add('mockBoard', (mockCards) => {
   const uid = localStorage.getItem('luid');
 
   cy.task('sendMsg', {
     name: 'mockDeck',
-    payload: { uid, cards },
+    payload: { uid, mockCards },
     responseName: 'newGame',
   }).then(() => {
     cy.window()
       .its('solitaire.store')
       .then((store) => {
-        store.dispatch('initBoard', cards);
+        store.dispatch('initBoard', mockCards);
       });
   });
 });
