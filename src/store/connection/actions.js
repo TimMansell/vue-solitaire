@@ -3,9 +3,9 @@ import { createToast, updateToast, dismissToast } from '@/services/toast';
 
 const actions = {
   initConnection({ commit, dispatch, getters }) {
-    const { uid, hasGameStarted, version } = getters;
+    const { uid, version } = getters;
 
-    const socket = connect({ uid, hasGameStarted, version });
+    const socket = connect({ uid, version });
 
     socket.on('connect', () => dispatch('connected'));
     socket.on('disconnect', () => dispatch('disconnected'));
@@ -14,12 +14,12 @@ const actions = {
     socket.on('globalPlayed', (games) => dispatch('setGlobalPlayed', games));
     socket.on('playerCount', (players) => dispatch('setPlayerCount', players));
     socket.on('onlineCount', (players) => dispatch('setOnlineCount', players));
-    socket.on('newGame', (deck) => dispatch('initGame', deck));
+    socket.on('newGame', ({ cards }) => dispatch('initGame', cards));
     socket.on('stats', (stats) => dispatch('setStats', stats));
     socket.on('userGames', (games) => dispatch('setUserGames', games));
     socket.on('leaderboards', (games) => dispatch('setLeaderboards', games));
-    socket.on('initGame', ({ user, cards }) => {
-      dispatch('setUser', user);
+    socket.on('user', ({ cards, name }) => {
+      dispatch('setUser', name);
       dispatch('initGame', cards);
     });
 

@@ -4,12 +4,15 @@ import EventEmitter from 'eventemitter3';
 const emitter = new EventEmitter();
 
 // eslint-disable-next-line import/prefer-default-export
-export const connect = ({ uid, hasGameStarted, version }) => {
+export const connect = ({ uid, version }) => {
   const { OPEN, CONNECTING } = WebSocket;
-  const { VITE_WEBSOCKETS_URL } = import.meta.env;
+  const { VITE_WEBSOCKETS_URL, VITE_WEBSOCKETS_VERSION } = import.meta.env;
   const query = queryString.stringify({ uid, version });
 
-  const socket = new WebSocket(`${VITE_WEBSOCKETS_URL}?${query}`, []);
+  const socket = new WebSocket(
+    `${VITE_WEBSOCKETS_URL}/${VITE_WEBSOCKETS_VERSION}?${query}`,
+    []
+  );
 
   const on = (name, callback) =>
     emitter.on(name, (payload) => callback(payload));
@@ -28,17 +31,7 @@ export const connect = ({ uid, hasGameStarted, version }) => {
 
   const emit = (name, payload) => send(JSON.stringify({ name, payload }));
 
-  socket.addEventListener('open', () => {
-    emitter.emit('connect');
-
-    emit('userPlayed');
-    emit('playerCount');
-    emit('globalPlayed');
-
-    if (hasGameStarted) return;
-
-    emit('initGame');
-  });
+  socket.addEventListener('open', () => emitter.emit('connect'));
 
   socket.addEventListener('close', () => emitter.emit('disconnect'));
 

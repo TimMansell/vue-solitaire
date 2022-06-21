@@ -12,7 +12,11 @@ import {
 } from '@/services/solitaire';
 
 const actions = {
-  initGame({ dispatch }, deck) {
+  initGame({ dispatch, getters }, deck) {
+    const { hasGameStarted } = getters;
+
+    if (hasGameStarted) return;
+
     dispatch('initBoard', deck);
     dispatch('initFoundation');
   },

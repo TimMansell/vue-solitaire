@@ -7,7 +7,7 @@ const actions = {
 
     commit('SET_USER_ID', uid);
   },
-  setUser({ commit }, { name }) {
+  setUser({ commit }, name) {
     commit('SET_USER_NAME', name);
   },
   setUserGames({ commit }, games) {

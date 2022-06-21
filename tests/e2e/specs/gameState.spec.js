@@ -1,5 +1,6 @@
 import quitGameDeck from '../../fixtures/decks/quitGame.json';
 import quitGameMoves from '../../fixtures/moves/quitGame.json';
+import { version } from '../../../package.json';
 
 describe('Game State', () => {
   beforeEach(() => {
@@ -23,7 +24,7 @@ describe('Game State', () => {
 
     cy.mockPaused(true);
 
-    cy.clearLocalStorage('vuex');
+    cy.clearLocalStorage(`v${version}`);
 
     cy.reload();
 

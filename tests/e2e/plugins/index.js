@@ -31,8 +31,8 @@ module.exports = (on, config) => {
 
   let socket;
 
-  on('before:run', async () => {
-    socket = new WebSocket(process.env.VITE_WEBSOCKETS_URL);
+  on('before:spec', async () => {
+    socket = new WebSocket(`${process.env.VITE_WEBSOCKETS_URL}/test`);
   });
 
   on('task', {
