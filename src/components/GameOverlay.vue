@@ -34,14 +34,14 @@
             <slot name="msg" />
           </div>
         </div>
-        <div
+        <span
           class="game-overlay__btns"
           :class="buttonClasses"
           v-if="hasBtnSlot"
           data-test="game-overlay-btns"
         >
           <slot name="buttons" />
-        </div>
+        </span>
       </div>
     </div>
   </div>
