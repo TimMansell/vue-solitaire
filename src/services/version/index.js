@@ -1,4 +1,5 @@
-import { valid, lt } from 'semver';
+import lt from 'semver/functions/lt';
+import valid from 'semver/functions/valid';
 import { version } from '../../../package.json';
 
 export const getVersion = () => version;
