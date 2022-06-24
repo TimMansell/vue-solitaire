@@ -69,4 +69,14 @@ describe('Update', () => {
       cy.checkUpdatedAlert();
     });
   });
+
+  describe('Edge cases', () => {
+    it('it should handle where user has latest version but there is a new version release just after they load website', () => {
+      cy.mockVersion(true).then(() => {
+        cy.visitApp();
+
+        cy.checkUpdatePage(true);
+      });
+    });
+  });
 });
