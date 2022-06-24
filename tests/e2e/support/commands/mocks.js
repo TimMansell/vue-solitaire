@@ -1,20 +1,25 @@
-import { mockUid, mockVersionNumber } from '../../../../src/mockData';
+import semverDecrement from 'semver-decrement';
+import { mockUid } from '../../../../src/mockData';
+import { version } from '../../../../package.json';
 
-Cypress.Commands.add('mockVersionUpdate', () => {
-  cy.mockVersion();
+Cypress.Commands.add('mockLocalVersion', () => {
+  const mockVersionNumber = semverDecrement(version, 'patch');
 
-  cy.window()
-    .its('solitaire.store')
-    .then((store) => {
-      store.dispatch('newUpdate', true);
-    });
+  cy.mockLocalAppVersion(`v${mockVersionNumber}`);
 });
 
-Cypress.Commands.add('mockVersion', (version = '') => {
-  const mockVersion = version || mockVersionNumber;
+Cypress.Commands.add('mockVersion', (increment) =>
+  cy.task('sendMsg', {
+    name: 'mockVersion',
+    payload: { mockVersion: version, increment },
+  })
+);
 
-  localStorage.setItem(mockVersion, 'value');
-});
+Cypress.Commands.add('mockLocalAppVersion', (versionName) =>
+  localStorage.setItem(versionName, 'value')
+);
+
+Cypress.Commands.add('mockLegacyVersion', () => cy.mockLocalAppVersion('vuex'));
 
 Cypress.Commands.add('mockIsOnline', (isOnline) =>
   cy
