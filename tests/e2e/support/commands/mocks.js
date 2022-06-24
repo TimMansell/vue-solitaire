@@ -8,10 +8,11 @@ Cypress.Commands.add('mockLocalVersion', () => {
   cy.mockLocalAppVersion(`v${mockVersionNumber}`);
 });
 
-Cypress.Commands.add('mockVersion', (increment) =>
+Cypress.Commands.add('mockVersion', (shouldIncrement) =>
   cy.task('sendMsg', {
     name: 'mockVersion',
-    payload: { mockVersion: version, increment },
+    payload: { version, incrementLevel: 'patch', shouldIncrement },
+    responseName: 'incrementVersion',
   })
 );
 
