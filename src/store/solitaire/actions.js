@@ -77,7 +77,7 @@ const actions = {
       dispatch('checkGameState');
     }
 
-    dispatch('setCard', null);
+    dispatch('setCard', 0);
   },
   moveCardToFoundation({ dispatch, state }, selectedColumn) {
     const isValidMove = checkValidFoundationMove(state, selectedColumn);
@@ -94,7 +94,7 @@ const actions = {
       dispatch('checkGameState');
     }
 
-    dispatch('setCard', null);
+    dispatch('setCard', 0);
   },
   autoMoveCardToFoundation({ dispatch, state }, id) {
     dispatch('setCard', id);
@@ -110,7 +110,7 @@ const actions = {
     commit('DRAG_CARDS', cards);
   },
   clearDraggedCards({ commit, dispatch }) {
-    dispatch('setCard', null);
+    dispatch('setCard', 0);
 
     commit('CLEAR_DRAG_CARDS');
   },
