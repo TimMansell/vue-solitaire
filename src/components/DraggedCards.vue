@@ -83,6 +83,8 @@ export default {
     const events = {
       dragstart: this.setCardPosition,
       dragover: this.setCardPosition,
+      dragend: this.clearDraggedCards,
+      drop: this.clearDraggedCards,
     };
 
     this.events = addEventListener(events);

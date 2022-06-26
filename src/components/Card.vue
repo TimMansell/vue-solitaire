@@ -4,8 +4,7 @@
     :class="classes"
     @click="selectCard"
     @dragstart="dragCard"
-    @dragend="clearDraggedCards"
-    :draggable="visible && !isDisabledGame"
+    :draggable="isDraggable"
     :data-card="cardName"
     :data-test="cardTestName"
     :data-card-selected="cardIsSelected"
@@ -19,6 +18,7 @@
 </template>
 
 <script>
+import detectTouchEvents from 'detect-touch-events';
 import { defineAsyncComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import DefaultCard from '@/components/DefaultCard.vue';
@@ -81,6 +81,12 @@ export default {
 
       return `${value}${suit}`;
     },
+    isDraggable() {
+      const { isDisabledGame, visible } = this;
+      const { hasSupport } = detectTouchEvents;
+
+      return !hasSupport && visible && !isDisabledGame;
+    },
     classes() {
       const { selectedCardId, id, stacked, clickable, visible, isDragged } =
         this;
@@ -118,11 +124,15 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setCard', 'setDraggedCards', 'clearDraggedCards']),
+    ...mapActions(['setCard', 'setDraggedCards']),
     selectCard(event) {
       const { id, selectedCardId, clickable, visible, isDisabledGame } = this;
 
-      if (isDisabledGame || !clickable || !visible) return;
+      if (isDisabledGame || !clickable || !visible) {
+        event.stopPropagation();
+
+        return;
+      }
 
       if (!selectedCardId) {
         event.stopPropagation();
