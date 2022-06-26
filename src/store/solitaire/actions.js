@@ -63,6 +63,10 @@ const actions = {
     });
   },
   moveCardsToColumn({ dispatch, state }, selectedColumn) {
+    const { selectedCardId } = state;
+
+    if (!selectedCardId) return;
+
     const isValidMove = checkValidCardMove(state, selectedColumn);
 
     if (isValidMove) {
