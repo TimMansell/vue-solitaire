@@ -24,7 +24,6 @@ import {
   removeEventListener,
 } from '@/helpers/eventListeners';
 import { mapGetters, mapActions } from 'vuex';
-import { throttle, debounce } from 'throttle-debounce';
 import Card from '@/components/Card.vue';
 
 export default {
@@ -82,10 +81,8 @@ export default {
   },
   mounted() {
     const events = {
-      mousemove: debounce(0, false, this.setCardPosition),
-      dragover: throttle(10, false, this.setCardPosition),
-      drop: this.clearDraggedCards,
-      dragend: this.clearDraggedCards,
+      dragstart: this.setCardPosition,
+      dragover: this.setCardPosition,
     };
 
     this.events = addEventListener(events);
