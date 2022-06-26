@@ -109,7 +109,9 @@ const actions = {
 
     commit('DRAG_CARDS', cards);
   },
-  clearDraggedCards({ commit }) {
+  clearDraggedCards({ commit, dispatch }) {
+    dispatch('setCard', null);
+
     commit('CLEAR_DRAG_CARDS');
   },
 };

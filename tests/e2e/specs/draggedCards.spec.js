@@ -32,6 +32,8 @@ describe('Dragged Cards', () => {
 
     cy.checkDraggedCardsLength(0);
 
+    cy.checkCardIsNotSelected();
+
     cy.checkCardsExistOn(['6♦'], 'column-3');
   });
 });
