@@ -1,0 +1,58 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "airbnb-base",
+    "plugin:vue/strongly-recommended",
+    "plugin:vue-scoped-css/recommended",
+    "plugin:prettier/recommended",
+    "plugin:cypress/recommended"
+  ],
+  "plugins": ["jest", "prettier", "cypress"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "import/no-cycle": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "packageDir": ["./", "./src/functions"] }
+    ],
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": ["@", "@@"]
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ],
+    "vue/max-attributes-per-line": "off",
+    "vue/html-self-closing": [
+      "error",
+      {
+        "html": {
+          "normal": "always",
+          "void": "always"
+        }
+      }
+    ],
+    "vue/singleline-html-element-content-newline": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.spec*.{j,t}s?(x)"],
+      "env": {
+        "jest": true,
+        "mocha": true,
+        "cypress/globals": true
+      }
+    }
+  ]
+}

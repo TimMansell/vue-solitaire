@@ -1,5 +1,5 @@
-const wait = 2000;
-const waitSmall = 1000;
+const wait = 2;
+const waitSmall = 1;
 
 describe('Timer', () => {
   beforeEach(() => {
@@ -10,43 +10,43 @@ describe('Timer', () => {
 
   describe('Default Functionality', () => {
     it('it should increment timer correctly when pausing and resuming', () => {
-      cy.wait(wait);
+      cy.waitSeconds(wait);
 
       cy.checkTimerIs(2);
 
       cy.pauseGame();
 
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.checkTimerIs(2);
 
       cy.resumeGame();
 
-      cy.wait(wait);
+      cy.waitSeconds(wait);
 
       cy.checkTimerIs(4);
     });
 
     it('it should reset timer when a new game is started', () => {
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.startNewGame();
 
       cy.checkTimerHasReset();
 
-      cy.wait(wait);
+      cy.waitSeconds(wait);
 
       cy.checkTimerIs(2);
     });
 
     it('timer should pause when page is automatically hidden', () => {
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.setVisibilityHidden();
 
       cy.triggerVisibilityChange();
 
-      cy.wait(wait);
+      cy.waitSeconds(wait);
 
       cy.resumeGame();
 
@@ -54,29 +54,29 @@ describe('Timer', () => {
     });
 
     it('timer should pause/unpause if url is changed manually', () => {
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.visit('/pause');
 
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.visit('/');
 
-      cy.wait(wait);
+      cy.waitSeconds(wait);
 
       cy.checkTimerIs(3);
     });
 
     it('timer should pause on 404 page', () => {
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.visit('/abc');
 
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.goHome();
 
-      cy.wait(wait);
+      cy.waitSeconds(wait);
 
       cy.checkTimerIs(3);
     });
@@ -84,7 +84,7 @@ describe('Timer', () => {
 
   describe('Refreshing page', () => {
     it('timer should continue from correct time when page is refreshed', () => {
-      cy.wait(wait);
+      cy.waitSeconds(wait);
 
       cy.reload();
 
@@ -92,11 +92,11 @@ describe('Timer', () => {
     });
 
     it('timer should continue from correct time when game is paused and page is refreshed', () => {
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.pauseGame();
 
-      cy.wait(waitSmall);
+      cy.waitSeconds(waitSmall);
 
       cy.reload();
 
@@ -104,7 +104,7 @@ describe('Timer', () => {
 
       cy.resumeGame();
 
-      cy.wait(wait);
+      cy.waitSeconds(wait);
 
       cy.checkTimerIs(3);
     });
