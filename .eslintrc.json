@@ -18,6 +18,8 @@
   },
   "rules": {
     "import/no-cycle": "off",
+    "n/no-extraneous-import": "off",
+    "n/no-extraneous-require": "off",
     "n/no-missing-import": "off",
     "n/no-unpublished-import": "off",
     "import/no-extraneous-dependencies": [
@@ -55,6 +57,10 @@
       "env": {
         "vitest-globals/env": true,
         "cypress/globals": true
+      },
+      "globals": {
+        "require": true,
+        "module": true
       }
     }
   ]
