@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=14.x"
   },
+  "type": "module",
   "scripts": {
     "serve": "vite",
     "build": "run-p build:app build:functions",
