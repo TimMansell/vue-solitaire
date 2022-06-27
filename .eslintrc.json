@@ -10,7 +10,8 @@
     "plugin:prettier/recommended",
     "plugin:cypress/recommended",
     "plugin:vitest-globals/recommended",
-    "plugin:n/recommended"
+    "plugin:n/recommended",
+    "plugin:security/recommended"
   ],
   "plugins": ["prettier", "cypress"],
   "parserOptions": {
