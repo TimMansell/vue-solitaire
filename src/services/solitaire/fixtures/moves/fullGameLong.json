@@ -1,0 +1,625 @@
+[
+  {
+    "selectedCardId": 33,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "7",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 44,
+    "selectedColumn": 1,
+    "isBoard": true,
+    "value": "5",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 21,
+    "selectedColumn": 0,
+    "isBoard": true,
+    "value": "8",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 20,
+    "selectedColumn": 0,
+    "isBoard": true,
+    "value": "7",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 32,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "6",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 29,
+    "selectedColumn": 3,
+    "isBoard": true,
+    "value": "3",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 40,
+    "selectedColumn": 6,
+    "isBoard": true,
+    "value": "A",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 35,
+    "selectedColumn": 0,
+    "isBoard": true,
+    "value": "9",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 8,
+    "selectedColumn": 1,
+    "isBoard": true,
+    "value": "8",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 10,
+    "selectedColumn": 5,
+    "isBoard": true,
+    "value": "10",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 31,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "5",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 30,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "4",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 36,
+    "selectedColumn": 3,
+    "isBoard": true,
+    "value": "10",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 9,
+    "selectedColumn": 5,
+    "isBoard": true,
+    "value": "9",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 50,
+    "selectedColumn": 5,
+    "isBoard": true,
+    "value": "J",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 45,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "6",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 14,
+    "selectedColumn": 1,
+    "isBoard": true,
+    "value": "A",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 22,
+    "selectedColumn": 7,
+    "isBoard": true,
+    "value": "9",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 19,
+    "selectedColumn": 7,
+    "isBoard": true,
+    "value": "6",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 40,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "A",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 41,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "2",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 18,
+    "selectedColumn": 7,
+    "isBoard": true,
+    "value": "5",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 14,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "A",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 15,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "2",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 17,
+    "selectedColumn": 7,
+    "isBoard": true,
+    "value": "4",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 24,
+    "selectedColumn": 1,
+    "isBoard": true,
+    "value": "J",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 43,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "4",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 48,
+    "selectedColumn": 4,
+    "isBoard": true,
+    "value": "9",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 34,
+    "selectedColumn": 3,
+    "isBoard": true,
+    "value": "8",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 6,
+    "selectedColumn": 0,
+    "isBoard": true,
+    "value": "6",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 49,
+    "selectedColumn": 5,
+    "isBoard": true,
+    "value": "10",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 42,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "3",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 26,
+    "selectedColumn": 1,
+    "isBoard": true,
+    "value": "K",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 16,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "3",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 37,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "J",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 38,
+    "selectedColumn": 3,
+    "isBoard": true,
+    "value": "Q",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 52,
+    "selectedColumn": 6,
+    "isBoard": true,
+    "value": "K",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 17,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "4",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 18,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "5",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 19,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "6",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 20,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "7",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 21,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "8",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 22,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "9",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 23,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "10",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 13,
+    "selectedColumn": 2,
+    "isBoard": true,
+    "value": "K",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 5,
+    "selectedColumn": 0,
+    "isBoard": true,
+    "value": "5",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 4,
+    "selectedColumn": 0,
+    "isBoard": true,
+    "value": "4",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 24,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "J",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 25,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "Q",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 27,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "A",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 28,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "2",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 42,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "3",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 43,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "4",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 44,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "5",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 45,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "6",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 46,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "7",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 3,
+    "selectedColumn": 0,
+    "isBoard": true,
+    "value": "3",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 2,
+    "selectedColumn": 0,
+    "isBoard": true,
+    "value": "2",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 1,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "A",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 2,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "2",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 3,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "3",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 4,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "4",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 5,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "5",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 6,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "6",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 47,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "8",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 48,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "9",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 49,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "10",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 50,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "J",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 7,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "7",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 51,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "Q",
+    "suit": "♦"
+  },
+  {
+    "selectedCardId": 8,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "8",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 9,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "9",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 10,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "10",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 11,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "J",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 12,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "Q",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 29,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "3",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 30,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "4",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 31,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "5",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 32,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "6",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 33,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "7",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 34,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "8",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 35,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "9",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 36,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "10",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 37,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "J",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 38,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "Q",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 39,
+    "selectedColumn": 2,
+    "isFoundation": true,
+    "value": "K",
+    "suit": "♥"
+  },
+  {
+    "selectedCardId": 13,
+    "selectedColumn": 3,
+    "isFoundation": true,
+    "value": "K",
+    "suit": "♣"
+  },
+  {
+    "selectedCardId": 26,
+    "selectedColumn": 1,
+    "isFoundation": true,
+    "value": "K",
+    "suit": "♠"
+  },
+  {
+    "selectedCardId": 52,
+    "selectedColumn": 0,
+    "isFoundation": true,
+    "value": "K",
+    "suit": "♦"
+  }
+]

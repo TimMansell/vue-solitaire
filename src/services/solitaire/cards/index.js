@@ -26,9 +26,24 @@ export const getSelectedCard = (cards, selectedCardId) => {
   return selectedCard;
 };
 
+export const getColumnCardsContaining = (cards, selectedCardId) => {
+  const column = cards.find((columnCards) =>
+    columnCards.find(({ id }) => id === selectedCardId)
+  );
+
+  return column;
+};
+
+export const getCardsFromColumn = (cards, columnNo) => {
+  const columnCards = cards.find((column, index) => index === columnNo);
+
+  return columnCards;
+};
+
 export const getCardPosition = (cards, selectedCardId) => {
+  const columnCards = getColumnCardsContaining(cards, selectedCardId);
   const columnNo = findCardColumn(cards, selectedCardId);
-  const cardPosition = findCardPosition(cards[columnNo], selectedCardId);
+  const cardPosition = findCardPosition(columnCards, selectedCardId);
 
   return {
     columnNo,
@@ -40,7 +55,8 @@ export const getVisibleCards = (cards) =>
   cards.flat().filter((card) => card.visible);
 
 export const getLastCard = (board, selectedColumn) => {
-  const [lastCard] = board[selectedColumn].slice(-1);
+  const columnCards = getCardsFromColumn(board, selectedColumn);
+  const [lastCard] = columnCards.slice(-1);
 
   if (!lastCard) {
     return {};
@@ -72,15 +88,16 @@ export const checkCardTopPosition = (cards, selectedCardId) => {
   return cardPosition === 0;
 };
 
-export const getColumnCards = ({
+export const getColumnCardsToMove = ({
   toCards,
   fromCards,
   selectedColumn,
   columnNo,
   cardPosition,
 }) => {
-  const columnCards = toCards[selectedColumn];
-  const moveCards = fromCards[columnNo].slice(cardPosition);
+  const columnCardsTo = getCardsFromColumn(toCards, selectedColumn);
+  const columnCardsFrom = getCardsFromColumn(fromCards, columnNo);
+  const moveCards = columnCardsFrom.slice(cardPosition);
 
-  return [...columnCards, ...moveCards];
+  return [...columnCardsTo, ...moveCards];
 };

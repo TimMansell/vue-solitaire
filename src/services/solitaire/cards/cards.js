@@ -1,5 +1,5 @@
 import shuffle from 'lodash.shuffle';
-import { ranks, suits } from '../../../config/settings.json';
+import { ranks, suits } from '../config';
 
 export const findCardPosition = (columnCards, selectedCardId) =>
   columnCards.findIndex(({ id }) => id === selectedCardId);

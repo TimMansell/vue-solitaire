@@ -8,7 +8,9 @@ import {
   showLastCard,
   checkCardValue,
   checkCardTopPosition,
-  getColumnCards,
+  getColumnCardsToMove,
+  getColumnCardsContaining,
+  getCardsFromColumn,
 } from '../index';
 
 describe('cards', () => {
@@ -91,6 +93,40 @@ describe('cards', () => {
       cardPosition: 0,
       columnNo: 1,
     });
+  });
+
+  it('should return column cards containing selected card', () => {
+    const cards = [
+      [
+        {
+          id: 1,
+          suit: '♠',
+          value: 'A',
+        },
+      ],
+      [
+        {
+          id: 2,
+          suit: '♠',
+          value: 2,
+        },
+        {
+          id: 3,
+          suit: '♠',
+          value: 3,
+        },
+        {
+          id: 4,
+          suit: '♠',
+          value: 4,
+        },
+      ],
+    ];
+    const selectedCardId = 2;
+
+    const result = getColumnCardsContaining(cards, selectedCardId);
+
+    expect(result).toStrictEqual(cards[1]);
   });
 
   it('should return all visible cards', () => {
@@ -389,7 +425,7 @@ describe('cards', () => {
     expect(result).toBe(false);
   });
 
-  it('should return column cards', () => {
+  it('should return column cards to move', () => {
     const obj = {
       toCards: [
         [],
@@ -421,11 +457,45 @@ describe('cards', () => {
       cardPosition: 0,
     };
 
-    const result = getColumnCards(obj);
+    const result = getColumnCardsToMove(obj);
 
     expect(result).toStrictEqual([
       { id: 52, order: 8, suit: '♠', value: '8', visible: true },
       { id: 1, order: 7, suit: '♠', value: '7', visible: true },
     ]);
+  });
+
+  it('should return selected column', () => {
+    const cards = [
+      [
+        {
+          id: 1,
+          suit: '♠',
+          value: 'A',
+        },
+      ],
+      [
+        {
+          id: 2,
+          suit: '♠',
+          value: 2,
+        },
+        {
+          id: 3,
+          suit: '♠',
+          value: 3,
+        },
+        {
+          id: 4,
+          suit: '♠',
+          value: 4,
+        },
+      ],
+    ];
+    const columnNo = 1;
+
+    const result = getCardsFromColumn(cards, columnNo);
+
+    expect(result).toStrictEqual(cards[1]);
   });
 });

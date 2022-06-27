@@ -1,42 +1,45 @@
 import { checkGameState } from '../index';
 
-import fullGameLongDeck from '../../../../../tests/fixtures/decks/fullGameLong.json';
-import fullGameLongMoves from '../../../../../tests/fixtures/moves/fullGameLong.json';
-import incompleteGameDeck from '../../../../../tests/fixtures/decks/incompleteGame.json';
-import incompleteGameMoves from '../../../../../tests/fixtures/moves/incompleteGame.json';
-import quitGameDeck from '../../../../../tests/fixtures/decks/quitGame.json';
-import quitGameMoves from '../../../../../tests/fixtures/moves/quitGame.json';
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
+import fullGameMoves from '../../fixtures/moves/fullGame.json';
+import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
+import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
+import quitGameDeck from '../../fixtures/decks/quitGame.json';
+import quitGameMoves from '../../fixtures/moves/quitGame.json';
 
 describe('run', () => {
   describe('checkGameState', () => {
-    it('should win game', () => {
-      const { isGameFinished, hasMoves } = checkGameState(
-        fullGameLongMoves,
-        fullGameLongDeck
-      );
+    it('should be won game', () => {
+      const { won, lost, moves } = checkGameState({
+        cards: fullGameDeck,
+        moves: fullGameMoves,
+      });
 
-      expect(isGameFinished).toBe(true);
-      expect(hasMoves).toBe(false);
+      expect(won).toBe(true);
+      expect(lost).toBe(false);
+      expect(moves).toBe(fullGameMoves.length);
     });
 
-    it('should lose game', () => {
-      const { isGameFinished, hasMoves } = checkGameState(
-        incompleteGameMoves,
-        incompleteGameDeck
-      );
+    it('should be lost game', () => {
+      const { won, lost, moves } = checkGameState({
+        cards: incompleteGameDeck,
+        moves: incompleteGameMoves,
+      });
 
-      expect(isGameFinished).toBe(false);
-      expect(hasMoves).toBe(false);
+      expect(won).toBe(false);
+      expect(lost).toBe(true);
+      expect(moves).toBe(incompleteGameMoves.length);
     });
 
-    it('should quit game', () => {
-      const { isGameFinished, hasMoves } = checkGameState(
-        quitGameMoves,
-        quitGameDeck
-      );
+    it('should be quit game', () => {
+      const { won, lost, moves } = checkGameState({
+        cards: quitGameDeck,
+        moves: quitGameMoves,
+      });
 
-      expect(isGameFinished).toBe(false);
-      expect(hasMoves).toBe(true);
+      expect(won).toBe(false);
+      expect(lost).toBe(false);
+      expect(moves).toBe(quitGameMoves.length);
     });
   });
 });

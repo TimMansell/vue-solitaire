@@ -1,17 +1,14 @@
 import { runGameMoves } from '../run';
 
-import fullGameLongDeck from '../../../../../tests/fixtures/decks/fullGameLong.json';
-import fullGameLongMoves from '../../../../../tests/fixtures/moves/fullGameLong.json';
-import incompleteGameDeck from '../../../../../tests/fixtures/decks/incompleteGame.json';
-import incompleteGameMoves from '../../../../../tests/fixtures/moves/incompleteGame.json';
+import fullGameDeck from '../../fixtures/decks/fullGame.json';
+import fullGameMoves from '../../fixtures/moves/fullGame.json';
+import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
+import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
 
 describe('run', () => {
   describe('runGameMoves', () => {
     it('should return complete game', () => {
-      const { cards, foundation } = runGameMoves(
-        fullGameLongMoves,
-        fullGameLongDeck
-      );
+      const { cards, foundation } = runGameMoves(fullGameMoves, fullGameDeck);
 
       expect(cards.flat()).toHaveLength(0);
       expect(foundation.flat()).toHaveLength(52);
