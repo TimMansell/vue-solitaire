@@ -1,0 +1,52 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "airbnb-base",
+    "plugin:vue/strongly-recommended",
+    "plugin:vue-scoped-css/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["jest", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "ignorePatterns": ["server/dist/"],
+  "rules": {
+    "import/no-cycle": "off",
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": ["@", "@@"]
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ],
+    "vue/max-attributes-per-line": "off",
+    "vue/html-self-closing": [
+      "error",
+      {
+        "html": {
+          "normal": "always",
+          "void": "always"
+        }
+      }
+    ],
+    "vue/singleline-html-element-content-newline": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/*.{j,t}s?(x)"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
