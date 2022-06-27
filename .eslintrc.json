@@ -7,15 +7,16 @@
     "airbnb-base",
     "plugin:vue/strongly-recommended",
     "plugin:vue-scoped-css/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:cypress/recommended"
   ],
-  "plugins": ["jest", "prettier"],
+  "plugins": ["jest", "prettier", "cypress"],
   "parserOptions": {
     "ecmaVersion": 2020
   },
-  "ignorePatterns": ["server/dist/"],
   "rules": {
     "import/no-cycle": "off",
+    "import/no-extraneous-dependencies": ["error", { "packageDir": "./" }],
     "import/no-unresolved": [
       2,
       {
@@ -43,9 +44,11 @@
   },
   "overrides": [
     {
-      "files": ["**/__tests__/*.{j,t}s?(x)"],
+      "files": ["**/*.spec*.{j,t}s?(x)"],
       "env": {
-        "jest": true
+        "jest": true,
+        "mocha": true,
+        "cypress/globals": true
       }
     }
   ]
