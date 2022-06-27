@@ -1,11 +1,11 @@
-import fullGameDeck from '../../fixtures/decks/fullGame.json';
-import fullGameMoves from '../../fixtures/moves/fullGame.json';
-import incompleteGameDeck from '../../fixtures/decks/incompleteGame.json';
-import incompleteGameMoves from '../../fixtures/moves/incompleteGame.json';
-import noMovesKingColumnDeck from '../../fixtures/decks/noMovesKingColumn.json';
-import noMovesKingColumnMoves from '../../fixtures/moves/noMovesKingColumn.json';
-import initialAceMoveDeck from '../../fixtures/decks/initialAceMove.json';
-import initialAceAnd2MoveDeck from '../../fixtures/decks/initialAceAnd2Move.json';
+import fullGameDeck from '../../../src/services/solitaire/fixtures/decks/fullGame.json';
+import fullGameMoves from '../../../src/services/solitaire/fixtures/moves/fullGame.json';
+import incompleteGameDeck from '../../../src/services/solitaire/fixtures/decks/incompleteGame.json';
+import incompleteGameMoves from '../../../src/services/solitaire/fixtures/moves/incompleteGame.json';
+import noMovesKingColumnDeck from '../../../src/services/solitaire/fixtures/decks/noMovesKingColumn.json';
+import noMovesKingColumnMoves from '../../../src/services/solitaire/fixtures/moves/noMovesKingColumn.json';
+import initialAceMoveDeck from '../../../src/services/solitaire/fixtures/decks/initialAceMove.json';
+import initialAceAnd2MoveDeck from '../../../src/services/solitaire/fixtures/decks/initialAceAnd2Move.json';
 
 describe('Game', () => {
   afterEach(() => cy.cleanUp());

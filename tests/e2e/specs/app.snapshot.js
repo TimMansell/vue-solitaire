@@ -1,5 +1,5 @@
-import quitGameDeck from '../../fixtures/decks/quitGame.json';
-import quitGameMoves from '../../fixtures/moves/quitGame.json';
+import quitGameDeck from '../../../src/services/solitaire/fixtures/decks/quitGame.json';
+import quitGameMoves from '../../../src/services/solitaire/fixtures/moves/quitGame.json';
 
 const sizes = [
   'iphone-5',

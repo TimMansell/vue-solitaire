@@ -1,5 +1,5 @@
-import emptyColumnDeck from '../../fixtures/decks/emptyColumn.json';
-import emptyColumnMoves from '../../fixtures/moves/emptyColumn.json';
+import emptyColumnDeck from '../../../src/services/solitaire/fixtures/decks/emptyColumn.json';
+import emptyColumnMoves from '../../../src/services/solitaire/fixtures/moves/emptyColumn.json';
 
 describe('Special column moves', () => {
   beforeEach(() => {
