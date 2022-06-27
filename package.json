@@ -101,7 +101,7 @@
     "stylelint-webpack-plugin": "2.1.1",
     "timezone-mock": "1.2.1",
     "vite": "2.9.9",
-    "vite-plugin-svg-icons": "1.0.4",
+    "vite-plugin-svg-icons": "2.0.1",
     "ws": "8.7.0",
     "yorkie": "2.0.0"
   },
