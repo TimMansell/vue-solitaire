@@ -15,3 +15,5 @@ Cypress.Commands.add('waitForSkeleton', () => {
 Cypress.Commands.add('waitForToast', (id) =>
   cy.waitUntil(() => !Cypress.$(`[data-test="toast-${id}"]`).length)
 );
+
+Cypress.Commands.add('waitSeconds', (waitFor) => cy.wait(waitFor * 1000));
