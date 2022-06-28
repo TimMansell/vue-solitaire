@@ -370,7 +370,7 @@ export const mockHistory = [
     time: '2021-05-20T23:34:49.564Z',
     duration: '0:00:12',
     moves: 1,
-    number: '4',
+    number: 4,
     outcome: 'Gave Up',
   },
   {
@@ -378,7 +378,7 @@ export const mockHistory = [
     time: '2021-05-19T23:34:49.564Z',
     duration: '0:00:12',
     moves: 2,
-    number: '3',
+    number: 3,
     outcome: 'Won',
   },
   {
@@ -386,7 +386,7 @@ export const mockHistory = [
     time: '2021-05-19T23:34:49.564Z',
     duration: '0:00:12',
     moves: 2,
-    number: '2',
+    number: 2,
     outcome: 'Lost',
   },
   {
@@ -394,7 +394,7 @@ export const mockHistory = [
     time: '2021-05-19T23:34:49.564Z',
     duration: '0:00:12',
     moves: 2,
-    number: '1',
+    number: 1,
     outcome: 'Won',
   },
 ];
