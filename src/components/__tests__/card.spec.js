@@ -1,3 +1,4 @@
+import { describe, it, expect, vi } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import Card from '@/components/Card.vue';
 import { setupStore } from '@@/tests/helpers';
@@ -211,7 +212,7 @@ describe('Card.vue', () => {
 
   describe('Set Card', () => {
     it('should not call store action when clicked', () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       const wrapper = shallowMount(Card, {
         global: {
           mocks: {
@@ -231,7 +232,7 @@ describe('Card.vue', () => {
     });
 
     it('should not call store action when clicked when not visible', () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       const wrapper = shallowMount(Card, {
         global: {
           mocks: {
@@ -250,7 +251,7 @@ describe('Card.vue', () => {
     });
 
     it('should not call store action when clicked when game is disabled', () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       const wrapper = shallowMount(Card, {
         global: {
           mocks: {
@@ -273,7 +274,7 @@ describe('Card.vue', () => {
     });
 
     it('should call store action when clicked when visible', () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       const wrapper = shallowMount(Card, {
         global: {
           mocks: {

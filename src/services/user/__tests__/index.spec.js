@@ -1,7 +1,8 @@
+import { vi } from 'vitest';
 import { mockUid } from '@/mockData';
 import { initUser } from '../index';
 
-jest.mock('uuid', () => ({
+vi.mock('uuid', () => ({
   v4: () => mockUid,
 }));
 

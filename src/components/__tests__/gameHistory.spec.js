@@ -1,3 +1,4 @@
+import { describe, it, expect, vi } from 'vitest';
 import { shallowMount, config } from '@vue/test-utils';
 import GameHistory from '@/components/GameHistory.vue';
 import { mockHistory } from '@/mockData';
@@ -8,7 +9,7 @@ config.renderStubDefaultSlot = true;
 const global = {
   mocks: {
     $store: setupStore({
-      dispatch: jest.fn(),
+      dispatch: vi.fn(),
       gameHistory: mockHistory,
       userGameCount: mockHistory.length,
     }),

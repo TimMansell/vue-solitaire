@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { mount, shallowMount } from '@vue/test-utils';
 import History from '@/pages/History.vue';
 import { setupStore } from '@@/tests/helpers';

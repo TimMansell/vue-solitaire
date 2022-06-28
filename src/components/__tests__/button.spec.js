@@ -1,3 +1,4 @@
+import { describe, it, expect, vi } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import Button from '@/components/Button.vue';
 import { setupStore } from '@@/tests/helpers';
@@ -83,7 +84,7 @@ describe('Button.vue', () => {
     });
 
     it('should call @click function', async () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       const wrapper = shallowMount(Button, {
         global,
         props: {
@@ -116,7 +117,7 @@ describe('Button.vue', () => {
     });
 
     it('should not call @click function when button is disabled', async () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       const wrapper = shallowMount(Button, {
         global,
         props: {

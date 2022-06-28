@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import Column from '@/components/Column.vue';
 import { setupStore } from '@@/tests/helpers';

@@ -1,3 +1,4 @@
+import { describe, it, expect, vi } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import Foundation from '@/components/Foundation.vue';
 import { setupStore } from '@@/tests/helpers';
@@ -41,7 +42,7 @@ describe('Foundation.vue', () => {
   });
 
   it('calls store action "moveCardToFoundation" when clicked', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const wrapper = shallowMount(Foundation, {
       global: {
         mocks: {

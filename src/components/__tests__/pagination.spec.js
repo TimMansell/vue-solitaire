@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import Pagination from '@/components/Pagination.vue';
 import matchMedia from '../../__tests__/__mocks__/matchMedia.mock';

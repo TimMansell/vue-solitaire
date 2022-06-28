@@ -1,9 +1,10 @@
+import { describe, it, expect, vi } from 'vitest';
 import { mockUid } from '@/mockData';
 import actions from '../actions';
 
 const { initUser } = actions;
 
-jest.mock('@/services/ws');
+vi.mock('@/services/ws');
 
 describe('User Store', () => {
   let commit;
@@ -11,7 +12,7 @@ describe('User Store', () => {
   beforeEach(() => {
     localStorage.clear();
 
-    commit = jest.fn();
+    commit = vi.fn();
   });
 
   describe('initUser', () => {

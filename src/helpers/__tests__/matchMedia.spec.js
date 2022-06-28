@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { matchesMedia } from '../matchMedia';
 import matchMedia from '../../__tests__/__mocks__/matchMedia.mock';
 

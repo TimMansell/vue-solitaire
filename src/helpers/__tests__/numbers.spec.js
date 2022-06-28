@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { formatNumber, formatPercent } from '../numbers';
 
 describe('Number Helpers', () => {
