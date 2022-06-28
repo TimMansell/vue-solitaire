@@ -3,16 +3,16 @@ import actions from '../actions';
 
 const { moveCardsToColumn, moveCardToFoundation, setDraggedCards } = actions;
 
-jest.mock('@/services/solitaire');
-jest.mock('@/services/ws');
+vi.mock('@/services/solitaire');
+vi.mock('@/services/ws');
 
 describe('Solitaire Store', () => {
   let commit;
   let dispatch;
 
   beforeEach(() => {
-    commit = jest.fn();
-    dispatch = jest.fn();
+    commit = vi.fn();
+    dispatch = vi.fn();
   });
 
   it('should move cards to column', () => {

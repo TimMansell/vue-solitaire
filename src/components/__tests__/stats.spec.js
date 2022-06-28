@@ -9,7 +9,7 @@ describe('Stats.vue', () => {
       global: {
         mocks: {
           $store: setupStore({
-            dispatch: jest.fn(),
+            dispatch: vi.fn(),
             userStats: [{ ...mockStats }],
             globalStats: [{ ...mockStats }],
           }),

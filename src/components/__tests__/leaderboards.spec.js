@@ -9,7 +9,7 @@ tzMock.register('UTC');
 const global = {
   mocks: {
     $store: setupStore({
-      dispatch: jest.fn(),
+      dispatch: vi.fn(),
       leaderboards: mockLeaderboardsMoves,
       luid: mockUid,
       name: mockPlayerName,

@@ -8,7 +8,7 @@ config.renderStubDefaultSlot = true;
 const global = {
   mocks: {
     $store: setupStore({
-      dispatch: jest.fn(),
+      dispatch: vi.fn(),
       gameHistory: mockHistory,
       userGameCount: mockHistory.length,
     }),

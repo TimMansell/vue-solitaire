@@ -41,7 +41,7 @@ export const formatLeaderboardGames = (games, players, sortBy) =>
 
 export const formatHistoryGames = (games, gamesPlayed, offset) =>
   games.map(({ date, won, lost, time, moves }, index) => ({
-    number: formatNumber(gamesPlayed - offset - index),
+    number: gamesPlayed - offset - index,
     date,
     time: date,
     outcome: gameOutcome({ won, lost }),

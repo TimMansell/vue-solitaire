@@ -41,7 +41,7 @@ describe('Foundation.vue', () => {
   });
 
   it('calls store action "moveCardToFoundation" when clicked', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const wrapper = shallowMount(Foundation, {
       global: {
         mocks: {

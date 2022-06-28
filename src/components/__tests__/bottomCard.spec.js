@@ -24,7 +24,7 @@ describe('BottomCard.vue', () => {
   });
 
   it('should call autoMoveCard method', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const wrapper = shallowMount(BottomCard, {
       global: {
         mocks: {
@@ -39,7 +39,7 @@ describe('BottomCard.vue', () => {
   });
 
   it('should not call autoMoveCard method when game is paused', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const wrapper = shallowMount(BottomCard, {
       global: {
         mocks: {

@@ -8,9 +8,10 @@
     "plugin:vue/strongly-recommended",
     "plugin:vue-scoped-css/recommended",
     "plugin:prettier/recommended",
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
+    "plugin:vitest-globals/recommended"
   ],
-  "plugins": ["jest", "prettier", "cypress"],
+  "plugins": ["prettier", "cypress"],
   "parserOptions": {
     "ecmaVersion": 2020
   },
@@ -47,10 +48,9 @@
   },
   "overrides": [
     {
-      "files": ["**/*.spec*.{j,t}s?(x)"],
+      "files": ["**/*.spec*.{j,t}s?(x)", "**/*.mock*.{j,t}s?(x)"],
       "env": {
-        "jest": true,
-        "mocha": true,
+        "vitest-globals/env": true,
         "cypress/globals": true
       }
     }

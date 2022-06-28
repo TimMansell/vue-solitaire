@@ -8,7 +8,7 @@ describe('App.vue', () => {
       global: {
         mocks: {
           $store: setupStore({
-            dispatch: jest.fn(),
+            dispatch: vi.fn(),
             isGamePaused: false,
             hasGameWon: false,
             hasGameLost: false,

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-server-lambda';
 import { mockUid } from '@/mockData';
 import { grabQuery, grabVariables } from '../helpers';
 
