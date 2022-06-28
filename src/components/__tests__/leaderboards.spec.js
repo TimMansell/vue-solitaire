@@ -1,4 +1,3 @@
-import { describe, it, expect, vi } from 'vitest';
 import tzMock from 'timezone-mock';
 import { shallowMount } from '@vue/test-utils';
 import Leaderboards from '@/components/Leaderboards.vue';

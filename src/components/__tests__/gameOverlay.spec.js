@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import GameOverlay from '@/components/GameOverlay.vue';
 import { setupStore } from '@@/tests/helpers';

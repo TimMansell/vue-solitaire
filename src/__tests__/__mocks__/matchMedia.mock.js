@@ -1,5 +1,3 @@
-import { vi } from 'vitest';
-
 class MatchMedia {
   constructor() {
     this.mediaQueries = {};

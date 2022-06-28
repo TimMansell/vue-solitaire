@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { shallowMount, config } from '@vue/test-utils';
 import ShowBoardButton from '@/components/ShowBoardButton.vue';
 import { setupStore } from '@@/tests/helpers';

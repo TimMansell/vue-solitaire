@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import Controls from '@/components/Controls.vue';
 import matchMedia from '../../__tests__/__mocks__/matchMedia.mock';

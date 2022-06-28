@@ -1,4 +1,3 @@
-import { describe, it, expect, vi } from 'vitest';
 import { shallowMount, config } from '@vue/test-utils';
 import GameHistory from '@/components/GameHistory.vue';
 import { mockHistory } from '@/mockData';

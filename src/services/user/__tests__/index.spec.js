@@ -1,4 +1,3 @@
-import { vi } from 'vitest';
 import { mockUid } from '@/mockData';
 import { initUser } from '../index';
 

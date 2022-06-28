@@ -1,4 +1,3 @@
-import { describe, it, expect, vi } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import Button from '@/components/Button.vue';
 import { setupStore } from '@@/tests/helpers';

@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import tzMock from 'timezone-mock';
 import { formatTime, formatTimeFromDate } from '../times';
 

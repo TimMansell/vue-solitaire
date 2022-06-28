@@ -1,4 +1,3 @@
-import { describe, it, expect, vi } from 'vitest';
 import { addEventListener } from '../eventListeners';
 
 describe('Event Listeners', () => {
