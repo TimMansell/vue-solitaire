@@ -7,12 +7,7 @@
     "graphql-depth-limit": "1.1.0",
     "mongodb": "3.6.9",
     "mongodb-client-encryption": "1.2.5",
-    "netlify-lambda": "2.0.9",
     "node-fetch": "2.6.1",
     "webpack-node-externals": "2.5.1"
-  },
-  "scripts": {
-    "serve": "netlify-lambda serve . --config ./webpack.functions.cjs",
-    "build": "netlify-lambda build . --config ./webpack.functions.cjs"
   }
 }

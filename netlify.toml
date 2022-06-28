@@ -1,5 +1,5 @@
-[functions]
-  directory = "functions"
+[build]
+  functions = "functions"
 
 [[redirects]]
   from = "/*"

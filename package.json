@@ -10,7 +10,7 @@
     "serve": "vite",
     "build": "run-p build:app build:functions",
     "build:app": "vite build",
-    "build:functions": "cd src/functions && yarn build",
+    "build:functions": "netlify-lambda build ./src/functions --config ./src/functions/webpack.functions.cjs",
     "preview": "run-p build:app preview:app",
     "preview:app": "vite preview",
     "test:unit": "vitest run",
@@ -25,7 +25,7 @@
     "lint": "run-p lint:js lint:css",
     "lint:js": "eslint {src,tests}/**/*.{vue,js} --fix",
     "lint:css": "stylelint src/**/*.{vue,scss} --fix",
-    "postinstall": "cd src/functions && yarn"
+    "postinstall": "netlify-lambda install ./src/functions"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.35",
@@ -73,6 +73,7 @@
     "eslint-plugin-vue-scoped-css": "1.2.1",
     "jsdom": "^20.0.0",
     "lint-staged": "10.5.4",
+    "netlify-lambda": "2.0.9",
     "npm-run-all": "4.1.5",
     "prettier": "2.6.2",
     "sass": "1.42.1",
