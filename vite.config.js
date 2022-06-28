@@ -24,6 +24,10 @@ export default defineConfig({
         find: '@',
         replacement: path.resolve(process.cwd(), './src'),
       },
+      {
+        find: '@@',
+        replacement: path.resolve(process.cwd(), './'),
+      },
     ],
   },
   css: {
@@ -32,5 +36,10 @@ export default defineConfig({
         additionalData: "@import 'src/components/vars.scss';",
       },
     },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    include: ['**/__tests__/*.[jt]s?(x)'],
   },
 });

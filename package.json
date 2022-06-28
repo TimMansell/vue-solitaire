@@ -13,7 +13,7 @@
     "build:functions": "netlify-lambda build ./src/functions --config ./src/functions/webpack.functions.cjs",
     "preview": "run-p build:app preview:app",
     "preview:app": "vite preview",
-    "test:unit": "jest",
+    "test:unit": "vitest run",
     "test:e2e": "run-p -r serve test:e2e:cli",
     "test:e2e:gui": "run-p -r serve test:e2e:visual",
     "test:e2e:cli": "cypress run --headless --browser chrome --config ignoreTestFiles=\"**/*snapshot*\"",
@@ -94,6 +94,7 @@
     "timezone-mock": "1.2.1",
     "vite": "2.9.9",
     "vite-plugin-svg-icons": "2.0.1",
+    "vitest": "0.16.0",
     "ws": "8.7.0",
     "yorkie": "2.0.0"
   },
