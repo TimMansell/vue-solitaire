@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-server-lambda';
 
 // eslint-disable-next-line import/prefer-default-export
 export const grabQuery = ({ body }) => {
