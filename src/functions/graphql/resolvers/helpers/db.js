@@ -66,22 +66,3 @@ export const findItemInDb = async ({
     .collection(collection)
     .findOne({ ...findFields }, { projection: { ...returnFields } });
 };
-
-export const deleteFromDb = async ({
-  client,
-  collection,
-  findFields,
-  sortBy,
-}) => {
-  const db = await client();
-
-  return db
-    .collection(collection)
-    .findOneAndDelete({ ...findFields }, { sort: { ...sortBy } });
-};
-
-export const deleteAllFromDb = async (client, collection, document) => {
-  const db = await client();
-
-  return db.collection(collection).deleteMany({ ...document });
-};

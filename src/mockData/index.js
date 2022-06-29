@@ -412,6 +412,21 @@ export const mockLeaderboardsMovesAPI = [
   },
 ];
 
+export const mockLeaderboardsMovesLegacy = [
+  {
+    rank: 1,
+    date: '29-04-2021',
+    player: 'Player 1',
+    moves: 2,
+  },
+  {
+    rank: 2,
+    date: '29-04-2021',
+    player: 'Player 2',
+    moves: 2,
+  },
+];
+
 export const mockLeaderboardsMoves = [
   {
     rank: 1,
@@ -437,6 +452,21 @@ export const mockLeaderboardsTimesAPI = [
     date: '2021-04-29T12:26:20.825Z',
     uid: '2cbf658a-3102-4e9d-b749-bac853efed0d',
     time: 200,
+  },
+];
+
+export const mockLeaderboardsTimesLegacy = [
+  {
+    rank: 1,
+    date: '29-04-2021',
+    player: 'Player 1',
+    time: '0:00:20',
+  },
+  {
+    rank: 2,
+    date: '29-04-2021',
+    player: 'Player 2',
+    time: '0:03:20',
   },
 ];
 

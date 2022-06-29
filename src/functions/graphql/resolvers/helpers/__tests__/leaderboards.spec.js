@@ -1,11 +1,12 @@
+import tzMock from 'timezone-mock';
 import {
   mockLeaderboardsMovesAPI,
-  mockLeaderboardsMoves,
+  mockLeaderboardsMovesLegacy,
   mockLeaderboardsTimesAPI,
-  mockLeaderboardsTimes,
+  mockLeaderboardsTimesLegacy,
   mockPlayers,
 } from '@/mockData';
-import { findLeaderboardItems } from '../leaderboards';
+import { formatLeaderboardGames, findLeaderboardItems } from '../leaderboards';
 import {
   wrapClient,
   createMockFind,
@@ -13,7 +14,29 @@ import {
   createMockFiltered,
 } from '../../__mocks__/mockDb';
 
+tzMock.register('UTC');
+
 describe('Graphql Resolver Helpers', () => {
+  it('should return formatted leaderboard games using times', async () => {
+    const result = formatLeaderboardGames(
+      mockLeaderboardsTimesAPI,
+      mockPlayers,
+      'time'
+    );
+
+    expect(result).toEqual(mockLeaderboardsTimesLegacy);
+  });
+
+  it('should return formatted leaderboard games using moves', async () => {
+    const result = formatLeaderboardGames(
+      mockLeaderboardsMovesAPI,
+      mockPlayers,
+      'moves'
+    );
+
+    expect(result).toEqual(mockLeaderboardsMovesLegacy);
+  });
+
   it('should return formatted leaderboard moves', async () => {
     const { client } = wrapClient(
       createMockFind({
@@ -28,7 +51,7 @@ describe('Graphql Resolver Helpers', () => {
       find: 'moves',
     });
 
-    expect(result).toEqual(mockLeaderboardsMoves);
+    expect(result).toEqual(mockLeaderboardsMovesLegacy);
   });
 
   it('should return formatted leaderboard times', async () => {
@@ -45,6 +68,6 @@ describe('Graphql Resolver Helpers', () => {
       find: 'time',
     });
 
-    expect(result).toEqual(mockLeaderboardsTimes);
+    expect(result).toEqual(mockLeaderboardsTimesLegacy);
   });
 });

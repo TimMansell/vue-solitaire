@@ -1,5 +1,35 @@
+import { formatTime } from '@/helpers/times';
+import { formatDate } from '@/helpers/dates';
 import { findItemsInDb, findAllItems } from './db';
-import { formatLeaderboardGames } from '../../../../services/stats';
+
+export const formatLeaderboardGames = (games, players, sortBy) =>
+  games.map((item, index) => {
+    const { uid, date, time, moves } = item;
+
+    const player = players.find(({ uid: id }) => id === uid);
+
+    const defaultItems = {
+      rank: index + 1,
+      date: formatDate(date),
+      player: player.name,
+    };
+
+    if (sortBy === 'moves') {
+      return {
+        ...defaultItems,
+        moves,
+      };
+    }
+
+    if (sortBy === 'time') {
+      return {
+        ...defaultItems,
+        time: formatTime(time),
+      };
+    }
+
+    return defaultItems;
+  });
 
 // eslint-disable-next-line import/prefer-default-export
 export const findLeaderboardItems = async ({ context, parent, find }) => {

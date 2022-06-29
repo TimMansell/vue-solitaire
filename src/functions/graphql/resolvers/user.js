@@ -1,11 +1,22 @@
-import { findItemsInDb, countItemsInDb } from './helpers';
-import { formatHistoryGames } from '../../../services/stats';
+import { findItemsInDb, countItemsInDb, findItemInDb } from './helpers';
+
+export const exists = async (parent, __, context) => {
+  const { client } = context;
+
+  const itemCount = await countItemsInDb({
+    client,
+    collection: 'users',
+    findFields: { ...parent },
+    returnFields: { uid: 1 },
+  });
+
+  return itemCount;
+};
 
 export const history = async (parent, args, context) => {
   const { client } = context;
-  const { offset } = args;
 
-  const findGames = findItemsInDb({
+  const items = await findItemsInDb({
     client,
     collection: 'games',
     findFields: { ...parent },
@@ -14,22 +25,25 @@ export const history = async (parent, args, context) => {
     ...args,
   });
 
-  const findGamesPlayed = countItemsInDb({
+  return items;
+};
+
+export const name = async (parent, args, context) => {
+  const { client } = context;
+
+  const user = await findItemInDb({
     client,
-    collection: 'games',
+    collection: 'users',
     findFields: { ...parent },
-    returnFields: { date: 1, won: 1, lost: 1, moves: 1, time: 1 },
-    sortBy: { date: -1 },
+    returnFields: { name: 1 },
     ...args,
   });
 
-  const [games, gamesPlayed] = await Promise.all([findGames, findGamesPlayed]);
-
-  const formattedGames = formatHistoryGames(games, gamesPlayed, offset);
-
-  return formattedGames;
+  return user?.name;
 };
 
 export const user = {
+  exists,
   history,
+  name,
 };

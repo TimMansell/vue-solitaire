@@ -5,26 +5,45 @@ export const typeDefs = gql`
   type Query {
     userStats(uid: String!): UserStats!
     globalStats: GlobalStats!
-    version(localVersion: String!): Version!
+    version: Version!
     user(uid: String!): User!
     leaderboards(offset: Int!, limit: Int!): Leaderboards!
   }
+  type Mutation {
+    createUser(data: UserInput!): User!
+    wonGame(data: GameInput!): Game!
+    lostGame(data: GameInput!): Game!
+    quitGame(data: GameInput!): Game!
+  }
   type User {
+    name: String
+    exists: Boolean
     history(offset: Int!, limit: Int!): [Game]!
   }
+  input UserInput {
+    uid: String!
+  }
   type Game {
-    number: Int
+    uid: String
     date: String
-    time: String
-    outcome: String
+    won: Boolean
+    lost: Boolean
+    completed: Boolean
     moves: Int
-    duration: String
+    time: Int
+  }
+  input GameInput {
+    uid: String!
+    won: Boolean
+    lost: Boolean
+    completed: Boolean
+    moves: Int!
+    time: Int!
   }
   type GlobalStats {
     won: Int
     lost: Int
     completed: Int
-    abandoned: Int
     players: Int
   }
   type LeaderboardGame {
@@ -33,7 +52,7 @@ export const typeDefs = gql`
     date: String
     won: Boolean
     moves: Int
-    duration: String
+    time: String
   }
   type Leaderboards {
     moves: [LeaderboardGame]!
@@ -43,10 +62,8 @@ export const typeDefs = gql`
     won: Int
     lost: Int
     completed: Int
-    abandoned: Int
   }
   type Version {
-    number: String
-    matches: Boolean
+    number: String!
   }
 `;

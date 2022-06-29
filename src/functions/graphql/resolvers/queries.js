@@ -4,10 +4,7 @@ export const userStats = (_, { uid }) => ({ uid });
 
 export const globalStats = () => ({});
 
-export const version = (_, { localVersion }) => ({
-  number: serverVersion,
-  matches: localVersion === serverVersion,
-});
+export const version = () => ({ number: serverVersion });
 
 export const user = (_, { uid }) => ({ uid });
 

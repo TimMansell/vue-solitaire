@@ -22,9 +22,9 @@ describe('Graphql Query Resolvers', () => {
   });
 
   it('version', () => {
-    const result = version('', { localVersion });
+    const result = version();
 
-    expect(result).toEqual({ number: localVersion, matches: true });
+    expect(result).toEqual({ number: localVersion });
   });
 
   it('user', () => {
