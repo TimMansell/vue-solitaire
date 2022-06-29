@@ -5,5 +5,5 @@ export {
   findItemsInDb,
   findItemInDb,
 } from './db';
-export { findLeaderboardItems } from './find';
+export { findLeaderboardItems } from './leaderboards';
 export { createPlayerName } from './user';
