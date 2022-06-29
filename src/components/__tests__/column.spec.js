@@ -20,7 +20,7 @@ const global = {
     $store: setupStore({
       selectedCardId: 1,
       isEmptyBoard: false,
-      placeholders: 1,
+      placeholders: [1],
     }),
   },
 };
