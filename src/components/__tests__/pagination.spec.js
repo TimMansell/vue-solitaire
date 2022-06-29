@@ -1,6 +1,6 @@
+import matchMedia from '@@/tests/unit/mocks/matchMedia.mock';
 import { shallowMount } from '@vue/test-utils';
 import Pagination from '@/components/Pagination.vue';
-import matchMedia from '../../__tests__/__mocks__/matchMedia.mock';
 
 describe('Pagination.vue', () => {
   it('renders the component without crashing', () => {

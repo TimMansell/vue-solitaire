@@ -1,5 +1,5 @@
+import matchMedia from '@@/tests/unit/mocks/matchMedia.mock';
 import { matchesMedia } from '../matchMedia';
-import matchMedia from '../../__tests__/__mocks__/matchMedia.mock';
 
 describe('MatchMedia', () => {
   describe('should match media', () => {

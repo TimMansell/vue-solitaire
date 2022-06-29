@@ -1,6 +1,6 @@
+import matchMedia from '@@/tests/unit/mocks/matchMedia.mock';
 import { shallowMount } from '@vue/test-utils';
 import Controls from '@/components/Controls.vue';
-import matchMedia from '../../__tests__/__mocks__/matchMedia.mock';
 
 describe('Controls.vue', () => {
   it('renders the component without crashing', () => {
