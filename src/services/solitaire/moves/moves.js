@@ -5,7 +5,8 @@ import {
   getLastCards,
   getVisibleCards,
   showLastCard,
-  getColumnCards,
+  getColumnCardsContaining,
+  getColumnCardsToMove,
 } from '../cards';
 import {
   validateCardMove,
@@ -19,13 +20,10 @@ export const checkVisibleMoves = (cards) => {
 
   const hasMoves = visibleCards.filter((visibleCard) => {
     const cardHasMove = lastCards.filter((lastCard) => {
-      const { columnNo } = getCardPosition(cards, lastCard.id);
+      const columnCards = getColumnCardsContaining(cards, lastCard.id);
 
       const isValidCard = validateCardMove(visibleCard, lastCard);
-      const isValidColumn = validateCardMoveColumn(
-        visibleCard,
-        cards[columnNo]
-      );
+      const isValidColumn = validateCardMoveColumn(visibleCard, columnCards);
 
       return isValidCard && isValidColumn;
     });
@@ -68,13 +66,14 @@ export const checkFoundationMoves = (cards, foundation) => {
 };
 
 export const getMoveCardsFromBoard = ({ selectedCardId, cards }) => {
+  const columnCards = getColumnCardsContaining(cards, selectedCardId);
   const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const remainingCards = cards[columnNo].slice(0, cardPosition);
-  const columnCards = showLastCard(remainingCards);
+  const remainingCards = columnCards.slice(0, cardPosition);
+  const newColumnCards = showLastCard(remainingCards);
 
   return {
-    columnCards,
+    columnCards: newColumnCards,
     columnNo,
   };
 };
@@ -85,7 +84,7 @@ export const getMoveCardsToBoard = (
 ) => {
   const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const columnCards = getColumnCards({
+  const columnCards = getColumnCardsToMove({
     toCards: cards,
     fromCards: cards,
     selectedColumn,
@@ -105,7 +104,7 @@ export const getMoveCardsToFoundation = (
 ) => {
   const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const columnCards = getColumnCards({
+  const columnCards = getColumnCardsToMove({
     toCards: foundation,
     fromCards: cards,
     selectedColumn,

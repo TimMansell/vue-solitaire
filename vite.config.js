@@ -41,5 +41,6 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     include: ['**/__tests__/*.[jt]s?(x)'],
+    setupFiles: ['./tests/unit/setup.js'],
   },
 });

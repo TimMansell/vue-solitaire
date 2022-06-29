@@ -9,7 +9,9 @@
     "plugin:vue-scoped-css/recommended",
     "plugin:prettier/recommended",
     "plugin:cypress/recommended",
-    "plugin:vitest-globals/recommended"
+    "plugin:vitest-globals/recommended",
+    "plugin:n/recommended",
+    "plugin:security/recommended"
   ],
   "plugins": ["prettier", "cypress"],
   "parserOptions": {
@@ -17,6 +19,10 @@
   },
   "rules": {
     "import/no-cycle": "off",
+    "n/no-extraneous-import": "off",
+    "n/no-extraneous-require": "off",
+    "n/no-missing-import": "off",
+    "n/no-unpublished-import": "off",
     "import/no-extraneous-dependencies": [
       "error",
       { "packageDir": ["./", "./src/functions"] }
@@ -48,10 +54,18 @@
   },
   "overrides": [
     {
-      "files": ["**/*.spec*.{j,t}s?(x)", "**/*.mock*.{j,t}s?(x)"],
+      "files": [
+        "**/*.spec*.{j,t}s?(x)",
+        "**/*.mock*.{j,t}s?(x)",
+        "**/tests/**/*.{j,t}s?(x)"
+      ],
       "env": {
         "vitest-globals/env": true,
         "cypress/globals": true
+      },
+      "globals": {
+        "require": true,
+        "module": true
       }
     }
   ]

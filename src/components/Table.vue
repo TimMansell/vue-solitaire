@@ -50,16 +50,7 @@
 
 <script>
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
-
-export const isRowHighlighted = (cells, toHighlight) => {
-  if (toHighlight) {
-    const { key, value } = toHighlight;
-
-    return cells[key] === value;
-  }
-
-  return false;
-};
+import { findExistsInObject } from '@/helpers/find';
 
 export default {
   name: 'Table',
@@ -99,12 +90,19 @@ export default {
     rows() {
       const { items, toHighlight } = this;
 
-      const formatteditems = items.map((cells) => ({
+      const formattedItems = items.map((cells) => ({
         row: { ...cells },
-        isHighlighted: isRowHighlighted(cells, toHighlight),
+        ...(toHighlight && {
+          isHighlighted: findExistsInObject(
+            cells,
+            (cell) =>
+              JSON.stringify(cell) ===
+              JSON.stringify(Object.entries(toHighlight).at(0))
+          ),
+        }),
       }));
 
-      return formatteditems;
+      return formattedItems;
     },
   },
 };

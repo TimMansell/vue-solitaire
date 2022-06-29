@@ -51,11 +51,10 @@ export default {
     ...mapGetters(['selectedCardId', 'isEmptyBoard', 'placeholders']),
     placeholderCards() {
       const { columnNo, isEmptyBoard, placeholders } = this;
+      const placeholderCards = placeholders.at(columnNo);
       const DEFAULT_CARDS = 1;
 
-      const numberOfCards = isEmptyBoard
-        ? placeholders[columnNo]
-        : DEFAULT_CARDS;
+      const numberOfCards = isEmptyBoard ? placeholderCards : DEFAULT_CARDS;
 
       return numberOfCards;
     },

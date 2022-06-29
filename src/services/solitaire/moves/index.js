@@ -8,7 +8,13 @@ import {
 } from './moves';
 import { initFoundation, updateFoundation } from '../foundation';
 import { initBoard, updateBoard } from '../board';
-import { getSelectedCard, getLastCard, getCardPosition } from '../cards';
+import {
+  getSelectedCard,
+  getLastCard,
+  getCardPosition,
+  getCardsFromColumn,
+  getColumnCardsContaining,
+} from '../cards';
 import {
   validateCardMove,
   validateCardMoveColumn,
@@ -23,7 +29,7 @@ export const checkValidCardMove = (
 ) => {
   const selectedCard = getSelectedCard(cards, selectedCardId);
   const lastColumnCard = getLastCard(cards, selectedColumn);
-  const selectedColumnCards = cards[selectedColumn];
+  const selectedColumnCards = getCardsFromColumn(cards, selectedColumn);
 
   const isValidCard = validateCardMove(selectedCard, lastColumnCard);
   const isValidColumn = validateCardMoveColumn(
@@ -74,7 +80,10 @@ export const checkValidFoundationMove = (
   selectedColumn
 ) => {
   const selectedCard = getSelectedCard(cards, selectedCardId);
-  const selectedFoundationCards = foundation[selectedColumn];
+  const selectedFoundationCards = getCardsFromColumn(
+    foundation,
+    selectedColumn
+  );
 
   const isValidFoundationMove = validateFoundationMove(
     selectedCard,
@@ -102,9 +111,10 @@ export const moveCardsToFoundation = (state, selectedColumn) => {
 };
 
 export const getDraggedCards = ({ cards }, selectedCardId) => {
-  const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
+  const columnCards = getColumnCardsContaining(cards, selectedCardId);
+  const { cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const draggedCards = cards[columnNo].slice(cardPosition);
+  const draggedCards = columnCards.slice(cardPosition);
 
   return draggedCards;
 };

@@ -25,4 +25,5 @@ const server = new ApolloServer({
   mocks: NODE_ENV === 'test',
 });
 
-exports.handler = server.createHandler();
+// eslint-disable-next-line import/prefer-default-export
+export const handler = server.createHandler();

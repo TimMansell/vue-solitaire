@@ -1,4 +1,4 @@
-import { columns } from '../../../../config/settings.json';
+import { columns } from '../../config';
 import { setBoard, getColumnIndexes, getColumnCards } from '../board';
 
 describe('cards', () => {

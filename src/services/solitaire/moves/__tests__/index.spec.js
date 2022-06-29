@@ -8,9 +8,9 @@ import {
   getDraggedCards,
 } from '../index';
 
-import noMovesDeck from '../../../../../tests/fixtures/decks/initialNoMoves.json';
-import aceMoveDeck from '../../../../../tests/fixtures/decks/initialAceMove.json';
-import moveDeck from '../../../../../tests/fixtures/decks/initialMove.json';
+import noMovesDeck from '../../fixtures/decks/initialNoMoves.json';
+import aceMoveDeck from '../../fixtures/decks/initialAceMove.json';
+import moveDeck from '../../fixtures/decks/initialMove.json';
 
 describe('moves', () => {
   describe('valid moves', () => {

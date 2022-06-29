@@ -1,5 +1,5 @@
-import invalidMovesDeck from '../../fixtures/decks/invalidMoves.json';
-import validMoveDeck from '../../fixtures/decks/validMove.json';
+import invalidMovesDeck from '../../../src/services/solitaire/fixtures/decks/invalidMoves.json';
+import validMoveDeck from '../../../src/services/solitaire/fixtures/decks/validMove.json';
 
 describe('Moves', () => {
   beforeEach(() => {

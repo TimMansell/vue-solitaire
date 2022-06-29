@@ -1,4 +1,4 @@
-import { columns } from '../../config/settings.json';
+import { columns } from '@/services/solitaire/config';
 
 // Return state as function so we can reset it.
 const state = () => ({

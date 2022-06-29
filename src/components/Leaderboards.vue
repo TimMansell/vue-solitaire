@@ -30,7 +30,7 @@
       :headings="tableHeadings"
       :items="formattedLeaderboards"
       :placeholder-rows="limit"
-      :to-highlight="{ key: 'player', value: name }"
+      :to-highlight="{ name }"
     />
 
     <small v-if="showBest === 'winPercent'">
@@ -46,6 +46,7 @@ import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import { formatDate } from '@/helpers/dates';
+import { findValueInObject } from '@/helpers/find';
 
 export default {
   name: 'Leaderboards',
@@ -88,14 +89,16 @@ export default {
     topHeading() {
       const { showBest } = this;
 
-      const heading = {
+      const headings = {
         moves: 'Lowest',
         time: 'Quickest',
         winPercent: 'Best',
         wins: 'Most',
       };
 
-      return heading[showBest];
+      const heading = findValueInObject(headings, ([key]) => key === showBest);
+
+      return heading;
     },
     formattedLeaderboards() {
       const { showBest, leaderboards } = this;
@@ -106,14 +109,21 @@ export default {
           date: formatDate(leaderboard.date),
         }));
 
-      const format = {
+      const formats = {
         moves: () => formatLeaderboardsContainingDate(leaderboards),
         time: () => formatLeaderboardsContainingDate(leaderboards),
         winPercent: () => leaderboards,
         wins: () => leaderboards,
       };
 
-      const formattedLeaderboard = format[showBest]?.() ?? leaderboards;
+      const formatLeaderboard = findValueInObject(
+        formats,
+        ([key]) => key === showBest
+      );
+
+      const formattedLeaderboard = formatLeaderboard
+        ? formatLeaderboard()
+        : leaderboards;
 
       return formattedLeaderboard;
     },
@@ -129,7 +139,9 @@ export default {
         wins: [...defaultHeadings, 'Wins'],
       };
 
-      return headings[showBest];
+      const heading = findValueInObject(headings, ([key]) => key === showBest);
+
+      return heading;
     },
     showBest() {
       return this.filters.showBest;

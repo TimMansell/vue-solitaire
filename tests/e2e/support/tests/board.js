@@ -28,7 +28,7 @@ Cypress.Commands.add('checkPlaceholderCardAtColumn', (column) => {
 Cypress.Commands.add('checkBoardIs', (deck) => {
   cy.getBoardCards().each(([currentCard], index) => {
     const { card, test } = currentCard.dataset;
-    const { value, suit } = deck[index];
+    const { value, suit } = deck.at(index);
 
     if (!test.includes('hidden')) {
       expect(card).to.equal(`${value}${suit}`);
@@ -41,7 +41,7 @@ Cypress.Commands.add('checkBoardIsNot', (deck) => {
     const values = [...cards].map(({ dataset }) => dataset.card);
 
     const testMatchingDeck = deck.every(({ value, suit }, index) => {
-      const card = values[index];
+      const card = values.at(index);
 
       if (!card) return true;
 

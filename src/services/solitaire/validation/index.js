@@ -1,4 +1,4 @@
-import { columns } from '../../../config/settings.json';
+import { columns } from '../config';
 import {
   setupValidation,
   isMoveValidCard,

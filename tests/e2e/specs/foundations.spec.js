@@ -1,4 +1,4 @@
-import AcesDeck from '../../fixtures/decks/acesToFoundation.json';
+import AcesDeck from '../../../src/services/solitaire/fixtures/decks/acesToFoundation.json';
 
 describe('Foundation moves', () => {
   beforeEach(() => {

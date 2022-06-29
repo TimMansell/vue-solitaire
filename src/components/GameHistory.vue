@@ -29,7 +29,7 @@
       :items="gameHistoryUsingLocalTimeZone"
       :spacing="true"
       :placeholder-rows="pageRows"
-      :to-highlight="{ key: 'outcome', value: 'Won' }"
+      :to-highlight="{ outcome: 'Won' }"
     />
 
     <Pagination

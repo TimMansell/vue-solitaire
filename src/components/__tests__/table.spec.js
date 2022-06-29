@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import Table, { isRowHighlighted } from '@/components/Table.vue';
+import Table from '@/components/Table.vue';
 
 const props = {
   headings: ['Heading 1', 'Heading 2', 'Heading 3'],
@@ -58,7 +58,7 @@ describe('Table.vue', () => {
     );
   });
 
-  it('should populate table body cells correctly', () => {
+  it('should populate simple table body cells correctly', () => {
     const wrapper = shallowMount(Table, {
       props,
     });
@@ -88,16 +88,42 @@ describe('Table.vue', () => {
     );
   });
 
-  it('should return highlighted row', () => {
-    const result = isRowHighlighted([1, 2, 3], { key: '0', value: 1 });
+  it('should populate complex table body cells correctly', () => {
+    const items = [
+      { cell1: 'Cell 1', cell2: 'Cell 2', cell3: 'Cell 3' },
+      { cell1: 'Cell 4', cell2: 'Cell 5', cell3: 'Cell 6' },
+    ];
 
-    expect(result).toBe(true);
-  });
+    const wrapper = shallowMount(Table, {
+      props: {
+        ...props,
+        items,
+      },
+    });
 
-  it('should not return highlighted row', () => {
-    const result = isRowHighlighted([1, 2, 3], { key: '0', value: 2 });
+    expect(wrapper.findAll('[data-test="table-cell"]')[0].text()).toBe(
+      items[0].cell1
+    );
 
-    expect(result).toBe(false);
+    expect(wrapper.findAll('[data-test="table-cell"]')[1].text()).toBe(
+      items[0].cell2
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]')[2].text()).toBe(
+      items[0].cell3
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]')[3].text()).toBe(
+      items[1].cell1
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]')[4].text()).toBe(
+      items[1].cell2
+    );
+
+    expect(wrapper.findAll('[data-test="table-cell"]')[5].text()).toBe(
+      items[1].cell3
+    );
   });
 
   it('should show placeholder rows', () => {
@@ -128,10 +154,16 @@ describe('Table.vue', () => {
   });
 
   it('should show highlight correct row', () => {
+    const items = [
+      { cell1: 'Cell 1', cell2: 'Cell 2', cell3: 'Cell 3' },
+      { cell1: 'Cell 4', cell2: 'Cell 5', cell3: 'Cell 6' },
+    ];
+
     const wrapper = shallowMount(Table, {
       props: {
         ...props,
-        toHighlight: { key: '0', value: 'Cell 1' },
+        items,
+        toHighlight: { cell2: 'Cell 2' },
       },
     });
 
