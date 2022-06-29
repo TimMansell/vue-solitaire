@@ -54,7 +54,11 @@
   },
   "overrides": [
     {
-      "files": ["**/*.spec*.{j,t}s?(x)", "**/*.mock*.{j,t}s?(x)"],
+      "files": [
+        "**/*.spec*.{j,t}s?(x)",
+        "**/*.mock*.{j,t}s?(x)",
+        "**/tests/**/*.{j,t}s?(x)"
+      ],
       "env": {
         "vitest-globals/env": true,
         "cypress/globals": true
