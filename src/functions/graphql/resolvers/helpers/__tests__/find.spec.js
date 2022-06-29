@@ -1,11 +1,11 @@
 import {
-  mockLeaderboardsMovesAPI,
-  mockLeaderboardsMoves,
   mockLeaderboardsTimesAPI,
-  mockLeaderboardsTimes,
+  mockLeaderboardsMovesAPI,
+  mockLeaderboardsTimesLegacy,
+  mockLeaderboardsMovesLegacy,
   mockPlayers,
 } from '@/mockData';
-import { findLeaderboardItems } from '../leaderboards';
+import { findLeaderboardItems } from '../find';
 import {
   wrapClient,
   createMockFind,
@@ -22,13 +22,9 @@ describe('Graphql Resolver Helpers', () => {
       })
     );
 
-    const result = await findLeaderboardItems({
-      context: { client },
-      parent: '',
-      find: 'moves',
-    });
+    const result = await findLeaderboardItems(client, '', 'moves');
 
-    expect(result).toEqual(mockLeaderboardsMoves);
+    expect(result).toEqual(mockLeaderboardsMovesLegacy);
   });
 
   it('should return formatted leaderboard times', async () => {
@@ -39,12 +35,8 @@ describe('Graphql Resolver Helpers', () => {
       })
     );
 
-    const result = await findLeaderboardItems({
-      context: { client },
-      parent: '',
-      find: 'time',
-    });
+    const result = await findLeaderboardItems(client, '', 'time');
 
-    expect(result).toEqual(mockLeaderboardsTimes);
+    expect(result).toEqual(mockLeaderboardsTimesLegacy);
   });
 });

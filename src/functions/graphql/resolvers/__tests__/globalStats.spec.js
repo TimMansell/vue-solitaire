@@ -1,4 +1,4 @@
-import { won, lost, completed, players, abandoned } from '../globalStats';
+import { won, lost, completed, players } from '../globalStats';
 import {
   wrapClient,
   createMockFind,
@@ -59,21 +59,6 @@ describe('Graphql GlobalStats Resolvers', () => {
       const result = await players('', '', mockContext);
 
       expect(result).toEqual(500);
-    });
-  });
-
-  describe('abandoned', () => {
-    it('should correct count', async () => {
-      const mockContext = wrapClient(
-        createMockFind({
-          ...createMockCount(1),
-        })
-      );
-
-      const result = await abandoned('', '', mockContext);
-
-      // because 1 -1 -1 (abandonedGames = completedGames - wonGames - lostGames).
-      expect(result).toEqual(-1);
     });
   });
 });

@@ -39,7 +39,3 @@ export const createMockFindOne = (value) => ({
 export const createMockInsertOne = (value) => ({
   insertOne: () => value,
 });
-
-export const createMockDeleteOne = (value) => ({
-  findOneAndDelete: () => value,
-});

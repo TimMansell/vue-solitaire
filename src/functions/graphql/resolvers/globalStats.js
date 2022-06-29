@@ -1,88 +1,46 @@
-import { countItemsInDb } from './helpers';
+export const won = async (_, __, { client }) => {
+  const db = await client();
 
-export const won = (_, __, context) => {
-  const { client } = context;
+  const wonQuery = await db
+    .collection('games')
+    .find({ won: true }, { projection: { won: 1 } });
 
-  return countItemsInDb({
-    client,
-    collection: 'games',
-    findFields: { won: true },
-    returnFields: { won: 1 },
-  });
+  return wonQuery.count();
 };
 
-export const lost = (_, __, context) => {
-  const { client } = context;
+export const lost = async (_, __, { client }) => {
+  const db = await client();
 
-  return countItemsInDb({
-    client,
-    collection: 'games',
-    findFields: { lost: true },
-    returnFields: { lost: 1 },
-  });
+  const lostQuery = await db
+    .collection('games')
+    .find({ lost: true }, { projection: { lost: 1 } });
+
+  return lostQuery.count();
 };
 
-export const completed = (_, __, context) => {
-  const { client } = context;
+export const completed = async (_, __, { client }) => {
+  const db = await client();
 
-  return countItemsInDb({
-    client,
-    collection: 'games',
-    findFields: { completed: true },
-    returnFields: { completed: 1 },
-  });
+  const completedQuery = await db
+    .collection('games')
+    .find({ completed: true }, { projection: { completed: 1 } });
+
+  return completedQuery.count();
 };
 
-export const players = (_, __, context) => {
-  const { client } = context;
+export const players = async (_, __, { client }) => {
+  const db = await client();
 
-  return countItemsInDb({
-    client,
-    collection: 'users',
-    findFields: {},
-    returnFields: { uid: 1 },
-  });
-};
+  const playersQuery = await db
+    .collection('users')
+    .find({}, { projection: { uid: 1 } });
 
-export const abandoned = async (parent, _, context) => {
-  const { client } = context;
-
-  const getCompleted = countItemsInDb({
-    client,
-    collection: 'games',
-    findFields: { ...parent, completed: true },
-    returnFields: { completed: 1 },
-  });
-
-  const getWon = countItemsInDb({
-    client,
-    collection: 'games',
-    findFields: { ...parent, won: true },
-    returnFields: { completed: 1 },
-  });
-
-  const getLost = countItemsInDb({
-    client,
-    collection: 'games',
-    findFields: { ...parent, lost: true },
-    returnFields: { completed: 1 },
-  });
-
-  const [completedGames, wonGames, lostGames] = await Promise.all([
-    getCompleted,
-    getWon,
-    getLost,
-  ]);
-
-  const abandonedGames = completedGames - wonGames - lostGames;
-
-  return abandonedGames;
+  return playersQuery.count();
 };
 
 export const globalStats = {
   won,
   lost,
   completed,
-  abandoned,
   players,
 };

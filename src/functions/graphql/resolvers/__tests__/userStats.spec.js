@@ -1,4 +1,4 @@
-import { won, lost, completed, abandoned } from '../userStats';
+import { won, lost, completed } from '../userStats';
 import {
   wrapClient,
   createMockFind,
@@ -45,21 +45,6 @@ describe('Graphql UserStats Resolvers', () => {
       const result = await completed('', '', mockContext);
 
       expect(result).toEqual(400);
-    });
-  });
-
-  describe('abandoned', () => {
-    it('should correct count', async () => {
-      const mockContext = wrapClient(
-        createMockFind({
-          ...createMockCount(1),
-        })
-      );
-
-      const result = await abandoned('', '', mockContext);
-
-      // because 1 -1 -1 (abandonedGames = completedGames - wonGames - lostGames).
-      expect(result).toEqual(-1);
     });
   });
 });

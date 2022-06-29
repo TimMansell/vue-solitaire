@@ -4,7 +4,6 @@ export {
   findAllItems,
   findItemsInDb,
   findItemInDb,
-  deleteFromDb,
-  deleteAllFromDb,
 } from './db';
-export { findLeaderboardItems } from './leaderboards';
+export { findLeaderboardItems } from './find';
+export { createPlayerName } from './user';

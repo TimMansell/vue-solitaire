@@ -1,10 +1,22 @@
 import { findLeaderboardItems } from './helpers';
 
-export const moves = (parent, _, context) =>
-  findLeaderboardItems({ context, parent, find: 'moves' });
+export const moves = async (parent, _, context) => {
+  const { client } = context;
+  const find = 'moves';
 
-export const times = (parent, _, context) =>
-  findLeaderboardItems({ context, parent, find: 'time' });
+  const items = await findLeaderboardItems(client, parent, find);
+
+  return items;
+};
+
+export const times = async (parent, _, context) => {
+  const { client } = context;
+  const find = 'time';
+
+  const items = await findLeaderboardItems(client, parent, find);
+
+  return items;
+};
 
 export const leaderboards = {
   moves,
