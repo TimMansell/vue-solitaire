@@ -10,7 +10,7 @@
     "graphql-depth-limit": "1.1.0",
     "mongodb": "3.6.9",
     "mongodb-client-encryption": "1.2.5",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.7",
     "timezone-mock": "1.2.1",
     "webpack-node-externals": "2.5.1"
   }
