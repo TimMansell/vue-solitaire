@@ -1,14 +1,22 @@
+const isDev = process.env.NODE_ENV === 'development';
+
 // eslint-disable-next-line import/prefer-default-export
-export const displayMoves = (moves) => {
-  if (process.env.NODE_ENV === 'development') {
-    if (moves.length) {
-      console.log('---------------');
-      moves.forEach(({ value, suit }) => {
-        console.log('hasMove', `${value}${suit}`);
-      });
-    } else {
-      console.log('---------------');
-      console.log('No Moves');
-    }
+export const displayMove = ({
+  card,
+  otherCard,
+  isColumn,
+  isFoundation,
+  hasMove,
+}) => {
+  if (isDev) {
+    const cardMove = otherCard ? `${otherCard?.value}${otherCard?.suit}` : '';
+    const columnMove = isColumn ? 'Column' : '';
+    const foundationMove = isFoundation ? 'Foundation' : '';
+
+    if (!hasMove) return;
+
+    console.log(
+      `${card.value}${card.suit} > ${cardMove}${columnMove}${foundationMove}`
+    );
   }
 };

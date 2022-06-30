@@ -35,9 +35,7 @@ export const isFoundationMoveValidAce = (selectedCard, compareToCard) =>
 export const isFoundationMoveValidSuit = (
   selectedCard,
   selectedFoundationCards
-) =>
-  selectedFoundationCards.filter((card) => card.suit === selectedCard?.suit)
-    .length > 0;
+) => selectedFoundationCards.some((card) => card.suit === selectedCard?.suit);
 
 export const isFoundationMoveValidOrder = (
   selectedCard,

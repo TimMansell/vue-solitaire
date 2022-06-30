@@ -21,7 +21,6 @@ import {
   validateFoundationMove,
   validateFoundationMovePosition,
 } from '../validation';
-import { displayMoves } from './helpers';
 
 export const checkValidCardMove = (
   { cards, selectedCardId },
@@ -45,11 +44,7 @@ export const checkHasMoves = ({ cards, foundation }) => {
   const hasKingMoves = checkKingMoves(cards);
   const hasFoundationMoves = checkFoundationMoves(cards, foundation);
 
-  const moves = [...hasVisibleMoves, ...hasFoundationMoves, ...hasKingMoves];
-
-  displayMoves(moves);
-
-  return moves.length > 0;
+  return hasVisibleMoves || hasKingMoves || hasFoundationMoves;
 };
 
 export const checkInitialBoardMoves = (deck) => {
