@@ -150,7 +150,7 @@ export default {
       return this.filters.limit;
     },
     best() {
-      const [showBest] = this.bestItems.filter(
+      const showBest = this.bestItems.find(
         ({ value }) => value === this.showBest
       );
 
