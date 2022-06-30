@@ -42,7 +42,7 @@ describe('moves', () => {
 
       const result = checkVisibleMoves(cards);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should not have visible moves', () => {
@@ -78,7 +78,7 @@ describe('moves', () => {
 
       const result = checkVisibleMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
 
     it('should not have visible move in empty column', () => {
@@ -107,7 +107,7 @@ describe('moves', () => {
 
       const result = checkVisibleMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
   });
 
@@ -130,7 +130,7 @@ describe('moves', () => {
 
       const result = checkKingMoves(cards);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should not have king move in empty column', () => {
@@ -151,7 +151,7 @@ describe('moves', () => {
 
       const result = checkKingMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
 
     it('should not have king move in same column', () => {
@@ -173,7 +173,7 @@ describe('moves', () => {
 
       const result = checkKingMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
 
     it('should not have non-king move in empty column', () => {
@@ -194,7 +194,7 @@ describe('moves', () => {
 
       const result = checkKingMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
   });
 
@@ -214,7 +214,7 @@ describe('moves', () => {
 
       const result = checkFoundationMoves(cards, foundation);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should have Ace foundation move', () => {
@@ -240,7 +240,7 @@ describe('moves', () => {
 
       const result = checkFoundationMoves(cards, foundation);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should have a non-ace foundation move', () => {
@@ -266,7 +266,7 @@ describe('moves', () => {
 
       const result = checkFoundationMoves(cards, foundation);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should not have any foundation moves', () => {
@@ -292,7 +292,7 @@ describe('moves', () => {
 
       const result = checkFoundationMoves(cards, foundation);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
   });
 

@@ -18,13 +18,8 @@ export const initCards = () => {
   return shuffledDeck;
 };
 
-export const getSelectedCard = (cards, selectedCardId) => {
-  const [selectedCard] = cards
-    .flat()
-    .filter((card) => card.id === selectedCardId);
-
-  return selectedCard;
-};
+export const getSelectedCard = (cards, selectedCardId) =>
+  cards.flat().find((card) => card.id === selectedCardId);
 
 export const getColumnCardsContaining = (cards, selectedCardId) => {
   const column = cards.find((columnCards) =>
