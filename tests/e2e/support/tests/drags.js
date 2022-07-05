@@ -1,10 +1,8 @@
 Cypress.Commands.add('dragCardToPosition', (card, { x, y }) => {
   cy.get(`[data-test="card-${card}"]`)
-    .trigger('dragstart', 0, 0, {
-      dataTransfer: new DataTransfer(),
-      force: true,
-    })
-    .trigger('mousemove', x, y, {
+    .trigger('dragstart', 'top', {
+      x,
+      y,
       force: true,
     })
     .then((draggedCard) => {
@@ -45,7 +43,9 @@ Cypress.Commands.add('dragCardFromTo', (dragFrom, dragTo) => {
     .trigger('drop', { force: true })
     .trigger('dragend', { force: true });
 
-  cy.get('[data-test="dragged-cards"]').children().should('have.length', 0);
+  cy.get(
+    `[data-test="dragged-cards"] [data-test="${formattedDragFrom}"]`
+  ).should('not.exist');
 });
 
 Cypress.Commands.add(

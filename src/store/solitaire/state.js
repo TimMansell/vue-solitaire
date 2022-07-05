@@ -9,7 +9,7 @@ const state = () => ({
   hasGameWon: false,
   hasGameLost: false,
   placeholders: columns,
-  selectedCardId: null,
+  selectedCardId: 0,
   draggedCards: [],
 });
 

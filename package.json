@@ -33,6 +33,7 @@
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/vue-fontawesome": "3.0.0-5",
     "date-fns": "2.22.1",
+    "detect-touch-events": "2.0.2",
     "dotenv": "8.2.0",
     "eventemitter3": "4.0.7",
     "hammerjs": "2.0.8",

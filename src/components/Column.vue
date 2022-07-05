@@ -1,7 +1,7 @@
 <template>
   <div
-    @click="setColumn(columnNo)"
-    @drop="dropCard(columnNo)"
+    @click="moveCardsToColumn(columnNo)"
+    @drop="moveCardsToColumn(columnNo)"
     @dragover.prevent
     @dragenter.prevent
     :data-test="`column-${columnNo}`"
@@ -48,7 +48,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['selectedCardId', 'isEmptyBoard', 'placeholders']),
+    ...mapGetters(['isEmptyBoard', 'placeholders']),
     placeholderCards() {
       const { columnNo, isEmptyBoard, placeholders } = this;
       const placeholderCards = placeholders.at(columnNo);
@@ -61,16 +61,6 @@ export default {
   },
   methods: {
     ...mapActions(['moveCardsToColumn']),
-    setColumn(columnNo) {
-      const { selectedCardId } = this;
-
-      if (selectedCardId) {
-        this.moveCardsToColumn(columnNo);
-      }
-    },
-    dropCard(columnNo) {
-      this.moveCardsToColumn(columnNo);
-    },
   },
 };
 </script>

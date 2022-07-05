@@ -16,7 +16,7 @@ describe('Solitaire Store', () => {
   });
 
   it('should move cards to column', () => {
-    const state = { validMove: true };
+    const state = { selectedCardId: 1, validMove: true };
 
     moveCardsToColumn({ dispatch, state }, 0);
 
@@ -28,13 +28,20 @@ describe('Solitaire Store', () => {
     expect(dispatch).toHaveBeenCalledWith('checkGameState');
   });
 
-  it('should not move cards to column', () => {
-    const state = { validMove: false };
+  it('should not move cards to column when invalid move', () => {
+    const state = { selectedCardId: 1, validMove: false };
 
     moveCardsToColumn({ dispatch, state });
 
     expect(dispatch).not.toHaveBeenCalledWith('setBoard');
-    expect(dispatch).toHaveBeenCalledWith('setCard', null);
+  });
+
+  it('should not move cards to column when selectedCardId is 0', () => {
+    const state = { selectedCardId: 0 };
+
+    moveCardsToColumn({ dispatch, state });
+
+    expect(dispatch).not.toHaveBeenCalledWith('setBoard');
   });
 
   it('should move cards to foundation', () => {

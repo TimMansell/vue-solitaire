@@ -19,7 +19,7 @@ export const store = createStore({
   plugins: [
     createPersistedState({
       key: `v${getVersion()}`,
-      paths: ['solitaire'],
+      paths: ['solitaire', 'user', 'stats'],
     }),
   ],
 });
