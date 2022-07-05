@@ -6,13 +6,13 @@ import Pause from '@/pages/Pause.vue';
 import History from '@/pages/History.vue';
 import Stats from '@/pages/Stats.vue';
 import Leaderboards from '@/pages/Leaderboards.vue';
+import ConnectionError from '@/pages/ConnectionError.vue';
 
 const Won = () => import('@/pages/Won.vue');
 const Lost = () => import('@/pages/Lost.vue');
 const Rules = () => import('@/pages/Rules.vue');
 const Update = () => import('@/pages/Update.vue');
 const PageNotFound = () => import('@/pages/PageNotFound.vue');
-const ConnectionError = () => import('@/pages/ConnectionError.vue');
 
 const routes = [
   {
