@@ -1,6 +1,6 @@
 import { mockUid, mockPlayers, mockPlayerName } from '@/mockData';
 import { createUser, wonGame, lostGame, quitGame } from '../mutations';
-import { parseAndValidDate } from '../../../../helpers/dates';
+import { parseAndValidDate } from '../helpers';
 import {
   wrapClient,
   createMockFind,

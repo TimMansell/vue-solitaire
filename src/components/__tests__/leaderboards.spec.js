@@ -96,19 +96,6 @@ describe('Leaderboards.vue', () => {
       global,
     });
 
-    expect(wrapper.vm.formattedLeaderboards).toStrictEqual([
-      {
-        date: '29-04-2021',
-        moves: 2,
-        player: 'Player 1',
-        rank: 1,
-      },
-      {
-        date: '29-04-2021',
-        moves: 2,
-        player: 'Player 2',
-        rank: 2,
-      },
-    ]);
+    expect(wrapper.vm.leaderboards).toStrictEqual(mockLeaderboardsMoves);
   });
 });

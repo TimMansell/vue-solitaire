@@ -25,8 +25,8 @@
     </p>
 
     <ResponsiveTable
-      :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
-      :items="gameHistoryUsingLocalTimeZone"
+      :headings="['', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
+      :items="gameHistory"
       :spacing="true"
       :placeholder-rows="pageRows"
       :to-highlight="{ outcome: 'Won' }"
@@ -48,8 +48,6 @@ import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
 import { formatNumber } from '@/helpers/numbers';
-import { formatDate } from '@/helpers/dates';
-import { formatTimeFromDate } from '@/helpers/times';
 
 export default {
   name: 'GameHistory',
@@ -77,23 +75,14 @@ export default {
     filters: {
       handler() {
         this.updateRoute(this.filters);
-        this.$emit('scrollTo', this.$refs.scrollTo);
       },
       deep: true,
     },
+    'filters.page': 'scrollTo',
     $route: 'displayGames',
   },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
-    gameHistoryUsingLocalTimeZone() {
-      const { gameHistory } = this;
-
-      return gameHistory.map((game) => ({
-        ...game,
-        date: formatDate(game.date),
-        time: formatTimeFromDate(game.time),
-      }));
-    },
     page() {
       return this.filters.page;
     },
@@ -147,10 +136,9 @@ export default {
       return lastPageRows;
     },
   },
-  created() {
-    this.checkInitialFilters();
-  },
+
   mounted() {
+    this.checkInitialFilters();
     this.displayGames();
   },
   methods: {
@@ -160,7 +148,7 @@ export default {
 
       const validLimit = limitItems.map(({ value }) => value).includes(limit);
 
-      this.filters.limit = validLimit ? limit : limitItems[0].value;
+      this.filters.limit = validLimit ? limit : limitItems.at(0).value;
       this.filters.page = page <= totalPages ? page : 1;
     },
     formatNumber(number) {
@@ -173,6 +161,9 @@ export default {
       const { offset, limit } = this;
 
       this.getAllGames({ offset, limit });
+    },
+    scrollTo() {
+      this.$emit('scrollTo', this.$refs.scrollTo);
     },
   },
 };

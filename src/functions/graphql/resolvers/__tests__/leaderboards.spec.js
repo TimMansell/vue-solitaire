@@ -1,8 +1,8 @@
 import {
   mockLeaderboardsMovesAPI,
-  mockLeaderboardsMovesLegacy,
+  mockLeaderboardsMoves,
   mockLeaderboardsTimesAPI,
-  mockLeaderboardsTimesLegacy,
+  mockLeaderboardsTimes,
   mockPlayers,
 } from '@/mockData';
 import { moves, times } from '../leaderboards';
@@ -25,7 +25,7 @@ describe('Graphql Leaderboards Resolvers', () => {
 
       const result = await moves('', '', mockContext);
 
-      expect(result).toEqual(mockLeaderboardsMovesLegacy);
+      expect(result).toEqual(mockLeaderboardsMoves);
     });
   });
 
@@ -40,7 +40,7 @@ describe('Graphql Leaderboards Resolvers', () => {
 
       const result = await times('', '', mockContext);
 
-      expect(result).toEqual(mockLeaderboardsTimesLegacy);
+      expect(result).toEqual(mockLeaderboardsTimes);
     });
   });
 });

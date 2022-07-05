@@ -8,9 +8,10 @@ export const connect = ({ uid, version }) => {
   const { OPEN, CONNECTING } = WebSocket;
   const { VITE_WEBSOCKETS_URL, VITE_WEBSOCKETS_VERSION } = import.meta.env;
   const query = queryString.stringify({ uid, version });
+  const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
   const socket = new WebSocket(
-    `${VITE_WEBSOCKETS_URL}/${VITE_WEBSOCKETS_VERSION}?${query}`,
+    `${VITE_WEBSOCKETS_URL}/${VITE_WEBSOCKETS_VERSION}?${query}&timezone=${timeZone}`,
     []
   );
 

@@ -3,9 +3,9 @@ import {
   mockUid,
   mockHistoryApi,
   mockLeaderboardsMovesAPI,
-  mockLeaderboardsMovesLegacy,
+  mockLeaderboardsMoves,
   mockLeaderboardsTimesAPI,
-  mockLeaderboardsTimesLegacy,
+  mockLeaderboardsTimes,
   mockPlayers,
   mockPlayerName,
 } from '@/mockData';
@@ -190,7 +190,7 @@ describe('Graphql Schema', () => {
       expect(result.errors).toBeUndefined();
       expect(result.data).toEqual({
         leaderboards: {
-          moves: mockLeaderboardsMovesLegacy,
+          moves: mockLeaderboardsMoves,
         },
       });
     });
@@ -225,7 +225,7 @@ describe('Graphql Schema', () => {
       expect(result.errors).toBeUndefined();
       expect(result.data).toEqual({
         leaderboards: {
-          times: mockLeaderboardsTimesLegacy,
+          times: mockLeaderboardsTimes,
         },
       });
     });
