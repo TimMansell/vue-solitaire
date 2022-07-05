@@ -1,9 +1,9 @@
 import tzMock from 'timezone-mock';
 import {
   mockLeaderboardsMovesAPI,
-  mockLeaderboardsMovesLegacy,
+  mockLeaderboardsMoves,
   mockLeaderboardsTimesAPI,
-  mockLeaderboardsTimesLegacy,
+  mockLeaderboardsTimes,
   mockPlayers,
 } from '@/mockData';
 import { formatLeaderboardGames, findLeaderboardItems } from '../leaderboards';
@@ -24,7 +24,7 @@ describe('Graphql Resolver Helpers', () => {
       'time'
     );
 
-    expect(result).toEqual(mockLeaderboardsTimesLegacy);
+    expect(result).toEqual(mockLeaderboardsTimes);
   });
 
   it('should return formatted leaderboard games using moves', async () => {
@@ -34,7 +34,7 @@ describe('Graphql Resolver Helpers', () => {
       'moves'
     );
 
-    expect(result).toEqual(mockLeaderboardsMovesLegacy);
+    expect(result).toEqual(mockLeaderboardsMoves);
   });
 
   it('should return formatted leaderboard moves', async () => {
@@ -51,7 +51,7 @@ describe('Graphql Resolver Helpers', () => {
       find: 'moves',
     });
 
-    expect(result).toEqual(mockLeaderboardsMovesLegacy);
+    expect(result).toEqual(mockLeaderboardsMoves);
   });
 
   it('should return formatted leaderboard times', async () => {
@@ -68,6 +68,6 @@ describe('Graphql Resolver Helpers', () => {
       find: 'time',
     });
 
-    expect(result).toEqual(mockLeaderboardsTimesLegacy);
+    expect(result).toEqual(mockLeaderboardsTimes);
   });
 });

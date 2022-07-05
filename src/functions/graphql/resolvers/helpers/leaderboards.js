@@ -1,5 +1,5 @@
-import { formatTime } from '@/helpers/times';
-import { formatDate } from '@/helpers/dates';
+import { formatTime } from './times';
+import { formatDate } from './dates';
 import { findItemsInDb, findAllItems } from './db';
 
 export const formatLeaderboardGames = (games, players, sortBy) =>
