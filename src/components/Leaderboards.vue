@@ -28,7 +28,7 @@
 
     <ResponsiveTable
       :headings="tableHeadings"
-      :items="formattedLeaderboards"
+      :items="leaderboards"
       :placeholder-rows="limit"
       :to-highlight="{ name }"
     />
@@ -45,7 +45,6 @@ import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
-import { formatDate } from '@/helpers/dates';
 import { findValueInObject } from '@/helpers/find';
 
 export default {
@@ -99,33 +98,6 @@ export default {
       const heading = findValueInObject(headings, ([key]) => key === showBest);
 
       return heading;
-    },
-    formattedLeaderboards() {
-      const { showBest, leaderboards } = this;
-
-      const formatLeaderboardsContainingDate = (leaderboardsWithDate) =>
-        leaderboardsWithDate.map((leaderboard) => ({
-          ...leaderboard,
-          date: formatDate(leaderboard.date),
-        }));
-
-      const formats = {
-        moves: () => formatLeaderboardsContainingDate(leaderboards),
-        time: () => formatLeaderboardsContainingDate(leaderboards),
-        winPercent: () => leaderboards,
-        wins: () => leaderboards,
-      };
-
-      const formatLeaderboard = findValueInObject(
-        formats,
-        ([key]) => key === showBest
-      );
-
-      const formattedLeaderboard = formatLeaderboard
-        ? formatLeaderboard()
-        : leaderboards;
-
-      return formattedLeaderboard;
     },
     tableHeadings() {
       const { showBest } = this;
