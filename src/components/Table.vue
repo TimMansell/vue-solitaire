@@ -90,8 +90,8 @@ export default {
     rows() {
       const { items, toHighlight } = this;
 
-      const formattedItems = items.map((cells) => ({
-        row: { ...cells },
+      const formattedRows = items.map((cells) => ({
+        row: cells,
         ...(toHighlight && {
           isHighlighted: findExistsInObject(
             cells,
@@ -102,7 +102,7 @@ export default {
         }),
       }));
 
-      return formattedItems;
+      return formattedRows;
     },
   },
 };
