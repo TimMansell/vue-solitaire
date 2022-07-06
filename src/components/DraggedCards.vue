@@ -6,13 +6,12 @@
   >
     <div :style="cardStyles" data-test="dragged-cards">
       <Card
-        v-for="(card, index) in draggedCards"
+        v-for="({ value, suit, visible }, index) in draggedCards"
         :id="`dragged-${index}`"
         :key="index"
-        :value="card.value"
-        :suit="card.suit"
-        :revealed="card.revealed"
-        :visible="card.visible"
+        :value="value"
+        :suit="suit"
+        :visible="visible"
         :clickable="false"
       />
     </div>
@@ -25,7 +24,6 @@ import {
   removeEventListener,
 } from '@/helpers/eventListeners';
 import { mapGetters, mapActions } from 'vuex';
-import { throttle, debounce } from 'throttle-debounce';
 import Card from '@/components/Card.vue';
 
 export default {
@@ -83,15 +81,15 @@ export default {
   },
   mounted() {
     const events = {
-      mousemove: debounce(0, false, this.setCardPosition),
-      dragover: throttle(10, false, this.setCardPosition),
-      drop: this.clearDraggedCards,
+      dragstart: this.setCardPosition,
+      dragover: this.setCardPosition,
       dragend: this.clearDraggedCards,
+      drop: this.clearDraggedCards,
     };
 
     this.events = addEventListener(events);
   },
-  destroyed() {
+  unmounted() {
     const { events } = this;
 
     removeEventListener(events);

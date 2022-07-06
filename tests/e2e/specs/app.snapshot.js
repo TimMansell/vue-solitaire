@@ -1,6 +1,5 @@
-import doubleClickAce2 from '../../fixtures/boards/doubleClickAce2.json';
-
-const url = '/';
+import quitGameDeck from '../../../src/services/solitaire/fixtures/decks/quitGame.json';
+import quitGameMoves from '../../../src/services/solitaire/fixtures/moves/quitGame.json';
 
 const sizes = [
   'iphone-5',
@@ -17,19 +16,21 @@ const sizes = [
 describe('App', () => {
   sizes.forEach((size) => {
     it(`matches ${size} snapshot`, () => {
-      cy.visit(url);
+      cy.visitApp();
 
-      cy.setBoard(doubleClickAce2).then(() => {
-        if (Cypress._.isArray(size)) {
-          cy.viewport(size[0], size[1]);
+      cy.mockBoard(quitGameDeck);
 
-          cy.matchImageSnapshot(size.join());
-        } else {
-          cy.viewport(size);
+      cy.runGameWithClicks(quitGameMoves);
 
-          cy.matchImageSnapshot(size);
-        }
-      });
+      if (Cypress._.isArray(size)) {
+        cy.viewport(size[0], size[1]);
+
+        cy.matchImageSnapshot(size.join());
+      } else {
+        cy.viewport(size);
+
+        cy.matchImageSnapshot(size);
+      }
     });
   });
 });

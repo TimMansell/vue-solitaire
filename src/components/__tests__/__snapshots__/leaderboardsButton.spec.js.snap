@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`LeaderboardsButton.vue matches snapshot 1`] = `
-<button-stub type="default" isstacked="true" size="md" data-test="leaderboards-btn">
-  Ranks
-</button-stub>
-`;

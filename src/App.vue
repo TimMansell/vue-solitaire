@@ -1,29 +1,93 @@
 <template>
   <div id="app">
-    <Header />
-    <Solitaire />
-    <Footer />
+    <RouterView name="main" />
+    <RouterView name="overlay" />
   </div>
 </template>
 
 <script>
 /* eslint vue-scoped-css/require-scoped: off */
-import Header from '@/components/Header.vue';
-import Solitaire from '@/components/Solitaire.vue';
-import Footer from '@/components/Footer.vue';
+import { mapGetters, mapActions } from 'vuex';
+import {
+  addEventListener,
+  removeEventListener,
+} from '@/helpers/eventListeners';
 
 export default {
   name: 'App',
-  components: {
-    Header,
-    Solitaire,
-    Footer,
+  computed: {
+    ...mapGetters([
+      'isGamePaused',
+      'hasGameWon',
+      'hasGameLost',
+      'hasGameUpdated',
+      'isOldVersion',
+      'hasConnectionError',
+    ]),
+  },
+  created() {
+    this.initApp();
+  },
+  mounted() {
+    const events = {
+      visibilitychange: ({ target }) =>
+        setTimeout(this.checkGameFocused, 2000, target),
+    };
+
+    this.events = addEventListener(events);
+  },
+  unmounted() {
+    const { events } = this;
+
+    removeEventListener(events);
+  },
+  watch: {
+    hasGameWon(hasGameWon) {
+      if (!hasGameWon) return;
+
+      this.goToRoute('won');
+    },
+    hasGameLost(hasGameLost) {
+      if (!hasGameLost) return;
+
+      this.goToRoute('lost');
+    },
+    isOldVersion(isOldVersion) {
+      if (!isOldVersion) return;
+
+      this.goToRoute('update');
+    },
+    hasGameUpdated(hasGameUpdated) {
+      if (!hasGameUpdated) return;
+
+      this.goToRoute('home');
+    },
+    hasConnectionError(hasConnectionError) {
+      if (!hasConnectionError) {
+        this.goToRoute('home');
+        return;
+      }
+
+      this.goToRoute('connection-error');
+    },
+  },
+  methods: {
+    ...mapActions(['initApp', 'goToRoute']),
+    checkGameFocused({ visibilityState }) {
+      const { isGamePaused } = this;
+
+      if (isGamePaused) return;
+
+      if (visibilityState === 'hidden') {
+        this.goToRoute('pause');
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss">
-@import '~sanitize.css';
+@import 'sanitize.css';
 
 html {
   font-family: var(--font-family-primary);

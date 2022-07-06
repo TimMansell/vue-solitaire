@@ -1,20 +1,49 @@
-/* eslint-disable arrow-body-style */
-// https://docs.cypress.io/guides/guides/plugins-guide.html
-
-// if you need a custom webpack configuration you can uncomment the following import
-// and then use the `file:preprocessor` event
-// as explained in the cypress docs
-// https://docs.cypress.io/api/plugins/preprocessors-api.html#Examples
-
-// /* eslint-disable import/no-extraneous-dependencies, global-require */
-// const webpack = require('@cypress/webpack-preprocessor')
+require('dotenv').config();
 
 const {
   addMatchImageSnapshotPlugin,
 } = require('cypress-image-snapshot/plugin');
 
+const WebSocket = require('ws');
+
+const newMsg = ({ socket, msgName, msgPayload }) =>
+  new Promise((resolve, reject) => {
+    const messageFunction = (responseMsg) => {
+      try {
+        const { name, payload } = JSON.parse(Buffer.from(responseMsg));
+
+        if (name === msgName) {
+          socket.removeListener('message', messageFunction);
+
+          resolve(payload);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    socket.on('message', messageFunction);
+    socket.send(msgPayload);
+  });
+
 module.exports = (on, config) => {
   addMatchImageSnapshotPlugin(on, config);
+
+  let socket;
+
+  on('before:spec', async () => {
+    socket = new WebSocket(`${process.env.VITE_WEBSOCKETS_URL}/test`);
+  });
+
+  on('task', {
+    sendMsg({ name, payload, responseName }) {
+      const msgPayload = JSON.stringify({ name, payload });
+      const msgName = responseName || name;
+      const msg = newMsg({ socket, msgName, msgPayload });
+
+      return msg;
+    },
+  });
 
   return {
     ...config,

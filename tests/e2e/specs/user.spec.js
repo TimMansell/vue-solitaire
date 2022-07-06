@@ -1,78 +1,46 @@
-import numeral from 'numeral';
-
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
+import { mockUid } from '../../../src/mockData';
 
 describe('User', () => {
-  beforeEach(() => {
-    cy.clearLocalStorage();
+  describe('Default', () => {
+    beforeEach(() => {
+      cy.visitApp();
+    });
 
-    cy.intercept('POST', '.netlify/functions/graphql', (req) => {
-      const { body } = req;
+    afterEach(() => cy.cleanUp());
 
-      if (body?.query.includes('globalStats')) {
-        // eslint-disable-next-line no-param-reassign
-        req.alias = 'apiCheck';
-      }
+    it('it creates a new local user on initial page load', () => {
+      const luid = localStorage.getItem('luid');
+
+      expect(luid).to.not.equal('');
+      expect(luid).to.not.equal(mockUid);
     });
   });
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.visit('/');
-
-      cy.wait('@apiCheck');
+      cy.visitApp();
     });
 
-    it('it creates a new local user on initial page load', () => {
-      const luid = localStorage.getItem('luid');
+    it('it only activates a new user on server after first completed game, not following games', () => {
+      cy.getPlayerCount().then((count) => {
+        cy.checkPlayerCountIs(count);
 
-      // eslint-disable-next-line no-unused-expressions
-      expect(luid).to.exist;
-      expect(luid).to.not.equal('');
-    });
+        cy.startNewGame();
 
-    it('it creates a new user on server after first game has been played', () => {
-      cy.get('[data-test="player-count"]').as('playerCount');
+        cy.checkPlayerCountIs(count + 1);
 
-      cy.get('@playerCount').then(($playerCount) => {
-        const intialPlayerCount = numeral($playerCount.text()).value();
+        cy.startNewGame();
 
-        cy.newGame({ wait: true });
-
-        const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
-
-        cy.get('@playerCount')
-          .text()
-          .should('equal', newPlayerCount);
-      });
-    });
-
-    it('it does not create a new user on server after second game has been played', () => {
-      cy.get('[data-test="player-count"]').as('playerCount');
-
-      cy.get('@playerCount').then(($playerCount) => {
-        const intialPlayerCount = numeral($playerCount.text()).value();
-
-        cy.newGame({ wait: true });
-
-        cy.newGame({ wait: true });
-
-        const newPlayerCount = numeral(intialPlayerCount + 1).format('0,0');
-
-        cy.get('@playerCount')
-          .text()
-          .should('equal', newPlayerCount);
+        cy.checkPlayerCountIs(count + 1);
       });
     });
   });
 
   describe('Existing User', () => {
     beforeEach(() => {
-      localStorage.setItem('luid', mockUid);
+      cy.mockUser();
 
-      cy.visit('/');
-
-      cy.wait('@apiCheck');
+      cy.visitApp();
     });
 
     it('it does not create a new local user on initial page load', () => {
@@ -81,17 +49,13 @@ describe('User', () => {
       expect(luid).to.equal(mockUid);
     });
 
-    it('it does not create a new user on server after first game has been played', () => {
-      cy.get('[data-test="player-count"]').as('playerCount');
+    it('it does not create a new server user after first game has been played', () => {
+      cy.getPlayerCount().then((count) => {
+        cy.checkPlayerCountIs(count);
 
-      cy.get('@playerCount').then(($playerCount) => {
-        const intialPlayerCount = $playerCount.text();
+        cy.startNewGame();
 
-        cy.newGame({ wait: true });
-
-        cy.get('@playerCount')
-          .text()
-          .should('equal', intialPlayerCount);
+        cy.checkPlayerCountIs(count);
       });
     });
   });

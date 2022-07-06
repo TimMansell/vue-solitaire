@@ -2,5 +2,7 @@
   "baseUrl": "http://localhost:8080",
   "pluginsFile": "tests/e2e/plugins/index.js",
   "video": false,
-  "retries": 3
+  "retries": 1,
+  "experimentalInteractiveRunEvents": true,
+  "numTestsKeptInMemory": 1
 }

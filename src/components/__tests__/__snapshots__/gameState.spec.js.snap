@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`GameState.vue matches snapshot 1`] = `
-<div>
-  <gamewon-stub></gamewon-stub>
-  <gamelost-stub></gamelost-stub>
-  <gamepaused-stub></gamepaused-stub>
-</div>
-`;

@@ -1,89 +1,74 @@
-import { shallowMount } from '@vue/test-utils';
-import GameHistory, {
-  calcNumber,
-  gameOutcome,
-} from '@/components/GameHistory.vue';
+import { shallowMount, config } from '@vue/test-utils';
+import GameHistory from '@/components/GameHistory.vue';
+import { mockHistory } from '@/mockData';
+import { setupStore, setupRoute } from '@@/tests/helpers';
 
-const mocks = {
-  $store: { dispatch: jest.fn() },
-};
+config.renderStubDefaultSlot = true;
 
-const mockComputed = {
-  gameHistory: () => [
-    {
-      date: '2021-05-20T02:24:30.233Z',
-      won: false,
-      lost: false,
-      moves: 0,
-      time: 0,
-    },
-    {
-      date: '2021-05-20T02:24:14.157Z',
-      won: false,
-      lost: false,
-      moves: 0,
-      time: 0,
-    },
-    {
-      date: '2021-05-20T02:24:08.397Z',
-      won: false,
-      lost: false,
-      moves: 0,
-      time: 0,
-    },
-    {
-      date: '2021-05-14T12:16:17.268Z',
-      won: true,
-      lost: false,
-      moves: 2,
-      time: 0,
-    },
-  ],
-  userGameCount: () => 4,
+const global = {
+  mocks: {
+    $store: setupStore({
+      dispatch: vi.fn(),
+      gameHistory: mockHistory,
+      userGameCount: mockHistory.length,
+    }),
+    $route: setupRoute({
+      page: 1,
+      limit: 25,
+    }),
+  },
 };
 
 describe('GameHistory.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(GameHistory, {
-      mocks,
-      computed: {
-        ...mockComputed,
+      global,
+    });
+
+    expect(wrapper.isVisible()).toBe(true);
+  });
+
+  it('should set default filters when route params are incorrect format', () => {
+    const wrapper = shallowMount(GameHistory, {
+      global: {
+        mocks: {
+          ...global.mocks,
+          $route: setupRoute({
+            page: 'abc',
+            limit: 'abc',
+          }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.vm.filters).toStrictEqual({
+      page: 1,
+      limit: 25,
+    });
   });
 
-  it('should format number correctly', () => {
-    const result = calcNumber(1000);
+  it('should set default filters when route params are correct format but are out of bounds', () => {
+    const wrapper = shallowMount(GameHistory, {
+      global: {
+        mocks: {
+          ...global.mocks,
+          $route: setupRoute({
+            page: 5000,
+            limit: 5000,
+          }),
+        },
+      },
+    });
 
-    expect(result).toBe('1,000');
-  });
-
-  it('should return Won in gameOutcome', () => {
-    const result = gameOutcome({ won: true, lost: false });
-
-    expect(result).toBe('Won');
-  });
-
-  it('should return Lost in gameOutcome', () => {
-    const result = gameOutcome({ won: false, lost: true });
-
-    expect(result).toBe('Lost');
-  });
-
-  it('should return Gave Up in gameOutcome', () => {
-    const result = gameOutcome({ won: false, lost: false });
-
-    expect(result).toBe('Gave Up');
+    expect(wrapper.vm.filters).toStrictEqual({
+      page: 1,
+      limit: 25,
+    });
   });
 
   it('should show correct completed games message', () => {
     const wrapper = shallowMount(GameHistory, {
-      mocks,
-      computed: {
-        ...mockComputed,
-      },
+      global,
     });
 
     expect(
@@ -93,13 +78,10 @@ describe('GameHistory.vue', () => {
 
   it('should show correct pages', async () => {
     const wrapper = shallowMount(GameHistory, {
-      mocks,
-      computed: {
-        ...mockComputed,
-      },
+      global,
     });
 
-    await wrapper.setData({ limit: 3 });
+    await wrapper.setData({ filters: { limit: 3 } });
 
     expect(wrapper.find('[data-test="game-history-pages"]').text()).toContain(
       'Page: 1 / 2'
@@ -108,45 +90,60 @@ describe('GameHistory.vue', () => {
 
   it('should show correct showing games message ', async () => {
     const wrapper = shallowMount(GameHistory, {
-      mocks,
-      computed: {
-        ...mockComputed,
-      },
+      global,
     });
 
-    await wrapper.setData({ limit: 3 });
+    await wrapper.setData({ filters: { limit: 3 } });
 
     expect(
       wrapper
         .find('[data-test="game-history-showing-games"]')
         .text()
         .replace(/\s+/g, ' ')
-    ).toContain('Showing games 4 to 2');
+    ).toContain(`Showing games ${mockHistory.length} to 2`);
+  });
+
+  it('should show correct showing games message if on last page', async () => {
+    const wrapper = shallowMount(GameHistory, {
+      global,
+    });
+
+    await wrapper.setData({ filters: { limit: mockHistory.length } });
+
+    expect(
+      wrapper
+        .find('[data-test="game-history-showing-games"]')
+        .text()
+        .replace(/\s+/g, ' ')
+    ).toContain(`Showing games ${mockHistory.length} to 1`);
   });
 
   it('should show correct placeholder rows', async () => {
     const wrapper = shallowMount(GameHistory, {
-      mocks,
-      computed: {
-        ...mockComputed,
-      },
+      global,
     });
 
-    await wrapper.setData({ limit: 2 });
+    await wrapper.setData({ filters: { limit: 2 } });
 
     expect(wrapper.vm.pageRows).toBe(2);
   });
 
-  it('should show correct placeholder rows for last page', async () => {
+  it('should show correct placeholder rows if rows are the same as limit', async () => {
     const wrapper = shallowMount(GameHistory, {
-      mocks,
-      computed: {
-        ...mockComputed,
-      },
+      global,
     });
 
-    await wrapper.setData({ limit: 3 });
-    await wrapper.setData({ page: 2 });
+    await wrapper.setData({ filters: { limit: mockHistory.length } });
+
+    expect(wrapper.vm.pageRows).toBe(mockHistory.length);
+  });
+
+  it('should show correct placeholder rows for last page', async () => {
+    const wrapper = shallowMount(GameHistory, {
+      global,
+    });
+
+    await wrapper.setData({ filters: { limit: 3, page: 2 } });
 
     expect(wrapper.vm.pageRows).toBe(1);
   });

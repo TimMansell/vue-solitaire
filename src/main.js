@@ -1,15 +1,18 @@
-import Vue from 'vue';
-import App from './App.vue';
-import store from './store';
+import { createApp } from 'vue';
+// eslint-disable-next-line import/no-unresolved
+import 'virtual:svg-icons-register';
 
-Vue.config.productionTip = false;
+import App from '@/App.vue';
+import { store } from '@/store';
+import router from '@/router';
 
-const app = new Vue({
-  store,
-  render: (h) => h(App),
-}).$mount('#app');
+const app = createApp(App);
 
-// only available during E2E tests
-if (window.Cypress) {
-  window.app = app;
+app.use(router);
+app.use(store);
+app.mount('#app');
+
+// Give access to cypress.
+if (import.meta.env.DEV) {
+  window.solitaire = { store };
 }

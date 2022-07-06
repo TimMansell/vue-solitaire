@@ -1,13 +1,16 @@
+import { columns } from '@/services/solitaire/config';
+
 // Return state as function so we can reset it.
 const state = () => ({
-  board: {
-    cards: [[], [], [], [], [], [], [], []],
-    foundation: [[], [], [], []],
-  },
-  selectedCardId: null,
-  hasMoves: true,
+  cards: [[], [], [], [], [], [], [], []],
+  foundation: [[], [], [], []],
+  moves: [],
+  time: 0,
+  hasGameWon: false,
+  hasGameLost: false,
+  placeholders: columns,
+  selectedCardId: 0,
   draggedCards: [],
-  isNewGame: true,
 });
 
 export default state;

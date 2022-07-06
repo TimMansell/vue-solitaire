@@ -2,26 +2,31 @@
   <div
     class="card"
     :class="classes"
-    @click="selectCard($event, id)"
-    @dragstart="dragCard($event, id)"
-    @dragend.prevent
-    :draggable="visible"
+    @click="selectCard"
+    @dragstart="dragCard"
+    :draggable="isDraggable"
+    :data-card="cardName"
     :data-test="cardTestName"
     :data-card-selected="cardIsSelected"
   >
-    <DefaultCard :value="cardValue" v-show="visible && !bottomCard" />
+    <DefaultCard :value="cardValue" v-if="visible && !bottomCard" />
 
-    <BottomCard :id="id" :value="cardValue" v-show="visible && bottomCard" />
+    <BottomCard :id="id" :value="cardValue" v-if="visible && bottomCard" />
 
-    <CardPlaceholder v-show="!visible" />
+    <CardPlaceholder v-if="!visible" />
   </div>
 </template>
 
 <script>
+import detectTouchEvents from 'detect-touch-events';
+import { defineAsyncComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import DefaultCard from '@/components/DefaultCard.vue';
-import BottomCard from '@/components/BottomCard.vue';
 import CardPlaceholder from '@/components/CardPlaceholder.vue';
+
+const BottomCard = defineAsyncComponent(() =>
+  import('@/components/BottomCard.vue')
+);
 
 export default {
   name: 'Card',
@@ -47,10 +52,6 @@ export default {
       type: Boolean,
       default: true,
     },
-    revealed: {
-      type: Boolean,
-      default: false,
-    },
     clickable: {
       type: Boolean,
       default: true,
@@ -69,21 +70,26 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['selectedCardId', 'draggedCards', 'isCardDragged']),
+    ...mapGetters([
+      'selectedCardId',
+      'draggedCards',
+      'isCardDragged',
+      'isDisabledGame',
+    ]),
     cardValue() {
       const { value, suit } = this;
 
       return `${value}${suit}`;
     },
+    isDraggable() {
+      const { isDisabledGame, visible } = this;
+      const { hasSupport } = detectTouchEvents;
+
+      return !hasSupport && visible && !isDisabledGame;
+    },
     classes() {
-      const {
-        selectedCardId,
-        id,
-        stacked,
-        clickable,
-        visible,
-        isDragged,
-      } = this;
+      const { selectedCardId, id, stacked, clickable, visible, isDragged } =
+        this;
 
       return {
         'card--is-selected': selectedCardId === id && !isDragged,
@@ -93,11 +99,20 @@ export default {
         'card--is-dragged': isDragged,
       };
     },
-    cardTestName() {
+    cardName() {
       const { value, suit, visible } = this;
 
       if (visible) {
-        return `card-${value}${suit}`;
+        return `${value}${suit}`;
+      }
+
+      return '';
+    },
+    cardTestName() {
+      const { cardName, visible } = this;
+
+      if (visible) {
+        return `card-${cardName}`;
       }
 
       return 'card-hidden';
@@ -110,19 +125,23 @@ export default {
   },
   methods: {
     ...mapActions(['setCard', 'setDraggedCards']),
-    selectCard(e, id) {
-      const { selectedCardId } = this;
+    selectCard(event) {
+      const { id, selectedCardId, clickable, visible, isDisabledGame } = this;
+
+      if (isDisabledGame || !clickable || !visible) {
+        event.stopPropagation();
+
+        return;
+      }
 
       if (!selectedCardId) {
-        e.stopPropagation();
+        event.stopPropagation();
 
-        if (this.clickable && this.visible) {
-          this.setCard(id);
-        }
+        this.setCard(id);
       }
     },
-    dragCard(event, id) {
-      event.dataTransfer.setDragImage(new Image(), 0, 0);
+    dragCard() {
+      const { id } = this;
 
       this.setDraggedCards(id);
       this.setCard(id);
@@ -179,12 +198,6 @@ export default {
 
   &--is-dragged {
     opacity: 0;
-
-    /* stylelint-disable scss/selector-no-redundant-nesting-selector */
-    & ~ .card {
-      opacity: 0;
-    }
-    /* stylelint-enable scss/selector-no-redundant-nesting-selector */
   }
 }
 </style>

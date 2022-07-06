@@ -1,34 +1,35 @@
 <template>
   <div data-test="game-history">
     <p data-test="game-history-total-games" :data-games="userGameCount">
-      You have played a total of {{ userGameCount | formatNumber }} games
+      You have played a total of {{ formatNumber(userGameCount) }} games
     </p>
 
     <div ref="scrollTo">
       <Filters>
         <div data-test="game-history-pages">
-          Page: {{ page | formatNumber }} / {{ totalPages | formatNumber }}
+          Page: {{ formatNumber(page) }} / {{ formatNumber(totalPages) }}
         </div>
 
         <Select
-          v-model="limit"
+          v-model.number="filters.limit"
           label="Games"
-          :items="['25', '50', '100', '500']"
-          @select="displayLimit"
+          :items="limitItems"
+          @select="displayPage(1)"
         />
       </Filters>
     </div>
 
     <p data-test="game-history-showing-games">
-      Showing games {{ showingFrom | formatNumber }} to
-      {{ showingTo | formatNumber }}
+      Showing games {{ formatNumber(showingFrom) }} to
+      {{ formatNumber(showingTo) }}
     </p>
 
     <ResponsiveTable
-      :headings="['Game', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
-      :items="games"
+      :headings="['', 'Date', 'Time', 'Outcome', 'Moves', 'Duration']"
+      :items="gameHistory"
+      :spacing="true"
       :placeholder-rows="pageRows"
-      :to-highlight="{ key: 'outcome', value: 'Won' }"
+      :to-highlight="{ outcome: 'Won' }"
     />
 
     <Pagination
@@ -40,27 +41,13 @@
 </template>
 
 <script>
-import { format, parseISO } from 'date-fns';
-import numeral from 'numeral';
+import xss from 'xss';
 import { mapGetters, mapActions } from 'vuex';
 import Filters from '@/components/Filters.vue';
 import Select from '@/components/Select.vue';
 import ResponsiveTable from '@/components/ResponsiveTable.vue';
 import Pagination from '@/components/Pagination.vue';
-
-export const calcNumber = (value) => numeral(value).format('0,0');
-
-export const gameOutcome = ({ won, lost }) => {
-  if (won) {
-    return 'Won';
-  }
-
-  if (lost) {
-    return 'Lost';
-  }
-
-  return 'Gave Up';
-};
+import { formatNumber } from '@/helpers/numbers';
 
 export default {
   name: 'GameHistory',
@@ -72,55 +59,41 @@ export default {
   },
   data() {
     return {
-      page: 1,
-      offset: 0,
-      limit: 25,
-      games: [],
+      limitItems: [
+        { text: '25', value: 25 },
+        { text: '50', value: 50 },
+        { text: '100', value: 100 },
+        { text: '500', value: 500 },
+      ],
+      filters: {
+        page: parseInt(xss(this.$route.params.page), 10),
+        limit: parseInt(xss(this.$route.params.limit), 10),
+      },
     };
   },
-  filters: {
-    formatNumber(value) {
-      return calcNumber(value);
-    },
-  },
   watch: {
-    async limit() {
-      this.offset = 0;
-      this.page = 1;
-
-      await this.displayGames();
-
-      this.scrollTo();
+    filters: {
+      handler() {
+        this.updateRoute(this.filters);
+      },
+      deep: true,
     },
-    async page(newPage) {
-      const { limit } = this;
-      const offset = (newPage - 1) * limit;
-
-      this.offset = offset;
-
-      await this.displayGames();
-
-      this.scrollTo();
-    },
-    gameHistory() {
-      const { gameHistory, offset, userGameCount } = this;
-
-      const formattedGames = gameHistory.map(
-        ({ won, lost, date, moves, time }, index) => ({
-          number: calcNumber(userGameCount - offset - index),
-          date: format(parseISO(date), 'dd-MM-yyyy'),
-          timePlayed: format(parseISO(date), 'HH:mm:ss'),
-          outcome: gameOutcome({ won, lost }),
-          moves,
-          time: numeral(time).format('00:00:00'),
-        })
-      );
-
-      this.games = formattedGames;
-    },
+    'filters.page': 'scrollTo',
+    $route: 'displayGames',
   },
   computed: {
     ...mapGetters(['gameHistory', 'userGameCount']),
+    page() {
+      return this.filters.page;
+    },
+    limit() {
+      return this.filters.limit;
+    },
+    offset() {
+      const { page, limit } = this;
+
+      return (page - 1) * limit;
+    },
     totalPages() {
       const { limit, userGameCount } = this;
 
@@ -143,39 +116,51 @@ export default {
       return showingTo;
     },
     pageRows() {
-      const { limit, totalPages, page, pageGamesCount } = this;
+      const { limit, totalPages, page, lastPageRows } = this;
 
       if (page === totalPages) {
-        return pageGamesCount;
+        return lastPageRows;
       }
 
       return limit;
     },
-    pageGamesCount() {
+    lastPageRows() {
       const { limit, userGameCount } = this;
 
-      const pageGamesCount = userGameCount % limit;
+      const lastPageRows = userGameCount % limit;
 
-      return pageGamesCount;
+      if (lastPageRows === 0) {
+        return limit;
+      }
+
+      return lastPageRows;
     },
   },
+
   mounted() {
+    this.checkInitialFilters();
     this.displayGames();
   },
   methods: {
-    ...mapActions(['getAllGames']),
+    ...mapActions(['getAllGames', 'updateRoute']),
+    checkInitialFilters() {
+      const { limitItems, limit, page, totalPages } = this;
+
+      const validLimit = limitItems.map(({ value }) => value).includes(limit);
+
+      this.filters.limit = validLimit ? limit : limitItems.at(0).value;
+      this.filters.page = page <= totalPages ? page : 1;
+    },
+    formatNumber(number) {
+      return formatNumber(number);
+    },
     displayPage(page) {
-      this.page = page;
+      this.filters.page = page;
     },
-    displayLimit(limit) {
-      this.limit = parseInt(limit, 10);
-    },
-    async displayGames() {
+    displayGames() {
       const { offset, limit } = this;
 
-      this.games = [];
-
-      await this.getAllGames({ offset, limit });
+      this.getAllGames({ offset, limit });
     },
     scrollTo() {
       this.$emit('scrollTo', this.$refs.scrollTo);

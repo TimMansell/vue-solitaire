@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ShowRulesButton.vue matches snapshot 1`] = `
-<button-stub type="default" size="md" data-test="game-rules-btn" title="How to Play">
-  <fontawesomeicon-stub icon="[object Object]"></fontawesomeicon-stub>
-</button-stub>
-`;

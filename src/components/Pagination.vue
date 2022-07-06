@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Paginate from 'vuejs-paginate';
+import Paginate from 'vuejs-paginate-next';
 import { debounce } from 'throttle-debounce';
 import {
   addEventListener,
@@ -57,7 +57,7 @@ export default {
 
     this.setRange();
   },
-  destroyed() {
+  unmounted() {
     const { events } = this;
 
     removeEventListener(events);

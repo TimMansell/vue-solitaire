@@ -1,10 +1,12 @@
 <template>
-  <button class="btn" :class="classes" @click="click">
+  <button class="btn" :class="classes" @click="onClick" :disabled="isDisabled">
     <slot />
   </button>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'Button',
   props: {
@@ -19,30 +21,59 @@ export default {
       type: Boolean,
       default: false,
     },
+    checkDisabled: {
+      type: Boolean,
+      default: false,
+    },
     size: {
       type: String,
       validator(value) {
-        return ['md', 'lg'].includes(value);
+        return ['sm', 'md', 'lg'].includes(value);
       },
       default: 'md',
     },
+    click: {
+      type: Function,
+      default: () => {},
+    },
+    route: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
+    ...mapGetters(['isDisabledGame']),
+    isDisabled() {
+      const { isDisabledGame, checkDisabled } = this;
+
+      if (checkDisabled) return isDisabledGame;
+
+      return false;
+    },
     classes() {
-      const { type, isStacked, size } = this;
+      const { type, isStacked, size, isDisabled } = this;
 
       return {
         'btn--alt': type === 'alt',
         'btn--link': type === 'link',
         'btn--is-stacked': isStacked,
         'btn--icon': type === 'icon',
+        'btn--small': size === 'sm',
         'btn--large': size === 'lg',
+        'btn--disabled': isDisabled,
       };
     },
   },
   methods: {
-    click() {
-      this.$emit('click');
+    ...mapActions(['goToRoute']),
+    onClick() {
+      const { route, goToRoute, click } = this;
+
+      if (route) {
+        goToRoute(route);
+      }
+
+      click();
     },
   },
 };
@@ -75,6 +106,14 @@ export default {
     cursor: pointer;
   }
 
+  & + & {
+    margin-left: var(--mg-sm);
+  }
+
+  &--disabled {
+    cursor: not-allowed !important;
+  }
+
   &--icon {
     border: 0;
     text-shadow: none;
@@ -91,6 +130,7 @@ export default {
 
     & + & {
       border-left: 0;
+      margin: 0;
 
       &:not(:last-of-type) {
         border-radius: 0;
@@ -124,6 +164,10 @@ export default {
       background: none;
       text-shadow: none;
     }
+  }
+
+  &--small {
+    font-size: var(--font-size-sm);
   }
 
   &--large {

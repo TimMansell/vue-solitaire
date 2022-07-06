@@ -1,105 +1,97 @@
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-
 describe('Leaderboards', () => {
   describe('Default', () => {
     beforeEach(() => {
-      cy.visit('/');
-    });
-    it('should not show game paused if leaderboards overlay is visible', () => {
-      cy.document().then((doc) => {
-        cy.stub(doc, 'visibilityState').value('hidden');
-      });
-
-      cy.get('[data-test="leaderboards-btn"]').click();
-
-      cy.document().trigger('visibilitychange');
-
-      cy.get('[data-test="game-paused"]').should('not.exist');
+      cy.visitApp();
     });
 
-    it('it should display correct heading', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+    afterEach(() => cy.cleanUp());
 
-      cy.get('[data-test="leaderboards-heading"]')
-        .as('heading')
-        .should('contain', 'Top 25 Best Moves');
+    it('it should display correct headings', () => {
+      cy.showLeaderboards();
 
-      cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
-        'Times'
-      );
+      cy.checkLeaderboardHeading('Top 25 Lowest Moves');
+      cy.checkTableHeading({ cell: 3, heading: 'Moves' });
 
-      cy.get('@heading').should('contain', 'Top 25 Best Times');
+      cy.selectLeaderboardBest('Times');
 
-      cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
-        '50'
-      );
+      cy.checkLeaderboardHeading('Top 25 Quickest Times');
+      cy.checkTableHeading({ cell: 3, heading: 'Times' });
 
-      cy.get('@heading').should('contain', 'Top 50 Best Times');
+      cy.selectLeaderboardBest('Win %');
+
+      cy.checkLeaderboardHeading('Top 25 Best Win %');
+      cy.checkTableHeading({ cell: 2, heading: 'Win %' });
+
+      cy.selectLeaderboardBest('Wins');
+
+      cy.checkLeaderboardHeading('Top 25 Most Wins');
+      cy.checkTableHeading({ cell: 2, heading: 'Wins' });
+
+      cy.selectLeaderboardTop(50);
+
+      cy.checkLeaderboardHeading('Top 50 Most Wins');
     });
 
     it('it should display correct amount of table rows', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+      cy.showLeaderboards();
 
-      cy.get('[data-test="table-row"]').should('have.length', 25);
+      cy.checkLeaderboardGameRange();
 
-      cy.get('[data-test="leaderboard-set-top"] [data-test="select"]').select(
-        '50'
-      );
+      cy.selectLeaderboardTop(50);
 
-      cy.get('[data-test="table-row"]').should('have.length', 50);
+      cy.checkLeaderboardGameRange();
     });
 
-    it('it should display correct table heading', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+    it('should show correct data from url params', () => {
+      cy.visit('/leaderboards/time/100');
 
-      cy.get('[data-test="table-header-row"] th')
-        .eq(3)
-        .as('row')
-        .should('contain', 'Moves');
+      cy.checkSelectLeaderboardBest('Times');
+      cy.checkSelectLeaderboardTop('100');
 
-      cy.get('[data-test="leaderboard-set-best"] [data-test="select"]').select(
-        'Times'
-      );
+      cy.checkLeaderboardHeading('Top 100 Quickest Times');
 
-      cy.get('@row').should('contain', 'Times');
+      cy.checkTableHeading({ cell: 3, heading: 'Times' });
+
+      cy.checkLeaderboardGameRange();
+    });
+
+    it('it should set filters to default params', () => {
+      cy.visit('/leaderboards/abc/5000');
+
+      cy.checkSelectLeaderboardBest('Moves');
+      cy.checkSelectLeaderboardTop('25');
+
+      cy.checkLeaderboardHeading('Top 25 Lowest Moves');
+
+      cy.checkTableHeading({ cell: 3, heading: 'Moves' });
+
+      cy.url().should('include', '/moves/25');
     });
   });
 
   describe('New User', () => {
     beforeEach(() => {
-      cy.visit('/');
+      cy.visitApp();
     });
 
-    it('it should display player name after first game', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+    it('it should display player name', () => {
+      cy.showLeaderboards();
 
-      cy.get('[data-test="leaderboard-name"]').should('not.exist');
-
-      cy.get('[data-test="game-overlay-close"]').click();
-
-      cy.get('[data-test="new-game-btn"]').click();
-
-      cy.get('[data-test="game-new"]').within(() => {
-        cy.get('[data-test="new-game-btn"]').click();
-      });
-
-      cy.get('[data-test="leaderboards-btn"]').click();
-
-      cy.get('[data-test="leaderboard-name"]').should('exist');
+      cy.checkLeaderboardNameExists(true);
     });
   });
 
   describe('Existing User', () => {
     beforeEach(() => {
-      localStorage.setItem('luid', mockUid);
+      cy.mockUser();
 
-      cy.visit('/');
+      cy.visitApp();
     });
 
-    it('it should display player name after first game', () => {
-      cy.get('[data-test="leaderboards-btn"]').click();
+    it('it should display player name ', () => {
+      cy.showLeaderboards();
 
-      cy.get('[data-test="leaderboard-name"]').should('exist');
+      cy.checkLeaderboardNameExists(true);
     });
   });
 });

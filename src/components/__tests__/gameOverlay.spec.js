@@ -1,37 +1,36 @@
 import { shallowMount } from '@vue/test-utils';
 import GameOverlay from '@/components/GameOverlay.vue';
+import { setupStore } from '@@/tests/helpers';
 
-const mocks = {
-  $store: { dispatch: jest.fn() },
-};
-
-const computed = {
-  isOverlayVisible: () => true,
+const global = {
+  mocks: {
+    $store: setupStore({
+      isOverlayVisible: true,
+    }),
+  },
 };
 
 describe('GameOverlay.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(GameOverlay, {
-      mocks,
-      propsData: {
+      global,
+      props: {
         showLogo: true,
-        btnClose: () => {},
+        showClose: true,
       },
       slots: {
         title: 'Title',
         msg: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
         buttons: 'Buttons',
       },
-      computed,
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('does not render logo', () => {
     const wrapper = shallowMount(GameOverlay, {
-      mocks,
-      computed,
+      global,
     });
 
     expect(wrapper.find('[data-test="game-overlay-logo"]').exists()).toBe(
@@ -41,8 +40,7 @@ describe('GameOverlay.vue', () => {
 
   it('does not render a close button', () => {
     const wrapper = shallowMount(GameOverlay, {
-      mocks,
-      computed,
+      global,
     });
 
     expect(wrapper.find('[data-test="game-overlay-close"]').exists()).toBe(
@@ -52,11 +50,10 @@ describe('GameOverlay.vue', () => {
 
   it('renders an center content class', () => {
     const wrapper = shallowMount(GameOverlay, {
-      mocks,
-      propsData: {
+      global,
+      props: {
         centerContent: true,
       },
-      computed,
     });
 
     expect(wrapper.classes()).toContain('game-overlay--centered');
@@ -64,9 +61,12 @@ describe('GameOverlay.vue', () => {
 
   it('renders a see-through class', () => {
     const wrapper = shallowMount(GameOverlay, {
-      mocks,
-      computed: {
-        isOverlayVisible: () => false,
+      global: {
+        mocks: {
+          $store: setupStore({
+            isOverlayVisible: false,
+          }),
+        },
       },
     });
 

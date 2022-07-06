@@ -1,42 +1,36 @@
 import { countItemsInDb } from './helpers';
 
-export const won = async (parent, args, context) => {
+export const won = (parent, args, context) => {
   const { client } = context;
-  const collection = 'games';
-  const params = {
+
+  return countItemsInDb({
+    client,
+    collection: 'games',
     findFields: { ...parent, won: true },
-    returnFields: { projection: { won: 1 } },
-  };
-
-  const itemCount = await countItemsInDb(client, collection, params);
-
-  return itemCount;
+    returnFields: { won: 1 },
+  });
 };
 
-export const lost = async (parent, args, context) => {
+export const lost = (parent, args, context) => {
   const { client } = context;
-  const collection = 'games';
-  const params = {
+
+  return countItemsInDb({
+    client,
+    collection: 'games',
     findFields: { ...parent, lost: true },
-    returnFields: { projection: { lost: 1 } },
-  };
-
-  const itemCount = await countItemsInDb(client, collection, params);
-
-  return itemCount;
+    returnFields: { lost: 1 },
+  });
 };
 
-export const completed = async (parent, args, context) => {
+export const completed = (parent, args, context) => {
   const { client } = context;
-  const collection = 'games';
-  const params = {
+
+  return countItemsInDb({
+    client,
+    collection: 'games',
     findFields: { ...parent, completed: true },
-    returnFields: { projection: { completed: 1 } },
-  };
-
-  const itemCount = await countItemsInDb(client, collection, params);
-
-  return itemCount;
+    returnFields: { completed: 1 },
+  });
 };
 
 export const userStats = {

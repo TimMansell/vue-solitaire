@@ -1,37 +1,31 @@
-import { buildCards, dealCards, shuffleCards } from '../cards';
-import { checkHasMoves } from '../moves';
-import { initFoundation } from '../foundation';
+export const setBoard = (cards) =>
+  cards.map((column) =>
+    column
+      .reverse()
+      .map((card, index) => ({
+        ...card,
+        visible: index % 2 === 0,
+      }))
+      .reverse()
+  );
 
-export const checkInitialBoardMoves = (boardCards) => {
-  const foundationCards = initFoundation();
+export const getColumnCards = (deck, columnCardsIndexes) =>
+  columnCardsIndexes.map(({ startIndex, endIndex }) =>
+    deck.slice(startIndex, endIndex)
+  );
 
-  const board = {
-    foundationCards,
-    boardCards,
-  };
+export const getColumnIndexes = (columns) =>
+  columns.map((column, columnIndex, array) => {
+    const startArray = array.slice(0, columnIndex);
+    const endArray = array.slice(0, columnIndex + 1);
 
-  const hasBoardMoves = checkHasMoves(board);
+    const calcOffset = (accumulator, currentValue) =>
+      accumulator + currentValue;
+    const startIndex = startArray.reduce(calcOffset, 0);
+    const endIndex = endArray.reduce(calcOffset, 0);
 
-  return hasBoardMoves;
-};
-
-export const getBoardCards = (settings, toShuffle = true) => {
-  const { cards, rules } = settings;
-  const deck = buildCards(cards);
-  const shuffledDeck = shuffleCards(deck, toShuffle);
-  const boardCards = dealCards(shuffledDeck, rules);
-
-  return boardCards;
-};
-
-export const initBoardCards = (settings, boardCards) => {
-  const hasBoardMoves = checkInitialBoardMoves(boardCards);
-
-  if (!hasBoardMoves) {
-    const cards = getBoardCards(settings);
-
-    return initBoardCards(settings, cards);
-  }
-
-  return boardCards;
-};
+    return {
+      startIndex,
+      endIndex,
+    };
+  });

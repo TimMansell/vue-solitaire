@@ -1,6 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Version.vue matches snapshot 1`] = `
-<div class="version"><a href="https://github.com/TimMansell/vue-solitaire" target="_blank" rel="noopener noreferrer" title="View Source Code"><span class="version__v">v</span>1.0.0
-  </a></div>
-`;

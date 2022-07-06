@@ -1,86 +1,39 @@
-import validMove from '../../fixtures/boards/validMove.json';
-
-const moveLeft = 200;
-const moveTop = -200;
+import validMoveDeck from '../../../src/services/solitaire/fixtures/decks/validMove.json';
 
 describe('Dragged Cards', () => {
   beforeEach(() => {
-    cy.clearLocalStorage();
-    cy.visit('/');
+    cy.visitApp();
+
+    cy.mockBoard(validMoveDeck);
   });
 
-  it('should move dragged cards to correct position', () => {
-    cy.setBoard(validMove).then(() => {
-      cy.get('[data-test="column-3"]').shouldContain(['6♦']);
-
-      cy.get('[data-test="card-6♦"]').then((card) => {
-        cy.get('[data-test="card-6♦"]').drag(moveLeft, moveTop);
-
-        cy.get('[data-test="dragged-cards"]').then((cards) => {
-          const { offsetLeft, offsetTop } = card[0];
-          const { clientWidth } = cards[0];
-          const left = offsetLeft + moveLeft - clientWidth / 2;
-          const top = offsetTop + moveTop;
-
-          cy.get('[data-test="dragged-cards-container"]')
-            .should('have.css', 'top', `${top}px`)
-            .should('have.css', 'left', `${left}px`);
-        });
-      });
-    });
-  });
+  afterEach(() => cy.cleanUp());
 
   it('should drag single card', () => {
-    cy.setBoard(validMove).then(() => {
-      cy.get('[data-test="column-2"]').shouldContain(['7♦']);
+    cy.dragCardToPosition('7♦', { x: 200, y: -200 });
 
-      cy.get('[data-test="card-7♦"]').drag(moveLeft, moveTop);
+    cy.checkDraggedCardsLength(1);
 
-      cy.get('[data-test="dragged-cards"]')
-        .children()
-        .should('have.length', 1);
-
-      cy.get('[data-test="dragged-cards"]').within(() => {
-        cy.get('[data-test="card-7♦"]').should('be.visible');
-      });
-
-      cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="card-7♦"]').should('not.be.visible');
-      });
-    });
+    cy.checkCardsExistOn(['7♦'], 'dragged-cards');
+    cy.checkCardsNotVisibleOn(['7♦'], 'column-2');
   });
 
   it('should drag correct amount of cards', () => {
-    cy.setBoard(validMove).then(() => {
-      cy.get('[data-test="column-3"]').shouldContain(['6♦']);
+    cy.dragCardToPosition('6♦', { x: 200, y: -200 });
 
-      cy.get('[data-test="card-6♦"]').drag(moveLeft, moveTop);
+    cy.checkDraggedCardsLength(3);
 
-      cy.get('[data-test="dragged-cards"]')
-        .children()
-        .should('have.length', 3);
-
-      cy.get('[data-test="dragged-cards"]').within(() => {
-        cy.get('[data-test="card-6♦"]').should('be.visible');
-        cy.get('[data-test="card-2♥"]').should('be.visible');
-      });
-
-      cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="card-6♦"]').should('not.be.visible');
-        cy.get('[data-test="card-2♥"]').should('not.be.visible');
-      });
-    });
+    cy.checkCardsExistOn(['6♦', '2♥'], 'dragged-cards');
+    cy.checkCardsNotVisibleOn(['6♦', '2♥'], 'column-3');
   });
 
   it('should clear dragged cards when dropped outside of board', () => {
-    cy.setBoard(validMove).then(() => {
-      cy.get('[data-test="column-3"]').shouldContain(['6♦']);
+    cy.dragCardFromTo('6♦', 'board');
 
-      cy.dragFromTo('card-9♦', 'board');
+    cy.checkDraggedCardsLength(0);
 
-      cy.get('[data-test="columns"]').within(() => {
-        cy.get('[data-test="card-6♦"]').should('be.visible');
-      });
-    });
+    cy.checkCardIsNotSelected();
+
+    cy.checkCardsExistOn(['6♦'], 'column-3');
   });
 });

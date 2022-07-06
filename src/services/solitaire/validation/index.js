@@ -1,3 +1,4 @@
+import { columns } from '../config';
 import {
   setupValidation,
   isMoveValidCard,
@@ -39,3 +40,5 @@ export const validateFoundationMove = (card, compareTo) => {
 
 export const validateFoundationMovePosition = (card, compareTo) =>
   setupValidation(card, compareTo)(isFoundationMoveValidPosition);
+
+export const validateEmptyColumn = (cards) => cards.length < columns.length;

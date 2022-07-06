@@ -1,26 +1,26 @@
 <template>
   <div
-    @click="setColumn(columnNo)"
-    @drop="dropCard(columnNo)"
+    @click="moveCardsToColumn(columnNo)"
+    @drop="moveCardsToColumn(columnNo)"
     @dragover.prevent
     @dragenter.prevent
     :data-test="`column-${columnNo}`"
   >
     <Card
-      v-for="(card, index) in cards"
+      v-for="({ id, value, suit, visible, isDragged }, index) in cards"
       :key="index"
-      :id="card.id"
-      :value="card.value"
-      :suit="card.suit"
-      :revealed="card.revealed"
-      :visible="card.visible"
-      :is-dragged="card.isDragged"
+      :id="id"
+      :value="value"
+      :suit="suit"
+      :visible="visible"
+      :is-dragged="isDragged"
       :bottom-card="cards.length - 1 === index"
     />
 
     <CardPlaceholder
       v-if="!cards.length"
-      see-through
+      :cards="placeholderCards"
+      :see-through="!isEmptyBoard"
       data-test="column-card-placeholder"
     />
   </div>
@@ -48,20 +48,19 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['selectedCardId']),
+    ...mapGetters(['isEmptyBoard', 'placeholders']),
+    placeholderCards() {
+      const { columnNo, isEmptyBoard, placeholders } = this;
+      const placeholderCards = placeholders.at(columnNo);
+      const DEFAULT_CARDS = 1;
+
+      const numberOfCards = isEmptyBoard ? placeholderCards : DEFAULT_CARDS;
+
+      return numberOfCards;
+    },
   },
   methods: {
     ...mapActions(['moveCardsToColumn']),
-    setColumn(columnNo) {
-      const { selectedCardId } = this;
-
-      if (selectedCardId) {
-        this.moveCardsToColumn(columnNo);
-      }
-    },
-    dropCard(columnNo) {
-      this.moveCardsToColumn(columnNo);
-    },
   },
 };
 </script>

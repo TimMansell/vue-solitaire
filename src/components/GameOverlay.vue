@@ -2,14 +2,14 @@
   <div class="game-overlay" :class="overlayClasses" data-test="game-overlay">
     <div
       class="game-overlay__close"
-      v-if="btnClose"
       title="Close Overlay"
+      v-if="showClose"
       data-test="game-overlay-close"
     >
       <Button
+        route="home"
         type="icon"
         size="lg"
-        @click="btnClose"
         data-test="game-overlay-close-btn"
       >
         <FontAwesomeIcon :icon="closeIcon" />
@@ -34,21 +34,21 @@
             <slot name="msg" />
           </div>
         </div>
-        <div
+        <span
           class="game-overlay__btns"
           :class="buttonClasses"
           v-if="hasBtnSlot"
           data-test="game-overlay-btns"
         >
           <slot name="buttons" />
-        </div>
+        </span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -71,9 +71,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    // eslint-disable-next-line vue/require-default-prop
-    btnClose: {
-      type: Function,
+    showClose: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -116,15 +116,12 @@ export default {
   mounted() {
     // Stop body from scrolling when overlay is open.
     this.setHideBody(true);
-    this.setTimerPaused(true);
   },
-  destroyed() {
+  unmounted() {
     // Enable body scrolling.
     this.setHideBody(false);
-    this.setTimerPaused(false);
   },
   methods: {
-    ...mapActions(['setTimerPaused']),
     setHideBody(value) {
       const overflow = value ? 'hidden' : 'auto';
 
@@ -136,9 +133,6 @@ export default {
 
 <style lang="scss" scoped>
 .game-overlay {
-  --blur: 10px;
-  --animation-speed: 0.4s;
-
   display: grid;
   align-items: center;
   position: fixed;
@@ -179,11 +173,10 @@ export default {
   }
 
   &__container {
-    justify-self: center;
-
-    @media (min-width: $bp-md) {
+    @media (min-width: $bp-sm) {
+      justify-self: center;
       max-width: 90%;
-      min-width: 60%;
+      min-width: 70%;
     }
 
     @media (min-width: $bp-xl) {
@@ -218,8 +211,6 @@ export default {
   }
 
   &__btns {
-    display: inline-flex;
-    justify-content: center;
     padding: var(--mg-sm);
 
     &--is-visible {
@@ -229,10 +220,6 @@ export default {
         border: 1px solid var(--col-primary-alt-2);
         border-radius: var(--bdr-radius-lg);
       }
-    }
-
-    > * + * {
-      margin-left: var(--mg-sm);
     }
   }
 }

@@ -1,52 +1,40 @@
-import db from '@/services/db';
-
 const actions = {
-  async getStatsCount({ commit, rootState }) {
-    const { luid } = rootState.user;
-
-    const { error, response } = await db.getStatsCount(luid);
-    const { userStats, globalStats } = response;
-
-    if (!error) {
-      commit('SET_USER_GAME_COUNT', userStats);
-      commit('SET_GLOBAL_GAME_COUNT', globalStats);
-      commit('SET_GLOBAL_PLAYER_COUNT', globalStats);
-    }
+  setUserPlayed({ commit }, games) {
+    commit('SET_USER_GAME_COUNT', games);
   },
-  async getStats({ commit, rootState }) {
-    const { luid } = rootState.user;
-    const { error, response } = await db.getStats(luid);
-    const { userStats, globalStats } = response;
-
-    if (!error) {
-      commit('SET_USER_STATS', userStats);
-      commit('SET_GLOBAL_STATS', globalStats);
-      commit('SET_GLOBAL_GAME_COUNT', globalStats);
-    }
+  setGlobalPlayed({ commit }, games) {
+    commit('SET_GLOBAL_GAME_COUNT', games);
   },
-  toggleStats({ commit, state }) {
-    const showStats = !state.showStats;
-
-    commit('SHOW_STATS', showStats);
+  setPlayerCount({ commit }, players) {
+    commit('SET_GLOBAL_PLAYER_COUNT', players);
   },
-  clearStats({ commit }) {
-    commit('CLEAR_STATS');
+  setOnlineCount({ commit }, players) {
+    commit('SET_ONLINE_PLAYER_COUNT', players);
   },
-  toggleLeaderboards({ commit, state }) {
-    const showLeaderboards = !state.showLeaderboards;
-
-    commit('SHOW_LEADERBOARDS', showLeaderboards);
+  setStats({ commit }, { userStats, globalStats }) {
+    commit('SET_USER_STATS', userStats);
+    commit('SET_GLOBAL_STATS', globalStats);
   },
-  async getLeaderboards({ commit }, params) {
-    commit('SET_LEADERBOARDS', []);
+  getStats({ dispatch }) {
+    dispatch('setStats', { userStats: [], globalStats: [] });
 
-    const { error, response } = await db.getLeaderboards(params);
+    dispatch('emit', {
+      name: 'stats',
+    });
+  },
+  setLeaderboards({ commit }, leaderboards) {
+    commit('SET_LEADERBOARDS', leaderboards);
+  },
+  getLeaderboards({ dispatch }, params) {
+    dispatch('clearLeaderboards');
 
-    if (!error) {
-      const { leaderboards } = response;
-
-      commit('SET_LEADERBOARDS', leaderboards);
-    }
+    dispatch('emit', {
+      name: 'leaderboards',
+      params,
+    });
+  },
+  clearLeaderboards({ dispatch }) {
+    dispatch('setLeaderboards', []);
   },
 };
 

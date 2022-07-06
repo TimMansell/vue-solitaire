@@ -1,45 +1,21 @@
 <template>
-  <Button :is-stacked="isStacked" @click="newGame" data-test="new-game-btn">
+  <Button
+    :is-stacked="true"
+    :check-disabled="true"
+    route="new"
+    data-test="new-game-btn"
+  >
     New
   </Button>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
-  name: 'NewGame',
+  name: 'NewGameButton',
   components: {
     Button,
-  },
-  props: {
-    isCompleted: {
-      type: Boolean,
-      default: false,
-    },
-    showConfirmation: {
-      type: Boolean,
-      default: false,
-    },
-    isStacked: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  methods: {
-    ...mapActions(['setNewGame', 'toggleNewGame']),
-    newGame() {
-      const { isCompleted, showConfirmation } = this;
-
-      if (showConfirmation) {
-        this.toggleNewGame();
-
-        return;
-      }
-
-      this.setNewGame(isCompleted);
-    },
   },
 };
 </script>

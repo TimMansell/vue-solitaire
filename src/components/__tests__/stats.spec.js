@@ -1,14 +1,22 @@
 import { shallowMount } from '@vue/test-utils';
 import Stats from '@/components/Stats.vue';
+import { mockStats } from '@/mockData';
+import { setupStore } from '@@/tests/helpers';
 
 describe('Stats.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Stats, {
-      computed: {
-        timer: () => 1,
+      global: {
+        mocks: {
+          $store: setupStore({
+            dispatch: vi.fn(),
+            userStats: [{ ...mockStats }],
+            globalStats: [{ ...mockStats }],
+          }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

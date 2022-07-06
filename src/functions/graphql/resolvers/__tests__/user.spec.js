@@ -1,3 +1,5 @@
+import tzMock from 'timezone-mock';
+import { mockUid, mockHistoryApi, mockPlayerName } from '@/mockData';
 import { history, exists, name } from '../user';
 import {
   wrapClient,
@@ -7,17 +9,7 @@ import {
   createMockFindOne,
 } from '../__mocks__/mockDb';
 
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
-const mockHistory = [
-  {
-    date: '2021-05-20T23:34:49.564Z',
-    won: false,
-    lost: false,
-    moves: 0,
-    time: 12,
-  },
-];
-const mockPlayerName = 'Player Name';
+tzMock.register('UTC');
 
 describe('Graphql User Resolvers', () => {
   describe('exists', () => {
@@ -50,13 +42,13 @@ describe('Graphql User Resolvers', () => {
     it('should return users game history', async () => {
       const mockContext = wrapClient(
         createMockFind({
-          ...createMockFiltered(mockHistory),
+          ...createMockFiltered(mockHistoryApi),
         })
       );
 
       const result = await history({ uid: mockUid }, '', mockContext);
 
-      expect(result).toEqual(mockHistory);
+      expect(result).toEqual(mockHistoryApi);
     });
   });
 

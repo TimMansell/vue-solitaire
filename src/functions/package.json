@@ -1,0 +1,17 @@
+{
+  "name": "netlify-functions",
+  "private": true,
+  "engines": {
+    "node": ">=14.x"
+  },
+  "dependencies": {
+    "apollo-server-lambda": "2.25.1",
+    "graphql": "15.5.0",
+    "graphql-depth-limit": "1.1.0",
+    "mongodb": "3.6.9",
+    "mongodb-client-encryption": "1.2.5",
+    "node-fetch": "2.6.1",
+    "timezone-mock": "1.2.1",
+    "webpack-node-externals": "2.5.1"
+  }
+}

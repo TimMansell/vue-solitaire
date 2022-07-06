@@ -1,33 +1,30 @@
+import { foundationColumns } from '../config';
 import { getSelectedCard, checkCardValue } from '../cards';
 import {
-  initFoundations,
   checkEmptyFoundationColumn,
   checkFoundationColumnSuit,
   getFoundationColumn,
 } from './foundation';
-import settings from '../settings.json';
 
-export const initFoundation = () => initFoundations(settings);
+export const initFoundation = () => foundationColumns.map(() => []);
 
-export const loadFoundation = ({ foundation }) => foundation;
-
-export const updateFoundation = ({ foundationCards }, { foundationCardsTo }) =>
-  foundationCards.map((columnCards, index) => {
-    if (index === foundationCardsTo.columnNo) {
-      return foundationCardsTo.cards;
+export const updateFoundation = ({ foundation }, { cardsTo }) =>
+  foundation.map((columnCards, index) => {
+    if (index === cardsTo.columnNo) {
+      return cardsTo.columnCards;
     }
 
     return columnCards;
   });
 
 export const getEmptyFoundationColumn = ({
-  foundationCards,
-  boardCards,
+  foundation,
+  cards,
   selectedCardId,
 }) => {
-  const selectedCard = getSelectedCard(boardCards, selectedCardId);
+  const selectedCard = getSelectedCard(cards, selectedCardId);
 
-  const foundationColumnNo = foundationCards.findIndex((foundationColumn) => {
+  const foundationColumnNo = foundation.findIndex((foundationColumn) => {
     const isColumnEmpty = checkEmptyFoundationColumn(foundationColumn);
     const isCorrectFoundationSuit = checkFoundationColumnSuit(
       foundationColumn,

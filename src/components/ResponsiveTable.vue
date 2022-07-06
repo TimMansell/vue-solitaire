@@ -1,5 +1,5 @@
 <template>
-  <div class="responsive-table">
+  <div class="responsive-table" :class="tableClass">
     <div
       class="responsive-table__overlay"
       v-if="showTableHelper && items.length"
@@ -40,6 +40,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    spacing: {
+      type: Boolean,
+      default: false,
+    },
     placeholderRows: {
       type: Number,
       default: 1,
@@ -49,8 +53,17 @@ export default {
       default: () => {},
     },
   },
-  destroyed() {
+  unmounted() {
     localStorage.setItem('showTableHelper', 'false');
+  },
+  computed: {
+    tableClass() {
+      const { spacing } = this;
+
+      return {
+        'responsive-table--spacing': spacing,
+      };
+    },
   },
 };
 </script>
@@ -63,6 +76,10 @@ export default {
 
   @media (min-width: $bp-sm) {
     max-width: initial;
+  }
+
+  &--spacing {
+    margin-bottom: var(--mg-md);
   }
 
   &__overlay {

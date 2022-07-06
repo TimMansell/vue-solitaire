@@ -4,12 +4,12 @@
     <select
       class="select__dropdown"
       :id="id"
-      :value="value"
-      @change="$emit('select', $event.target.value)"
+      :value="modelValue"
+      @change="change($event.target.value)"
       data-test="select"
     >
-      <option v-for="(item, index) in items" :key="index">
-        {{ item }}
+      <option v-for="(item, index) in items" :value="item.value" :key="index">
+        {{ item.text }}
       </option>
     </select>
   </div>
@@ -23,7 +23,7 @@ export default {
       type: String,
       default: '',
     },
-    value: {
+    modelValue: {
       type: [String, Number],
       default: '',
     },
@@ -32,11 +32,18 @@ export default {
       default: () => [],
     },
   },
+  emits: ['update:modelValue', 'select'],
   computed: {
     id() {
       const { label } = this;
 
       return label.split(' ').join('-');
+    },
+  },
+  methods: {
+    change(value) {
+      this.$emit('select');
+      this.$emit('update:modelValue', value);
     },
   },
 };

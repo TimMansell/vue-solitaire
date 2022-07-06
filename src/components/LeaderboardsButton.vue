@@ -1,7 +1,8 @@
 <template>
   <Button
     :is-stacked="true"
-    @click="toggleLeaderboards"
+    :check-disabled="true"
+    route="leaderboards"
     data-test="leaderboards-btn"
   >
     Ranks
@@ -9,16 +10,12 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import Button from './Button.vue';
 
 export default {
   name: 'LeaderboardsButton',
   components: {
     Button,
-  },
-  methods: {
-    ...mapActions(['toggleLeaderboards']),
   },
 };
 </script>

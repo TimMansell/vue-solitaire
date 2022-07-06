@@ -1,6 +1,13 @@
 <template>
   <div :class="classes">
-    <SvgIcon name="Card_back_17" />
+    <div
+      class="card-placeholder__card"
+      v-for="(_, index) in cards"
+      :key="index"
+      data-test="placeholder-card"
+    >
+      <SvgIcon name="Card_back_17" />
+    </div>
   </div>
 </template>
 
@@ -16,6 +23,10 @@ export default {
     seeThrough: {
       type: Boolean,
       default: false,
+    },
+    cards: {
+      type: Number,
+      default: 1,
     },
   },
   computed: {
@@ -33,5 +44,11 @@ export default {
 <style scoped lang="scss">
 .card-placeholder {
   opacity: 0.15;
+
+  &__card {
+    &:nth-of-type(n + 2) {
+      margin-top: -110%;
+    }
+  }
 }
 </style>

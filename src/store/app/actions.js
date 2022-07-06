@@ -1,129 +1,62 @@
-import db from '@/services/db';
-
-import { version } from '../../../package.json';
+import router from '@/router';
+import { createToast } from '@/services/toast';
+import { getOldVersion, updateVersion } from '@/services/version';
 
 const actions = {
-  async initApp({ dispatch }, hasAppRestarted = false) {
-    await Promise.all([
-      dispatch('initGame'),
-      dispatch('initUser'),
-      dispatch('getUser'),
-      dispatch('checkAppVersion', version),
-    ]);
-
-    if (!hasAppRestarted) {
-      dispatch('getStatsCount');
-    }
+  initApp({ dispatch }) {
+    dispatch('checkUpdate');
+    dispatch('initUser');
+    dispatch('initConnection');
   },
-  restartApp({ dispatch, commit }) {
-    const hasAppRestarted = true;
+  update({ commit }) {
+    const hasUpdated = updateVersion();
 
-    commit('RESTART_APP');
+    createToast({
+      id: 'updated',
+      content: 'Game has been updated to latest version',
+      position: 'top-center',
+      icon: 'check-circle',
+      timeout: 3000,
+    });
 
+    commit('SET_HAS_UPDATED', hasUpdated);
+  },
+  checkUpdate({ dispatch }) {
+    const isOldVersion = getOldVersion();
+
+    if (!isOldVersion) return;
+
+    dispatch('update');
+  },
+  newUpdate({ commit }, isOutdated) {
+    commit('SET_IS_OUTDATED_VERSION', isOutdated);
+  },
+  newGame({ dispatch }) {
+    dispatch('saveGame');
     dispatch('restartGame');
-    dispatch('initApp', hasAppRestarted);
   },
-  async checkAppVersion({ commit }, localVersion) {
-    const {
-      error,
-      response: {
-        version: { number: serverVersion },
-      },
-    } = await db.getAppVersion();
+  saveGame({ dispatch, getters }) {
+    const { game } = getters;
 
-    if (!error) {
-      const versionMatch = localVersion === serverVersion;
-
-      commit('SET_VERSION_MATCH', versionMatch);
-    }
+    dispatch('emit', {
+      name: 'saveGame',
+      params: game,
+    });
   },
-  setNewGame({ dispatch }, isCompleted) {
-    if (!isCompleted) {
-      dispatch('setGameResult', { quit: true });
-    }
-
-    dispatch('restartApp');
-  },
-  setGameState({ commit, dispatch }, hasWon) {
-    if (hasWon) {
-      dispatch('setGameResult', { won: true });
-    } else {
-      dispatch('setGameResult', { lost: true });
-    }
-
-    commit('SET_GAME_WON', hasWon);
-    commit('SET_GAME_LOST', !hasWon);
-  },
-  async setGameResult({ dispatch }, gameStatus) {
-    const newGame = dispatch('saveGame', gameStatus);
-    const newUser = dispatch('createUser');
-
-    await Promise.all([newGame, newUser]);
-
-    dispatch('getStatsCount');
-  },
-  async saveGame({ state, rootState }, gameStatus) {
-    const { luid } = rootState.user;
-    const { game } = state;
-    const { won, lost } = gameStatus;
-
-    if (won) {
-      return db.gameWon({ luid, ...game });
-    }
-
-    if (lost) {
-      return db.gameLost({ luid, ...game });
-    }
-
-    return db.gameQuit({ luid, ...game });
-  },
-  setGameInactive({ commit }) {
-    const isGamePaused = {
-      isPaused: true,
-      isActive: false,
-    };
-
+  setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  toggleGamePaused({ commit, state }) {
-    const { isPaused } = state.isGamePaused;
-
-    const isGamePaused = {
-      isPaused: !isPaused,
-      isActive: true,
-    };
-
-    commit('SET_GAME_PAUSED', isGamePaused);
-  },
-  setTimerPaused({ commit }, isPaused) {
-    commit('SET_TIMER_PAUSED', isPaused);
-  },
-  updateTimer({ commit }) {
-    commit('UPDATE_GAME_TIME');
-  },
-  toggleRules({ commit, state }) {
-    const showRules = !state.showRules;
-
-    commit('SHOW_RULES', showRules);
-  },
-  toggleNewGame({ commit, state }) {
-    const showNewGame = !state.showNewGame;
-
-    commit('SHOW_NEW_GAME', showNewGame);
-  },
-  toggleOverlayVisibility({ commit, state }) {
-    const isOverlayVisible = !state.isOverlayVisible;
-
-    commit('SET_OVERLAY_VISIBLE', isOverlayVisible);
-  },
-  toggleHistory({ commit }) {
-    commit('SHOW_HISTORY');
-  },
-  incrementMoves({ commit }) {
-    commit('INCREMENT_MOVES');
+  toggleOverlayVisibility({ commit }) {
+    commit('SET_OVERLAY_VISIBLE');
   },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
+  },
+  goToRoute(_, name) {
+    router.replace({ name }).catch((e) => console.log({ e }));
+  },
+  updateRoute(_, params) {
+    router.replace({ params }).catch((e) => console.log({ e }));
   },
 };
 

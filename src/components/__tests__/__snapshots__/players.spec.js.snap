@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Players.vue matches snapshot 1`] = `
-<div>
-  Players:
-  <counter-stub number="1" data-test="player-count"></counter-stub>
-</div>
-`;

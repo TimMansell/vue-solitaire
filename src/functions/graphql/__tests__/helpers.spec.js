@@ -1,7 +1,6 @@
-import { gql } from 'apollo-boost';
+import { gql } from 'apollo-server-lambda';
+import { mockUid } from '@/mockData';
 import { grabQuery, grabVariables } from '../helpers';
-
-const mockUid = 'f5c6a829-f0da-4dfc-81a0-e6419f0163c7';
 
 const event = {
   path: '/graphql',

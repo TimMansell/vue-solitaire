@@ -1,14 +1,19 @@
 import { shallowMount } from '@vue/test-utils';
 import Moves from '@/components/Moves.vue';
+import { setupStore } from '@@/tests/helpers';
 
 describe('Moves.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Moves, {
-      computed: {
-        moves: () => 1,
+      global: {
+        mocks: {
+          $store: setupStore({
+            moves: 1,
+          }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

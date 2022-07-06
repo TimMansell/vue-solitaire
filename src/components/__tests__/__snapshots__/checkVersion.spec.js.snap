@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`CheckVersion.vue matches no version match snapshot 1`] = `<toast-stub title="Update available" msgs="A new version of the website is available.,Refresh your browser or click on update" btntext="Update" btnclick="[Function]" data-test="version"></toast-stub>`;
-
-exports[`CheckVersion.vue matches version match snapshot 1`] = ``;

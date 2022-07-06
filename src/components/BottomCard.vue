@@ -1,19 +1,16 @@
 <template>
-  <TouchEvents
-    @swipe="autoMoveCard($event, id)"
-    @doubletap="autoMoveCard($event, id)"
-  >
-    <DefaultCard :value="value" />
+  <TouchEvents @swipe="autoMoveCard(id)">
+    <DefaultCard @dblclick="autoMoveCard(id)" :value="value" />
   </TouchEvents>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import DefaultCard from '@/components/DefaultCard.vue';
 import TouchEvents from '@/components/TouchEvents.vue';
 
 export default {
-  name: 'Card',
+  name: 'BottomCard',
   components: {
     DefaultCard,
     TouchEvents,
@@ -28,9 +25,16 @@ export default {
       default: 'A♣',
     },
   },
+  computed: {
+    ...mapGetters(['isDisabledGame']),
+  },
   methods: {
     ...mapActions(['autoMoveCardToFoundation']),
-    autoMoveCard(e, id) {
+    autoMoveCard(id) {
+      const { isDisabledGame } = this;
+
+      if (isDisabledGame) return;
+
       this.autoMoveCardToFoundation(id);
     },
   },

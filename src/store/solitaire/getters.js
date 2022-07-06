@@ -1,10 +1,21 @@
 const getters = {
-  boardCards: (state) => state.board.cards,
-  foundationCards: (state) => state.board.foundation,
-  selectedCardId: (state) => state.selectedCardId,
-  hasMoves: (state) => state.hasMoves,
-  draggedCards: (state) => state.draggedCards,
-  draggedCardsIDs: (state) => state.draggedCards.map(({ id }) => id),
+  cards: ({ cards }) => cards,
+  foundation: ({ foundation }) => foundation,
+  game: ({ moves, time }) => ({
+    moves,
+    time,
+  }),
+  hasGameWon: ({ hasGameWon }) => hasGameWon,
+  hasGameLost: ({ hasGameLost }) => hasGameLost,
+  hasGameStarted: ({ time }) => time > 0,
+  timer: ({ time }) => time,
+  moves: ({ moves }) => moves.length,
+  placeholders: ({ placeholders }) => placeholders,
+  selectedCardId: ({ selectedCardId }) => selectedCardId,
+  draggedCards: ({ draggedCards }) => draggedCards,
+  draggedCardsIDs: ({ draggedCards }) => draggedCards.map(({ id }) => id),
+  isEmptyBoard: ({ foundation, cards }) =>
+    !foundation.flat().length && !cards.flat().length,
 };
 
 export default getters;

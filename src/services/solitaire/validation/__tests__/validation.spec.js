@@ -11,7 +11,7 @@ import {
 } from '../validation';
 
 describe('validation', () => {
-  describe('valid card', () => {
+  describe('card', () => {
     it('should be a valid card', () => {
       const card1 = {
         order: 9,
@@ -41,7 +41,7 @@ describe('validation', () => {
     });
   });
 
-  describe('valid suit', () => {
+  describe('suit', () => {
     it('should be a valid suit', () => {
       const card1 = {
         suit: '♣',
@@ -67,7 +67,7 @@ describe('validation', () => {
     });
   });
 
-  describe('valid order', () => {
+  describe('order', () => {
     it('should be a valid order', () => {
       const card1 = {
         order: 3,
@@ -93,7 +93,7 @@ describe('validation', () => {
     });
   });
 
-  describe('valid column', () => {
+  describe('column', () => {
     it('should be a valid column', () => {
       const card = {
         id: 3,
@@ -137,7 +137,7 @@ describe('validation', () => {
     });
   });
 
-  describe('valid position', () => {
+  describe('position', () => {
     it('should be a valid position', () => {
       const card = {
         id: 3,
@@ -185,7 +185,7 @@ describe('validation', () => {
     });
   });
 
-  describe('valid king', () => {
+  describe('king', () => {
     it('should be a valid king', () => {
       const card1 = {
         value: 'K',
@@ -219,7 +219,7 @@ describe('validation', () => {
     });
   });
 
-  describe('valid foundation suit', () => {
+  describe('foundation suit', () => {
     it('should be a valid suit', () => {
       const card = {
         suit: '♣',
@@ -253,7 +253,7 @@ describe('validation', () => {
     });
   });
 
-  describe('valid foundation order', () => {
+  describe('foundation order', () => {
     it('should be a valid empty order', () => {
       const card = {
         order: 1,
@@ -299,7 +299,7 @@ describe('validation', () => {
     });
   });
 
-  describe('valid ace', () => {
+  describe('ace', () => {
     it('should be a valid ace', () => {
       const card = {
         value: 'A',

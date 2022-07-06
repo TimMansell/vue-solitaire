@@ -2,9 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import ShowRulesButton from '@/components/ShowRulesButton.vue';
 
 describe('ShowRulesButton.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(ShowRulesButton);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

@@ -1,11 +1,12 @@
 <template>
-  <table class="table">
+  <table class="table" :class="tableClass">
     <thead>
       <tr data-test="table-header-row">
         <th
           class="table__cell"
           v-for="(heading, headingIndex) in headings"
           :key="headingIndex"
+          data-test="table-header-cell"
         >
           {{ heading }}
         </th>
@@ -49,16 +50,7 @@
 
 <script>
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
-
-export const isRowHighlighted = (cells, toHighlight) => {
-  if (toHighlight) {
-    const { key, value } = toHighlight;
-
-    return cells[key] === value;
-  }
-
-  return false;
-};
+import { findExistsInObject } from '@/helpers/find';
 
 export default {
   name: 'Table',
@@ -74,6 +66,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    spacing: {
+      type: Boolean,
+      default: false,
+    },
     placeholderRows: {
       type: Number,
       default: 1,
@@ -84,15 +80,29 @@ export default {
     },
   },
   computed: {
+    tableClass() {
+      const { spacing } = this;
+
+      return {
+        'table--spacing': spacing,
+      };
+    },
     rows() {
       const { items, toHighlight } = this;
 
-      const formatteditems = items.map((cells) => ({
-        row: { ...cells },
-        isHighlighted: isRowHighlighted(cells, toHighlight),
+      const formattedRows = items.map((cells) => ({
+        row: cells,
+        ...(toHighlight && {
+          isHighlighted: findExistsInObject(
+            cells,
+            (cell) =>
+              JSON.stringify(cell) ===
+              JSON.stringify(Object.entries(toHighlight).at(0))
+          ),
+        }),
       }));
 
-      return formatteditems;
+      return formattedRows;
     },
   },
 };
@@ -102,7 +112,10 @@ export default {
 .table {
   width: 100%;
   background: var(--bg-primary-alt-2);
-  margin-bottom: var(--mg-md);
+
+  &--spacing {
+    margin-bottom: var(--mg-md);
+  }
 
   &__row {
     background: transparent;

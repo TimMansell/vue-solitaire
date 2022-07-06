@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`PortfolioButton.vue matches snapshot 1`] = `
-<button-stub type="default" size="md" data-test="github-btn" title="Visit my Portfolio">
-  <fontawesomeicon-stub icon="[object Object]"></fontawesomeicon-stub>
-</button-stub>
-`;

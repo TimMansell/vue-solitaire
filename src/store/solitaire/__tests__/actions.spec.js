@@ -1,114 +1,77 @@
+import { mockBoard } from '@/mockData';
 import actions from '../actions';
 
-const {
-  initGame,
-  checkGameState,
-  setFoundations,
-  setBoard,
-  setCard,
-  moveCardsToColumn,
-  moveCardToFoundation,
-  autoMoveCardToFoundation,
-  setDraggedCards,
-} = actions;
+const { moveCardsToColumn, moveCardToFoundation, setDraggedCards } = actions;
 
-const commit = jest.fn();
-const dispatch = jest.fn();
-
-jest.mock('@/services/solitaire');
-jest.mock('@/services/db');
-jest.mock('../helpers');
+vi.mock('@/services/solitaire');
+vi.mock('@/services/ws');
 
 describe('Solitaire Store', () => {
-  it('initGame - new game', () => {
-    const state = {
-      isNewGame: true,
-    };
+  let commit;
+  let dispatch;
 
-    initGame({ dispatch, state });
-
-    expect(dispatch).not.toHaveBeenCalledWith('setCard');
-    expect(dispatch).toHaveBeenCalledWith('newGame', false);
+  beforeEach(() => {
+    commit = vi.fn();
+    dispatch = vi.fn();
   });
 
-  it('initGame - saved game', () => {
-    const state = {
-      selectedCardId: 1,
-      isNewGame: false,
-    };
+  it('should move cards to column', () => {
+    const state = { selectedCardId: 1, validMove: true };
 
-    initGame({ dispatch, state });
+    moveCardsToColumn({ dispatch, state }, 0);
 
-    expect(dispatch).toHaveBeenCalledWith('setCard', 1);
-    expect(dispatch).not.toHaveBeenCalledWith('newGame');
-  });
-
-  it('checkGameState - no moves', () => {
-    checkGameState({ commit, dispatch });
-
-    expect(dispatch).toHaveBeenCalledWith('setGameState', true);
-  });
-
-  it('setFoundations', () => {
-    setFoundations({ commit });
-
-    expect(commit).toHaveBeenCalledWith('SET_FOUNDATIONS', []);
-  });
-
-  it('setBoard', () => {
-    setBoard({ commit });
-
-    expect(commit).toHaveBeenCalledWith('SET_BOARD', []);
-  });
-
-  it('setCard - select', () => {
-    const state = {
-      selectedCard: 2,
-    };
-
-    setCard({ dispatch, state }, 1);
-
-    expect(dispatch).toHaveBeenCalledWith('selectCard', 1);
-  });
-
-  it('setCard - unselect', () => {
-    const state = {
-      selectedCard: 1,
-    };
-
-    setCard({ dispatch, state }, 1);
-
-    expect(dispatch).toHaveBeenCalledWith('unselectCard');
-  });
-
-  it('moveCardsToColumn', () => {
-    moveCardsToColumn({ dispatch });
-
-    expect(dispatch).toHaveBeenCalledWith('incrementMoves');
-    expect(dispatch).toHaveBeenCalledWith('setBoard');
+    expect(dispatch).toHaveBeenCalledWith('saveMove', {
+      isBoard: true,
+      selectedColumn: 0,
+    });
+    expect(dispatch).toHaveBeenCalledWith('setBoard', []);
     expect(dispatch).toHaveBeenCalledWith('checkGameState');
-    expect(dispatch).toHaveBeenCalledWith('unselectCard');
   });
 
-  it('moveCardToFoundation', () => {
-    moveCardToFoundation({ dispatch });
+  it('should not move cards to column when invalid move', () => {
+    const state = { selectedCardId: 1, validMove: false };
 
-    expect(dispatch).toHaveBeenCalledWith('incrementMoves');
-    expect(dispatch).toHaveBeenCalledWith('setBoard');
-    expect(dispatch).toHaveBeenCalledWith('setFoundations');
+    moveCardsToColumn({ dispatch, state });
+
+    expect(dispatch).not.toHaveBeenCalledWith('setBoard');
+  });
+
+  it('should not move cards to column when selectedCardId is 0', () => {
+    const state = { selectedCardId: 0 };
+
+    moveCardsToColumn({ dispatch, state });
+
+    expect(dispatch).not.toHaveBeenCalledWith('setBoard');
+  });
+
+  it('should move cards to foundation', () => {
+    const state = { validMove: true };
+
+    moveCardToFoundation({ dispatch, state }, 1);
+
+    expect(dispatch).toHaveBeenCalledWith('saveMove', {
+      isFoundation: true,
+      selectedColumn: 1,
+    });
+    expect(dispatch).toHaveBeenCalledWith('setFoundation', []);
+    expect(dispatch).toHaveBeenCalledWith('setBoard', []);
     expect(dispatch).toHaveBeenCalledWith('checkGameState');
-    expect(dispatch).toHaveBeenCalledWith('unselectCard');
   });
 
-  it('autoMoveCardToFoundation', () => {
-    autoMoveCardToFoundation({ dispatch });
+  it('should not move cards to foundation', () => {
+    const state = { validMove: false };
 
-    expect(dispatch).toHaveBeenCalledWith('moveCardToFoundation', 0);
+    moveCardToFoundation({ dispatch, state });
+
+    expect(dispatch).not.toHaveBeenCalledWith('setFoundation');
+    expect(dispatch).not.toHaveBeenCalledWith('setBoard');
   });
 
   it('setDraggedCards', () => {
-    setDraggedCards({ commit }, 1);
+    const state = {};
 
-    expect(commit).toHaveBeenCalledWith('DRAG_CARDS', []);
+    setDraggedCards({ commit, state }, 1);
+
+    expect(commit).toHaveBeenCalledWith('DRAG_CARDS', mockBoard);
   });
 });

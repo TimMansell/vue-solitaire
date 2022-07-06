@@ -1,68 +1,133 @@
 import { shallowMount } from '@vue/test-utils';
 import Button from '@/components/Button.vue';
+import { setupStore } from '@@/tests/helpers';
 
 describe('Button.vue', () => {
-  it('matches snapshot', () => {
-    const wrapper = shallowMount(Button);
-
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders an alternate button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        type: 'alt',
+  describe('Default', () => {
+    const global = {
+      mocks: {
+        $store: setupStore({ isDisabledGame: false }),
       },
+    };
+
+    it('renders the component without crashing', () => {
+      const wrapper = shallowMount(Button, { global });
+
+      expect(wrapper.isVisible()).toBe(true);
     });
 
-    expect(wrapper.classes()).toContain('btn--alt');
-  });
+    it('renders an alternate button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          type: 'alt',
+        },
+      });
 
-  it('renders a link button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        type: 'link',
-      },
+      expect(wrapper.classes()).toContain('btn--alt');
     });
 
-    expect(wrapper.classes()).toContain('btn--link');
-  });
+    it('renders a link button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          type: 'link',
+        },
+      });
 
-  it('renders an icon button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        type: 'icon',
-      },
+      expect(wrapper.classes()).toContain('btn--link');
     });
 
-    expect(wrapper.classes()).toContain('btn--icon');
-  });
+    it('renders an icon button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          type: 'icon',
+        },
+      });
 
-  it('renders a stacked button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        isStacked: true,
-      },
+      expect(wrapper.classes()).toContain('btn--icon');
     });
 
-    expect(wrapper.classes()).toContain('btn--is-stacked');
-  });
+    it('renders a stacked button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          isStacked: true,
+        },
+      });
 
-  it('renders a large button', () => {
-    const wrapper = shallowMount(Button, {
-      propsData: {
-        size: 'lg',
-      },
+      expect(wrapper.classes()).toContain('btn--is-stacked');
     });
 
-    expect(wrapper.classes()).toContain('btn--large');
+    it('renders a small button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          size: 'sm',
+        },
+      });
+
+      expect(wrapper.classes()).toContain('btn--small');
+    });
+
+    it('renders a large button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          size: 'lg',
+        },
+      });
+
+      expect(wrapper.classes()).toContain('btn--large');
+    });
+
+    it('should call @click function', async () => {
+      const spy = vi.fn();
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          click: spy,
+        },
+      });
+
+      await wrapper.trigger('click');
+
+      expect(spy).toHaveBeenCalled();
+    });
   });
 
-  it('should call click method', () => {
-    const wrapper = shallowMount(Button);
+  describe('Disabled', () => {
+    const global = {
+      mocks: {
+        $store: setupStore({ isDisabledGame: true }),
+      },
+    };
 
-    wrapper.trigger('click');
+    it('renders a disabled button', () => {
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          checkDisabled: true,
+        },
+      });
 
-    expect(wrapper.emitted().click).toBeTruthy();
+      expect(wrapper.classes()).toContain('btn--disabled');
+    });
+
+    it('should not call @click function when button is disabled', async () => {
+      const spy = vi.fn();
+      const wrapper = shallowMount(Button, {
+        global,
+        props: {
+          click: spy,
+          checkDisabled: true,
+        },
+      });
+
+      await wrapper.trigger('click');
+
+      expect(spy).not.toHaveBeenCalled();
+    });
   });
 });

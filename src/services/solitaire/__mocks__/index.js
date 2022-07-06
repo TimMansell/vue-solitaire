@@ -1,23 +1,21 @@
-/* eslint-disable no-undef */
+import { mockBoard, mockFoundation, mockDeck } from '@/mockData';
 
-const solitaire = () => ({
-  init: () => jest.fn(),
-  isEmptyBoard: () => true,
-  getFoundationCards: () => [],
-  getBoardCards: () => [],
-  hasMoves: () => false,
-  setSelectedCard: () => 1,
-  removeSelectedCard: () => jest.fn(),
-  findEmptyFoundationColumn: () => 0,
-  isValidCardMove: () => true,
-  moveCards: () => jest.fn(),
-  isValidFoundationMove: () => true,
-  moveCardsToFoundation: () => jest.fn(),
-  setBoard: () => jest.fn(),
-  setFoundation: () => jest.fn(),
-  getDraggedCards: () => [],
-});
+export const initCards = () => mockDeck;
 
-export default solitaire();
+export const initBoard = () => mockBoard;
 
-/* eslint-enable no-undef */
+export const initFoundation = () => mockFoundation;
+
+export const checkHasMoves = ({ hasMoves }) => hasMoves;
+
+export const isBoardEmpty = () => true;
+
+export const checkValidCardMove = ({ validMove }) => validMove;
+
+export const moveCards = () => ({ cards: [] });
+
+export const checkValidFoundationMove = ({ validMove }) => validMove;
+
+export const moveCardsToFoundation = () => ({ cards: [], foundation: [] });
+
+export const getDraggedCards = () => mockBoard;

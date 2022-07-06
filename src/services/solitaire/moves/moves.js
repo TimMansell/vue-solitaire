@@ -5,41 +5,60 @@ import {
   getLastCards,
   getVisibleCards,
   showLastCard,
+  getColumnCardsContaining,
+  getColumnCardsToMove,
 } from '../cards';
-import { validateCardMove, validateCardMoveColumn } from '../validation';
-import { getColumnCards, checkEmptyColumns } from './helpers';
+import {
+  validateCardMove,
+  validateCardMoveColumn,
+  validateEmptyColumn,
+} from '../validation';
+import { displayMove } from './helpers';
 
-export const checkVisibleMoves = (boardCards) => {
-  const lastCards = getLastCards(boardCards);
-  const visibleCards = getVisibleCards(boardCards);
+const isDev = process.env.NODE_ENV === 'development';
 
-  const hasMoves = visibleCards.filter((visibleCard) => {
-    const cardHasMove = lastCards.filter((lastCard) => {
-      const { columnNo } = getCardPosition(boardCards, lastCard.id);
+export const checkVisibleMoves = (cards) => {
+  const lastCards = getLastCards(cards);
+  const visibleCards = getVisibleCards(cards);
+
+  if (isDev) console.group('Moves');
+
+  const hasMoves = visibleCards.some((visibleCard) => {
+    const cardHasMove = lastCards.some((lastCard) => {
+      const columnCards = getColumnCardsContaining(cards, lastCard.id);
 
       const isValidCard = validateCardMove(visibleCard, lastCard);
-      const isValidColumn = validateCardMoveColumn(
-        visibleCard,
-        boardCards[columnNo]
-      );
+      const isValidColumn = validateCardMoveColumn(visibleCard, columnCards);
+
+      displayMove({
+        card: visibleCard,
+        otherCard: lastCard,
+        hasMove: isValidCard && isValidColumn,
+      });
 
       return isValidCard && isValidColumn;
     });
 
-    return cardHasMove.length > 0;
+    return cardHasMove;
   });
 
   return hasMoves;
 };
 
-export const checkKingMoves = (boardCards) => {
-  const lastCards = getLastCards(boardCards);
-  const visibleCards = getVisibleCards(boardCards);
+export const checkKingMoves = (cards) => {
+  const lastCards = getLastCards(cards);
+  const visibleCards = getVisibleCards(cards);
 
-  const hasMoves = visibleCards.filter((visibleCard) => {
-    const isCardTopPosition = checkCardTopPosition(boardCards, visibleCard.id);
+  const hasMoves = visibleCards.some((visibleCard) => {
+    const isCardTopPosition = checkCardTopPosition(cards, visibleCard.id);
     const isCardKing = checkCardValue(visibleCard, 'K');
-    const hasEmptyColumns = checkEmptyColumns(lastCards);
+    const hasEmptyColumns = validateEmptyColumn(lastCards);
+
+    displayMove({
+      card: visibleCard,
+      isColumn: true,
+      hasMove: isCardKing && hasEmptyColumns && !isCardTopPosition,
+    });
 
     return isCardKing && hasEmptyColumns && !isCardTopPosition;
   });
@@ -47,79 +66,79 @@ export const checkKingMoves = (boardCards) => {
   return hasMoves;
 };
 
-export const checkFoundationMoves = (boardCards, foundationCards) => {
-  const lastFoundationCards = getLastCards(foundationCards);
-  const lastCards = getLastCards(boardCards);
+export const checkFoundationMoves = (cards, foundation) => {
+  const lastFoundationCards = getLastCards(foundation);
+  const lastCards = getLastCards(cards);
 
-  const hasMoves = lastCards.filter((lastCard) => {
+  const hasMoves = lastCards.some((lastCard) => {
     const isCardAce = checkCardValue(lastCard, 'A');
-    const hasFoundationMove = lastFoundationCards.filter((lastFoundationCard) =>
+    const hasFoundationMove = lastFoundationCards.some((lastFoundationCard) =>
       validateCardMove(lastFoundationCard, lastCard)
     );
 
-    return isCardAce || hasFoundationMove.length > 0;
+    displayMove({
+      card: lastCard,
+      isFoundation: true,
+      hasMove: isCardAce || hasFoundationMove,
+    });
+
+    return isCardAce || hasFoundationMove;
   });
+
+  if (isDev) console.groupEnd();
 
   return hasMoves;
 };
 
-export const moveCardsFromBoard = ({ selectedCardId, boardCards }) => {
-  const { columnNo, cardPosition } = getCardPosition(
-    boardCards,
-    selectedCardId
-  );
+export const getMoveCardsFromBoard = ({ selectedCardId, cards }) => {
+  const columnCards = getColumnCardsContaining(cards, selectedCardId);
+  const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const remainingCards = boardCards[columnNo].slice(0, cardPosition);
-  const cards = showLastCard(remainingCards);
+  const remainingCards = columnCards.slice(0, cardPosition);
+  const newColumnCards = showLastCard(remainingCards);
 
   return {
-    cards,
+    columnCards: newColumnCards,
     columnNo,
   };
 };
 
-export const moveCardsToBoard = (
-  { selectedCardId, boardCards },
+export const getMoveCardsToBoard = (
+  { selectedCardId, cards },
   selectedColumn
 ) => {
-  const { columnNo, cardPosition } = getCardPosition(
-    boardCards,
-    selectedCardId
-  );
+  const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const cards = getColumnCards({
-    toCards: boardCards,
-    fromCards: boardCards,
+  const columnCards = getColumnCardsToMove({
+    toCards: cards,
+    fromCards: cards,
     selectedColumn,
     columnNo,
     cardPosition,
   });
 
   return {
-    cards,
+    columnCards,
     columnNo: selectedColumn,
   };
 };
 
-export const moveCardsToFoundation = (
-  { selectedCardId, boardCards, foundationCards },
+export const getMoveCardsToFoundation = (
+  { selectedCardId, cards, foundation },
   selectedColumn
 ) => {
-  const { columnNo, cardPosition } = getCardPosition(
-    boardCards,
-    selectedCardId
-  );
+  const { columnNo, cardPosition } = getCardPosition(cards, selectedCardId);
 
-  const cards = getColumnCards({
-    toCards: foundationCards,
-    fromCards: boardCards,
+  const columnCards = getColumnCardsToMove({
+    toCards: foundation,
+    fromCards: cards,
     selectedColumn,
     columnNo,
     cardPosition,
   });
 
   return {
-    cards,
+    columnCards,
     columnNo: selectedColumn,
   };
 };

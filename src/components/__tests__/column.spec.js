@@ -1,7 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import Column from '@/components/Column.vue';
-import Card from '@/components/Card.vue';
-import CardPlaceholder from '@/components/CardPlaceholder.vue';
+import { setupStore } from '@@/tests/helpers';
 
 const defaultProps = {
   cards: [
@@ -16,49 +15,58 @@ const defaultProps = {
   ],
 };
 
+const global = {
+  mocks: {
+    $store: setupStore({
+      selectedCardId: 1,
+      isEmptyBoard: false,
+      placeholders: [1],
+    }),
+  },
+};
+
 describe('Column.vue', () => {
-  it('matches snapshot', () => {
-    const propsData = {
+  it('renders the component without crashing', () => {
+    const props = {
       ...defaultProps,
     };
 
     const wrapper = shallowMount(Column, {
-      propsData,
-      computed: {
-        selectedCardId: () => 1,
-      },
+      global,
+      props,
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('should have correct props', () => {
-    const propsData = {
+    const props = {
       ...defaultProps,
       columnNo: 1,
     };
 
     const wrapper = shallowMount(Column, {
-      propsData,
-      computed: {
-        selectedCardId: () => 1,
-      },
+      global,
+      props,
     });
 
-    expect(wrapper.props().cards).toBe(propsData.cards);
+    expect(wrapper.props().cards).toStrictEqual(props.cards);
     expect(wrapper.props().columnNo).toBe(1);
   });
 
   it('should show placeholder card', () => {
-    const propsData = {
+    const props = {
       cards: [],
     };
 
     const wrapper = shallowMount(Column, {
-      propsData,
+      global,
+      props,
     });
 
-    expect(wrapper.findComponent(Card).exists()).toBe(false);
-    expect(wrapper.findComponent(CardPlaceholder).exists()).toBe(true);
+    expect(wrapper.findComponent({ name: 'Card' }).exists()).toBe(false);
+    expect(wrapper.findComponent({ name: 'CardPlaceholder' }).exists()).toBe(
+      true
+    );
   });
 });

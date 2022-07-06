@@ -1,14 +1,19 @@
 import { shallowMount } from '@vue/test-utils';
 import UserGames from '@/components/UserGames.vue';
+import { setupStore } from '@@/tests/helpers';
 
 describe('UserGames.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(UserGames, {
-      computed: {
-        userGameCount: () => 1,
+      global: {
+        mocks: {
+          $store: setupStore({
+            userGameCount: 1,
+          }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

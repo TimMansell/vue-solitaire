@@ -5,7 +5,7 @@ import { resolvers } from './graphql/resolvers';
 import { client } from './graphql/db';
 import { grabQuery, grabVariables } from './graphql/helpers';
 
-const { GQL_INTROSPECTION, GQL_PLAYGROUND, NODE_ENV } = process.env;
+const { GQL_INTROSPECTION, GQL_PLAYGROUND } = process.env;
 
 const server = new ApolloServer({
   typeDefs,
@@ -22,7 +22,7 @@ const server = new ApolloServer({
   playground: GQL_PLAYGROUND === 'true',
   introspection: GQL_INTROSPECTION === 'true',
   validationRules: [depthLimit(2)],
-  mocks: NODE_ENV === 'test',
 });
 
-exports.handler = server.createHandler();
+// eslint-disable-next-line import/prefer-default-export
+export const handler = server.createHandler();

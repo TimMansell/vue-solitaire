@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`GithubButton.vue matches snapshot 1`] = `
-<button-stub type="default" size="md" data-test="github-btn" title="Visit Github Repository">
-  <fontawesomeicon-stub icon="[object Object]"></fontawesomeicon-stub>
-</button-stub>
-`;

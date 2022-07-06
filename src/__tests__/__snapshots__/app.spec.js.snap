@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`App.vue matches snapshot 1`] = `
-<div id="app">
-  <header-stub></header-stub>
-  <solitaire-stub></solitaire-stub>
-  <footer-stub></footer-stub>
-</div>
-`;

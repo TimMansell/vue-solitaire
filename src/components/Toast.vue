@@ -1,103 +1,78 @@
 <template>
-  <div class="toast">
-    <div class="toast__wrapper">
-      <div class="toast__content">
-        <h2 class="toast__header" v-if="title" data-test="toast-header">
-          {{ title }}
-        </h2>
-        <div class="toast__msg">
-          <div v-for="(msg, index) in msgs" :key="index">
-            {{ msg }}
-          </div>
-        </div>
-      </div>
-      <Button type="alt" @click="btnClick">
-        {{ btnText }}
-      </Button>
-    </div>
+  <div :data-test="testId">
+    <FontAwesomeIcon :icon="displayIcon" />
+    {{ content }}
   </div>
 </template>
 
 <script>
-import Button from '@/components/Button.vue';
+import {
+  faCheckCircle,
+  faClock,
+  faExclamationCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   name: 'Toast',
   components: {
-    Button,
+    FontAwesomeIcon,
   },
   props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    msgs: {
-      type: Array,
+    id: {
+      type: [String, Number],
       required: true,
     },
-    btnText: {
+    content: {
       type: String,
       required: true,
     },
-    btnClick: {
-      type: Function,
-      default: () => {},
+    icon: {
+      type: String,
+      validator(value) {
+        return ['clock', 'check-circle', 'exclamation-circle'].includes(value);
+      },
+      default: 'exclamation-circle',
+    },
+  },
+  computed: {
+    displayIcon() {
+      const { icon } = this;
+      const iconToUse = [faClock, faCheckCircle, faExclamationCircle].find(
+        ({ iconName }) => iconName === icon
+      );
+
+      return iconToUse;
+    },
+    testId() {
+      const { id } = this;
+
+      return `toast-${id}`;
     },
   },
 };
 </script>
 
-<style scoped lang="scss">
-.toast {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  z-index: calc(var(--z-overlay) + 1);
-  padding: var(--pd-sm);
-  color: var(--col-tertiary);
+<style lang="scss">
+$vt-toast-min-width: auto;
+$vt-color-default: var(--col-secondary);
+$vt-text-color-default: var(--col-tertiary);
 
-  @media (min-width: $bp-sm) {
-    width: auto;
-  }
+@import 'vue-toastification/src/scss/variables';
+@import 'vue-toastification/src/scss/toastContainer';
+@import 'vue-toastification/src/scss/toast';
+@import 'vue-toastification/src/scss/progressBar';
+@import 'vue-toastification/src/scss/animations/bounce';
 
-  &__wrapper {
-    display: flex;
-    position: relative;
-    border: 1px solid var(--bdr-secondary);
-    border-radius: 7px;
-    padding: var(--pd-sm);
-    background: var(--bg-secondary);
-
-    @media (min-width: $bp-xs) {
-      align-items: flex-end;
-    }
-  }
-
-  &__content {
-    flex: 1;
-    line-height: 1.3;
-    width: 100%;
-    text-align: left;
-  }
-
-  &__header {
+/* stylelint-disable selector-class-pattern */
+.Vue-Toastification {
+  &__toast {
     margin-bottom: 0;
-    color: var(--col-primary);
 
-    &:empty {
-      margin-bottom: 0;
-    }
-  }
-
-  &__msg {
-    display: none;
-    margin-bottom: 0;
-    margin-right: var(--mg-md);
-
-    @media (min-width: $bp-xs) {
-      display: block;
+    @media (min-width: $bp-sm) {
+      margin-bottom: var(--mg-lg);
     }
   }
 }
+/* stylelint-enable selector-class-pattern */
 </style>

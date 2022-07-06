@@ -1,12 +1,10 @@
-import { initUser } from './local';
-import { getUser, createUser } from './server';
-import { getUsersGames } from './history';
+import { getLocalUser, createLocalUser } from './helpers';
 
-const user = () => ({
-  initUser,
-  getUser,
-  createUser,
-  getUsersGames,
-});
+// eslint-disable-next-line import/prefer-default-export
+export const initUser = () => {
+  const user = getLocalUser();
 
-export default user();
+  const uid = user || createLocalUser();
+
+  return uid;
+};

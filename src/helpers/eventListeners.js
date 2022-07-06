@@ -1,10 +1,10 @@
 const addEventListener = (events) => {
-  const eventNames = Object.keys(events);
+  const eventNames = Object.entries(events);
 
-  const addEvents = eventNames.map((event) => {
-    window.addEventListener(event, events[event]);
+  const addEvents = eventNames.map(([name, event]) => {
+    window.addEventListener(name, event);
 
-    return { name: event, event: events[event] };
+    return { name, event };
   });
 
   return addEvents;

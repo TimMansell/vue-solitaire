@@ -1,15 +1,17 @@
 import { shallowMount } from '@vue/test-utils';
 import GameSummary from '@/components/GameSummary.vue';
+import { setupStore } from '@@/tests/helpers';
 
 describe('GameSummary.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(GameSummary, {
-      computed: {
-        timer: () => 3,
-        moves: () => 10,
+      global: {
+        mocks: {
+          $store: setupStore({ timer: 3, moves: 10 }),
+        },
       },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 });

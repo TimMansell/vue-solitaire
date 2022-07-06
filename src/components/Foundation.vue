@@ -1,13 +1,13 @@
 <template>
   <div class="foundation" data-test="foundations">
     <div
-      v-for="(foundation, foundationsIndex) in foundationCards"
+      v-for="(foundation, foundationsIndex) in foundation"
       :key="`f-${foundationsIndex}`"
-      @click="setFoundationColumn(foundationsIndex)"
-      :data-test="`foundation-${foundationsIndex}`"
-      @drop="dropCard(foundationsIndex)"
+      @click="moveCardToFoundation(foundationsIndex)"
+      @drop="moveCardToFoundation(foundationsIndex)"
       @dragover.prevent
       @dragenter.prevent
+      :data-test="`foundation-${foundationsIndex}`"
     >
       <Card
         v-for="(card, foundationIndex) in foundation"
@@ -37,16 +37,10 @@ export default {
     CardPlaceholder,
   },
   computed: {
-    ...mapGetters(['foundationCards']),
+    ...mapGetters(['foundation']),
   },
   methods: {
     ...mapActions(['moveCardToFoundation']),
-    setFoundationColumn(columnIndex) {
-      this.moveCardToFoundation(columnIndex);
-    },
-    dropCard(columnIndex) {
-      this.moveCardToFoundation(columnIndex);
-    },
   },
 };
 </script>

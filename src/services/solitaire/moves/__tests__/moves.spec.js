@@ -2,15 +2,15 @@ import {
   checkVisibleMoves,
   checkKingMoves,
   checkFoundationMoves,
-  moveCardsFromBoard,
-  moveCardsToBoard,
-  moveCardsToFoundation,
+  getMoveCardsFromBoard,
+  getMoveCardsToBoard,
+  getMoveCardsToFoundation,
 } from '../moves';
 
 describe('moves', () => {
   describe('visible moves', () => {
     it('should have visible moves', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -40,13 +40,13 @@ describe('moves', () => {
         ],
       ];
 
-      const result = checkVisibleMoves(boardCards);
+      const result = checkVisibleMoves(cards);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should not have visible moves', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -76,13 +76,13 @@ describe('moves', () => {
         ],
       ];
 
-      const result = checkVisibleMoves(boardCards);
+      const result = checkVisibleMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
 
     it('should not have visible move in empty column', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -105,15 +105,15 @@ describe('moves', () => {
         [],
       ];
 
-      const result = checkVisibleMoves(boardCards);
+      const result = checkVisibleMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
   });
 
   describe('king moves', () => {
     it('should have king move in empty column', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -128,13 +128,13 @@ describe('moves', () => {
         [],
       ];
 
-      const result = checkKingMoves(boardCards);
+      const result = checkKingMoves(cards);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should not have king move in empty column', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -149,13 +149,13 @@ describe('moves', () => {
         [],
       ];
 
-      const result = checkKingMoves(boardCards);
+      const result = checkKingMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
 
     it('should not have king move in same column', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -171,13 +171,13 @@ describe('moves', () => {
         ],
       ];
 
-      const result = checkKingMoves(boardCards);
+      const result = checkKingMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
 
     it('should not have non-king move in empty column', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -192,15 +192,15 @@ describe('moves', () => {
         [],
       ];
 
-      const result = checkKingMoves(boardCards);
+      const result = checkKingMoves(cards);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
   });
 
   describe('foundation moves', () => {
     it('should have intial Ace foundation move', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -210,15 +210,15 @@ describe('moves', () => {
         ],
       ];
 
-      const foundationCards = [];
+      const foundation = [];
 
-      const result = checkFoundationMoves(boardCards, foundationCards);
+      const result = checkFoundationMoves(cards, foundation);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should have Ace foundation move', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 1,
@@ -228,7 +228,7 @@ describe('moves', () => {
         ],
       ];
 
-      const foundationCards = [
+      const foundation = [
         [
           {
             id: 1,
@@ -238,13 +238,13 @@ describe('moves', () => {
         ],
       ];
 
-      const result = checkFoundationMoves(boardCards, foundationCards);
+      const result = checkFoundationMoves(cards, foundation);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should have a non-ace foundation move', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 2,
@@ -254,7 +254,7 @@ describe('moves', () => {
         ],
       ];
 
-      const foundationCards = [
+      const foundation = [
         [
           {
             id: 1,
@@ -264,13 +264,13 @@ describe('moves', () => {
         ],
       ];
 
-      const result = checkFoundationMoves(boardCards, foundationCards);
+      const result = checkFoundationMoves(cards, foundation);
 
-      expect(result).toHaveLength(1);
+      expect(result).toBe(true);
     });
 
     it('should not have any foundation moves', () => {
-      const boardCards = [
+      const cards = [
         [
           {
             id: 2,
@@ -280,7 +280,7 @@ describe('moves', () => {
         ],
       ];
 
-      const foundationCards = [
+      const foundation = [
         [
           {
             id: 1,
@@ -290,16 +290,16 @@ describe('moves', () => {
         ],
       ];
 
-      const result = checkFoundationMoves(boardCards, foundationCards);
+      const result = checkFoundationMoves(cards, foundation);
 
-      expect(result).toHaveLength(0);
+      expect(result).toBe(false);
     });
   });
 
   describe('move cards from', () => {
     it('should return correct object', () => {
-      const obj = {
-        boardCards: [
+      const state = {
+        cards: [
           [
             {
               id: 1,
@@ -331,10 +331,10 @@ describe('moves', () => {
         selectedCardId: 3,
       };
 
-      const result = moveCardsFromBoard(obj);
+      const result = getMoveCardsFromBoard(state);
 
       expect(result).toStrictEqual({
-        cards: [
+        columnCards: [
           { id: 1, order: 3, suit: '♠' },
           { id: 2, order: 8, suit: '♠', visible: true },
         ],
@@ -345,8 +345,8 @@ describe('moves', () => {
 
   describe('move cards to', () => {
     it('should return correct object', () => {
-      const obj = {
-        boardCards: [
+      const state = {
+        cards: [
           [
             {
               id: 1,
@@ -380,10 +380,10 @@ describe('moves', () => {
 
       const selectedColumn = 1;
 
-      const result = moveCardsToBoard(obj, selectedColumn);
+      const result = getMoveCardsToBoard(state, selectedColumn);
 
       expect(result).toStrictEqual({
-        cards: [
+        columnCards: [
           {
             id: 4,
             order: 9,
@@ -410,8 +410,8 @@ describe('moves', () => {
 
   describe('move cards to foundation', () => {
     it('should return correct object', () => {
-      const obj = {
-        boardCards: [
+      const state = {
+        cards: [
           [
             {
               id: 1,
@@ -432,16 +432,16 @@ describe('moves', () => {
             },
           ],
         ],
-        foundationCards: [[]],
+        foundation: [[]],
         selectedCardId: 3,
       };
 
       const selectedColumn = 0;
 
-      const result = moveCardsToFoundation(obj, selectedColumn);
+      const result = getMoveCardsToFoundation(state, selectedColumn);
 
       expect(result).toStrictEqual({
-        cards: [
+        columnCards: [
           {
             id: 3,
             suit: '♦',

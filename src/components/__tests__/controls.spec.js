@@ -1,12 +1,12 @@
+import matchMedia from '@@/tests/unit/mocks/matchMedia.mock';
 import { shallowMount } from '@vue/test-utils';
 import Controls from '@/components/Controls.vue';
-import matchMedia from '../../__tests__/__mocks__/matchMedia.mock';
 
 describe('Controls.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Controls);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('should not show github button', () => {

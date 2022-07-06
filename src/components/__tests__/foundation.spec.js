@@ -1,8 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
 import Foundation from '@/components/Foundation.vue';
+import { setupStore } from '@@/tests/helpers';
 
-const computed = {
-  foundationCards: () => [
+const defaultGetters = {
+  foundation: [
     [
       {
         id: 0,
@@ -27,28 +28,33 @@ const computed = {
 };
 
 describe('Foundation.vue', () => {
-  it('matches snapshot', () => {
+  it('renders the component without crashing', () => {
     const wrapper = shallowMount(Foundation, {
-      computed,
+      global: {
+        mocks: {
+          $store: setupStore(defaultGetters),
+        },
+      },
     });
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.isVisible()).toBe(true);
   });
 
   it('calls store action "moveCardToFoundation" when clicked', () => {
-    const mockStore = { dispatch: jest.fn() };
-
-    const mocks = {
-      $store: mockStore,
-    };
-
+    const spy = vi.fn();
     const wrapper = shallowMount(Foundation, {
-      mocks,
-      computed,
+      global: {
+        mocks: {
+          $store: setupStore({
+            dispatch: spy,
+            ...defaultGetters,
+          }),
+        },
+      },
     });
 
     wrapper.find('[data-test="foundation-0"]').trigger('click');
 
-    expect(mockStore.dispatch).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });

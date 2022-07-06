@@ -1,29 +1,22 @@
-import settings from '../settings.json';
+const isDev = process.env.NODE_ENV === 'development';
 
-export const displayMoves = (moves) => {
-  if (moves.length) {
-    console.log('---------------');
-    moves.forEach(({ value, suit }) => {
-      console.log('hasMove', `${value}${suit}`);
-    });
-  } else {
-    console.log('---------------');
-    console.log('No Moves');
+// eslint-disable-next-line import/prefer-default-export
+export const displayMove = ({
+  card,
+  otherCard,
+  isColumn,
+  isFoundation,
+  hasMove,
+}) => {
+  if (isDev) {
+    const cardMove = otherCard ? `${otherCard?.value}${otherCard?.suit}` : '';
+    const columnMove = isColumn ? 'Column' : '';
+    const foundationMove = isFoundation ? 'Foundation' : '';
+
+    if (!hasMove) return;
+
+    console.log(
+      `${card.value}${card.suit} > ${cardMove}${columnMove}${foundationMove}`
+    );
   }
 };
-
-export const getColumnCards = ({
-  toCards,
-  fromCards,
-  selectedColumn,
-  columnNo,
-  cardPosition,
-}) => {
-  const columnCards = toCards[selectedColumn];
-  const moveCards = fromCards[columnNo].slice(cardPosition);
-
-  return [...columnCards, ...moveCards];
-};
-
-export const checkEmptyColumns = (cards) =>
-  cards.length < settings.rules.columns.length;
