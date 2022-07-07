@@ -11,7 +11,7 @@
     </template>
     <template #buttons>
       <StartNewGameButton />
-      <ShowBoardButton :is-show="isVisible" />
+      <ShowHideBoardButton :is-show="isVisible" />
     </template>
   </GameOverlay>
 </template>
@@ -20,7 +20,7 @@
 import GameOverlay from '@/components/GameOverlay.vue';
 import GameSummary from '@/components/GameSummary.vue';
 import StartNewGameButton from '@/components/StartNewGameButton.vue';
-import ShowBoardButton from '@/components/ShowBoardButton.vue';
+import ShowHideBoardButton from '@/components/ShowHideBoardButton.vue';
 
 export default {
   name: 'LostPage',
@@ -28,7 +28,7 @@ export default {
     GameOverlay,
     StartNewGameButton,
     GameSummary,
-    ShowBoardButton,
+    ShowHideBoardButton,
   },
   props: {
     show: {
