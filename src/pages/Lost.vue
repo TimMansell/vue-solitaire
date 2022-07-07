@@ -1,12 +1,17 @@
 <template>
-  <GameOverlay center-content show-logo data-test="lost">
-    <template #title> Sorry, no more Moves! </template>
+  <GameOverlay
+    center-content
+    show-logo
+    :is-visible="isVisible"
+    data-test="lost"
+  >
+    <template #title> Sorry, no more Moves!</template>
     <template #msg>
       <GameSummary />
     </template>
     <template #buttons>
       <StartNewGameButton />
-      <ShowBoardButton />
+      <ShowBoardButton :is-show="isVisible" />
     </template>
   </GameOverlay>
 </template>
@@ -24,6 +29,19 @@ export default {
     StartNewGameButton,
     GameSummary,
     ShowBoardButton,
+  },
+  props: {
+    show: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+    isVisible() {
+      const { show } = this;
+
+      return !show.includes('hide');
+    },
   },
 };
 </script>

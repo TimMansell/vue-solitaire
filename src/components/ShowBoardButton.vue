@@ -1,12 +1,10 @@
 <template>
-  <Button :click="toggleOverlayVisibility" data-test="show-board-btn">
+  <Button :route-params="params" data-test="show-board-btn">
     {{ text }} Board
   </Button>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
 import Button from './Button.vue';
 
 export default {
@@ -14,18 +12,27 @@ export default {
   components: {
     Button,
   },
+  props: {
+    isShow: {
+      type: Boolean,
+      default: true,
+    },
+  },
   computed: {
-    ...mapGetters(['isOverlayVisible']),
     text() {
-      const { isOverlayVisible } = this;
+      const { isShow } = this;
 
-      const text = isOverlayVisible ? 'Show' : 'Hide';
+      const text = isShow ? 'Show' : 'Hide';
 
       return text;
     },
-  },
-  methods: {
-    ...mapActions(['toggleOverlayVisibility']),
+    params() {
+      const { isShow } = this;
+
+      const show = isShow ? 'hide' : '';
+
+      return { show };
+    },
   },
 };
 </script>

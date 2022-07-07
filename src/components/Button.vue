@@ -40,6 +40,10 @@ export default {
       type: String,
       default: '',
     },
+    routeParams: {
+      type: Object,
+      default: () => {},
+    },
   },
   computed: {
     ...mapGetters(['isDisabledGame']),
@@ -65,13 +69,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['goToRoute']),
+    ...mapActions(['goToRoute', 'updateRoute']),
     onClick() {
-      const { route, goToRoute, click } = this;
+      const { route, routeParams, goToRoute, updateRoute, click } = this;
 
-      if (route) {
-        goToRoute(route);
-      }
+      if (route) goToRoute(route);
+      if (routeParams) updateRoute(routeParams);
 
       click();
     },

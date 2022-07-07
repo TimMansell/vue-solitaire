@@ -46,9 +46,6 @@ const actions = {
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  toggleOverlayVisibility({ commit }) {
-    commit('SET_OVERLAY_VISIBLE');
-  },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
   },
