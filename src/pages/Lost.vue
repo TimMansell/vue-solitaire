@@ -1,12 +1,17 @@
 <template>
-  <GameOverlay center-content show-logo data-test="lost">
-    <template #title> Sorry, no more Moves! </template>
+  <GameOverlay
+    center-content
+    show-logo
+    :is-visible="isVisible"
+    data-test="lost"
+  >
+    <template #title> Sorry, no more Moves!</template>
     <template #msg>
       <GameSummary />
     </template>
     <template #buttons>
       <StartNewGameButton />
-      <ShowBoardButton />
+      <ShowHideBoardButton :is-show="isVisible" />
     </template>
   </GameOverlay>
 </template>
@@ -15,7 +20,7 @@
 import GameOverlay from '@/components/GameOverlay.vue';
 import GameSummary from '@/components/GameSummary.vue';
 import StartNewGameButton from '@/components/StartNewGameButton.vue';
-import ShowBoardButton from '@/components/ShowBoardButton.vue';
+import ShowHideBoardButton from '@/components/ShowHideBoardButton.vue';
 
 export default {
   name: 'LostPage',
@@ -23,7 +28,20 @@ export default {
     GameOverlay,
     StartNewGameButton,
     GameSummary,
-    ShowBoardButton,
+    ShowHideBoardButton,
+  },
+  props: {
+    show: {
+      type: String,
+      default: '',
+    },
+  },
+  computed: {
+    isVisible() {
+      const { show } = this;
+
+      return !show.includes('hide');
+    },
   },
 };
 </script>
