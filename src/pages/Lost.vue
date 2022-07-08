@@ -32,8 +32,8 @@ export default {
   },
   props: {
     show: {
-      type: Object,
-      default: () => {},
+      type: String,
+      default: '',
     },
   },
   computed: {

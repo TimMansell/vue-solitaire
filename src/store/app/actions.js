@@ -49,8 +49,11 @@ const actions = {
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
   },
-  goToRoute(_, name) {
-    router.replace({ name }).catch((e) => console.log({ e }));
+  goToRoute(_, route) {
+    const routeType = typeof route;
+    const routeObj = routeType.includes('string') ? { name: route } : route;
+
+    router.replace(routeObj).catch((e) => console.log({ e }));
   },
   updateRoute(_, params) {
     router.replace({ params }).catch((e) => console.log({ e }));

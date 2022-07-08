@@ -37,12 +37,8 @@ export default {
       default: () => {},
     },
     route: {
-      type: String,
+      type: [String, Object],
       default: '',
-    },
-    routeParams: {
-      type: Object,
-      default: () => {},
     },
   },
   computed: {
@@ -69,12 +65,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['goToRoute', 'updateRoute']),
+    ...mapActions(['goToRoute']),
     onClick() {
-      const { route, routeParams, goToRoute, updateRoute, click } = this;
+      const { route, goToRoute, click } = this;
 
       if (route) goToRoute(route);
-      if (routeParams) updateRoute(routeParams);
 
       click();
     },

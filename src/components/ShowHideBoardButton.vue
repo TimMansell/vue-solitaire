@@ -1,7 +1,5 @@
 <template>
-  <Button :route-params="params" data-test="show-board-btn">
-    {{ text }} Board
-  </Button>
+  <Button :route="route" data-test="show-board-btn"> {{ text }} Board </Button>
 </template>
 
 <script>
@@ -20,18 +18,12 @@ export default {
   },
   computed: {
     text() {
-      const { isShow } = this;
-
-      const text = isShow ? 'Show' : 'Hide';
-
-      return text;
+      return this.isShow ? 'Show' : 'Hide';
     },
-    params() {
-      const { isShow } = this;
+    route() {
+      const show = this.isShow ? 'hide' : '';
 
-      const show = isShow ? 'hide' : '';
-
-      return { show };
+      return { name: 'lost', params: { show } };
     },
   },
 };
