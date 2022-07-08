@@ -1,6 +1,7 @@
 import router from '@/router';
 import { createToast } from '@/services/toast';
 import { getOldVersion, updateVersion } from '@/services/version';
+import { formatRoute } from '@/helpers/route';
 
 const actions = {
   initApp({ dispatch }) {
@@ -50,10 +51,9 @@ const actions = {
     commit('SHOW_TABLE_HELPER', showHelper);
   },
   goToRoute(_, route) {
-    const routeType = typeof route;
-    const routeObj = routeType.includes('string') ? { name: route } : route;
+    const formattedRoute = formatRoute(route);
 
-    router.replace(routeObj).catch((e) => console.log({ e }));
+    router.replace(formattedRoute).catch((e) => console.log({ e }));
   },
   updateRoute(_, params) {
     router.replace({ params }).catch((e) => console.log({ e }));
