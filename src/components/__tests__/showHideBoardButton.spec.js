@@ -1,38 +1,25 @@
 import { shallowMount, config } from '@vue/test-utils';
-import ShowBoardButton from '@/components/ShowBoardButton.vue';
-import { setupStore } from '@@/tests/helpers';
+import ShowHideBoardButton from '@/components/ShowHideBoardButton.vue';
 
 config.renderStubDefaultSlot = true;
 
-const global = {
-  mocks: {
-    $store: setupStore({ isOverlayVisible: true }),
-  },
-};
-
-describe('ShowBoardButton.vue', () => {
+describe('ShowHideBoardButton.vue', () => {
   it('renders the component without crashing', () => {
-    const wrapper = shallowMount(ShowBoardButton, {
-      global,
-    });
+    const wrapper = shallowMount(ShowHideBoardButton);
 
     expect(wrapper.isVisible()).toBe(true);
   });
 
   it('should contain show board', () => {
-    const wrapper = shallowMount(ShowBoardButton, {
-      global,
-    });
+    const wrapper = shallowMount(ShowHideBoardButton);
 
     expect(wrapper.text()).toEqual('Show Board');
   });
 
   it('should contain hide board', () => {
-    const wrapper = shallowMount(ShowBoardButton, {
-      global: {
-        mocks: {
-          $store: setupStore({ isOverlayVisible: false }),
-        },
+    const wrapper = shallowMount(ShowHideBoardButton, {
+      props: {
+        isShow: false,
       },
     });
 
