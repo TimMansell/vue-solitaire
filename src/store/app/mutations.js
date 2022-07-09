@@ -8,9 +8,6 @@ const mutations = {
   SET_GAME_PAUSED(state, isGamePaused) {
     state.isGamePaused = isGamePaused;
   },
-  SET_OVERLAY_VISIBLE(state) {
-    state.isOverlayVisible = !state.isOverlayVisible;
-  },
 };
 
 export default mutations;

@@ -1,6 +1,7 @@
 import router from '@/router';
 import { createToast } from '@/services/toast';
 import { getOldVersion, updateVersion } from '@/services/version';
+import { formatRoute } from '@/helpers/route';
 
 const actions = {
   initApp({ dispatch }) {
@@ -46,14 +47,13 @@ const actions = {
   setGamePaused({ commit }, isGamePaused) {
     commit('SET_GAME_PAUSED', isGamePaused);
   },
-  toggleOverlayVisibility({ commit }) {
-    commit('SET_OVERLAY_VISIBLE');
-  },
   setTableHelper({ commit }, showHelper) {
     commit('SHOW_TABLE_HELPER', showHelper);
   },
-  goToRoute(_, name) {
-    router.replace({ name }).catch((e) => console.log({ e }));
+  goToRoute(_, route) {
+    const formattedRoute = formatRoute(route);
+
+    router.replace(formattedRoute).catch((e) => console.log({ e }));
   },
   updateRoute(_, params) {
     router.replace({ params }).catch((e) => console.log({ e }));

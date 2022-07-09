@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -75,6 +74,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isVisible: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -82,28 +85,27 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isOverlayVisible']),
     overlayClasses() {
-      const { centerContent, isOverlayVisible } = this;
+      const { centerContent, isVisible } = this;
 
       return {
         'game-overlay--centered': centerContent,
-        'game-overlay--see-through': !isOverlayVisible,
+        'game-overlay--see-through': !isVisible,
       };
     },
     buttonClasses() {
-      const { isOverlayVisible } = this;
+      const { isVisible } = this;
 
       return {
-        'game-overlay__btns--is-visible': !isOverlayVisible,
+        'game-overlay__btns--is-visible': !isVisible,
       };
     },
     visibilityClasses() {
-      const { isOverlayVisible } = this;
+      const { isVisible } = this;
 
       return {
-        'is-visible': isOverlayVisible,
-        'is-not-visible': !isOverlayVisible,
+        'is-visible': isVisible,
+        'is-not-visible': !isVisible,
       };
     },
     hasMsgSlot() {

@@ -37,7 +37,7 @@ export default {
       default: () => {},
     },
     route: {
-      type: String,
+      type: [String, Object],
       default: '',
     },
   },
@@ -69,9 +69,7 @@ export default {
     onClick() {
       const { route, goToRoute, click } = this;
 
-      if (route) {
-        goToRoute(route);
-      }
+      if (route) goToRoute(route);
 
       click();
     },

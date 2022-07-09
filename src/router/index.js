@@ -93,12 +93,13 @@ const routes = [
     },
   },
   {
-    path: '/lost',
+    path: '/lost/:show?',
     name: 'lost',
     components: {
       main: Home,
       overlay: Lost,
     },
+    props: { overlay: true },
     beforeEnter(to, from, next) {
       if (store.getters.hasGameLost) {
         next();
