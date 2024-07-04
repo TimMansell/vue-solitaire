@@ -38,9 +38,7 @@ jobs:
           node-version: '14.x'
 
       - name: Setup Chrome
-        uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: refs_heads_main-913317
+        uses: browser-actions/setup-chrome@v1
 
       - name: Install Dependencies
         run: yarn
